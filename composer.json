@@ -1,0 +1,13 @@
+{
+    "name": "Virtuagora",
+    "require": {
+        "slim/slim": "2.*",
+        "slim/views": "*",
+        "twig/twig": "*",
+        "illuminate/database": "*"
+    },
+    "autoload": {
+        "files": [ "config/database.php" ],
+        "classmap": [ "models", "controllers" ]
+    }
+}

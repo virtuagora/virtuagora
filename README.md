@@ -1,4 +1,4 @@
 virtuagora
 ==========
 
-Plataforma web de participación colaborativa
+Plataforma web de participación colaborativa.
