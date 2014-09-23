@@ -18,4 +18,8 @@ $app->view->parserOptions = array(
 );
 $app->view->parserExtensions = array(new \Slim\Views\TwigExtension());
 
+$app->get('/', function () use ($app) {
+    $app->render('prueba.html', array('lala' => 'holis'));
+});
+
 $app->run();
