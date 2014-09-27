@@ -22340,49 +22340,49 @@ th.hide-for-touch {
     display: table-cell !important;
   }
 }
-/* line 44, ../scss/app.scss */
+/* line 42, ../scss/app.scss */
 body {
   font-family: 'Open Sans', sans-serif;
   background-color: #F6F6F6;
 }
 
-/* line 49, ../scss/app.scss */
+/* line 47, ../scss/app.scss */
 .logo-fuente, #barra-navegacion .logo-barra {
   font-family: 'Orbitron', serif;
 }
 
-/* line 54, ../scss/app.scss */
+/* line 52, ../scss/app.scss */
 #barra-navegacion .logo-barra {
   font-size: 18px;
 }
 
-/* line 60, ../scss/app.scss */
+/* line 58, ../scss/app.scss */
 #expositor {
   padding: 20px 0px 0px;
   font-size: 3.75rem;
   margin: auto;
   width: 100%;
 }
-/* line 65, ../scss/app.scss */
+/* line 63, ../scss/app.scss */
 #expositor .panel {
   background: #FCBF71;
 }
-/* line 68, ../scss/app.scss */
+/* line 66, ../scss/app.scss */
 #expositor p {
   font-size: 0.875rem;
 }
-/* line 71, ../scss/app.scss */
+/* line 69, ../scss/app.scss */
 #expositor h1 {
   padding: 20px 0px 20px;
   font-size: 3.75rem;
   margin: auto;
 }
 
-/* line 80, ../scss/app.scss */
+/* line 78, ../scss/app.scss */
 #passport h6 {
   margin-left: 15%;
 }
-/* line 83, ../scss/app.scss */
+/* line 81, ../scss/app.scss */
 #passport .registro-panel {
   background: #FFFFFF;
   border: 1px solid #ccc;
@@ -22392,44 +22392,110 @@ body {
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
 }
-/* line 91, ../scss/app.scss */
+/* line 89, ../scss/app.scss */
 #passport .registro-panel i {
   font-size: 1.875rem;
   line-height: 3.125rem;
   color: #999;
 }
-/* line 96, ../scss/app.scss */
+/* line 93, ../scss/app.scss */
+#passport .registro-panel i .exitoso {
+  font-size: 5rem;
+  color: #86C43A;
+  line-height: 1.25rem;
+  padding: 10px 0px 40px;
+}
+/* line 100, ../scss/app.scss */
 #passport .registro-panel form input, #passport .registro-panel form span {
   height: 3.125rem;
   font-size: 1.0625rem;
 }
-/* line 100, ../scss/app.scss */
+/* line 104, ../scss/app.scss */
 #passport .registro-panel .welcome {
   font-size: 1.625rem;
   text-align: center;
   margin-left: 0;
 }
-/* line 105, ../scss/app.scss */
+/* line 109, ../scss/app.scss */
 #passport .registro-panel p {
   font-size: 0.875rem;
   text-align: center;
   font-weight: 200;
 }
-
 /* line 115, ../scss/app.scss */
+#passport .registro-exito-panel {
+  background: #FFFFFF;
+  border: 1px solid #ccc;
+  padding: 50px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+/* line 123, ../scss/app.scss */
+#passport .registro-exito-panel i {
+  font-size: 5rem;
+  color: #86C43A;
+  line-height: 1.25rem;
+  padding: 10px 0px 40px;
+}
+/* line 129, ../scss/app.scss */
+#passport .registro-exito-panel .welcome {
+  font-size: 1.625rem;
+  text-align: center;
+  margin-left: 0;
+}
+/* line 134, ../scss/app.scss */
+#passport .registro-exito-panel p {
+  font-size: 0.875rem;
+  text-align: center;
+  font-weight: 200;
+}
+
+/* line 143, ../scss/app.scss */
+#passport .registro-exito-panel {
+  background: #FFFFFF;
+  border: 1px solid #ccc;
+  padding: 50px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+/* line 151, ../scss/app.scss */
+#passport .registro-exito-panel i {
+  font-size: 5rem;
+  color: #86C43A;
+  line-height: 1.25rem;
+  padding: 10px 0px 40px;
+}
+/* line 157, ../scss/app.scss */
+#passport .registro-exito-panel .welcome {
+  font-size: 1.625rem;
+  text-align: center;
+  margin-left: 0;
+}
+/* line 162, ../scss/app.scss */
+#passport .registro-exito-panel p {
+  font-size: 0.875rem;
+  text-align: center;
+  font-weight: 200;
+}
+
+/* line 171, ../scss/app.scss */
 footer .panel {
   background: #333333;
 }
-/* line 117, ../scss/app.scss */
+/* line 173, ../scss/app.scss */
 footer .panel p {
   color: #FFFFFF;
 }
-/* line 120, ../scss/app.scss */
+/* line 176, ../scss/app.scss */
 footer .panel a {
   color: #24B1E0;
 }
 
-/* line 127, ../scss/app.scss */
+/* line 183, ../scss/app.scss */
 .profile-card img {
   border-radius: 12%;
   border: 2px solid #FFFFFF;

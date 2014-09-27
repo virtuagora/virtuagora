@@ -39,100 +39,151 @@
 //   "foundation/components/offcanvas",
 //   "foundation/components/visibility";
 
-@import "../css/font-awesome.css";
-
 body {
-	font-family: 'Open Sans', sans-serif;
-	background-color: #F6F6F6;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #F6F6F6;
 }
 
 .logo-fuente {
-	font-family: 'Orbitron', serif;
+    font-family: 'Orbitron', serif;
 }
 
 #barra-navegacion {
-	.logo-barra {
-	@extend .logo-fuente;
-	font-size: 18px;
-	}
+    .logo-barra {
+        @extend .logo-fuente;
+        font-size: 18px;
+    }
 }
 
 #expositor {
-	padding: 20px 0px 0px;
-	font-size: rem-calc(60);
-	margin: auto;
-	width: 100%;
-		.panel {
-		background: #FCBF71;
-		}
-		p {
-		font-size: rem-calc(14);
-		}
-		h1 {
-		padding: 20px 0px 20px;
-		font-size: rem-calc(60);
-		margin: auto;
-	}
+    padding: 20px 0px 0px;
+    font-size: rem-calc(60);
+    margin: auto;
+    width: 100%;
+    .panel {
+        background: #FCBF71;
+    }
+    p {
+        font-size: rem-calc(14);
+    }
+    h1 {
+        padding: 20px 0px 20px;
+        font-size: rem-calc(60);
+        margin: auto;
+    }
 }
 
 
 #passport {
-	h6 {
-	margin-left: 15%
-	}
-	.registro-panel {
-	  background: #FFFFFF;
-	  border: 1px solid #ccc;
-	  padding: 50px;
-	  margin-top: 30px;
-		margin-bottom: 30px;
-		box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
-		border-radius: 3px;
-		i {
-	  font-size: rem-calc(30);
-	  line-height: rem-calc(50);
-	  color: #999;
-        .exito {
-            font-size: rem-calc(80);
-            color: #86C43A;
-          line-height: rem-calc(20);
-          padding: 10px 0px 40px;
+    h6 {
+        margin-left: 15%
+    }
+    .registro-panel {
+        background: #FFFFFF;
+        border: 1px solid #ccc;
+        padding: 50px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+        border-radius: 3px;
+        i {
+            font-size: rem-calc(30);
+            line-height: rem-calc(50);
+            color: #999;
+            .exitoso{
+                font-size: rem-calc(80);
+                color: #86C43A;
+              line-height: rem-calc(20);
+              padding: 10px 0px 40px;
+            }
         }
-	}
-	form input, form span {
-	  height: rem-calc(50);
-		font-size: rem-calc(17);
-	}
-	.welcome {
-	  font-size: rem-calc(26);
-	  text-align: center;
-	  margin-left: 0;
-	}
-	p {
-	  font-size: rem-calc(14);
-	  text-align: center;
-	  font-weight: 200;
-	}
-	}
+        form input, form span {
+            height: rem-calc(50);
+            font-size: rem-calc(17);
+        }
+        .welcome {
+            font-size: rem-calc(26);
+            text-align: center;
+            margin-left: 0;
+        }
+        p {
+            font-size: rem-calc(14);
+            text-align: center;
+            font-weight: 200;
+        }
+    }
+    .registro-exito-panel {
+        background: #FFFFFF;
+        border: 1px solid #ccc;
+        padding: 50px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+        border-radius: 3px;
+        i {
+                font-size: rem-calc(80);
+                color: #86C43A;
+              line-height: rem-calc(20);
+              padding: 10px 0px 40px;
+        }
+        .welcome {
+            font-size: rem-calc(26);
+            text-align: center;
+            margin-left: 0;
+        }
+        p {
+            font-size: rem-calc(14);
+            text-align: center;
+            font-weight: 200;
+        }
+    }
 }
 
+#passport {
+    .registro-exito-panel {
+        background: #FFFFFF;
+        border: 1px solid #ccc;
+        padding: 50px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+        border-radius: 3px;
+        i {
+                font-size: rem-calc(80);
+                color: #86C43A;
+              line-height: rem-calc(20);
+              padding: 10px 0px 40px;
+        }
+        .welcome {
+            font-size: rem-calc(26);
+            text-align: center;
+            margin-left: 0;
+        }
+        p {
+            font-size: rem-calc(14);
+            text-align: center;
+            font-weight: 200;
+        }
+    }
+}
 
 footer {
-	.panel{
-	background: #333333;
-		p {
-		color: #FFFFFF;
-	}
-		a {
-		color: #24B1E0;
-	}
-	}
+    .panel{
+        background: #333333;
+        p {
+            color: #FFFFFF;
+        }
+        a {
+            color: #24B1E0;
+        }
+    }
 }
 
 
 .profile-card img {
-  border-radius: 12%;
-  border: 2px solid #FFFFFF;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 12%;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
 }
 
+@import "../css/font-awesome.css";
