@@ -26,8 +26,8 @@ $app->post('/registro', function () use ($app) {
     $req = $app->request;
 
     $usuario = new Usuario;
-    $usuario->email = $req->post['email'];
-    $usuario->password = $req->post['password'];
+    $usuario->email = $req->post('email');
+    $usuario->password = password_hash($req->post('password'), PASSWORD_DEFAULT);
     $usuario->tiene_avatar = false;
     $usuario->token_verificacion = bin2hex(openssl_random_pseudo_bytes(16));
     $usuario->verificado = false;
@@ -35,8 +35,8 @@ $app->post('/registro', function () use ($app) {
 
     $ciudadano = new Ciudadano;
     $ciudadano->id = $usuario->id;
-    $ciudadano->nombre = $req->post['nombre'];
-    $ciudadano->apellido = $req->post['apellido'];
+    $ciudadano->nombre = $req->post('nombre');
+    $ciudadano->apellido = $req->post('apellido');
     $ciudadano->descripcion = "";
     $ciudadano->prestigio = 0;
     $ciudadano->suspendido = false;
@@ -45,7 +45,7 @@ $app->post('/registro', function () use ($app) {
     $to = $usuario->email;
     $subject = 'Confirma tu registro de Virtuagora';
     $message = 'Holis, te registraste en virtuagora. Entra a este link para confirmar tu email: ' .
-        $app->request->getRootUri() . '/validar/' . $usuario->token_verificacion;
+        $req->getUrl() . '/validar/' . $usuario->token_verificacion;
     $header = 'From:noreply@'.$_SERVER['SERVER_NAME'].' \r\n';
     $retval = mail($to, $subject, $message, $header);
 
@@ -54,34 +54,20 @@ $app->post('/registro', function () use ($app) {
     } else {
         echo "No se manda nada.";
     }
+
+    $app->render('registro-exito.twig', array('email' => $usuario->email));
 });
 
-$app->get('/registro', function () use ($app) {
+$app->get('/validar/:usuario/:token', function ($usuario, $token) use ($app) {
     $req = $app->request;
 
-    require_once(__DIR__.'/../models/usuario.php');
-    require_once(__DIR__.'/../models/ciudadano.php');
+    $usuario = Usuario::findOrFail(1);
 
-    $usuario = new Usuario;
-    $usuario->email = "lalas@lele.com";
-    $usuario->password = "hash_loco";
-    $usuario->tiene_avatar = false;
-    $usuario->token_verificacion = "token_loco";
-    $usuario->verificado = false;
-    $usuario->save();
-
-    if ($usuario->id) {
-
-    $ciudadano = new Ciudadano;
-    $ciudadano->id = $usuario->id;
-    $ciudadano->nombre = "Elbar";
-    $ciudadano->apellido = "Budo";
-    $ciudadano->descripcion = "Holis!";
-    $ciudadano->prestigio = 0;
-    $ciudadano->suspendido = false;
-    $ciudadano->save();
+    if ($codigo == $usuario->token_verificacion) {
+        $usuario->verificado = true;
+        $usuario->save();
     } else {
-        var_dump($usuario->id);
+        echo 'pusiste cualquier codigo';
     }
 });
 
