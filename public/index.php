@@ -19,7 +19,7 @@ $app->view->parserOptions = array(
 $app->view->parserExtensions = array(new \Slim\Views\TwigExtension());
 
 $app->get('/', function () use ($app) {
-    $app->render('registro.twig', array('lala' => 'holis'));
+    $app->render('registro-exito.twig', array('lala' => 'holis'));
 });
 
 $app->post('/registro', function () use ($app) {

@@ -92,6 +92,12 @@ body {
 	  font-size: rem-calc(30);
 	  line-height: rem-calc(50);
 	  color: #999;
+        .exito {
+            font-size: rem-calc(80);
+            color: #86C43A;
+          line-height: rem-calc(20);
+          padding: 10px 0px 40px;
+        }
 	}
 	form input, form span {
 	  height: rem-calc(50);

@@ -1,0 +1,30 @@
+{% extends "master.twig" %}
+
+{% block titulo %}
+Virtuagora - ¡Registro exitoso!
+{% endblock %}
+
+{% block body %}
+<section id="passport">
+    <div class="row">
+        <div class="medium-8 medium-centered large-6 large-centered columns">
+              <div class="registro-panel text-center">
+               <i class="fa fa-check-circle fa-5x exito"></i>
+                <p class="welcome">¡Éxito!<br /> Bienvenido a <b class = "logo-fuente">Virtuagora</b></p>
+                <p>Por ultimo, no te olvides de  verificar que el email <b>{{ mail }}</b> es efectivamente tuyo.</p>
+                <p>Para eso, entra a tu email y accede al link que hemos enviado en un correo.</p>
+
+                <p><b>¡Ya estas listo para comenzar!</b></p>
+                <div class="row">
+                    <div class="small-10 small-centered columns text-center">
+                        <a href="http://www.google.com" class="button  round success small">¡Comenzar a participar! &raquo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
