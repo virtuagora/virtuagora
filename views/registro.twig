@@ -73,21 +73,21 @@ Virtuagora - Registro
             <div class="registro-panel">
                 <p class="welcome"> Participe en <b class = "logo-fuente">Virtuagora</b></p>
                 <p>Involúcrate en la busqueda de mejores politicas para todos. <br />Es gratis y totalmente abierto.</p>
-                <form data-abide action="registro" method=Post>
+                <form data-abide action="registro" method="POST">
                     <div class="row collapse">
                         <div class="small-2  columns">
-                            <span class="prefix"><i class="fi-torso-female"></i></span>
+                            <span class="prefix"><i class="fa fa-user"></i></span>
                         </div>
                         <div class="small-10 columns">
                             <div class="row collapse">
                                 <div class="small-6 columns">
                                     <input name="nombre" type="text" required pattern="alpha" placeholder="Nombre">
-                                    <small class="error">Name is required and must be a string.</small>
+                                    <small class="error text-center">Solo caracteres, sin numeros ni símbolos.</small>
 
                                 </div>
                                 <div class="small-6 columns">
                                     <input name="apellido" type="text" required pattern="alpha" placeholder="Apellido">
-                                    <small class="error">Name is required and must be a string.</small>
+                                    <small class="error text-center">Solo caracteres, sin numeros ni símbolos.</small>
                                 </div>
                             </div>
                         </div>
@@ -95,33 +95,42 @@ Virtuagora - Registro
 
                     <div class="row collapse">
                         <div class="small-2 columns">
-                            <span class="prefix"><i class="fi-mail"></i></span>
+                            <span class="prefix"><i class="fa fa-envelope"></i></span>
                         </div>
                         <div class="small-10 columns">
-
                             <input name="email" type="email" placeholder="Direccion de email" required>
-                            <small class="error">Name is required and must be a string.</small>
+                            <small class="error text-center">La direccion de email debe ser una direccion valida (Ej: juan@correo.com)</small>
                         </div>
                     </div>
                     <div class="row collapse">
                         <div class="small-2 columns ">
-                            <span class="prefix"><i class="fi-lock"></i></span>
+                            <span class="prefix"><i class="fa fa-lock"></i></span>
                         </div>
                         <div class="small-10 columns ">
-                            <input name= "password" type="password" placeholder="Contraseña">
+                            <input id="campo-password" name="password" type="password" placeholder="Contraseña">
+                            <small class="error text-center">Ingrese una contraseña valida.</small>
                         </div>
                     </div>
-                </form>
+                    <div class="row collapse">
+                        <div class="small-2 columns ">
+                           <span class="prefix"><i class="fa fa-check-square-o"></i></span>
+                        </div>
+                        <div class="small-10 columns ">
+                            <input type="password" data-equalto="campo-password" placeholder="Reingrese la contraseña">
+                            <small class="error text-center">Las contraseñas no coinciden.</small>
+                        </div>
+                    </div>
+
                 <div class="row">
                     <p class="text-centered">Al hacer clic en <b>Registrarse</b>, aceptas las <a href="#">Condiciones</a> y confirmas que leíste nuestra Política de uso de datos, incluido el uso de cookies.</p>
                 </div>
                 <div class="row">
                     <div class="small-8 small-centered columns ">
-                        <a href="#" class="button expand">Registrarse &raquo</a>
+                        <input type="submit" class="button expand" value="Registrarse &raquo">
                     </div>
                 </div>
-
-                <p>Si ya posee una cuenta en Virtuagora, <a href="#">Inicie sesión &raquo</a></p>
+            </form>
+                <p>Si ya posee una cuenta en Virtuagora...</p>
                 <div class="row">
                     <div class="small-8 small-centered columns text-center">
                         <a href="#" class="button secondary round small">Inicie sesión &raquo</a>

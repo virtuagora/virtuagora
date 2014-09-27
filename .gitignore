@@ -1,3 +1,4 @@
 composer.phar
 vendor/
-/public/.htaccess
+public/.htaccess
+bower_components/
