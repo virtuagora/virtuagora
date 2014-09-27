@@ -18,29 +18,8 @@ $app->view->parserOptions = array(
 );
 $app->view->parserExtensions = array(new \Slim\Views\TwigExtension());
 
-/*$app->hook('slim.before.dispatch', function () use ($app) {
-    if ($app->request->getMediaType() == 'text/html') {
-        $app->format = 'html';
-    } else {
-        $app->format = 'lele';
-    }
-});*/
-
 $app->get('/', function () use ($app) {
-    $req = $app->request;
-    ini_set('display_errors',1);
-    $to = "matuz9@gmail.com";
-    $subject = "Confirma tu registro de Virtuagora";
-    $message = "This is simple text message.";
-    $header = 'From:noreply@'.$_SERVER['SERVER_NAME'].' \r\n';
-    $retval = mail($to, $subject, $message, $header);
-    if($retval == true) {
-        echo "Se manda el mail!";
-    } else {
-        echo "No se manda nada.";
-    }
-
-    $app->render('prueba.html', array('lala' => $app->format));
+    $app->render('registro.twig', array('lala' => 'holis'));
 });
 
 $app->post('/registro', function () use ($app) {
@@ -48,13 +27,33 @@ $app->post('/registro', function () use ($app) {
 
     $usuario = new Usuario;
     $usuario->email = $req->post['email'];
+    $usuario->password = $req->post['password'];
+    $usuario->tiene_avatar = false;
+    $usuario->token_verificacion = bin2hex(openssl_random_pseudo_bytes(16));
+    $usuario->verificado = false;
     $usuario->save();
 
     $ciudadano = new Ciudadano;
-
     $ciudadano->id = $usuario->id;
-
+    $ciudadano->nombre = $req->post['nombre'];
+    $ciudadano->apellido = $req->post['apellido'];
+    $ciudadano->descripcion = "";
+    $ciudadano->prestigio = 0;
+    $ciudadano->suspendido = false;
     $ciudadano->save();
+
+    $to = $usuario->email;
+    $subject = 'Confirma tu registro de Virtuagora';
+    $message = 'Holis, te registraste en virtuagora. Entra a este link para confirmar tu email: ' .
+        $app->request->getRootUri() . '/validar/' . $usuario->token_verificacion;
+    $header = 'From:noreply@'.$_SERVER['SERVER_NAME'].' \r\n';
+    $retval = mail($to, $subject, $message, $header);
+
+    if($retval == true) {
+        echo "Se manda el mail!";
+    } else {
+        echo "No se manda nada.";
+    }
 });
 
 $app->get('/registro', function () use ($app) {
