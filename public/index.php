@@ -40,7 +40,7 @@ $app->get('/', function () use ($app) {
         echo "No se manda nada.";
     }
 
-    //$app->render('prueba.html', array('lala' => $app->format));
+    $app->render('prueba.html', array('lala' => $app->format));
 });
 
 $app->post('/registro', function () use ($app) {
