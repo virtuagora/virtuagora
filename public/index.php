@@ -19,7 +19,7 @@ $app->view->parserOptions = array(
 $app->view->parserExtensions = array(new \Slim\Views\TwigExtension());
 
 $app->get('/', function () use ($app) {
-    $app->render('registro-exito.twig', array('lala' => 'holis'));
+    $app->render('registro.twig', array('lala' => 'holis'));
 });
 
 $app->post('/registro', function () use ($app) {
@@ -45,7 +45,7 @@ $app->post('/registro', function () use ($app) {
     $to = $usuario->email;
     $subject = 'Confirma tu registro de Virtuagora';
     $message = 'Holis, te registraste en virtuagora. Entra a este link para confirmar tu email: ' .
-        $req->getUrl() . '/validar/' . $usuario->token_verificacion;
+        $req->getUrl() . '/validar/' . $usuario->id . '/' . $usuario->token_verificacion;
     $header = 'From:noreply@'.$_SERVER['SERVER_NAME'].' \r\n';
     $retval = mail($to, $subject, $message, $header);
 
@@ -61,9 +61,9 @@ $app->post('/registro', function () use ($app) {
 $app->get('/validar/:usuario/:token', function ($usuario, $token) use ($app) {
     $req = $app->request;
 
-    $usuario = Usuario::findOrFail(1);
+    $usuario = Usuario::findOrFail($usuario);
 
-    if ($codigo == $usuario->token_verificacion) {
+    if ($token == $usuario->token_verificacion) {
         $usuario->verificado = true;
         $usuario->save();
     } else {
