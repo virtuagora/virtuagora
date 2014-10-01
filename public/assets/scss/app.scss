@@ -121,8 +121,8 @@ body {
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
         border-radius: 3px;
         i {
-                font-size: rem-calc(80);
-                color: #86C43A;
+              font-size: rem-calc(80);
+              color: #86C43A;
               line-height: rem-calc(20);
               padding: 10px 0px 40px;
         }
@@ -135,12 +135,9 @@ body {
             font-size: rem-calc(14);
             text-align: center;
             font-weight: 200;
-        }
+		}
     }
-}
-
-#passport {
-    .registro-exito-panel {
+	.verificacion-fail-panel {
         background: #FFFFFF;
         border: 1px solid #ccc;
         padding: 50px;
@@ -149,8 +146,8 @@ body {
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
         border-radius: 3px;
         i {
-                font-size: rem-calc(80);
-                color: #86C43A;
+              font-size: rem-calc(80);
+              color: #9b0c0c;
               line-height: rem-calc(20);
               padding: 10px 0px 40px;
         }
@@ -163,9 +160,10 @@ body {
             font-size: rem-calc(14);
             text-align: center;
             font-weight: 200;
-        }
+		}
     }
 }
+
 
 footer {
     .panel{
@@ -179,6 +177,9 @@ footer {
     }
 }
 
+.invalido{
+	color: #bc0f0f;
+}
 
 .profile-card img {
     border-radius: 12%;

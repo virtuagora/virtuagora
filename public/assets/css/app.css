@@ -22451,9 +22451,8 @@ body {
   text-align: center;
   font-weight: 200;
 }
-
-/* line 143, ../scss/app.scss */
-#passport .registro-exito-panel {
+/* line 140, ../scss/app.scss */
+#passport .verificacion-fail-panel {
   background: #FFFFFF;
   border: 1px solid #ccc;
   padding: 50px;
@@ -22462,40 +22461,45 @@ body {
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
 }
-/* line 151, ../scss/app.scss */
-#passport .registro-exito-panel i {
+/* line 148, ../scss/app.scss */
+#passport .verificacion-fail-panel i {
   font-size: 5rem;
-  color: #86C43A;
+  color: #9b0c0c;
   line-height: 1.25rem;
   padding: 10px 0px 40px;
 }
-/* line 157, ../scss/app.scss */
-#passport .registro-exito-panel .welcome {
+/* line 154, ../scss/app.scss */
+#passport .verificacion-fail-panel .welcome {
   font-size: 1.625rem;
   text-align: center;
   margin-left: 0;
 }
-/* line 162, ../scss/app.scss */
-#passport .registro-exito-panel p {
+/* line 159, ../scss/app.scss */
+#passport .verificacion-fail-panel p {
   font-size: 0.875rem;
   text-align: center;
   font-weight: 200;
 }
 
-/* line 171, ../scss/app.scss */
+/* line 169, ../scss/app.scss */
 footer .panel {
   background: #333333;
 }
-/* line 173, ../scss/app.scss */
+/* line 171, ../scss/app.scss */
 footer .panel p {
   color: #FFFFFF;
 }
-/* line 176, ../scss/app.scss */
+/* line 174, ../scss/app.scss */
 footer .panel a {
   color: #24B1E0;
 }
 
-/* line 183, ../scss/app.scss */
+/* line 180, ../scss/app.scss */
+.invalido {
+  color: #bc0f0f;
+}
+
+/* line 184, ../scss/app.scss */
 .profile-card img {
   border-radius: 12%;
   border: 2px solid #FFFFFF;
