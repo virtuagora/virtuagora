@@ -4,7 +4,7 @@
 {% if usuarioValido == true %}
 Virtuagora - Correo verificado
 {% else %}
-Virtuagora - Verificacion incorrecta
+Virtuagora - Verificación incorrecta
 {% endif %}
 {% endblock %}
 
@@ -25,14 +25,14 @@ Virtuagora - Verificacion incorrecta
 			{% if usuarioValido == true %}
 			<div class="registro-exito-panel text-center">
 				<i class="fa fa-envelope-o fa-5x"></i>
-				<p class="welcome">Tu correo electronico ha sido verificado<br />
-				<p><b>{{ nombre }} {{ apellido }}</b>, gracias por haber verificado que tu cuenta de correo electronico <b>{{ email }}</b>.</p>
+				<p class="welcome">Tu dirección de email ha sido verificada<br />
+				<p>Gracias por haber verificado que tu casilla <b>{{ email }}</b>.</p>
 				{% else %}
 				<div class="verificacion-fail-panel text-center">
 
 					<i class="fa fa-question-circle fa-5x"></i>
 					<p class="welcome">Link de validación incorrecto</p>
-					<p>El link ingresado es incorrecto. Verifique que el link que hemos enviado a su direccion de correo electronico es el mismo que ingresó en la barra de direcciones.</p> <p>Si sigue viendo este mensaje, comuniquese con los enviando un correo electronico a la dirección <b>admin@virtuagora.com</b>.</p>
+					<p>El link ingresado es incorrecto. Verifique que el link que hemos enviado a su direccion de correo electronico es el mismo que ingresó en la barra de direcciones.</p> <p>Si sigue viendo este mensaje, comuníquese con un administrador.</p>
 					{% endif %}
 
 					<div class="row">
@@ -44,7 +44,4 @@ Virtuagora - Verificacion incorrecta
 			</div>
 		</div>
 		</section>
-	{% endblock %}
-
-	{% block scripts %}
 	{% endblock %}

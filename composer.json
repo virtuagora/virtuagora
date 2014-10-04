@@ -4,10 +4,17 @@
         "slim/slim": "2.*",
         "slim/views": "*",
         "twig/twig": "*",
-        "illuminate/database": "*"
+        "illuminate/database": "*",
+        "augusthur/validation": "*"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/augusthur/PHP-Validation.git"
+        }
+    ],
     "autoload": {
         "files": [ "config/database.php" ],
-        "classmap": [ "models", "controllers" ]
+        "classmap": [ "models", "controllers", "utils" ]
     }
 }

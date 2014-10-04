@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{% block titulo %}{% endblock %}</title>
+    <title>{% block titulo %}Virtuagora{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href='http://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/virtuagora/public/assets/css/app.css" />
-    <script src="/virtuagora/public/assets/js/modernizr/modernizr.js"></script>
+    <link rel="stylesheet" href="{{ baseUrl }}/assets/css/app.css">
+    <script src="{{ baseUrl }}/assets/js/modernizr/modernizr.js"></script>
 </head>
 <body class="fondo">
   	<!-- Incluir barra-nav -->
@@ -18,9 +18,9 @@
 	{% include "footer.twig" %}
 
     <!-- Incluir javascripts -->
-    <script src="/virtuagora/public/assets/js/jquery/jquery.min.js"></script>
-    <script src="/virtuagora/public/assets/js/foundation/foundation.min.js"></script>
+    <script src="{{ baseUrl }}/assets/js/jquery/jquery.min.js"></script>
+    <script src="{{ baseUrl }}/assets/js/foundation/foundation.min.js"></script>
     {% block scripts %}{% endblock %}
-    <script src="/virtuagora/public/assets/js/app.js"></script>
+    <script src="{{ baseUrl }}/assets/js/app.js"></script>
 </body>
 </html>

@@ -73,6 +73,13 @@ Virtuagora - Registro
             <div class="registro-panel">
                 <p class="welcome"> Participe en <b class = "logo-fuente">Virtuagora</b></p>
                 <p>Involúcrate en la busqueda de mejores politicas para todos. <br />Es gratis y totalmente abierto.</p>
+                {% if flash['errors'] is defined %}
+                    <ul>
+                    {% for error in flash['errors'] %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
                 <form data-abide action="registro" method="POST">
                     <div class="row collapse">
                         <div class="small-2  columns">
@@ -116,7 +123,7 @@ Virtuagora - Registro
                            <span class="prefix"><i class="fa fa-check-square-o"></i></span>
                         </div>
                         <div class="small-10 columns ">
-                            <input type="password" data-equalto="campo-password" placeholder="Reingrese la contraseña">
+                            <input type="password" data-equalto="campo-password" name="password2" placeholder="Reingrese la contraseña">
                             <small class="error text-center">Las contraseñas no coinciden.</small>
                         </div>
                     </div>
@@ -143,7 +150,7 @@ Virtuagora - Registro
 {% endblock %}
 
 {% block scripts %}
-<script src="assets/js/foundation/foundation.abide.js"></script>
-<script src="assets/js/foundation/foundation.tooltip.js"></script>
-<script src="assets/js/foundation/foundation.orbit.js"></script>
+<script src="{{ baseUrl }}/assets/js/foundation/foundation.abide.js"></script>
+<script src="{{ baseUrl }}/assets/js/foundation/foundation.tooltip.js"></script>
+<script src="{{ baseUrl }}/assets/js/foundation/foundation.orbit.js"></script>
 {% endblock %}

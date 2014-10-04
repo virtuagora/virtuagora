@@ -1,0 +1,10 @@
+<?php
+namespace Slim\Middleware;
+
+class NativeSession extends \Slim\Middleware {
+    public function call() {
+        session_cache_limiter(false);
+        session_start();
+        $this->next->call();
+    }
+}

@@ -4,8 +4,56 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "329756bbcd965141bf94a5b39e627b69",
+    "hash": "2491527256922dda46737d0c300e90d5",
     "packages": [
+        {
+            "name": "augusthur/validation",
+            "version": "v1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/augusthur/PHP-Validation.git",
+                "reference": "4b955676068c14dfdc7d1cd9ff9639a7e6e75a79"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/augusthur/PHP-Validation/zipball/4b955676068c14dfdc7d1cd9ff9639a7e6e75a79",
+                "reference": "4b955676068c14dfdc7d1cd9ff9639a7e6e75a79",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Augusthur": "."
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Luke Lanchester",
+                    "email": "luke@lukelanchester.com",
+                    "homepage": "http://hybridlogic.co.uk",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple, extensible validation library for PHP with support for filtering and validating any input array.",
+            "homepage": "https://github.com/augusthur/PHP-Validation",
+            "keywords": [
+                "forms",
+                "models",
+                "rules",
+                "services",
+                "validation"
+            ],
+            "support": {
+                "source": "https://github.com/augusthur/PHP-Validation/tree/v1.4"
+            },
+            "time": "2014-10-04 23:11:43"
+        },
         {
             "name": "illuminate/container",
             "version": "v4.2.9",
