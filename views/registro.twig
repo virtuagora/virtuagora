@@ -8,7 +8,7 @@ Virtuagora - Registro
 <section id="expositor">
     <div class="row">
         <div class="medium-8 medium-centered large-6 large-centered columns">
-            <h1 class="text-center logo-fuente">Virtuagora</h1>
+            <h1 class="text-center logo-font">Virtuagora</h1>
         </div>
     </div>
     <div class="expositor show-for-medium-up">
@@ -67,18 +67,21 @@ Virtuagora - Registro
         </ul>
     </div>
 </section>
+
+<!-- Aca viene la sesion de panel -->
 <section id="passport">
     <div class="row">
         <div class="medium-8 medium-centered large-6 large-centered columns">
-            <div class="registro-panel">
-                <p class="welcome"> Participe en <b class = "logo-fuente">Virtuagora</b></p>
+            <div class="panel">
+                <p class="welcome"> Participe en <b class = "logo-font">Virtuagora</b></p>
                 <p>Involúcrate en la busqueda de mejores politicas para todos. <br />Es gratis y totalmente abierto.</p>
                 {% if flash['errors'] is defined %}
-                    <ul>
                     {% for error in flash['errors'] %}
-                        <li>{{ error }}</li>
+                    <div data-alert class="alert-box warning">
+                        {{ error }}
+                        <a href="#" class="close">&times;</a>
+                        </div>
                     {% endfor %}
-                    </ul>
                 {% endif %}
                 <form data-abide action="registro" method="POST">
                     <div class="row collapse">
@@ -88,13 +91,13 @@ Virtuagora - Registro
                         <div class="small-10 columns">
                             <div class="row collapse">
                                 <div class="small-6 columns">
-                                    <input name="nombre" type="text" required pattern="alpha" placeholder="Nombre">
-                                    <small class="error text-center">Solo caracteres, sin numeros ni símbolos.</small>
+                                    <input name="nombre" type="text" placeholder="Nombre" required>
+                                    <small class="error text-center">Campo obligatorio</small>
 
                                 </div>
                                 <div class="small-6 columns">
-                                    <input name="apellido" type="text" required pattern="alpha" placeholder="Apellido">
-                                    <small class="error text-center">Solo caracteres, sin numeros ni símbolos.</small>
+                                    <input name="apellido" type="text" placeholder="Apellido" required>
+                                    <small class="error text-center">Campo obligatorio</small>
                                 </div>
                             </div>
                         </div>
@@ -106,7 +109,7 @@ Virtuagora - Registro
                         </div>
                         <div class="small-10 columns">
                             <input name="email" type="email" placeholder="Direccion de email" required>
-                            <small class="error text-center">La direccion de email debe ser una direccion valida (Ej: juan@correo.com)</small>
+                            <small class="error text-center">Campo obligatorio</small>
                         </div>
                     </div>
                     <div class="row collapse">
@@ -115,28 +118,28 @@ Virtuagora - Registro
                         </div>
                         <div class="small-10 columns ">
                             <input id="campo-password" name="password" type="password" placeholder="Contraseña">
-                            <small class="error text-center">Ingrese una contraseña valida.</small>
+                            <small class="error text-center">Campo obligatorio</small>
                         </div>
                     </div>
                     <div class="row collapse">
                         <div class="small-2 columns ">
-                           <span class="prefix"><i class="fa fa-check-square-o"></i></span>
+                            <span class="prefix"><i class="fa fa-check-square-o"></i></span>
                         </div>
                         <div class="small-10 columns ">
                             <input type="password" data-equalto="campo-password" name="password2" placeholder="Reingrese la contraseña">
-                            <small class="error text-center">Las contraseñas no coinciden.</small>
+                            <small class="error text-center">Las contraseñas no coinciden</small>
                         </div>
                     </div>
 
-                <div class="row">
-                    <p class="text-centered">Al hacer clic en <b>Registrarse</b>, aceptas las <a href="#">Condiciones</a> y confirmas que leíste nuestra Política de uso de datos, incluido el uso de cookies.</p>
-                </div>
-                <div class="row">
-                    <div class="small-8 small-centered columns ">
-                        <input type="submit" class="button expand" value="Registrarse &raquo">
+                    <div class="row">
+                        <p class="text-centered">Al hacer clic en <b>Registrarse</b>, aceptas las <a href="#">Condiciones</a> y confirmas que leíste nuestra Política de uso de datos, incluido el uso de cookies.</p>
                     </div>
-                </div>
-            </form>
+                    <div class="row">
+                        <div class="small-8 small-centered columns ">
+                            <input type="submit" class="button expand" value="Registrarse &raquo">
+                        </div>
+                    </div>
+                </form>
                 <p>Si ya posee una cuenta en Virtuagora...</p>
                 <div class="row">
                     <div class="small-8 small-centered columns text-center">
@@ -153,4 +156,5 @@ Virtuagora - Registro
 <script src="{{ baseUrl }}/assets/js/foundation/foundation.abide.js"></script>
 <script src="{{ baseUrl }}/assets/js/foundation/foundation.tooltip.js"></script>
 <script src="{{ baseUrl }}/assets/js/foundation/foundation.orbit.js"></script>
+<script src="{{ baseUrl }}/assets/js/foundation/foundation.alert.js"></script>
 {% endblock %}

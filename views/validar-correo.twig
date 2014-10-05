@@ -12,36 +12,34 @@ Virtuagora - Verificación incorrecta
 
 {% block body %}
 <section id="expositor">
-	<div class="row">
-		<div class="medium-8 medium-centered large-6 large-centered columns">
-			<h1 class="text-center logo-fuente">Virtuagora</h1>
-		</div>
-	</div>
+    <div class="row">
+        <div class="medium-8 medium-centered large-6 large-centered columns">
+            <h1 class="text-center logo-font">Virtuagora</h1>
+        </div>
+    </div>
 </section>
 
 <section id="passport">
-	<div class="row">
-		<div class="medium-8 medium-centered large-6 large-centered columns">
-			{% if usuarioValido == true %}
-			<div class="registro-exito-panel text-center">
-				<i class="fa fa-envelope-o fa-5x"></i>
-				<p class="welcome">Tu dirección de email ha sido verificada<br />
-				<p>Gracias por haber verificado que tu casilla <b>{{ email }}</b>.</p>
-				{% else %}
-				<div class="verificacion-fail-panel text-center">
+    <div class="row">
+        <div class="medium-8 medium-centered large-6 large-centered columns">
+            <div class="panel text-center">
+                {% if usuarioValido == true %}
+                <i class="success fa fa-envelope-o fa-5x"></i>
+                <p class="welcome">Tu dirección de email ha sido verificada<br />
+                <p>Gracias por haber verificado que tu casilla <b>{{ email }}</b>.</p>
+                {% else %}
+                <i class="fail fa fa-question-circle fa-5x"></i>
+                <p class="welcome">Link de validación incorrecto</p>
+                <p>El link ingresado es incorrecto. Verifique que el link que hemos enviado a su direccion de correo electronico es el mismo que ingresó en la barra de direcciones.</p> <p>Si sigue viendo este mensaje, comuníquese con un administrador.</p>
+                {% endif %}
 
-					<i class="fa fa-question-circle fa-5x"></i>
-					<p class="welcome">Link de validación incorrecto</p>
-					<p>El link ingresado es incorrecto. Verifique que el link que hemos enviado a su direccion de correo electronico es el mismo que ingresó en la barra de direcciones.</p> <p>Si sigue viendo este mensaje, comuníquese con un administrador.</p>
-					{% endif %}
-
-					<div class="row">
-						<div class="small-10 small-centered columns text-center">
-							<a href="#" class="button  round success small">Volver a Virtuagora &raquo</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		</section>
-	{% endblock %}
+                <div class="row">
+                    <div class="small-10 small-centered columns text-center">
+                        <a href="#" class="button round success small">Volver a Virtuagora &raquo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
