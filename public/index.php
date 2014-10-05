@@ -3,7 +3,7 @@ require __DIR__.'/../vendor/autoload.php';
 
 // Prepare app
 $app = new \Slim\Slim(array(
-    'debug' => true,
+    'debug' => false,
     'templates.path' => '../views',
 ));
 
@@ -23,7 +23,7 @@ $app->error(function (Exception $e) use ($app) {
     if ($e instanceof TurnbackException) {
         $app->flash('errors', $e->getErrors());
         $app->redirect($app->request->getReferrer());
-    } else if ($e instanceof ErrorException) {
+    } else if ($e instanceof BearableException) {
         $app->render('error.twig', array('mensaje' => $e->getMessage()), $e->getCode());
     } else if ($e instanceof Illuminate\Database\Eloquent\ModelNotFoundException) {
         $app->notFound();
@@ -47,15 +47,16 @@ $app->post('/registro', function () use ($app) {
     $validator = new Augusthur\Validation\Validator();
     $validator
         ->add_rule('nombre', new Augusthur\Validation\Rule\NotEmpty())
-        //->add_rule('nombre', new Augusthur\Validation\Rule\Alpha())
+        ->add_rule('nombre', new Augusthur\Validation\Rule\Alpha())
         ->add_rule('nombre', new Augusthur\Validation\Rule\MinLength(1))
         ->add_rule('nombre', new Augusthur\Validation\Rule\MaxLength(32))
         ->add_rule('apellido', new Augusthur\Validation\Rule\NotEmpty())
-        //->add_rule('apellido', new Augusthur\Validation\Rule\Alpha())
+        ->add_rule('apellido', new Augusthur\Validation\Rule\Alpha())
         ->add_rule('apellido', new Augusthur\Validation\Rule\MinLength(1))
         ->add_rule('apellido', new Augusthur\Validation\Rule\MaxLength(32))
         ->add_rule('email', new Augusthur\Validation\Rule\NotEmpty())
         ->add_rule('email', new Augusthur\Validation\Rule\Email())
+        ->add_rule('email', new Augusthur\Validation\Rule\Unique('usuarios'))
         ->add_rule('password', new Augusthur\Validation\Rule\NotEmpty())
         ->add_rule('password', new Augusthur\Validation\Rule\MinLength(8))
         ->add_rule('password', new Augusthur\Validation\Rule\MaxLength(128))
@@ -113,6 +114,36 @@ $app->get('/validar/:usuario/:token', function ($id, $token) use ($app) {
     } else {
         $app->render('validar-correo.twig', array('usuarioValido' => false));
     }
+});
+
+$app->post('/login', function () use ($app) {
+    $validator = new Augusthur\Validation\Validator();
+    $validator
+        ->add_rule('email', new Augusthur\Validation\Rule\NotEmpty())
+        ->add_rule('email', new Augusthur\Validation\Rule\Email())
+        ->add_rule('password', new Augusthur\Validation\Rule\MinLength(8))
+        ->add_rule('password', new Augusthur\Validation\Rule\MaxLength(128));
+    $req = $app->request;
+    if (!$validator->is_valid($req->post())) {
+        throw (new TurnbackException())->setErrors($validator->get_errors());
+    }
+    $usuario = new Usuario;
+    $usuario->email = $req->post('email');
+    $usuario->password = password_hash($req->post('password'), PASSWORD_DEFAULT);
+    $usuario->tiene_avatar = false;
+    $usuario->token_verificacion = bin2hex(openssl_random_pseudo_bytes(16));
+    $usuario->verificado = false;
+    $usuario->save();
+    $ciudadano = new Ciudadano;
+    $ciudadano->id = $usuario->id;
+    $ciudadano->nombre = $req->post('nombre');
+    $ciudadano->apellido = $req->post('apellido');
+    $ciudadano->descripcion = "";
+    $ciudadano->prestigio = 0;
+    $ciudadano->suspendido = false;
+    $ciudadano->save();
+
+    $app->render('registro-exito.twig', array('email' => $usuario->email));
 });
 
 session_cache_limiter(false);

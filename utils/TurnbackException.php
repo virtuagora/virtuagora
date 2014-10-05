@@ -3,7 +3,6 @@
 class TurnbackException extends \RuntimeException {
 
     protected $errors = array();
-    protected $turnback;
 
     public function setErrors($errors) {
 		$this->errors = $errors;

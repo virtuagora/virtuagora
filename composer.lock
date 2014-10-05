@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "augusthur/validation",
-            "version": "v1.4",
+            "version": "v1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/augusthur/PHP-Validation.git",
-                "reference": "4b955676068c14dfdc7d1cd9ff9639a7e6e75a79"
+                "reference": "057eeaa62e8124f53de49566299d35ed19955988"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/augusthur/PHP-Validation/zipball/4b955676068c14dfdc7d1cd9ff9639a7e6e75a79",
-                "reference": "4b955676068c14dfdc7d1cd9ff9639a7e6e75a79",
+                "url": "https://api.github.com/repos/augusthur/PHP-Validation/zipball/057eeaa62e8124f53de49566299d35ed19955988",
+                "reference": "057eeaa62e8124f53de49566299d35ed19955988",
                 "shasum": ""
             },
             "require": {
@@ -50,9 +50,9 @@
                 "validation"
             ],
             "support": {
-                "source": "https://github.com/augusthur/PHP-Validation/tree/v1.4"
+                "source": "https://github.com/augusthur/PHP-Validation/tree/v1.6"
             },
-            "time": "2014-10-04 23:11:43"
+            "time": "2014-10-05 03:00:43"
         },
         {
             "name": "illuminate/container",
