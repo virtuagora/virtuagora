@@ -3,7 +3,7 @@ require __DIR__.'/../vendor/autoload.php';
 
 // Prepare app
 $app = new \Slim\Slim(array(
-    'debug' => false,
+    'debug' => true,
     'templates.path' => '../views',
 ));
 
@@ -127,23 +127,29 @@ $app->post('/login', function () use ($app) {
     if (!$validator->is_valid($req->post())) {
         throw (new TurnbackException())->setErrors($validator->get_errors());
     }
-    $usuario = new Usuario;
-    $usuario->email = $req->post('email');
-    $usuario->password = password_hash($req->post('password'), PASSWORD_DEFAULT);
-    $usuario->tiene_avatar = false;
-    $usuario->token_verificacion = bin2hex(openssl_random_pseudo_bytes(16));
-    $usuario->verificado = false;
-    $usuario->save();
-    $ciudadano = new Ciudadano;
-    $ciudadano->id = $usuario->id;
-    $ciudadano->nombre = $req->post('nombre');
-    $ciudadano->apellido = $req->post('apellido');
-    $ciudadano->descripcion = "";
-    $ciudadano->prestigio = 0;
-    $ciudadano->suspendido = false;
-    $ciudadano->save();
-
-    $app->render('registro-exito.twig', array('email' => $usuario->email));
+//    $usuario = new Usuario;
+//    $usuario->email = $req->post('email');
+//    $usuario->password = password_hash($req->post('password'), PASSWORD_DEFAULT);
+//    $usuario->tiene_avatar = false;
+//    $usuario->token_verificacion = bin2hex(openssl_random_pseudo_bytes(16));
+//    $usuario->verificado = false;
+//    $usuario->save();
+//    $ciudadano = new Ciudadano;
+//    $ciudadano->id = $usuario->id;
+//    $ciudadano->nombre = $req->post('nombre');
+//    $ciudadano->apellido = $req->post('apellido');
+//    $ciudadano->descripcion = "";
+//    $ciudadano->prestigio = 0;
+//    $ciudadano->suspendido = false;
+//    $ciudadano->save();
+    $usuario = Usuario::where('email',$req->post('email'))->firstOrFail();
+    if (password_verify($req->post('password'),$usuario->password)) {
+        $app->render('registro-exito.twig', array('user' => true,
+        'email' => $usuario->email));
+    } else {
+       $app->render('error.twig', array('user' => false,
+        'mensaje' => 'En realidad no, el login fue incorrecto'));
+    }
 });
 
 session_cache_limiter(false);

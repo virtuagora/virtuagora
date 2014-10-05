@@ -11728,15 +11728,15 @@ body {
   font-family: 'Orbitron', serif;
 }
 
+/* line 10, ../scss/_linkstypes.scss */
+h2 {
+  font-family: 'Open Sans', sans-serif;
+}
+
 /* Barra Navegacion */
 /* line 4, ../scss/_layout.scss */
 #barra-nav .logo {
   font-size: 18px;
-}
-/* line 7, ../scss/_layout.scss */
-#barra-nav .top-bar-section .dropdown li .button {
-  line-height: 7px;
-  padding: 15px;
 }
 /* line 11, ../scss/_layout.scss */
 #barra-nav .top-bar-section img {
@@ -11749,35 +11749,35 @@ body {
 }
 
 /* Expositor en vista de login */
-/* line 25, ../scss/_layout.scss */
+/* line 24, ../scss/_layout.scss */
 #expositor {
   padding: 20px 0px 0px;
   font-size: 3.75rem;
   margin: auto;
   width: 100%;
 }
-/* line 30, ../scss/_layout.scss */
+/* line 29, ../scss/_layout.scss */
 #expositor .panel {
   background: #FCBF71;
 }
-/* line 33, ../scss/_layout.scss */
+/* line 32, ../scss/_layout.scss */
 #expositor p {
   font-size: 0.875rem;
 }
-/* line 36, ../scss/_layout.scss */
+/* line 35, ../scss/_layout.scss */
 #expositor h1 {
   padding: 20px 0px 20px;
   font-size: 3.75rem;
   margin: auto;
 }
-/* line 41, ../scss/_layout.scss */
+/* line 40, ../scss/_layout.scss */
 #expositor .profile-card img {
   border-radius: 12%;
   border: 2px solid #FFFFFF;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
 }
 
-/* line 49, ../scss/_layout.scss */
+/* line 48, ../scss/_layout.scss */
 #passport .panel {
   background: #FFFFFF;
   border: 1px solid #ccc;
@@ -11787,59 +11787,59 @@ body {
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
 }
-/* line 58, ../scss/_layout.scss */
+/* line 57, ../scss/_layout.scss */
 #passport .welcome {
   font-size: 1.625rem;
   text-align: center;
   margin-left: 0;
 }
-/* line 63, ../scss/_layout.scss */
+/* line 62, ../scss/_layout.scss */
 #passport form input, #passport form span {
   height: 3.125rem;
   font-size: 1.0625rem;
 }
-/* line 67, ../scss/_layout.scss */
+/* line 66, ../scss/_layout.scss */
 #passport i {
   font-size: 1.875rem;
   line-height: 3.125rem;
   color: #999;
 }
-/* line 72, ../scss/_layout.scss */
+/* line 71, ../scss/_layout.scss */
 #passport i.success {
   font-size: 5rem;
   color: #86C43A;
   line-height: 1.25rem;
   padding: 10px 0px 40px;
 }
-/* line 78, ../scss/_layout.scss */
+/* line 77, ../scss/_layout.scss */
 #passport i.fail {
   font-size: 5rem;
   color: #9b0c0c;
   line-height: 1.25rem;
   padding: 10px 0px 40px;
 }
-/* line 84, ../scss/_layout.scss */
+/* line 83, ../scss/_layout.scss */
 #passport p {
   font-size: 0.875rem;
   text-align: center;
   font-weight: 200;
 }
-/* line 89, ../scss/_layout.scss */
+/* line 88, ../scss/_layout.scss */
 #passport .alert-box {
   padding-top: 0.375rem;
   padding-bottom: 0.375rem;
   margin-bottom: 0.875rem;
 }
 
-/* line 97, ../scss/_layout.scss */
+/* line 96, ../scss/_layout.scss */
 footer .panel {
   background: #333333;
 }
-/* line 99, ../scss/_layout.scss */
+/* line 98, ../scss/_layout.scss */
 footer .panel p {
   color: #FFFFFF;
 }
-/* line 102, ../scss/_layout.scss */
+/* line 101, ../scss/_layout.scss */
 footer .panel a {
   color: #24B1E0;
 }

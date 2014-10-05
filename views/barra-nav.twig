@@ -15,6 +15,7 @@
             <section class="top-bar-section">
                 <!-- Right Nav Section -->
                 <ul class="right">
+                   {% if user == true %}
                     <li class="divider"></li>
                     <li class="has-dropdown menu-icon">
                         <a href="#">Menú<img src="http://lorempixel.com/128/128/people/4" alt="profile image">
@@ -23,22 +24,29 @@
                             <li><a href="#">Ver Perfil</a></li>
                             <li><a href="#">Configuración</a></li>
                             <li class="has-form">
-                                <a href="#" class="button alert">Cerrar Sesion</a>
+                               <form action="logout" method="POST">
+                                   <input type="submit" class="button alert" value="Cerrar sesion">
+                                </form>
                             </li>
                         </ul>
                     </li>
+                    {% else %}
                     <li class="divider"></li>
                     <li class="has-form">
                         <a href="#" data-reveal-id="myModal" class="button">Login</a>
                     </li>
+                    {% endif %}
                     <li class="divider"></li>
                 </ul>
 
+
+               {% if user == true %}
                 <!-- Left Nav Section -->
                 <ul class="left">
                    <li class="divider"></li>
-                    <li><a href="#">¡Bienvenido <b>Guillermo</b>!</a></li>
+                    <li><a href="#">¡Bienvenido <b>{{ nombre-usuario }}</b>!</a></li>
                 </ul>
+                {% endif %}
             </section>
 
         </nav>

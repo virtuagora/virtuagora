@@ -75,14 +75,6 @@ Virtuagora - Registro
             <div class="panel">
                 <p class="welcome"> Participe en <b class = "logo-font">Virtuagora</b></p>
                 <p>Involúcrate en la busqueda de mejores politicas para todos. <br />Es gratis y totalmente abierto.</p>
-                {% if flash['errors'] is defined %}
-                    {% for error in flash['errors'] %}
-                    <div data-alert class="alert-box warning">
-                        {{ error }}
-                        <a href="#" class="close">&times;</a>
-                        </div>
-                    {% endfor %}
-                {% endif %}
                 <form data-abide action="registro" method="POST">
                     <div class="row collapse">
                         <div class="small-2  columns">
@@ -117,7 +109,7 @@ Virtuagora - Registro
                             <span class="prefix"><i class="fa fa-lock"></i></span>
                         </div>
                         <div class="small-10 columns ">
-                            <input id="campo-password" name="password" type="password" placeholder="Contraseña">
+                            <input id="campo-password-registro" name="password" type="password" placeholder="Contraseña">
                             <small class="error text-center">Campo obligatorio</small>
                         </div>
                     </div>
@@ -126,7 +118,7 @@ Virtuagora - Registro
                             <span class="prefix"><i class="fa fa-check-square-o"></i></span>
                         </div>
                         <div class="small-10 columns ">
-                            <input type="password" data-equalto="campo-password" name="password2" placeholder="Reingrese la contraseña">
+                            <input type="password" data-equalto="campo-password-registro" name="password2" placeholder="Reingrese la contraseña">
                             <small class="error text-center">Las contraseñas no coinciden</small>
                         </div>
                     </div>

@@ -12,11 +12,22 @@
     <body>
         <!-- Incluir barra-nav -->
         {% include "barra-nav.twig" %}
+        {% if flash['errors'] is defined %}
+        <div id="modalErrors" class="reveal-modal small text-center" data-reveal>
+            <h2><i class="invalido fa fa-question-circle fa-2x"></i><br>Error</h2>
+            {% for error in flash['errors'] %}
+            <div data-alert class="alert-box warning">
+                {{ error }}
+<!--                <a href="#" class="close">&times;</a>-->
+            </div>
+            {% endfor %}
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+        {% endif %}
         <!-- Incluir body -->
         {% block body %}{% endblock %}
         <!-- Incluir footer -->
         <!--{% include "footer.twig" %}-->
-
         <!-- Incluir javascripts -->
         <script src="{{ baseUrl }}/assets/js/jquery/jquery.min.js"></script>
         <script src="{{ baseUrl }}/assets/js/foundation/foundation.min.js"></script>
