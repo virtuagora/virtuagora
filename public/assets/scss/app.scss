@@ -1,31 +1,31 @@
 @import "settings";
-@import "foundation";
+//@import "foundation";
 
 // Or selectively include components
-// @import
+ @import
 //   "foundation/components/accordion",
 //   "foundation/components/alert-boxes",
 //   "foundation/components/block-grid",
 //   "foundation/components/breadcrumbs",
 //   "foundation/components/button-groups",
-//   "foundation/components/buttons",
+   "foundation/components/buttons",
 //   "foundation/components/clearing",
 //   "foundation/components/dropdown",
 //   "foundation/components/dropdown-buttons",
 //   "foundation/components/flex-video",
-//   "foundation/components/forms",
-//   "foundation/components/grid",
+   "foundation/components/forms",
+   "foundation/components/grid",
 //   "foundation/components/inline-lists",
 //   "foundation/components/joyride",
 //   "foundation/components/keystrokes",
 //   "foundation/components/labels",
 //   "foundation/components/magellan",
-//   "foundation/components/orbit",
+   "foundation/components/orbit",
 //   "foundation/components/pagination",
-//   "foundation/components/panels",
+   "foundation/components/panels",
 //   "foundation/components/pricing-tables",
 //   "foundation/components/progress-bars",
-//   "foundation/components/reveal",
+   "foundation/components/reveal",
 //   "foundation/components/side-nav",
 //   "foundation/components/split-buttons",
 //   "foundation/components/sub-nav",
@@ -34,157 +34,26 @@
 //   "foundation/components/tabs",
 //   "foundation/components/thumbs",
 //   "foundation/components/tooltips",
-//   "foundation/components/top-bar",
-//   "foundation/components/type",
-//   "foundation/components/offcanvas",
+   "foundation/components/top-bar",
+   "foundation/components/type",
+   "foundation/components/offcanvas";
 //   "foundation/components/visibility";
 
-body {
-    font-family: 'Open Sans', sans-serif;
-    background-color: #F6F6F6;
-}
-
-.logo-fuente {
-    font-family: 'Orbitron', serif;
-}
-
-#barra-navegacion {
-    .logo-barra {
-        @extend .logo-fuente;
-        font-size: 18px;
-    }
-}
-
-#expositor {
-    padding: 20px 0px 0px;
-    font-size: rem-calc(60);
-    margin: auto;
-    width: 100%;
-    .panel {
-        background: #FCBF71;
-    }
-    p {
-        font-size: rem-calc(14);
-    }
-    h1 {
-        padding: 20px 0px 20px;
-        font-size: rem-calc(60);
-        margin: auto;
-    }
-}
 
 
-#passport {
-    h6 {
-        margin-left: 15%
-    }
-    .registro-panel {
-        background: #FFFFFF;
-        border: 1px solid #ccc;
-        padding: 50px;
-        margin-top: 30px;
-        margin-bottom: 30px;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
-        border-radius: 3px;
-        i {
-            font-size: rem-calc(30);
-            line-height: rem-calc(50);
-            color: #999;
-            .exitoso{
-                font-size: rem-calc(80);
-                color: #86C43A;
-              line-height: rem-calc(20);
-              padding: 10px 0px 40px;
-            }
-        }
-        form input, form span {
-            height: rem-calc(50);
-            font-size: rem-calc(17);
-        }
-        .welcome {
-            font-size: rem-calc(26);
-            text-align: center;
-            margin-left: 0;
-        }
-        p {
-            font-size: rem-calc(14);
-            text-align: center;
-            font-weight: 200;
-        }
-    }
-    .registro-exito-panel {
-        background: #FFFFFF;
-        border: 1px solid #ccc;
-        padding: 50px;
-        margin-top: 30px;
-        margin-bottom: 30px;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
-        border-radius: 3px;
-        i {
-              font-size: rem-calc(80);
-              color: #86C43A;
-              line-height: rem-calc(20);
-              padding: 10px 0px 40px;
-        }
-        .welcome {
-            font-size: rem-calc(26);
-            text-align: center;
-            margin-left: 0;
-        }
-        p {
-            font-size: rem-calc(14);
-            text-align: center;
-            font-weight: 200;
-		}
-    }
-	.verificacion-fail-panel {
-        background: #FFFFFF;
-        border: 1px solid #ccc;
-        padding: 50px;
-        margin-top: 30px;
-        margin-bottom: 30px;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
-        border-radius: 3px;
-        i {
-              font-size: rem-calc(80);
-              color: #9b0c0c;
-              line-height: rem-calc(20);
-              padding: 10px 0px 40px;
-        }
-        .welcome {
-            font-size: rem-calc(26);
-            text-align: center;
-            margin-left: 0;
-        }
-        p {
-            font-size: rem-calc(14);
-            text-align: center;
-            font-weight: 200;
-		}
-    }
-}
+@import "variables";
 
+@import "override";
 
-footer {
-    .panel{
-        background: #333333;
-        p {
-            color: #FFFFFF;
-        }
-        a {
-            color: #24B1E0;
-        }
-    }
-}
+@import "linkstypes";
 
-.invalido{
-	color: #bc0f0f;
-}
+@import "layout";
 
-.profile-card img {
-    border-radius: 12%;
-    border: 2px solid #FFFFFF;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
-}
+@import "forms";
+
+@import "misc";
 
 @import "../css/font-awesome.css";
+
+
+

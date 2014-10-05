@@ -1,0 +1,88 @@
+/* Barra Navegacion */
+
+#barra-nav {
+    .logo {
+        font-size: 18px;
+    }
+}
+
+/* Expositor en vista de login */
+
+#expositor {
+    padding: 20px 0px 0px;
+    font-size: rem-calc(60);
+    margin: auto;
+    width: 100%;
+    .panel {
+        background: #FCBF71;
+    }
+    p {
+        font-size: rem-calc(14);
+    }
+    h1 {
+        padding: 20px 0px 20px;
+        font-size: rem-calc(60);
+        margin: auto;
+    }
+    .profile-card img {
+        border-radius: 12%;
+        border: 2px solid #FFFFFF;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+    }
+}
+
+#passport {
+    .panel {
+        background: #FFFFFF;
+        border: 1px solid #ccc;
+        padding: 50px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+        border-radius: 3px;
+    }
+    .welcome {
+        font-size: rem-calc(26);
+        text-align: center;
+        margin-left: 0;
+    }
+    form input, form span {
+        height: rem-calc(50);
+        font-size: rem-calc(17);
+    }
+    i {
+        font-size: rem-calc(30);
+        line-height: rem-calc(50);
+        color: $i-default-color;
+    }
+    i.success {
+        font-size: rem-calc(80);
+        color: $i-success-color;
+        line-height: rem-calc(20);
+        padding: 10px 0px 40px;
+    }
+    i.fail {
+        font-size: rem-calc(80);
+        color: $i-fail-color;
+        line-height: rem-calc(20);
+        padding: 10px 0px 40px;
+    }
+    p {
+        font-size: rem-calc(14);
+        text-align: center;
+        font-weight: 200;
+    }
+}
+
+footer {
+    .panel{
+        background: #333333;
+        p {
+            color: #FFFFFF;
+        }
+        a {
+            color: #24B1E0;
+        }
+    }
+}
+
