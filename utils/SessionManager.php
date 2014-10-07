@@ -33,4 +33,8 @@ class SessionManager {
         }
     }
 
+    public function exists() {
+        return isset($_SESSION['userName']);
+    }
+
 }

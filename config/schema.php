@@ -1,5 +1,4 @@
-<?php
-require __DIR__.'/../vendor/autoload.php';
+<?php require __DIR__.'/../vendor/autoload.php';
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
@@ -16,7 +15,6 @@ $capsule->addConnection(array(
 ));
 $capsule->setAsGlobal();
 
-Capsule::schema()->dropIfExists('usuarios');
 Capsule::schema()->create('usuarios', function($table) {
     $table->engine = 'InnoDB';
 
@@ -33,7 +31,6 @@ Capsule::schema()->create('usuarios', function($table) {
     $table->softDeletes();
 });
 
-Capsule::schema()->dropIfExists('funcionarios');
 Capsule::schema()->create('funcionarios', function($table) {
     $table->engine = 'InnoDB';
 
@@ -48,7 +45,6 @@ Capsule::schema()->create('funcionarios', function($table) {
     $table->softDeletes();
 });
 
-Capsule::schema()->dropIfExists('ciudadanos');
 Capsule::schema()->create('ciudadanos', function($table) {
     $table->engine = 'InnoDB';
 
@@ -70,7 +66,6 @@ Capsule::schema()->create('ciudadanos', function($table) {
     $table->softDeletes();
 });
 
-Capsule::schema()->dropIfExists('usuario_datos');
 Capsule::schema()->create('usuario_datos', function($table) {
     $table->engine = 'InnoDB';
 
@@ -86,7 +81,6 @@ Capsule::schema()->create('usuario_datos', function($table) {
     $table->softDeletes();
 });
 
-Capsule::schema()->dropIfExists('contactos');
 Capsule::schema()->create('contactos', function($table) {
     $table->engine = 'InnoDB';
 
@@ -100,7 +94,6 @@ Capsule::schema()->create('contactos', function($table) {
     $table->softDeletes();
 });
 
-Capsule::schema()->dropIfExists('organismos');
 Capsule::schema()->create('organismos', function($table) {
     $table->engine = 'InnoDB';
 
@@ -114,7 +107,6 @@ Capsule::schema()->create('organismos', function($table) {
     $table->softDeletes();
 });
 
-Capsule::schema()->dropIfExists('organismo_integrantes');
 Capsule::schema()->create('organismo_integrantes', function($table) {
     $table->engine = 'InnoDB';
 
@@ -129,6 +121,31 @@ Capsule::schema()->create('organismo_integrantes', function($table) {
     $table->foreign('funcionario')->references('id')->on('funcionarios');
 
     $table->timestamps();
+});
+
+Capsule::schema()->create('moderador_grupos', function($table) {
+    $table->engine = 'InnoDB';
+
+    $table->increments('id');
+    $table->string('nombre');
+    $table->text('descripcion');
+
+    $table->timestamps();
+    $table->softDeletes();
+});
+
+Capsule::schema()->create('moderadores', function($table) {
+    $table->engine = 'InnoDB';
+
+    $table->integer('id')->unsigned();
+    $table->integer('patrulla')->unsigned();
+
+    $table->primary('id');
+    $table->foreign('id')->references('id')->on('usuarios');
+    $table->foreign('patrulla')->references('id')->on('patrulla');
+
+    $table->timestamps();
+    $table->softDeletes();
 });
 
 echo 'holis';

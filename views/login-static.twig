@@ -18,7 +18,13 @@ Virtuagora - Login
     <div class="row">
         <div class="medium-8 medium-centered large-6 large-centered columns">
             <div class="panel">
-                <p><b>¡Te estabamos esperando! ¡Bienvenido de vuelta!</b></p>
+                <p><b>
+                    {% if flash['error'] is defined %}
+                        {{ flash['error'] }}
+                    {% else %}
+                        ¡Te estabamos esperando! ¡Bienvenido de vuelta!
+                    {% endif %}
+                </b></p>
                 <form data-abide action="{{ baseUrl }}/login" method="POST">
                     <div class="row collapse">
                         <div class="small-2 columns">
