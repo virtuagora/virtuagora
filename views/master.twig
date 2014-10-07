@@ -18,7 +18,7 @@
             {% for error in flash['errors'] %}
             <div data-alert class="alert-box warning">
                 {{ error }}
-<!--                <a href="#" class="close">&times;</a>-->
+                <!-- <a href="#" class="close">&times;</a>-->
             </div>
             {% endfor %}
             <a class="close-reveal-modal">&#215;</a>
@@ -33,6 +33,7 @@
         <script src="{{ baseUrl }}/assets/js/foundation/foundation.min.js"></script>
         <script src="{{ baseUrl }}/assets/js/foundation/foundation.topbar.js"></script>
         <script src="{{ baseUrl }}/assets/js/foundation/foundation.reveal.js"></script>
+        <script src="{{ baseUrl }}/assets/js/foundation/foundation.alert.js"></script>
         {% block scripts %}{% endblock %}
         <script src="{{ baseUrl }}/assets/js/app.js"></script>
     </body>
