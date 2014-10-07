@@ -4220,7 +4220,7 @@ select {
   border-width: 1px;
   border-color: #d8d8d8;
   margin-bottom: 1.25rem;
-  padding: 1.25rem;
+  padding: 0.9375rem;
   background: #f2f2f2;
   color: #333333;
 }
@@ -4251,7 +4251,7 @@ select {
   border-width: 1px;
   border-color: #b6edff;
   margin-bottom: 1.25rem;
-  padding: 1.25rem;
+  padding: 0.9375rem;
   background: #ecfaff;
   color: #333333;
 }
@@ -11758,88 +11758,97 @@ h2 {
 }
 /* line 29, ../scss/_layout.scss */
 #expositor .panel {
-  background: #FCBF71;
+  background: #085A78;
 }
 /* line 32, ../scss/_layout.scss */
 #expositor p {
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
+  color: #FFFFFF;
 }
-/* line 35, ../scss/_layout.scss */
+/* line 36, ../scss/_layout.scss */
 #expositor h1 {
   padding: 20px 0px 20px;
   font-size: 3.75rem;
   margin: auto;
 }
-/* line 40, ../scss/_layout.scss */
+/* line 41, ../scss/_layout.scss */
+#expositor h2 {
+  color: #FFFFFF;
+}
+/* line 43, ../scss/_layout.scss */
+#expositor h2 small {
+  color: #bebebe;
+}
+/* line 47, ../scss/_layout.scss */
 #expositor .profile-card img {
-  border-radius: 12%;
-  border: 2px solid #FFFFFF;
+  border-radius: 5%;
+  border: 1px solid #FFFFFF;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
 }
 
-/* line 48, ../scss/_layout.scss */
+/* line 55, ../scss/_layout.scss */
 #passport .panel {
   background: #FFFFFF;
   border: 1px solid #ccc;
-  padding: 50px;
-  margin-top: 30px;
+  padding: 2.1875rem;
+  margin-top: 0.3125rem;
   margin-bottom: 30px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
 }
-/* line 57, ../scss/_layout.scss */
+/* line 64, ../scss/_layout.scss */
 #passport .welcome {
   font-size: 1.625rem;
   text-align: center;
   margin-left: 0;
 }
-/* line 62, ../scss/_layout.scss */
+/* line 69, ../scss/_layout.scss */
 #passport form input, #passport form span {
   height: 3.125rem;
   font-size: 1.0625rem;
 }
-/* line 66, ../scss/_layout.scss */
+/* line 73, ../scss/_layout.scss */
 #passport i {
   font-size: 1.875rem;
   line-height: 3.125rem;
   color: #999;
 }
-/* line 71, ../scss/_layout.scss */
+/* line 78, ../scss/_layout.scss */
 #passport i.success {
   font-size: 5rem;
   color: #86C43A;
   line-height: 1.25rem;
   padding: 10px 0px 40px;
 }
-/* line 77, ../scss/_layout.scss */
+/* line 84, ../scss/_layout.scss */
 #passport i.fail {
   font-size: 5rem;
   color: #9b0c0c;
   line-height: 1.25rem;
   padding: 10px 0px 40px;
 }
-/* line 83, ../scss/_layout.scss */
+/* line 90, ../scss/_layout.scss */
 #passport p {
   font-size: 0.875rem;
   text-align: center;
   font-weight: 200;
 }
-/* line 88, ../scss/_layout.scss */
+/* line 95, ../scss/_layout.scss */
 #passport .alert-box {
   padding-top: 0.375rem;
   padding-bottom: 0.375rem;
   margin-bottom: 0.875rem;
 }
 
-/* line 96, ../scss/_layout.scss */
+/* line 103, ../scss/_layout.scss */
 footer .panel {
   background: #333333;
 }
-/* line 98, ../scss/_layout.scss */
+/* line 105, ../scss/_layout.scss */
 footer .panel p {
   color: #FFFFFF;
 }
-/* line 101, ../scss/_layout.scss */
+/* line 108, ../scss/_layout.scss */
 footer .panel a {
   color: #24B1E0;
 }

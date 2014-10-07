@@ -27,19 +27,26 @@
     margin: auto;
     width: 100%;
     .panel {
-        background: #FCBF71;
+        background: #085A78;
     }
     p {
-        font-size: rem-calc(14);
+        font-size: rem-calc(13);
+		color: #FFFFFF;
     }
     h1 {
         padding: 20px 0px 20px;
         font-size: rem-calc(60);
         margin: auto;
     }
+	h2 {
+		color: #FFFFFF;
+		small {
+			color: #bebebe;
+		}
+	}
     .profile-card img {
-        border-radius: 12%;
-        border: 2px solid #FFFFFF;
+        border-radius: 5%;
+        border: 1px solid #FFFFFF;
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
     }
 }
@@ -48,8 +55,8 @@
     .panel {
         background: #FFFFFF;
         border: 1px solid #ccc;
-        padding: 50px;
-        margin-top: 30px;
+        padding: rem-calc(35);
+        margin-top: rem-calc(5);;
         margin-bottom: 30px;
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
         border-radius: 3px;

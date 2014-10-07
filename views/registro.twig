@@ -16,7 +16,7 @@ Virtuagora - Registro
             <li data-orbit-slide="headline-1">
                 <div class="text-left panel">
                     <div class="row">
-                        <div class="medium-10 medium-centered columns">
+                        <div class="medium-8 medium-centered columns">
                             <div class="medium-3 large-2 columns">
                                 <div class="profile-card">
                                     <img src="http://lorempixel.com/128/128/people/1" alt="profile image">
@@ -33,7 +33,7 @@ Virtuagora - Registro
             <li data-orbit-slide="headline-2">
                 <div class="text-left panel">
                     <div class="row">
-                        <div class="medium-10 medium-centered columns">
+                        <div class="medium-8 medium-centered columns">
                             <div class="medium-3 large-2 columns">
                                 <div class="profile-card">
                                     <img src="http://lorempixel.com/128/128/people/2" alt="profile image">
@@ -50,7 +50,7 @@ Virtuagora - Registro
             <li data-orbit-slide="headline-3">
                 <div class="text-left panel">
                     <div class="row">
-                        <div class="medium-10 medium-centered columns">
+                        <div class="medium-8 medium-centered columns">
                             <div class="medium-3 large-2 columns">
                                 <div class="profile-card">
                                     <img src="http://lorempixel.com/128/128/people/3" alt="profile image">
@@ -83,13 +83,13 @@ Virtuagora - Registro
                         <div class="small-10 columns">
                             <div class="row collapse">
                                 <div class="small-6 columns">
-                                    <input name="nombre" type="text" placeholder="Nombre" required>
-                                    <small class="error text-center">Campo obligatorio</small>
+                                    <input name="nombre" type="text" placeholder="Nombre" required pattern="nombre">
+                                    <small class="error text-center">Obligatorio. Como máximo se aceptá hasta 2 nombres</small>
 
                                 </div>
                                 <div class="small-6 columns">
-                                    <input name="apellido" type="text" placeholder="Apellido" required>
-                                    <small class="error text-center">Campo obligatorio</small>
+                                    <input name="apellido" type="text" placeholder="Apellido" required pattern="apellido">
+                                    <small class="error text-center">Obligatorio. Como máximo se aceptá hasta 1 apellido</small>
                                 </div>
                             </div>
                         </div>
@@ -100,8 +100,8 @@ Virtuagora - Registro
                             <span class="prefix"><i class="fa fa-envelope"></i></span>
                         </div>
                         <div class="small-10 columns">
-                            <input name="email" type="email" placeholder="Direccion de email" required>
-                            <small class="error text-center">Campo obligatorio</small>
+                            <input name="email" type="email" placeholder="Direccion de email" required pattern="email">
+                            <small class="error text-center">Ingrese un mail bien formado. Ej: email@correo.com</small>
                         </div>
                     </div>
                     <div class="row collapse">
@@ -110,7 +110,7 @@ Virtuagora - Registro
                         </div>
                         <div class="small-10 columns ">
                             <input id="campo-password-registro" name="password" type="password" placeholder="Contraseña">
-                            <small class="error text-center">Campo obligatorio</small>
+                            <small class="error text-center">Obligatorio, de hasta 8 letras</small>
                         </div>
                     </div>
                     <div class="row collapse">
