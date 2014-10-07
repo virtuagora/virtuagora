@@ -3,7 +3,7 @@ require __DIR__.'/../vendor/autoload.php';
 
 // Prepare app
 $app = new \Slim\Slim(array(
-    'debug' => true,
+    'debug' => false,
     'templates.path' => '../views',
 ));
 
@@ -17,6 +17,11 @@ $app->view->parserOptions = array(
     'autoescape' => true
 );
 $app->view->parserExtensions = array(new \Slim\Views\TwigExtension());
+
+// Prepare singletons
+$app->container->singleton('session', function () {
+    return new SessionManager();
+});
 
 // Prepare error handler
 $app->error(function (Exception $e) use ($app) {
@@ -35,7 +40,8 @@ $app->error(function (Exception $e) use ($app) {
 
 // Prepare hooks
 $app->hook('slim.before', function () use ($app) {
-    $app->view()->appendData(array('baseUrl' => $app->request->getRootUri()));
+    $app->view()->appendData(array('baseUrl' => $app->request->getRootUri(),
+                                   'username' => $app->session->username()));
 });
 
 // Prepare dispatcher
@@ -68,14 +74,14 @@ $app->post('/registro', function () use ($app) {
     $usuario = new Usuario;
     $usuario->email = $req->post('email');
     $usuario->password = password_hash($req->post('password'), PASSWORD_DEFAULT);
+    $usuario->nombre = $req->post('nombre');
+    $usuario->apellido = $req->post('apellido');
     $usuario->tiene_avatar = false;
     $usuario->token_verificacion = bin2hex(openssl_random_pseudo_bytes(16));
     $usuario->verificado = false;
     $usuario->save();
     $ciudadano = new Ciudadano;
     $ciudadano->id = $usuario->id;
-    $ciudadano->nombre = $req->post('nombre');
-    $ciudadano->apellido = $req->post('apellido');
     $ciudadano->descripcion = "";
     $ciudadano->prestigio = 0;
     $ciudadano->suspendido = false;
@@ -119,37 +125,22 @@ $app->get('/validar/:usuario/:token', function ($id, $token) use ($app) {
 $app->post('/login', function () use ($app) {
     $validator = new Augusthur\Validation\Validator();
     $validator
-        ->add_rule('email', new Augusthur\Validation\Rule\NotEmpty())
         ->add_rule('email', new Augusthur\Validation\Rule\Email())
-        ->add_rule('password', new Augusthur\Validation\Rule\MinLength(8))
         ->add_rule('password', new Augusthur\Validation\Rule\MaxLength(128));
     $req = $app->request;
-    if (!$validator->is_valid($req->post())) {
-        throw (new TurnbackException())->setErrors($validator->get_errors());
-    }
-//    $usuario = new Usuario;
-//    $usuario->email = $req->post('email');
-//    $usuario->password = password_hash($req->post('password'), PASSWORD_DEFAULT);
-//    $usuario->tiene_avatar = false;
-//    $usuario->token_verificacion = bin2hex(openssl_random_pseudo_bytes(16));
-//    $usuario->verificado = false;
-//    $usuario->save();
-//    $ciudadano = new Ciudadano;
-//    $ciudadano->id = $usuario->id;
-//    $ciudadano->nombre = $req->post('nombre');
-//    $ciudadano->apellido = $req->post('apellido');
-//    $ciudadano->descripcion = "";
-//    $ciudadano->prestigio = 0;
-//    $ciudadano->suspendido = false;
-//    $ciudadano->save();
-    $usuario = Usuario::where('email',$req->post('email'))->firstOrFail();
-    if (password_verify($req->post('password'),$usuario->password)) {
-        $app->render('registro-exito.twig', array('user' => true,
-        'email' => $usuario->email));
+    if ($validator->is_valid($req->post()) && $app->session->login($req->post('email'), $req->post('password'))) {
+        echo 'holis';
+        $app->redirect($app->request->getReferrer());
     } else {
-       $app->render('error.twig', array('user' => false,
-        'mensaje' => 'En realidad no, el login fue incorrecto'));
+        echo 'chauchis';
+        $app->flash('error', 'Datos de ingreso incorrectos. Por favor vuelva a intentarlo.');
+        $app->redirect($app->request->getRootUri().'/login');
     }
+});
+
+$app->post('/logout', function () use ($app) {
+    $app->session->logout();
+    $app->redirect($app->request->getRootUri().'/');
 });
 
 session_cache_limiter(false);

@@ -17,13 +17,14 @@ $capsule->addConnection(array(
 $capsule->setAsGlobal();
 
 Capsule::schema()->dropIfExists('usuarios');
-Capsule::schema()->create('usuarios', function($table)
-{
+Capsule::schema()->create('usuarios', function($table) {
     $table->engine = 'InnoDB';
 
     $table->increments('id');
     $table->string('email')->unique();
     $table->string('password');
+    $table->string('nombre');
+    $table->string('apellido');
     $table->boolean('tiene_avatar');
     $table->string('token_verificacion');
     $table->boolean('verificado');
@@ -32,25 +33,37 @@ Capsule::schema()->create('usuarios', function($table)
     $table->softDeletes();
 });
 
+Capsule::schema()->dropIfExists('funcionarios');
+Capsule::schema()->create('funcionarios', function($table) {
+    $table->engine = 'InnoDB';
+
+    $table->increments('id');
+    $table->dateTime('fecha_incio');
+    $table->dateTime('fecha_fin')->nullable();
+    $table->integer('usuario')->unsigned();
+
+    $table->foreign('usuario')->references('id')->on('usuarios');
+
+    $table->timestamps();
+    $table->softDeletes();
+});
+
 Capsule::schema()->dropIfExists('ciudadanos');
-Capsule::schema()->create('ciudadanos', function($table)
-{
+Capsule::schema()->create('ciudadanos', function($table) {
     $table->engine = 'InnoDB';
 
     $table->integer('id')->unsigned();
-    $table->string('nombre');
-    $table->string('apellido');
     $table->text('descripcion');
     $table->integer('prestigio');
     $table->boolean('suspendido');
     $table->dateTime('fecha_nacimiento')->nullable();
     $table->dateTime('fecha_certificado')->nullable();
-    //$table->integer('cargo_actual')->unsigned()->nullable();
+    $table->integer('cargo_actual')->unsigned()->nullable();
     //$table->integer('partido_afiliado')->unsigned()->nullable();
 
     $table->primary('id');
     $table->foreign('id')->references('id')->on('usuarios');
-    //$table->foreign('cargo_actual')->references('id')->on('funcionarios');
+    $table->foreign('cargo_actual')->references('id')->on('funcionarios');
     //$table->foreign('partido_afiliado')->references('id')->on('partidos');
 
     $table->timestamps();
@@ -58,8 +71,7 @@ Capsule::schema()->create('ciudadanos', function($table)
 });
 
 Capsule::schema()->dropIfExists('usuario_datos');
-Capsule::schema()->create('usuario_datos', function($table)
-{
+Capsule::schema()->create('usuario_datos', function($table) {
     $table->engine = 'InnoDB';
 
     $table->integer('id')->unsigned();
@@ -69,30 +81,54 @@ Capsule::schema()->create('usuario_datos', function($table)
 
     $table->primary('id');
     $table->foreign('id')->references('id')->on('usuarios');
-    //$table->foreign('cargo_actual')->references('id')->on('funcionarios');
-    //$table->foreign('partido_afiliado')->references('id')->on('partidos');
 
     $table->timestamps();
     $table->softDeletes();
 });
 
-Capsule::schema()->dropIfExists('usuario_contacto');
-Capsule::schema()->create('usuario_contacto', function($table)
-{
+Capsule::schema()->dropIfExists('contactos');
+Capsule::schema()->create('contactos', function($table) {
     $table->engine = 'InnoDB';
 
-    $table->integer('id')->unsigned();
+    $table->increments('id');
+    $table->morphs('contactable');
     $table->string('email')->nullable();
     $table->string('telefono')->nullable();
-    $table->string('url')->nullable();
-
-    $table->primary('id');
-    $table->foreign('id')->references('id')->on('usuarios');
-    //$table->foreign('cargo_actual')->references('id')->on('funcionarios');
-    //$table->foreign('partido_afiliado')->references('id')->on('partidos');
+    $table->string('web')->nullable();
 
     $table->timestamps();
     $table->softDeletes();
+});
+
+Capsule::schema()->dropIfExists('organismos');
+Capsule::schema()->create('organismos', function($table) {
+    $table->engine = 'InnoDB';
+
+    $table->increments('id');
+    $table->string('nombre');
+    $table->text('descripcion');
+    $table->integer('cantidad_integrantes')->unsigned();
+    $table->boolean('tiene_imagen');
+
+    $table->timestamps();
+    $table->softDeletes();
+});
+
+Capsule::schema()->dropIfExists('organismo_integrantes');
+Capsule::schema()->create('organismo_integrantes', function($table) {
+    $table->engine = 'InnoDB';
+
+    $table->increments('id');
+    $table->boolean('activo');
+    $table->integer('organismo')->unsigned();
+    $table->integer('usuario')->unsigned();
+    $table->integer('funcionario')->unsigned();
+
+    $table->foreign('organismo')->references('id')->on('organismos');
+    $table->foreign('usuario')->references('id')->on('usuarios');
+    $table->foreign('funcionario')->references('id')->on('funcionarios');
+
+    $table->timestamps();
 });
 
 echo 'holis';
