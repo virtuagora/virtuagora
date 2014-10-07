@@ -1,0 +1,62 @@
+{% extends "master.twig" %}
+
+{% block titulo %}
+Virtuagora - Registro
+{% endblock %}
+
+{% block body %}
+<section id="expositor">
+    <div class="row">
+        <div class="medium-8 medium-centered large-6 large-centered columns">
+            <h1 class="text-center logo-font">Virtuagora</h1>
+        </div>
+    </div>
+</section>
+
+<!-- Aca viene la sesion de panel -->
+<section id="passport">
+    <div class="row">
+        <div class="medium-8 medium-centered large-6 large-centered columns">
+            <div class="panel">
+                <p><b>¡Te estabamos esperando! ¡Bienvenido de vuelta!</b></p>
+                <form data-abide action="{{ baseUrl }}/login" method="POST">
+                    <div class="row collapse">
+                        <div class="small-2 columns">
+                            <span class="prefix"><i class="fa fa-envelope"></i></span>
+                        </div>
+                        <div class="small-10 columns">
+                            <input name="email" type="email" placeholder="Direccion de email" required pattern="email">
+                            <small class="error text-center">Ingrese un mail bien formado. Ej: email@correo.com</small>
+                        </div>
+                    </div>
+                    <div class="row collapse">
+                        <div class="small-2 columns ">
+                            <span class="prefix"><i class="fa fa-lock"></i></span>
+                        </div>
+                        <div class="small-10 columns ">
+                            <input id="campo-password-registro" name="password" type="password" placeholder="Contraseña">
+                            <small class="error text-center">Obligatorio, de hasta 8 letras</small>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-8 small-centered columns ">
+                            <input type="submit" class="button expand" value="Iniciar sesión &raquo;">
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="small-8 small-centered columns text-center">
+                        <p>Si no posee una cuenta en Virtuagora...</p>
+                        <a href="#" class="button secondary round small">Crear una cuenta &raquo;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ baseUrl }}/assets/js/foundation/foundation.abide.js"></script>
+{% endblock %}
