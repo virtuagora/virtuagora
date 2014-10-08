@@ -17,7 +17,7 @@
             <h2><i class="invalido fa fa-question-circle fa-2x"></i><br>Error</h2>
             {% for error in flash['errors'] %}
             <div data-alert class="alert-box warning">
-                {{ error }}
+                <b>{{ error }}</b>
                 <!-- <a href="#" class="close">&times;</a>-->
             </div>
             {% endfor %}
