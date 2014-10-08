@@ -41,7 +41,7 @@ $app->error(function (Exception $e) use ($app) {
         $html = '<h1>FATAL ERROR!</h1>';
         $html .= '<p>The application could not run because of the following error:</p>';
         $html .= '<h2>Details</h2>';
-        $html .= sprintf('<div><strong>Type:</strong> %s</div>', get_class($exception));
+        $html .= sprintf('<div><strong>Type:</strong> %s</div>', get_class($e));
         if ($code) {
             $html .= sprintf('<div><strong>Code:</strong> %s</div>', $code);
         }
@@ -81,11 +81,11 @@ $app->post('/registro', function () use ($app) {
     $validator = new Augusthur\Validation\Validator();
     $validator
         ->add_rule('nombre', new Augusthur\Validation\Rule\NotEmpty())
-        ->add_rule('nombre', new Augusthur\Validation\Rule\Alpha())
+        ->add_rule('nombre', new Augusthur\Validation\Rule\Alpha(array(' ')))
         ->add_rule('nombre', new Augusthur\Validation\Rule\MinLength(1))
         ->add_rule('nombre', new Augusthur\Validation\Rule\MaxLength(32))
         ->add_rule('apellido', new Augusthur\Validation\Rule\NotEmpty())
-        ->add_rule('apellido', new Augusthur\Validation\Rule\Alpha())
+        ->add_rule('apellido', new Augusthur\Validation\Rule\Alpha(array(' ')))
         ->add_rule('apellido', new Augusthur\Validation\Rule\MinLength(1))
         ->add_rule('apellido', new Augusthur\Validation\Rule\MaxLength(32))
         ->add_rule('email', new Augusthur\Validation\Rule\NotEmpty())
