@@ -123,7 +123,7 @@ Capsule::schema()->create('organismo_integrantes', function($table) {
     $table->timestamps();
 });
 
-Capsule::schema()->create('moderador_grupos', function($table) {
+Capsule::schema()->create('patrulla', function($table) {
     $table->engine = 'InnoDB';
 
     $table->increments('id');
