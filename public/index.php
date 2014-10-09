@@ -68,6 +68,12 @@ $app->hook('slim.before', function () use ($app) {
                                    'username' => $app->session->username()));
 });
 
+$app->get('/usuario', function () use ($app) {
+    if (strpos($app->request->headers->get('ACCEPT'), 'application/json') !== FALSE) {
+        echo Usuario::all()->toJson();
+    }
+});
+
 // Prepare dispatcher
 $app->get('/', function () use ($app) {
     if ($app->session->exists()) {
@@ -104,16 +110,13 @@ $app->post('/registro', function () use ($app) {
     $usuario->password = password_hash($req->post('password'), PASSWORD_DEFAULT);
     $usuario->nombre = $req->post('nombre');
     $usuario->apellido = $req->post('apellido');
-    $usuario->tiene_avatar = false;
+    $usuario->imagen = false;
     $usuario->token_verificacion = bin2hex(openssl_random_pseudo_bytes(16));
     $usuario->verificado = false;
+    $usuario->prestigio = 0;
+    $usuario->suspendido = false;
+    $usuario->es_funcionario = false;
     $usuario->save();
-    $ciudadano = new Ciudadano;
-    $ciudadano->id = $usuario->id;
-    $ciudadano->descripcion = "";
-    $ciudadano->prestigio = 0;
-    $ciudadano->suspendido = false;
-    $ciudadano->save();
 
     $to = $usuario->email;
     $subject = 'Confirma tu registro en Virtuagora';
@@ -173,6 +176,13 @@ $app->post('/login', function () use ($app) {
 $app->post('/logout', function () use ($app) {
     $app->session->logout();
     $app->redirect($app->request->getRootUri().'/');
+});
+
+$app->get('/admin/organismos', function () use ($app) {
+    $organismos = Organismo::all();
+    echo Organismo::all()->toJson();
+    echo Organismo::first()->usuarios->toJson();
+    //$app->render('login-static.twig');
 });
 
 session_cache_limiter(false);
