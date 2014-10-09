@@ -65,7 +65,7 @@ $app->error(function (Exception $e) use ($app) {
 // Prepare hooks
 $app->hook('slim.before', function () use ($app) {
     $app->view()->appendData(array('baseUrl' => $app->request->getRootUri(),
-                                   'username' => $app->session->username()));
+                                   'user' => $app->session->username()));
 });
 
 $app->get('/usuario', function () use ($app) {
@@ -84,6 +84,9 @@ $app->get('/', function () use ($app) {
 });
 
 $app->post('/registro', function () use ($app) {
+    if ($app->session->exists()) {
+        $app->redirect($app->request->getRootUri());
+    }
     $validator = new Augusthur\Validation\Validator();
     $validator
         ->add_rule('nombre', new Augusthur\Validation\Rule\NotEmpty())
@@ -129,7 +132,7 @@ $app->post('/registro', function () use ($app) {
     $app->render('registro-exito.twig', array('email' => $usuario->email));
 });
 
-$app->get('/validar/:usuario/:token', function ($id, $token) use ($app) {
+$app->get('/validar/:id/:token', function ($id, $token) use ($app) {
     $validator = new Augusthur\Validation\Validator();
     $validator
         ->add_rule('id', new Augusthur\Validation\Rule\NumNatural())
@@ -154,10 +157,16 @@ $app->get('/validar/:usuario/:token', function ($id, $token) use ($app) {
 });
 
 $app->get('/login', function () use ($app) {
+    if ($app->session->exists()) {
+        $app->redirect($app->request->getRootUri());
+    }
     $app->render('login-static.twig');
 });
 
 $app->post('/login', function () use ($app) {
+    if ($app->session->exists()) {
+        $app->redirect($app->request->getRootUri());
+    }
     $validator = new Augusthur\Validation\Validator();
     $validator
         ->add_rule('email', new Augusthur\Validation\Rule\Email())
@@ -183,6 +192,19 @@ $app->get('/admin/organismos', function () use ($app) {
     echo Organismo::all()->toJson();
     echo Organismo::first()->usuarios->toJson();
     //$app->render('login-static.twig');
+});
+
+///////////////
+
+$app->get('/propuesta/:id', function ($id) use ($app) {
+    $validator = new Augusthur\Validation\Validator();
+    $validator->add_rule('id', new Augusthur\Validation\Rule\NumNatural());
+    if (!$validator->is_valid(array('id' => $id))) {
+        $app->notFound();
+    }
+    $propuesta = Propuesta::findOrFail($id);
+    $contenido = $propuesta->contenido;
+    $app->render('ver-propuesta.twig', 'propuesta' => array_merge($propuesta->toArray(), $contenido->toArray()));
 });
 
 session_cache_limiter(false);

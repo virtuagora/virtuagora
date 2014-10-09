@@ -8,7 +8,7 @@ class Propuesta extends Eloquent {
 
     public $incrementing = false;
     protected $dates = ['deleted_at'];
-    protected $visible = array('id', 'contenido');
+    protected $visible = array('id', 'contenido', 'votos_favor', 'votos_contra', 'votos_neutro');
 
     public function contenido() {
         return $this->morphOne('Contenido', 'contenido');

@@ -8,15 +8,14 @@ class SessionManager {
         if (!is_null($usuario) && password_verify($password, $usuario->password)) {
             if ($usuario->verificado) {
                 $success = true;
-                $_SESSION['userId'] = $usuario->id;
-                $_SESSION['userName'] = $usuario->nombre.' '.$usuario->apellido;
+                $_SESSION['user'] = $usuario->toArray();
             }
         }
         return $success;
     }
 
     public function logout () {
-        if (isset($_SESSION['userName'])) {
+        if (isset($_SESSION['user'])) {
             $_SESSION = array();
             if (isset($_COOKIE[session_name()])) {
                 setcookie(session_name(), '', time() - 3600);
@@ -25,16 +24,16 @@ class SessionManager {
         }
     }
 
-    public function username() {
-        if (isset($_SESSION['userName'])) {
-            return $_SESSION['userName'];
+    public function user() {
+        if (isset($_SESSION['user'])) {
+            return $_SESSION['user'];
         } else {
             return null;
         }
     }
 
     public function exists() {
-        return isset($_SESSION['userName']);
+        return isset($_SESSION['user']);
     }
 
 }

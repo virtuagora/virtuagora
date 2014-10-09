@@ -143,6 +143,9 @@ Capsule::schema()->create('propuestas', function($table) {
 
     $table->increments('id');
     $table->text('contenido');
+    $table->integer('votos_favor')->unsigned();
+    $table->integer('votos_contra')->unsigned();
+    $table->integer('votos_neutro')->unsigned();
 
     $table->timestamps();
     $table->softDeletes();
