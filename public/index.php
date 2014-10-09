@@ -65,7 +65,7 @@ $app->error(function (Exception $e) use ($app) {
 // Prepare hooks
 $app->hook('slim.before', function () use ($app) {
     $app->view()->appendData(array('baseUrl' => $app->request->getRootUri(),
-                                   'user' => $app->session->username()));
+                                   'user' => $app->session->user()));
 });
 
 $app->get('/usuario', function () use ($app) {
@@ -194,6 +194,10 @@ $app->get('/admin/organismos', function () use ($app) {
     //$app->render('login-static.twig');
 });
 
+$app->get('/admin/funcionarios/:id', function ($id) use ($app) {
+    $app->render('admin/funcionarios.twig');
+});
+
 ///////////////
 
 $app->get('/propuesta/:id', function ($id) use ($app) {
@@ -204,7 +208,7 @@ $app->get('/propuesta/:id', function ($id) use ($app) {
     }
     $propuesta = Propuesta::findOrFail($id);
     $contenido = $propuesta->contenido;
-    $app->render('ver-propuesta.twig', 'propuesta' => array_merge($propuesta->toArray(), $contenido->toArray()));
+    $app->render('ver-propuesta.twig', array('propuesta' => array_merge($propuesta->toArray(), $contenido->toArray())));
 });
 
 session_cache_limiter(false);
