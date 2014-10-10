@@ -8,7 +8,7 @@ class Ciudadano extends Eloquent {
 
     protected $dates = ['deleted_at'];
     public $incrementing = false;
-    protected $hidden = array('password',  'tiene_avatar', 'token_verificacion');
+    protected $hidden = array('suspendido',  'fecha_certificado');
 
     public function usuario() {
         return $this->belongsTo('Usuario', 'id');

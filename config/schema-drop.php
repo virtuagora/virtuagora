@@ -15,12 +15,13 @@ $capsule->addConnection(array(
 ));
 $capsule->setAsGlobal();
 
+Capsule::schema()->dropIfExists('propuesta_usuario');
+Capsule::schema()->dropIfExists('propuestas');
+Capsule::schema()->dropIfExists('contenidos');
 Capsule::schema()->dropIfExists('moderadores');
 Capsule::schema()->dropIfExists('patrullas');
-Capsule::schema()->dropIfExists('organismo_integrantes');
-Capsule::schema()->dropIfExists('organismos');
 Capsule::schema()->dropIfExists('contactos');
 Capsule::schema()->dropIfExists('usuario_datos');
-Capsule::schema()->dropIfExists('ciudadanos');
 Capsule::schema()->dropIfExists('funcionarios');
+Capsule::schema()->dropIfExists('organismos');
 Capsule::schema()->dropIfExists('usuarios');

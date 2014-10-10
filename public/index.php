@@ -41,7 +41,7 @@ $app->error(function (Exception $e) use ($app) {
         $html = '<h1>FATAL ERROR!</h1>';
         $html .= '<p>The application could not run because of the following error:</p>';
         $html .= '<h2>Details</h2>';
-        $html .= sprintf('<div><strong>Type:</strong> %s</div>', get_class($exception));
+        $html .= sprintf('<div><strong>Type:</strong> %s</div>', get_class($e));
         if ($code) {
             $html .= sprintf('<div><strong>Code:</strong> %s</div>', $code);
         }
@@ -65,7 +65,13 @@ $app->error(function (Exception $e) use ($app) {
 // Prepare hooks
 $app->hook('slim.before', function () use ($app) {
     $app->view()->appendData(array('baseUrl' => $app->request->getRootUri(),
-                                   'username' => $app->session->username()));
+                                   'user' => $app->session->user()));
+});
+
+$app->get('/usuario', function () use ($app) {
+    if (strpos($app->request->headers->get('ACCEPT'), 'application/json') !== FALSE) {
+        echo Usuario::all()->toJson();
+    }
 });
 
 // Prepare dispatcher
@@ -78,14 +84,17 @@ $app->get('/', function () use ($app) {
 });
 
 $app->post('/registro', function () use ($app) {
+    if ($app->session->exists()) {
+        $app->redirect($app->request->getRootUri());
+    }
     $validator = new Augusthur\Validation\Validator();
     $validator
         ->add_rule('nombre', new Augusthur\Validation\Rule\NotEmpty())
-        ->add_rule('nombre', new Augusthur\Validation\Rule\Alpha())
+        ->add_rule('nombre', new Augusthur\Validation\Rule\Alpha(array(' ')))
         ->add_rule('nombre', new Augusthur\Validation\Rule\MinLength(1))
         ->add_rule('nombre', new Augusthur\Validation\Rule\MaxLength(32))
         ->add_rule('apellido', new Augusthur\Validation\Rule\NotEmpty())
-        ->add_rule('apellido', new Augusthur\Validation\Rule\Alpha())
+        ->add_rule('apellido', new Augusthur\Validation\Rule\Alpha(array(' ')))
         ->add_rule('apellido', new Augusthur\Validation\Rule\MinLength(1))
         ->add_rule('apellido', new Augusthur\Validation\Rule\MaxLength(32))
         ->add_rule('email', new Augusthur\Validation\Rule\NotEmpty())
@@ -104,16 +113,13 @@ $app->post('/registro', function () use ($app) {
     $usuario->password = password_hash($req->post('password'), PASSWORD_DEFAULT);
     $usuario->nombre = $req->post('nombre');
     $usuario->apellido = $req->post('apellido');
-    $usuario->tiene_avatar = false;
+    $usuario->imagen = false;
     $usuario->token_verificacion = bin2hex(openssl_random_pseudo_bytes(16));
     $usuario->verificado = false;
+    $usuario->prestigio = 0;
+    $usuario->suspendido = false;
+    $usuario->es_funcionario = false;
     $usuario->save();
-    $ciudadano = new Ciudadano;
-    $ciudadano->id = $usuario->id;
-    $ciudadano->descripcion = "";
-    $ciudadano->prestigio = 0;
-    $ciudadano->suspendido = false;
-    $ciudadano->save();
 
     $to = $usuario->email;
     $subject = 'Confirma tu registro en Virtuagora';
@@ -126,7 +132,7 @@ $app->post('/registro', function () use ($app) {
     $app->render('registro-exito.twig', array('email' => $usuario->email));
 });
 
-$app->get('/validar/:usuario/:token', function ($id, $token) use ($app) {
+$app->get('/validar/:id/:token', function ($id, $token) use ($app) {
     $validator = new Augusthur\Validation\Validator();
     $validator
         ->add_rule('id', new Augusthur\Validation\Rule\NumNatural())
@@ -151,10 +157,16 @@ $app->get('/validar/:usuario/:token', function ($id, $token) use ($app) {
 });
 
 $app->get('/login', function () use ($app) {
+    if ($app->session->exists()) {
+        $app->redirect($app->request->getRootUri());
+    }
     $app->render('login-static.twig');
 });
 
 $app->post('/login', function () use ($app) {
+    if ($app->session->exists()) {
+        $app->redirect($app->request->getRootUri());
+    }
     $validator = new Augusthur\Validation\Validator();
     $validator
         ->add_rule('email', new Augusthur\Validation\Rule\Email())
@@ -173,6 +185,30 @@ $app->post('/login', function () use ($app) {
 $app->post('/logout', function () use ($app) {
     $app->session->logout();
     $app->redirect($app->request->getRootUri().'/');
+});
+
+$app->get('/admin/organismos', function () use ($app) {
+    $organismos = Organismo::all();
+    echo Organismo::all()->toJson();
+    echo Organismo::first()->usuarios->toJson();
+    //$app->render('login-static.twig');
+});
+
+$app->get('/admin/funcionarios/:id', function ($id) use ($app) {
+    $app->render('admin/funcionarios.twig');
+});
+
+///////////////
+
+$app->get('/propuesta/:id', function ($id) use ($app) {
+    $validator = new Augusthur\Validation\Validator();
+    $validator->add_rule('id', new Augusthur\Validation\Rule\NumNatural());
+    if (!$validator->is_valid(array('id' => $id))) {
+        $app->notFound();
+    }
+    $propuesta = Propuesta::findOrFail($id);
+    $contenido = $propuesta->contenido;
+    $app->render('ver-propuesta.twig', array('propuesta' => array_merge($propuesta->toArray(), $contenido->toArray())));
 });
 
 session_cache_limiter(false);
