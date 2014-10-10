@@ -2,9 +2,9 @@
 
 #barra-nav {
     .logo {
-        font-size: 18px;
+        font-size: remcalc(18);
     }
-    .top-bar-section .dropdown li .button{
+    .top-bar-section .dropdown li .button {
         //line-height: $topbar-button-top;
         //padding: $topbar-link-padding;
     }
@@ -16,6 +16,9 @@
         height: $topbar-height;
         width: auto;
         vertical-align: top;
+    }
+    .top-bar .name h1 i {
+        vertical-align: middle;
     }
 }
 
@@ -31,19 +34,19 @@
     }
     p {
         font-size: rem-calc(13);
-		color: #FFFFFF;
+        color: #FFFFFF;
     }
     h1 {
         padding: 20px 0px 20px;
         font-size: rem-calc(60);
         margin: auto;
     }
-	h2 {
-		color: #FFFFFF;
-		small {
-			color: #bebebe;
-		}
-	}
+    h2 {
+        color: #FFFFFF;
+        small {
+            color: #bebebe;
+        }
+    }
     .profile-card img {
         border-radius: 5%;
         border: 1px solid #FFFFFF;
@@ -111,3 +114,86 @@ footer {
     }
 }
 
+#wide-panel {
+    .extremos {
+        background: #FFFFFF;
+        border-left: 1px solid #dbdbdb;
+        border-right: 1px solid #dbdbdb;
+        padding: 10px 20px;
+    }
+    .final {
+        border-bottom: 1px solid #dbdbdb;
+    }
+    .panel-rta-organismo{
+        @include panel();
+        background: #FFFFFF;
+        padding: 5px 10px;
+    }
+    .org-descripcion p {
+        font-size: rem-calc(11);
+        color: #6c6c6c;
+    }
+    .opciones{
+        .button.tiny {
+            margin: 0;
+            padding: rem-calc(6) rem-calc(18);
+        }
+    }
+
+}
+
+#vista-contenido {
+    .autor img {
+        border-radius: 6px;
+        border: 1px solid #8e97bf;
+        margin-right: 6px;
+        width: 50px;
+        height: auto;
+    }
+    .vcard {
+        width: 100%;
+        i t{
+            width: 28px;
+            text-align: center;
+        }
+        .puntos i {
+            color: #eaa70f;
+        }
+    }
+    .texto p {
+        font-size: rem-calc(14);
+    }
+
+    #propuesta-resultado {
+        .barchart {
+            background-color: #a3dbe3;
+            height: 1em;
+            padding: 0em;
+            margin: 0.625em 0;
+            width: 100%; }
+
+        .barchart .meter {
+            background: #2daebf;
+            height: 100%;
+            display: block; }
+
+        table.chart {
+            width: 100%;
+            border-width: 0;
+            margin: 5px 0; }
+
+        table tr.even, table tr.alt, table tr:nth-of-type(even) {
+            background: #FFF; }
+
+        td.chart {
+            font-size: 14px;
+            margin-bottom: 50px;
+            padding: 0 0 20px 0; }
+
+        p.percentage {
+            font-size: 30px !important;
+            color: #6f6f6f;
+            font-weight: 300;
+            margin-bottom: 17px;}
+    }
+}
