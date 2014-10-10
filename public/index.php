@@ -195,7 +195,9 @@ $app->get('/admin/organismos', function () use ($app) {
 });
 
 $app->get('/admin/funcionarios/:id', function ($id) use ($app) {
-    $app->render('admin/funcionarios.twig');
+    $organismo = Organismo::findOrFail($id);
+    $app->render('admin/funcionarios.twig', array('organismo' => $organismo->toArray(),
+                                                  'funcionarios' => $organismo->usuarios->toArray()));
 });
 
 ///////////////

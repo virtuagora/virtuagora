@@ -5,5 +5,78 @@ Virtuagora - Portal
 {% endblock %}
 
 {% block body %}
-<table><tr><td>lala</td></tr></table>
+<table>
+    <thead>
+        <tr>
+            <th>Funcionario actual</th>
+            <th>Nuevo funcionario</th>
+            <th>Cambiar</th>
+        </tr>
+    </thead><tbody id="plantel">
+    </tbody>
+</table>
+<div id="nuevo">
+<a id="bt-cambiar" class="button tiny">Poner a marta</a>
+<a id="bt-vacante" class="button tiny">Dejar vacante</a>
+<a id="bt-cancelar" class="button tiny">Dejar como está</a>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" charset="utf-8">
+var cupos_tot = {{ organismo['cupo'] }};
+var cupos_ocu = {{ organismo['funcionarios_count'] }};
+var funcionarios = {{ funcionarios|json_encode|raw }};
+
+var cambiando = -1;
+$(document).ready(function() {
+    $('#nuevo').hide();
+    for (var i=0; i<cupos_ocu; i++) {
+        var newFuncionario = '</tr><tr><td id="actual-'+i+'">'+funcionarios[i]['nombre']+' '+
+        funcionarios[i]['apellido']+'</td><td id="nuevo-'+i+'">- sin cambio -</td><td><a id="cambiar-'+
+        i+'" class="button tiny cambiar">Cambiar</a></td></tr>';
+        $(newFuncionario).appendTo("#plantel");
+        $('#cambiar-'+i).data('id', i);
+    }
+    for (var i=cupos_ocu; i<cupos_tot; i++) {
+        var newFuncionario = '</tr><tr><td id="actual-'+i+'">- vacante -</td><td id="nuevo-'+i+
+            '">- sin cambios -</td><td><a id="cambiar-'+i+'" class="button tiny cambiar">'+
+            'Cambiar</a></td></tr>';
+        $(newFuncionario).appendTo("#plantel");
+        $('#cambiar-'+i).data('id', i);
+    }
+    $('.cambiar').click(function() {
+        $('.disabled').each(function() {
+            $(this).removeClass('disabled');
+            $(this).text('Cambiar');
+        });
+        $(this).removeClass('cambiar');
+        $(this).addClass('disabled');
+        $(this).text('Cambiando');
+        cambiando = $(this).data('id');
+        $('#nuevo').show();
+    });
+    $('#bt-cambiar').click(function() {
+        $('#nuevo-'+cambiando).text('Martita');
+        $('#cambiar-'+cambiando).removeClass('disabled');
+        $('#cambiar-'+cambiando).text('Cambiar');
+        cambiando = -1;
+        $('#nuevo').hide();
+    });
+    $('#bt-vacante').click(function() {
+        $('#nuevo-'+cambiando).text('- vacante -');
+        $('#cambiar-'+cambiando).removeClass('disabled');
+        $('#cambiar-'+cambiando).text('Cambiar');
+        cambiando = -1;
+        $('#nuevo').hide();
+    });
+    $('#bt-cancelar').click(function() {
+        $('#nuevo-'+cambiando).text('- sin cambio -');
+        $('#cambiar-'+cambiando).removeClass('disabled');
+        $('#cambiar-'+cambiando).text('Cambiar');
+        cambiando = -1;
+        $('#nuevo').hide();
+    });
+});
+</script>
 {% endblock %}
