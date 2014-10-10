@@ -4,14 +4,13 @@
             <p class="welcome"> Entrar en <b class = "logo-font">Virtuagora</b></p>
                 <p><i class="success fa fa-smile-o"></i><br />
             Estabamos esperando tu regreso </p>
-            <form data-abide action="{{ baseUrl }}/login" method="POST">
+            <form action="{{ baseUrl }}/login" method="POST">
                 <div class="row collapse">
                     <div class="small-2 columns">
                         <span class="prefix"><i class="fa fa-envelope"></i></span>
                     </div>
                     <div class="small-10 columns">
-                        <input name="email" type="email" placeholder="Direccion de email" required>
-                        <small class="error text-center">Campo obligatorio</small>
+                        <input name="email" type="email" placeholder="Direccion de email">
                     </div>
                 </div>
                 <div class="row collapse">
@@ -20,7 +19,6 @@
                     </div>
                     <div class="small-10 columns ">
                         <input id="campo-password-login" name="password" type="password" placeholder="Contraseña">
-                        <small class="error text-center">Campo obligatorio</small>
                     </div>
                 </div>
 
