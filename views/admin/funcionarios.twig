@@ -16,9 +16,17 @@ Virtuagora - Portal
     </tbody>
 </table>
 <div id="nuevo">
-<a id="bt-cambiar" class="button tiny">Poner a marta</a>
-<a id="bt-vacante" class="button tiny">Dejar vacante</a>
-<a id="bt-cancelar" class="button tiny">Dejar como está</a>
+    <ul id="resultados"></ul>
+<a id="bt-cambiar" class="button tiny">Buscar candidatos</a>
+<a id="bt-vacante" class="button tiny">Dejar el puesto vacante</a>
+<a id="bt-cancelar" class="button tiny">Mantener funcionario actual</a>
+</div>
+<div id="finalizar">
+    <form method="POST" action="">
+        <input type="hidden" id="entrantes" name="entrantes">
+        <input type="hidden" id="salientes" name="salientes">
+        <input type="submit" id="bt-aplicar" class="button tiny" value="Aplicar cambios">
+    </form>
 </div>
 {% endblock %}
 
@@ -28,22 +36,28 @@ var cupos_tot = {{ organismo['cupo'] }};
 var cupos_ocu = {{ organismo['funcionarios_count'] }};
 var funcionarios = {{ funcionarios|json_encode|raw }};
 
+var func_act = new Array();
+var func_new = new Array();
 var cambiando = -1;
 $(document).ready(function() {
     $('#nuevo').hide();
     for (var i=0; i<cupos_ocu; i++) {
-        var newFuncionario = '</tr><tr><td id="actual-'+i+'">'+funcionarios[i]['nombre']+' '+
-        funcionarios[i]['apellido']+'</td><td id="nuevo-'+i+'">- sin cambio -</td><td><a id="cambiar-'+
-        i+'" class="button tiny cambiar">Cambiar</a></td></tr>';
+        var newFuncionario = '<tr><td id="actual-'+i+'">'+funcionarios[i]['nombre']+' '+
+            funcionarios[i]['apellido']+'</td><td id="nuevo-'+i+'">- sin cambio -</td><td><a id="cambiar-'+
+            i+'" class="button tiny cambiar">Cambiar</a></td></tr>';
         $(newFuncionario).appendTo("#plantel");
         $('#cambiar-'+i).data('id', i);
+        func_act[i] = funcionarios[i]['id'];
+        func_new[i] = -1;
     }
     for (var i=cupos_ocu; i<cupos_tot; i++) {
-        var newFuncionario = '</tr><tr><td id="actual-'+i+'">- vacante -</td><td id="nuevo-'+i+
-            '">- sin cambios -</td><td><a id="cambiar-'+i+'" class="button tiny cambiar">'+
+        var newFuncionario = '<tr><td id="actual-'+i+'">- vacante -</td><td id="nuevo-'+
+            i+'">- sin cambio -</td><td><a id="cambiar-'+i+'" class="button tiny cambiar">'+
             'Cambiar</a></td></tr>';
         $(newFuncionario).appendTo("#plantel");
         $('#cambiar-'+i).data('id', i);
+        func_act[i] = 0;
+        func_new[i] = -1;
     }
     $('.cambiar').click(function() {
         $('.disabled').each(function() {
@@ -57,26 +71,96 @@ $(document).ready(function() {
         $('#nuevo').show();
     });
     $('#bt-cambiar').click(function() {
-        $('#nuevo-'+cambiando).text('Martita');
-        $('#cambiar-'+cambiando).removeClass('disabled');
-        $('#cambiar-'+cambiando).text('Cambiar');
-        cambiando = -1;
-        $('#nuevo').hide();
+        enviarSolicitud();
     });
     $('#bt-vacante').click(function() {
-        $('#nuevo-'+cambiando).text('- vacante -');
-        $('#cambiar-'+cambiando).removeClass('disabled');
-        $('#cambiar-'+cambiando).text('Cambiar');
-        cambiando = -1;
-        $('#nuevo').hide();
+        var nuevoId;
+        var nuevoNombre;
+        if (func_act[cambiando] == 0) {
+            nuevoNombre ='- sin cambio -';
+            nuevoId = -1;
+        } else {
+            nuevoNombre = '- vacante -';
+            nuevoId = 0;
+        }
+        efectuarIntercambio(nuevoId, nuevoNombre)
     });
     $('#bt-cancelar').click(function() {
-        $('#nuevo-'+cambiando).text('- sin cambio -');
-        $('#cambiar-'+cambiando).removeClass('disabled');
-        $('#cambiar-'+cambiando).text('Cambiar');
-        cambiando = -1;
-        $('#nuevo').hide();
+        efectuarIntercambio(-1, '- sin cambio -')
+    });
+    $('#bt-aplicar').click(function() {
+        var func_out = new Array();
+        for (var i=0; i<cupos_ocu; i++) {
+            if (func_new[i] >= 0) {
+                func_out.push(funcionarios[i]['id']);
+            }
+        }
+        var func_in = new Array();
+        for (var i=0; i<cupos_tot; i++) {
+            if (func_new[i] > 0) {
+                func_in.push(func_new[i]);
+            }
+        }
     });
 });
+
+function enviarSolicitud() {
+    var request = $.ajax({
+        url: '{{ baseUrl }}/usuario',
+        cache: false,
+        dataType: "json"
+    });
+    request.done(function(resultados) {
+        for (var i=0; i<resultados.length; i++) {
+            var candidato = $("<li>");
+            candidato.text(resultados[i].nombre+' '+resultados[i].apellido+' ');
+            candidato.appendTo('#resultados');
+            var boton = $("<a>", {'class': 'tiny button',
+                                  'text': 'Elegir',
+                                  'click': function() {cambiarBanca($(this).data('id'), $(this).data('nombre'));}
+                                 });
+            boton.appendTo(candidato);
+            boton.data('id', resultados[i].id);
+            boton.data('nombre', resultados[i].nombre+' '+resultados[i].apellido);
+        }
+    });
+    request.fail(function(jqXHR, textStatus) {
+        alert("Request failed: " + textStatus);
+    });
+}
+
+function cambiarBanca(nuevoId, nuevoNombre) {
+    if ($.inArray(nuevoId, func_act.concat(func_new)) != -1) {
+        alert('Ese funcionario ya está asociado.');
+    } else {
+        func_new[cambiando] = nuevoId;
+        efectuarIntercambio(nuevoId, nuevoNombre)
+    }
+}
+
+function efectuarIntercambio(nuevoId, nuevoNombre) {
+    $('#nuevo-'+cambiando).text(nuevoNombre);
+    $('#cambiar-'+cambiando).removeClass('disabled');
+    $('#cambiar-'+cambiando).text('Cambiar');
+    func_new[cambiando] = nuevoId;
+    cambiando = -1;
+    $('#resultados').empty();
+    $('#nuevo').hide();
+
+    var func_out = new Array();
+    for (var i=0; i<cupos_ocu; i++) {
+        if (func_new[i] >= 0) {
+            func_out.push(funcionarios[i]['id']);
+        }
+    }
+    var func_in = new Array();
+    for (var i=0; i<cupos_tot; i++) {
+        if (func_new[i] > 0) {
+            func_in.push(func_new[i]);
+        }
+    }
+    $('#entrantes').val(func_in.join());
+    $('#salientes').val(func_out.join());
+}
 </script>
 {% endblock %}

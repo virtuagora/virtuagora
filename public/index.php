@@ -116,7 +116,7 @@ $app->post('/registro', function () use ($app) {
     $usuario->imagen = false;
     $usuario->token_verificacion = bin2hex(openssl_random_pseudo_bytes(16));
     $usuario->verificado = false;
-    $usuario->prestigio = 0;
+    $usuario->puntos = 0;
     $usuario->suspendido = false;
     $usuario->es_funcionario = false;
     $usuario->save();
@@ -198,6 +198,13 @@ $app->get('/admin/funcionarios/:id', function ($id) use ($app) {
     $organismo = Organismo::findOrFail($id);
     $app->render('admin/funcionarios.twig', array('organismo' => $organismo->toArray(),
                                                   'funcionarios' => $organismo->usuarios->toArray()));
+});
+
+$app->post('/admin/funcionarios/:id', function ($id) use ($app) {
+    $organismo = Organismo::findOrFail($id);
+    $req = $app->request;
+    echo $req->post('entrantes') . '<br>';
+    echo $req->post('salientes') . '<br>';
 });
 
 ///////////////

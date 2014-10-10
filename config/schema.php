@@ -26,7 +26,6 @@ Capsule::schema()->create('usuarios', function($table) {
     $table->boolean('imagen');
     $table->string('token_verificacion');
     $table->boolean('verificado');
-    $table->boolean('prestigio');
     $table->integer('puntos');
     $table->boolean('suspendido');
     $table->boolean('es_funcionario');
