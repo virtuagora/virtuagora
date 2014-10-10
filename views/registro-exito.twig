@@ -5,27 +5,36 @@ Virtuagora - ¡Registro exitoso!
 {% endblock %}
 
 {% block body %}
-<section id="expositor">
-    <div class="row">
-        <div class="medium-8 medium-centered large-6 large-centered columns">
-            <h1 class="text-center logo-font">Virtuagora</h1>
-        </div>
-    </div>
-</section>
-
+<p></p>
 <section id="passport">
     <div class="row">
         <div class="medium-8 medium-centered large-6 large-centered columns">
             <div class="panel text-center">
-                <i class="success fa fa-check-circle fa-5x"></i>
-                <p class="welcome">¡Éxito!<br /> Bienvenido a <b class = "logo-font">Virtuagora</b></p>
-                <p>Por ultimo, no te olvides de  verificar que el email <b>{{ email }}</b> es efectivamente tuyo.</p>
-                <p>Para eso, entra a tu email y accede al link que hemos enviado en un correo.</p>
-
-                <p><b>¡Ya estas listo para comenzar!</b></p>
+                <i class="success fa fa-envelope-o"></i>
+                <p class="welcome">¡Gracias por registrarte!<br /> Solo falta un paso...</p>
+                <p>No te olvides de  verificar que el email <b>{{ email }}</b> es efectivamente tuyo.<br />
+                    Para eso, entra a tu email y accede al link que hemos enviado en un correo.</p>
+                <p><b>¡Una vez hecho este ultimo paso, ya estaras listo para comenzar!</b></p>
                 <div class="row">
-                    <div class="small-10 small-centered columns text-center">
-                        <a href="#" class="button  round success small">¡Comenzar a participar! &raquo</a>
+                    <div class="small-12 small-centered columns text-center">
+                        <div class="mailShowcase 4-up">
+                            <a href="http://www.outlook.com/" class="item">
+                                <i class="fa fa-windows"></i>
+                                <label>Outlook</label>
+                            </a>
+                            <a href="http://www.gmail.com/" class="item">
+                                <i class="fa fa-google"></i>
+                                <label>Gmail</label>
+                            </a>
+                            <a href="http://www.yahoo.com/" class="item">
+                                <i class="fa fa-yahoo"></i>
+                                <label>Yahoo</label>
+                            </a>
+                            <a class="item">
+                                <i class="fa fa-reply"></i>
+                                <label>Volver</label>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
