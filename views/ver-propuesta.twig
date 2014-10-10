@@ -1,0 +1,174 @@
+{% set total_votos = propuesta.votos_favor + propuesta.votos_neutro + propuesta.votos_contra %}
+{% if total_votos > 0 %}
+{% set porc_favor = ( propuesta.votos_favor / ( total_votos ))*100 %}
+{% set porc_neutro = ( propuesta.votos_neutro / ( total_votos ))*100 %}
+{% set porc_contra = ( propuesta.votos_contra / ( total_votos ))*100 %}
+{% endif %}
+
+{% extends "master.twig" %}
+
+{% block titulo %}
+Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ propuesta.autor.apellido }}
+{% endblock %}
+
+
+{% block body %}
+<section id="wide-panel">
+    <div class="row">
+        <div class="large-10 large-centered columns">
+            <div class="extremos">
+                <!-- CONTENIDO! -->
+                <!-- Titulo -->
+                <div class="row">
+                    <div class="large-12 large-centered columns">
+                        <h2>
+                            <a href="#"><i class="fa fa-arrow-circle-left fa-border"></i></a>
+                            <i class="fa fa-bullhorn fa-fw"></i>&nbsp;<b>Ver propuesta #{{ propuesta.id }}</b>
+                        </h2>
+                    </div>
+                    <hr>
+                </div>
+                <!-- Fila c/ titulo y otros datos! -->
+                <section id="vista-contenido">
+                    <div class="row">
+                        <div class="large-10 large-centered columns">
+                            <div class="text-center">
+                                <h1><b>Lorem ipsum dolor sit amet, consectetur?</b></h1>
+                                <h4 class="subheader"><small>Creado el {{ "now"|date("m/d/Y") }}</small></h1>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="large-6 large-centered columns">
+                            <h6 class="subheader text-center"><b>Autor de la propuesta</b></h6>
+                            <ul class="vcard">
+                                <li clearfix>
+                                    <div class="left autor">
+                                        <a href='#'><img src="http://lorempixel.com/128/128/people" alt="profile image"></a>
+                                    </div>
+                                </li>
+                                <li class="nombre">
+                                    <span><i class="fa fa-user fa-border"></i></span>&nbsp;
+                                    <a href='#'><b><span>{{ propuesta.autor.nombre }}</span>
+                                        <span>{{ propuesta.autor.apellido|upper }}</span></b></a>
+                                </li>
+                                <li class="puntos">
+                                    <span><i class="fa fa-trophy fa-border"></i></span>&nbsp;
+                                    <span>{{ propuesta.autor.puntos }} </span>
+                                    <span>puntitos!</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="large-10 large-centered columns">
+                            <div class="texto text-justify">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum blanditiis odio ducimus, quas quod officiis ipsum quibusdam laboriosam provident accusantium cumque magnam odit quidem suscipit natus harum dolores eveniet exercitationem.</p>
+                                <p>Aliquid incidunt reprehenderit recusandae similique eum eveniet. Inventore ad sit debitis suscipit ut quisquam iure quod nesciunt a sunt amet vel aliquam eum reiciendis dignissimos repellat, iste pariatur veritatis nostrum.</p>
+                                <p>Incidunt impedit veniam omnis enim modi dolor, ipsa, consequatur voluptates sed ex molestiae ea maxime fugiat reiciendis sint facilis. Rerum odit veritatis, eius dignissimos nihil nulla dicta voluptate est dolores.</p>
+                                <p>Unde nam tenetur id voluptatum quibusdam hic, quasi incidunt velit maiores, dolorem, sint ducimus aut consectetur dignissimos, nobis! Omnis facere deserunt laudantium nisi architecto quae labore doloribus perspiciatis fuga sed.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="large-6 large-centered columns">
+                            <h4 class="subheader text-center"><b>¿Que te parecio la propuesta?</b></h4>
+                            <ul class="button-group even-3" >
+                                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Me gusta mucho!"><a href="#" class="button secondary small"><i class="fa fa-thumbs-o-up fa-fw fa-2x"></i></a></span></li>
+                                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Tengo mis dudas aún.."><a href="#" class="button secondary small"><i class="fa fa-meh-o fa-2x"></i></a></span></li>
+                                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="No la apruebo"><a href="#" class="button secondary small"><i class="fa fa-thumbs-o-down fa-2x"></i></a></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="large-4 large-centered columns">
+                            <a href="#" class="button expand warning tiny" onclick="$(this).showResultadosPropuesta([{{ porc_favor }},{{ porc_neutro }},{{ porc_contra }}], 100)"><i class="fa fa-bar-chart fa-fw fa-lg"></i>&nbsp;Ver resultados parciales</a>
+                        </div>
+                    </div>
+                    <!-- Resultados propuesta - div oculto-->
+                    <div id="propuesta-resultado" style="display: none;" class="row">
+                        {% if total_votos > 0 %}
+                        <div class="row">
+                            <div class="large-10 large-centered columns">
+                                <div class="clearfix">
+                                    <div class="right">
+                                        <small>Cerrar</small>
+                                        <a href="#" onclick="$(this).hideResultadosPropuesta()"><i class="fa fa-times fa-fw fa-lg"></i></a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-10 large-centered columns">
+                                <table class="chart">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <p id="porc_favor" class="percentage"></p>
+                                            </td>
+                                            <td class="chart">
+                                                {{ propuesta.votos_favor }} persona{{ (propuesta.votos_favor > 1) or (propuesta.votos_favor == 0) ? 's' : '' }} aprueba{{ (propuesta.votos_favor > 1) or (propuesta.votos_favor == 0) ? 'n' : '' }} la propuesta
+                                                <div class="barchart">
+                                                    <span id="barra_favor" class="meter" ></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p id="porc_neutro" class="percentage"></p>
+                                            </td>
+                                            <td class="chart">
+                                                {{ propuesta.votos_neutro }} persona{{ (propuesta.votos_neutro > 1) or (propuesta.votos_neutro == 0) ? 's' : '' }} no tiene{{ (propuesta.votos_neutro > 1) or (propuesta.votos_neutro == 0) ? 'n' : '' }} posicion sobre la propuesta
+                                                <div class="barchart">
+                                                    <span id="barra_neutro" class="meter" ></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p id="porc_contra" class="percentage"></p>
+                                            </td>
+                                            <td class="chart">
+                                                {{ propuesta.votos_contra }} persona{{ (propuesta.votos_contra > 1) or (propuesta.votos_contra == 0) ? 's' : '' }} no aprueba{{ (propuesta.votos_contra > 1) or (propuesta.votos_contra == 0) ? 'n' : '' }} la propuesta
+                                                <div class="barchart">
+                                                    <span id="barra_contra" class="meter" ></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="row">
+                            <div class="large-10 large-centered columns">
+                                <div class="text-center">
+                                    <h3>¡Nadie ha participado aún!</h3>
+                                    <h3><small>Se el primero dejando una opinion al respecto <i class="fa fa-smile-o fa-fw fa-lg"></i></small></h3>
+                                </div>
+
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </section>
+                <hr>
+                <!-- Comentarios -->
+                <div class="row">
+                    <div class="large-6 large-centered columns">
+                        <a href="#" class="button expand"><i class="fa fa-comments fa-fw fa-lg"></i>&nbsp;Dejar un comentario</a>
+                    </div>
+                </div>
+            </div>
+            <div class="extremos final"></div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ baseUrl }}/assets/js/foundation/foundation.tooltip.js"></script>
+<script src="{{ baseUrl }}/assets/js/underscore/underscore-min.js"></script>
+{% endblock %}
