@@ -115,7 +115,7 @@ Capsule::schema()->create('moderadores', function($table) {
 
     $table->primary('id');
     $table->foreign('id')->references('id')->on('usuarios');
-    $table->foreign('patrulla_id')->references('id')->on('patrulla');
+    $table->foreign('patrulla_id')->references('id')->on('patrullas');
 
     $table->timestamps();
     $table->softDeletes();
