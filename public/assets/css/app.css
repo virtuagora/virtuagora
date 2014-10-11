@@ -14253,6 +14253,21 @@ footer .panel a {
 }
 
 /* line 152, ../scss/_layout.scss */
+#alta-contenido input[name="titulo"] {
+  font-size: 1.0625rem;
+  height: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+/* line 159, ../scss/_layout.scss */
+#alta-contenido input[name="tags"] {
+  font-size: 0.6875rem;
+  height: 1.5625rem;
+  font-weight: bold;
+}
+
+/* line 167, ../scss/_layout.scss */
 #vista-contenido .autor img {
   border-radius: 6px;
   border: 1px solid #8e97bf;
@@ -14260,24 +14275,24 @@ footer .panel a {
   width: 50px;
   height: auto;
 }
-/* line 159, ../scss/_layout.scss */
+/* line 174, ../scss/_layout.scss */
 #vista-contenido .vcard {
   width: 100%;
 }
-/* line 161, ../scss/_layout.scss */
+/* line 176, ../scss/_layout.scss */
 #vista-contenido .vcard i t {
   width: 28px;
   text-align: center;
 }
-/* line 165, ../scss/_layout.scss */
+/* line 180, ../scss/_layout.scss */
 #vista-contenido .vcard .puntos i {
   color: #eaa70f;
 }
-/* line 169, ../scss/_layout.scss */
+/* line 184, ../scss/_layout.scss */
 #vista-contenido .texto p {
   font-size: 0.875rem;
 }
-/* line 174, ../scss/_layout.scss */
+/* line 189, ../scss/_layout.scss */
 #vista-contenido #propuesta-resultado .barchart {
   background-color: #a3dbe3;
   height: 1em;
@@ -14285,29 +14300,29 @@ footer .panel a {
   margin: 0.625em 0;
   width: 100%;
 }
-/* line 181, ../scss/_layout.scss */
+/* line 196, ../scss/_layout.scss */
 #vista-contenido #propuesta-resultado .barchart .meter {
   background: #2daebf;
   height: 100%;
   display: block;
 }
-/* line 186, ../scss/_layout.scss */
+/* line 201, ../scss/_layout.scss */
 #vista-contenido #propuesta-resultado table.chart {
   width: 100%;
   border-width: 0;
   margin: 5px 0;
 }
-/* line 191, ../scss/_layout.scss */
+/* line 206, ../scss/_layout.scss */
 #vista-contenido #propuesta-resultado table tr.even, #vista-contenido #propuesta-resultado table tr.alt, #vista-contenido #propuesta-resultado table tr:nth-of-type(even) {
   background: #FFF;
 }
-/* line 194, ../scss/_layout.scss */
+/* line 209, ../scss/_layout.scss */
 #vista-contenido #propuesta-resultado td.chart {
   font-size: 14px;
   margin-bottom: 50px;
   padding: 0 0 20px 0;
 }
-/* line 199, ../scss/_layout.scss */
+/* line 214, ../scss/_layout.scss */
 #vista-contenido #propuesta-resultado p.percentage {
   font-size: 30px !important;
   color: #6f6f6f;

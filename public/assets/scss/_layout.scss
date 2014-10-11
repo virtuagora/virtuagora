@@ -148,6 +148,21 @@ footer {
 
 }
 
+#alta-contenido {
+    input[name="titulo"] {
+        font-size: rem-calc(17);
+        height: rem-calc(40);
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    input[name="tags"] {
+        font-size: rem-calc(11);
+        height: rem-calc(25);
+        font-weight: bold;
+    }
+}
+
 #vista-contenido {
     .autor img {
         border-radius: 6px;
