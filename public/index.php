@@ -242,6 +242,9 @@ $app->post('/admin/funcionarios/:id', function ($id) use ($app) {
 ///////////////
 
 $app->get('/crear/propuesta', function () use ($app) {
+    if (!$app->session->hasRole('fnc')) {
+        throw new BearableException('No tiene permiso para realizar esta acción', 403);
+    }
     $app->render('alta-propuesta.twig');
 });
 

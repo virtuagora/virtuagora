@@ -36,4 +36,18 @@ class SessionManager {
         return isset($_SESSION['user']);
     }
 
+    public function hasRole($role) {
+        if (!isset($_SESSION['user'])) return false;
+        switch ($role) {
+            case 'usr':
+                return true;
+            case 'fnc':
+                return Usuario::find($_SESSION['user']['id'])->pluck('es_funcionario');
+            case 'mod':
+                return !is_null(Moderador::find($_SESSION['user']['id']));
+            default:
+                return false;
+        }
+    }
+
 }
