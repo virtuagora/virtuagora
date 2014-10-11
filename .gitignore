@@ -2,5 +2,3 @@ composer.phar
 vendor/
 public/.htaccess
 bower_components/
-/views/lab.html
-.sass-cache/*
