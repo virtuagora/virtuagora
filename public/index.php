@@ -245,7 +245,7 @@ $app->get('/crear/propuesta', function () use ($app) {
     if (!$app->session->hasRole('fnc')) {
         throw new BearableException('No tiene permiso para realizar esta acción', 403);
     }
-    $app->render('contenido/propuesta/alta-propuesta.twig');
+    $app->render('contenido/propuesta/alta.twig');
 });
 
 $app->get('/propuesta/:id', function ($id) use ($app) {
@@ -256,7 +256,7 @@ $app->get('/propuesta/:id', function ($id) use ($app) {
     }
     $propuesta = Propuesta::findOrFail($id);
     $contenido = $propuesta->contenido;
-    $app->render('contenido/propuesta/ver-propuesta.twig', array('propuesta' => array_merge($propuesta->toArray(),
+    $app->render('contenido/propuesta/ver.twig', array('propuesta' => array_merge($propuesta->toArray(),
                                                                         $contenido->toArray())));
 });
 
