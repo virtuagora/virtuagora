@@ -156,7 +156,7 @@ footer {
         text-align: center;
         margin-bottom: 10px;
     }
-    input[name="tags"] {
+    input[name="tags"], input[name="problematicas"] {
         font-size: rem-calc(11);
         height: rem-calc(25);
         font-weight: bold;
@@ -215,6 +215,7 @@ footer {
             font-size: 30px !important;
             color: #6f6f6f;
             font-weight: 300;
-            margin-bottom: 17px;}
+            margin-bottom: 17px;
+        }
     }
 }
