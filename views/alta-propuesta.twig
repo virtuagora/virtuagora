@@ -14,7 +14,7 @@ Virtuagora - Crear una propuesta
 {% include 'misc/contenido-head.html' with vars_head %}
 <!-- Fila c/ titulo y otros datos! -->
 <section id="alta-contenido">
-    <form action="">
+    <form action="publicar-propuesta" method="POST">
         <div class="row">
             <div class="large-11 large-centered columns">
                 <label><h6 class="subheader"><i class="fa fa-pencil fa-fw"></i>&nbsp;&nbsp;<b>Titulo de la propuesta</b></h6></label>
@@ -24,7 +24,7 @@ Virtuagora - Crear una propuesta
         <div class="row">
             <div class="large-11 large-centered columns">
                 <label><h6 class="subheader"><i class="fa fa-tag fa-fw"></i>&nbsp;&nbsp;<b>Categorias asociadas</b></h6></label>
-                <input name="tags" type="text" placeholder="Escriba aqui el titulo de la propuesta" />
+                <input name="tags" type="text" placeholder="Comience escribiendo una categoria en particular" />
             </div>
         </div>
         <div class="row">
@@ -35,18 +35,14 @@ Virtuagora - Crear una propuesta
         </div>
         <div class="row">
             <div class="large-11 large-centered columns">
-                <fieldset>
-                    <legend>
-                        <h6 class="subheader"><i class="fa fa-image fa-border"></i>&nbsp;<b>Anexar imagenes</b></h6>
-                    </legend>
-                    <input type="file" multiple>
-                </fieldset>
+                <label><h6 class="subheader"><i class="fa fa-tag fa-fw"></i>&nbsp;&nbsp;<b>Problematicas asociadas</b></h6></label>
+                <input name="problematicas" type="text" placeholder="Comience escribiendo el numero de una problematica">
             </div>
         </div>
         <hr>
         <div class="row">
             <div class="large-6 large-centered columns">
-                <a href="#" class="button small expand success"><i class="fa fa-comments fa-fw fa-lg"></i>&nbsp;Publicar</a>
+                <input type="submit" class="button small expand success" value="Publicar">
             </div>
         </div>
     </form>
