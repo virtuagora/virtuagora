@@ -5,20 +5,29 @@
 {% set porc_contra = ( propuesta.votos_contra / ( total_votos ))*100 %}
 {% endif %}
 
-{% set vars_head = {
-'url_atras' : '#' ,
-'i_class_icon' : 'fa fa-bullhorn fa-fw' ,
-'titulo' : 'Ver propuesta #{{ propuesta.id }}'}
-%}
+{# VARIABLES PARA FORMATO DE MASTER-CONTENIDO.TWIG #}
+{% set url_atras = '#' %}
+{% set i_class_icon = 'fa fa-bullhorn fa-fw' %}
+{% set titulo = 'Ver propuesta #{{ propuesta.id }}' %}
+{% set comments = true %}
 
-{% extends "master.twig" %}
+{# VARIABLES DE LA VISTA #}
+{% set total_votos = propuesta.votos_favor + propuesta.votos_neutro + propuesta.votos_contra %}
+{% if total_votos > 0 %}
+{% set porc_favor = ( propuesta.votos_favor / ( total_votos ))*100 %}
+{% set porc_neutro = ( propuesta.votos_neutro / ( total_votos ))*100 %}
+{% set porc_contra = ( propuesta.votos_contra / ( total_votos ))*100 %}
+{% endif %}
+
+{# ---------------------- #}
+
+{% extends "contenido/master-contenido.twig" %}
 
 {% block titulo %}
 Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ propuesta.autor.apellido }}
 {% endblock %}
 
-{% block body %}
-{% include 'misc/contenido-head.html' with vars_head %}
+{% block contenido %}
 <!-- Fila c/ titulo y otros datos! -->
 <section id="vista-contenido">
     <div class="row">
@@ -145,7 +154,6 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
         {% endif %}
     </div>
 </section>
-{% include 'misc/contenido-foot.html' with { 'comments' : true } %}
 {% endblock %}
 
 {% block scripts %}

@@ -1,18 +1,20 @@
-{% set vars_head = {
-'url_atras' : '#' ,
-'i_class_icon' : 'fa fa-edit fa-fw' ,
-'titulo' : 'Crear una propuesta'}
-%}
+{# VARIABLES PARA FORMATO DE MASTER-CONTENIDO.TWIG #}
+{% set url_atras = '#' %}
+{% set i_class_icon = 'fa fa-edit fa-fw' %}
+{% set titulo = 'Crear una propuesta' %}
+{% set comments = false %}
 
-{% extends "master.twig" %}
+{# VARIABLES DE LA VISTA #}
+
+{# ---------------------- #}
+
+{% extends "contenido/master-contenido.twig" %}
 
 {% block titulo %}
 Virtuagora - Crear una propuesta
 {% endblock %}
 
-{% block body %}
-{% include 'misc/contenido-head.html' with vars_head %}
-<!-- Fila c/ titulo y otros datos! -->
+{% block contenido %}
 <section id="alta-contenido">
     <form action="publicar-propuesta" method="POST">
         <div class="row">
@@ -47,7 +49,6 @@ Virtuagora - Crear una propuesta
         </div>
     </form>
 </section>
-{% include 'misc/contenido-foot.html' with { 'comments' : false } %}
 {% endblock %}
 
 {% block scripts %}

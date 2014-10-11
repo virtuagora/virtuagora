@@ -29,7 +29,7 @@ $app->error(function (Exception $e) use ($app) {
         $app->flash('errors', $e->getErrors());
         $app->redirect($app->request->getReferrer());
     } else if ($e instanceof BearableException) {
-        $app->render('error.twig', array('mensaje' => $e->getMessage()), $e->getCode());
+        $app->render('misc/error.twig', array('mensaje' => $e->getMessage()), $e->getCode());
     } else if ($e instanceof Illuminate\Database\Eloquent\ModelNotFoundException) {
         $app->notFound();
     } else {
@@ -77,9 +77,9 @@ $app->get('/usuario', function () use ($app) {
 // Prepare dispatcher
 $app->get('/', function () use ($app) {
     if ($app->session->exists()) {
-        $app->render('portal.twig');
+        $app->render('ususario/portal.twig');
     } else {
-        $app->render('registro.twig', array('lala' => 'holis'));
+        $app->render('registro/registro.twig', array('lala' => 'holis'));
     }
 });
 
@@ -129,7 +129,7 @@ $app->post('/registro', function () use ($app) {
     $header = 'From:noreply@'.$_SERVER['SERVER_NAME'].' \r\n';
     $retval = mail($to, $subject, $message, $header);
 
-    $app->render('registro-exito.twig', array('email' => $usuario->email));
+    $app->render('registro/registro-exito.twig', array('email' => $usuario->email));
 });
 
 $app->get('/validar/:id/:token', function ($id, $token) use ($app) {
@@ -149,10 +149,10 @@ $app->get('/validar/:id/:token', function ($id, $token) use ($app) {
     if ($token == $usuario->token_verificacion) {
         $usuario->verificado = true;
         $usuario->save();
-        $app->render('validar-correo.twig', array('usuarioValido' => true,
+        $app->render('registro/validar-correo.twig', array('usuarioValido' => true,
                                                   'email' => $usuario->email));
     } else {
-        $app->render('validar-correo.twig', array('usuarioValido' => false));
+        $app->render('registro/validar-correo.twig', array('usuarioValido' => false));
     }
 });
 
@@ -160,7 +160,7 @@ $app->get('/login', function () use ($app) {
     if ($app->session->exists()) {
         $app->redirect($app->request->getRootUri());
     }
-    $app->render('login-static.twig');
+    $app->render('login/login-static.twig');
 });
 
 $app->post('/login', function () use ($app) {
@@ -245,7 +245,7 @@ $app->get('/crear/propuesta', function () use ($app) {
     if (!$app->session->hasRole('fnc')) {
         throw new BearableException('No tiene permiso para realizar esta acción', 403);
     }
-    $app->render('alta-propuesta.twig');
+    $app->render('contenido/propuesta/alta-propuesta.twig');
 });
 
 $app->get('/propuesta/:id', function ($id) use ($app) {
@@ -256,7 +256,7 @@ $app->get('/propuesta/:id', function ($id) use ($app) {
     }
     $propuesta = Propuesta::findOrFail($id);
     $contenido = $propuesta->contenido;
-    $app->render('ver-propuesta.twig', array('propuesta' => array_merge($propuesta->toArray(),
+    $app->render('contenido/propuesta/ver-propuesta.twig', array('propuesta' => array_merge($propuesta->toArray(),
                                                                         $contenido->toArray())));
 });
 

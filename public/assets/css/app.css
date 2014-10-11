@@ -14262,8 +14262,8 @@ footer .panel a {
 }
 /* line 159, ../scss/_layout.scss */
 #alta-contenido input[name="tags"], #alta-contenido input[name="problematicas"] {
-  font-size: 0.6875rem;
-  height: 1.5625rem;
+  font-size: 0.75rem;
+  height: 1.875rem;
   font-weight: bold;
 }
 
