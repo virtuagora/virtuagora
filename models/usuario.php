@@ -7,7 +7,7 @@ class Usuario extends Eloquent {
     //$table = 'usuarios';
 
     protected $dates = ['deleted_at'];
-    protected $visible = array('id', 'nombre', 'apellido', 'imagen');
+    protected $visible = array('id', 'nombre', 'apellido', 'puntos', 'imagen');
     //protected $hidden = array('password',  'tiene_avatar', 'token_verificacion', 'created_at', 'updated_at', 'deleted_at');
 
 }

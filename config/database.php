@@ -12,6 +12,9 @@ $capsule->addConnection(array(
     'collation' => 'utf8_general_ci',
     'prefix' => ''
 ));
+use Illuminate\Events\Dispatcher;
+use Illuminate\Container\Container;
+$capsule->setEventDispatcher(new Dispatcher(new Container));
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 // set timezone for timestamps etc

@@ -159,8 +159,8 @@ function efectuarIntercambio(nuevoId, nuevoNombre) {
             func_in.push(func_new[i]);
         }
     }
-    $('#entrantes').val(func_in.join());
-    $('#salientes').val(func_out.join());
+    $('#entrantes').val('['+func_in.join()+']');
+    $('#salientes').val('['+func_out.join()+']');
 }
 </script>
 {% endblock %}

@@ -188,9 +188,10 @@ $app->post('/logout', function () use ($app) {
 });
 
 $app->get('/admin/organismos', function () use ($app) {
-    $organismos = Organismo::all();
-    echo Organismo::all()->toJson();
-    echo Organismo::first()->usuarios->toJson();
+    echo Funcionario::all()->toJson();
+    //$organismos = Organismo::all();
+    //echo Organismo::all()->toJson();
+    //echo Organismo::first()->usuarios->toJson();
     //$app->render('login-static.twig');
 });
 
@@ -201,13 +202,48 @@ $app->get('/admin/funcionarios/:id', function ($id) use ($app) {
 });
 
 $app->post('/admin/funcionarios/:id', function ($id) use ($app) {
-    $organismo = Organismo::findOrFail($id);
+    $validator = new Augusthur\Validation\Validator();
+    $validator->add_rule('id', new Augusthur\Validation\Rule\NumNatural())
+              ->add_rule('entrantes', new Augusthur\Validation\Rule\Regex('/^\[\d*(?:,\d+)*\]$/'))
+              ->add_rule('salientes', new Augusthur\Validation\Rule\Regex('/^\[\d*(?:,\d+)*\]$/'));
     $req = $app->request;
-    echo $req->post('entrantes') . '<br>';
-    echo $req->post('salientes') . '<br>';
+    $data = array_merge(array('id' => $id), $req->post());
+    $errormsg = 'Configuración inválida.';
+    if (!$validator->is_valid($data)) {
+        throw new BearableException($errormsg);
+    }
+    $organismo = Organismo::findOrFail($id);
+    $funcionarios = $organismo->funcionarios;
+    $actuales = array();
+    foreach ($funcionarios as $funcionario) {
+        $actuales[] = (int) $funcionario->usuario_id;
+    }
+    $entrantes = json_decode($req->post('entrantes'));
+    $salientes = json_decode($req->post('salientes'));
+    if (array_intersect($actuales, $entrantes)) {
+        throw new BearableException($errormsg);
+    }
+    if (array_diff($salientes, $actuales)) {
+        throw new BearableException($errormsg);
+    }
+    if ($salientes) {
+        Funcionario::whereIn('usuario_id', $salientes)->delete();
+        Usuario::whereIn('id', $salientes)->update(array('es_funcionario' => false));
+    }
+    foreach ($entrantes as $entrante) {
+        $funcionario = new Funcionario;
+        $funcionario->usuario_id = $entrante;
+        $funcionario->organismo_id = $id;
+        $funcionario->save();
+    }
+    echo 'holis';
 });
 
 ///////////////
+
+$app->get('/crear/propuesta', function () use ($app) {
+    $app->render('alta-propuesta.twig');
+});
 
 $app->get('/propuesta/:id', function ($id) use ($app) {
     $validator = new Augusthur\Validation\Validator();
@@ -217,7 +253,8 @@ $app->get('/propuesta/:id', function ($id) use ($app) {
     }
     $propuesta = Propuesta::findOrFail($id);
     $contenido = $propuesta->contenido;
-    $app->render('ver-propuesta.twig', array('propuesta' => array_merge($propuesta->toArray(), $contenido->toArray())));
+    $app->render('ver-propuesta.twig', array('propuesta' => array_merge($propuesta->toArray(),
+                                                                        $contenido->toArray())));
 });
 
 session_cache_limiter(false);

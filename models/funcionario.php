@@ -17,4 +17,18 @@ class Funcionario extends Eloquent {
         return $this->belongsTo('Organismo');
     }
 
+    public static function boot() {
+        parent::boot();
+        static::creating(function($funcionario) {
+            $usuario = Usuario::find($funcionario->usuario_id);
+            if (is_null($usuario)) {
+                return false;
+            } else {
+                $usuario->es_funcionario = true;
+                $usuario->save();
+                return true;
+            }
+        });
+    }
+
 }
