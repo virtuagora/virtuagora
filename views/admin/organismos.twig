@@ -1,0 +1,25 @@
+{% extends "master.twig" %}
+
+{% block titulo %}
+Virtuagora - Administrar organismos
+{% endblock %}
+
+{% block body %}
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Cupos ocupados</th>
+            <th>Cupos totales</th>
+        </tr>
+    </thead><tbody>
+    {% for org in organismos %}
+        <tr><td><a href='{{ baseUrl }}/admin/funcionarios/{{ org.id }}'>{{ org.nombre }}</a></td>
+            <td>{{ org.funcionarios_count }}</td>
+            <td>{{ org.cupo }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<a class="button">Crear nuevo organismo</a>
+{% endblock %}

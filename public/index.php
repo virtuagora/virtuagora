@@ -188,7 +188,8 @@ $app->post('/logout', function () use ($app) {
 });
 
 $app->get('/admin/organismos', function () use ($app) {
-    echo Funcionario::all()->toJson();
+    $organismos = Organismo::all();
+    $app->render('admin/organismos.twig', array('organismos' => $organismos->toArray()));
     //$organismos = Organismo::all();
     //echo Organismo::all()->toJson();
     //echo Organismo::first()->usuarios->toJson();
@@ -238,8 +239,6 @@ $app->post('/admin/funcionarios/:id', function ($id) use ($app) {
     }
     echo 'holis';
 });
-
-///////////////
 
 $app->get('/crear/propuesta', function () use ($app) {
     if (!$app->session->hasRole('fnc')) {
