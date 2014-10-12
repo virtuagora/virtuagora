@@ -219,3 +219,42 @@ footer {
         }
     }
 }
+
+#publicarPostura {
+    h1, h2, h3, h4, h5, h6 {
+        margin-bottom: .2rem;
+    }
+    .a-favor {
+        @include panel();
+        background: #C8EDB5;
+        vertical-align: middle;
+        padding: rem-calc(10);
+    }
+    .neutro {
+        @include panel();
+        vertical-align: middle;
+        padding: rem-calc(10);
+    }
+    .en-contra {
+        @include panel();
+        background: #edb5b5;
+        vertical-align: middle;
+        padding: rem-calc(10);
+    }
+    #intro-comentario {
+        h6 {
+            vertical-align: top;
+        }
+        p {
+            font-size: rem-calc(11);
+            color: #797979;
+        }
+    }
+    textarea {
+        font-size: rem-calc(12);
+    }
+    .etiqueta {
+        font-size: rem-calc(12);
+        font-weight: bold;
+    }
+}

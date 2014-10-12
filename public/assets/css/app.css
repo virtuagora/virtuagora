@@ -14330,6 +14330,130 @@ footer .panel a {
   margin-bottom: 17px;
 }
 
+/* line 224, ../scss/_layout.scss */
+#publicarPostura h1, #publicarPostura h2, #publicarPostura h3, #publicarPostura h4, #publicarPostura h5, #publicarPostura h6 {
+  margin-bottom: .2rem;
+}
+/* line 227, ../scss/_layout.scss */
+#publicarPostura .a-favor {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #d8d8d8;
+  margin-bottom: 1.25rem;
+  padding: 1.25rem;
+  background: #f2f2f2;
+  color: #333333;
+  background: #C8EDB5;
+  vertical-align: middle;
+  padding: 0.625rem;
+}
+/* line 54, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
+#publicarPostura .a-favor > :first-child {
+  margin-top: 0;
+}
+/* line 55, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
+#publicarPostura .a-favor > :last-child {
+  margin-bottom: 0;
+}
+/* line 60, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
+#publicarPostura .a-favor h1, #publicarPostura .a-favor h2, #publicarPostura .a-favor h3, #publicarPostura .a-favor h4, #publicarPostura .a-favor h5, #publicarPostura .a-favor h6, #publicarPostura .a-favor p, #publicarPostura .a-favor li, #publicarPostura .a-favor dl {
+  color: #333333;
+}
+/* line 67, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
+#publicarPostura .a-favor h1, #publicarPostura .a-favor h2, #publicarPostura .a-favor h3, #publicarPostura .a-favor h4, #publicarPostura .a-favor h5, #publicarPostura .a-favor h6 {
+  line-height: 1;
+  margin-bottom: 0.625rem;
+}
+/* line 69, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
+#publicarPostura .a-favor h1.subheader, #publicarPostura .a-favor h2.subheader, #publicarPostura .a-favor h3.subheader, #publicarPostura .a-favor h4.subheader, #publicarPostura .a-favor h5.subheader, #publicarPostura .a-favor h6.subheader {
+  line-height: 1.4;
+}
+/* line 233, ../scss/_layout.scss */
+#publicarPostura .neutro {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #d8d8d8;
+  margin-bottom: 1.25rem;
+  padding: 1.25rem;
+  background: #f2f2f2;
+  color: #333333;
+  vertical-align: middle;
+  padding: 0.625rem;
+}
+/* line 54, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
+#publicarPostura .neutro > :first-child {
+  margin-top: 0;
+}
+/* line 55, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
+#publicarPostura .neutro > :last-child {
+  margin-bottom: 0;
+}
+/* line 60, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
+#publicarPostura .neutro h1, #publicarPostura .neutro h2, #publicarPostura .neutro h3, #publicarPostura .neutro h4, #publicarPostura .neutro h5, #publicarPostura .neutro h6, #publicarPostura .neutro p, #publicarPostura .neutro li, #publicarPostura .neutro dl {
+  color: #333333;
+}
+/* line 67, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
+#publicarPostura .neutro h1, #publicarPostura .neutro h2, #publicarPostura .neutro h3, #publicarPostura .neutro h4, #publicarPostura .neutro h5, #publicarPostura .neutro h6 {
+  line-height: 1;
+  margin-bottom: 0.625rem;
+}
+/* line 69, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
+#publicarPostura .neutro h1.subheader, #publicarPostura .neutro h2.subheader, #publicarPostura .neutro h3.subheader, #publicarPostura .neutro h4.subheader, #publicarPostura .neutro h5.subheader, #publicarPostura .neutro h6.subheader {
+  line-height: 1.4;
+}
+/* line 238, ../scss/_layout.scss */
+#publicarPostura .en-contra {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #d8d8d8;
+  margin-bottom: 1.25rem;
+  padding: 1.25rem;
+  background: #f2f2f2;
+  color: #333333;
+  background: #edb5b5;
+  vertical-align: middle;
+  padding: 0.625rem;
+}
+/* line 54, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
+#publicarPostura .en-contra > :first-child {
+  margin-top: 0;
+}
+/* line 55, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
+#publicarPostura .en-contra > :last-child {
+  margin-bottom: 0;
+}
+/* line 60, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
+#publicarPostura .en-contra h1, #publicarPostura .en-contra h2, #publicarPostura .en-contra h3, #publicarPostura .en-contra h4, #publicarPostura .en-contra h5, #publicarPostura .en-contra h6, #publicarPostura .en-contra p, #publicarPostura .en-contra li, #publicarPostura .en-contra dl {
+  color: #333333;
+}
+/* line 67, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
+#publicarPostura .en-contra h1, #publicarPostura .en-contra h2, #publicarPostura .en-contra h3, #publicarPostura .en-contra h4, #publicarPostura .en-contra h5, #publicarPostura .en-contra h6 {
+  line-height: 1;
+  margin-bottom: 0.625rem;
+}
+/* line 69, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
+#publicarPostura .en-contra h1.subheader, #publicarPostura .en-contra h2.subheader, #publicarPostura .en-contra h3.subheader, #publicarPostura .en-contra h4.subheader, #publicarPostura .en-contra h5.subheader, #publicarPostura .en-contra h6.subheader {
+  line-height: 1.4;
+}
+/* line 245, ../scss/_layout.scss */
+#publicarPostura #intro-comentario h6 {
+  vertical-align: top;
+}
+/* line 248, ../scss/_layout.scss */
+#publicarPostura #intro-comentario p {
+  font-size: 0.6875rem;
+  color: #797979;
+}
+/* line 253, ../scss/_layout.scss */
+#publicarPostura textarea {
+  font-size: 0.75rem;
+}
+/* line 256, ../scss/_layout.scss */
+#publicarPostura .etiqueta {
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
 /* line 1, ../scss/_misc.scss */
 .invalido {
   color: #bc0f0f;

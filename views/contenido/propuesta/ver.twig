@@ -72,9 +72,13 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
         <div class="large-6 large-centered columns">
             <h4 class="subheader text-center"><b>¿Que te parecio la propuesta?</b></h4>
             <ul class="button-group even-3" >
-                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Me gusta mucho!"><a href="#" class="button secondary small"><i class="fa fa-thumbs-o-up fa-fw fa-2x"></i></a></span></li>
-                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Tengo mis dudas aún.."><a href="#" class="button secondary small"><i class="fa fa-meh-o fa-2x"></i></a></span></li>
-                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="No la apruebo"><a href="#" class="button secondary small"><i class="fa fa-thumbs-o-down fa-2x"></i></a></span></li>
+                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Me gusta mucho!">
+                    <a id="voto_favor" href="#" class="button secondary small"><i class="fa fa-thumbs-o-up fa-fw fa-2x"></i></a>
+                    </span></li>
+                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Tengo mis dudas aún..">
+                    <a id="voto_neutro" href="#" class="button secondary small"><i class="fa fa-meh-o fa-2x"></i></a></span></li>
+                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="No la apruebo">
+                    <a id="voto_contra" href="#" class="button secondary small"><i class="fa fa-thumbs-o-down fa-2x"></i></a></span></li>
             </ul>
         </div>
     </div>
@@ -153,7 +157,75 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
 </section>
 {% endblock %}
 
+{% block modal %}
+<div id="publicarPostura" class="reveal-modal remove-whitespace small" data-reveal>
+    {% include "contenido/propuesta/publicar-postura.twig" %}
+</div>
+{% endblock %}
+
+
 {% block scripts %}
 <script src="{{ baseUrl }}/assets/js/foundation/foundation.tooltip.js"></script>
 <script src="{{ baseUrl }}/assets/js/underscore/underscore-min.js"></script>
+<script>
+    var modalPosturaCompletar = function (valorPostura){
+        $("#posturaInfo").removeAttr("class");
+        $("#posturaInfo i").removeAttr("class");
+        $("#posturaInfo h6 b").empty();
+        $("#posturaInfo").addClass("text-center");
+        if(valorPostura == 1){
+            $("#posturaInfo").addClass("a-favor");
+            $("#posturaInfo i").addClass( $("#voto_favor i").attr('class') );
+            $("#posturaInfo h6 b").html("¡Estas a favor de la propuesta!");
+        } else if (valorPostura == 0) {
+            $("#posturaInfo").addClass("neutro");
+            $("#posturaInfo i").addClass( $("#voto_neutro i").attr('class') );
+            $("#posturaInfo h6 b").html("Tu posicion con la postura es neutra");
+        } else if (valorPostura == -1) {
+            $("#posturaInfo").addClass("en-contra");
+            $("#posturaInfo i").addClass( $("#voto_contra i").attr('class') );
+            $("#posturaInfo h6 b").html("Estas en contra de la postura");
+        }
+    }
+
+    var usuarioLogueado = function (){
+        var hayLogin = {{ (user.nombre is not empty) ? 'true' : 'false' }} ;
+    return hayLogin;
+    }
+
+    $("#voto_favor").on("click", function() {
+        if(usuarioLogueado()){
+            $("#posturaVoto").val(1);
+            modalPosturaCompletar(1);
+            $('#publicarPostura').foundation('reveal', 'open');
+        } else {
+            $('#login-modal').foundation('reveal', 'open');
+        }
+    });
+
+    $("#voto_neutro").on("click", function() {
+        if(usuarioLogueado()){
+            $("#posturaVoto").val(0);
+            modalPosturaCompletar(0);
+            $('#publicarPostura').foundation('reveal', 'open');
+        } else {
+            $('#login-modal').foundation('reveal', 'open');
+        }
+    });
+
+    $("#voto_contra").on("click", function() {
+        if(usuarioLogueado()){
+            $("#posturaVoto").val(-1);
+            modalPosturaCompletar(-1);
+            $('#publicarPostura').foundation('reveal', 'open');
+        } else {
+            $('#login-modal').foundation('reveal', 'open');
+        }
+    });
+
+    $( "form" ).submit(function( event ) {
+        console.log( $( this ).serializeArray() );
+        event.preventDefault();
+    });
+</script>
 {% endblock %}
