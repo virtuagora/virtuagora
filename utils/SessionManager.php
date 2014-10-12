@@ -24,9 +24,13 @@ class SessionManager {
         }
     }
 
-    public function user() {
+    public function user($attr = null) {
         if (isset($_SESSION['user'])) {
-            return $_SESSION['user'];
+            if ($attr) {
+                return $_SESSION['user'][$attr];
+            } else {
+                return $_SESSION['user'];
+            }
         } else {
             return null;
         }

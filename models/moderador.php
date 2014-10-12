@@ -1,16 +1,19 @@
 <?php
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Ciudadano extends Eloquent {
+class Moderador extends Eloquent {
     use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-    //$table = 'ciudadanos';
+    //$table = 'moderadores';
 
     protected $dates = ['deleted_at'];
     public $incrementing = false;
-    protected $hidden = array('suspendido',  'fecha_certificado');
 
     public function usuario() {
         return $this->belongsTo('Usuario', 'id');
+    }
+
+    public function patrulla() {
+        return $this->belongsTo('Patrulla');
     }
 }

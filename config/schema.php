@@ -125,7 +125,7 @@ Capsule::schema()->create('contenidos', function($table) {
     $table->engine = 'InnoDB';
 
     $table->increments('id');
-    $table->morphs('contenido');
+    $table->morphs('contenible');
     $table->string('titulo');
     $table->integer('puntos')->unsigned();
     $table->integer('usuario_id')->unsigned();
@@ -142,7 +142,7 @@ Capsule::schema()->create('propuestas', function($table) {
     $table->engine = 'InnoDB';
 
     $table->increments('id');
-    $table->text('contenido');
+    $table->text('cuerpo');
     $table->integer('votos_favor')->unsigned();
     $table->integer('votos_contra')->unsigned();
     $table->integer('votos_neutro')->unsigned();

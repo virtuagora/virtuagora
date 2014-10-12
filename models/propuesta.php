@@ -6,12 +6,11 @@ class Propuesta extends Eloquent {
 
     //$table = 'propuestas';
 
-    public $incrementing = false;
     protected $dates = ['deleted_at'];
-    protected $visible = array('id', 'contenido', 'votos_favor', 'votos_contra', 'votos_neutro');
+    protected $visible = array('id', 'cuerpo', 'votos_favor', 'votos_contra', 'votos_neutro');
 
     public function contenido() {
-        return $this->morphOne('Contenido', 'contenido');
+        return $this->morphOne('Contenido', 'contenible');
     }
 
     public function posturas() {

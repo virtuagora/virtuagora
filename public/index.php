@@ -77,7 +77,7 @@ $app->get('/usuario', function () use ($app) {
 // Prepare dispatcher
 $app->get('/', function () use ($app) {
     if ($app->session->exists()) {
-        $app->render('ususario/portal.twig');
+        $app->render('usuario/portal.twig');
     } else {
         $app->render('registro/registro.twig', array('lala' => 'holis'));
     }
@@ -245,7 +245,38 @@ $app->get('/crear/propuesta', function () use ($app) {
     if (!$app->session->hasRole('fnc')) {
         throw new BearableException('No tiene permiso para realizar esta acción', 403);
     }
-    $app->render('contenido/propuesta/alta.twig');
+    $app->render('contenido/propuesta/crear.twig');
+});
+
+$app->post('/crear/propuesta', function () use ($app) {
+    if (!$app->session->hasRole('fnc')) {
+        throw new BearableException('No tiene permiso para realizar esta acción', 403);
+    }
+    $validator = new Augusthur\Validation\Validator();
+    $validator->add_rule('titulo', new Augusthur\Validation\Rule\Alpha(array(' ')));
+
+    $req = $app->request;
+    $errormsg = 'Configuración inválida.';
+    if (!$validator->is_valid($req->post())) {
+        throw new BearableException($errormsg);
+    }
+
+    $propuesta = new Propuesta;
+    $propuesta->cuerpo = $req->post('cuerpo');
+    $propuesta->votos_favor = 0;
+    $propuesta->votos_contra = 0;
+    $propuesta->votos_neutro = 0;
+    $propuesta->save();
+
+    $contenido = new Contenido;
+    $contenido->titulo = $req->post('titulo');
+    $contenido->puntos = 0;
+    $autor = Usuario::find($app->session->user('id'));
+    $contenido->autor()->associate($autor);
+    $contenido->contenible()->associate($propuesta);
+    $contenido->save();
+
+    $app->redirect($app->request->getRootUri().'/propuesta/'.$propuesta->id);
 });
 
 $app->get('/propuesta/:id', function ($id) use ($app) {
@@ -257,7 +288,7 @@ $app->get('/propuesta/:id', function ($id) use ($app) {
     $propuesta = Propuesta::findOrFail($id);
     $contenido = $propuesta->contenido;
     $app->render('contenido/propuesta/ver.twig', array('propuesta' => array_merge($propuesta->toArray(),
-                                                                        $contenido->toArray())));
+                                                                                  $contenido->toArray())));
 });
 
 session_cache_limiter(false);

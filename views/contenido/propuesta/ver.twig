@@ -33,8 +33,8 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
     <div class="row">
         <div class="large-10 large-centered columns">
             <div class="text-center">
-                <h1><b>Lorem ipsum dolor sit amet, consectetur?</b></h1>
-                <h4 class="subheader"><small>Creado el {{ "now"|date("m/d/Y") }}</small></h1>
+                <h1><b>{{ propuesta.titulo }}</b></h1>
+                <h4 class="subheader"><small>Creado el {{ propuesta.created_at|date("m/d/Y") }}</small></h1>
             </div>
 
         </div>
@@ -55,7 +55,7 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
                 </li>
                 <li class="puntos">
                     <span><i class="fa fa-trophy fa-border"></i></span>&nbsp;
-                    <span>{{ propuesta.autor.puntos }} </span>
+                    <span>{{ propuesta.autor.puntos }}</span>
                     <span>puntitos!</span>
                 </li>
             </ul>
@@ -64,10 +64,7 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
     <div class="row">
         <div class="large-10 large-centered columns">
             <div class="texto text-justify">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum blanditiis odio ducimus, quas quod officiis ipsum quibusdam laboriosam provident accusantium cumque magnam odit quidem suscipit natus harum dolores eveniet exercitationem.</p>
-                <p>Aliquid incidunt reprehenderit recusandae similique eum eveniet. Inventore ad sit debitis suscipit ut quisquam iure quod nesciunt a sunt amet vel aliquam eum reiciendis dignissimos repellat, iste pariatur veritatis nostrum.</p>
-                <p>Incidunt impedit veniam omnis enim modi dolor, ipsa, consequatur voluptates sed ex molestiae ea maxime fugiat reiciendis sint facilis. Rerum odit veritatis, eius dignissimos nihil nulla dicta voluptate est dolores.</p>
-                <p>Unde nam tenetur id voluptatum quibusdam hic, quasi incidunt velit maiores, dolorem, sint ducimus aut consectetur dignissimos, nobis! Omnis facere deserunt laudantium nisi architecto quae labore doloribus perspiciatis fuga sed.</p>
+                <p>{{ propuesta.cuerpo }}</p>
             </div>
         </div>
     </div>

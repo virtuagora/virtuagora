@@ -7,14 +7,14 @@ class Contenido extends Eloquent {
     //$table = 'contenidos';
 
     protected $dates = ['deleted_at'];
-    protected $visible = array('id', 'titulo', 'contenido_type', 'puntos', 'autor');
+    protected $visible = array('id', 'titulo', 'contenido_type', 'puntos', 'autor', 'created_at');
     protected $with = array('autor');
 
-    public function contenido() {
+    public function contenible() {
         return $this->morphTo();
     }
 
     public function autor() {
-        return $this->belongsTo('Usuario');
+        return $this->belongsTo('Usuario', 'usuario_id');
     }
 }
