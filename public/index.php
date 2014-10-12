@@ -190,10 +190,33 @@ $app->post('/logout', function () use ($app) {
 $app->get('/admin/organismos', function () use ($app) {
     $organismos = Organismo::all();
     $app->render('admin/organismos.twig', array('organismos' => $organismos->toArray()));
-    //$organismos = Organismo::all();
-    //echo Organismo::all()->toJson();
-    //echo Organismo::first()->usuarios->toJson();
-    //$app->render('login-static.twig');
+});
+
+$app->get('/admin/organismos/crear', function () use ($app) {
+    $app->render('admin/crear-organismo.twig');
+});
+
+$app->post('/admin/organismos/crear', function () use ($app) {
+    $validator = new Augusthur\Validation\Validator();
+    $validator->add_rule('nombre', new Augusthur\Validation\Rule\Alpha(array(' ')))
+              ->add_rule('nombre', new Augusthur\Validation\Rule\MinLength(2))
+              ->add_rule('nombre', new Augusthur\Validation\Rule\MaxLength(64))
+              ->add_rule('descripcion', new Augusthur\Validation\Rule\MaxLength(512))
+              ->add_rule('cupo', new Augusthur\Validation\Rule\NumNatural())
+              ->add_rule('cupo', new Augusthur\Validation\Rule\NumMin(1))
+              ->add_rule('cupo', new Augusthur\Validation\Rule\NumMax(32));
+    $req = $app->request;
+    $errormsg = 'Configuración inválida.';
+    if (!$validator->is_valid($req->post())) {
+        throw new BearableException($errormsg);
+    }
+    $organismo = new Organismo;
+    $organismo->nombre = $req->post('nombre');
+    $organismo->descripcion = $req->post('descripcion');
+    $organismo->cupo = $req->post('cupo');
+    $organismo->imagen = false;
+    $organismo->save();
+    $app->redirect($app->request->getRootUri().'/admin/organismos');
 });
 
 $app->get('/admin/funcionarios/:id', function ($id) use ($app) {
