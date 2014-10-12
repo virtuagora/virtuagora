@@ -222,10 +222,5 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
             $('#login-modal').foundation('reveal', 'open');
         }
     });
-
-    $( "form" ).submit(function( event ) {
-        console.log( $( this ).serializeArray() );
-        event.preventDefault();
-    });
 </script>
 {% endblock %}

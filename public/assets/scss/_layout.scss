@@ -250,8 +250,15 @@ footer {
             color: #797979;
         }
     }
-    textarea {
-        font-size: rem-calc(12);
+    #cuadro-comentario {
+        textarea {
+            font-size: rem-calc(12);
+            margin-bottom: rem-calc(4);
+        }
+        label {
+            font-size: rem-calc(11);
+            color: #797979;
+        }
     }
     .etiqueta {
         font-size: rem-calc(12);
