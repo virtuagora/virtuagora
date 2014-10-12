@@ -1,0 +1,17 @@
+{% extends "master.twig" %}
+
+{% block titulo %}
+Virtuagora - Crear organismo
+{% endblock %}
+
+{% block body %}
+<form action="" method="POST">
+    <fieldset>
+        <legend>Crear organismo</legend>
+        <label>Nombre <input type="text" name="nombre"></label>
+        <label>Descripcion <textarea name="descripcion"></textarea></label>
+        <label>Cupos <input type="number" name="cupo"></label>
+        <input type="submit" class="button expand" value="Crear">
+    </fieldset>
+</form>
+{% endblock %}
