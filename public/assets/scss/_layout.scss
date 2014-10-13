@@ -265,3 +265,75 @@ footer {
         font-weight: bold;
     }
 }
+
+#formulario {
+    input[name="nombre"] {
+        font-size: rem-calc(20);
+        height: initial;
+        font-weight: bold;
+        text-align: left;
+        vertical-align: middle;
+        margin-bottom: 0px;
+    }
+    span {
+        color: #6F6F6F;
+        text-align: left
+    }
+    input[type="number"] {
+        font-size: rem-calc(14);
+        font-weight: bold;
+        text-align: center;
+    }
+    button {
+        font-size: rem-calc(16);
+        padding: rem-calc(12) 0;
+    }
+    img {
+        border-radius: 6px;
+        border: 1px solid #8e97bf;
+    }
+}
+
+#tabla-organismos, #tabla-funcionarios{
+    img {
+        border-radius: 3px;
+        border: 1px solid #8e97bf;
+        width: 30px;
+        height: auto;
+    }
+    #d-nombre {
+        font-size: rem-calc(14);
+        font-weight: bold;
+    }
+    i {
+        font-size: rem-calc(18);
+    }
+    td {
+        padding: inherit rem-calc(5);
+    }
+    td.n-cupo {
+        text-align: center;
+        font-size: rem-calc(18);
+    }
+    td.opciones {
+        text-align: center;
+    }
+    .boton-mini {
+        margin-bottom: 0;
+        font-size: rem-calc(10);
+        padding: rem-calc(5) rem-calc(8);
+    }
+    .boton-agregar {
+        margin-bottom: 0;
+        font-size: rem-calc(14);
+        padding: rem-calc(8) rem-calc(20);
+    }
+    .boton-plus {
+        margin-bottom: 0;
+        font-size: rem-calc(8);
+        padding: rem-calc(8) rem-calc(8);
+    }
+    form {
+        margin: 0 0 0;
+    }
+}
