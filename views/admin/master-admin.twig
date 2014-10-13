@@ -1,0 +1,35 @@
+{% extends "master.twig" %}
+
+{% block body %}
+<section id="wide-panel">
+    <div class="row">
+        <div class="large-10 large-centered columns">
+            <div class="extremos">
+                <!-- CONTENIDO! -->
+                <!-- Titulo -->
+                <div class="row">
+                    <div class="large-12 large-centered columns">
+                        <h2>
+                            <a href="{{ url_atras }}"><i class="fa fa-arrow-circle-left fa-border"></i></a>
+                            <i class="{{ i_class_titulo }}"></i>&nbsp;<b>{{ titulo }}</b>
+                        </h2>
+                    </div>
+                    <hr>
+                </div>
+                <!-- contenido -->
+                {% block contenido %}{% endblock %}
+                <!-- Comentarios -->
+                {% if comments == true %}
+                <hr>
+                <div class="row">
+                    <div class="large-6 large-centered columns">
+                        <a href="#" class="button expand"><i class="fa fa-comments fa-fw fa-lg"></i>&nbsp;Dejar un comentario</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="extremos final"></div>
+        </div>
+    </div>
+</section>
+{% endblock %}
