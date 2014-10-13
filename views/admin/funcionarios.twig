@@ -1,94 +1,276 @@
-{% extends "master.twig" %}
+{# VARIABLES PARA FORMATO DE MASTER-CONTENIDO.TWIG #}
+{% set url_atras = '#' %}
+{% set i_class_titulo = 'fa fa-cog fa-spin fa-fw' %}
+{% set titulo = 'Administrar funcionarios' %}
+
+{# VARIABLES DE LA VISTA #}
+
+{# ---------------------- #}
+
+{% extends "admin/master-admin.twig" %}
 
 {% block titulo %}
 Virtuagora - Administrar funcionarios
 {% endblock %}
 
-{% block body %}
-<table>
-    <thead>
-        <tr>
-            <th>Funcionario actual</th>
-            <th>Nuevo funcionario</th>
-            <th>Cambiar</th>
-        </tr>
-    </thead><tbody id="plantel">
-    </tbody>
-</table>
-<div id="nuevo">
-    <ul id="resultados"></ul>
-<a id="bt-cambiar" class="button tiny">Buscar candidatos</a>
-<a id="bt-vacante" class="button tiny">Dejar el puesto vacante</a>
-<a id="bt-cancelar" class="button tiny">Mantener funcionario actual</a>
+{% block contenido %}
+<section id="tabla-organismos">
+    <div class="row">
+        <div class="large-12 columns text-center">
+            <div class="panel">
+                <h6><b>Usted esta administrando los funcionarios de <a href='#'>{{ organismo.nombre }}</a>.</b></h6>
+                <h6><b>Cuando hayas terminado, recuerda hacer clic en <a href='#' class="button boton-agregar radius warning" disabled>Aplicar los cambios</a></b></h6>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-11 large-centered columns">
+            <table align="center">
+                <thead>
+                    <tr>
+                        <th class="text-center">Funcionario actual</th>
+                        <th class="text-center">Nuevo funcionario</th>
+                        <th class="text-center">Cambiar</th>
+                    </tr>
+                </thead>
+                <tbody id="plantel">
+                </tbody>
+                <tbody id="finalizar">
+                    <tr>
+                        <td colspan="3">
+                            <form method="POST" action="">
+                                <input type="hidden" id="entrantes" name="entrantes">
+                                <input type="hidden" id="salientes" name="salientes">
+                                <input type="submit" id="bt-aplicar" class="button boton-agregar expand warning radius" value="Aplicar cambios">
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block modal %}
+<div id="opcionesCupo" class="reveal-modal remove-whitespace small" data-reveal>
+    <div id="nuevo">
+        <div class="row">
+            <div class="large-12 columns">
+                <section id="tabla-organismos">
+                    <table align="center">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Funcionario actual</th>
+                                <th class="text-center">Nuevo funcionario</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td id="funcActual" class="text-center"></td>
+                                <td id="funcNuevo" class="text-center"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+        <fieldset>
+            <legend>Opciones del cupo</legend>
+            <ul class="stack button-group">
+                <li><a id="bt-cambiar" class="button"><i class="fa fa-search fa-fw"></i>&nbsp;Buscar candidatos</a></li>
+                <li><a id="bt-vacante" class="button"><i class="fa fa-external-link fa-fw"></i>&nbsp;Dejar el puesto vacante</a></li>
+                <li><a id="bt-cancelar" class="button"><i class="fa fa-user fa-fw"></i>&nbsp;Mantener funcionario actual</a></li>
+            </ul>
+        </fieldset>
+    </div>
+    <div class="row">
+        <div class="large-4 large-centered columns">
+            <a id="bt-salirModalOpc" class="button expand secondary radius">Cerrar</a>
+        </div>
+    </div>
 </div>
-<div id="finalizar">
-    <form method="POST" action="">
-        <input type="hidden" id="entrantes" name="entrantes">
-        <input type="hidden" id="salientes" name="salientes">
-        <input type="submit" id="bt-aplicar" class="button tiny" value="Aplicar cambios">
-    </form>
+
+<div id="posiblesCandidatos" class="reveal-modal remove-whitespace small" data-reveal>
+    <div class="row">
+        <div class="large-12 columns">
+            <section id="tabla-organismos">
+                <table align="center" id="funcCandidatos">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Candidatos elegibles</th>
+                            <th class="text-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-4 large-centered columns">
+            <a id="bt-salirBuscarFunc" class="button expand secondary radius">Cerrar</a>
+        </div>
+    </div>
 </div>
+
 {% endblock %}
 
 {% block scripts %}
 <script type="text/javascript" charset="utf-8">
-var cupos_tot = {{ organismo['cupo'] }};
-var cupos_ocu = {{ organismo['funcionarios_count'] }};
-var funcionarios = {{ funcionarios|json_encode|raw }};
+    var cupos_tot = {{ organismo['cupo'] }};
+    var cupos_ocu = {{ organismo['funcionarios_count'] }};
+    var funcionarios = {{ funcionarios|json_encode|raw }};
 
-var func_act = new Array();
-var func_new = new Array();
-var cambiando = -1;
-$(document).ready(function() {
-    $('#nuevo').hide();
-    for (var i=0; i<cupos_ocu; i++) {
-        var newFuncionario = '<tr><td id="actual-'+i+'">'+funcionarios[i]['nombre']+' '+
-            funcionarios[i]['apellido']+'</td><td id="nuevo-'+i+'">- sin cambio -</td><td><a id="cambiar-'+
-            i+'" class="button tiny cambiar">Cambiar</a></td></tr>';
-        $(newFuncionario).appendTo("#plantel");
-        $('#cambiar-'+i).data('id', i);
-        func_act[i] = funcionarios[i]['id'];
-        func_new[i] = -1;
-    }
-    for (var i=cupos_ocu; i<cupos_tot; i++) {
-        var newFuncionario = '<tr><td id="actual-'+i+'">- vacante -</td><td id="nuevo-'+
-            i+'">- sin cambio -</td><td><a id="cambiar-'+i+'" class="button tiny cambiar">'+
-            'Cambiar</a></td></tr>';
-        $(newFuncionario).appendTo("#plantel");
-        $('#cambiar-'+i).data('id', i);
-        func_act[i] = 0;
-        func_new[i] = -1;
-    }
-    $('.cambiar').click(function() {
-        $('.disabled').each(function() {
-            $(this).removeClass('disabled');
-            $(this).text('Cambiar');
-        });
-        $(this).removeClass('cambiar');
-        $(this).addClass('disabled');
-        $(this).text('Cambiando');
-        cambiando = $(this).data('id');
-        $('#nuevo').show();
-    });
-    $('#bt-cambiar').click(function() {
-        enviarSolicitud();
-    });
-    $('#bt-vacante').click(function() {
-        var nuevoId;
-        var nuevoNombre;
-        if (func_act[cambiando] == 0) {
-            nuevoNombre ='- sin cambio -';
-            nuevoId = -1;
-        } else {
-            nuevoNombre = '- vacante -';
-            nuevoId = 0;
+    var func_act = new Array();
+    var func_new = new Array();
+    var cambiando = -1;
+    $(document).ready(function() {
+        $('#nuevo').hide();
+        for (var i=0; i<cupos_ocu; i++) {
+            var newFuncionario = '<tr><td id="actual-'+i+'" class="text-center">'+
+                '<img src="http://lorempixel.com/g/128/128/">&nbsp;&nbsp;'+
+                funcionarios[i]['nombre']+' '+
+                funcionarios[i]['apellido']+'</td><td id="nuevo-'+i+'" class="text-center">- sin cambio -</td><td class="text-center"><a id="cambiar-'+
+                i+'" class="button boton-mini cambiar"><i class="fa fa-pencil fa-fw"></i></a></td></tr>';
+            $(newFuncionario).appendTo("#plantel");
+            $('#cambiar-'+i).data('id', i);
+            func_act[i] = funcionarios[i]['id'];
+            func_new[i] = -1;
         }
-        efectuarIntercambio(nuevoId, nuevoNombre)
+        for (var i=cupos_ocu; i<cupos_tot; i++) {
+            var newFuncionario = '<tr><td id="actual-'+i+'" class="text-center">- vacante -</td><td id="nuevo-'+
+                i+'" class="text-center">- sin cambio -</td><td class="text-center"><a id="cambiar-'+i+'" class="button boton-mini cambiar">'+
+                '<i class="fa fa-pencil fa-fw"></i></a></td></tr>';
+            $(newFuncionario).appendTo("#plantel");
+            $('#cambiar-'+i).data('id', i);
+            func_act[i] = 0;
+            func_new[i] = -1;
+        }
+        $('.cambiar').click(function() {
+            $('.disabled').each(function() {
+                $(this).removeClass('disabled');
+                $(this).removeClass('warning');
+                $(this).html('<i class="fa fa-pencil fa-fw"></i>');
+            });
+            $(this).removeClass('cambiar');
+            $(this).addClass('disabled');
+            $(this).addClass('warning');
+            $(this).html('<i class="fa fa-cog fa-spin fa-fw"></i>');
+            cambiando = $(this).data('id');
+            $('#funcActual').html( $('#actual-'+cambiando).html() );
+            $('#funcNuevo').html( $('#nuevo-'+cambiando).html() );
+            $('#nuevo').show();
+            $('#opcionesCupo').foundation('reveal', 'open');
+        });
+        $(document).on('close.fndtn.reveal', '[data-reveal]', function () {
+            var modal = $(this);
+            $('.disabled').each(function() {
+                $(this).removeClass('disabled');
+                $(this).removeClass('warning');
+                $(this).html('<i class="fa fa-pencil fa-fw"></i>');
+            });
+            cambiando=-1;
+        });
+        $('#bt-cambiar').click(function() {
+            enviarSolicitud();
+            $('#posiblesCandidatos').foundation('reveal', 'open');
+        });
+        $('#bt-vacante').click(function() {
+            var nuevoId;
+            var nuevoNombre;
+            if (func_act[cambiando] == 0) {
+                nuevoNombre ='- sin cambio -';
+                nuevoId = -1;
+            } else {
+                nuevoNombre = '- vacante -';
+                nuevoId = 0;
+            }
+            efectuarIntercambio(nuevoId, nuevoNombre);
+            $('#opcionesCupo').foundation('reveal', 'close');
+        });
+        $('#bt-cancelar').click(function() {
+            efectuarIntercambio(-1, '- sin cambio -');
+            $('#opcionesCupo').foundation('reveal', 'close');
+        });
+        $('#bt-aplicar').click(function() {
+            var func_out = new Array();
+            for (var i=0; i<cupos_ocu; i++) {
+                if (func_new[i] >= 0) {
+                    func_out.push(funcionarios[i]['id']);
+                }
+            }
+            var func_in = new Array();
+            for (var i=0; i<cupos_tot; i++) {
+                if (func_new[i] > 0) {
+                    func_in.push(func_new[i]);
+                }
+            }
+        });
+        $('#bt-salirModalOpc').click(function() {
+            $('#opcionesCupo').foundation('reveal', 'close');
+        });
+        $('#bt-salirBuscarFunc').click(function() {
+            $('#posiblesCandidatos').foundation('reveal', 'close');
+        });
     });
-    $('#bt-cancelar').click(function() {
-        efectuarIntercambio(-1, '- sin cambio -')
-    });
-    $('#bt-aplicar').click(function() {
+
+    function enviarSolicitud() {
+        var request = $.ajax({
+            url: '{{ baseUrl }}/usuario',
+            cache: false,
+            dataType: "json"
+        });
+        request.done(function(resultados) {
+            $("#funcCandidatos").find('tbody').empty();
+            for (var i=0; i<resultados.length; i++) {
+                var candidato = $("<li>");
+                agregarCandidatoTabla(
+                    'http://lorempixel.com/g/128/128',
+                    resultados[i].nombre,
+                    resultados[i].apellido,
+                    resultados[i].id,
+                    (resultados[i].nombre+' '+resultados[i].apellido)
+                );
+            }
+            return true;
+        });
+        request.fail(function(jqXHR, textStatus) {
+            alert("Request failed: " + textStatus);
+            return false;
+        });
+    }
+
+    function cambiarBanca(nuevoId, nuevoNombre) {
+        if ($.inArray(nuevoId, func_act.concat(func_new)) != -1) {
+            alert('Ese funcionario ya está asociado.');
+        } else {
+            func_new[cambiando] = nuevoId;
+            efectuarIntercambio(nuevoId, nuevoNombre)
+            $('#posiblesCandidatos').foundation('reveal', 'close');
+        }
+    }
+
+    function agregarCandidatoTabla(urlImagen, nombre, apellido, nuevoId, nuevoNombre) {
+        $("#funcCandidatos").find('tbody')
+        .append($('<tr>')
+                .append($('<td>')
+                        .attr('class', 'text-center')
+                        .html(nombre +' '+ apellido),
+                        $('<td>')
+                        .attr('class', 'text-center')
+                        .append($('<a>').html('<i class="fa fa-check fa-border"></i>').click(function() {cambiarBanca(nuevoId, nuevoNombre);})
+                               )));
+    }
+
+    function efectuarIntercambio(nuevoId, nuevoNombre) {
+        $('#nuevo-'+cambiando).text(nuevoNombre);
+        $('#cambiar-'+cambiando).removeClass('disabled');
+        $('#cambiar-'+cambiando).removeClass('warning');
+        $('#cambiar-'+cambiando).html('<i class="fa fa-pencil fa-fw"></i>');
+        func_new[cambiando] = nuevoId;
+        cambiando = -1;
         var func_out = new Array();
         for (var i=0; i<cupos_ocu; i++) {
             if (func_new[i] >= 0) {
@@ -101,66 +283,8 @@ $(document).ready(function() {
                 func_in.push(func_new[i]);
             }
         }
-    });
-});
-
-function enviarSolicitud() {
-    var request = $.ajax({
-        url: '{{ baseUrl }}/usuario',
-        cache: false,
-        dataType: "json"
-    });
-    request.done(function(resultados) {
-        for (var i=0; i<resultados.length; i++) {
-            var candidato = $("<li>");
-            candidato.text(resultados[i].nombre+' '+resultados[i].apellido+' ');
-            candidato.appendTo('#resultados');
-            var boton = $("<a>", {'class': 'tiny button',
-                                  'text': 'Elegir',
-                                  'click': function() {cambiarBanca($(this).data('id'), $(this).data('nombre'));}
-                                 });
-            boton.appendTo(candidato);
-            boton.data('id', resultados[i].id);
-            boton.data('nombre', resultados[i].nombre+' '+resultados[i].apellido);
-        }
-    });
-    request.fail(function(jqXHR, textStatus) {
-        alert("Request failed: " + textStatus);
-    });
-}
-
-function cambiarBanca(nuevoId, nuevoNombre) {
-    if ($.inArray(nuevoId, func_act.concat(func_new)) != -1) {
-        alert('Ese funcionario ya está asociado.');
-    } else {
-        func_new[cambiando] = nuevoId;
-        efectuarIntercambio(nuevoId, nuevoNombre)
+        $('#entrantes').val('['+func_in.join()+']');
+        $('#salientes').val('['+func_out.join()+']');
     }
-}
-
-function efectuarIntercambio(nuevoId, nuevoNombre) {
-    $('#nuevo-'+cambiando).text(nuevoNombre);
-    $('#cambiar-'+cambiando).removeClass('disabled');
-    $('#cambiar-'+cambiando).text('Cambiar');
-    func_new[cambiando] = nuevoId;
-    cambiando = -1;
-    $('#resultados').empty();
-    $('#nuevo').hide();
-
-    var func_out = new Array();
-    for (var i=0; i<cupos_ocu; i++) {
-        if (func_new[i] >= 0) {
-            func_out.push(funcionarios[i]['id']);
-        }
-    }
-    var func_in = new Array();
-    for (var i=0; i<cupos_tot; i++) {
-        if (func_new[i] > 0) {
-            func_in.push(func_new[i]);
-        }
-    }
-    $('#entrantes').val('['+func_in.join()+']');
-    $('#salientes').val('['+func_out.join()+']');
-}
 </script>
 {% endblock %}
