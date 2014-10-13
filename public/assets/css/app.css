@@ -16314,7 +16314,7 @@ footer .panel a {
 }
 /* line 311, ../scss/_layout.scss */
 #tabla-organismos td, #tabla-funcionarios td {
-  padding: inherit 0.3125rem;
+  padding: 0.3125rem 0.4375rem;
 }
 /* line 314, ../scss/_layout.scss */
 #tabla-organismos td.n-cupo, #tabla-funcionarios td.n-cupo {
@@ -16346,6 +16346,13 @@ footer .panel a {
 /* line 336, ../scss/_layout.scss */
 #tabla-organismos form, #tabla-funcionarios form {
   margin: 0 0 0;
+}
+
+/* line 342, ../scss/_layout.scss */
+#opcionesCupo #bt-salirBuscarFunc, #opcionesCupo #bt-salirModalOpc, #posiblesCandidatos #bt-salirBuscarFunc, #posiblesCandidatos #bt-salirModalOpc {
+  margin-bottom: 0;
+  font-size: 0.875rem;
+  padding: 0.5rem 1.25rem;
 }
 
 /* line 1, ../scss/_misc.scss */
