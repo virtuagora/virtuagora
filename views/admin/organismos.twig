@@ -52,7 +52,7 @@ Virtuagora - Administrar organismos
                     </td>
                     <td class="n-cupo">{{ org.funcionarios_count }}</td>
                     <td class="n-cupo">{{ org.cupo }}</td>
-                    <td><a href={{ baseUrl }}/admin/funcionarios/{{ org.id }} class="button boton-mini radius">Editar cupos</a></td>
+                    <td><a href="{{ baseUrl }}/admin/organismos/{{ org.id }}/funcionarios" class="button boton-mini radius">Editar cupos</a></td>
                 </tr>
                 {% endfor %}
                 </tbody>
