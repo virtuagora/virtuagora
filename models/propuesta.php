@@ -14,6 +14,6 @@ class Propuesta extends Eloquent {
     }
 
     public function posturas() {
-        return $this->belongsToMany('Usuario')->withPivot('tipo', 'publico')->withTimestamps();
+        return $this->belongsToMany('Usuario')->withPivot('postura', 'publico')->withTimestamps();
     }
 }

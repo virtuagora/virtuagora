@@ -7,7 +7,7 @@ class Contenido extends Eloquent {
     //$table = 'contenidos';
 
     protected $dates = ['deleted_at'];
-    protected $visible = array('id', 'titulo', 'contenido_type', 'puntos', 'autor', 'created_at');
+    protected $visible = array('id', 'titulo', 'contenible_id', 'contenible_type', 'puntos', 'autor', 'created_at');
     protected $with = array('autor');
 
     public function contenible() {

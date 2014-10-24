@@ -154,7 +154,7 @@ Capsule::schema()->create('propuestas', function($table) {
 Capsule::schema()->create('propuesta_usuario', function($table) {
     $table->engine = 'InnoDB';
 
-    $table->integer('tipo');
+    $table->integer('postura');
     $table->boolean('publico');
     $table->integer('propuesta_id')->unsigned();
     $table->integer('usuario_id')->unsigned();

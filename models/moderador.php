@@ -4,8 +4,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Moderador extends Eloquent {
     use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-    //$table = 'moderadores';
-
+    protected $table = 'moderadores';
     protected $dates = ['deleted_at'];
     public $incrementing = false;
 

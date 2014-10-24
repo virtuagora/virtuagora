@@ -5,5 +5,29 @@ Virtuagora - Portal
 {% endblock %}
 
 {% block body %}
-Holis, {{ username }}!
+<h1>Contenidos creados</h1>
+<table>
+    <thead>
+        <tr>
+            <th class="text-center">Título</th>
+            <th class="text-center">Autor</th>
+            <th class="text-center">Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for con in contenidos %}
+            <tr>
+                <td><a href='{{ baseUrl }}/{{ con.contenible_type|lower }}/{{ con.contenible_id }}'>{{ con.titulo }}</a></td>
+                <td>{{ con.autor.nombre }} {{ con.autor.apellido }}</td>
+                <td>{{ con.created_at|date("m/d/Y") }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% if esModerador %}
+    <a href="{{ baseUrl }}/admin/organismos">Administrar organismos.</a><br>
+{% endif %}
+{% if esFuncionario %}
+    <a href="{{ baseUrl }}/crear/propuesta">Crear propuesta.</a><br>
+{% endif %}
 {% endblock %}

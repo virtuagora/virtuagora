@@ -1,8 +1,8 @@
-<form method="POST" action="">
+<form method="POST" action="{{ propuesta.id }}/votar">
     <div class="row">
         <div class="large-12 large-centered columns">
             <div id="posturaInfo">
-                <input type="hidden" id="posturaVoto" name="voto" value="">
+                <input type="hidden" id="posturaVoto" name="postura" value="">
                 <i></i>
                 <h6><b></b></h6>
             </div>
@@ -20,7 +20,7 @@
         <div class="large-12 large-centered columns">
            <div id="cuadro-comentario" class="text-center">
             <textarea name="comentario" placeholder="Escriba su comentario aquí (Opcional)" rows=3></textarea>
-            <input id="checkbox" name="publico" type="checkbox"><label for="checkbox" class="inline">Hacer que mi comentario sea <b>privado</b> </label>
+            <input id="checkbox" name="publico" type="checkbox" value="on"><label for="checkbox" class="inline">Hacer que mi postura sea <b>pública</b> </label>
             </div>
         </div>
     </div>
