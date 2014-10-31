@@ -1,0 +1,130 @@
+{# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
+{% set url_atras = '#' %}
+{% set i_class_titulo = 'fa fa-gear fa-fw fa-spin' %}
+{% set titulo = 'Crear partido político' %}
+{% set comments = false %}
+
+{# VARIABLES DE LA VISTA #}
+
+{# ---------------------- #}
+
+{% extends "master-body.twig" %}
+
+{% block titulo %}
+Virtuagora - Crear partido político
+{% endblock %}
+
+{% block contenido %}
+<section id="formulario">
+	<form action="" method="POST">
+		<div class="row">
+			<div class="large-10 large-centered columns clearfix">
+				<div class="large-3 columns text-left left" >
+					<img src="http://placehold.it/160x160">
+				</div>
+				<div class="large-9 columns right inline">
+					<label><h6 class="subheader"><i class="fa fa-pencil fa-fw"></i>&nbsp;&nbsp;<b>Nombre del partido político</b> <span data-tooltip aria-haspopup="true" class="has-tip tip-right" title="Campo OBLIGATORIO" style="color: red;">*</span></h6>
+						<input type="text" name="nombre" style="text-align: center;">
+					</label>
+					<label><h6 class="subheader"><i class="fa fa-pencil fa-fw"></i>&nbsp;&nbsp;<b>Acrónimo del partido político</b> <span data-tooltip aria-haspopup="true" class="has-tip tip-right" title="Campo OBLIGATORIO" style="color: red;">*</span></h6>
+						<input type="text" name="acronimo" placeholder='Utilice entre 2 y 8 letras' style="text-align: center;">
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="row"><div class="large-10 large-centered columns"><p></p></div></div>
+		<div class="row">
+			<div class="large-10 large-centered columns">
+				<label><h6 class="subheader"><i class="fa fa-file-text-o fa-fw"></i>&nbsp;&nbsp;<b>Descripcion del partido político</b> <span data-tooltip aria-haspopup="true" class="has-tip tip-right" title="Campo OBLIGATORIO" style="color: red;">*</span></h6>
+					<textarea name="descripcion" rows=4></textarea>
+				</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-10 large-centered columns">
+				<div class="row collapse">
+					<div class="large-4 columns">
+						<span class="prefix">
+							&nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Fecha de fundación</b>
+						</span>
+					</div>
+					<div class="large-3 end columns">
+						<input type="date" name="fecha">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-10 large-centered columns">
+				<div class="row collapse">
+					<div class="large-4 columns">
+						<span class="prefix">
+							&nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Fundador histórico del partido politico</b>
+						</span>
+					</div>
+					<div class="large-8 end columns">
+						<input type="text" name="fundador" placeholder="Ingrese nombre y apellido">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-10 large-centered columns">
+				<div class="row collapse clearfix">
+					<div class="large-4 columns">
+						<span class="prefix">
+							&nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Pagina web del partido político</b>
+						</span>
+					</div>
+					<div class="large-8 end columns">
+						<input type="url" name="url" placeholder="Ej: www.partido-politico.com">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-10 large-centered columns">
+				<div class="row collapse clearfix">
+					<div class="large-4 columns">
+						<span class="prefix">
+							&nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Email de contacto</b>
+						</span>
+					</div>
+					<div class="large-8 end columns">
+						<input type="text" name="email" placeholder="Ej: ejemplo@servidor.com">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-10 large-centered columns">
+				<table align='center' width='100%'>
+					<thead>
+						<tr>
+							<th id="nombre" class="clearfix" style="color: #6F6F6F;"><i class="fa fa-caret-right fa-fw"></i>&nbsp;Telefono <a href="{{ baseUrl }}/admin/organismos/crear" class="button boton-agregar warning radius tiny right" style="margin: 0; padding: 5px 10px;"><i class="fa fa-plus fa-fw fa-lg"></i>Nuevo telefono</a></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<input type="text" name="telefono" placeholder="Telefono (0342) 4524012" style="margin: 0px;">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-5 large-centered columns">
+				<button type="submit" class="button radius small expand"><i class="fa fa-plus fa-fw"></i>&nbsp;Crear partido político</button>
+			</div>
+		</div>
+	</form>
+</section>
+
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}
