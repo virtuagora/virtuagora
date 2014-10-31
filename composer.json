@@ -5,6 +5,7 @@
         "slim/views": "*",
         "twig/twig": "*",
         "illuminate/database": "*",
+        "codeguy/upload": "*",
         "augusthur/validation": "*"
     },
     "repositories": [
