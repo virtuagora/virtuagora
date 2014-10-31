@@ -5,7 +5,7 @@
 {% set porc_contra = ( propuesta.votos_contra / ( total_votos ))*100 %}
 {% endif %}
 
-{# VARIABLES PARA FORMATO DE MASTER-CONTENIDO.TWIG #}
+{# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
 {% set url_atras = '#' %}
 {% set i_class_icon = 'fa fa-bullhorn fa-fw' %}
 {% set titulo = 'Ver propuesta' %}
@@ -21,7 +21,7 @@
 
 {# ---------------------- #}
 
-{% extends "contenido/master-contenido.twig" %}
+{% extends "master-body.twig" %}
 
 {% block titulo %}
 Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ propuesta.autor.apellido }}

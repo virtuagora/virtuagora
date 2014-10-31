@@ -1,13 +1,14 @@
-{# VARIABLES PARA FORMATO DE MASTER-CONTENIDO.TWIG #}
+{# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
 {% set url_atras = '#' %}
 {% set i_class_titulo = 'fa fa-gear fa-fw fa-spin' %}
 {% set titulo = 'Crear organismo publico' %}
+{% set comments = false %}
 
 {# VARIABLES DE LA VISTA #}
 
 {# ---------------------- #}
 
-{% extends "admin/master-admin.twig" %}
+{% extends "master-body.twig" %}
 
 {% block titulo %}
 Virtuagora - Crear organismo publico
@@ -19,7 +20,7 @@ Virtuagora - Crear organismo publico
         <div class="row">
             <div class="large-10 large-centered columns clearfix">
                 <div class="large-2 columns text-left left" >
-                    <img src="http://placehold.it/90x90">
+                    <img src="http://placehold.it/160x160">
                 </div>
                 <div class="large-10 columns right inline">
                     <label><h6 class="subheader"><i class="fa fa-pencil fa-fw"></i>&nbsp;&nbsp;<b>Nombre del organismo publico</b></h6>
