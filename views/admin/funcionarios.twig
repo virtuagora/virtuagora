@@ -1,13 +1,14 @@
-{# VARIABLES PARA FORMATO DE MASTER-CONTENIDO.TWIG #}
+{# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
 {% set url_atras = '#' %}
 {% set i_class_titulo = 'fa fa-cog fa-spin fa-fw' %}
 {% set titulo = 'Administrar funcionarios' %}
+{% set comments = false %}
 
 {# VARIABLES DE LA VISTA #}
 
 {# ---------------------- #}
 
-{% extends "admin/master-admin.twig" %}
+{% extends "master-body.twig" %}
 
 {% block titulo %}
 Virtuagora - Administrar funcionarios
