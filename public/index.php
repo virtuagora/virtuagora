@@ -111,6 +111,7 @@ $app->get('/crear/propuesta', checkRole('fnc'), 'PropuestaCtrl:showCrearPropuest
 $app->post('/crear/propuesta', checkRole('fnc'), 'PropuestaCtrl:crearPropuesta');
 
 $app->get('/partidos', 'PartidoCtrl:showPartidos');
+$app->post('/partido/:idPar/afiliarse', checkRole('usr'), 'PropuestaCtrl:AfiliarPartido');
 $app->get('/crear/partido', checkRole('fnc'), 'PartidoCtrl:showCrearPartido');
 $app->post('/crear/partido', checkRole('fnc'), 'PartidoCtrl:crearPartido');
 

@@ -10,6 +10,7 @@ $usuario->verificado = true;
 $usuario->puntos = 0;
 $usuario->suspendido = false;
 $usuario->es_funcionario = false;
+$usuario->es_jefe = false;
 $usuario->save();
 
 $patrulla = new Patrulla;

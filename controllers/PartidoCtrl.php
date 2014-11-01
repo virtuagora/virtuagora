@@ -57,6 +57,23 @@ class PartidoCtrl extends Controller {
         }
     }
 
+    public function afiliarPartido($idPar) {
+        $validator = new Augusthur\Validation\Validator();
+        $validator
+            ->add_rule('idPar', new Augusthur\Validation\Rule\NumNatural());
+        if (!$validator->is_valid(array('idPar' => $idPar))) {
+            throw (new TurnbackException())->setErrors($validator->get_errors());
+        }
+        $partido = Partido::findOrFail($idPar);
+        $usuario = $this->session->getUser();
+
+        // controlar que el usuario no esté afiliado a otro partido.
+
+        $usuario->partido()->associate($partido);
+        $usuario->save();
+        $this->redirect($this->request->getRootUri().'/partido/'.$idPar);
+    }
+
     public function cambiarImagen($idPar) {
         $dir = 'img/partidos/' . $idPar;
         if (!is_dir($dir)) {

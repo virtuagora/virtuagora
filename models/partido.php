@@ -6,7 +6,7 @@ class Partido extends Eloquent {
 
     //$table = 'partidos';
 
-    protected $visible = array('id', 'nombre', 'acronimo');
+    protected $visible = array('id', 'nombre', 'acronimo', 'descripcion');
 
     public function creador() {
         return $this->belongsTo('Usuario');
