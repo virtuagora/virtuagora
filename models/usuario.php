@@ -1,5 +1,4 @@
-<?php
-use Illuminate\Database\Eloquent\Model as Eloquent;
+<?php use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Usuario extends Eloquent {
     use Illuminate\Database\Eloquent\SoftDeletingTrait;
@@ -7,7 +6,7 @@ class Usuario extends Eloquent {
     //$table = 'usuarios';
 
     protected $dates = ['deleted_at'];
-    protected $visible = array('id', 'nombre', 'apellido', 'puntos');
+    protected $visible = array('id', 'nombre', 'apellido', 'puntos', 'partido_id');
     //protected $hidden = array('password',  'tiene_avatar', 'token_verificacion', 'created_at', 'updated_at', 'deleted_at');
 
     public function partido() {

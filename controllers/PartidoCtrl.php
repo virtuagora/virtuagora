@@ -66,9 +66,9 @@ class PartidoCtrl extends Controller {
         }
         $partido = Partido::findOrFail($idPar);
         $usuario = $this->session->getUser();
-
-        // controlar que el usuario no esté afiliado a otro partido.
-
+        if ($usuario->partido) {
+            throw (new TurnbackException())->setErrors(array('Usted ya está afiliado a otro partido.'));
+        }
         $usuario->partido()->associate($partido);
         $usuario->save();
         $this->redirect($this->request->getRootUri().'/partido/'.$idPar);

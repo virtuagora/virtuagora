@@ -146,6 +146,37 @@ Capsule::schema()->create('contenidos', function($table) {
     $table->softDeletes();
 });
 
+Capsule::schema()->create('tags', function($table) {
+    $table->engine = 'InnoDB';
+
+    $table->increments('id');
+    $table->string('nombre');
+});
+
+Capsule::schema()->create('contenido_tag', function($table) {
+    $table->engine = 'InnoDB';
+
+    $table->integer('contenido_id')->unsigned();
+    $table->integer('tag_id')->unsigned();
+
+    $table->foreign('contenido_id')->references('id')->on('contenidos')->onDelete('cascade');
+    $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+});
+
+Capsule::schema()->create('imagenes', function($table) {
+    $table->engine = 'InnoDB';
+
+    $table->increments('id');
+    $table->morphs('imagenable');
+    $table->string('titulo');
+    $table->string('extension');
+    $table->integer('autor_id')->unsigned();
+
+    $table->foreign('autor_id')->references('id')->on('usuarios')->onDelete('cascade');
+
+    $table->timestamps();
+});
+
 Capsule::schema()->create('propuestas', function($table) {
     $table->engine = 'InnoDB';
 
@@ -173,6 +204,18 @@ Capsule::schema()->create('propuesta_usuario', function($table) {
     $table->foreign('propuesta_id')->references('id')->on('propuestas')->onDelete('cascade');
 
     $table->timestamps();
+});
+
+Capsule::schema()->create('problematica', function($table) {
+    $table->engine = 'InnoDB';
+
+    $table->increments('id');
+    $table->text('cuerpo');
+
+    $table->foreign('id')->references('id')->on('contenidos')->onDelete('cascade');
+
+    $table->timestamps();
+    $table->softDeletes();
 });
 
 echo 'holis';

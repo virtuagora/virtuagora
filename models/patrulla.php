@@ -1,5 +1,4 @@
-<?php
-use Illuminate\Database\Eloquent\Model as Eloquent;
+<?php use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Patrulla extends Eloquent {
     //$table = 'patrullas';

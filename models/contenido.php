@@ -1,5 +1,4 @@
-<?php
-use Illuminate\Database\Eloquent\Model as Eloquent;
+<?php use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Contenido extends Eloquent {
     use Illuminate\Database\Eloquent\SoftDeletingTrait;
@@ -16,5 +15,9 @@ class Contenido extends Eloquent {
 
     public function autor() {
         return $this->belongsTo('Usuario');
+    }
+
+    public function tags() {
+        return $this->belongsToMany('Tag');
     }
 }
