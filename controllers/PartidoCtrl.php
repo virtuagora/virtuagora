@@ -4,7 +4,7 @@ class PartidoCtrl extends Controller {
 
     public function showPartidos() {
         $partidos = Partido::all();
-        $this->render('', array('partidos' => $partidos->toArray()));
+        $this->render('partido/listar.twig', array('partidos' => $partidos->toArray()));
     }
 
     public function showCrearPartido() {
@@ -17,32 +17,44 @@ class PartidoCtrl extends Controller {
             ->add_rule('nombre', new Augusthur\Validation\Rule\Alpha(array(' ')))
             ->add_rule('nombre', new Augusthur\Validation\Rule\MinLength(2))
             ->add_rule('nombre', new Augusthur\Validation\Rule\MaxLength(64))
+            ->add_rule('acronimo', new Augusthur\Validation\Rule\Alpha())
+            ->add_rule('acronimo', new Augusthur\Validation\Rule\MinLength(2))
+            ->add_rule('acronimo', new Augusthur\Validation\Rule\MaxLength(8))
             ->add_rule('descripcion', new Augusthur\Validation\Rule\MaxLength(512));
         $req = $this->request;
         if (!$validator->is_valid($req->post())) {
             throw (new TurnbackException())->setErrors($validator->get_errors());
         }
+        $usuario = $this->session->getUser();
+        if ($usuario->partido_id) {
+            throw (new TurnbackException())->setErrors(array('No es posible crear un partido si ya está afilado a otro.'));
+        }
         $partido = new Partido;
         $partido->nombre = $req->post('nombre');
+        $partido->acronimo = $req->post('acronimo');
         $partido->descripcion = $req->post('descripcion');
         $partido->creador_id = $this->session->user('id');
-        $partido->imagen = false;
+        $partido->creador()->associate($usuario);
         $partido->save();
+        $this->crearImagen($partido->id, $partido->nombre);
         $this->redirect($req->getRootUri().'/partidos');
     }
 
-    private function crearImagen($idPar) {
-        $dir = 'img/partidos/' . $idPar;
+    private function crearImagen($id, $nombre) {
+        $dir = 'img/partidos/' . $id;
         if (!is_dir($dir)) {
-            mkdir('$dir', 0777, true);
+            mkdir($dir, 0777, true);
         }
-        $ch = curl_init('http://www.example/2012/09/flower.jpg');
-        $fp = fopen('/localProject/imagesFolder/newname.jpg', 'wb');
-        curl_setopt($ch, CURLOPT_FILE, $fp);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_exec($ch);
-        curl_close($ch);
-        fclose($fp);
+        $hash = md5(strtolower(trim($nombre)));
+        foreach (array(32, 64, 160) as $res) {
+            $ch = curl_init('http://www.gravatar.com/avatar/'.$hash.'?d=identicon&f=y&s='.$res);
+            $fp = fopen($dir . '/' . $res . '.png', 'wb');
+            curl_setopt($ch, CURLOPT_FILE, $fp);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_exec($ch);
+            curl_close($ch);
+            fclose($fp);
+        }
     }
 
     public function cambiarImagen($idPar) {
@@ -59,7 +71,7 @@ class PartidoCtrl extends Controller {
             new \Upload\Validation\Size('1M')
         ));
         $file->upload();
-        foreach (array(32, 64, 169) as $res) {
+        foreach (array(32, 64, 160) as $res) {
             $image = new ZebraImage();
             $image->source_path = $dir . '/' . $filename;
             $image->target_path = $dir . '/' . $res . '.jpg';

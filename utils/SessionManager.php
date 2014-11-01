@@ -36,6 +36,14 @@ class SessionManager {
         }
     }
 
+    public function getUser() {
+        if (isset($_SESSION['user'])) {
+            return Usuario::find($_SESSION['user']['id']);
+        } else {
+            return null;
+        }
+    }
+
     public function exists() {
         return isset($_SESSION['user']);
     }

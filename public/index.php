@@ -110,7 +110,9 @@ $app->post('/propuesta/:idPro/votar', checkRole('usr'), 'PropuestaCtrl:votarProp
 $app->get('/crear/propuesta', checkRole('fnc'), 'PropuestaCtrl:showCrearPropuesta');
 $app->post('/crear/propuesta', checkRole('fnc'), 'PropuestaCtrl:crearPropuesta');
 
+$app->get('/partidos', 'PartidoCtrl:showPartidos');
 $app->get('/crear/partido', checkRole('fnc'), 'PartidoCtrl:showCrearPartido');
+$app->post('/crear/partido', checkRole('fnc'), 'PartidoCtrl:crearPartido');
 
 session_cache_limiter(false);
 session_start();

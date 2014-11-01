@@ -63,7 +63,6 @@ class PortalCtrl extends Controller {
         $usuario->password = password_hash($req->post('password'), PASSWORD_DEFAULT);
         $usuario->nombre = $req->post('nombre');
         $usuario->apellido = $req->post('apellido');
-        $usuario->imagen = false;
         $usuario->token_verificacion = bin2hex(openssl_random_pseudo_bytes(16));
         $usuario->verificado = false;
         $usuario->puntos = 0;

@@ -24,4 +24,5 @@ Capsule::schema()->dropIfExists('contactos');
 Capsule::schema()->dropIfExists('usuario_datos');
 Capsule::schema()->dropIfExists('funcionarios');
 Capsule::schema()->dropIfExists('organismos');
+Capsule::schema()->dropIfExists('partidos');
 Capsule::schema()->dropIfExists('usuarios');

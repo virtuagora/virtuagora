@@ -15,6 +15,6 @@ class Contenido extends Eloquent {
     }
 
     public function autor() {
-        return $this->belongsTo('Usuario', 'usuario_id');
+        return $this->belongsTo('Usuario');
     }
 }

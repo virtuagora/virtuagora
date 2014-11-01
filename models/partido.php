@@ -6,7 +6,7 @@ class Partido extends Eloquent {
 
     //$table = 'partidos';
 
-    protected $visible = array('id', 'nombre', 'imagen');
+    protected $visible = array('id', 'nombre', 'acronimo');
 
     public function creador() {
         return $this->belongsTo('Usuario');
@@ -14,6 +14,14 @@ class Partido extends Eloquent {
 
     public function afiliados() {
         return $this->hasMany('Usuario');
+    }
+
+    public static function boot() {
+        parent::boot();
+        static::created(function($partido) {
+            Usuario::where('id', $partido->creador_id)->update(array('es_jefe' => true,
+                                                                     'partido_id' => $partido->id));
+        });
     }
 
 }

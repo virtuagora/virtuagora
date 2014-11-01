@@ -7,11 +7,15 @@ class Usuario extends Eloquent {
     //$table = 'usuarios';
 
     protected $dates = ['deleted_at'];
-    protected $visible = array('id', 'nombre', 'apellido', 'puntos', 'imagen');
+    protected $visible = array('id', 'nombre', 'apellido', 'puntos');
     //protected $hidden = array('password',  'tiene_avatar', 'token_verificacion', 'created_at', 'updated_at', 'deleted_at');
 
     public function partido() {
         return $this->belongsTo('Partido');
+    }
+
+    public function moderador() {
+        return $this->hasOne('Moderador');
     }
 
 }
