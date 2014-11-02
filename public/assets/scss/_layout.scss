@@ -345,3 +345,209 @@ footer {
         padding: rem-calc(8) rem-calc(20);
     }
 }
+
+#listado {
+    .cf:before,
+    .cf:after {
+        content: " "; /* 1 */
+        display: table; /* 2 */
+    }
+
+    .cf:after {
+        clear: both;
+    }
+
+    .cf {
+        *zoom: 1;
+    }
+    $snow:     #FEFEFE;
+    $smoke:    #F3F5F4;
+    $banana:   #FAE3B4;
+    $cherry:   #F34A53;
+    $olive:    #437356;
+    $mint:     #AAC789;
+    $spruce:   #1E4147;
+
+    * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+
+    hr {
+        margin: 30px 0 0;
+        border: none;
+        border-bottom: 2px solid darken($smoke, 5%);
+    }
+
+    .left {
+        float: left;
+    }
+
+    .right {
+        float: right;
+    }
+
+    .active { display: block; }
+    .hidden { display: none; }
+
+    .wrapper {
+        position: relative;
+        overflow: hidden;
+        margin: 10px auto;
+        padding: 0;
+        width: 100%;
+        background-color: $snow;
+        border: 1px solid $mint;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        -webkit-box-shadow: 0 12px 6px -10px darken($spruce, 50%);
+        -moz-box-shadow: 0 12px 6px -10px darken($spruce, 50%);
+        box-shadow: 0 12px 6px -10px darken($spruce, 50%);
+
+        .top-panel {
+            width: 100%;
+            height: 50px;
+            background-color: $spruce;
+        }
+
+        .username {
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 48px;
+            width: 50px;
+            text-align: center;
+            line-height: 46px;
+            font-size: 30px;
+            color: $mint;
+            border-left: solid 2px darken($spruce, 1%);
+            cursor: pointer;
+        }
+
+        .short-nav {
+            margin-left: 15px;
+            line-height: 46px;
+        }
+
+        .short-nav > a, .short-nav #social-share {
+            padding: 0 15px 0 0;
+            color: $mint;
+            text-align: center;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        .short-nav a:hover, .short-nav #social-share:hover {
+            color: lighten($mint, 10%);
+            cursor: pointer;
+        }
+    }
+
+    .content {
+        //color: darken($smoke, 50%);
+        font-weight: 400;
+
+        #social { display: none; }
+
+        #social ul {
+            margin: 0 auto;
+            width: 100%;
+            height: 60px;
+            background-color: $mint;
+        }
+
+        #social ul li {
+            display: inline-table;
+            width: 70px;
+            font-size: 18px;
+            line-height: 58px;
+            text-align: center;
+            color: $olive;
+            cursor: pointer;
+            -webkit-transition: all 0.5s ease-in-out;
+            -moz-transition: all 1s ease-in-out;
+            -ms-transition: all 1s ease-in-out;
+            -o-transition: all 1s ease-in-out;
+            transition: all 0.25s ease-in-out;
+
+            &:first-child {
+                margin-left: 30px;
+            }
+
+            &:hover { line-height: 50px; font-size: 26px; color: $spruce; }
+        }
+    }
+
+    .contact-info {
+        margin-bottom: 0px;
+        padding:  10px 10px;
+
+        span {
+            position: relative;
+            top: 30px;
+            left: 10px;
+            z-index: 10;
+            font-size: 28px;
+        }
+
+        h1 {
+            display: block;
+            width: 100%;
+            padding-left: 50px;
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            display: block;
+            width: 100%;
+            padding: 7px 0 14px 50px;
+            font-size: 14px;
+            color: $mint;
+            text-transform: uppercase;
+            font-style:italic;
+        }
+
+        img {
+            display: block;
+            float: left;
+            padding: 0 0 10px 0;
+        }
+
+        p {
+            padding: 0 10px 0 80px;
+            margin: 0;
+            line-height: 18px;
+            font-size: 12px;
+            font-weight: 300;
+        }
+
+        dl {
+            padding: 10px 0 0 50px;
+        }
+
+        dl dt {
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        dl dd {
+            display: inline-table;
+            width: auto;
+            font-size: 12px;
+            padding: 5px 8px;
+            margin-bottom: 5px;
+            text-align: center;
+            background-color: $spruce;
+            color: $smoke;
+            cursor: pointer;
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+            border-radius: 8px;
+        }
+    }
+}

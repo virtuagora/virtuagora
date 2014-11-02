@@ -1,0 +1,60 @@
+{# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
+{% set url_atras = '#' %}
+{% set i_class_titulo = 'fa fa-flag fa-fw' %}
+{% set titulo = 'Ver los partidos politicos' %}
+{% set comments = false %}
+
+{# VARIABLES DE LA VISTA #}
+
+{# ---------------------- #}
+
+{% extends "master-body.twig" %}
+
+{% block titulo %}
+Virtuagora - Crear partido político
+{% endblock %}
+
+{% block contenido %}
+<section id="listado">
+    <div class="row">
+        <div class="large-12 large-centered columns">
+            <div class="panel">
+                Holis
+            </div>
+        </div>
+    </div>
+    {% for p in partidos %}
+    <div class="row">
+        <div class="large-12 large-centered columns">
+            <div class="wrapper">
+                <!-- Begin Top Buttons -->
+                <div class="top-panel">
+                    <div class="right username" id="initial"><i class="fa fa-university fa-fw"></i></div>
+                        <div class="short-nav left">
+                            <div id="social-share">
+                                {{ p.nombre }} <small>[{{ p.acronimo }}]</small>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        </div>
+                    <!-- Begin Panel Content -->
+                    <div class="content">
+                        <!-- Name & Title Objects -->
+                        <div class="contact-info">
+                            <img src="http://lorempixel.com/g/64/64/city/">
+                            <p>{{ p.descripcion }}</p>
+                        </div>
+                        <!-- Clear Positioned V-Card Objects -->
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        </section>
+
+    {% endblock %}
+
+    {% block script %}
+
+    {% endblock %}
