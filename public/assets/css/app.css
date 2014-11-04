@@ -16407,21 +16407,15 @@ footer .panel a {
   padding: 0;
   width: 100%;
   background-color: #FEFEFE;
-  border: 1px solid #AAC789;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
   border-radius: 8px;
-  -webkit-box-shadow: 0 12px 6px -10px black;
-  -moz-box-shadow: 0 12px 6px -10px black;
-  box-shadow: 0 12px 6px -10px black;
 }
 /* line 410, ../scss/_layout.scss */
 #listado .wrapper .top-panel {
   width: 100%;
-  height: 50px;
-  background-color: #1E4147;
+  height: 45px;
+  background-color: #ECBA6D;
 }
-/* line 416, ../scss/_layout.scss */
+/* line 417, ../scss/_layout.scss */
 #listado .wrapper .username {
   overflow: hidden;
   position: absolute;
@@ -16431,45 +16425,52 @@ footer .panel a {
   width: 50px;
   text-align: center;
   line-height: 46px;
-  font-size: 30px;
-  color: #AAC789;
-  border-left: solid 2px #1c3e43;
+  font-size: 25px;
+  color: #000000;
+  border-left: solid 2px #FFFFFF;
   cursor: pointer;
 }
 /* line 431, ../scss/_layout.scss */
+#listado .wrapper .username a {
+  color: #000000;
+}
+/* line 435, ../scss/_layout.scss */
+#listado .wrapper .username a:hover {
+  cursor: pointer;
+}
+/* line 439, ../scss/_layout.scss */
 #listado .wrapper .short-nav {
   margin-left: 15px;
   line-height: 46px;
 }
-/* line 436, ../scss/_layout.scss */
-#listado .wrapper .short-nav > a, #listado .wrapper .short-nav #social-share {
+/* line 444, ../scss/_layout.scss */
+#listado .wrapper .short-nav a, #listado .wrapper .short-nav #social-share {
   padding: 0 15px 0 0;
-  color: #AAC789;
+  color: #000000;
   text-align: center;
   text-decoration: none;
   font-size: 20px;
 }
-/* line 444, ../scss/_layout.scss */
+/* line 452, ../scss/_layout.scss */
 #listado .wrapper .short-nav a:hover, #listado .wrapper .short-nav #social-share:hover {
-  color: #c3d7ac;
   cursor: pointer;
 }
-/* line 450, ../scss/_layout.scss */
+/* line 458, ../scss/_layout.scss */
 #listado .content {
   font-weight: 400;
 }
-/* line 454, ../scss/_layout.scss */
+/* line 462, ../scss/_layout.scss */
 #listado .content #social {
   display: none;
 }
-/* line 456, ../scss/_layout.scss */
+/* line 464, ../scss/_layout.scss */
 #listado .content #social ul {
   margin: 0 auto;
   width: 100%;
   height: 60px;
   background-color: #AAC789;
 }
-/* line 463, ../scss/_layout.scss */
+/* line 471, ../scss/_layout.scss */
 #listado .content #social ul li {
   display: inline-table;
   width: 70px;
@@ -16484,22 +16485,22 @@ footer .panel a {
   -o-transition: all 1s ease-in-out;
   transition: all 0.25s ease-in-out;
 }
-/* line 477, ../scss/_layout.scss */
+/* line 485, ../scss/_layout.scss */
 #listado .content #social ul li:first-child {
   margin-left: 30px;
 }
-/* line 481, ../scss/_layout.scss */
+/* line 489, ../scss/_layout.scss */
 #listado .content #social ul li:hover {
   line-height: 50px;
   font-size: 26px;
   color: #1E4147;
 }
-/* line 485, ../scss/_layout.scss */
+/* line 493, ../scss/_layout.scss */
 #listado .contact-info {
   margin-bottom: 0px;
   padding: 10px 10px;
 }
-/* line 489, ../scss/_layout.scss */
+/* line 497, ../scss/_layout.scss */
 #listado .contact-info span {
   position: relative;
   top: 30px;
@@ -16507,7 +16508,7 @@ footer .panel a {
   z-index: 10;
   font-size: 28px;
 }
-/* line 497, ../scss/_layout.scss */
+/* line 505, ../scss/_layout.scss */
 #listado .contact-info h1 {
   display: block;
   width: 100%;
@@ -16515,7 +16516,7 @@ footer .panel a {
   font-size: 24px;
   text-transform: uppercase;
 }
-/* line 505, ../scss/_layout.scss */
+/* line 513, ../scss/_layout.scss */
 #listado .contact-info h2 {
   display: block;
   width: 100%;
@@ -16525,30 +16526,30 @@ footer .panel a {
   text-transform: uppercase;
   font-style: italic;
 }
-/* line 515, ../scss/_layout.scss */
+/* line 523, ../scss/_layout.scss */
 #listado .contact-info img {
   display: block;
   float: left;
   padding: 0 0 10px 0;
 }
-/* line 521, ../scss/_layout.scss */
+/* line 529, ../scss/_layout.scss */
 #listado .contact-info p {
   padding: 0 10px 0 80px;
   margin: 0;
   line-height: 18px;
   font-size: 12px;
-  font-weight: 300;
+  font-weight: 400;
 }
-/* line 529, ../scss/_layout.scss */
+/* line 537, ../scss/_layout.scss */
 #listado .contact-info dl {
   padding: 10px 0 0 50px;
 }
-/* line 533, ../scss/_layout.scss */
+/* line 541, ../scss/_layout.scss */
 #listado .contact-info dl dt {
   margin-bottom: 20px;
   font-weight: 600;
 }
-/* line 538, ../scss/_layout.scss */
+/* line 546, ../scss/_layout.scss */
 #listado .contact-info dl dd {
   display: inline-table;
   width: auto;

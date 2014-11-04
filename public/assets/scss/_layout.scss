@@ -399,18 +399,19 @@ footer {
         padding: 0;
         width: 100%;
         background-color: $snow;
-        border: 1px solid $mint;
-        -webkit-border-radius: 8px;
-        -moz-border-radius: 8px;
+        //border: 1px solid $mint;
+        //-webkit-border-radius: 8px;
+        //-moz-border-radius: 8px;
         border-radius: 8px;
-        -webkit-box-shadow: 0 12px 6px -10px darken($spruce, 50%);
-        -moz-box-shadow: 0 12px 6px -10px darken($spruce, 50%);
-        box-shadow: 0 12px 6px -10px darken($spruce, 50%);
+        //webkit-box-shadow: 0 12px 6px -10px darken($spruce, 50%);
+        //-moz-box-shadow: 0 12px 6px -10px darken($spruce, 50%);
+        //box-shadow: 0 12px 6px -10px darken($spruce, 50%);
 
         .top-panel {
             width: 100%;
-            height: 50px;
-            background-color: $spruce;
+            height: 45px;
+            background-color: #ECBA6D;
+
         }
 
         .username {
@@ -422,9 +423,16 @@ footer {
             width: 50px;
             text-align: center;
             line-height: 46px;
-            font-size: 30px;
-            color: $mint;
-            border-left: solid 2px darken($spruce, 1%);
+            font-size: 25px;
+            color: #000000;
+            border-left: solid 2px #FFFFFF;
+            cursor: pointer;
+        }
+		.username a {
+            color: #000000;
+        }
+
+        .username a:hover {
             cursor: pointer;
         }
 
@@ -433,16 +441,16 @@ footer {
             line-height: 46px;
         }
 
-        .short-nav > a, .short-nav #social-share {
+        .short-nav a, .short-nav #social-share {
             padding: 0 15px 0 0;
-            color: $mint;
+            color: #000000;
             text-align: center;
             text-decoration: none;
             font-size: 20px;
         }
 
         .short-nav a:hover, .short-nav #social-share:hover {
-            color: lighten($mint, 10%);
+
             cursor: pointer;
         }
     }
@@ -523,7 +531,7 @@ footer {
             margin: 0;
             line-height: 18px;
             font-size: 12px;
-            font-weight: 300;
+            font-weight: 400;
         }
 
         dl {

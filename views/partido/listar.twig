@@ -15,46 +15,112 @@ Virtuagora - Crear partido político
 {% endblock %}
 
 {% block contenido %}
+<div class="row">
+	<div class="large-12 large-centered columns">
+		<div class="panel text-center">
+			Aqui puedes ver los partidos políticos que participan. Puede obtener mas información acerca de alguno haciendo clic sobre el icono <i class="fa fa-info fa-fw"></i> que te direccionará al perfil del partido.
+		</div>
+	</div>
+</div>
+<hr style="margin-top:0;"/>
 <section id="listado">
-    <div class="row">
-        <div class="large-12 large-centered columns">
-            <div class="panel">
-                Holis
-            </div>
-        </div>
-    </div>
-    {% for p in partidos %}
-    <div class="row">
-        <div class="large-12 large-centered columns">
-            <div class="wrapper">
-                <!-- Begin Top Buttons -->
-                <div class="top-panel">
-                    <div class="right username" id="initial"><i class="fa fa-university fa-fw"></i></div>
-                        <div class="short-nav left">
-                            <div id="social-share">
-                                {{ p.nombre }} <small>[{{ p.acronimo }}]</small>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        </div>
-                    <!-- Begin Panel Content -->
-                    <div class="content">
-                        <!-- Name & Title Objects -->
-                        <div class="contact-info">
-                            <img src="http://lorempixel.com/g/64/64/city/">
-                            <p>{{ p.descripcion }}</p>
-                        </div>
-                        <!-- Clear Positioned V-Card Objects -->
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-        </section>
+	{% if partidos is empty %}
+	<div class="row">
+		<div class="large-12 large-centered columns">
+			<div class="text-center">
+				<i class="fa fa-question fa-fw fa-5x"></i>
+				<br />
+				<b>~ No hay partidos políticos ingresados en el sistema ~</b>
+				<!--Estaria bueno agregar la accion de añadir partido politico por parte de un funcionario. -->
+			</div>
+		</div>
+	</div>
+	{% endif %}
+	{% for p in partidos %}
+	<div class="row">
+		<div class="large-12 large-centered columns">
+			<div class="wrapper">
+				<!-- Begin Top Buttons -->
+				<div class="top-panel">
+					{% if user.partido_id is null %}
+					<div id="bt-p-{{ p.id }}" class="right username bt-afiliarse" style="margin-right:50px"><i class="fa fa-heart fa-fw"></i></div>
+					{% elseif user.partido_id != p.id %}
+					<div id="bt-p-{{ p.id }}" class="right username bt-afiliarse" style="margin-right:50px"><i class="fa fa-heart fa-fw"></i></div>
+					{% endif %}
+					<div class="right username"><a href="{{ baseUrl }}/partido/{{ p.id }}"><i class="fa fa-info fa-fw"></i></a></div>
+					<div class="short-nav left">
+						<div id="social-share">
+							<i class="fa fa-caret-right fa-fw"></i>&nbsp;<a id="nombre-p-{{ p.id }}" href="{{ baseUrl }}/partido/{{ p.id }}">{{ p.nombre }}</a> <small>[{{ p.acronimo }}]</small>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<!-- Begin Panel Content -->
+				<div class="content">
+					<!-- Name & Title Objects -->
+					<div class="contact-info">
+						<img src="{{ baseUrl }}/img/partidos/{{ p.id }}/64.png">
+						<p>{{ p.descripcion }} <a href="{{ baseUrl }}/partido/{{ p.id }}"><b>Ver mas...</b></a></p>
+					</div>
+					<!-- Clear Positioned V-Card Objects -->
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</section>
 
-    {% endblock %}
+{% endblock %}
 
-    {% block script %}
+{% block modal %}
 
-    {% endblock %}
+{% include 'partido/afiliarse.twig' %}
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+		var p_id;
+		var p_user;
+		var p_nombre;
+		$('.bt-afiliarse').click(function() {
+			p_id = (this.id).replace('bt-p-','');
+			p_nombre = $('#nombre-p-' + p_id).html();
+			{% if user.partido_id is null %}
+				p_user = null;
+			{% else %}
+				p_user = {{ user.partido_id }}
+			{% endif %}
+			if(p_user == p_id){
+				mensaje = "<p>Usted ya es parte del partido<br /><b>"
+				+ p_nombre + "</b></p>";
+				$("#bt-afiliarse").hide();
+			} else if ( p_user != null){
+				mensaje = "<p>Usted ya pertenece a un partido político. Confirmando la accion, "
+				+"usted estaría afiliandose al partido <br /><b>"
+				+ p_nombre + "</b></p>" +
+				"<p>¿Confirma su cambio de partido?</p>";
+				$("#valor-p").val(p_id);
+				$("#bt-afiliarse").show();
+				$("#form-afiliarse").attr('action','{{ baseUrl }}/partido/' + p_id + '/afiliarse');
+			} else {
+				mensaje = "<p>Usted esta a punto de afiliarse al partido politico<br /><b>"
+				+ p_nombre + "</b></p>" +
+				"<p>¿Confirma afiliarse al partido?</p>";
+				$("#valor-p").val(p_id)
+				$("#bt-afiliarse").show();
+				$("#form-afiliarse").attr('action','{{ baseUrl }}/partido/' + p_id + '/afiliarse');
+			}
+			$('#img-p-afiliar').attr('src','{{ baseUrl }}/img/partidos/' + p_id + '/64.png');
+			$('#mensaje-afiliar').html(mensaje);
+
+			$('#afiliarse').foundation('reveal', 'open');
+		});
+		$('.bt-cancelar').click(function() {
+			$('#afiliarse').foundation('reveal', 'close');
+		});
+	});
+</script>
+{% endblock %}
