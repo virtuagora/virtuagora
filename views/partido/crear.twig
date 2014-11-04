@@ -1,6 +1,6 @@
 {# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
 {% set url_atras = '#' %}
-{% set i_class_titulo = 'fa fa-gear fa-fw fa-spin' %}
+{% set i_class_titulo = 'fa fa-gear fa-fw' %}
 {% set titulo = 'Crear partido político' %}
 {% set comments = false %}
 
@@ -27,13 +27,13 @@ Virtuagora - Crear partido político
                         <input type="text" name="nombre" style="text-align: center;">
                     </label>
                     <div class="row collapse clearfix">
-                        <div class="large-4 columns">
+                        <div class="large-3 columns">
                             <span class="prefix">
-                                &nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Acrónimo del partido</b>
+                                &nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Acrónimo</b>
                             </span>
                         </div>
-                        <div class="large-8 end columns">
-                            <input type="text" name="acronimo" placeholder="Use entre 2 a 8 caracteres" style="text-align: center;">
+                        <div class="large-4 end columns">
+                            <input type="text" name="acronimo" placeholder="Use 2 a 8 caracteres" style="text-align: center;">
                         </div>
                     </div>
                 </div>
@@ -42,7 +42,7 @@ Virtuagora - Crear partido político
         <div class="row"><div class="large-10 large-centered columns"><p></p></div></div>
         <div class="row">
             <div class="large-10 large-centered columns">
-                <label><h6 class="subheader"><i class="fa fa-file-text-o fa-fw"></i>&nbsp;&nbsp;<b>Descripcion del partido político</b> <span data-tooltip aria-haspopup="true" class="has-tip tip-right" title="Campo OBLIGATORIO" style="color: red;">*</span></h6>
+                <label><h6 class="subheader"><i class="fa fa-file-text-o fa-fw"></i>&nbsp;&nbsp;<b>Descripción</b> <span data-tooltip aria-haspopup="true" class="has-tip tip-right" title="Campo OBLIGATORIO" style="color: red;">*</span></h6>
                     <textarea name="descripcion" rows=4></textarea>
                 </label>
             </div>
@@ -66,7 +66,7 @@ Virtuagora - Crear partido político
                 <div class="row collapse">
                     <div class="large-4 columns">
                         <span class="prefix">
-                            &nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Fundador histórico del partido politico</b>
+                            &nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Fundador histórico</b>
                         </span>
                     </div>
                     <div class="large-8 end columns">
@@ -81,11 +81,11 @@ Virtuagora - Crear partido político
                 <div class="row collapse clearfix">
                     <div class="large-4 columns">
                         <span class="prefix">
-                            &nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Pagina web del partido político</b>
+                            &nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Pagina web</b>
                         </span>
                     </div>
                     <div class="large-8 end columns">
-                        <input type="url" name="url" placeholder="Ej: www.partido-politico.com">
+                        <input type="url" name="text" placeholder="Ej: www.partido-politico.com">
                     </div>
                 </div>
             </div>
