@@ -25,6 +25,8 @@ Capsule::schema()->create('usuarios', function($table) {
     $table->string('apellido');
     $table->string('token_verificacion');
     $table->boolean('verificado');
+    $table->integer('img_tipo')->unsigned();
+    $table->string('img_hash');
     $table->integer('puntos');
     $table->boolean('suspendido');
     $table->boolean('es_funcionario');
@@ -186,8 +188,6 @@ Capsule::schema()->create('propuestas', function($table) {
     $table->integer('votos_contra')->unsigned();
     $table->integer('votos_neutro')->unsigned();
 
-    $table->foreign('id')->references('id')->on('contenidos')->onDelete('cascade');
-
     $table->timestamps();
     $table->softDeletes();
 });
@@ -211,6 +211,9 @@ Capsule::schema()->create('problematica', function($table) {
 
     $table->increments('id');
     $table->text('cuerpo');
+    $table->integer('votos_afectados')->unsigned();
+    $table->integer('votos_soporte')->unsigned();
+    $table->integer('votos_adversos')->unsigned();
 
     $table->foreign('id')->references('id')->on('contenidos')->onDelete('cascade');
 

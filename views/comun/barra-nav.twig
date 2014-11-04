@@ -19,7 +19,7 @@
                     <li class="divider"></li>
                     <li class="has-dropdown menu-icon">
                        <!-- <a href="#">Menú<img src="{{ user.imagen}}" alt="profile image"> -->
-                        <a href="#">Menú<img src="http://lorempixel.com/128/128/people/4" alt="profile image">
+                        <a href="#">Menú<img src="{{ avatarUrl(user.img_tipo, user.img_hash, 64) }}" alt="profile image">
                         </a>
                         <ul class="dropdown">
                             <li><a href="#">Ver Perfil</a></li>

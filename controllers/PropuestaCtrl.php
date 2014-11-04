@@ -60,7 +60,7 @@ class PropuestaCtrl extends Controller {
             throw (new TurnbackException())->setErrors($validator->get_errors());
         }
         $propuesta = new Propuesta;
-        $propuesta->cuerpo = $req->post('cuerpo');
+        $propuesta->cuerpo = htmlspecialchars($req->post('cuerpo'), ENT_QUOTES);
         $propuesta->votos_favor = 0;
         $propuesta->votos_contra = 0;
         $propuesta->votos_neutro = 0;

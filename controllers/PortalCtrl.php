@@ -69,6 +69,8 @@ class PortalCtrl extends Controller {
         $usuario->suspendido = false;
         $usuario->es_funcionario = false;
         $usuario->es_jefe = false;
+        $usuario->img_tipo = 1;
+        $usuario->img_hash = md5(strtolower(trim($req->post('email'))));
         $usuario->save();
 
         $to = $usuario->email;

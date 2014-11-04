@@ -14,6 +14,10 @@
 Virtuagora - Crear una propuesta
 {% endblock %}
 
+{% block linkhead %}
+<link rel="stylesheet" href="http://cdn.wysibb.com/css/default/wbbtheme.css">
+{% endblock %}
+
 {% block contenido %}
 <section id="alta-contenido">
     <form action="" method="POST">
@@ -32,7 +36,7 @@ Virtuagora - Crear una propuesta
         <div class="row">
             <div class="large-11 large-centered columns">
                 <label><h6 class="subheader"><i class="fa fa-file-text-o fa-fw"></i>&nbsp;&nbsp;<b>Descripcion de la propuesta</b></h6></label>
-                <textarea name="cuerpo" placeholder="Describa de que se trata la propuesta" rows=10></textarea>
+                <textarea id="cuerpo" name="cuerpo" placeholder="Describa de que se trata la propuesta" rows=10></textarea>
             </div>
         </div>
         <div class="row">
@@ -54,4 +58,12 @@ Virtuagora - Crear una propuesta
 {% block scripts %}
 <script src="{{ baseUrl }}/assets/js/foundation/foundation.tooltip.js"></script>
 <script src="{{ baseUrl }}/assets/js/underscore/underscore-min.js"></script>
+
+<script src="http://cdn.wysibb.com/js/jquery.wysibb.min.js"></script>
+<script>
+    $(function() {
+        $("#cuerpo").wysibb();
+    })
+</script>
+
 {% endblock %}

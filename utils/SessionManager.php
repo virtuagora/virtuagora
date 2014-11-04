@@ -8,14 +8,14 @@ class SessionManager {
         if (!is_null($usuario) && password_verify($password, $usuario->password)) {
             if ($usuario->verificado) {
                 $success = true;
-                $_SESSION['user'] = $usuario->toArray();
+                $this->setUser($usuario);
             }
         }
         return $success;
     }
 
     public function logout () {
-        if (isset($_SESSION['user'])) {
+        if ($this->exists()) {
             $_SESSION = array();
             if (isset($_COOKIE[session_name()])) {
                 setcookie(session_name(), '', time() - 3600);
@@ -25,7 +25,7 @@ class SessionManager {
     }
 
     public function user($attr = null) {
-        if (isset($_SESSION['user'])) {
+        if ($this->exists()) {
             if ($attr) {
                 return $_SESSION['user'][$attr];
             } else {
@@ -37,11 +37,15 @@ class SessionManager {
     }
 
     public function getUser() {
-        if (isset($_SESSION['user'])) {
+        if ($this->exists()) {
             return Usuario::find($_SESSION['user']['id']);
         } else {
             return null;
         }
+    }
+
+    public function setUser($user) {
+        $_SESSION['user'] = $user->toArray();
     }
 
     public function exists() {
@@ -49,7 +53,7 @@ class SessionManager {
     }
 
     public function hasRole($role) {
-        if (!isset($_SESSION['user'])) return false;
+        if (!$this->exists()) return false;
         switch ($role) {
             case 'usr':
                 return true;

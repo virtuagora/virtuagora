@@ -20,7 +20,13 @@ class PartidoCtrl extends Controller {
             ->add_rule('acronimo', new Augusthur\Validation\Rule\Alpha())
             ->add_rule('acronimo', new Augusthur\Validation\Rule\MinLength(2))
             ->add_rule('acronimo', new Augusthur\Validation\Rule\MaxLength(8))
-            ->add_rule('descripcion', new Augusthur\Validation\Rule\MaxLength(512));
+            ->add_rule('descripcion', new Augusthur\Validation\Rule\MaxLength(512))
+            ->add_rule('fundador', new Augusthur\Validation\Rule\Alpha(array(' ')))
+            ->add_rule('fundador', new Augusthur\Validation\Rule\MaxLength(32))
+            ->add_rule('fecha', new Augusthur\Validation\Rule\Date())
+            ->add_rule('url', new Augusthur\Validation\Rule\URL())
+            ->add_rule('email', new Augusthur\Validation\Rule\Email())
+            ->add_rule('telefono', new Augusthur\Validation\Rule\Telephone());
         $req = $this->request;
         if (!$validator->is_valid($req->post())) {
             throw (new TurnbackException())->setErrors($validator->get_errors());
@@ -33,9 +39,19 @@ class PartidoCtrl extends Controller {
         $partido->nombre = $req->post('nombre');
         $partido->acronimo = $req->post('acronimo');
         $partido->descripcion = $req->post('descripcion');
+        $partido->fundador = $req->post('fundador');
+        $partido->fecha_fundacion = $req->post('fecha');
         $partido->creador_id = $this->session->user('id');
         $partido->creador()->associate($usuario);
         $partido->save();
+        if ($req->post('email') || $req->post('url') || $req->post('telefono')) {
+            $contacto = new Contacto;
+            $contacto->email = $req->post('email');
+            $contacto->web = $req->post('url');
+            $contacto->telefono = $req->post('telefono');
+            $contacto->contactable()->associate($partido);
+            $partido->save();
+        }
         $this->crearImagen($partido->id, $partido->nombre);
         $this->redirect($req->getRootUri().'/partidos');
     }
@@ -71,6 +87,7 @@ class PartidoCtrl extends Controller {
         }
         $usuario->partido()->associate($partido);
         $usuario->save();
+        $this->session->setUser($usuario);
         $this->redirect($this->request->getRootUri().'/partido/'.$idPar);
     }
 

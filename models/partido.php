@@ -15,6 +15,10 @@ class Partido extends Eloquent {
         return $this->hasMany('Usuario');
     }
 
+    public function contacto() {
+        return $this->morphOne('Contacto', 'contactable');
+    }
+
     public static function boot() {
         parent::boot();
         static::created(function($partido) {

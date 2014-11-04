@@ -16,7 +16,7 @@ $app->view->parserOptions = array(
     'strict_variables' => false,
     'autoescape' => true
 );
-$app->view->parserExtensions = array(new \Slim\Views\TwigExtension());
+$app->view->parserExtensions = array(new \Slim\Views\TwigExtension(), new ExtendedTwig());
 
 // Prepare singletons
 $app->container->singleton('session', function () {
@@ -86,11 +86,8 @@ $app->get('/usuario', function () use ($app) {
 });
 
 $app->get('/test', function () use ($app) {
-    var_dump($_SESSION['user']['id']);
-    echo '<br>';
-    var_dump(Usuario::where('id', $_SESSION['user']['id'])->pluck('es_funcionario'));
+    $app->render('test.twig', array('string' => '[b][s][center]holis[/center][/s][/b]'));
 });
-
 
 $app->get('/', 'PortalCtrl:showIndex');
 $app->get('/login', 'checkNoSession', 'PortalCtrl:showLogin');

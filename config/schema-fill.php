@@ -11,6 +11,8 @@ $usuario->puntos = 0;
 $usuario->suspendido = false;
 $usuario->es_funcionario = false;
 $usuario->es_jefe = false;
+$usuario->img_tipo = 1;
+$usuario->img_hash = md5(strtolower(trim('admin@virtuago.ra')));
 $usuario->save();
 
 $patrulla = new Patrulla;
