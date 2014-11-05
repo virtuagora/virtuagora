@@ -2,34 +2,55 @@
 
 {% block body %}
 <section id="wide-panel">
-    <div class="row">
-        <div class="large-10 large-centered columns">
-            <div class="extremos">
-                <!-- CONTENIDO! -->
-                <!-- Titulo -->
-                <div class="row">
-                    <div class="large-12 large-centered columns">
-                        <h2>
-                            <a href="{{ url_atras }}"><i class="fa fa-arrow-circle-left fa-border"></i></a>
-                            <i class="{{ i_class_titulo }}"></i>&nbsp;<b>{{ titulo }}</b>
-                        </h2>
-                    </div>
-                    <hr>
-                </div>
-                <!-- contenido -->
-                {% block contenido %}{% endblock %}
-                <!-- Comentarios -->
-                {% if comments == true %}
-                <hr>
-                <div class="row">
-                    <div class="large-6 large-centered columns">
-                        <a href="#" class="button expand"><i class="fa fa-comments fa-fw fa-lg"></i>&nbsp;Dejar un comentario</a>
-                    </div>
-                </div>
-                {% endif %}
-            </div>
-            <div class="extremos final"></div>
-        </div>
-    </div>
+	<div class="row">
+		<div class="large-10 large-centered columns">
+			<div class="extremos">
+				<!-- CONTENIDO! -->
+				<!-- Titulo -->
+				<div class="row">
+					<div class="large-12 large-centered columns">
+						<h2>
+							<a href="{{ url_atras }}"><i class="fa fa-arrow-circle-left fa-border"></i></a>
+							<i class="{{ i_class_titulo }}"></i>&nbsp;<b>{{ titulo }}</b>
+						</h2>
+					</div>
+					<hr>
+				</div>
+				<!-- contenido -->
+				{% if flash['success'] is defined %}
+					{% for error in flash['success'] %}
+					<div data-alert class="alert-box success text-center" style="padding: 5px 15px; margin-bottom: 10px;">
+						<i class="fa fa-check-square-o fa-fw"></i>&nbsp;<b>{{ error }}</b>
+						<a href="#" class="close">&times;</a>
+
+					</div>
+					{% endfor %}
+				<hr style="margin-top:0;"/>
+				{% endif %}
+				{% if flash['warnings'] is defined %}
+					{% for error in flash['warnings'] %}
+					<div data-alert class="alert-box swarning text-center" style="padding: 5px 15px; margin-bottom: 10px;">
+						<i class="fa fa-warning fa-fw"></i>&nbsp;<b>{{ error }}</b>
+						<a href="#" class="close">&times;</a>
+
+					</div>
+					{% endfor %}
+				<hr style="margin-top:0;"/>
+				{% endif %}
+
+				{% block contenido %}{% endblock %}
+				<!-- Comentarios -->
+				{% if comments == true %}
+				<hr>
+				<div class="row">
+					<div class="large-6 large-centered columns">
+						<a href="#" class="button expand"><i class="fa fa-comments fa-fw fa-lg"></i>&nbsp;Dejar un comentario</a>
+					</div>
+				</div>
+				{% endif %}
+			</div>
+			<div class="extremos final"></div>
+		</div>
+	</div>
 </section>
 {% endblock %}
