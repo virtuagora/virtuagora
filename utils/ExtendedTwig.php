@@ -2,21 +2,29 @@
 
 class ExtendedTwig extends Twig_Extension {
 
-    private $search  = array('[b]', '[/b]', '[i]', '[/i]', '[u]', '[/u]', '[s]', '[/s]',
-                             '[sup]', '[/sup]', '[sub]', '[/sub]', '[left]', '[/left]',
-                             '[center]', '[/center]', '[right]', '[/right]',
-                             '[/size]', '[/color]', '[/font]', "\r\n");
-    private $replace = array('<b>', '</b>', '<em>', '</em>', '<u>', '</u>', '<del>', '</del>',
-                             '<sup>', '</sup>', '<sub>', '</sub>', '<p style="text-align:left">', '</p>',
-                             '<p style="text-align:center">', '</p>', '<p style="text-align:right">', '</p>',
-                             '</font>', '</span>', '</span>', '<br>');
+    private $search  = array('[i]', '[/i]', '[s]', '[/s]', '[hr]',
+                             '[/size]', '[/color]', '[/font]');
+    private $replace = array('<em>', '</em>', '<del>', '</del>', '<hr>',
+                             '</font>', '</span>', '</span>');
 
-    private $searchRx  = array('~\[size=(.*?)\]~s', '~\[color=(.*?)\]~s', '~\[font=(.*?)\]~s',
+    private $searchRx  = array('~\[(/?)(b|u|sup|sub)\]~s',
+                               '~\[(left|right|center|justify)\]~s',
+                               '~\[/(?:left|right|center|justify)\](?:\R?)~s',
+                               '~\[(/?)(ul|ol|li|table|tr|td)\](?:\R?)~s',
+                               '~\[size=(.*?)\]~s', '~\[color=(.*?)\]~s', '~\[font=(.*?)\]~s',
                                '~\[url=(.*?)\](.*?)\[/url\]~s', '~\[url\](.*?)\[/url\]~s',
-                               '~\[img=(.*?)\](.*?)\[/img\]~s', '~\[img\](.*?)\[/img\]~s');
-    private $replaceRx = array('<font size="$1">', '<span style="color:$1;">', '<span style="font-family:$1;">',
+                               '~\[img=(.*?)\](.*?)\[/img\]~s', '~\[img\](.*?)\[/img\]~s',
+                               '~\[youtube\](.*?)\[/youtube\]~s',
+                               '~\R~s');
+    private $replaceRx = array('<$1$2>',
+                               '<p style="text-align:$1">',
+                               '</p>',
+                               '<$1$2>',
+                               '<font size="$1">', '<span style="color:$1;">', '<span style="font-family:$1;">',
                                '<a href="$1">$2</a>', '<a href="$1">$1</a>',
-                               '<img src="$1" alt="$2">', '<img src="$1" alt="">');
+                               '<img src="$2" alt="$1">', '<img src="$1" alt="">',
+                               '<iframe width="560" height="315" src="//www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>',
+                               '<br>');
 
     public function getFilters() {
         return array(

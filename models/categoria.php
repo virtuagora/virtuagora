@@ -1,7 +1,7 @@
 <?php use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Tag extends Eloquent {
-    //$table = 'tags';
+class Categoria extends Eloquent {
+    //$table = 'categorias';
 
     protected $visible = array('id', 'nombre');
 

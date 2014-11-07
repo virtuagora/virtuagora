@@ -54,7 +54,9 @@ class PropuestaCtrl extends Controller {
 
     public function crearPropuesta() {
         $validator = new Augusthur\Validation\Validator();
-        $validator->add_rule('titulo', new Augusthur\Validation\Rule\Alpha(array(' ')));
+        $validator
+            ->add_rule('titulo', new Augusthur\Validation\Rule\MinLength(8))
+            ->add_rule('titulo', new Augusthur\Validation\Rule\MaxLength(128));
         $req = $this->request;
         if (!$validator->is_valid($req->post())) {
             throw (new TurnbackException())->setErrors($validator->get_errors());
@@ -66,7 +68,7 @@ class PropuestaCtrl extends Controller {
         $propuesta->votos_neutro = 0;
         $propuesta->save();
         $contenido = new Contenido;
-        $contenido->titulo = $req->post('titulo');
+        $contenido->titulo = htmlspecialchars($req->post('titulo'));
         $contenido->puntos = 0;
         $autor = Usuario::find($this->session->user('id'));
         $contenido->autor()->associate($autor);

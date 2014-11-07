@@ -148,21 +148,21 @@ Capsule::schema()->create('contenidos', function($table) {
     $table->softDeletes();
 });
 
-Capsule::schema()->create('tags', function($table) {
+Capsule::schema()->create('categorias', function($table) {
     $table->engine = 'InnoDB';
 
     $table->increments('id');
     $table->string('nombre');
 });
 
-Capsule::schema()->create('contenido_tag', function($table) {
+Capsule::schema()->create('categoria_contenido', function($table) {
     $table->engine = 'InnoDB';
 
     $table->integer('contenido_id')->unsigned();
-    $table->integer('tag_id')->unsigned();
+    $table->integer('categoria_id')->unsigned();
 
     $table->foreign('contenido_id')->references('id')->on('contenidos')->onDelete('cascade');
-    $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+    $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
 });
 
 Capsule::schema()->create('imagenes', function($table) {
@@ -216,6 +216,21 @@ Capsule::schema()->create('problematica', function($table) {
     $table->integer('votos_adversos')->unsigned();
 
     $table->foreign('id')->references('id')->on('contenidos')->onDelete('cascade');
+
+    $table->timestamps();
+    $table->softDeletes();
+});
+
+Capsule::schema()->create('comentarios', function($table) {
+    $table->engine = 'InnoDB';
+
+    $table->increments('id');
+    $table->morphs('comentable');
+    $table->text('cuerpo');
+    $table->integer('votos');
+    $table->integer('autor_id')->unsigned();
+
+    $table->foreign('autor_id')->references('id')->on('usuarios')->onDelete('cascade');
 
     $table->timestamps();
     $table->softDeletes();

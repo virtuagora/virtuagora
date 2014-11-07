@@ -36,7 +36,7 @@ Virtuagora - Crear una propuesta
         <div class="row">
             <div class="large-11 large-centered columns">
                 <label><h6 class="subheader"><i class="fa fa-file-text-o fa-fw"></i>&nbsp;&nbsp;<b>Descripcion de la propuesta</b></h6></label>
-                <textarea id="cuerpo" name="cuerpo" placeholder="Describa de que se trata la propuesta" rows=10>holis</textarea>
+                <textarea id="cuerpo" name="cuerpo" placeholder="Describa de que se trata la propuesta" rows=10></textarea>
             </div>
         </div>
         <div class="row">
@@ -66,7 +66,6 @@ Virtuagora - Crear una propuesta
         $("#cuerpo").sceditor({
             plugins: "bbcode",
             emoticonsEnabled: false,
-            width: 'auto',
             style: "{{ baseUrl() }}/assets/css/sceditor-panel.css"
         });
     });
