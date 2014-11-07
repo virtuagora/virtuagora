@@ -1,7 +1,7 @@
 {# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
 {% set url_atras = '#' %}
 {% set i_class_titulo = 'fa fa-flag fa-fw' %}
-{% set titulo = 'Ver los partidos politicos' %}
+{% set titulo = 'Ver los partidos políticos' %}
 {% set comments = false %}
 
 {# VARIABLES DE LA VISTA #}
@@ -43,9 +43,9 @@ Virtuagora - Crear partido político
 				<!-- Begin Top Buttons -->
 				<div class="top-panel">
 					{% if user.partido_id is null %}
-					<div id="bt-p-{{ p.id }}" class="right username bt-afiliarse" style="margin-right:50px"><i class="fa fa-heart fa-fw"></i></div>
-					{% elseif user.partido_id != p.id %}
-					<div id="bt-p-{{ p.id }}" class="right username bt-afiliarse" style="margin-right:50px"><i class="fa fa-heart fa-fw"></i></div>
+					<div id="bt-p-{{ p.id }}" class="right username bt-unirse" style="margin-right:50px"><i class="fa fa-plus-square fa-fw"></i></div>
+					{% elseif user.partido_id == p.id %}
+					<div id="bt-p-{{ p.id }}" class="right username bt-unirse" style="margin-right:50px"><i class="fa fa-minus-square fa-fw"></i></div>
 					{% endif %}
 					<div class="right username"><a href="{{ baseUrl }}/partido/{{ p.id }}"><i class="fa fa-info fa-fw"></i></a></div>
 					<div class="short-nav left">
@@ -85,7 +85,7 @@ Virtuagora - Crear partido político
 		var p_id;
 		var p_user;
 		var p_nombre;
-		$('.bt-afiliarse').click(function() {
+		$('.bt-unirse').click(function() {
 			p_id = (this.id).replace('bt-p-','');
 			p_nombre = $('#nombre-p-' + p_id).html();
 			{% if user.partido_id is null %}
@@ -94,32 +94,35 @@ Virtuagora - Crear partido político
 				p_user = {{ user.partido_id }}
 			{% endif %}
 			if(p_user == p_id){
-				mensaje = "<p>Usted ya es parte del partido<br /><b>"
-				+ p_nombre + "</b></p>";
-				$("#bt-afiliarse").hide();
+				mensaje = "<p>Usted ya es parte de este partido político. Confirmando la acción, "
+				+"usted estaría dejando de ser parte del mismo</p>" +
+				"<p>¿Confirma dejar el partido?</p>";
+				$("#bt-confirmar").hide();
+				// TODO: PONER LA ACCION A LA QUE SE ENVIA PARA DESAFILIAR EL PARTIDO
+				$("#form-unirse").attr('action','');
 			} else if ( p_user != null){
 				mensaje = "<p>Usted ya pertenece a un partido político. Confirmando la accion, "
-				+"usted estaría afiliandose al partido <br /><b>"
+				+"usted estaría uniendose al partido <br /><b>"
 				+ p_nombre + "</b></p>" +
 				"<p>¿Confirma su cambio de partido?</p>";
 				$("#valor-p").val(p_id);
-				$("#bt-afiliarse").show();
-				$("#form-afiliarse").attr('action','{{ baseUrl }}/partido/' + p_id + '/afiliarse');
+				$("#bt-confirmar").show();
+				$("#form-unirse").attr('action','{{ baseUrl }}/partido/' + p_id + '/afiliarse');
 			} else {
-				mensaje = "<p>Usted esta a punto de afiliarse al partido politico<br /><b>"
+				mensaje = "<p>Usted esta a punto de unirse al partido politico<br /><b>"
 				+ p_nombre + "</b></p>" +
 				"<p>¿Confirma afiliarse al partido?</p>";
 				$("#valor-p").val(p_id)
-				$("#bt-afiliarse").show();
-				$("#form-afiliarse").attr('action','{{ baseUrl }}/partido/' + p_id + '/afiliarse');
+				$("#bt-confirmar").show();
+				$("#form-unirse").attr('action','{{ baseUrl }}/partido/' + p_id + '/afiliarse');
 			}
-			$('#img-p-afiliar').attr('src','{{ baseUrl }}/img/partidos/' + p_id + '/64.png');
-			$('#mensaje-afiliar').html(mensaje);
+			$('#img-p').attr('src','{{ baseUrl }}/img/partidos/' + p_id + '/160.png');
+			$('#mensaje-unirse').html(mensaje);
 
-			$('#afiliarse').foundation('reveal', 'open');
+			$('#modal-unirse').foundation('reveal', 'open');
 		});
-		$('.bt-cancelar').click(function() {
-			$('#afiliarse').foundation('reveal', 'close');
+		$('#bt-cancelar').click(function() {
+			$('#modal-unirse').foundation('reveal', 'close');
 		});
 	});
 </script>
