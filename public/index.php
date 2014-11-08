@@ -107,8 +107,13 @@ $app->post('/propuesta/:idPro/votar', checkRole('usr'), 'PropuestaCtrl:votarProp
 $app->get('/crear/propuesta', checkRole('fnc'), 'PropuestaCtrl:showCrearPropuesta');
 $app->post('/crear/propuesta', checkRole('fnc'), 'PropuestaCtrl:crearPropuesta');
 
+$app->get('/problematicas/:idPro', 'ProblematicaCtrl:showProblematica');
+$app->get('/crear/problematica', checkRole('usr'), 'ProblematicaCtrl:showCrearProblematica');
+$app->post('/crear/problematica', checkRole('usr'), 'ProblematicaCtrl:crearProblematica');
+
 $app->get('/partidos', 'PartidoCtrl:showPartidos');
-$app->post('/partido/:idPar/afiliarse', checkRole('usr'), 'PropuestaCtrl:AfiliarPartido');
+$app->post('/partidos/:idPar/unirse', checkRole('usr'), 'PropuestaCtrl:unirsePartido');
+$app->post('/partidos/dejar', checkRole('usr'), 'PropuestaCtrl:dejarPartido');
 $app->get('/crear/partido', checkRole('fnc'), 'PartidoCtrl:showCrearPartido');
 $app->post('/crear/partido', checkRole('fnc'), 'PartidoCtrl:crearPartido');
 

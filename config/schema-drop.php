@@ -25,11 +25,11 @@ Capsule::schema()->dropIfExists('propuestas');
 echo '4 ';
 Capsule::schema()->dropIfExists('imagenes');
 echo '5 ';
-Capsule::schema()->dropIfExists('categoria_contenido');
+
 echo '6 ';
-Capsule::schema()->dropIfExists('categorias');
-echo '7 ';
 Capsule::schema()->dropIfExists('contenidos');
+echo '7 ';
+Capsule::schema()->dropIfExists('categorias');
 echo '8 ';
 Capsule::schema()->dropIfExists('moderadores');
 echo '9 ';

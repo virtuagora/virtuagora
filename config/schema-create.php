@@ -132,6 +132,15 @@ Capsule::schema()->create('moderadores', function($table) {
     $table->timestamps();
 });
 
+Capsule::schema()->create('categorias', function($table) {
+    $table->engine = 'InnoDB';
+
+    $table->increments('id');
+    $table->string('nombre');
+
+    $table->softDeletes();
+});
+
 Capsule::schema()->create('contenidos', function($table) {
     $table->engine = 'InnoDB';
 
@@ -140,29 +149,14 @@ Capsule::schema()->create('contenidos', function($table) {
     $table->string('titulo');
     $table->integer('puntos')->unsigned();
     $table->integer('autor_id')->unsigned();
+    $table->integer('categoria_id')->unsigned();
     $table->integer('partido_id')->unsigned()->nullable();
 
     $table->foreign('autor_id')->references('id')->on('usuarios')->onDelete('cascade');
+    $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('restrict');
 
     $table->timestamps();
     $table->softDeletes();
-});
-
-Capsule::schema()->create('categorias', function($table) {
-    $table->engine = 'InnoDB';
-
-    $table->increments('id');
-    $table->string('nombre');
-});
-
-Capsule::schema()->create('categoria_contenido', function($table) {
-    $table->engine = 'InnoDB';
-
-    $table->integer('contenido_id')->unsigned();
-    $table->integer('categoria_id')->unsigned();
-
-    $table->foreign('contenido_id')->references('id')->on('contenidos')->onDelete('cascade');
-    $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
 });
 
 Capsule::schema()->create('imagenes', function($table) {
@@ -206,16 +200,14 @@ Capsule::schema()->create('propuesta_usuario', function($table) {
     $table->timestamps();
 });
 
-Capsule::schema()->create('problematica', function($table) {
+Capsule::schema()->create('problematicas', function($table) {
     $table->engine = 'InnoDB';
 
     $table->increments('id');
     $table->text('cuerpo');
-    $table->integer('votos_afectados')->unsigned();
-    $table->integer('votos_soporte')->unsigned();
-    $table->integer('votos_adversos')->unsigned();
-
-    $table->foreign('id')->references('id')->on('contenidos')->onDelete('cascade');
+    $table->integer('afectados_directos')->unsigned();
+    $table->integer('afectoads_indirectos')->unsigned();
+    $table->integer('afectados_indiferentes')->unsigned();
 
     $table->timestamps();
     $table->softDeletes();

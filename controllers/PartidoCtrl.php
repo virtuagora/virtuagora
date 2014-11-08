@@ -73,7 +73,7 @@ class PartidoCtrl extends Controller {
         }
     }
 
-    public function afiliarPartido($idPar) {
+    public function unirsePartido($idPar) {
         $validator = new Augusthur\Validation\Validator();
         $validator
             ->add_rule('idPar', new Augusthur\Validation\Rule\NumNatural());
@@ -89,6 +89,21 @@ class PartidoCtrl extends Controller {
         $usuario->save();
         $this->session->setUser($usuario);
         $this->redirect($this->request->getRootUri().'/partido/'.$idPar);
+    }
+
+    public function dejarPartido() {
+        $usuario = $this->session->getUser();
+        $partido = $usuario->partido;
+        if (!$partido) {
+            throw new BearableException('Usted no pertenece a ningún partido.');
+        }
+        if ($partido->creador_id == $usuario->id) {
+            throw new BearableException('Usted no puede dejar el partido que creó.');
+        }
+        $usuario->partido()->dissociate();
+        $usuario->save();
+        $this->session->setUser($usuario);
+        $this->redirect($this->request->getRootUri().'/partidos');
     }
 
     public function cambiarImagen($idPar) {

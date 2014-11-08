@@ -3205,7 +3205,7 @@
 		// START_COMMAND: Bold
 		bold: {
 			exec: 'bold',
-			tooltip: 'Bold',
+			tooltip: 'Negrita',
 			icon: 'fa-bold',
 			shortcut: 'ctrl+b'
 		},
@@ -3221,7 +3221,7 @@
 		// START_COMMAND: Underline
 		underline: {
 			exec: 'underline',
-			tooltip: 'Underline',
+			tooltip: 'Subrayar',
 			icon: 'fa-underline',
 			shortcut: 'ctrl+u'
 		},
@@ -3229,7 +3229,7 @@
 		// START_COMMAND: Strikethrough
 		strike: {
 			exec: 'strikethrough',
-			tooltip: 'Strikethrough',
+			tooltip: 'Tachar',
 			icon: 'fa-strikethrough'
 		},
 		// END_COMMAND
@@ -3258,7 +3258,7 @@
 		// START_COMMAND: Centre
 		center: {
 			exec: 'justifycenter',
-			tooltip: 'Center',
+			tooltip: 'Centrar',
 			icon: 'fa-align-center'
 		},
 		// END_COMMAND
@@ -3272,7 +3272,7 @@
 		// START_COMMAND: Justify
 		justify: {
 			exec: 'justifyfull',
-			tooltip: 'Justify',
+			tooltip: 'Justificar',
 			icon: 'fa-align-justify'
 		},
 		// END_COMMAND
@@ -3305,7 +3305,7 @@
 					}
 				);
 			},
-			tooltip: 'Font Name',
+			tooltip: 'Tipo de fuente',
 			icon: 'fa-font'
 		},
 		// END_COMMAND
@@ -3336,7 +3336,7 @@
 					}
 				);
 			},
-			tooltip: 'Font Size',
+			tooltip: 'Tamaño de fuente',
 			icon: 'fa-text-height'
 		},
 		// END_COMMAND
@@ -3414,14 +3414,14 @@
 					}
 				);
 			},
-			tooltip: 'Font Color',
+			tooltip: 'Color de fuente',
 			icon: 'fa-pencil-square-o'
 		},
 		// END_COMMAND
 		// START_COMMAND: Remove Format
 		removeformat: {
 			exec: 'removeformat',
-			tooltip: 'Remove Formatting',
+			tooltip: 'Quitar estilo',
 			icon: 'fa-eraser'
 		},
 		// END_COMMAND
@@ -3475,14 +3475,14 @@
 		// START_COMMAND: Bullet List
 		bulletlist: {
 			exec: 'insertunorderedlist',
-			tooltip: 'Bullet list',
+			tooltip: 'Lista simple',
 			icon: 'fa-list-ul'
 		},
 		// END_COMMAND
 		// START_COMMAND: Ordered List
 		orderedlist: {
 			exec: 'insertorderedlist',
-			tooltip: 'Numbered list',
+			tooltip: 'Lista ordenada',
 			icon: 'fa-list-ol'
 		},
 		// END_COMMAND
@@ -3523,7 +3523,7 @@
 
 				editor.createDropDown(caller, 'inserttable', content);
 			},
-			tooltip: 'Insert a table',
+			tooltip: 'Tabla',
 			icon: 'fa-table'
 		},
 		// END_COMMAND
@@ -3531,7 +3531,7 @@
 		// START_COMMAND: Horizontal Rule
 		horizontalrule: {
 			exec: 'inserthorizontalrule',
-			tooltip: 'Insert a horizontal rule',
+			tooltip: 'Linea horizontal',
 			icon: 'fa-arrows-h'
 		},
 		// END_COMMAND
@@ -3577,7 +3577,7 @@
 
 				editor.createDropDown(caller, 'insertimage', content);
 			},
-			tooltip: 'Insert an image',
+			tooltip: 'Imagen',
 			icon: 'fa-picture-o'
 		},
 		// END_COMMAND
@@ -3650,7 +3650,7 @@
 
 				editor.createDropDown(caller, 'insertlink', content);
 			},
-			tooltip: 'Insert a link',
+			tooltip: 'Link',
 			icon: 'fa-link'
 		},
 		// END_COMMAND
@@ -3668,7 +3668,7 @@
 				if($anchor.length)
 					$anchor.replaceWith($anchor.contents());
 			},
-			tooltip: 'Unlink',
+			tooltip: 'Quitar link',
 			icon: 'fa-chain-broken'
 		},
 		// END_COMMAND
@@ -3798,7 +3798,7 @@
 					}
 				);
 			},
-			tooltip: 'Insert a YouTube video',
+			tooltip: 'Video de YouTube',
 			icon: 'fa-youtube-play'
 		},
 		// END_COMMAND
@@ -3941,7 +3941,7 @@
 			txtExec: function () {
 				this.maximize(!this.maximize());
 			},
-			tooltip: 'Maximize',
+			tooltip: 'Maximizar',
 			icon: 'fa-expand',
 			shortcut: 'ctrl+shift+m'
 		},
@@ -3955,7 +3955,7 @@
 			txtExec: function () {
 				this.toggleSourceMode();
 			},
-			tooltip: 'View source',
+			tooltip: 'Modo código',
 			icon: 'fa-code',
 			shortcut: 'ctrl+shift+s'
 		},
