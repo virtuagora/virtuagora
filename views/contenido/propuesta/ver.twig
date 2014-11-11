@@ -246,5 +246,10 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
             $('#login-modal').foundation('reveal', 'open');
         }
     });
+
+	{% if comments == true %}
+	{% include "misc/comentarios-js.twig" %}
+	{% endif %}
+
 </script>
 {% endblock %}
