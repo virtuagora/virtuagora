@@ -24,29 +24,41 @@ $(document).ready(function() {
 	});
 
 	$("#bt-comentar").click(function() {
-		$("#row-comentar").hide(200);
-		$("#div-comentar-aux").hide(200);
-		$("#row-comentar-box").show(500);
+		if(usuarioLogueado()){
+			$("#row-comentar").hide(200);
+			$("#div-comentar-aux").hide(200);
+			$("#row-comentar-box").show(500);
+		} else {
+			$('#login-modal').foundation('reveal', 'open');
+		}
 	});
 
 	$(document).on ("click", "#bt-comentar-aux", function () {
-		$("#row-comentar").hide(200);
-		$("#div-comentar-aux").hide(200);
-		$("#row-comentar-box").show(500);
-		$('html, body').animate({ scrollTop: $('#top-comentarios').offset().top }, 'slow');
+		if(usuarioLogueado()){
+			$("#row-comentar").hide(200);
+			$("#div-comentar-aux").hide(200);
+			$("#row-comentar-box").show(500);
+			$('html, body').animate({ scrollTop: $('#top-comentarios').offset().top }, 'slow');
+		} else {
+			$('#login-modal').foundation('reveal', 'open');
+		}
 	});
 
 	$(document).on ("click", ".bt-rta", function () {
-		var idrta = $(this).attr('id');
-		idrta = idrta.replace('bt-rta-','');
-		console.log(idrta);
-		var html = "<div class=\"rta comentario push\"> <form action=\"\" method=\"POST\"> <a href=\"#\">Caleb Winters</a> <small>responde lo siguiente...</small> <br/> <textarea name=\"respuesta\" rows=2 style=\"margin-top: 5px; margin-bottom: 5px;\"></textarea> <input name=\"comentario-raiz\" value=\"idRaiz\" hidden><button class=\"button success small right\" style=\"padding: 8px 15px; margin-bottom: 0;\"><i class=\"fa fa-check fa-fw\"></i>&nbsp;Enviar</button> </form> </div>";
-		html = html.replace("idRaiz",idrta);
-		console.log($("#c-" + idrta));
-		$("#c-" + idrta).after(
-			$(html)
-		)
-		$("textarea").elastic();
+		if(usuarioLogueado()){
+			var idrta = $(this).attr('id');
+			idrta = idrta.replace('bt-rta-','');
+			console.log(idrta);
+			var html = "<div class=\"rta comentario push\"> <form action=\"{{ rtaUrl }}idRaiz\" method=\"POST\"> <a href=\"#\">nombre</a> <small>responde lo siguiente...</small> <br/> <textarea name=\"respuesta\" rows=2 style=\"margin-top: 5px; margin-bottom: 5px;\"></textarea><button class=\"button success small right\" style=\"padding: 8px 15px; margin-bottom: 0;\"><i class=\"fa fa-check fa-fw\"></i>&nbsp;Enviar</button> </form> </div>";
+			html = html.replace("nombre", "{{ user.nombre }} {{ user.apellido }}" );
+			html = html.replace("idRaiz",idrta);
+			console.log($("#c-" + idrta));
+			$("#c-" + idrta).after(
+				$(html)
+			)
+		} else {
+			$('#login-modal').foundation('reveal', 'open');
+		}
 	});
 });
 
@@ -143,7 +155,7 @@ function crearArrayComentarios(){
 		var par = new Array();
 		var respuestas = new Array();
 		par.push(
-			crearComentario(i,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum elementum metus eget accumsan placerat. Donec urna arcu, ornare fringilla vulputate tristique, pharetra a augue. Phasellus eu neque volutpat, venenatis odio eu, rhoncus risus. Phasellus accumsan nisl sapien, vel placerat mi commodo in. Donec eget lacus ac justo rhoncus consectetur quis ut mauris. Nullam malesuada commodo magna sed tempus. Suspendisse vel sem luctus, vulputate dui id, auctor risus. Duis eu lacus placerat, pretium augue sit amet, feugiat est. Nam facilisis aliquet diam sed accumsan. Fusce turpis diam, ultrices non pretium sit amet, facilisis ut leo. In ullamcorper fringilla sapien non venenatis. Morbi blandit nisl ut quam malesuada gravida. Suspendisse mollis massa nunc, non vulputate mi faucibus nec.","#","http://lorempixel.com/32/32/sports/","Comentario ID"+i,"Sabado 30 de Junio 2005",30,5)
+			crearComentario(i,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum elementum metus eget accumsan placerat. Donec urna arcu, ornare fringilla vulputate tristique, pharetra a augue. Phasellus eu neque volutpat, venenatis odio eu, rhoncus risus. Phasellus accumsan nisl sapien, vel placerat mi commodo in. Donec eget lacus ac justo rhoncus consectetur quis ut mauris. Nullam malesuada commodo magna sed tempus. Suspendisse vel sem luctus, vulputate dui id, auctor risus. Duis eu lacus placerat, pretium augue sit amet, feugiat est. Nam facilisis aliquet diam sed accumsan. Fusce turpis diam, ultrices non pretium sit amet, facilisis ut leo. In ullamcorper fringilla sapien non venenatis. Morbi blandit nisl ut quam malesuada gravida. Suspendisse mollis massa nunc, non vulputate mi faucibus nec.","#","ht	tp://lorempixel.com/32/32/sports/","Comentario ID"+i,"Sabado 30 de Junio 2005",30,5)
 		)
 		var number2 = 0 + Math.floor(Math.random() * 6);
 		for(var j=0; j<number2; j++){
