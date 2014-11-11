@@ -1,0 +1,225 @@
+var cantidadTotalMensajes = 0;
+var cantidadSinMostrar = cantidadTotalMensajes;
+var listaComentarios = null;
+
+$(document).ready(function() {
+	listaComentarios = crearArrayComentarios();
+	cantidadTotalMensajes = listaComentarios.length;
+	cantidadSinMostrar = listaComentarios.length;
+	agregarQuotesInicio();
+	if(cantidadSinMostrar > 0){
+		agregarBotonVerMas();
+	} else {
+		agregarQuotesInicio();
+	}
+	$("#bt-ver-mas").click(function() {
+		confettiComentarios();
+		if(cantidadSinMostrar > 0){
+			$('#cantRestante').html(
+				"&nbsp;Cargar mas comentarios (" + cantidadSinMostrar + ")"
+			)
+		} else {
+			agregarQuotesInicio();
+		}
+	});
+
+	$("#bt-comentar").click(function() {
+		$("#row-comentar").hide(200);
+		$("#div-comentar-aux").hide(200);
+		$("#row-comentar-box").show(500);
+	});
+
+	$(document).on ("click", "#bt-comentar-aux", function () {
+		$("#row-comentar").hide(200);
+		$("#div-comentar-aux").hide(200);
+		$("#row-comentar-box").show(500);
+		$('html, body').animate({ scrollTop: $('#top-comentarios').offset().top }, 'slow');
+	});
+
+	$(document).on ("click", ".bt-rta", function () {
+		var idrta = $(this).attr('id');
+		idrta = idrta.replace('bt-rta-','');
+		console.log(idrta);
+		var html = "<div class=\"rta comentario push\"> <form action=\"\" method=\"POST\"> <a href=\"#\">Caleb Winters</a> <small>responde lo siguiente...</small> <br/> <textarea name=\"respuesta\" rows=2 style=\"margin-top: 5px; margin-bottom: 5px;\"></textarea> <input name=\"comentario-raiz\" value=\"idRaiz\" hidden><button class=\"button success small right\" style=\"padding: 8px 15px; margin-bottom: 0;\"><i class=\"fa fa-check fa-fw\"></i>&nbsp;Enviar</button> </form> </div>";
+		html = html.replace("idRaiz",idrta);
+		console.log($("#c-" + idrta));
+		$("#c-" + idrta).after(
+			$(html)
+		)
+		$("textarea").elastic();
+	});
+});
+
+
+
+function confettiComentarios(){
+	var valorMaximo=-1;
+	if(cantidadSinMostrar>=3){
+		valorMaximo = 3
+	} else {
+		valorMaximo = cantidadSinMostrar;
+	}
+	for (var i=0; i<valorMaximo; i++){
+		var par = listaComentarios.pop();
+		var comentario = par[0];
+		var rta = par[1];
+		$("#comentarios")
+		.append(
+			comentario
+		)
+		.append(
+			rta
+		)
+	}
+	cantidadSinMostrar = listaComentarios.length;
+}
+
+function agregarBotonVerMas(){
+	$("#comentarios").after(
+		row()
+		.attr("id","row-ver-mas")
+		.append(
+			columnasQuote(4)
+			.addClass("large-centered")
+			.append(
+				$("<div>")
+				.attr("id","bt-ver-mas")
+				.addClass("button warning tiny radius expand")
+				.append(
+					$("<i>")
+					.addClass("fa fa-plus fa-fw fa-lg")
+				)
+				.append(
+					$("<span>")
+					.attr("id","cantRestante")
+					.html(
+						"&nbsp;Cargar mas comentarios (" + cantidadSinMostrar + ")"
+					)
+				)
+			)
+		)
+	)
+}
+
+function agregarSinComentarios(){
+	$("#row-ver-mas").remove();
+	$("#comentarios").append(
+		row()
+		.append(
+			columnasQuote(4)
+			.addClass("large-centered text-center")
+			.append(
+				$("<h5>")
+				.html("~ Fin de los comentarios ~")
+			)
+			.append(
+				$("<div>")
+				.attr("id","div-comentar-aux")
+				.addClass("text-center")
+				.append(
+					$("<div>")
+					.attr("id","bt-comentar-aux")
+					.addClass("button tiny radius expand")
+					.append(
+						$("<i>")
+						.addClass("fa fa-comments fa-fw fa-lg")
+					)
+					.append(
+						"¿Desearias dejar un comentario?"
+					)
+				)
+			)
+		)
+	)
+}
+
+function crearArrayComentarios(){
+	var comentarios = new Array();
+	var par = new Array();
+	var respuestas = new Array();
+	// un Comentarios = [ [Comentario, [ [RTA1],[RTA2] ...] ] , [Comentario, [ [RTA1],[RTA2] ...] ], [Comentario, [ [RTA1],[RTA2] ...] ], ]
+	var number = 0 + Math.floor(Math.random() * 30);
+	for(var i=0; i<number; i++){
+		var par = new Array();
+		var respuestas = new Array();
+		par.push(
+			crearComentario(i,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum elementum metus eget accumsan placerat. Donec urna arcu, ornare fringilla vulputate tristique, pharetra a augue. Phasellus eu neque volutpat, venenatis odio eu, rhoncus risus. Phasellus accumsan nisl sapien, vel placerat mi commodo in. Donec eget lacus ac justo rhoncus consectetur quis ut mauris. Nullam malesuada commodo magna sed tempus. Suspendisse vel sem luctus, vulputate dui id, auctor risus. Duis eu lacus placerat, pretium augue sit amet, feugiat est. Nam facilisis aliquet diam sed accumsan. Fusce turpis diam, ultrices non pretium sit amet, facilisis ut leo. In ullamcorper fringilla sapien non venenatis. Morbi blandit nisl ut quam malesuada gravida. Suspendisse mollis massa nunc, non vulputate mi faucibus nec.","#","http://lorempixel.com/32/32/sports/","Comentario ID"+i,"Sabado 30 de Junio 2005",30,5)
+		)
+		var number2 = 0 + Math.floor(Math.random() * 6);
+		for(var j=0; j<number2; j++){
+			var number3 = 120 + Math.floor(Math.random() * 300);
+			respuestas.push(
+				crearRespuesta(i,number3,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum elementum metus eget accumsan placerat. Donec urna arcu, ornare fringilla vulputate tristique, pharetra a augue.","#","http://lorempixel.com/32/32/sports/","Respuesta ID"+number3,"Sabado 30 de Junio 2005",20,15)
+			)
+		}
+		par.push(respuestas)
+		comentarios.push(par);
+	}
+	return comentarios;
+}
+
+function agregarQuotesInicio(){
+	if(cantidadSinMostrar == 0){
+		agregarSinComentarios();
+		cantidadSinMostrar= -1;
+	} else if (cantidadSinMostrar >=1){
+		var valorMaximo=-1;
+		if(cantidadSinMostrar>=3){
+			valorMaximo = 3
+		} else {
+			valorMaximo = cantidadSinMostrar;
+		}
+		for (var i=0; i<valorMaximo; i++){
+			var par = listaComentarios.pop();
+			var comentario = par[0];
+			var rta = par[1];
+			$("#comentarios")
+			.append(
+				comentario
+			)
+			.append(
+				rta
+			)
+		}
+		cantidadSinMostrar = listaComentarios.length;
+	}
+}
+
+function crearComentario(idUsuario,msj, urlMas, urlImg, nombre, fecha, upVotes, downVotes){
+	var quote = "<div id=\"c-idUsuario\" class=\"comentario\"> <section class=\"top\"> <h6 class=\"byline\"> <a href=\"urlUser\"><img src=\"urlImg\">nombre</a> <small>said <span class=\"data\"> fecha </span> </small> </h6> </section> <section class=\"content\"> <p>comentarioUsuario</p> </section> <section class=\"actions\"> <ul class=\"inline-list\"> <li><a href='#'>upVotes&nbsp;<i class=\"fa fa-arrow-up fa-fw fa-lg\" style=\"color:#33cc33;\"></i></a></li> <li><a href='#'><i class=\"fa fa-arrow-down fa-fw fa-lg\" style=\"color:#FF4040;\"></i>&nbsp;downVotes</a></li> <li><a href='#' id=\"bt-rta-idUsuario\" class=\"bt-rta\" >Responder&nbsp;<i class=\"fa fa-pencil-square-o fa-fw\"></i></a></li> </ul> </section> </div>";
+	quote = quote.replace(/idUsuario/g,idUsuario);
+	quote = quote.replace("urlUser","#");
+	quote = quote.replace("urlImg",urlImg);
+	quote = quote.replace("nombre",nombre);
+	quote = quote.replace("fecha",fecha);
+	quote = quote.replace("comentarioUsuario",msj);
+	quote = quote.replace("upVotes",upVotes);
+	quote = quote.replace("downVotes",downVotes);
+	return $(quote);
+}
+
+function crearRespuesta(idUsuario, idRTA, msj, urlMas, urlImg, nombre, fecha, upVotes, downVotes){
+	var quote = "<div id=\"c-idUsuario-rta-idRTA\" class=\"rta comentario push\"> <section class=\"top\"> <h6 class=\"byline\"> <a href=\"urlUser\"><img src=\"urlImg\">nombre</a> <small>said <span class=\"data\"> fecha </span> </small> </h6> </section> <section class=\"content\"> <p>comentarioUsuario</p> </section> <section class=\"actions\"> <ul class=\"inline-list\"> <li><a href=\"#\">upVotes&nbsp;<i class=\"fa fa-arrow-up fa-fw fa-lg\" style=\"color:#33cc33;\"></i></a></li> <li><a href=\"#\"><i class=\"fa fa-arrow-down fa-fw fa-lg\" style=\"color:#FF4040;\"></i>&nbsp;downVotes</a></li> </ul> </section> </div>";
+	quote = quote.replace("idUsuario",idUsuario);
+	quote = quote.replace("idRTA",idRTA);
+	quote = quote.replace("urlUser","#");
+	quote = quote.replace("urlImg",urlImg);
+	quote = quote.replace("nombre",nombre);
+	quote = quote.replace("fecha",fecha);
+	quote = quote.replace("comentarioUsuario",msj);
+	quote = quote.replace("upVotes",upVotes);
+	quote = quote.replace("downVotes",downVotes);
+	return $(quote);
+}
+
+function row(){
+	return $('<div>').addClass('row');
+}
+
+function largeColums(cantidad){
+	return $('<div>').addClass('large-' + cantidad + ' columns');
+}
+
+function columnasQuote(cantidad){
+	return $('<div>').addClass('large-' + cantidad + ' columns testimonial');
+}
