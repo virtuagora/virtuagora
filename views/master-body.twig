@@ -52,8 +52,8 @@
 				<div id="row-comentar-box" class="row" hidden>
 					<div class="large-8 large-centered columns">
 						<div id="bt-comentar">
-							<form>
-								<a href="#"><img src="{{ avatarUrl(user.img_tipo, user.img_hash, 64) }}">&nbsp;{{ user.nombre }}</a> <small>quiere comentar lo siguiente...</small>
+							<form action={{commentUrl}} method="POST">
+								<a href="#"><img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}">&nbsp;{{ user.nombre }} {{ user.apellido }}</a> <small>quiere comentar lo siguiente...</small>
 								<br/>
 								<textarea name="comentario" rows=4 style="margin-top: 5px; margin-bottom: 5px;"></textarea>
 								<button class="button success small right" style="padding: 8px 15px; margin-bottom: 0;"><i class="fa fa-check fa-fw"></i>&nbsp;Enviar</button>
