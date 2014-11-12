@@ -6,8 +6,9 @@ class ComentarioCtrl extends Controller {
         $safe = new Augusthur\Validation\Validator();
         $safe
             ->addRule('idRaiz', new Augusthur\Validation\Rule\NumNatural())
-            ->addRule('tipoRaiz', new Augusthur\Validation\Rule\InArray(array('propuesta', 'problematica')));
-            ->addFilter('cuerpo', 'htmlspecialchars');
+            ->addRule('tipoRaiz', new Augusthur\Validation\Rule\InArray(array('propuesta', 'problematica')))
+            ->addFilter('cuerpo', 'htmlspecialchars')
+            ->addFilter('tipoRaiz', 'ucfirst');
         $req = $this->request;
         $data = array_merge(array('idRaiz' => $idRaiz, 'tipoRaiz' => $tipoRaiz), $req->post());
         if (!$safe->validate($data)) {
