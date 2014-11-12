@@ -20,10 +20,10 @@ class PortalCtrl extends Controller {
     public function login() {
         $validator = new Augusthur\Validation\Validator();
         $validator
-            ->add_rule('email', new Augusthur\Validation\Rule\Email())
-            ->add_rule('password', new Augusthur\Validation\Rule\MaxLength(128));
+            ->addRule('email', new Augusthur\Validation\Rule\Email())
+            ->addRule('password', new Augusthur\Validation\Rule\MaxLength(128));
         $req = $this->request;
-        if ($validator->is_valid($req->post()) && $this->session->login($req->post('email'), $req->post('password'))) {
+        if ($validator->validate($req->post()) && $this->session->login($req->post('email'), $req->post('password'))) {
             $this->redirect($this->request->getReferrer());
         } else {
             $this->flash('error', 'Datos de ingreso incorrectos. Por favor vuelva a intentarlo.');
@@ -39,23 +39,23 @@ class PortalCtrl extends Controller {
     public function registrar() {
         $validator = new Augusthur\Validation\Validator();
         $validator
-            ->add_rule('nombre', new Augusthur\Validation\Rule\NotEmpty())
-            ->add_rule('nombre', new Augusthur\Validation\Rule\Alpha(array(' ')))
-            ->add_rule('nombre', new Augusthur\Validation\Rule\MinLength(1))
-            ->add_rule('nombre', new Augusthur\Validation\Rule\MaxLength(32))
-            ->add_rule('apellido', new Augusthur\Validation\Rule\NotEmpty())
-            ->add_rule('apellido', new Augusthur\Validation\Rule\Alpha(array(' ')))
-            ->add_rule('apellido', new Augusthur\Validation\Rule\MinLength(1))
-            ->add_rule('apellido', new Augusthur\Validation\Rule\MaxLength(32))
-            ->add_rule('email', new Augusthur\Validation\Rule\NotEmpty())
-            ->add_rule('email', new Augusthur\Validation\Rule\Email())
-            ->add_rule('email', new Augusthur\Validation\Rule\Unique('usuarios'))
-            ->add_rule('password', new Augusthur\Validation\Rule\NotEmpty())
-            ->add_rule('password', new Augusthur\Validation\Rule\MinLength(8))
-            ->add_rule('password', new Augusthur\Validation\Rule\MaxLength(128))
-            ->add_rule('password', new Augusthur\Validation\Rule\Matches('password2'));
+            ->addRule('nombre', new Augusthur\Validation\Rule\NotEmpty())
+            ->addRule('nombre', new Augusthur\Validation\Rule\Alpha(array(' ')))
+            ->addRule('nombre', new Augusthur\Validation\Rule\MinLength(1))
+            ->addRule('nombre', new Augusthur\Validation\Rule\MaxLength(32))
+            ->addRule('apellido', new Augusthur\Validation\Rule\NotEmpty())
+            ->addRule('apellido', new Augusthur\Validation\Rule\Alpha(array(' ')))
+            ->addRule('apellido', new Augusthur\Validation\Rule\MinLength(1))
+            ->addRule('apellido', new Augusthur\Validation\Rule\MaxLength(32))
+            ->addRule('email', new Augusthur\Validation\Rule\NotEmpty())
+            ->addRule('email', new Augusthur\Validation\Rule\Email())
+            ->addRule('email', new Augusthur\Validation\Rule\Unique('usuarios'))
+            ->addRule('password', new Augusthur\Validation\Rule\NotEmpty())
+            ->addRule('password', new Augusthur\Validation\Rule\MinLength(8))
+            ->addRule('password', new Augusthur\Validation\Rule\MaxLength(128))
+            ->addRule('password', new Augusthur\Validation\Rule\Matches('password2'));
         $req = $this->request;
-        if (!$validator->is_valid($req->post())) {
+        if (!$validator->validate($req->post())) {
             throw (new TurnbackException())->setErrors($validator->get_errors());
         }
         $usuario = new Usuario;
@@ -87,11 +87,11 @@ class PortalCtrl extends Controller {
     public function validar($id, $token) {
         $validator = new Augusthur\Validation\Validator();
         $validator
-            ->add_rule('id', new Augusthur\Validation\Rule\NumNatural())
-            ->add_rule('token', new Augusthur\Validation\Rule\MinLength(8))
-            ->add_rule('token', new Augusthur\Validation\Rule\AlphaNumeric());
+            ->addRule('id', new Augusthur\Validation\Rule\NumNatural())
+            ->addRule('token', new Augusthur\Validation\Rule\MinLength(8))
+            ->addRule('token', new Augusthur\Validation\Rule\AlphaNumeric());
         $data = array('id' => $id, 'token' => $token);
-        if (!$validator->is_valid($data)) {
+        if (!$validator->validate($data)) {
             $this->notFound();
         }
         $usuario = Usuario::findOrFail($id);

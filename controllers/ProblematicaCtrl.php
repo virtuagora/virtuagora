@@ -4,8 +4,8 @@ class ProblematicaCtrl extends Controller {
 
     public function showProblematica($id) {
         $validator = new Augusthur\Validation\Validator();
-        $validator->add_rule('id', new Augusthur\Validation\Rule\NumNatural());
-        if (!$validator->is_valid(array('id' => $id))) {
+        $validator->addRule('id', new Augusthur\Validation\Rule\NumNatural());
+        if (!$validator->validate(array('id' => $id))) {
             $this->notFound();
         }
         $problematica = Problematica::findOrFail($id);
@@ -21,10 +21,10 @@ class ProblematicaCtrl extends Controller {
     public function crearProblematica() {
         $validator = new Augusthur\Validation\Validator();
         $validator
-            ->add_rule('titulo', new Augusthur\Validation\Rule\MinLength(8))
-            ->add_rule('titulo', new Augusthur\Validation\Rule\MaxLength(128));
+            ->addRule('titulo', new Augusthur\Validation\Rule\MinLength(8))
+            ->addRule('titulo', new Augusthur\Validation\Rule\MaxLength(128));
         $req = $this->request;
-        if (!$validator->is_valid($req->post())) {
+        if (!$validator->validate($req->post())) {
             throw (new TurnbackException())->setErrors($validator->get_errors());
         }
         $autor = $this->session->getUser();

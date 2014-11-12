@@ -14,21 +14,21 @@ class PartidoCtrl extends Controller {
     public function crearPartido() {
         $validator = new Augusthur\Validation\Validator();
         $validator
-            ->add_rule('nombre', new Augusthur\Validation\Rule\Alpha(array(' ')))
-            ->add_rule('nombre', new Augusthur\Validation\Rule\MinLength(2))
-            ->add_rule('nombre', new Augusthur\Validation\Rule\MaxLength(64))
-            ->add_rule('acronimo', new Augusthur\Validation\Rule\Alpha())
-            ->add_rule('acronimo', new Augusthur\Validation\Rule\MinLength(2))
-            ->add_rule('acronimo', new Augusthur\Validation\Rule\MaxLength(8))
-            ->add_rule('descripcion', new Augusthur\Validation\Rule\MaxLength(512))
-            ->add_rule('fundador', new Augusthur\Validation\Rule\Alpha(array(' ')))
-            ->add_rule('fundador', new Augusthur\Validation\Rule\MaxLength(32))
-            ->add_rule('fecha', new Augusthur\Validation\Rule\Date())
-            ->add_rule('url', new Augusthur\Validation\Rule\URL())
-            ->add_rule('email', new Augusthur\Validation\Rule\Email())
-            ->add_rule('telefono', new Augusthur\Validation\Rule\Telephone());
+            ->addRule('nombre', new Augusthur\Validation\Rule\Alpha(array(' ')))
+            ->addRule('nombre', new Augusthur\Validation\Rule\MinLength(2))
+            ->addRule('nombre', new Augusthur\Validation\Rule\MaxLength(64))
+            ->addRule('acronimo', new Augusthur\Validation\Rule\Alpha())
+            ->addRule('acronimo', new Augusthur\Validation\Rule\MinLength(2))
+            ->addRule('acronimo', new Augusthur\Validation\Rule\MaxLength(8))
+            ->addRule('descripcion', new Augusthur\Validation\Rule\MaxLength(512))
+            ->addRule('fundador', new Augusthur\Validation\Rule\Alpha(array(' ')))
+            ->addRule('fundador', new Augusthur\Validation\Rule\MaxLength(32))
+            ->addRule('fecha', new Augusthur\Validation\Rule\Date())
+            ->addRule('url', new Augusthur\Validation\Rule\URL())
+            ->addRule('email', new Augusthur\Validation\Rule\Email())
+            ->addRule('telefono', new Augusthur\Validation\Rule\Telephone());
         $req = $this->request;
-        if (!$validator->is_valid($req->post())) {
+        if (!$validator->validate($req->post())) {
             throw (new TurnbackException())->setErrors($validator->get_errors());
         }
         $usuario = $this->session->getUser();
@@ -76,8 +76,8 @@ class PartidoCtrl extends Controller {
     public function unirsePartido($idPar) {
         $validator = new Augusthur\Validation\Validator();
         $validator
-            ->add_rule('idPar', new Augusthur\Validation\Rule\NumNatural());
-        if (!$validator->is_valid(array('idPar' => $idPar))) {
+            ->addRule('idPar', new Augusthur\Validation\Rule\NumNatural());
+        if (!$validator->validate(array('idPar' => $idPar))) {
             throw (new TurnbackException())->setErrors($validator->get_errors());
         }
         $partido = Partido::findOrFail($idPar);

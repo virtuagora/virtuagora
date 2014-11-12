@@ -3,7 +3,8 @@
 class Comentario extends Eloquent {
     //$table = 'comentarios';
 
-    protected $visible = array('id', 'cuerpo', 'autor_id', 'comentable_type', 'votos', 'created_at', 'updated_at');
+    protected $visible = array('id', 'cuerpo', 'comentable_type', 'votos', 'created_at', 'updated_at');
+    protected $with = array('autor');
 
     public function comentable() {
         return $this->morphTo();

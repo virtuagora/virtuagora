@@ -12,6 +12,10 @@ class Propuesta extends Eloquent {
         return $this->morphOne('Contenido', 'contenible');
     }
 
+    public function comentarios() {
+        return $this->morphMany('Comentario', 'comentable');
+    }
+
     public function posturas() {
         return $this->belongsToMany('Usuario')->withPivot('postura', 'publico')->withTimestamps();
     }

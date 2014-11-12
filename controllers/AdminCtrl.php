@@ -14,15 +14,15 @@ class AdminCtrl extends Controller {
     public function crearOrganismo() {
         $validator = new Augusthur\Validation\Validator();
         $validator
-            ->add_rule('nombre', new Augusthur\Validation\Rule\Alpha(array(' ')))
-            ->add_rule('nombre', new Augusthur\Validation\Rule\MinLength(2))
-            ->add_rule('nombre', new Augusthur\Validation\Rule\MaxLength(64))
-            ->add_rule('descripcion', new Augusthur\Validation\Rule\MaxLength(512))
-            ->add_rule('cupo', new Augusthur\Validation\Rule\NumNatural())
-            ->add_rule('cupo', new Augusthur\Validation\Rule\NumMin(1))
-            ->add_rule('cupo', new Augusthur\Validation\Rule\NumMax(32));
+            ->addRule('nombre', new Augusthur\Validation\Rule\Alpha(array(' ')))
+            ->addRule('nombre', new Augusthur\Validation\Rule\MinLength(2))
+            ->addRule('nombre', new Augusthur\Validation\Rule\MaxLength(64))
+            ->addRule('descripcion', new Augusthur\Validation\Rule\MaxLength(512))
+            ->addRule('cupo', new Augusthur\Validation\Rule\NumNatural())
+            ->addRule('cupo', new Augusthur\Validation\Rule\NumMin(1))
+            ->addRule('cupo', new Augusthur\Validation\Rule\NumMax(32));
         $req = $this->request;
-        if (!$validator->is_valid($req->post())) {
+        if (!$validator->validate($req->post())) {
             throw (new TurnbackException())->setErrors($validator->get_errors());
         }
         $organismo = new Organismo;
@@ -43,13 +43,13 @@ class AdminCtrl extends Controller {
     public function adminFuncionarios($id) {
         $validator = new Augusthur\Validation\Validator();
         $validator
-            ->add_rule('id', new Augusthur\Validation\Rule\NumNatural())
-            ->add_rule('entrantes', new Augusthur\Validation\Rule\Regex('/^\[\d*(?:,\d+)*\]$/'))
-            ->add_rule('salientes', new Augusthur\Validation\Rule\Regex('/^\[\d*(?:,\d+)*\]$/'));
+            ->addRule('id', new Augusthur\Validation\Rule\NumNatural())
+            ->addRule('entrantes', new Augusthur\Validation\Rule\Regex('/^\[\d*(?:,\d+)*\]$/'))
+            ->addRule('salientes', new Augusthur\Validation\Rule\Regex('/^\[\d*(?:,\d+)*\]$/'));
         $req = $this->request;
         $data = array_merge(array('id' => $id), $req->post());
         $errormsg = array('Configuración inválida.');
-        if (!$validator->is_valid($data)) {
+        if (!$validator->validate($data)) {
             throw (new TurnbackException())->setErrors($errormsg);
         }
         $organismo = Organismo::findOrFail($id);
