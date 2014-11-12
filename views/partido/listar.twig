@@ -97,24 +97,24 @@ Virtuagora - Crear partido político
 				mensaje = "<p>Usted ya es parte de este partido político. Confirmando la acción, "
 				+"usted estaría dejando de ser parte del mismo</p>" +
 				"<p>¿Confirma dejar el partido?</p>";
-				$("#bt-confirmar").hide();
+				$("#bt-confirmar").html('Dejar el partido');
 				// TODO: PONER LA ACCION A LA QUE SE ENVIA PARA DESAFILIAR EL PARTIDO
-				$("#form-unirse").attr('action','');
+				$("#form-unirse").attr('action','{{ baseUrl }}/partidos/dejar');
 			} else if ( p_user != null){
 				mensaje = "<p>Usted ya pertenece a un partido político. Confirmando la accion, "
 				+"usted estaría uniendose al partido <br /><b>"
 				+ p_nombre + "</b></p>" +
 				"<p>¿Confirma su cambio de partido?</p>";
 				$("#valor-p").val(p_id);
-				$("#bt-confirmar").show();
-				$("#form-unirse").attr('action','{{ baseUrl }}/partido/' + p_id + '/afiliarse');
+				$("#bt-confirmar").html('Cambiar de partido');
+				$("#form-unirse").attr('action','{{ baseUrl }}/partidos/' + p_id + '/unirse');
 			} else {
 				mensaje = "<p>Usted esta a punto de unirse al partido politico<br /><b>"
 				+ p_nombre + "</b></p>" +
-				"<p>¿Confirma afiliarse al partido?</p>";
+				"<p>¿Confirma unirse al partido?</p>";
 				$("#valor-p").val(p_id)
-				$("#bt-confirmar").show();
-				$("#form-unirse").attr('action','{{ baseUrl }}/partido/' + p_id + '/afiliarse');
+				$("#bt-confirmar").html('Unirme al partido');
+				$("#form-unirse").attr('action','{{ baseUrl }}/partidos/' + p_id + '/unirse');
 			}
 			$('#img-p').attr('src','{{ baseUrl }}/img/partidos/' + p_id + '/160.png');
 			$('#mensaje-unirse').html(mensaje);
