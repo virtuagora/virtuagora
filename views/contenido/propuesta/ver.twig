@@ -10,6 +10,8 @@
 {% set i_class_icon = 'fa fa-bullhorn fa-fw' %}
 {% set titulo = 'Ver propuesta' %}
 {% set comments = true %}
+{% set commentUrl = baseUrl() ~ "/comentar/propuestas/" ~ propuesta.id %}
+{% set rtaUrl = baseUrl() ~ "/comentar/comentarios/" %}
 
 {# VARIABLES DE LA VISTA #}
 {% set total_votos = propuesta.votos_favor + propuesta.votos_neutro + propuesta.votos_contra %}
@@ -248,7 +250,7 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
     });
 
 	{% if comments == true %}
-	{% include "misc/comentarios-js.twig" %}
+	{% include "misc/comentarios.js.twig" %}
 	{% endif %}
 
 </script>
