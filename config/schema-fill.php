@@ -35,3 +35,7 @@ $funcionario = new Funcionario;
 $funcionario->usuario()->associate($usuario);
 $funcionario->organismo()->associate($organismo);
 $funcionario->save();
+
+$categoria = new Categoria;
+$categoria->nombre = 'general';
+$categoria->save();

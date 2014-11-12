@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a65cde7df3355737b57b70eed4c96931",
+    "hash": "de967e269dbf644629dcd07b43dd196d",
     "packages": [
         {
             "name": "augusthur/validation",
-            "version": "v1.9",
+            "version": "v2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/augusthur/PHP-Validation.git",
-                "reference": "bbe8043a6b850975adf111d74ece5c0b2295fac0"
+                "reference": "b8faa09dd6f8a18d988ae56c48828b0c1f85f97b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/augusthur/PHP-Validation/zipball/bbe8043a6b850975adf111d74ece5c0b2295fac0",
-                "reference": "bbe8043a6b850975adf111d74ece5c0b2295fac0",
+                "url": "https://api.github.com/repos/augusthur/PHP-Validation/zipball/b8faa09dd6f8a18d988ae56c48828b0c1f85f97b",
+                "reference": "b8faa09dd6f8a18d988ae56c48828b0c1f85f97b",
                 "shasum": ""
             },
             "require": {
@@ -50,9 +50,9 @@
                 "validation"
             ],
             "support": {
-                "source": "https://github.com/augusthur/PHP-Validation/tree/v1.9"
+                "source": "https://github.com/augusthur/PHP-Validation/tree/v2.0"
             },
-            "time": "2014-11-02 05:39:38"
+            "time": "2014-11-12 03:09:00"
         },
         {
             "name": "codeguy/upload",

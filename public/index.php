@@ -86,7 +86,12 @@ $app->get('/usuario', function () use ($app) {
 });
 
 $app->get('/test', function () use ($app) {
-    $app->render('test.twig', array('string' => '[b][s][center]holis[/center][/s][/b]'));
+    $h = array('contenidos' => 'Contenido');
+    $a = Illuminate\Database\Capsule\Manager::table('contenidos')->select('id', 'titulo')->where('id', 2)->first();
+    $b = $h['contenidos']::find(2);
+    var_dump($a);
+    echo '<br>';
+    var_dump($b);
 });
 
 $app->get('/', 'PortalCtrl:showIndex');
@@ -112,10 +117,12 @@ $app->get('/crear/problematica', checkRole('usr'), 'ProblematicaCtrl:showCrearPr
 $app->post('/crear/problematica', checkRole('usr'), 'ProblematicaCtrl:crearProblematica');
 
 $app->get('/partidos', 'PartidoCtrl:showPartidos');
-$app->post('/partidos/:idPar/unirse', checkRole('usr'), 'PropuestaCtrl:unirsePartido');
-$app->post('/partidos/dejar', checkRole('usr'), 'PropuestaCtrl:dejarPartido');
+$app->post('/partidos/:idPar/unirse', checkRole('usr'), 'PartidoCtrl:unirsePartido');
+$app->post('/partidos/dejar', checkRole('usr'), 'PartidoCtrl:dejarPartido');
 $app->get('/crear/partido', checkRole('fnc'), 'PartidoCtrl:showCrearPartido');
 $app->post('/crear/partido', checkRole('fnc'), 'PartidoCtrl:crearPartido');
+
+$app->post('/comentar/:tipoRaiz/:idRaiz', checkRole('usr'), 'ComentarioCtrl:comentar');
 
 session_cache_limiter(false);
 session_start();

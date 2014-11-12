@@ -4,24 +4,25 @@ class PropuestaCtrl extends Controller {
 
     public function showPropuesta($id) {
         $validator = new Augusthur\Validation\Validator();
-        $validator->add_rule('id', new Augusthur\Validation\Rule\NumNatural());
-        if (!$validator->is_valid(array('id' => $id))) {
+        $validator->addRule('id', new Augusthur\Validation\Rule\NumNatural());
+        if (!$validator->validate(array('id' => $id))) {
             $this->notFound();
         }
-        $propuesta = Propuesta::findOrFail($id);
+        $propuesta = Propuesta::with(array('contenido', 'comentarios.autor'))->findOrFail($id);
         $contenido = $propuesta->contenido;
-        $this->render('contenido/propuesta/ver.twig', array('propuesta' => array_merge($contenido->toArray(),
-                                                                                      $propuesta->toArray())));
+        $comentarios = $propuesta->comentarios;
+        $datosPropuesta = array_merge($contenido->toArray(), $propuesta->toArray(), $comentarios->toArray());
+        $this->render('contenido/propuesta/ver.twig', array('propuesta' => $datosPropuesta));
     }
 
     public function votarPropuesta($idPro) {
         $validator = new Augusthur\Validation\Validator();
         $validator
-            ->add_rule('postura', new Augusthur\Validation\Rule\InArray(array(-1, 0, 1)))
-            ->add_rule('idPro', new Augusthur\Validation\Rule\NumNatural());
+            ->addRule('postura', new Augusthur\Validation\Rule\InArray(array(-1, 0, 1)))
+            ->addRule('idPro', new Augusthur\Validation\Rule\NumNatural());
         $req = $this->request;
         $data = array_merge(array('idPro' => $idPro), $req->post());
-        if (!$validator->is_valid($data)) {
+        if (!$validator->validate($data)) {
             throw (new TurnbackException())->setErrors($validator->get_errors());
         }
         $idUsuario = $this->session->user('id');
@@ -55,12 +56,13 @@ class PropuestaCtrl extends Controller {
     public function crearPropuesta() {
         $validator = new Augusthur\Validation\Validator();
         $validator
-            ->add_rule('titulo', new Augusthur\Validation\Rule\MinLength(8))
-            ->add_rule('titulo', new Augusthur\Validation\Rule\MaxLength(128));
+            ->addRule('titulo', new Augusthur\Validation\Rule\MinLength(8))
+            ->addRule('titulo', new Augusthur\Validation\Rule\MaxLength(128));
         $req = $this->request;
-        if (!$validator->is_valid($req->post())) {
+        if (!$validator->validate($req->post())) {
             throw (new TurnbackException())->setErrors($validator->get_errors());
         }
+        $autor = $this->session->getUser();
         $propuesta = new Propuesta;
         $propuesta->cuerpo = htmlspecialchars($req->post('cuerpo'), ENT_QUOTES);
         $propuesta->votos_favor = 0;
@@ -70,7 +72,7 @@ class PropuestaCtrl extends Controller {
         $contenido = new Contenido;
         $contenido->titulo = htmlspecialchars($req->post('titulo'));
         $contenido->puntos = 0;
-        $autor = Usuario::find($this->session->user('id'));
+        $contenido->categoria_id = 1; ////////////////////////////////////////////////////////////////////////////
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($propuesta);
         $contenido->save();
