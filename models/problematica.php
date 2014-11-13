@@ -12,4 +12,8 @@ class Problematica extends Eloquent {
         return $this->morphOne('Contenido', 'contenible');
     }
 
+    public function votos() {
+        return $this->hasMany('VotoProblematica');
+    }
+
 }

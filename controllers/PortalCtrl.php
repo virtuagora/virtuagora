@@ -1,4 +1,4 @@
-<?php
+<?php use Augusthur\Validation as Validate;
 
 class PortalCtrl extends Controller {
 
@@ -56,7 +56,7 @@ class PortalCtrl extends Controller {
             ->addRule('password', new Augusthur\Validation\Rule\Matches('password2'));
         $req = $this->request;
         if (!$validator->validate($req->post())) {
-            throw (new TurnbackException())->setErrors($validator->get_errors());
+            throw (new TurnbackException())->setErrors($validator->getErrors());
         }
         $usuario = new Usuario;
         $usuario->email = $req->post('email');

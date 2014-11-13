@@ -1,4 +1,4 @@
-<?php
+<?php use Augusthur\Validation as Validate;
 
 class PartidoCtrl extends Controller {
 
@@ -12,43 +12,43 @@ class PartidoCtrl extends Controller {
     }
 
     public function crearPartido() {
-        $validator = new Augusthur\Validation\Validator();
-        $validator
-            ->addRule('nombre', new Augusthur\Validation\Rule\Alpha(array(' ')))
-            ->addRule('nombre', new Augusthur\Validation\Rule\MinLength(2))
-            ->addRule('nombre', new Augusthur\Validation\Rule\MaxLength(64))
-            ->addRule('acronimo', new Augusthur\Validation\Rule\Alpha())
-            ->addRule('acronimo', new Augusthur\Validation\Rule\MinLength(2))
-            ->addRule('acronimo', new Augusthur\Validation\Rule\MaxLength(8))
-            ->addRule('descripcion', new Augusthur\Validation\Rule\MaxLength(512))
-            ->addRule('fundador', new Augusthur\Validation\Rule\Alpha(array(' ')))
-            ->addRule('fundador', new Augusthur\Validation\Rule\MaxLength(32))
-            ->addRule('fecha', new Augusthur\Validation\Rule\Date())
-            ->addRule('url', new Augusthur\Validation\Rule\URL())
-            ->addRule('email', new Augusthur\Validation\Rule\Email())
-            ->addRule('telefono', new Augusthur\Validation\Rule\Telephone());
+        $vdt = new Validate\Validator();
+        $vdt->addRule('nombre', new Validate\Rule\Alpha(array(' ')))
+            ->addRule('nombre', new Validaten\Rule\MinLength(2))
+            ->addRule('nombre', new Validate\Rule\MaxLength(64))
+            ->addRule('acronimo', new Validate\Rule\Alpha())
+            ->addRule('acronimo', new Validate\Rule\MinLength(2))
+            ->addRule('acronimo', new Validate\Rule\MaxLength(8))
+            ->addRule('descripcion', new Validate\Rule\MaxLength(512))
+            ->addRule('fundador', new Validate\Rule\Alpha(array(' ')))
+            ->addRule('fundador', new Validate\Rule\MaxLength(32))
+            ->addRule('fecha', new Validate\Rule\Date())
+            ->addRule('url', new Validate\Rule\URL())
+            ->addRule('email', new Validate\Rule\Email())
+            ->addRule('telefono', new Validate\Rule\Telephone())
+            ->addFilter('descripcion', 'htmlspecialchars');
         $req = $this->request;
-        if (!$validator->validate($req->post())) {
-            throw (new TurnbackException())->setErrors($validator->get_errors());
+        if (!$vdt->validate($req->post())) {
+            throw (new TurnbackException())->setErrors($vdt->getErrors());
         }
         $usuario = $this->session->getUser();
         if ($usuario->partido_id) {
             throw (new TurnbackException())->setErrors(array('No es posible crear un partido si ya está afilado a otro.'));
         }
         $partido = new Partido;
-        $partido->nombre = $req->post('nombre');
-        $partido->acronimo = $req->post('acronimo');
-        $partido->descripcion = $req->post('descripcion');
-        $partido->fundador = $req->post('fundador');
-        $partido->fecha_fundacion = $req->post('fecha');
+        $partido->nombre = $vdt->getData('nombre');
+        $partido->acronimo = $vdt->getData('acronimo');
+        $partido->descripcion = $vdt->getData('descripcion');
+        $partido->fundador = $vdt->getData('fundador');
+        $partido->fecha_fundacion = $vdt->getData('fecha');
         $partido->creador_id = $this->session->user('id');
         $partido->creador()->associate($usuario);
         $partido->save();
-        if ($req->post('email') || $req->post('url') || $req->post('telefono')) {
+        if ($vdt->getData('email') || $vdt->getData('url') || $vdt->getData('telefono')) {
             $contacto = new Contacto;
-            $contacto->email = $req->post('email');
-            $contacto->web = $req->post('url');
-            $contacto->telefono = $req->post('telefono');
+            $contacto->email = $vdt->getData('email');
+            $contacto->web = $vdt->getData('url');
+            $contacto->telefono = $vdt->getData('telefono');
             $contacto->contactable()->associate($partido);
             $partido->save();
         }
@@ -74,11 +74,10 @@ class PartidoCtrl extends Controller {
     }
 
     public function unirsePartido($idPar) {
-        $validator = new Augusthur\Validation\Validator();
-        $validator
-            ->addRule('idPar', new Augusthur\Validation\Rule\NumNatural());
-        if (!$validator->validate(array('idPar' => $idPar))) {
-            throw (new TurnbackException())->setErrors($validator->get_errors());
+        $vdt = new Validate\Validator();
+        $vdt->addRule('idPar', new Validate\Rule\NumNatural());
+        if (!$vdt->quickValidate(array('idPar' => $idPar))) {
+            $this->notFound();
         }
         $partido = Partido::findOrFail($idPar);
         $usuario = $this->session->getUser();
@@ -88,7 +87,7 @@ class PartidoCtrl extends Controller {
         $usuario->partido()->associate($partido);
         $usuario->save();
         $this->session->setUser($usuario);
-        $this->redirect($this->request->getRootUri().'/partido/'.$idPar);
+        $this->redirect($this->request->getRootUri().'/partidos');
     }
 
     public function dejarPartido() {

@@ -1,4 +1,4 @@
-<?php
+<?php use Augusthur\Validation as Validate;
 
 class AdminCtrl extends Controller {
 
@@ -23,7 +23,7 @@ class AdminCtrl extends Controller {
             ->addRule('cupo', new Augusthur\Validation\Rule\NumMax(32));
         $req = $this->request;
         if (!$validator->validate($req->post())) {
-            throw (new TurnbackException())->setErrors($validator->get_errors());
+            throw (new TurnbackException())->setErrors($validator->getErrors());
         }
         $organismo = new Organismo;
         $organismo->nombre = $req->post('nombre');

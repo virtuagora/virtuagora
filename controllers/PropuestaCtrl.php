@@ -23,7 +23,7 @@ class PropuestaCtrl extends Controller {
         $req = $this->request;
         $data = array_merge(array('idPro' => $idPro), $req->post());
         if (!$validator->validate($data)) {
-            throw (new TurnbackException())->setErrors($validator->get_errors());
+            throw (new TurnbackException())->setErrors($validator->getErrors());
         }
         $idUsuario = $this->session->user('id');
         $publico = false;
@@ -60,7 +60,7 @@ class PropuestaCtrl extends Controller {
             ->addRule('titulo', new Augusthur\Validation\Rule\MaxLength(128));
         $req = $this->request;
         if (!$validator->validate($req->post())) {
-            throw (new TurnbackException())->setErrors($validator->get_errors());
+            throw (new TurnbackException())->setErrors($validator->getErrors());
         }
         $autor = $this->session->getUser();
         $propuesta = new Propuesta;

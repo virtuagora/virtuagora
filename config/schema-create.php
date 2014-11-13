@@ -213,6 +213,19 @@ Capsule::schema()->create('problematicas', function($table) {
     $table->softDeletes();
 });
 
+Capsule::schema()->create('problematica_voto', function($table) {
+    $table->engine = 'InnoDB';
+
+    $table->increments('id');
+    $table->integer('postura')->unsigned();
+    $table->integer('problematica_id')->unsigned();
+    $table->integer('usuario_id')->unsigned();
+
+    $table->foreign('problematica_id')->references('id')->on('problematicas')->onDelete('cascade');
+
+    $table->timestamps();
+});
+
 Capsule::schema()->create('comentarios', function($table) {
     $table->engine = 'InnoDB';
 

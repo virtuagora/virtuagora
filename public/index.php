@@ -86,12 +86,8 @@ $app->get('/usuario', function () use ($app) {
 });
 
 $app->get('/test', function () use ($app) {
-    $h = array('contenidos' => 'Contenido');
-    $a = Illuminate\Database\Capsule\Manager::table('contenidos')->select('id', 'titulo')->where('id', 2)->first();
-    $b = $h['contenidos']::find(2);
-    var_dump($a);
-    echo '<br>';
-    var_dump($b);
+    $h = Usuario::find(1);
+    var_dump($h->lala, $h->nombre);
 });
 
 $app->get('/', 'PortalCtrl:showIndex');
@@ -107,12 +103,13 @@ $app->post('/admin/organismos/crear', checkRole('mod'), 'AdminCtrl:crearOrganism
 $app->get('/admin/organismos/:idOrg/funcionarios', checkRole('mod'), 'AdminCtrl:showAdminFuncionarios');
 $app->post('/admin/organismos/:idOrg/funcionarios', checkRole('mod'), 'AdminCtrl:adminFuncionarios');
 
-$app->get('/propuesta/:idPro', 'PropuestaCtrl:showPropuesta');
-$app->post('/propuesta/:idPro/votar', checkRole('usr'), 'PropuestaCtrl:votarPropuesta');
+$app->get('/propuestas/:idPro', 'PropuestaCtrl:showPropuesta');
+$app->post('/propuestas/:idPro/votar', checkRole('usr'), 'PropuestaCtrl:votarPropuesta');
 $app->get('/crear/propuesta', checkRole('fnc'), 'PropuestaCtrl:showCrearPropuesta');
 $app->post('/crear/propuesta', checkRole('fnc'), 'PropuestaCtrl:crearPropuesta');
 
 $app->get('/problematicas/:idPro', 'ProblematicaCtrl:showProblematica');
+$app->post('/problematicas/:idPro/votar', checkRole('usr'), 'ProblematicaCtrl:votarProblematica');
 $app->get('/crear/problematica', checkRole('usr'), 'ProblematicaCtrl:showCrearProblematica');
 $app->post('/crear/problematica', checkRole('usr'), 'ProblematicaCtrl:crearProblematica');
 
