@@ -16140,7 +16140,7 @@ footer .panel a {
   margin-bottom: .2rem;
 }
 /* line 227, ../scss/_layout.scss */
-#publicarPostura .a-favor {
+#publicarPostura #posturaInfo {
   border-style: solid;
   border-width: 1px;
   border-color: #d8d8d8;
@@ -16148,124 +16148,56 @@ footer .panel a {
   padding: 1.25rem;
   background: #f2f2f2;
   color: #333333;
-  background: #C8EDB5;
   vertical-align: middle;
   padding: 0.625rem;
 }
 /* line 54, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
-#publicarPostura .a-favor > :first-child {
+#publicarPostura #posturaInfo > :first-child {
   margin-top: 0;
 }
 /* line 55, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
-#publicarPostura .a-favor > :last-child {
+#publicarPostura #posturaInfo > :last-child {
   margin-bottom: 0;
 }
 /* line 60, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
-#publicarPostura .a-favor h1, #publicarPostura .a-favor h2, #publicarPostura .a-favor h3, #publicarPostura .a-favor h4, #publicarPostura .a-favor h5, #publicarPostura .a-favor h6, #publicarPostura .a-favor p, #publicarPostura .a-favor li, #publicarPostura .a-favor dl {
+#publicarPostura #posturaInfo h1, #publicarPostura #posturaInfo h2, #publicarPostura #posturaInfo h3, #publicarPostura #posturaInfo h4, #publicarPostura #posturaInfo h5, #publicarPostura #posturaInfo h6, #publicarPostura #posturaInfo p, #publicarPostura #posturaInfo li, #publicarPostura #posturaInfo dl {
   color: #333333;
 }
 /* line 67, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
-#publicarPostura .a-favor h1, #publicarPostura .a-favor h2, #publicarPostura .a-favor h3, #publicarPostura .a-favor h4, #publicarPostura .a-favor h5, #publicarPostura .a-favor h6 {
+#publicarPostura #posturaInfo h1, #publicarPostura #posturaInfo h2, #publicarPostura #posturaInfo h3, #publicarPostura #posturaInfo h4, #publicarPostura #posturaInfo h5, #publicarPostura #posturaInfo h6 {
   line-height: 1;
   margin-bottom: 0.625rem;
 }
 /* line 69, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
-#publicarPostura .a-favor h1.subheader, #publicarPostura .a-favor h2.subheader, #publicarPostura .a-favor h3.subheader, #publicarPostura .a-favor h4.subheader, #publicarPostura .a-favor h5.subheader, #publicarPostura .a-favor h6.subheader {
+#publicarPostura #posturaInfo h1.subheader, #publicarPostura #posturaInfo h2.subheader, #publicarPostura #posturaInfo h3.subheader, #publicarPostura #posturaInfo h4.subheader, #publicarPostura #posturaInfo h5.subheader, #publicarPostura #posturaInfo h6.subheader {
   line-height: 1.4;
 }
 /* line 233, ../scss/_layout.scss */
-#publicarPostura .neutro {
-  border-style: solid;
-  border-width: 1px;
-  border-color: #d8d8d8;
-  margin-bottom: 1.25rem;
-  padding: 1.25rem;
-  background: #f2f2f2;
-  color: #333333;
-  vertical-align: middle;
-  padding: 0.625rem;
-}
-/* line 54, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
-#publicarPostura .neutro > :first-child {
-  margin-top: 0;
-}
-/* line 55, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
-#publicarPostura .neutro > :last-child {
-  margin-bottom: 0;
-}
-/* line 60, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
-#publicarPostura .neutro h1, #publicarPostura .neutro h2, #publicarPostura .neutro h3, #publicarPostura .neutro h4, #publicarPostura .neutro h5, #publicarPostura .neutro h6, #publicarPostura .neutro p, #publicarPostura .neutro li, #publicarPostura .neutro dl {
-  color: #333333;
-}
-/* line 67, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
-#publicarPostura .neutro h1, #publicarPostura .neutro h2, #publicarPostura .neutro h3, #publicarPostura .neutro h4, #publicarPostura .neutro h5, #publicarPostura .neutro h6 {
-  line-height: 1;
-  margin-bottom: 0.625rem;
-}
-/* line 69, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
-#publicarPostura .neutro h1.subheader, #publicarPostura .neutro h2.subheader, #publicarPostura .neutro h3.subheader, #publicarPostura .neutro h4.subheader, #publicarPostura .neutro h5.subheader, #publicarPostura .neutro h6.subheader {
-  line-height: 1.4;
-}
-/* line 238, ../scss/_layout.scss */
-#publicarPostura .en-contra {
-  border-style: solid;
-  border-width: 1px;
-  border-color: #d8d8d8;
-  margin-bottom: 1.25rem;
-  padding: 1.25rem;
-  background: #f2f2f2;
-  color: #333333;
-  background: #edb5b5;
-  vertical-align: middle;
-  padding: 0.625rem;
-}
-/* line 54, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
-#publicarPostura .en-contra > :first-child {
-  margin-top: 0;
-}
-/* line 55, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
-#publicarPostura .en-contra > :last-child {
-  margin-bottom: 0;
-}
-/* line 60, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
-#publicarPostura .en-contra h1, #publicarPostura .en-contra h2, #publicarPostura .en-contra h3, #publicarPostura .en-contra h4, #publicarPostura .en-contra h5, #publicarPostura .en-contra h6, #publicarPostura .en-contra p, #publicarPostura .en-contra li, #publicarPostura .en-contra dl {
-  color: #333333;
-}
-/* line 67, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
-#publicarPostura .en-contra h1, #publicarPostura .en-contra h2, #publicarPostura .en-contra h3, #publicarPostura .en-contra h4, #publicarPostura .en-contra h5, #publicarPostura .en-contra h6 {
-  line-height: 1;
-  margin-bottom: 0.625rem;
-}
-/* line 69, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
-#publicarPostura .en-contra h1.subheader, #publicarPostura .en-contra h2.subheader, #publicarPostura .en-contra h3.subheader, #publicarPostura .en-contra h4.subheader, #publicarPostura .en-contra h5.subheader, #publicarPostura .en-contra h6.subheader {
-  line-height: 1.4;
-}
-/* line 245, ../scss/_layout.scss */
 #publicarPostura #intro-comentario h6 {
   vertical-align: top;
 }
-/* line 248, ../scss/_layout.scss */
+/* line 236, ../scss/_layout.scss */
 #publicarPostura #intro-comentario p {
   font-size: 0.6875rem;
   color: #797979;
 }
-/* line 254, ../scss/_layout.scss */
+/* line 242, ../scss/_layout.scss */
 #publicarPostura #cuadro-comentario textarea {
   font-size: 0.75rem;
   margin-bottom: 0.25rem;
 }
-/* line 258, ../scss/_layout.scss */
+/* line 246, ../scss/_layout.scss */
 #publicarPostura #cuadro-comentario label {
   font-size: 0.6875rem;
   color: #797979;
 }
-/* line 263, ../scss/_layout.scss */
+/* line 251, ../scss/_layout.scss */
 #publicarPostura .etiqueta {
   font-size: 0.75rem;
   font-weight: bold;
 }
 
-/* line 270, ../scss/_layout.scss */
+/* line 258, ../scss/_layout.scss */
 #formulario input[name="nombre"] {
   font-size: 1.25rem;
   height: initial;
@@ -16274,88 +16206,88 @@ footer .panel a {
   vertical-align: middle;
   margin-bottom: 0px;
 }
-/* line 278, ../scss/_layout.scss */
+/* line 266, ../scss/_layout.scss */
 #formulario span {
   color: #6F6F6F;
   text-align: left;
 }
-/* line 282, ../scss/_layout.scss */
+/* line 270, ../scss/_layout.scss */
 #formulario input[type="number"] {
   font-size: 0.875rem;
   font-weight: bold;
   text-align: center;
 }
-/* line 287, ../scss/_layout.scss */
+/* line 275, ../scss/_layout.scss */
 #formulario button {
   font-size: 1rem;
   padding: 0.75rem 0;
 }
-/* line 291, ../scss/_layout.scss */
+/* line 279, ../scss/_layout.scss */
 #formulario img {
   border-radius: 6px;
   border: 1px solid #8e97bf;
 }
 
-/* line 298, ../scss/_layout.scss */
+/* line 286, ../scss/_layout.scss */
 #tabla-organismos img, #tabla-funcionarios img {
   border-radius: 3px;
   border: 1px solid #8e97bf;
   width: 30px;
   height: auto;
 }
-/* line 304, ../scss/_layout.scss */
+/* line 292, ../scss/_layout.scss */
 #tabla-organismos #d-nombre, #tabla-funcionarios #d-nombre {
   font-size: 0.875rem;
   font-weight: bold;
 }
-/* line 308, ../scss/_layout.scss */
+/* line 296, ../scss/_layout.scss */
 #tabla-organismos i, #tabla-funcionarios i {
   font-size: 1.125rem;
 }
-/* line 311, ../scss/_layout.scss */
+/* line 299, ../scss/_layout.scss */
 #tabla-organismos td, #tabla-funcionarios td {
   padding: 0.3125rem 0.4375rem;
 }
-/* line 314, ../scss/_layout.scss */
+/* line 302, ../scss/_layout.scss */
 #tabla-organismos td.n-cupo, #tabla-funcionarios td.n-cupo {
   text-align: center;
   font-size: 1.125rem;
 }
-/* line 318, ../scss/_layout.scss */
+/* line 306, ../scss/_layout.scss */
 #tabla-organismos td.opciones, #tabla-funcionarios td.opciones {
   text-align: center;
 }
-/* line 321, ../scss/_layout.scss */
+/* line 309, ../scss/_layout.scss */
 #tabla-organismos .boton-mini, #tabla-funcionarios .boton-mini {
   margin-bottom: 0;
   font-size: 0.625rem;
   padding: 0.3125rem 0.5rem;
 }
-/* line 326, ../scss/_layout.scss */
+/* line 314, ../scss/_layout.scss */
 #tabla-organismos .boton-agregar, #tabla-funcionarios .boton-agregar {
   margin-bottom: 0;
   font-size: 0.875rem;
   padding: 0.5rem 1.25rem;
 }
-/* line 331, ../scss/_layout.scss */
+/* line 319, ../scss/_layout.scss */
 #tabla-organismos .boton-plus, #tabla-funcionarios .boton-plus {
   margin-bottom: 0;
   font-size: 0.5rem;
   padding: 0.5rem 0.5rem;
 }
-/* line 336, ../scss/_layout.scss */
+/* line 324, ../scss/_layout.scss */
 #tabla-organismos form, #tabla-funcionarios form {
   margin: 0 0 0;
 }
 
-/* line 342, ../scss/_layout.scss */
+/* line 330, ../scss/_layout.scss */
 #opcionesCupo #bt-salirBuscarFunc, #opcionesCupo #bt-salirModalOpc, #posiblesCandidatos #bt-salirBuscarFunc, #posiblesCandidatos #bt-salirModalOpc {
   margin-bottom: 0;
   font-size: 0.875rem;
   padding: 0.5rem 1.25rem;
 }
 
-/* line 350, ../scss/_layout.scss */
+/* line 338, ../scss/_layout.scss */
 #listado .cf:before,
 #listado .cf:after {
   content: " ";
@@ -16363,43 +16295,43 @@ footer .panel a {
   display: table;
   /* 2 */
 }
-/* line 356, ../scss/_layout.scss */
+/* line 344, ../scss/_layout.scss */
 #listado .cf:after {
   clear: both;
 }
-/* line 360, ../scss/_layout.scss */
+/* line 348, ../scss/_layout.scss */
 #listado .cf {
   *zoom: 1;
 }
-/* line 371, ../scss/_layout.scss */
+/* line 359, ../scss/_layout.scss */
 #listado * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 378, ../scss/_layout.scss */
+/* line 366, ../scss/_layout.scss */
 #listado hr {
   margin: 30px 0 0;
   border: none;
   border-bottom: 2px solid #e5e9e7;
 }
-/* line 384, ../scss/_layout.scss */
+/* line 372, ../scss/_layout.scss */
 #listado .left {
   float: left;
 }
-/* line 388, ../scss/_layout.scss */
+/* line 376, ../scss/_layout.scss */
 #listado .right {
   float: right;
 }
-/* line 392, ../scss/_layout.scss */
+/* line 380, ../scss/_layout.scss */
 #listado .active {
   display: block;
 }
-/* line 393, ../scss/_layout.scss */
+/* line 381, ../scss/_layout.scss */
 #listado .hidden {
   display: none;
 }
-/* line 395, ../scss/_layout.scss */
+/* line 383, ../scss/_layout.scss */
 #listado .wrapper {
   position: relative;
   overflow: hidden;
@@ -16409,13 +16341,13 @@ footer .panel a {
   background-color: #FEFEFE;
   border-radius: 8px;
 }
-/* line 410, ../scss/_layout.scss */
+/* line 398, ../scss/_layout.scss */
 #listado .wrapper .top-panel {
   width: 100%;
   height: 45px;
   background-color: #ECBA6D;
 }
-/* line 417, ../scss/_layout.scss */
+/* line 405, ../scss/_layout.scss */
 #listado .wrapper .username {
   overflow: hidden;
   position: absolute;
@@ -16430,20 +16362,20 @@ footer .panel a {
   border-left: solid 2px #FFFFFF;
   cursor: pointer;
 }
-/* line 431, ../scss/_layout.scss */
+/* line 419, ../scss/_layout.scss */
 #listado .wrapper .username a {
   color: #000000;
 }
-/* line 435, ../scss/_layout.scss */
+/* line 423, ../scss/_layout.scss */
 #listado .wrapper .username a:hover {
   cursor: pointer;
 }
-/* line 439, ../scss/_layout.scss */
+/* line 427, ../scss/_layout.scss */
 #listado .wrapper .short-nav {
   margin-left: 15px;
   line-height: 46px;
 }
-/* line 444, ../scss/_layout.scss */
+/* line 432, ../scss/_layout.scss */
 #listado .wrapper .short-nav a, #listado .wrapper .short-nav #social-share {
   padding: 0 15px 0 0;
   color: #000000;
@@ -16451,26 +16383,26 @@ footer .panel a {
   text-decoration: none;
   font-size: 20px;
 }
-/* line 452, ../scss/_layout.scss */
+/* line 440, ../scss/_layout.scss */
 #listado .wrapper .short-nav a:hover, #listado .wrapper .short-nav #social-share:hover {
   cursor: pointer;
 }
-/* line 458, ../scss/_layout.scss */
+/* line 446, ../scss/_layout.scss */
 #listado .content {
   font-weight: 400;
 }
-/* line 462, ../scss/_layout.scss */
+/* line 450, ../scss/_layout.scss */
 #listado .content #social {
   display: none;
 }
-/* line 464, ../scss/_layout.scss */
+/* line 452, ../scss/_layout.scss */
 #listado .content #social ul {
   margin: 0 auto;
   width: 100%;
   height: 60px;
   background-color: #AAC789;
 }
-/* line 471, ../scss/_layout.scss */
+/* line 459, ../scss/_layout.scss */
 #listado .content #social ul li {
   display: inline-table;
   width: 70px;
@@ -16485,22 +16417,22 @@ footer .panel a {
   -o-transition: all 1s ease-in-out;
   transition: all 0.25s ease-in-out;
 }
-/* line 485, ../scss/_layout.scss */
+/* line 473, ../scss/_layout.scss */
 #listado .content #social ul li:first-child {
   margin-left: 30px;
 }
-/* line 489, ../scss/_layout.scss */
+/* line 477, ../scss/_layout.scss */
 #listado .content #social ul li:hover {
   line-height: 50px;
   font-size: 26px;
   color: #1E4147;
 }
-/* line 493, ../scss/_layout.scss */
+/* line 481, ../scss/_layout.scss */
 #listado .contact-info {
   margin-bottom: 0px;
   padding: 10px 10px;
 }
-/* line 497, ../scss/_layout.scss */
+/* line 485, ../scss/_layout.scss */
 #listado .contact-info span {
   position: relative;
   top: 30px;
@@ -16508,7 +16440,7 @@ footer .panel a {
   z-index: 10;
   font-size: 28px;
 }
-/* line 505, ../scss/_layout.scss */
+/* line 493, ../scss/_layout.scss */
 #listado .contact-info h1 {
   display: block;
   width: 100%;
@@ -16516,7 +16448,7 @@ footer .panel a {
   font-size: 24px;
   text-transform: uppercase;
 }
-/* line 513, ../scss/_layout.scss */
+/* line 501, ../scss/_layout.scss */
 #listado .contact-info h2 {
   display: block;
   width: 100%;
@@ -16526,13 +16458,13 @@ footer .panel a {
   text-transform: uppercase;
   font-style: italic;
 }
-/* line 523, ../scss/_layout.scss */
+/* line 511, ../scss/_layout.scss */
 #listado .contact-info img {
   display: block;
   float: left;
   padding: 0 0 10px 0;
 }
-/* line 529, ../scss/_layout.scss */
+/* line 517, ../scss/_layout.scss */
 #listado .contact-info p {
   padding: 0 10px 0 80px;
   margin: 0;
@@ -16540,16 +16472,16 @@ footer .panel a {
   font-size: 12px;
   font-weight: 400;
 }
-/* line 537, ../scss/_layout.scss */
+/* line 525, ../scss/_layout.scss */
 #listado .contact-info dl {
   padding: 10px 0 0 50px;
 }
-/* line 541, ../scss/_layout.scss */
+/* line 529, ../scss/_layout.scss */
 #listado .contact-info dl dt {
   margin-bottom: 20px;
   font-weight: 600;
 }
-/* line 546, ../scss/_layout.scss */
+/* line 534, ../scss/_layout.scss */
 #listado .contact-info dl dd {
   display: inline-table;
   width: auto;
@@ -16565,7 +16497,7 @@ footer .panel a {
   border-radius: 8px;
 }
 
-/* line 564, ../scss/_layout.scss */
+/* line 552, ../scss/_layout.scss */
 .comentario-wrap img {
   display: inline-block;
   width: 32px;
@@ -16577,22 +16509,22 @@ footer .panel a {
   left: 0;
   margin-top: -16px;
 }
-/* line 576, ../scss/_layout.scss */
+/* line 564, ../scss/_layout.scss */
 .comentario-wrap h6.byline {
   padding-left: 40px;
   position: relative;
   margin-bottom: 15px;
   margin-top: 10px;
 }
-/* line 582, ../scss/_layout.scss */
+/* line 570, ../scss/_layout.scss */
 .comentario-wrap h6.byline .data {
   font-weight: 300;
 }
-/* line 585, ../scss/_layout.scss */
+/* line 573, ../scss/_layout.scss */
 .comentario-wrap h6.byline .label {
   font-size: 60%;
 }
-/* line 588, ../scss/_layout.scss */
+/* line 576, ../scss/_layout.scss */
 .comentario-wrap .content {
   background: #ebf3f5;
   padding: 0px 15px 5px 15px;
@@ -16600,14 +16532,14 @@ footer .panel a {
   margin-bottom: 7px;
   line-height: 0.5;
 }
-/* line 594, ../scss/_layout.scss */
+/* line 582, ../scss/_layout.scss */
 .comentario-wrap .content p {
   margin: 0;
   font-size: 12px;
   font-weight: 300;
   text-align: justify;
 }
-/* line 603, ../scss/_layout.scss */
+/* line 591, ../scss/_layout.scss */
 .comentario-wrap .content:before {
   content: '';
   width: 0px;
@@ -16620,35 +16552,35 @@ footer .panel a {
   left: 18px;
   pointer-events: none;
 }
-/* line 616, ../scss/_layout.scss */
+/* line 604, ../scss/_layout.scss */
 .comentario-wrap .rta.comentario {
   padding-left: 15px;
   border-left: 1px solid rgba(22, 166, 213, 0.72);
   margin-left: 25px;
 }
-/* line 622, ../scss/_layout.scss */
+/* line 610, ../scss/_layout.scss */
 .comentario-wrap .push {
   margin-bottom: 40px;
 }
-/* line 626, ../scss/_layout.scss */
+/* line 614, ../scss/_layout.scss */
 .comentario-wrap .actions {
   margin-left: 14px;
 }
-/* line 630, ../scss/_layout.scss */
+/* line 618, ../scss/_layout.scss */
 .comentario-wrap .inline-list {
   font-size: 13px;
 }
 
-/* line 637, ../scss/_layout.scss */
+/* line 625, ../scss/_layout.scss */
 .testimonial-wrap h2 {
   font-weight: 200;
   color: #333;
 }
-/* line 642, ../scss/_layout.scss */
+/* line 630, ../scss/_layout.scss */
 .testimonial-wrap .centered-text {
   text-align: center;
 }
-/* line 646, ../scss/_layout.scss */
+/* line 634, ../scss/_layout.scss */
 .testimonial-wrap .quote {
   background: #ebf3f5;
   padding: 15px 20px 5px 15px;
@@ -16656,13 +16588,13 @@ footer .panel a {
   margin-bottom: 20px;
   line-height: 0.5;
 }
-/* line 654, ../scss/_layout.scss */
+/* line 642, ../scss/_layout.scss */
 .testimonial-wrap .quote p {
   margin: 0;
   font-size: 13px;
   text-align: justify;
 }
-/* line 660, ../scss/_layout.scss */
+/* line 648, ../scss/_layout.scss */
 .testimonial-wrap .quote:after {
   content: '';
   width: 0px;
@@ -16674,12 +16606,12 @@ footer .panel a {
   top: 37px;
   left: 20px;
 }
-/* line 672, ../scss/_layout.scss */
+/* line 660, ../scss/_layout.scss */
 .testimonial-wrap .user {
   margin-left: 25px;
   margin-bottom: 30px;
 }
-/* line 676, ../scss/_layout.scss */
+/* line 664, ../scss/_layout.scss */
 .testimonial-wrap .user .photo {
   background-color: #ccc;
   border-radius: 100px;
@@ -16688,19 +16620,19 @@ footer .panel a {
   float: left;
   margin-right: 10px;
 }
-/* line 684, ../scss/_layout.scss */
+/* line 672, ../scss/_layout.scss */
 .testimonial-wrap .user p {
   position: relative;
   top: 5px;
   text-transform: uppercase;
 }
-/* line 689, ../scss/_layout.scss */
+/* line 677, ../scss/_layout.scss */
 .testimonial-wrap .user p:nth-child(2) {
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 0;
 }
-/* line 694, ../scss/_layout.scss */
+/* line 682, ../scss/_layout.scss */
 .testimonial-wrap .user p:nth-child(3) {
   font-size: 10px;
   color: #777;

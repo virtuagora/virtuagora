@@ -224,20 +224,8 @@ footer {
 	h1, h2, h3, h4, h5, h6 {
 		margin-bottom: .2rem;
 	}
-	.a-favor {
+	#posturaInfo {
 		@include panel();
-		background: #C8EDB5;
-		vertical-align: middle;
-		padding: rem-calc(10);
-	}
-	.neutro {
-		@include panel();
-		vertical-align: middle;
-		padding: rem-calc(10);
-	}
-	.en-contra {
-		@include panel();
-		background: #edb5b5;
 		vertical-align: middle;
 		padding: rem-calc(10);
 	}
