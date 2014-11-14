@@ -1,10 +1,3 @@
-{% set total_votos = propuesta.votos_favor + propuesta.votos_neutro + propuesta.votos_contra %}
-{% if total_votos > 0 %}
-{% set porc_favor = ( propuesta.votos_favor / ( total_votos ))*100 %}
-{% set porc_neutro = ( propuesta.votos_neutro / ( total_votos ))*100 %}
-{% set porc_contra = ( propuesta.votos_contra / ( total_votos ))*100 %}
-{% endif %}
-
 {# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
 {% set url_atras = '#' %}
 {% set i_class_icon = 'fa fa-bullhorn fa-fw' %}
