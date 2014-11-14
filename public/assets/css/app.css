@@ -16098,7 +16098,7 @@ footer .panel a {
   font-size: 0.875rem;
 }
 /* line 189, ../scss/_layout.scss */
-#vista-contenido #propuesta-resultado .barchart {
+#vista-contenido #propuesta-resultado .barchart, #vista-contenido #problematica-resultado .barchart {
   background-color: #a3dbe3;
   height: 1em;
   padding: 0em;
@@ -16106,29 +16106,29 @@ footer .panel a {
   width: 100%;
 }
 /* line 196, ../scss/_layout.scss */
-#vista-contenido #propuesta-resultado .barchart .meter {
+#vista-contenido #propuesta-resultado .barchart .meter, #vista-contenido #problematica-resultado .barchart .meter {
   background: #2daebf;
   height: 100%;
   display: block;
 }
 /* line 201, ../scss/_layout.scss */
-#vista-contenido #propuesta-resultado table.chart {
+#vista-contenido #propuesta-resultado table.chart, #vista-contenido #problematica-resultado table.chart {
   width: 100%;
   border-width: 0;
   margin: 5px 0;
 }
 /* line 206, ../scss/_layout.scss */
-#vista-contenido #propuesta-resultado table tr.even, #vista-contenido #propuesta-resultado table tr.alt, #vista-contenido #propuesta-resultado table tr:nth-of-type(even) {
+#vista-contenido #propuesta-resultado table tr.even, #vista-contenido #propuesta-resultado table tr.alt, #vista-contenido #propuesta-resultado table tr:nth-of-type(even), #vista-contenido #problematica-resultado table tr.even, #vista-contenido #problematica-resultado table tr.alt, #vista-contenido #problematica-resultado table tr:nth-of-type(even) {
   background: #FFF;
 }
 /* line 209, ../scss/_layout.scss */
-#vista-contenido #propuesta-resultado td.chart {
+#vista-contenido #propuesta-resultado td.chart, #vista-contenido #problematica-resultado td.chart {
   font-size: 14px;
   margin-bottom: 50px;
   padding: 0 0 20px 0;
 }
 /* line 214, ../scss/_layout.scss */
-#vista-contenido #propuesta-resultado p.percentage {
+#vista-contenido #propuesta-resultado p.percentage, #vista-contenido #problematica-resultado p.percentage {
   font-size: 30px !important;
   color: #6f6f6f;
   font-weight: 300;
