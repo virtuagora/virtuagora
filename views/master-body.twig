@@ -41,9 +41,23 @@
 				{% if comments == true %}
 				<hr id="top-comentarios">
 
+				{% if comentarios is not defined %}
+				<div id="row-sin-comentarios" class="row" style="margin-bottom: 20px;">
+					<div class="large-12 large-centered columns">
+						<div class="text-center">
+							<i class="fa fa-chain-broken fa-fw fa-3x"></i>
+							<br />
+							<b>~ Nadie ha comentado esta publicación..  ~</b>
+							<br />
+							¡Animate y dejá el primer comentario!
+						</div>
+					</div>
+				</div>
+				{% endif %}
+
 				<div id="row-comentar" class="row">
-					<div class="large-6 large-centered columns">
-						<div id="bt-comentar" class="button expand">
+					<div class="large-6 large-centered columns text-center">
+						<div id="bt-comentar" class="button radius">
 							<i class="fa fa-comments fa-fw fa-lg"></i>&nbsp;Dejar un comentario
 						</div>
 					</div>
@@ -55,8 +69,8 @@
 							<form action={{commentUrl}} method="POST">
 								<a href="#"><img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}">&nbsp;{{ user.nombre }} {{ user.apellido }}</a> <small>quiere comentar lo siguiente...</small>
 								<br/>
-								<textarea name="comentario" rows=4 style="margin-top: 5px; margin-bottom: 5px;"></textarea>
-								<button class="button success small right" style="padding: 8px 15px; margin-bottom: 0;"><i class="fa fa-check fa-fw"></i>&nbsp;Enviar</button>
+								<textarea name="cuerpo" rows=4 style="margin-top: 5px; margin-bottom: 5px;"></textarea>
+								<button class="button success small radius right" style="padding: 8px 15px; margin-bottom: 0;"><i class="fa fa-check fa-fw"></i>&nbsp;Enviar</button>
 							</form>
 						</div>
 					</div>
@@ -65,7 +79,45 @@
 				<div class="comentario-wrap">
 					<div class="row">
 						<div id="comentarios" class="large-10 large-centered columns">
-
+							{% if comentarios is defined %}
+							{% for comentario in comentarios %}
+							<div id="c-{{ comentario.id }}" class="comentario">
+								<section class="top">
+									<h6 class="byline">
+										<a href="urlUser"><img src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 64) }}">{{ comentario.autor.nombre }}</a>
+										<small>said
+											<span class="data">
+												{{ comentario.updated_at }}
+											</span>
+										</small>
+									</h6>
+								</section>
+								<section class="cuerpo">
+									<p>{{ comentario.cuerpo }}</p>
+								</section>
+								<section class="actions">
+									<ul class="inline-list">
+										<li><a href='#'>{{ comentario.votos }}&nbsp;<i class="fa fa-arrow-up fa-fw fa-lg" style="color:#33cc33;"></i></a></li>
+										<li><a href='#'><i class="fa fa-arrow-down fa-fw fa-lg" style="color:#FF4040;"></i></li>
+										<li><a href='#' class="bt-rta" >Responder&nbsp;<i class="fa fa-pencil-square-o fa-fw"></i></a></li>
+									</ul>
+								</section>
+							</div>
+							{% endfor %}
+							<div id="row-fin-comentarios" class="row" style="margin: 20px 0px;">
+								<div class="large-6 large-centered columns">
+									<div class="text-center">
+										<i class="fa fa-flag-checkered fa-fw fa-3x"></i>
+										<br />
+										<b>~ Fin de los comentarios ~</b>
+										<br />
+										<div id="bt-comentar-aux" class="button tiny radius">
+											<i class="fa fa-comments fa-fw fa-lg"></i>&nbsp;¿Desearias dejar un comentario?
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endif %}
 						</div>
 					</div>
 				</div>
