@@ -1,0 +1,249 @@
+{# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
+{% set url_atras = '#' %}
+{% set i_class_icon = 'fa fa-bullhorn fa-fw' %}
+{% set titulo = 'Ver problemática' %}
+{% set comments = true %}
+{% set commentUrl = baseUrl() ~ "/comentar/problematica/" ~ problematica.id %}
+{% set rtaUrl = baseUrl() ~ "/comentar/comentarios/" %}
+
+{# VARIABLES DE LA VISTA #}
+{% set total_afectados = problematica.afectados_directos + problematica.afectados_indirectos + problematica.afectados_indiferentes %}
+{% if total_afectados > 0 %}
+{% set porc_afec_directos = ( problematica.afectados_directos / ( total_afectados ))*100 %}
+{% set porc_afec_indirectos = ( problematica.afectados_indirectos / ( total_afectados ))*100 %}
+{% set porc_afec_indiferentes = ( problematica.afectados_indiferentes / ( total_afectados ))*100 %}
+{% endif %}
+
+{# ---------------------- #}
+
+{% extends "master-body.twig" %}
+
+{% block titulo %}
+Virtuagora - Problematica #{{ propuesta.id }} por {{ problematica.autor.nombre }} {{ problematica.autor.apellido }}
+{% endblock %}
+
+{% block contenido %}
+<!-- Fila c/ titulo y otros datos! -->
+<section id="vista-contenido">
+    <div class="row">
+        <div class="large-10 large-centered columns">
+            <div class="text-center">
+                <h1><b>{{ propuesta.titulo }}</b></h1>
+                <h4 class="subheader"><small>Creado el {{ propuesta.created_at|date("m/d/Y") }}</small></h1>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-6 large-centered columns">
+            <h6 class="subheader text-center"><b>Autor de la propuesta</b></h6>
+            <ul class="vcard">
+                <li clearfix>
+                    <div class="left autor">
+                        <a href='#'><img src="http://lorempixel.com/128/128/people" alt="profile image"></a>
+                    </div>
+                </li>
+                <li class="nombre">
+                    <span><i class="fa fa-user fa-border"></i></span>&nbsp;
+                    <a href='#'><b><span>{{ problematica.autor.nombre }}</span>
+                        <span>{{ propuesta.autor.apellido }}</span></b></a>
+                </li>
+                <li class="puntos">
+                    <span><i class="fa fa-trophy fa-border"></i></span>&nbsp;
+                    <span>{{ propuesta.autor.puntos }}</span>
+                    <span>puntitos!</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-10 large-centered columns">
+            <div class="texto text-justify">
+                {{ propuesta.cuerpo|bbCode }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-6 large-centered columns">
+            <h4 class="subheader text-center"><b>¿Que te parecio la propuesta?</b></h4>
+            <ul class="button-group even-3" >
+                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Me afecta directamente!">
+                    <a id="afec_directo" href="#" class="button secondary small" style="background: #F7D363;"><i class="fa fa-child fa-fw fa-2x"></i><i class="fa fa-exclamation fa-fw fa-2x"></i></a>
+                    </span></li>
+                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Me afecta indirectamente">
+                    <a id="afec_indirecto" href="#" class="button secondary small" style="background: #FAE8B0;"><i class="fa fa-men fa-2x"></i></a></span></li>
+                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Me es indiferente...">
+                    <a id="afec_indiferente" href="#" class="button secondary small"><i class="fa fa-meh-o fa-2x"></i></a></span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-4 large-centered columns">
+            <a href="#" class="button expand warning tiny" onclick="showResultadosPropuesta([{{ porc_afec_directos }},{{ porc_afec_indirectos }},{{ porc_afec_indiferentes }}], 100)"><i class="fa fa-bar-chart fa-fw fa-lg"></i>&nbsp;Ver resultados parciales</a>
+        </div>
+    </div>
+    <!-- Resultados propuesta - div oculto-->
+    <div id="problematica-resultado" style="display: none;" class="row">
+        {% if total_votos > 0 %}
+        <div class="row">
+            <div class="large-10 large-centered columns">
+                <div class="clearfix">
+                    <div class="right">
+                        <small>Cerrar</small>
+                        <a href="#" onclick="hideResultadosPropuesta()"><i class="fa fa-times fa-fw fa-lg"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-10 large-centered columns">
+                <table class="chart">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p id="porc_afec_directos" class="percentage"></p>
+                            </td>
+                            <td class="chart">
+                                {{ problematica.afectados_directos }} persona{{ (problematica.afectados_directos > 1) or (problematica.afectados_directos == 0) ? 's' : '' }} le{{ (problematica.afectados_directos > 1) or (problematica.afectados_directos == 0) ? 's' : '' }} afecta directamente la problemática
+                                <div class="barchart">
+                                    <span id="barra_directo" class="meter" ></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p id="porc_afec_indirectos" class="percentage"></p>
+                            </td>
+                            <td class="chart">
+                                {{ problematica.afectados_indirectos }} persona{{ (problematica.afectados_indirectos > 1) or (problematica.afectados_indirectos == 0) ? 's' : '' }} le{{ (problematica.afectados_indirectos > 1) or (problematica.afectados_indirectos == 0) ? 's' : '' }} afecta indirectamente la problemática
+                                <div class="barchart">
+                                    <span id="barra_indirecto" class="meter" ></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p id="porc_afec_indiferentes" class="percentage"></p>
+                            </td>
+                            <td class="chart">
+                                {{ problematica.afectados_indiferentes }} persona{{ (problematica.afectados_indiferentes > 1) or (problematica.afectados_indiferentes == 0) ? 's' : '' }} le{{ (problematica.afectados_indiferentes > 1) or (problematica.afectados_indiferentes == 0) ? 's' : '' }} es indiferente la problemática
+                                <div class="barchart">
+                                    <span id="barra_indiferente" class="meter" ></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="large-10 large-centered columns">
+                <div class="text-center">
+                    <h3>¡Nadie ha participado aún!</h3>
+                    <h3><small>Se el primero dejando una opinion al respecto <i class="fa fa-smile-o fa-fw fa-lg"></i></small></h3>
+                </div>
+
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block modal %}
+<div id="publicarPostura" class="reveal-modal remove-whitespace small" data-reveal>
+    {% include "contenido/problematica/publicar-postura.twig" %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ baseUrl }}/assets/js/foundation/foundation.tooltip.js"></script>
+<script src="{{ baseUrl }}/assets/js/underscore/underscore-min.js"></script>
+<script>
+    // Para porcentajes
+    // foo([13.626332, 47.989636, 9.596008, 28.788024], 100) // => [48, 29, 14, 9]
+    var showResultadosPropuesta = function (l, target) {
+        var $sum = _.reduce(l, function(memo, num){ return memo + num; }, 0);
+        if ($sum > 0) {
+            var $off = target - _.reduce(l, function(acc, x) { return acc + Math.round(x) }, 0);
+            var $porcentajes = _.chain(l).
+            //sortBy(function(x) { return Math.round(x) - x }).
+            map(function(x, i) { return Math.round(x) + ($off > i) - (i >= (l.length + $off)) }).
+            value();
+            $("#porc_afec_directos").html($porcentajes[0] + "%");
+            $("#porc_afec_indirectos").html($porcentajes[1] + "%");
+            $("#porc_afec_indiferentes").html($porcentajes[2] + "%");
+            $("#barra_directo").css("width",($porcentajes[0]).toString() + "%");
+            $("#barra_indirecto").css("width",($porcentajes[1]).toString() + "%");
+            $("#barra_indiferente").css("width",($porcentajes[2]).toString() + "%");
+        }
+        $("#problematica-resultado").show(500);
+    }
+
+    var hideResultadosPropuesta = function (){
+        $("#problematica-resultado").hide(500);
+    }
+
+    var modalPosturaCompletar = function (valorPostura){
+        $("#posturaInfo").removeAttr("class");
+        $("#posturaInfo i").removeAttr("class");
+        $("#posturaInfo h6 b").empty();
+        $("#posturaInfo").addClass("text-center");
+        if(valorPostura == 0){
+            $("#posturaInfo").attr("style","background: #F7D363;");
+            $("#posturaInfo i").addClass( $("#afec_directo i").attr('class') );
+            $("#posturaInfo h6 b").html("Esta problematica te afecta directamente");
+        } else if (valorPostura == 1) {
+            $("#posturaInfo").attr("style","background: #FAE8B0;");
+            $("#posturaInfo i").addClass( $("#afec_indirecto i").attr('class') );
+            $("#posturaInfo h6 b").html("Esta problematica te afecta indirectametne");
+        } else if (valorPostura == 2) {
+            $("#posturaInfo").attr("style","background: #e7e7e7;");
+            $("#posturaInfo i").addClass( $("#afec_indiferente i").attr('class') );
+            $("#posturaInfo h6 b").html("Esta problematica te es indiferente");
+        }
+    }
+
+    var usuarioLogueado = function (){
+        var hayLogin = {{ (user.nombre is not empty) ? 'true' : 'false' }} ;
+    return hayLogin;
+    }
+
+    $("#afec_directo").on("click", function() {
+        if(usuarioLogueado()){
+            $("#posturaProblematica").val(0);
+            modalPosturaCompletar(0);
+            $('#publicarPostura').foundation('reveal', 'open');
+        } else {
+            $('#login-modal').foundation('reveal', 'open');
+        }
+    });
+
+    $("#afec_indirecto").on("click", function() {
+        if(usuarioLogueado()){
+            $("#posturaProblematica").val(1);
+            modalPosturaCompletar(1);
+            $('#publicarPostura').foundation('reveal', 'open');
+        } else {
+            $('#login-modal').foundation('reveal', 'open');
+        }
+    });
+
+    $("#afec_indiferente").on("click", function() {
+        if(usuarioLogueado()){
+            $("#posturaProblematica").val(2);
+            modalPosturaCompletar(2);
+            $('#publicarPostura').foundation('reveal', 'open');
+        } else {
+            $('#login-modal').foundation('reveal', 'open');
+        }
+    });
+
+	{% if comments == true %}
+	{% include "misc/comentarios.js.twig" %}
+	{% endif %}
+
+</script>
+{% endblock %}
