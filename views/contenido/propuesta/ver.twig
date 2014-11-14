@@ -40,7 +40,7 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
             <ul class="vcard">
                 <li clearfix>
                     <div class="left autor">
-                        <a href='#'><img src="http://lorempixel.com/128/128/people" alt="profile image"></a>
+                        <a href='#'><img src="{{ avatarUrl(propuesta.autor.img_tipo, propuesta.autor.img_hash, 32) }}" alt="profile image"></a>
                     </div>
                 </li>
                 <li class="nombre">
