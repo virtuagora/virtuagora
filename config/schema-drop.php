@@ -17,15 +17,15 @@ $capsule->setAsGlobal();
 
 Capsule::schema()->dropIfExists('comentarios');
 echo '1 ';
-Capsule::schema()->dropIfExists('problematicas');
+Capsule::schema()->dropIfExists('problematica_votos');
 echo '2 ';
-Capsule::schema()->dropIfExists('propuesta_usuario');
+Capsule::schema()->dropIfExists('problematicas');
 echo '3 ';
-Capsule::schema()->dropIfExists('propuestas');
+Capsule::schema()->dropIfExists('propuesta_usuario');
 echo '4 ';
-Capsule::schema()->dropIfExists('imagenes');
+Capsule::schema()->dropIfExists('propuestas');
 echo '5 ';
-
+Capsule::schema()->dropIfExists('imagenes');
 echo '6 ';
 Capsule::schema()->dropIfExists('contenidos');
 echo '7 ';

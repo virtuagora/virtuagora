@@ -5,15 +5,16 @@ class ProblematicaCtrl extends Controller {
     public function showProblematica($id) {
         $vdt = new Validate\Validator();
         $vdt->addRule('id', new Validate\Rule\NumNatural());
-        if (!$vdt->quickValidate(array('id' => $id))) {
+        if (!$vdt->validate(array('id' => $id))) {
             $this->notFound();
         }
         $problematica = Problematica::with('contenido')->findOrFail($id);
         $contenido = $problematica->contenido;
         $voto = $problematica->votos()->where('usuario_id', $this->session->user('id'))->first();
         $datosProblematica = array_merge($contenido->toArray(), $problematica->toArray());
+        $datosVoto = $voto ? $voto.toArray() : null;
         $this->render('contenido/problematica/ver.twig', array('problematica' => $datosProblematica,
-                                                               'voto' => $voto->toArray()));
+                                                               'voto' => $datosVoto));
     }
 
     public function votarProblematica($idPro) {
@@ -59,7 +60,8 @@ class ProblematicaCtrl extends Controller {
     }
 
     public function showCrearProblematica() {
-        $this->render('contenido/problematica/crear.twig');
+        $categorias = Categoria::all();
+        $this->render('contenido/problematica/crear.twig', array('categorias' => $categorias->toArray()));
     }
 
     public function crearProblematica() {
@@ -68,6 +70,7 @@ class ProblematicaCtrl extends Controller {
             ->addRule('titulo', new Validate\Rule\MaxLength(128))
             ->addRule('cuerpo', new Validate\Rule\MinLength(8))
             ->addRule('cuerpo', new Validate\Rule\MaxLength(8192))
+            ->addRule('categoria', new Validate\Rule\NumNatural())
             ->addFilter('titulo', 'htmlspecialchars')
             ->addFilter('cuerpo', function ($v) {return htmlspecialchars($v, ENT_QUOTES);});
         $req = $this->request;
@@ -84,10 +87,11 @@ class ProblematicaCtrl extends Controller {
         $contenido = new Contenido;
         $contenido->titulo = $vdt->getData('titulo');
         $contenido->puntos = 0;
+        $contenido->categoria_id = $vdt->getData('categoria'); // TODO controla que existe esa categoria
         $contenido->autor()->associate($autor);
-        $contenido->contenible()->associate($propuesta);
+        $contenido->contenible()->associate($problematica);
         $contenido->save();
-        $this->redirect($req->getRootUri().'/problematica/'.$propuesta->id);
+        $this->redirect($req->getRootUri().'/problematicas/'.$problematica->id);
     }
 
 }

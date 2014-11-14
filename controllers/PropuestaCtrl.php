@@ -8,11 +8,12 @@ class PropuestaCtrl extends Controller {
         if (!$validator->validate(array('id' => $id))) {
             $this->notFound();
         }
-        $propuesta = Propuesta::with(array('contenido', 'comentarios.autor'))->findOrFail($id);
+        $propuesta = Propuesta::with(array('contenido', 'comentarios'))->findOrFail($id);
         $contenido = $propuesta->contenido;
         $comentarios = $propuesta->comentarios;
-        $datosPropuesta = array_merge($contenido->toArray(), $propuesta->toArray(), $comentarios->toArray());
-        $this->render('contenido/propuesta/ver.twig', array('propuesta' => $datosPropuesta));
+        $datosPropuesta = array_merge($contenido->toArray(), $propuesta->toArray());
+        $this->render('contenido/propuesta/ver.twig', array('propuesta' => $datosPropuesta,
+                                                            'comentarios' =>  $comentarios->toArray()));
     }
 
     public function votarPropuesta($idPro) {
@@ -76,7 +77,7 @@ class PropuestaCtrl extends Controller {
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($propuesta);
         $contenido->save();
-        $this->redirect($req->getRootUri().'/propuesta/'.$propuesta->id);
+        $this->redirect($req->getRootUri().'/propuestas/'.$propuesta->id);
     }
 
 }
