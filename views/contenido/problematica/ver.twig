@@ -40,17 +40,17 @@ Virtuagora - Problematica #{{ propuesta.id }} por {{ problematica.autor.nombre }
             <ul class="vcard">
                 <li clearfix>
                     <div class="left autor">
-                        <a href='#'><img src="http://lorempixel.com/128/128/people" alt="profile image"></a>
+                        <a href='#'><img src="{{ avatarUrl(problematica.autor.img_tipo, problematica.autor.img_hash, 32) }}" alt="profile image"></a>
                     </div>
                 </li>
                 <li class="nombre">
                     <span><i class="fa fa-user fa-border"></i></span>&nbsp;
                     <a href='#'><b><span>{{ problematica.autor.nombre }}</span>
-                        <span>{{ propuesta.autor.apellido }}</span></b></a>
+                        <span>{{ problematica.autor.apellido }}</span></b></a>
                 </li>
                 <li class="puntos">
                     <span><i class="fa fa-trophy fa-border"></i></span>&nbsp;
-                    <span>{{ propuesta.autor.puntos }}</span>
+                    <span>{{ problematica.autor.puntos }}</span>
                     <span>puntitos!</span>
                 </li>
             </ul>
@@ -59,7 +59,7 @@ Virtuagora - Problematica #{{ propuesta.id }} por {{ problematica.autor.nombre }
     <div class="row">
         <div class="large-10 large-centered columns">
             <div class="texto text-justify">
-                {{ propuesta.cuerpo|bbCode }}
+                {{ problematica.cuerpo|bbCode }}
             </div>
         </div>
     </div>
@@ -79,12 +79,12 @@ Virtuagora - Problematica #{{ propuesta.id }} por {{ problematica.autor.nombre }
     </div>
     <div class="row">
         <div class="large-4 large-centered columns">
-            <a href="#" class="button expand warning tiny" onclick="showResultadosPropuesta([{{ porc_afec_directos }},{{ porc_afec_indirectos }},{{ porc_afec_indiferentes }}], 100)"><i class="fa fa-bar-chart fa-fw fa-lg"></i>&nbsp;Ver resultados parciales</a>
+            <a href="#" class="button expand warning tiny" onclick="showResultadosProblematica([{{ porc_afec_directos }},{{ porc_afec_indirectos }},{{ porc_afec_indiferentes }}], 100)"><i class="fa fa-bar-chart fa-fw fa-lg"></i>&nbsp;Ver resultados parciales</a>
         </div>
     </div>
     <!-- Resultados propuesta - div oculto-->
     <div id="problematica-resultado" style="display: none;" class="row">
-        {% if total_votos > 0 %}
+        {% if total_afectados > 0 %}
         <div class="row">
             <div class="large-10 large-centered columns">
                 <div class="clearfix">
@@ -164,7 +164,7 @@ Virtuagora - Problematica #{{ propuesta.id }} por {{ problematica.autor.nombre }
 <script>
     // Para porcentajes
     // foo([13.626332, 47.989636, 9.596008, 28.788024], 100) // => [48, 29, 14, 9]
-    var showResultadosPropuesta = function (l, target) {
+    var showResultadosProblematica = function (l, target) {
         var $sum = _.reduce(l, function(memo, num){ return memo + num; }, 0);
         if ($sum > 0) {
             var $off = target - _.reduce(l, function(acc, x) { return acc + Math.round(x) }, 0);
