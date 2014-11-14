@@ -29,7 +29,7 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
         <div class="large-10 large-centered columns">
             <div class="text-center">
                 <h1><b>{{ propuesta.titulo }}</b></h1>
-                <h4 class="subheader"><small>Creado el {{ propuesta.created_at|date("m/d/Y") }}</small></h1>
+                <h4 class="subheader"><small>Creado el {{ propuesta.created_at|date("d/m/Y") }}</small></h1>
             </div>
 
         </div>
@@ -45,8 +45,8 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
                 </li>
                 <li class="nombre">
                     <span><i class="fa fa-user fa-border"></i></span>&nbsp;
-                    <a href='#'><b><span>{{ propuesta.autor.nombre }}</span>
-                        <span>{{ propuesta.autor.apellido|upper }}</span></b></a>
+                    <a href='#'><b><span>{{ propuesta.autor.nombre|capitalize  }}</span>
+                        <span>{{ propuesta.autor.apellido|capitalize  }}</span></b></a>
                 </li>
                 <li class="puntos">
                     <span><i class="fa fa-trophy fa-border"></i></span>&nbsp;
@@ -68,12 +68,12 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
             <h4 class="subheader text-center"><b>¿Que te parecio la propuesta?</b></h4>
             <ul class="button-group even-3" >
                 <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Me gusta mucho!">
-                    <a id="voto_favor" href="#" class="button secondary small"><i class="fa fa-thumbs-o-up fa-fw fa-2x"></i></a>
+                    <a id="voto_favor" href="#" class="button secondary small" style="background: #C8EDB5;"><i class="fa fa-thumbs-o-up fa-fw fa-2x"></i></a>
                     </span></li>
                 <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Tengo mis dudas aún..">
                     <a id="voto_neutro" href="#" class="button secondary small"><i class="fa fa-meh-o fa-2x"></i></a></span></li>
                 <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="No la apruebo">
-                    <a id="voto_contra" href="#" class="button secondary small"><i class="fa fa-thumbs-o-down fa-2x"></i></a></span></li>
+                    <a id="voto_contra" href="#" class="button secondary small" style="background: #F4BCBC;"><i class="fa fa-thumbs-o-down fa-2x"></i></a></span></li>
             </ul>
         </div>
     </div>
@@ -193,15 +193,15 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
         $("#posturaInfo h6 b").empty();
         $("#posturaInfo").addClass("text-center");
         if(valorPostura == 1){
-            $("#posturaInfo").addClass("a-favor");
+            $("#posturaInfo").attr("style","background: #C8EDB5;");
             $("#posturaInfo i").addClass( $("#voto_favor i").attr('class') );
             $("#posturaInfo h6 b").html("¡Estas a favor de la propuesta!");
         } else if (valorPostura == 0) {
-            $("#posturaInfo").addClass("neutro");
+            $("#posturaInfo").attr("style","background: #e7e7e7;");
             $("#posturaInfo i").addClass( $("#voto_neutro i").attr('class') );
             $("#posturaInfo h6 b").html("Tu posicion con la postura es neutra");
         } else if (valorPostura == -1) {
-            $("#posturaInfo").addClass("en-contra");
+            $("#posturaInfo").attr("style","background: #F4BCBC;");
             $("#posturaInfo i").addClass( $("#voto_contra i").attr('class') );
             $("#posturaInfo h6 b").html("Estas en contra de la postura");
         }
