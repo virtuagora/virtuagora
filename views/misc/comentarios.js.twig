@@ -3,6 +3,7 @@ var cantidadSinMostrar = cantidadTotalMensajes;
 var listaComentarios = null;
 
 $(document).ready(function() {
+	/*
 	listaComentarios = crearArrayComentarios();
 	cantidadTotalMensajes = listaComentarios.length;
 	cantidadSinMostrar = listaComentarios.length;
@@ -12,6 +13,7 @@ $(document).ready(function() {
 	} else {
 		agregarQuotesInicio();
 	}
+
 	$("#bt-ver-mas").click(function() {
 		confettiComentarios();
 		if(cantidadSinMostrar > 0){
@@ -22,7 +24,7 @@ $(document).ready(function() {
 			agregarQuotesInicio();
 		}
 	});
-
+*/
 	$("#bt-comentar").click(function() {
 		if(usuarioLogueado()){
 			$("#row-comentar").hide(200);
@@ -63,7 +65,7 @@ $(document).ready(function() {
 });
 
 
-
+/*
 function confettiComentarios(){
 	var valorMaximo=-1;
 	if(cantidadSinMostrar>=3){
@@ -111,63 +113,6 @@ function agregarBotonVerMas(){
 			)
 		)
 	)
-}
-
-function agregarSinComentarios(){
-	$("#row-ver-mas").remove();
-	$("#comentarios").append(
-		row()
-		.append(
-			columnasQuote(4)
-			.addClass("large-centered text-center")
-			.append(
-				$("<h5>")
-				.html("~ Fin de los comentarios ~")
-			)
-			.append(
-				$("<div>")
-				.attr("id","div-comentar-aux")
-				.addClass("text-center")
-				.append(
-					$("<div>")
-					.attr("id","bt-comentar-aux")
-					.addClass("button tiny radius expand")
-					.append(
-						$("<i>")
-						.addClass("fa fa-comments fa-fw fa-lg")
-					)
-					.append(
-						"¿Desearias dejar un comentario?"
-					)
-				)
-			)
-		)
-	)
-}
-
-function crearArrayComentarios(){
-	var comentarios = new Array();
-	var par = new Array();
-	var respuestas = new Array();
-	// un Comentarios = [ [Comentario, [ [RTA1],[RTA2] ...] ] , [Comentario, [ [RTA1],[RTA2] ...] ], [Comentario, [ [RTA1],[RTA2] ...] ], ]
-	var number = 0 + Math.floor(Math.random() * 30);
-	for(var i=0; i<number; i++){
-		var par = new Array();
-		var respuestas = new Array();
-		par.push(
-			crearComentario(i,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum elementum metus eget accumsan placerat. Donec urna arcu, ornare fringilla vulputate tristique, pharetra a augue. Phasellus eu neque volutpat, venenatis odio eu, rhoncus risus. Phasellus accumsan nisl sapien, vel placerat mi commodo in. Donec eget lacus ac justo rhoncus consectetur quis ut mauris. Nullam malesuada commodo magna sed tempus. Suspendisse vel sem luctus, vulputate dui id, auctor risus. Duis eu lacus placerat, pretium augue sit amet, feugiat est. Nam facilisis aliquet diam sed accumsan. Fusce turpis diam, ultrices non pretium sit amet, facilisis ut leo. In ullamcorper fringilla sapien non venenatis. Morbi blandit nisl ut quam malesuada gravida. Suspendisse mollis massa nunc, non vulputate mi faucibus nec.","#","ht	tp://lorempixel.com/32/32/sports/","Comentario ID"+i,"Sabado 30 de Junio 2005",30,5)
-		)
-		var number2 = 0 + Math.floor(Math.random() * 6);
-		for(var j=0; j<number2; j++){
-			var number3 = 120 + Math.floor(Math.random() * 300);
-			respuestas.push(
-				crearRespuesta(i,number3,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum elementum metus eget accumsan placerat. Donec urna arcu, ornare fringilla vulputate tristique, pharetra a augue.","#","http://lorempixel.com/32/32/sports/","Respuesta ID"+number3,"Sabado 30 de Junio 2005",20,15)
-			)
-		}
-		par.push(respuestas)
-		comentarios.push(par);
-	}
-	return comentarios;
 }
 
 function agregarQuotesInicio(){
@@ -235,3 +180,4 @@ function largeColums(cantidad){
 function columnasQuote(cantidad){
 	return $('<div>').addClass('large-' + cantidad + ' columns testimonial');
 }
+*/
