@@ -138,6 +138,7 @@ Capsule::schema()->create('categorias', function($table) {
     $table->increments('id');
     $table->string('nombre');
 
+    $table->timestamps();
     $table->softDeletes();
 });
 
@@ -206,14 +207,14 @@ Capsule::schema()->create('problematicas', function($table) {
     $table->increments('id');
     $table->text('cuerpo');
     $table->integer('afectados_directos')->unsigned();
-    $table->integer('afectoads_indirectos')->unsigned();
+    $table->integer('afectados_indirectos')->unsigned();
     $table->integer('afectados_indiferentes')->unsigned();
 
     $table->timestamps();
     $table->softDeletes();
 });
 
-Capsule::schema()->create('problematica_voto', function($table) {
+Capsule::schema()->create('problematica_votos', function($table) {
     $table->engine = 'InnoDB';
 
     $table->increments('id');

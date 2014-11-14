@@ -1,7 +1,7 @@
 <?php use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class VotoProblematica extends Eloquent {
-    $table = 'problematica_voto';
+    protected $table = 'problematica_votos';
 
     protected $visible = array('id', 'postura', 'created_at', 'updated_at');
 
