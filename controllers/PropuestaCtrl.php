@@ -51,7 +51,8 @@ class PropuestaCtrl extends Controller {
     }
 
     public function showCrearPropuesta() {
-        $this->render('contenido/propuesta/crear.twig');
+        $categorias = Categoria::all();
+        $this->render('contenido/propuesta/crear.twig', array('categorias' => $categorias->toArray()));
     }
 
     public function crearPropuesta() {

@@ -12,7 +12,7 @@ class ProblematicaCtrl extends Controller {
         $contenido = $problematica->contenido;
         $voto = $problematica->votos()->where('usuario_id', $this->session->user('id'))->first();
         $datosProblematica = array_merge($contenido->toArray(), $problematica->toArray());
-        $datosVoto = $voto ? $voto.toArray() : null;
+        $datosVoto = $voto ? $voto->toArray() : null;
         $this->render('contenido/problematica/ver.twig', array('problematica' => $datosProblematica,
                                                                'voto' => $datosVoto));
     }
@@ -34,7 +34,7 @@ class ProblematicaCtrl extends Controller {
         // TODO validar que no se vota mas de una vez cada X tiempo.
         if (!$voto->exists) {
             $voto->usuario_id = $usuario->id;
-            $voto->problematica_id = $problematica->id;
+            $voto->usuario()->associate($usuario);
             $usuario->increment('puntos'); // TODO revisar cuantos puntos otorgar
         } else if ($voto->postura == $postura) {
             throw new BearableException('No puede votar dos veces la misma postura.');
@@ -44,19 +44,18 @@ class ProblematicaCtrl extends Controller {
         $voto->postura = $postura;
         switch ($postura) {
             case 0:
-                $propuesta->increment('afectados_directos');
+                $problematica->increment('afectados_indiferentes');
                 break;
             case 1:
-                $propuesta->increment('afectados_indirectos');
+                $problematica->increment('afectados_indirectos');
                 break;
             case 2:
-                $propuesta->increment('afectados_indiferentes');
+                $problematica->increment('afectados_directos');
                 break;
         }
         $voto->save();
         $usuario->save();
-        //$problematica->save();
-        $this->redirect($req->getRootUri().'/problematica/'.$idPro);
+        $this->redirect($req->getRootUri().'/problematicas/'.$idPro);
     }
 
     public function showCrearProblematica() {
