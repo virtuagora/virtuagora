@@ -87,7 +87,9 @@ $app->get('/usuario', function () use ($app) {
 
 $app->get('/test', function () use ($app) {
     $h = Usuario::find(1);
-    var_dump($h->lala, $h->nombre);
+    $dt = Carbon\Carbon::now();
+    $dt->subDays(3);
+    var_dump($h->created_at, $dt, $dt->lt($h->updated_at));
 });
 
 $app->get('/', 'PortalCtrl:showIndex');

@@ -8,12 +8,14 @@ class ProblematicaCtrl extends Controller {
         if (!$vdt->validate(array('id' => $id))) {
             $this->notFound();
         }
-        $problematica = Problematica::with('contenido')->findOrFail($id);
+        $problematica = Problematica::with(array('contenido', 'comentarios'))->findOrFail($id);
         $contenido = $problematica->contenido;
         $voto = $problematica->votos()->where('usuario_id', $this->session->user('id'))->first();
+        $comentarios = $problematica->comentarios->toArray();
         $datosProblematica = array_merge($contenido->toArray(), $problematica->toArray());
         $datosVoto = $voto ? $voto->toArray() : null;
         $this->render('contenido/problematica/ver.twig', array('problematica' => $datosProblematica,
+                                                               'comentarios' => $comentarios,
                                                                'voto' => $datosVoto));
     }
 
@@ -31,13 +33,17 @@ class ProblematicaCtrl extends Controller {
         $voto = VotoProblematica::firstOrNew(array('problematica_id' => $problematica->id,
                                                    'usuario_id' => $usuario->id));
         $postura = $vdt->getData('postura');
-        // TODO validar que no se vota mas de una vez cada X tiempo.
+        $fecha = Carbon\Carbon::now();
+        $fecha->subDays(3);
+        if ($fecha->lt($voto->updated_at)) {
+            throw (new TurnbackException())->setErrors(array('No puede cambiar su voto tan pronto.'));
+        }
         if (!$voto->exists) {
             $voto->usuario_id = $usuario->id;
             $voto->usuario()->associate($usuario);
             $usuario->increment('puntos'); // TODO revisar cuantos puntos otorgar
         } else if ($voto->postura == $postura) {
-            throw new BearableException('No puede votar dos veces la misma postura.');
+            throw (new TurnbackException())->setErrors(array('No puede votar dos veces la misma postura.'));
         } else {
             $usuario->decrement('puntos'); // TODO revisar cuantos puntos quitar
         }

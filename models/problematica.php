@@ -12,6 +12,10 @@ class Problematica extends Eloquent {
         return $this->morphOne('Contenido', 'contenible');
     }
 
+    public function comentarios() {
+        return $this->morphMany('Comentario', 'comentable');
+    }
+
     public function votos() {
         return $this->hasMany('VotoProblematica');
     }
