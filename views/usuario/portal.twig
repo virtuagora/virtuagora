@@ -17,7 +17,7 @@ Virtuagora - Portal
     <tbody>
         {% for con in contenidos %}
             <tr>
-                <td><a href='{{ baseUrl }}/{{ con.contenible_type|lower }}/{{ con.contenible_id }}'>{{ con.titulo }}</a></td>
+                <td><a href='{{ baseUrl }}/{{ con.contenible_type|lower }}s/{{ con.contenible_id }}'>{{ con.titulo }}</a></td>
                 <td>{{ con.autor.nombre }} {{ con.autor.apellido }}</td>
                 <td>{{ con.created_at|date("m/d/Y") }}</td>
             </tr>
@@ -31,6 +31,6 @@ Virtuagora - Portal
     <a href="{{ baseUrl }}/crear/propuesta">Crear propuesta.</a><br>
     <a href="{{ baseUrl }}/crear/partido">Crear partido.</a><br>
     <a href="{{ baseUrl }}/partidos">Listar partidos.</a><br>
-
 {% endif %}
+    <a href="{{ baseUrl }}/crear/problematica">Crear problematica.</a><br>
 {% endblock %}
