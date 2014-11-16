@@ -53,11 +53,11 @@ class PartidoCtrl extends Controller {
             $partido->save();
         }
         $this->crearImagen($partido->id, $partido->nombre);
-        $this->redirect($req->getRootUri().'/partidos');
+        $this->redirect($req->getRootUri().'/partido');
     }
 
     private function crearImagen($id, $nombre) {
-        $dir = 'img/partidos/' . $id;
+        $dir = 'img/partido/' . $id;
         if (!is_dir($dir)) {
             mkdir($dir, 0777, true);
         }
@@ -76,7 +76,7 @@ class PartidoCtrl extends Controller {
     public function unirsePartido($idPar) {
         $vdt = new Validate\Validator();
         $vdt->addRule('idPar', new Validate\Rule\NumNatural());
-        if (!$vdt->quickValidate(array('idPar' => $idPar))) {
+        if (!$vdt->validate(array('idPar' => $idPar))) {
             $this->notFound();
         }
         $partido = Partido::findOrFail($idPar);
@@ -87,7 +87,7 @@ class PartidoCtrl extends Controller {
         $usuario->partido()->associate($partido);
         $usuario->save();
         $this->session->setUser($usuario);
-        $this->redirect($this->request->getRootUri().'/partidos');
+        $this->redirect($this->request->getRootUri().'/partido');
     }
 
     public function dejarPartido() {
@@ -102,7 +102,7 @@ class PartidoCtrl extends Controller {
         $usuario->partido()->dissociate();
         $usuario->save();
         $this->session->setUser($usuario);
-        $this->redirect($this->request->getRootUri().'/partidos');
+        $this->redirect($this->request->getRootUri().'/partido');
     }
 
     public function cambiarImagen($idPar) {

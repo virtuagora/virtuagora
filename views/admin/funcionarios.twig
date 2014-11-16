@@ -219,7 +219,7 @@ Virtuagora - Administrar funcionarios
 
     function enviarSolicitud() {
         var request = $.ajax({
-            url: '{{ baseUrl }}/usuario',
+            url: '{{ baseUrl() }}/usuario',
             cache: false,
             dataType: "json"
         });

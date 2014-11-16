@@ -19,7 +19,7 @@ Virtuagora - Administrar organismos
     <div class="row">
         <div class="large-12 columns text-center">
             <div class="panel">
-                <h6><b>Administre los organismos publicos ya existentes o <a href="{{ baseUrl }}/admin/organismos/crear"    >agregue uno nuevo</a></b></h6>
+                <h6><b>Administre los organismos publicos ya existentes o <a href="{{ baseUrl() }}/admin/organismo/crear"    >agregue uno nuevo</a></b></h6>
             </div>
         </div>
     </div>
@@ -37,7 +37,7 @@ Virtuagora - Administrar organismos
                 </thead><tbody>
                 <tr>
                     <td colspan="5" class="opciones">
-                        <a href="{{ baseUrl }}/admin/organismos/crear" class="button boton-agregar expand warning radius"><i class="fa fa-plus fa-fw fa-lg"></i>&nbsp;&nbsp;&nbsp;Agregar nuevo</a>
+                        <a href="{{ baseUrl() }}/admin/organismo/crear" class="button boton-agregar expand warning radius"><i class="fa fa-plus fa-fw fa-lg"></i>&nbsp;&nbsp;&nbsp;Agregar nuevo</a>
                     </td>
                 </tr>
                 {% for org in organismos %}
@@ -47,13 +47,13 @@ Virtuagora - Administrar organismos
                         <a href='#'><i class="fa fa-pencil fa-border"></i></a>
                     </td>
                     <td id="d-nombre">
-                        <a href='{{ baseUrl }}/admin/funcionarios/{{ org.id }}'>
+                        <a href='{{ baseUrl() }}/admin/funcionario/{{ org.id }}'>
                             <img src="http://lorempixel.com/g/128/128/">&nbsp;&nbsp;{{ org.nombre|capitalize }}
                         </a>
                     </td>
                     <td class="n-cupo">{{ org.funcionarios_count }}</td>
                     <td class="n-cupo">{{ org.cupo }}</td>
-                    <td><a href="{{ baseUrl }}/admin/organismos/{{ org.id }}/funcionarios" class="button boton-mini radius">Editar cupos</a></td>
+                    <td><a href="{{ baseUrl() }}/admin/organismo/{{ org.id }}/funcionario" class="button boton-mini radius">Editar cupos</a></td>
                 </tr>
                 {% endfor %}
                 </tbody>

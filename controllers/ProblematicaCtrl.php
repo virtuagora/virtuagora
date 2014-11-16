@@ -55,7 +55,7 @@ class ProblematicaCtrl extends Controller {
         }
         $voto->save();
         $usuario->save();
-        $this->redirect($req->getRootUri().'/problematicas/'.$idPro);
+        $this->redirect($req->getRootUri().'/problematica/'.$idPro);
     }
 
     public function showCrearProblematica() {
@@ -90,7 +90,7 @@ class ProblematicaCtrl extends Controller {
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($problematica);
         $contenido->save();
-        $this->redirect($req->getRootUri().'/problematicas/'.$problematica->id);
+        $this->redirect($req->getRootUri().'/problematica/'.$problematica->id);
     }
 
 }

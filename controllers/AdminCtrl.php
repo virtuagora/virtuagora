@@ -12,26 +12,25 @@ class AdminCtrl extends Controller {
     }
 
     public function crearOrganismo() {
-        $validator = new Augusthur\Validation\Validator();
-        $validator
-            ->addRule('nombre', new Augusthur\Validation\Rule\Alpha(array(' ')))
-            ->addRule('nombre', new Augusthur\Validation\Rule\MinLength(2))
-            ->addRule('nombre', new Augusthur\Validation\Rule\MaxLength(64))
-            ->addRule('descripcion', new Augusthur\Validation\Rule\MaxLength(512))
-            ->addRule('cupo', new Augusthur\Validation\Rule\NumNatural())
-            ->addRule('cupo', new Augusthur\Validation\Rule\NumMin(1))
-            ->addRule('cupo', new Augusthur\Validation\Rule\NumMax(32));
+        $vdt = new Validate\Validator();
+        $vdt->addRule('nombre', new Validate\Rule\Alpha(array(' ')))
+            ->addRule('nombre', new Validate\Rule\MinLength(2))
+            ->addRule('nombre', new Validate\Rule\MaxLength(64))
+            ->addRule('descripcion', new Validate\Rule\MaxLength(512))
+            ->addRule('cupo', new Validate\Rule\NumNatural())
+            ->addRule('cupo', new Validate\Rule\NumMin(1))
+            ->addRule('cupo', new Validate\Rule\NumMax(32));
         $req = $this->request;
-        if (!$validator->validate($req->post())) {
-            throw (new TurnbackException())->setErrors($validator->getErrors());
+        if (!$vdt->validate($req->post())) {
+            throw (new TurnbackException())->setErrors($vdt->getErrors());
         }
         $organismo = new Organismo;
-        $organismo->nombre = $req->post('nombre');
-        $organismo->descripcion = $req->post('descripcion');
-        $organismo->cupo = $req->post('cupo');
+        $organismo->nombre = $vdt->getData('nombre');
+        $organismo->descripcion = $vdt->getData('descripcion');
+        $organismo->cupo = $vdt->getData('cupo');
         $organismo->imagen = false;
         $organismo->save();
-        $this->redirect($req->getRootUri().'/admin/organismos');
+        $this->redirect($req->getRootUri().'/admin/organismo');
     }
 
     public function showAdminFuncionarios($id) {
@@ -41,15 +40,14 @@ class AdminCtrl extends Controller {
     }
 
     public function adminFuncionarios($id) {
-        $validator = new Augusthur\Validation\Validator();
-        $validator
-            ->addRule('id', new Augusthur\Validation\Rule\NumNatural())
-            ->addRule('entrantes', new Augusthur\Validation\Rule\Regex('/^\[\d*(?:,\d+)*\]$/'))
-            ->addRule('salientes', new Augusthur\Validation\Rule\Regex('/^\[\d*(?:,\d+)*\]$/'));
+        $vdt = new Validate\Validator();
+        $vdt->addRule('id', new Validate\Rule\NumNatural())
+            ->addRule('entrantes', new Validate\Rule\Regex('/^\[\d*(?:,\d+)*\]$/'))
+            ->addRule('salientes', new Validate\Rule\Regex('/^\[\d*(?:,\d+)*\]$/'));
         $req = $this->request;
         $data = array_merge(array('id' => $id), $req->post());
         $errormsg = array('Configuración inválida.');
-        if (!$validator->validate($data)) {
+        if (!$vdt->validate($data)) {
             throw (new TurnbackException())->setErrors($errormsg);
         }
         $organismo = Organismo::findOrFail($id);
@@ -58,8 +56,8 @@ class AdminCtrl extends Controller {
         foreach ($funcionarios as $funcionario) {
             $actuales[] = (int) $funcionario->usuario_id;
         }
-        $entrantes = json_decode($req->post('entrantes'));
-        $salientes = json_decode($req->post('salientes'));
+        $entrantes = json_decode($vdt->getData('entrantes'));
+        $salientes = json_decode($vdt->getData('salientes'));
         if (array_intersect($actuales, $entrantes)) {
             throw (new TurnbackException())->setErrors($errormsg);
         }
@@ -76,7 +74,7 @@ class AdminCtrl extends Controller {
             $funcionario->organismo_id = $id;
             $funcionario->save();
         }
-        $this->redirect($req->getRootUri().'/admin/organismos');
+        $this->redirect($req->getRootUri().'/admin/organismo');
     }
 
 }

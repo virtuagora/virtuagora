@@ -97,25 +97,25 @@ $app->post('/logout', 'PortalCtrl:logout');
 $app->post('/registro', 'checkNoSession', 'PortalCtrl:registrar');
 $app->get('/validar/:idUsr/:token', 'PortalCtrl:validar');
 
-$app->get('/admin/organismos', checkRole('mod'), 'AdminCtrl:showOrganismos');
-$app->get('/admin/organismos/crear', checkRole('mod'), 'AdminCtrl:showCrearOrganismo');
-$app->post('/admin/organismos/crear', checkRole('mod'), 'AdminCtrl:crearOrganismo');
-$app->get('/admin/organismos/:idOrg/funcionarios', checkRole('mod'), 'AdminCtrl:showAdminFuncionarios');
-$app->post('/admin/organismos/:idOrg/funcionarios', checkRole('mod'), 'AdminCtrl:adminFuncionarios');
+$app->get('/admin/organismo', checkRole('mod'), 'AdminCtrl:showOrganismos');
+$app->get('/admin/organismo/crear', checkRole('mod'), 'AdminCtrl:showCrearOrganismo');
+$app->post('/admin/organismo/crear', checkRole('mod'), 'AdminCtrl:crearOrganismo');
+$app->get('/admin/organismo/:idOrg/funcionario', checkRole('mod'), 'AdminCtrl:showAdminFuncionarios');
+$app->post('/admin/organismo/:idOrg/funcionario', checkRole('mod'), 'AdminCtrl:adminFuncionarios');
 
-$app->get('/propuestas/:idPro', 'PropuestaCtrl:showPropuesta');
-$app->post('/propuestas/:idPro/votar', checkRole('usr'), 'PropuestaCtrl:votarPropuesta');
+$app->get('/propuesta/:idPro', 'PropuestaCtrl:showPropuesta');
+$app->post('/propuesta/:idPro/votar', checkRole('usr'), 'PropuestaCtrl:votarPropuesta');
 $app->get('/crear/propuesta', checkRole('fnc'), 'PropuestaCtrl:showCrearPropuesta');
 $app->post('/crear/propuesta', checkRole('fnc'), 'PropuestaCtrl:crearPropuesta');
 
-$app->get('/problematicas/:idPro', 'ProblematicaCtrl:showProblematica');
-$app->post('/problematicas/:idPro/votar', checkRole('usr'), 'ProblematicaCtrl:votarProblematica');
+$app->get('/problematica/:idPro', 'ProblematicaCtrl:showProblematica');
+$app->post('/problematica/:idPro/votar', checkRole('usr'), 'ProblematicaCtrl:votarProblematica');
 $app->get('/crear/problematica', checkRole('usr'), 'ProblematicaCtrl:showCrearProblematica');
 $app->post('/crear/problematica', checkRole('usr'), 'ProblematicaCtrl:crearProblematica');
 
-$app->get('/partidos', 'PartidoCtrl:showPartidos');
-$app->post('/partidos/:idPar/unirse', checkRole('usr'), 'PartidoCtrl:unirsePartido');
-$app->post('/partidos/dejar', checkRole('usr'), 'PartidoCtrl:dejarPartido');
+$app->get('/partido', 'PartidoCtrl:showPartidos');
+$app->post('/partido/:idPar/unirse', checkRole('usr'), 'PartidoCtrl:unirsePartido');
+$app->post('/partido/dejar', checkRole('usr'), 'PartidoCtrl:dejarPartido');
 $app->get('/crear/partido', checkRole('fnc'), 'PartidoCtrl:showCrearPartido');
 $app->post('/crear/partido', checkRole('fnc'), 'PartidoCtrl:crearPartido');
 

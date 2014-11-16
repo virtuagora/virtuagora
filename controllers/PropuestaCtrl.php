@@ -74,11 +74,11 @@ class PropuestaCtrl extends Controller {
         $contenido = new Contenido;
         $contenido->titulo = htmlspecialchars($req->post('titulo'));
         $contenido->puntos = 0;
-        $contenido->categoria_id = 1; ////////////////////////////////////////////////////////////////////////////
+        $contenido->categoria_id = $vdt->getData('categoria'); // TODO controlar que existe esa categoria
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($propuesta);
         $contenido->save();
-        $this->redirect($req->getRootUri().'/propuestas/'.$propuesta->id);
+        $this->redirect($req->getRootUri().'/propuesta/'.$propuesta->id);
     }
 
 }

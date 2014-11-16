@@ -18,12 +18,12 @@ class PortalCtrl extends Controller {
     }
 
     public function login() {
-        $validator = new Augusthur\Validation\Validator();
-        $validator
-            ->addRule('email', new Augusthur\Validation\Rule\Email())
-            ->addRule('password', new Augusthur\Validation\Rule\MaxLength(128));
+        $vdt = new Validate\Validator();
+        $vdt->addRule('email', new Validate\Rule\Email())
+            ->addRule('email', new Validate\Rule\MaxLength(128))
+            ->addRule('password', new Validate\Rule\MaxLength(128));
         $req = $this->request;
-        if ($validator->validate($req->post()) && $this->session->login($req->post('email'), $req->post('password'))) {
+        if ($vdt->validate($req->post()) && $this->session->login($vdt->getData('email'), $vdt->getData('password'))) {
             $this->redirect($this->request->getReferrer());
         } else {
             $this->flash('error', 'Datos de ingreso incorrectos. Por favor vuelva a intentarlo.');
@@ -37,32 +37,32 @@ class PortalCtrl extends Controller {
     }
 
     public function registrar() {
-        $validator = new Augusthur\Validation\Validator();
-        $validator
-            ->addRule('nombre', new Augusthur\Validation\Rule\NotEmpty())
-            ->addRule('nombre', new Augusthur\Validation\Rule\Alpha(array(' ')))
-            ->addRule('nombre', new Augusthur\Validation\Rule\MinLength(1))
-            ->addRule('nombre', new Augusthur\Validation\Rule\MaxLength(32))
-            ->addRule('apellido', new Augusthur\Validation\Rule\NotEmpty())
-            ->addRule('apellido', new Augusthur\Validation\Rule\Alpha(array(' ')))
-            ->addRule('apellido', new Augusthur\Validation\Rule\MinLength(1))
-            ->addRule('apellido', new Augusthur\Validation\Rule\MaxLength(32))
-            ->addRule('email', new Augusthur\Validation\Rule\NotEmpty())
-            ->addRule('email', new Augusthur\Validation\Rule\Email())
-            ->addRule('email', new Augusthur\Validation\Rule\Unique('usuarios'))
-            ->addRule('password', new Augusthur\Validation\Rule\NotEmpty())
-            ->addRule('password', new Augusthur\Validation\Rule\MinLength(8))
-            ->addRule('password', new Augusthur\Validation\Rule\MaxLength(128))
-            ->addRule('password', new Augusthur\Validation\Rule\Matches('password2'));
+        $vdt = new Validate\Validator();
+        $vdt->addRule('nombre', new Validate\Rule\NotEmpty())
+            ->addRule('nombre', new Validate\Rule\Alpha(array(' ')))
+            ->addRule('nombre', new Validate\Rule\MinLength(1))
+            ->addRule('nombre', new Validate\Rule\MaxLength(32))
+            ->addRule('apellido', new Validate\Rule\NotEmpty())
+            ->addRule('apellido', new Validate\Rule\Alpha(array(' ')))
+            ->addRule('apellido', new Validate\Rule\MinLength(1))
+            ->addRule('apellido', new Validate\Rule\MaxLength(32))
+            ->addRule('email', new Validate\Rule\NotEmpty())
+            ->addRule('email', new Validate\Rule\Email())
+            ->addRule('email', new Validate\Rule\MaxLength(128))
+            ->addRule('email', new Validate\Rule\Unique('usuarios'))
+            ->addRule('password', new Validate\Rule\NotEmpty())
+            ->addRule('password', new Validate\Rule\MinLength(8))
+            ->addRule('password', new Validate\Rule\MaxLength(128))
+            ->addRule('password', new Validate\Rule\Matches('password2'));
         $req = $this->request;
-        if (!$validator->validate($req->post())) {
-            throw (new TurnbackException())->setErrors($validator->getErrors());
+        if (!$vdt->validate($req->post())) {
+            throw (new TurnbackException())->setErrors($vdt->getErrors());
         }
         $usuario = new Usuario;
-        $usuario->email = $req->post('email');
-        $usuario->password = password_hash($req->post('password'), PASSWORD_DEFAULT);
-        $usuario->nombre = $req->post('nombre');
-        $usuario->apellido = $req->post('apellido');
+        $usuario->email = $vdt->getData('email');
+        $usuario->password = password_hash($vdt->getData('password'), PASSWORD_DEFAULT);
+        $usuario->nombre = $vdt->getData('nombre');
+        $usuario->apellido = $vdt->getData('apellido');
         $usuario->token_verificacion = bin2hex(openssl_random_pseudo_bytes(16));
         $usuario->verificado = false;
         $usuario->puntos = 0;
@@ -70,7 +70,7 @@ class PortalCtrl extends Controller {
         $usuario->es_funcionario = false;
         $usuario->es_jefe = false;
         $usuario->img_tipo = 1;
-        $usuario->img_hash = md5(strtolower(trim($req->post('email'))));
+        $usuario->img_hash = md5(strtolower(trim($vdt->getData('email'))));
         $usuario->save();
 
         $to = $usuario->email;
@@ -85,18 +85,17 @@ class PortalCtrl extends Controller {
     }
 
     public function validar($id, $token) {
-        $validator = new Augusthur\Validation\Validator();
-        $validator
-            ->addRule('id', new Augusthur\Validation\Rule\NumNatural())
-            ->addRule('token', new Augusthur\Validation\Rule\MinLength(8))
-            ->addRule('token', new Augusthur\Validation\Rule\AlphaNumeric());
+        $vdt = new Validate\Validator();
+        $vdt->addRule('id', new Validate\Rule\NumNatural())
+            ->addRule('token', new Validate\Rule\MinLength(8))
+            ->addRule('token', new Validate\Rule\AlphaNumeric());
         $data = array('id' => $id, 'token' => $token);
-        if (!$validator->validate($data)) {
+        if (!$vdt->validate($data)) {
             $this->notFound();
         }
         $usuario = Usuario::findOrFail($id);
         if ($usuario->verificado) {
-            $this->notFound();
+            $this->redirect($this->request->getRootUri().'/');
         }
         if ($token == $usuario->token_verificacion) {
             $usuario->verificado = true;
