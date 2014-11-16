@@ -4,7 +4,7 @@
 {% set titulo = 'Ver problemática' %}
 {% set comments = true %}
 {% set commentUrl = baseUrl() ~ "/comentar/problematica/" ~ problematica.id %}
-{% set rtaUrl = baseUrl() ~ "/comentar/comentarios/" %}
+{% set rtaUrl = baseUrl() ~ "/comentar/comentario/" %}
 
 {# VARIABLES DE LA VISTA #}
 {% set total_afectados = problematica.afectados_directos + problematica.afectados_indirectos + problematica.afectados_indiferentes %}
@@ -19,7 +19,7 @@
 {% extends "master-body.twig" %}
 
 {% block titulo %}
-Virtuagora - Problematica #{{ propuesta.id }} por {{ problematica.autor.nombre }} {{ problematica.autor.apellido }}
+Virtuagora - Problematica #{{ problematica.id }} por {{ problematica.autor.nombre }} {{ problematica.autor.apellido }}
 {% endblock %}
 
 {% block contenido %}
@@ -28,15 +28,15 @@ Virtuagora - Problematica #{{ propuesta.id }} por {{ problematica.autor.nombre }
     <div class="row">
         <div class="large-10 large-centered columns">
             <div class="text-center">
-                <h1><b>{{ propuesta.titulo }}</b></h1>
-                <h4 class="subheader"><small>Creado el {{ propuesta.created_at|date("m/d/Y") }}</small></h1>
+                <h1><b>{{ problematica.titulo }}</b></h1>
+                <h4 class="subheader"><small>Creado el {{ problematica.created_at|date("m/d/Y") }}</small></h1>
             </div>
 
         </div>
     </div>
     <div class="row">
         <div class="large-6 large-centered columns">
-            <h6 class="subheader text-center"><b>Autor de la propuesta</b></h6>
+            <h6 class="subheader text-center"><b>Autor de la problematica</b></h6>
             <ul class="vcard">
                 <li clearfix>
                     <div class="left autor">
@@ -63,26 +63,35 @@ Virtuagora - Problematica #{{ propuesta.id }} por {{ problematica.autor.nombre }
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" style="margin-top:20px;">
         <div class="large-6 large-centered columns">
-            <h4 class="subheader text-center"><b>¿Que te parecio la propuesta?</b></h4>
+            <h4 class="subheader text-center"><b>¿Como te afecta este problema?</b></h4>
+			{% if voto is not null %}
+            <div class="panel text-center" style="padding: 10px 10px;">
+            	<p style="font-size: 12px;">{{ user.nombre }}, ya votaste esta problematica anteriormente opinando que <br /><span class='label'>{{ voto.postura == 0 ? 'te afecta directamente': '' }}{{ voto.postura == 1 ? 'te afecta indirectamente': '' }}{{ voto.postura == 2 ? 'te es indiferente': '' }}</span>
+            	<br /><br />Podes cambiar tu postura luego de los 3 dias de haber votado, pero a cambio de<i class="fa fa-star fa-fw fa-lg"></i><span style="color: red;"><b>-20</b></span> puntos que seran descontados de tu reputación.
+            	</p>
+
+
+            </div>
+			{% endif%}
             <ul class="button-group even-3" >
                 <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Me afecta directamente!">
-                    <a id="afec_directo" href="#" class="button secondary small" style="background: #F7D363;"><i class="fa fa-child fa-fw fa-2x"></i><i class="fa fa-exclamation fa-2x"></i></a>
+                    <div id="afec_directo" href="#" class="button secondary small" style="background: #F7D363;"><i class="fa fa-child fa-fw fa-2x"></i><i class="fa fa-exclamation fa-2x"></i></div>
                     </span></li>
                 <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Me afecta indirectamente">
-                    <a id="afec_indirecto" href="#" class="button secondary small" style="background: #FAE8B0;"><i class="fa fa-male fa-2x"></i></a></span></li>
+                    <div id="afec_indirecto" href="#" class="button secondary small" style="background: #FAE8B0;"><i class="fa fa-male fa-2x"></i></div></span></li>
                 <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Me es indiferente...">
-                    <a id="afec_indiferente" href="#" class="button secondary small"><i class="fa fa-meh-o fa-2x"></i></a></span></li>
+                    <div id="afec_indiferente" href="#" class="button secondary small"><i class="fa fa-meh-o fa-2x"></i></div></span></li>
             </ul>
         </div>
     </div>
     <div class="row">
-        <div class="large-4 large-centered columns">
-            <a href="#" class="button expand warning tiny" onclick="showResultadosProblematica([{{ porc_afec_directos }},{{ porc_afec_indirectos }},{{ porc_afec_indiferentes }}], 100)"><i class="fa fa-bar-chart fa-fw fa-lg"></i>&nbsp;Ver resultados parciales</a>
+        <div class="large-4 large-centered columns text-center">
+            <div class="button warning radius small" onclick="showResultadosProblematica([{{ porc_afec_directos }},{{ porc_afec_indirectos }},{{ porc_afec_indiferentes }}], 100)"><i class="fa fa-bar-chart fa-fw fa-lg"></i>&nbsp;Ver resultados parciales</div>
         </div>
     </div>
-    <!-- Resultados propuesta - div oculto-->
+    <!-- Resultados problematica - div oculto-->
     <div id="problematica-resultado" style="display: none;" class="row">
         {% if total_afectados > 0 %}
         <div class="row">
@@ -90,10 +99,9 @@ Virtuagora - Problematica #{{ propuesta.id }} por {{ problematica.autor.nombre }
                 <div class="clearfix">
                     <div class="right">
                         <small>Cerrar</small>
-                        <a href="#" onclick="hideResultadosPropuesta()"><i class="fa fa-times fa-fw fa-lg"></i></a>
+                        <a href="#" onclick="hideResultadosProblematica()"><i class="fa fa-times fa-fw fa-lg"></i></a>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="row">
@@ -153,7 +161,7 @@ Virtuagora - Problematica #{{ propuesta.id }} por {{ problematica.autor.nombre }
 {% endblock %}
 
 {% block modal %}
-<div id="publicarPostura" class="reveal-modal remove-whitespace small" data-reveal>
+<div id="publicarPostura" class="reveal-modal remove-whitespace tiny" data-reveal>
     {% include "contenido/problematica/publicar-postura.twig" %}
 </div>
 {% endblock %}
@@ -162,6 +170,19 @@ Virtuagora - Problematica #{{ propuesta.id }} por {{ problematica.autor.nombre }
 <script src="{{ baseUrl }}/assets/js/foundation/foundation.tooltip.js"></script>
 <script src="{{ baseUrl }}/assets/js/underscore/underscore-min.js"></script>
 <script>
+	$(document).ready(function() {
+		{% if voto is not null %}
+		var votoUsuario = {{ voto.postura }};
+		if(votoUsuario == 0){
+			$("#afec_directo").addClass("voto-elegido");
+		} else if (votoUsuario == 1){
+			$("#afec_indirecto").addClass("voto-elegido");
+		} else if (votoUsuario == 2){
+			$("#afec_indiferente").addClass("voto-elegido");
+		}
+		{% endif %}
+	});
+
     // Para porcentajes
     // foo([13.626332, 47.989636, 9.596008, 28.788024], 100) // => [48, 29, 14, 9]
     var showResultadosProblematica = function (l, target) {
@@ -182,7 +203,7 @@ Virtuagora - Problematica #{{ propuesta.id }} por {{ problematica.autor.nombre }
         $("#problematica-resultado").show(500);
     }
 
-    var hideResultadosPropuesta = function (){
+    var hideResultadosProblematica = function (){
         $("#problematica-resultado").hide(500);
     }
 
@@ -191,18 +212,41 @@ Virtuagora - Problematica #{{ propuesta.id }} por {{ problematica.autor.nombre }
         $("#posturaInfo i").removeAttr("class");
         $("#posturaInfo h6 b").empty();
         $("#posturaInfo").addClass("text-center");
+		{% if voto.postura is null %}
+		$("#intro-comentario h6 b").html("¿Estas seguro que este es tu voto?");
+		$("#intro-comentario p").html("Podras cambiarlo luego, pero a cambio de<i class=\"fa fa-star fa-fw fa-lg\"></i><span style=\"color: red;\"><b>-20</b></span> puntos");
+		{% else %}
+		$("#intro-comentario h6 b").html("¿Estas seguro que deseas cambiar tu voto?");
+		$("#intro-comentario p").html("Cambiarlo te costará <i class=\"fa fa-star fa-fw fa-lg\"></i><span style=\"color: red;\"><b>-20</b></span> puntos");
+		{% endif %}
+		$(".bt-enviar").show();
         if(valorPostura == 0){
             $("#posturaInfo").attr("style","background: #F7D363;");
             $("#posturaInfo i").html( $("#afec_directo").html() );
             $("#posturaInfo h6 b").html("Esta problemática te afecta directamente");
+			{% if voto.postura == 0 %}
+			$("#intro-comentario h6 b").html("Ya votaste esta postura");
+			$("#intro-comentario p").html("");
+			$(".bt-enviar").hide();
+			{% endif %}
         } else if (valorPostura == 1) {
             $("#posturaInfo").attr("style","background: #FAE8B0;");
             $("#posturaInfo i").html( $("#afec_indirecto").html() );
             $("#posturaInfo h6 b").html("Esta problemática te afecta indirectamente");
+			{% if voto.postura == 1 %}
+			$("#intro-comentario h6 b").html("Ya votaste esta postura");
+			$("#intro-comentario p").html("");
+			$(".bt-enviar").hide();
+			{% endif %}
         } else if (valorPostura == 2) {
             $("#posturaInfo").attr("style","background: #e7e7e7;");
             $("#posturaInfo i").html( $("#afec_indiferente").html() );
             $("#posturaInfo h6 b").html("Esta problemática te es indiferente");
+			{% if voto.postura == 2 %}
+			("#intro-comentario h6 b").html("Ya votaste esta postura");
+			("#intro-comentario p").html("");
+			(".bt-enviar").hide();
+			{% endif %}
         }
     }
 
@@ -239,6 +283,10 @@ Virtuagora - Problematica #{{ propuesta.id }} por {{ problematica.autor.nombre }
         } else {
             $('#login-modal').foundation('reveal', 'open');
         }
+    });
+
+	$(".cerrar-modal").on("click", function() {
+        $('#publicarPostura').foundation('reveal', 'close');
     });
 
 	{% if comments == true %}
