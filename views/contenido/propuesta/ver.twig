@@ -4,7 +4,7 @@
 {% set titulo = 'Ver propuesta' %}
 {% set comments = true %}
 {% set commentUrl = baseUrl() ~ "/comentar/propuesta/" ~ propuesta.id %}
-{% set rtaUrl = baseUrl() ~ "/comentar/comentarios/" %}
+{% set rtaUrl = baseUrl() ~ "/comentar/comentario/" %}
 
 {# VARIABLES DE LA VISTA #}
 {% set total_votos = propuesta.votos_favor + propuesta.votos_neutro + propuesta.votos_contra %}
@@ -78,8 +78,8 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
         </div>
     </div>
     <div class="row">
-        <div class="large-4 large-centered columns">
-            <a href="#" class="button expand warning tiny" onclick="showResultadosPropuesta([{{ porc_favor }},{{ porc_neutro }},{{ porc_contra }}], 100)"><i class="fa fa-bar-chart fa-fw fa-lg"></i>&nbsp;Ver resultados parciales</a>
+        <div class="large-4 large-centered columns text-center">
+            <div class="button warning radius small" onclick="showResultadosPropuesta([{{ porc_favor }},{{ porc_neutro }},{{ porc_contra }}], 100)"><i class="fa fa-bar-chart fa-fw fa-lg"></i>&nbsp;Ver resultados parciales</div>
         </div>
     </div>
     <!-- Resultados propuesta - div oculto-->

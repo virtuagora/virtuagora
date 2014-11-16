@@ -1,35 +1,35 @@
 <form method="POST" action="{{ propuesta.id }}/votar">
-    <div class="row">
-        <div class="large-12 large-centered columns">
-            <div id="posturaInfo">
-                <input type="hidden" id="posturaVoto" name="postura" value="">
-                <i></i>
-                <h6><b></b></h6>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-12 large-centered columns">
-            <div id="intro-comentario" class="text-center">
-                <h6><b>¿Te gustaria dejar algun comentario?</b></h6>
-                <p>En caso de no querer dejar un comentario<br />simplemente deja en blanco el cuadro de texto</p>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-12 large-centered columns">
-           <div id="cuadro-comentario" class="text-center">
-            <textarea name="comentario" placeholder="Escriba su comentario aquí (Opcional)" rows=3></textarea>
-            <input id="checkbox" name="publico" type="checkbox" value="on"><label for="checkbox" class="inline">Hacer que mi postura sea <b>pública</b> </label>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-12 large-centered columns">
-            <div class="clearfix"></div>
-            <button type="submit" class="button right tiny" value="Enviar"><i class="fa fa-send-o fa-2x fa-fw"></i><br><span class="etiqueta">Enviar!</span></button>
-            <a class="cerrar-modal button secondary left tiny"><i class="fa fa-times fa-2x fa-fw"></i><br><span class="etiqueta">Cerrar</span></a>
-        </div>
-    </div>
-    </div>
+	<div class="row">
+		<div class="large-12 large-centered columns">
+			<div id="posturaInfo">
+				<input type="hidden" id="posturaVoto" name="postura" value="">
+				<i></i>
+				<h6><b></b></h6>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="large-12 large-centered columns">
+			<div id="intro-comentario" class="text-center">
+				<h6><b>¿Estas seguro que este es tu voto?</b></h6>
+				<p>Podras cambiarlo luego, pero a cambio de <i class="fa fa-star fa-fw"></i><span style="color: red;"><b>-20</b></span> puntos</p>
+				<p>Tambien tienes la <b>opción</b> de dejar un comentario. En caso de no querer dejar un comentario simplemente deja en blanco el cuadro de texto</p>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="large-12 large-centered columns">
+			<div id="cuadro-comentario" class="text-center">
+				<textarea name="comentario" placeholder="Escriba su comentario aquí (Opcional)" rows=3></textarea>
+				<input id="checkbox" name="publico" type="checkbox" value="on"><label for="checkbox" class="inline">Hacer que mi postura sea <b>pública</b> </label>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="large-12 large-centered columns text-center">
+			<div class="cerrar-modal button secondary small radius"><i class="fa fa-times fa-lg fa-fw"></i>&nbsp;Cancelar</div>
+			&nbsp;
+			<button type="submit" class="button success small radius" value="Enviar"><i class="fa fa-check fa-lg fa-fw"></i><span>&nbsp;Enviar</span></button>
+		</div>
+	</div>
 </form>
