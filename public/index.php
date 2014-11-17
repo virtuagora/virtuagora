@@ -120,6 +120,8 @@ $app->post('/partido/:idPar/unirse', checkRole('usr'), 'PartidoCtrl:unirsePartid
 $app->post('/partido/dejar', checkRole('usr'), 'PartidoCtrl:dejarPartido');
 $app->get('/crear/partido', checkRole('fnc'), 'PartidoCtrl:showCrearPartido');
 $app->post('/crear/partido', checkRole('fnc'), 'PartidoCtrl:crearPartido');
+$app->get('/modificar/partido/:idPar', checkRole('fnc'), 'PartidoCtrl:showModificarPartido');
+$app->post('/modificar/partido/:idPar', checkRole('fnc'), 'PartidoCtrl:modificarPartido');
 
 $app->post('/comentar/:tipoRaiz/:idRaiz', checkRole('usr'), 'ComentarioCtrl:comentar');
 
