@@ -122,6 +122,7 @@ $app->get('/crear/partido', checkRole('fnc'), 'PartidoCtrl:showCrearPartido');
 $app->post('/crear/partido', checkRole('fnc'), 'PartidoCtrl:crearPartido');
 $app->get('/modificar/partido/:idPar', checkRole('fnc'), 'PartidoCtrl:showModificarPartido');
 $app->post('/modificar/partido/:idPar', checkRole('fnc'), 'PartidoCtrl:modificarPartido');
+$app->post('/cambiar-imagen/partido/:idPar', checkRole('fnc'), 'PartidoCtrl:cambiarImagen');
 
 $app->post('/comentar/:tipoRaiz/:idRaiz', checkRole('usr'), 'ComentarioCtrl:comentar');
 

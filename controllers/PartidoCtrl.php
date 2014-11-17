@@ -113,7 +113,7 @@ class PartidoCtrl extends Controller {
     }
 
     public function cambiarImagen($idPar) {
-        $dir = 'img/partidos/' . $idPar;
+        $dir = 'img/partido/' . $idPar;
         if (!is_dir($dir)) {
             mkdir('$dir', 0777, true);
         }
