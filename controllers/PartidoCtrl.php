@@ -124,7 +124,7 @@ class PartidoCtrl extends Controller {
         }
         $storage = new \Upload\Storage\FileSystem($dir, true);
         $file = new \Upload\File('imagen', $storage);
-        $filename = 'original' . $file->getExtension();
+        $filename = 'original';
         $file->setName($filename);
         $file->addValidations(array(
             new \Upload\Validation\Mimetype(array('image/png', 'image/jpg', 'image/jpeg', 'image/gif')),
@@ -133,9 +133,8 @@ class PartidoCtrl extends Controller {
         $file->upload();
         foreach (array(32, 64, 160) as $res) {
             $image = new ZebraImage();
-            $image->source_path = $dir . '/' . $filename;
-            $image->target_path = $dir . '/' . $res . '.jpg';
-            $image->jpeg_quality = 85;
+            $image->source_path = $dir . '/' . $file->getNameWithExtension();
+            $image->target_path = $dir . '/' . $res . '.png';
             $image->preserve_aspect_ratio = true;
             $image->enlarge_smaller_images = true;
             $image->preserve_time = true;
