@@ -61,6 +61,7 @@ class ProblematicaCtrl extends Controller {
         }
         $voto->save();
         $usuario->save();
+        $this->flash('success', 'Su voto fue registrado exitosamente.');
         $this->redirect($req->getRootUri().'/problematica/'.$idPro);
     }
 
@@ -96,6 +97,7 @@ class ProblematicaCtrl extends Controller {
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($problematica);
         $contenido->save();
+        $this->flash('success', 'Su problemática se creó exitosamente.');
         $this->redirect($req->getRootUri().'/problematica/'.$problematica->id);
     }
 

@@ -105,6 +105,13 @@ class PartidoCtrl extends Controller {
         $this->redirect($this->request->getRootUri().'/partido');
     }
 
+    public function showModificarPartido($idPar) {
+        $partido = Partido::with('contacto')->findOrFail($idPar);
+        $datosPartido = $partido->toArray();
+        $datosPartido['contacto'] = $partido->contacto ? $partido->contacto->toArray() : null;
+        $this->render('partido/modificar.twig', array('partido' => $datosPartido));
+    }
+
     public function cambiarImagen($idPar) {
         $dir = 'img/partidos/' . $idPar;
         if (!is_dir($dir)) {
