@@ -1,0 +1,154 @@
+{# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
+{% set url_atras = '#' %}
+{% set i_class_titulo = 'fa fa-gear fa-fw' %}
+{% set titulo = 'Modificar partido político' %}
+{% set comments = false %}
+
+{# VARIABLES DE LA VISTA #}
+
+{# ---------------------- #}
+
+{% extends "master-body.twig" %}
+
+{% block titulo %}
+Virtuagora - Modificar partido político
+{% endblock %}
+
+{% block contenido %}
+<form action="" id="mod-partido" method="POST"></form>
+<form action="{{ baseUrl() }}/cambiar-imagen/partido/{{ partido.id }}" id="cambiar-imagen" method="POST"></form>
+<section id="formulario">
+	<div class="row">
+		<div class="large-10 large-centered columns clearfix">
+			<div class="large-3 columns text-center" style="padding: 20px;" >
+				<img src="{{ baseUrl }}/img/partidos/{{ partido.id }}/160.png">
+				<div class="fileUpload btn btn-primary button tiny expand" style="margin-bottom:0;">
+					<span style="color: #FFFFFF"><i class="fa fa-photo fa-fw fa-lg"></i> Cargar imagen</span>
+					<input id="uploadBtn" name="imagen" form="cambiar-imagen" type="file" onchange="this.form.submit();" class="upload" />
+				</div>
+			</div>
+			<div class="large-9 columns right inline">
+				<label style="margin-bottom: 20px;"><h6 class="subheader"><i class="fa fa-pencil fa-fw"></i>&nbsp;&nbsp;<b>Nombre del partido político</b> <span data-tooltip aria-haspopup="true" class="has-tip tip-right" title="Campo OBLIGATORIO" style="color: red;">*</span></h6>
+					<input type="text" name="nombre" form="mod-partido" style="text-align: center;">
+				</label>
+				<div class="row collapse clearfix">
+					<div class="large-3 columns">
+						<span class="prefix">
+							&nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Acrónimo</b>
+						</span>
+					</div>
+					<div class="large-4 end columns">
+						<input type="text" name="acronimo" placeholder="Use 2 a 8 caracteres" style="text-align: center;">
+					</div>
+				</div>
+				<div class="row collapse clearfix">
+					<div class="large-12 columns">
+						<div class="panel text-center" style="padding:10px;">
+							<i class="fa fa-warning fa-lg fa-fw left"></i>
+							<p style="font-size:12px;">Nota: Al cargar una imagen, los datos modificados no seran tomados</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-10 large-centered columns">
+			<label><h6 class="subheader"><i class="fa fa-file-text-o fa-fw"></i>&nbsp;&nbsp;<b>Descripción</b> <span data-tooltip aria-haspopup="true" class="has-tip tip-right" title="Campo OBLIGATORIO" style="color: red;">*</span></h6>
+				<textarea name="descripcion" form="mod-partido" rows=4></textarea>
+			</label>
+		</div>
+	</div>
+	<div class="row">
+		<div class="large-10 large-centered columns">
+			<div class="row collapse">
+				<div class="large-4 columns">
+					<span class="prefix">
+						&nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Fecha de fundación</b>
+					</span>
+				</div>
+				<div class="large-3 end columns">
+					<input type="date" name="fecha" form="mod-partido">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="large-10 large-centered columns">
+			<div class="row collapse">
+				<div class="large-4 columns">
+					<span class="prefix">
+						&nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Fundador histórico</b>
+					</span>
+				</div>
+				<div class="large-8 end columns">
+					<input type="text" name="fundador" form="mod-partido" placeholder="Ingrese nombre y apellido">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-10 large-centered columns">
+			<div class="row collapse clearfix">
+				<div class="large-4 columns">
+					<span class="prefix">
+						&nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Pagina web</b>
+					</span>
+				</div>
+				<div class="large-8 end columns">
+					<input type="text" name="url" form="mod-partido" placeholder="Ej: www.partido-politico.com">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="large-10 large-centered columns">
+			<div class="row collapse clearfix">
+				<div class="large-4 columns">
+					<span class="prefix">
+						&nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Email de contacto</b>
+					</span>
+				</div>
+				<div class="large-8 end columns">
+					<input type="text" name="email" form="mod-partido" placeholder="Ej: ejemplo@servidor.com">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="large-10 large-centered columns">
+			<div class="row collapse clearfix">
+				<div class="large-4 columns">
+					<span class="prefix">
+						&nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Teléfono de contacto</b>
+					</span>
+				</div>
+				<div class="large-8 end columns">
+					<input type="text" name="telefono" form="mod-partido" placeholder="(0342) 452-XXXX">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="large-5 large-centered columns text-center">
+			<button type="submit" form="mod-partido" class="button radius small success"><i class="fa fa-check fa-fw"></i>&nbsp;Aplicar los cambios</button>
+		</div>
+	</div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+	$(document).ready(function() {
+		$('[name="nombre"]').val('{{ partido.nombre }}');
+		$('[name="acronimo"]').val('{{ partido.acronimo }}');
+		$('[name="descripcion"]').val('{{ partido.descripcion }}');
+	});
+
+	$(document).on('change', '#uploadBtn', function() {
+		alert(this.val());
+	});
+</script>
+{% endblock %}
