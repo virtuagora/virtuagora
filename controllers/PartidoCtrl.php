@@ -14,7 +14,7 @@ class PartidoCtrl extends Controller {
     public function crearPartido() {
         $vdt = new Validate\Validator();
         $vdt->addRule('nombre', new Validate\Rule\Alpha(array(' ')))
-            ->addRule('nombre', new Validaten\Rule\MinLength(2))
+            ->addRule('nombre', new Validate\Rule\MinLength(2))
             ->addRule('nombre', new Validate\Rule\MaxLength(64))
             ->addRule('acronimo', new Validate\Rule\Alpha())
             ->addRule('acronimo', new Validate\Rule\MinLength(2))
