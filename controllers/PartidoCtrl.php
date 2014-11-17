@@ -112,6 +112,11 @@ class PartidoCtrl extends Controller {
         $this->render('partido/modificar.twig', array('partido' => $datosPartido));
     }
 
+    public function modificarPartido() {
+        $this->flash('success', 'Su contraseña fue modificada exitosamente.');
+        $this->redirect($this->request->getReferrer());
+    }
+
     public function cambiarImagen($idPar) {
         $dir = 'img/partido/' . $idPar;
         if (!is_dir($dir)) {
@@ -137,7 +142,7 @@ class PartidoCtrl extends Controller {
             $image->resize($res, $res, ZEBRA_IMAGE_CROP_CENTER);
         }
         $this->flash('success', 'Imagen cargada exitosamente.');
-        $this->redirect($app->request->getReferrer());
+        $this->redirect($this->request->getReferrer());
     }
 
 }
