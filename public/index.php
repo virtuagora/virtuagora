@@ -99,6 +99,9 @@ $app->post('/logout', 'PortalCtrl:logout');
 $app->post('/registro', 'checkNoSession', 'PortalCtrl:registrar');
 $app->get('/validar/:idUsr/:token', 'PortalCtrl:validar');
 
+$app->get('/perfil/cambiar-clave', checkRole('usr'), 'PortalCtrl:showCambiarClave');
+$app->post('/perfil/cambiar-clave', checkRole('usr'), 'PortalCtrl:cambiarClave');
+
 $app->get('/admin/organismo', checkRole('mod'), 'AdminCtrl:showOrganismos');
 $app->get('/admin/organismo/crear', checkRole('mod'), 'AdminCtrl:showCrearOrganismo');
 $app->post('/admin/organismo/crear', checkRole('mod'), 'AdminCtrl:crearOrganismo');

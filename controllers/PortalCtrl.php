@@ -107,4 +107,13 @@ class PortalCtrl extends Controller {
         }
     }
 
+    public function showCambiarClave() {
+        $this->render('perfil/cambiar-clave.twig');
+    }
+
+    public function cambiarClave() {
+        $this->flash('success', 'Su contraseña fue modificada exitosamente.');
+        $this->render('perfil/cambiar-clave.twig');
+    }
+
 }

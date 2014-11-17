@@ -136,6 +136,8 @@ class PartidoCtrl extends Controller {
             $image->preserve_time = true;
             $image->resize($res, $res, ZEBRA_IMAGE_CROP_CENTER);
         }
+        $this->flash('success', 'Imagen cargada exitosamente.');
+        $this->redirect($app->request->getReferrer());
     }
 
 }
