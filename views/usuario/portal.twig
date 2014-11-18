@@ -1,11 +1,22 @@
-{% extends "master.twig" %}
+{# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
+{% set url_atras = '#' %}
+{% set i_class_titulo = 'fa fa-leaf fa-fw' %}
+{% set titulo = 'Contenidos creados y demases' %}
+{% set comments = false %}
+
+{# VARIABLES DE LA VISTA #}
+
+{# ---------------------- #}
+
+{% extends "master-body.twig" %}
 
 {% block titulo %}
-Virtuagora - Portal
+Virtuagora - Cambiar clave
 {% endblock %}
 
-{% block body %}
-<h1>Contenidos creados</h1>
+{% block contenido %}
+
+<h1>Contenidos</h1>
 <table>
     <thead>
         <tr>
@@ -24,6 +35,7 @@ Virtuagora - Portal
         {% endfor %}
     </tbody>
 </table>
+<h3>Otros</h3>
 {% if esModerador %}
     <a href="{{ baseUrl }}/admin/organismos">Administrar organismos.</a><br>
 {% endif %}
