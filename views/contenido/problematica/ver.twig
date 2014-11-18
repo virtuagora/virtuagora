@@ -224,7 +224,7 @@ Virtuagora - Problematica #{{ problematica.id }} por {{ problematica.autor.nombr
             $("#posturaInfo").attr("style","background: #F7D363;");
             $("#posturaInfo i").html( $("#afec_directo").html() );
             $("#posturaInfo h6 b").html("Esta problemática te afecta directamente");
-			{% if voto.postura == 0 %}
+			{% if voto.postura is not null and voto.postura == 0 %}
 			$("#intro-comentario h6 b").html("Ya votaste esta postura");
 			$("#intro-comentario p").html("");
 			$(".bt-enviar").hide();
@@ -233,7 +233,7 @@ Virtuagora - Problematica #{{ problematica.id }} por {{ problematica.autor.nombr
             $("#posturaInfo").attr("style","background: #FAE8B0;");
             $("#posturaInfo i").html( $("#afec_indirecto").html() );
             $("#posturaInfo h6 b").html("Esta problemática te afecta indirectamente");
-			{% if voto.postura == 1 %}
+			{% if voto.postura is not null and voto.postura == 1 %}
 			$("#intro-comentario h6 b").html("Ya votaste esta postura");
 			$("#intro-comentario p").html("");
 			$(".bt-enviar").hide();
@@ -242,7 +242,7 @@ Virtuagora - Problematica #{{ problematica.id }} por {{ problematica.autor.nombr
             $("#posturaInfo").attr("style","background: #e7e7e7;");
             $("#posturaInfo i").html( $("#afec_indiferente").html() );
             $("#posturaInfo h6 b").html("Esta problemática te es indiferente");
-			{% if voto.postura == 2 %}
+			{% if voto.postura is not null and voto.postura == 2 %}
 			("#intro-comentario h6 b").html("Ya votaste esta postura");
 			("#intro-comentario p").html("");
 			(".bt-enviar").hide();
