@@ -1,0 +1,100 @@
+{# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
+{% set url_atras = '#' %}
+{% set i_class_titulo = 'fa fa-wrench fa-fw' %}
+{% set titulo = 'Cambiar clave' %}
+{% set comments = false %}
+
+{# VARIABLES DE LA VISTA #}
+
+{# ---------------------- #}
+
+{% extends "master-body.twig" %}
+
+{% block titulo %}
+Virtuagora - Cambiar clave
+{% endblock %}
+
+{% block contenido %}
+<div class="row">
+<div class="large-10 large-centered columns">
+	<div class="large-7 columns">
+		<div class="panel" style="padding:12px;">
+			<p>
+				Consideraciones para cambiar la contraseña
+			</p>
+			<ul class="fa-ul">
+				<li><i class="fa-li fa fa-check-square"></i>La nueva contraseña debe tener minimo 8 caracteres.</li>
+				<li><i class="fa-li fa fa-check-square"></i>Podes usar numeros, mayusculas, simbolos.</li>
+				<li><i class="fa-li fa fa-smile-o"></i>Recomendamos que uses contraseñas fuertes, nada de "holis".</li>
+			</ul>
+		</div>
+	</div>
+	<div class="large-5 columns">
+	<form action="" method="POST">
+		<label>Ingrese su contraseña
+			<input type="password" name="pass-old">
+		</label>
+		<label>Ingrese su <b>nueva</b> contraseña
+			<input type="password" name="pass-new">
+		</label>
+		<label>Re-ingrese su <b>nueva</b> contraseña
+			<input type="password" name="pass-verif">
+		</label>
+		<button class="button success tiny right radius"><i class="fa fa-check fa-fw fa-lg"></i>Cambiar clave</button>
+	</form>
+	</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block modal %}
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+		var p_id;
+		var p_user;
+		var p_nombre;
+		$('.bt-unirse').click(function() {
+			p_id = (this.id).replace('bt-p-','');
+			p_nombre = $('#nombre-p-' + p_id).html();
+			{% if user.partido_id is null %}
+			p_user = null;
+			 {% else %}
+			 p_user = {{ user.partido_id }}
+			 {% endif %}
+			 if(p_user == p_id){
+				 mensaje = "<p>Usted ya es parte de este partido político. Confirmando la acción, "
+				 +"usted estaría dejando de ser parte del mismo</p>" +
+					 "<p>¿Confirma dejar el partido?</p>";
+				 $("#bt-confirmar").html('Dejar el partido');
+				 // TODO: PONER LA ACCION A LA QUE SE ENVIA PARA DESAFILIAR EL PARTIDO
+				 $("#form-unirse").attr('action','{{ baseUrl }}/partido/dejar');
+			 } else if ( p_user != null){
+				 mensaje = "<p>Usted ya pertenece a un partido político. Confirmando la accion, "
+				 +"usted estaría uniendose al partido <br /><b>"
+				 + p_nombre + "</b></p>" +
+					 "<p>¿Confirma su cambio de partido?</p>";
+				 $("#valor-p").val(p_id);
+				 $("#bt-confirmar").html('Cambiar de partido');
+				 $("#form-unirse").attr('action','{{ baseUrl }}/partido/' + p_id + '/unirse');
+			 } else {
+				 mensaje = "<p>Usted esta a punto de unirse al partido politico<br /><b>"
+				 + p_nombre + "</b></p>" +
+					 "<p>¿Confirma unirse al partido?</p>";
+				 $("#valor-p").val(p_id)
+				 $("#bt-confirmar").html('Unirme al partido');
+				 $("#form-unirse").attr('action','{{ baseUrl }}/partido/' + p_id + '/unirse');
+			 }
+			  $('#img-p').attr('src','{{ baseUrl }}/img/partido/' + p_id + '/160.png');
+			  $('#mensaje-unirse').html(mensaje);
+
+			  $('#modal-unirse').foundation('reveal', 'open');
+			 });
+			 $('#bt-cancelar').click(function() {
+				 $('#modal-unirse').foundation('reveal', 'close');
+			 });
+			});
+</script>
+{% endblock %}
