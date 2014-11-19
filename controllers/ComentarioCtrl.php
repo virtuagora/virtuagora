@@ -22,6 +22,7 @@ class ComentarioCtrl extends Controller {
         $comentario->autor()->associate($autor);
         $comentario->comentable()->associate($comentable);
         $comentario->save();
+        $this->flash('success', 'Su comentario fue enviado exitosamente.');
         $this->redirect($req->getReferrer());
     }
 
