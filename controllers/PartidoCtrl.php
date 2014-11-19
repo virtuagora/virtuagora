@@ -12,25 +12,8 @@ class PartidoCtrl extends Controller {
     }
 
     public function crearPartido() {
-        $vdt = new Validate\Validator();
-        $vdt->addRule('nombre', new Validate\Rule\Alpha(array(' ')))
-            ->addRule('nombre', new Validate\Rule\MinLength(2))
-            ->addRule('nombre', new Validate\Rule\MaxLength(64))
-            ->addRule('acronimo', new Validate\Rule\Alpha())
-            ->addRule('acronimo', new Validate\Rule\MinLength(2))
-            ->addRule('acronimo', new Validate\Rule\MaxLength(8))
-            ->addRule('descripcion', new Validate\Rule\MaxLength(512))
-            ->addRule('fundador', new Validate\Rule\Alpha(array(' ')))
-            ->addRule('fundador', new Validate\Rule\MaxLength(32))
-            ->addRule('fecha', new Validate\Rule\Date())
-            ->addRule('url', new Validate\Rule\URL())
-            ->addRule('email', new Validate\Rule\Email())
-            ->addRule('telefono', new Validate\Rule\Telephone())
-            ->addFilter('descripcion', 'htmlspecialchars');
         $req = $this->request;
-        if (!$vdt->validate($req->post())) {
-            throw (new TurnbackException())->setErrors($vdt->getErrors());
-        }
+        $vdt = $this->validarPartido($req->post());
         $usuario = $this->session->getUser();
         if ($usuario->partido_id) {
             throw (new TurnbackException())->setErrors(array('No es posible crear un partido si ya está afilado a otro.'));
@@ -44,41 +27,20 @@ class PartidoCtrl extends Controller {
         $partido->creador_id = $this->session->user('id');
         $partido->creador()->associate($usuario);
         $partido->save();
-        if ($vdt->getData('email') || $vdt->getData('url') || $vdt->getData('telefono')) {
-            $contacto = new Contacto;
-            $contacto->email = $vdt->getData('email');
-            $contacto->web = $vdt->getData('url');
-            $contacto->telefono = $vdt->getData('telefono');
-            $contacto->contactable()->associate($partido);
-            $partido->save();
-        }
+        $contacto = new Contacto;
+        $contacto->email = $vdt->getData('email');
+        $contacto->web = $vdt->getData('url');
+        $contacto->telefono = $vdt->getData('telefono');
+        $contacto->contactable()->associate($partido);
+        $contacto->save();
         $this->crearImagen($partido->id, $partido->nombre);
+        $this->flash('success', 'El partido '.$partido->nombre.' fue creado exitosamente.');
         $this->redirect($req->getRootUri().'/partido');
     }
 
-    private function crearImagen($id, $nombre) {
-        $dir = 'img/partido/' . $id;
-        if (!is_dir($dir)) {
-            mkdir($dir, 0777, true);
-        }
-        $hash = md5(strtolower(trim($nombre)));
-        foreach (array(32, 64, 160) as $res) {
-            $ch = curl_init('http://www.gravatar.com/avatar/'.$hash.'?d=identicon&f=y&s='.$res);
-            $fp = fopen($dir . '/' . $res . '.png', 'wb');
-            curl_setopt($ch, CURLOPT_FILE, $fp);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_exec($ch);
-            curl_close($ch);
-            fclose($fp);
-        }
-    }
-
     public function unirsePartido($idPar) {
-        $vdt = new Validate\Validator();
-        $vdt->addRule('idPar', new Validate\Rule\NumNatural());
-        if (!$vdt->validate(array('idPar' => $idPar))) {
-            $this->notFound();
-        }
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idPar, new Validate\Rule\NumNatural());
         $partido = Partido::findOrFail($idPar);
         $usuario = $this->session->getUser();
         if ($usuario->partido) {
@@ -87,6 +49,7 @@ class PartidoCtrl extends Controller {
         $usuario->partido()->associate($partido);
         $usuario->save();
         $this->session->setUser($usuario);
+        $this->flash('success', 'Se ha unido al partido '.$partido->nombre.'.');
         $this->redirect($this->request->getRootUri().'/partido');
     }
 
@@ -102,18 +65,37 @@ class PartidoCtrl extends Controller {
         $usuario->partido()->dissociate();
         $usuario->save();
         $this->session->setUser($usuario);
+        $this->flash('success', 'Ha dejado el partido '.$partido->nombre.'.');
         $this->redirect($this->request->getRootUri().'/partido');
     }
 
     public function showModificarPartido($idPar) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idPar, new Validate\Rule\NumNatural());
         $partido = Partido::with('contacto')->findOrFail($idPar);
         $datosPartido = $partido->toArray();
         $datosPartido['contacto'] = $partido->contacto ? $partido->contacto->toArray() : null;
         $this->render('partido/modificar.twig', array('partido' => $datosPartido));
     }
 
-    public function modificarPartido() {
-        $this->flash('success', 'Su contraseña fue modificada exitosamente.');
+    public function modificarPartido($idPar) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idPar, new Validate\Rule\NumNatural());
+        $partido = Partido::with('contacto')->findOrFail($idPar);
+        $req = $this->request;
+        $vdt = $this->validarPartido($req->post());
+        $partido->nombre = $vdt->getData('nombre');
+        $partido->acronimo = $vdt->getData('acronimo');
+        $partido->descripcion = $vdt->getData('descripcion');
+        $partido->fundador = $vdt->getData('fundador');
+        $partido->fecha_fundacion = $vdt->getData('fecha');
+        $partido->save();
+        $contacto = $partido->contacto;
+        $contacto->email = $vdt->getData('email');
+        $contacto->web = $vdt->getData('url');
+        $contacto->telefono = $vdt->getData('telefono');
+        $contacto->save();
+        $this->flash('success', 'Los datos del partido fueron modificados exitosamente.');
         $this->redirect($this->request->getReferrer());
     }
 
@@ -142,6 +124,50 @@ class PartidoCtrl extends Controller {
         }
         $this->flash('success', 'Imagen cargada exitosamente.');
         $this->redirect($this->request->getReferrer());
+    }
+
+    private function crearImagen($id, $nombre) {
+        $dir = 'img/partido/' . $id;
+        if (!is_dir($dir)) {
+            mkdir($dir, 0777, true);
+        }
+        $hash = md5(strtolower(trim($nombre)));
+        foreach (array(32, 64, 160) as $res) {
+            $ch = curl_init('http://www.gravatar.com/avatar/'.$hash.'?d=identicon&f=y&s='.$res);
+            $fp = fopen($dir . '/' . $res . '.png', 'wb');
+            curl_setopt($ch, CURLOPT_FILE, $fp);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_exec($ch);
+            curl_close($ch);
+            fclose($fp);
+        }
+    }
+
+    private function validarPartido($data) {
+        $vdt = new Validate\Validator();
+        $vdt->addRule('nombre', new Validate\Rule\Alpha(array(' ')))
+            ->addRule('nombre', new Validate\Rule\MinLength(2))
+            ->addRule('nombre', new Validate\Rule\MaxLength(64))
+            ->addRule('acronimo', new Validate\Rule\Alpha())
+            ->addRule('acronimo', new Validate\Rule\MinLength(2))
+            ->addRule('acronimo', new Validate\Rule\MaxLength(8))
+            ->addRule('descripcion', new Validate\Rule\MaxLength(512))
+            ->addRule('fundador', new Validate\Rule\Alpha(array(' ')))
+            ->addRule('fundador', new Validate\Rule\MaxLength(32))
+            ->addRule('fecha', new Validate\Rule\Date())
+            ->addRule('url', new Validate\Rule\URL())
+            ->addRule('email', new Validate\Rule\Email())
+            ->addRule('telefono', new Validate\Rule\Telephone())
+            ->addFilter('descripcion', 'htmlspecialchars')
+            ->addFilter('fundador', FilterFactory::emptyToNull())
+            ->addFilter('fecha', FilterFactory::emptyToNull())
+            ->addFilter('url', FilterFactory::emptyToNull())
+            ->addFilter('email', FilterFactory::emptyToNull())
+            ->addFilter('telefono', FilterFactory::emptyToNull());
+        if (!$vdt->validate($data)) {
+            throw (new TurnbackException())->setErrors($vdt->getErrors());
+        }
+        return $vdt;
     }
 
 }

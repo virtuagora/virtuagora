@@ -45,7 +45,7 @@ Capsule::schema()->create('partidos', function($table) {
     $table->increments('id');
     $table->string('nombre');
     $table->string('acronimo');
-    $table->string('fundador');
+    $table->string('fundador')->nullable();
     $table->text('descripcion');
     $table->dateTime('fecha_fundacion')->nullable();
     $table->integer('creador_id')->unsigned();

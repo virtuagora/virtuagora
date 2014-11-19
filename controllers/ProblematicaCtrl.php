@@ -2,13 +2,10 @@
 
 class ProblematicaCtrl extends Controller {
 
-    public function showProblematica($id) {
-        $vdt = new Validate\Validator();
-        $vdt->addRule('id', new Validate\Rule\NumNatural());
-        if (!$vdt->validate(array('id' => $id))) {
-            $this->notFound();
-        }
-        $problematica = Problematica::with(array('contenido', 'comentarios'))->findOrFail($id);
+    public function showProblematica($idPro) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idPro, new Validate\Rule\NumNatural());
+        $problematica = Problematica::with(array('contenido', 'comentarios'))->findOrFail($idPro);
         $contenido = $problematica->contenido;
         $voto = $problematica->votos()->where('usuario_id', $this->session->user('id'))->first();
         $comentarios = $problematica->comentarios->toArray();
@@ -78,7 +75,7 @@ class ProblematicaCtrl extends Controller {
             ->addRule('cuerpo', new Validate\Rule\MaxLength(8192))
             ->addRule('categoria', new Validate\Rule\NumNatural())
             ->addFilter('titulo', 'htmlspecialchars')
-            ->addFilter('cuerpo', function ($v) {return htmlspecialchars($v, ENT_QUOTES);});
+            ->addFilter('cuerpo', FilterFactory::escapeHTML());
         $req = $this->request;
         if (!$vdt->validate($req->post())) {
             throw (new TurnbackException())->setErrors($vdt->getErrors());
