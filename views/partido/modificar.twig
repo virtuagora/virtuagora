@@ -38,7 +38,7 @@ Virtuagora - Modificar partido político
 						</span>
 					</div>
 					<div class="large-4 end columns">
-						<input type="text" name="acronimo" placeholder="Use 2 a 8 caracteres" style="text-align: center;">
+						<input type="text" name="acronimo" form="mod-partido" placeholder="Use 2 a 8 caracteres" style="text-align: center;" disabled>
 					</div>
 				</div>
 				<div class="row collapse clearfix">
@@ -70,6 +70,11 @@ Virtuagora - Modificar partido político
 				</div>
 				<div class="large-3 end columns">
 					<input type="date" name="fecha" form="mod-partido">
+				</div>
+				<div class="large-4 right columns">
+					<div class="panel text-center" style="padding:8px; font-size:11px;">
+						<b>Firefox:</b> dd/mm/yyyy | <b>Chrome:</b> mm/dd/yyyy
+					</div>
 				</div>
 			</div>
 		</div>
@@ -145,6 +150,8 @@ Virtuagora - Modificar partido político
 		$('[name="nombre"]').val('{{ partido.nombre }}');
 		$('[name="acronimo"]').val('{{ partido.acronimo }}');
 		$('[name="descripcion"]').val('{{ partido.descripcion }}');
+		$('[name="fecha"]').attr('value',('{{ partido.fecha_fundacion }}').substring(0,10));
+		$('[name="fundador"]').val('{{ partido.fundador }}');
 	});
 
 	$(document).on('change', '#uploadBtn', function() {
