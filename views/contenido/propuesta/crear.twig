@@ -32,7 +32,7 @@ Virtuagora - Crear una propuesta
 				<label><h6 class="subheader"><i class="fa fa-tag fa-fw"></i>&nbsp;&nbsp;<b>Categorias asociadas</b></h6></label>
 				<select name="categoria">
 					{% for categoria in categorias %}
-					<option value="{{categoria.id}}">{{categoria.nombre}}</option>
+					<option value="{{categoria.id}}">{{categoria.nombre|capitalize}}</option>
 					{% endfor %}
 				</select>
 			</div>
@@ -49,10 +49,16 @@ Virtuagora - Crear una propuesta
 				<input name="problematicas" type="text" placeholder="Comience escribiendo el numero de una problematica">
 			</div>
 		</div>
+		<div class="row">
+			<div class="large-11 large-centered columns">
+				<label><h6 class="subheader"><i class="fa fa-tag fa-fw"></i>&nbsp;&nbsp;<b>Tags</b></h6></label>
+				<input name="tags" type="text" placeholder="Comience escribiendo tags" disabled/>
+			</div>
+		</div>
 		<hr>
 		<div class="row">
-			<div class="large-6 large-centered columns">
-				<input type="submit" class="button small expand success" value="Publicar">
+			<div class="large-6 large-centered columns text-center">
+				<button type="submit" class="button small success radius"><i class="fa fa-check fa-lg fa-fw"></i>&nbsp;Publicar</button>
 			</div>
 		</div>
 	</form>
