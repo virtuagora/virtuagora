@@ -152,6 +152,9 @@ Virtuagora - Modificar partido político
 		$('[name="descripcion"]').val('{{ partido.descripcion }}');
 		$('[name="fecha"]').attr('value',('{{ partido.fecha_fundacion }}').substring(0,10));
 		$('[name="fundador"]').val('{{ partido.fundador }}');
+		$('[name="url"]').val('{{ partido.contacto.web }}');
+		$('[name="email"]').val('{{ partido.contacto.email }}');
+		$('[name="telefono"]').val('{{ partido.contacto.telefono }}');
 	});
 
 	$(document).on('change', '#uploadBtn', function() {
