@@ -112,6 +112,22 @@ class PortalCtrl extends Controller {
     }
 
     public function cambiarClave() {
+        $usuario = $this->session->getUser();
+        $vdt = new Validate\Validator();
+        $vdt->setLabel('pass-old', 'La contraseña actual')
+            ->setLabel('pass-new', 'La contraseña nueva')
+            ->addRule('pass-old', new Validate\Rule\NotEmpty())
+            ->addRule('pass-old', new Validate\Rule\MatchesPassword($usuario->password))
+            ->addRule('pass-new', new Validate\Rule\NotEmpty())
+            ->addRule('pass-new', new Validate\Rule\MinLength(8))
+            ->addRule('pass-new', new Validate\Rule\MaxLength(128))
+            ->addRule('pass-new', new Validate\Rule\Matches('pass-verif'));
+        $req = $this->request;
+        if (!$vdt->validate($req->post())) {
+            throw (new TurnbackException())->setErrors($vdt->getErrors());
+        }
+        $usuario->password = password_hash($vdt->getData('pass-new'), PASSWORD_DEFAULT);
+        $usuario->save();
         $this->flash('success', 'Su contraseña fue modificada exitosamente.');
         $this->redirect($this->request->getReferrer());
     }

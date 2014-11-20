@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "augusthur/validation",
-            "version": "v2.1",
+            "version": "v2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/augusthur/PHP-Validation.git",
-                "reference": "cf21d05d654b06260636b42167e7f0a99e18c3c7"
+                "reference": "075c42605d4e2e17b3c0f71822d6cbefaf6a6215"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/augusthur/PHP-Validation/zipball/cf21d05d654b06260636b42167e7f0a99e18c3c7",
-                "reference": "cf21d05d654b06260636b42167e7f0a99e18c3c7",
+                "url": "https://api.github.com/repos/augusthur/PHP-Validation/zipball/075c42605d4e2e17b3c0f71822d6cbefaf6a6215",
+                "reference": "075c42605d4e2e17b3c0f71822d6cbefaf6a6215",
                 "shasum": ""
             },
             "require": {
@@ -50,9 +50,9 @@
                 "validation"
             ],
             "support": {
-                "source": "https://github.com/augusthur/PHP-Validation/tree/v2.1"
+                "source": "https://github.com/augusthur/PHP-Validation/tree/v2.3"
             },
-            "time": "2014-11-19 02:03:32"
+            "time": "2014-11-20 02:54:09"
         },
         {
             "name": "codeguy/upload",
