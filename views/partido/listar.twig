@@ -45,7 +45,11 @@ Virtuagora - Crear partido político
 					{% if user.partido_id is null %}
 					<div id="bt-p-{{ p.id }}" class="right username bt-unirse" style="margin-right:50px"><i class="fa fa-plus-square fa-fw"></i></div>
 					{% elseif user.partido_id == p.id %}
+					{% if (user.es_funcionario == 1) and (user.es_jefe == 1) %}
+					<a href="{{ baseUrl }}/modificar/partido/{{ p.id }}" class="right username" style="margin-right:50px"><i class="fa fa-pencil fa-fw"></i></a>
+					{% else %}
 					<div id="bt-p-{{ p.id }}" class="right username bt-unirse" style="margin-right:50px"><i class="fa fa-minus-square fa-fw"></i></div>
+					{% endif %}
 					{% endif %}
 					<div class="right username"><a href="{{ baseUrl }}/partido/{{ p.id }}"><i class="fa fa-info fa-fw"></i></a></div>
 					<div class="short-nav left">
