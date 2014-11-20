@@ -20,9 +20,9 @@ Virtuagora - Cambiar clave
 <table>
     <thead>
         <tr>
-            <th class="text-center">Título</th>
-            <th class="text-center">Autor</th>
-            <th class="text-center">Fecha</th>
+            <th class="text-center" style="width: 50%;">Título</th>
+            <th class="text-center" style="width: 10%;">Autor</th>
+            <th class="text-center" style="width: 10%;">Fecha</th>
         </tr>
     </thead>
     <tbody>
@@ -35,14 +35,20 @@ Virtuagora - Cambiar clave
         {% endfor %}
     </tbody>
 </table>
-<h3>Otros</h3>
+<h3>Opciones como administrador</h3>
 {% if esModerador %}
-    <a href="{{ baseUrl }}/admin/organismos">Administrar organismos.</a><br>
+    <a href="{{ baseUrl }}/admin/organismo">Administrar organismos.</a><br>
+{% else %}
+	<div class="label warning"><i class="fa fa-times fa-fw fa-lg"></i>&nbsp;No sos administrador!</div>
 {% endif %}
+<h3>Opciones como funcionario</h3>
 {% if esFuncionario %}
     <a href="{{ baseUrl }}/crear/propuesta">Crear propuesta.</a><br>
     <a href="{{ baseUrl }}/crear/partido">Crear partido.</a><br>
     <a href="{{ baseUrl }}/partido">Listar partidos.</a><br>
+{% else %}
+	<div class="label warning"><i class="fa fa-times fa-fw fa-lg"></i>&nbsp;No sos funcionario!</div>
 {% endif %}
+<h3>Opciones como usuario</h3>
     <a href="{{ baseUrl }}/crear/problematica">Crear problematica.</a><br>
 {% endblock %}
