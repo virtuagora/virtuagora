@@ -33,7 +33,7 @@ Virtuagora - Crear una propuesta
 				<label><h6 class="subheader"><i class="fa fa-tag fa-fw"></i>&nbsp;&nbsp;<b>Categoria asociada</b></h6>
 					<select name="categoria">
 						{% for categoria in categorias %}
-						<option value="{{categoria.id}}">{{categoria.nombre}}</option>
+						<option value="{{categoria.id}}">{{categoria.nombre|capitalize}}</option>
 						{% endfor %}
 					</select>
 				</label>
@@ -46,7 +46,6 @@ Virtuagora - Crear una propuesta
 				</label>
 			</div>
 		</div>
-
 		<div class="row">
 			<div class="large-11 large-centered columns">
 				<fieldset>
@@ -54,6 +53,12 @@ Virtuagora - Crear una propuesta
 					<label>Subir imagenes</label>
 					<label>Registrar una ubicacion geografica</label>
 				</fieldset>
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-11 large-centered columns">
+				<label><h6 class="subheader"><i class="fa fa-tag fa-fw"></i>&nbsp;&nbsp;<b>Tags</b></h6></label>
+				<input name="tags" type="text" placeholder="Comience escribiendo tags" disabled/>
 			</div>
 		</div>
 		<hr>
