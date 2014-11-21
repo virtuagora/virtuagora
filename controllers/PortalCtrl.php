@@ -2,7 +2,7 @@
 
 class PortalCtrl extends Controller {
 
-    public function showIndex() {
+    public function verIndex() {
         if ($this->session->exists()) {
             $contenidos = Contenido::all();
             $this->render('usuario/portal.twig', array('contenidos' => $contenidos->toArray(),
@@ -13,7 +13,7 @@ class PortalCtrl extends Controller {
         }
     }
 
-    public function showLogin() {
+    public function verLogin() {
         $this->render('login/login-static.twig');
     }
 
@@ -107,7 +107,7 @@ class PortalCtrl extends Controller {
         }
     }
 
-    public function showCambiarClave() {
+    public function verCambiarClave() {
         $this->render('perfil/cambiar-clave.twig');
     }
 

@@ -220,11 +220,11 @@ Virtuagora - Problematica #{{ problematica.id }} por {{ problematica.autor.nombr
 		$("#intro-comentario p").html("Cambiarlo te costará <i class=\"fa fa-star fa-fw fa-lg\"></i><span style=\"color: red;\"><b>-20</b></span> puntos");
 		{% endif %}
 		$(".bt-enviar").show();
-        if(valorPostura == 0){
+        if(valorPostura == 2){
             $("#posturaInfo").attr("style","background: #F7D363;");
             $("#posturaInfo i").html( $("#afec_directo").html() );
             $("#posturaInfo h6 b").html("Esta problemática te afecta directamente");
-			{% if voto.postura is not null and voto.postura == 0 %}
+			{% if voto.postura is not null and voto.postura == 2 %}
 			$("#intro-comentario h6 b").html("Ya votaste esta postura");
 			$("#intro-comentario p").html("");
 			$(".bt-enviar").hide();
@@ -238,11 +238,11 @@ Virtuagora - Problematica #{{ problematica.id }} por {{ problematica.autor.nombr
 			$("#intro-comentario p").html("");
 			$(".bt-enviar").hide();
 			{% endif %}
-        } else if (valorPostura == 2) {
+        } else if (valorPostura == 0) {
             $("#posturaInfo").attr("style","background: #e7e7e7;");
             $("#posturaInfo i").html( $("#afec_indiferente").html() );
             $("#posturaInfo h6 b").html("Esta problemática te es indiferente");
-			{% if voto.postura is not null and voto.postura == 2 %}
+			{% if voto.postura is not null and voto.postura == 0 %}
 			("#intro-comentario h6 b").html("Ya votaste esta postura");
 			("#intro-comentario p").html("");
 			(".bt-enviar").hide();
@@ -257,8 +257,8 @@ Virtuagora - Problematica #{{ problematica.id }} por {{ problematica.autor.nombr
 
     $("#afec_directo").on("click", function() {
         if(usuarioLogueado()){
-            $("#posturaProblematica").val(0);
-            modalPosturaCompletar(0);
+            $("#posturaProblematica").val(2);
+            modalPosturaCompletar(2);
             $('#publicarPostura').foundation('reveal', 'open');
         } else {
             $('#login-modal').foundation('reveal', 'open');
@@ -277,8 +277,8 @@ Virtuagora - Problematica #{{ problematica.id }} por {{ problematica.autor.nombr
 
     $("#afec_indiferente").on("click", function() {
         if(usuarioLogueado()){
-            $("#posturaProblematica").val(2);
-            modalPosturaCompletar(2);
+            $("#posturaProblematica").val(0);
+            modalPosturaCompletar(0);
             $('#publicarPostura').foundation('reveal', 'open');
         } else {
             $('#login-modal').foundation('reveal', 'open');

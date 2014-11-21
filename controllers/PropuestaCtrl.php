@@ -2,7 +2,7 @@
 
 class PropuestaCtrl extends Controller {
 
-    public function showPropuesta($id) {
+    public function ver($id) {
         $validator = new Augusthur\Validation\Validator();
         $validator->addRule('id', new Augusthur\Validation\Rule\NumNatural());
         if (!$validator->validate(array('id' => $id))) {
@@ -16,7 +16,7 @@ class PropuestaCtrl extends Controller {
                                                             'comentarios' =>  $comentarios->toArray()));
     }
 
-    public function votarPropuesta($idPro) {
+    public function votar($idPro) {
         $validator = new Augusthur\Validation\Validator();
         $validator
             ->addRule('postura', new Augusthur\Validation\Rule\InArray(array(-1, 0, 1)))
@@ -50,12 +50,12 @@ class PropuestaCtrl extends Controller {
         $this->redirect($req->getRootUri().'/propuesta/'.$propuesta->id);
     }
 
-    public function showCrearPropuesta() {
+    public function verCrear() {
         $categorias = Categoria::all();
         $this->render('contenido/propuesta/crear.twig', array('categorias' => $categorias->toArray()));
     }
 
-    public function crearPropuesta() {
+    public function crear() {
         $validator = new Augusthur\Validation\Validator();
         $validator
             ->addRule('titulo', new Augusthur\Validation\Rule\MinLength(8))

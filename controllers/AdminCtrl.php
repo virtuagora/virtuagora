@@ -2,12 +2,12 @@
 
 class AdminCtrl extends Controller {
 
-    public function showOrganismos() {
+    public function verOrganismos() {
         $organismos = Organismo::all();
         $this->render('admin/organismos.twig', array('organismos' => $organismos->toArray()));
     }
 
-    public function showCrearOrganismo() {
+    public function verCrearOrganismo() {
         $this->render('admin/crear-organismo.twig');
     }
 
@@ -33,7 +33,7 @@ class AdminCtrl extends Controller {
         $this->redirect($req->getRootUri().'/admin/organismo');
     }
 
-    public function showAdminFuncionarios($id) {
+    public function verAdminFuncionarios($id) {
         $organismo = Organismo::findOrFail($id);
         $this->render('admin/funcionarios.twig', array('organismo' => $organismo->toArray(),
                                                        'funcionarios' => $organismo->usuarios->toArray()));

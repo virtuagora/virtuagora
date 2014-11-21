@@ -45,10 +45,10 @@ Virtuagora - Cambiar clave
 {% if esFuncionario %}
     <a href="{{ baseUrl }}/crear/propuesta">Crear propuesta.</a><br>
     <a href="{{ baseUrl }}/crear/partido">Crear partido.</a><br>
-    <a href="{{ baseUrl }}/partido">Listar partidos.</a><br>
 {% else %}
 	<div class="label warning"><i class="fa fa-times fa-fw fa-lg"></i>&nbsp;No sos funcionario!</div>
 {% endif %}
 <h3>Opciones como usuario</h3>
     <a href="{{ baseUrl }}/crear/problematica">Crear problematica.</a><br>
+    <a href="{{ baseUrl }}/partido">Listar partidos.</a><br>
 {% endblock %}

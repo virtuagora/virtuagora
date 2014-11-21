@@ -86,46 +86,56 @@ $app->get('/usuario', function () use ($app) {
 });
 
 $app->get('/test', function () use ($app) {
-    $h = Partido::find(1);
-    var_dump($h, $h->toArray());
+    var_dump($app->urlFor('shwAdmOrganismos'));
 });
 
-$app->get('/', 'PortalCtrl:showIndex');
-$app->get('/login', 'checkNoSession', 'PortalCtrl:showLogin');
-$app->post('/login', 'checkNoSession', 'PortalCtrl:login');
-$app->post('/logout', 'PortalCtrl:logout');
-$app->post('/registro', 'checkNoSession', 'PortalCtrl:registrar');
-$app->get('/validar/:idUsr/:token', 'PortalCtrl:validar');
+$app->get('/', 'PortalCtrl:verIndex')->name('shwIndex');
+$app->get('/login', 'checkNoSession', 'PortalCtrl:verLogin')->name('shwLogin');
+$app->post('/login', 'checkNoSession', 'PortalCtrl:login')->name('runLogin');
+$app->post('/logout', 'PortalCtrl:logout')->name('runLogout');
+$app->post('/registro', 'checkNoSession', 'PortalCtrl:registrar')->name('runCrearUsuario');
+$app->get('/validar/:idUsr/:token', 'PortalCtrl:validar')->name('runValidarUsuario');
 
-$app->get('/perfil/cambiar-clave', checkRole('usr'), 'PortalCtrl:showCambiarClave');
-$app->post('/perfil/cambiar-clave', checkRole('usr'), 'PortalCtrl:cambiarClave');
+$app->get('/perfil/cambiar-clave', checkRole('usr'), 'PortalCtrl:verCambiarClave')->name('shwModifClvUsuario');
+$app->post('/perfil/cambiar-clave', checkRole('usr'), 'PortalCtrl:cambiarClave')->name('runModifClvUsuario');
 
-$app->get('/admin/organismo', checkRole('mod'), 'AdminCtrl:showOrganismos');
-$app->get('/admin/organismo/crear', checkRole('mod'), 'AdminCtrl:showCrearOrganismo');
-$app->post('/admin/organismo/crear', checkRole('mod'), 'AdminCtrl:crearOrganismo');
-$app->get('/admin/organismo/:idOrg/funcionario', checkRole('mod'), 'AdminCtrl:showAdminFuncionarios');
-$app->post('/admin/organismo/:idOrg/funcionario', checkRole('mod'), 'AdminCtrl:adminFuncionarios');
+$app->group('/admin', function () use ($app) {
+    $app->get('/organismo', checkRole('mod'), 'AdminCtrl:verOrganismos')->name('shwAdmOrganis');
+    $app->get('/organismo/crear', checkRole('mod'), 'AdminCtrl:verCrearOrganismo')->name('shwCrearOrganis');
+    $app->post('/organismo/crear', checkRole('mod'), 'AdminCtrl:crearOrganismo')->name('runCrearOrganis');
+    $app->get('/organismo/:idOrg/funcionario', checkRole('mod'), 'AdminCtrl:verAdminFuncionarios')->name('shwAdmFuncion');
+    $app->post('/organismo/:idOrg/funcionario', checkRole('mod'), 'AdminCtrl:adminFuncionarios')->name('runAdmFuncion');
+});
 
-$app->get('/propuesta/:idPro', 'PropuestaCtrl:showPropuesta');
-$app->post('/propuesta/:idPro/votar', checkRole('usr'), 'PropuestaCtrl:votarPropuesta');
-$app->get('/crear/propuesta', checkRole('fnc'), 'PropuestaCtrl:showCrearPropuesta');
-$app->post('/crear/propuesta', checkRole('fnc'), 'PropuestaCtrl:crearPropuesta');
+$app->group('/propuesta', function () use ($app) {
+    $app->get('/:idPro', 'PropuestaCtrl:ver')->name('shwPropues');
+    $app->post('/:idPro/votar', checkRole('usr'), 'PropuestaCtrl:votar')->name('runVotarPropues');
+});
 
-$app->get('/problematica/:idPro', 'ProblematicaCtrl:showProblematica');
-$app->post('/problematica/:idPro/votar', checkRole('usr'), 'ProblematicaCtrl:votarProblematica');
-$app->get('/crear/problematica', checkRole('usr'), 'ProblematicaCtrl:showCrearProblematica');
-$app->post('/crear/problematica', checkRole('usr'), 'ProblematicaCtrl:crearProblematica');
+$app->group('/problematica', function () use ($app) {
+    $app->get('/:idPro', 'ProblematicaCtrl:ver')->name('shwProblem');
+    $app->post('/:idPro/votar', checkRole('usr'), 'ProblematicaCtrl:votar')->name('runVotarProblem');
+});
 
-$app->get('/partido', 'PartidoCtrl:showPartidos');
-$app->post('/partido/:idPar/unirse', checkRole('usr'), 'PartidoCtrl:unirsePartido');
-$app->post('/partido/dejar', checkRole('usr'), 'PartidoCtrl:dejarPartido');
-$app->get('/crear/partido', checkRole('fnc'), 'PartidoCtrl:showCrearPartido');
-$app->post('/crear/partido', checkRole('fnc'), 'PartidoCtrl:crearPartido');
-$app->get('/modificar/partido/:idPar', checkRole('fnc'), 'PartidoCtrl:showModificarPartido');
-$app->post('/modificar/partido/:idPar', checkRole('fnc'), 'PartidoCtrl:modificarPartido');
-$app->post('/cambiar-imagen/partido/:idPar', checkRole('fnc'), 'PartidoCtrl:cambiarImagen');
+$app->group('/partido', function () use ($app) {
+    $app->get('', 'PartidoCtrl:listar')->name('shwListaPartido');
+    $app->post('/:idPar/unirse', checkRole('usr'), 'PartidoCtrl:unirse')->name('runUnirsePartido');
+    $app->post('/dejar', checkRole('usr'), 'PartidoCtrl:dejar')->name('runDejarPartido');
+});
+$app->get('/modificar/partido/:idPar', checkRole('fnc'), 'PartidoCtrl:verModificar')->name('shwModifPartido');
+$app->post('/modificar/partido/:idPar', checkRole('fnc'), 'PartidoCtrl:modificar')->name('runModifPartido');
+$app->post('/cambiar-imagen/partido/:idPar', checkRole('fnc'), 'PartidoCtrl:cambiarImagen')->name('runModifImgPartido');
 
-$app->post('/comentar/:tipoRaiz/:idRaiz', checkRole('usr'), 'ComentarioCtrl:comentar');
+$app->group('/crear', function () use ($app) {
+    $app->get('/partido', checkRole('fnc'), 'PartidoCtrl:verCrear')->name('shwCrearPartido');
+    $app->post('/partido', checkRole('fnc'), 'PartidoCtrl:crear')->name('runCrearPartido');
+    $app->get('/propuesta', checkRole('fnc'), 'PropuestaCtrl:verCrear')->name('shwCrearPropues');
+    $app->post('/propuesta', checkRole('fnc'), 'PropuestaCtrl:crear')->name('runCrearPropues');
+    $app->get('/problematica', checkRole('usr'), 'ProblematicaCtrl:verCrear')->name('shwCrearProblem');
+    $app->post('/problematica', checkRole('usr'), 'ProblematicaCtrl:crear')->name('runCrearProblem');
+});
+
+$app->post('/comentar/:tipoRaiz/:idRaiz', checkRole('usr'), 'ComentarioCtrl:comentar')->name('runComentar');
 
 session_cache_limiter(false);
 session_start();

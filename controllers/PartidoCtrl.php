@@ -2,16 +2,16 @@
 
 class PartidoCtrl extends Controller {
 
-    public function showPartidos() {
+    public function listarPartidos() {
         $partidos = Partido::all();
         $this->render('partido/listar.twig', array('partidos' => $partidos->toArray()));
     }
 
-    public function showCrearPartido() {
+    public function verCrear() {
         $this->render('partido/crear.twig');
     }
 
-    public function crearPartido() {
+    public function crear() {
         $req = $this->request;
         $vdt = $this->validarPartido($req->post());
         $usuario = $this->session->getUser();
@@ -38,7 +38,7 @@ class PartidoCtrl extends Controller {
         $this->redirect($req->getRootUri().'/partido');
     }
 
-    public function unirsePartido($idPar) {
+    public function unirse($idPar) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idPar, new Validate\Rule\NumNatural());
         $partido = Partido::findOrFail($idPar);
@@ -53,7 +53,7 @@ class PartidoCtrl extends Controller {
         $this->redirect($this->request->getRootUri().'/partido');
     }
 
-    public function dejarPartido() {
+    public function dejar() {
         $usuario = $this->session->getUser();
         $partido = $usuario->partido;
         if (!$partido) {
@@ -69,7 +69,7 @@ class PartidoCtrl extends Controller {
         $this->redirect($this->request->getRootUri().'/partido');
     }
 
-    public function showModificarPartido($idPar) {
+    public function verModificar($idPar) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idPar, new Validate\Rule\NumNatural());
         $partido = Partido::with('contacto')->findOrFail($idPar);
@@ -78,7 +78,7 @@ class PartidoCtrl extends Controller {
         $this->render('partido/modificar.twig', array('partido' => $datosPartido));
     }
 
-    public function modificarPartido($idPar) {
+    public function modificar($idPar) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idPar, new Validate\Rule\NumNatural());
         $partido = Partido::with('contacto')->findOrFail($idPar);

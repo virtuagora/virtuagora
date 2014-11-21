@@ -2,7 +2,7 @@
 
 class ProblematicaCtrl extends Controller {
 
-    public function showProblematica($idPro) {
+    public function ver($idPro) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idPro, new Validate\Rule\NumNatural());
         $problematica = Problematica::with(array('contenido', 'comentarios'))->findOrFail($idPro);
@@ -16,7 +16,7 @@ class ProblematicaCtrl extends Controller {
                                                                'voto' => $datosVoto));
     }
 
-    public function votarProblematica($idPro) {
+    public function votar($idPro) {
         $vdt = new Validate\Validator();
         $vdt->addRule('postura', new Validate\Rule\InArray(array(0, 1, 2)))
             ->addRule('idPro', new Validate\Rule\NumNatural());
@@ -30,11 +30,7 @@ class ProblematicaCtrl extends Controller {
         $voto = VotoProblematica::firstOrNew(array('problematica_id' => $problematica->id,
                                                    'usuario_id' => $usuario->id));
         $postura = $vdt->getData('postura');
-        $fecha = Carbon\Carbon::now();
-        $fecha->subDays(3);
-        if ($fecha->lt($voto->updated_at)) {
-            throw (new TurnbackException())->setErrors(array('No puede cambiar su voto tan pronto.'));
-        }
+
         if (!$voto->exists) {
             $voto->usuario_id = $usuario->id;
             $voto->usuario()->associate($usuario);
@@ -42,6 +38,11 @@ class ProblematicaCtrl extends Controller {
         } else if ($voto->postura == $postura) {
             throw (new TurnbackException())->setErrors(array('No puede votar dos veces la misma postura.'));
         } else {
+            $fecha = Carbon\Carbon::now();
+            $fecha->subDays(3);
+            if ($fecha->lt($voto->updated_at)) {
+                throw (new TurnbackException())->setErrors(array('No puede cambiar su voto tan pronto.'));
+            }
             $usuario->decrement('puntos'); // TODO revisar cuantos puntos quitar
         }
         $voto->postura = $postura;
@@ -62,12 +63,12 @@ class ProblematicaCtrl extends Controller {
         $this->redirect($req->getRootUri().'/problematica/'.$idPro);
     }
 
-    public function showCrearProblematica() {
+    public function verCrear() {
         $categorias = Categoria::all();
         $this->render('contenido/problematica/crear.twig', array('categorias' => $categorias->toArray()));
     }
 
-    public function crearProblematica() {
+    public function crear() {
         $vdt = new Validate\Validator();
         $vdt->addRule('titulo', new Validate\Rule\MinLength(8))
             ->addRule('titulo', new Validate\Rule\MaxLength(128))
