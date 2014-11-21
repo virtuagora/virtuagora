@@ -56,7 +56,7 @@ Virtuagora - Modificar partido político
 	<div class="row">
 		<div class="large-10 large-centered columns">
 			<label><h6 class="subheader"><i class="fa fa-file-text-o fa-fw"></i>&nbsp;&nbsp;<b>Descripción</b> <span data-tooltip aria-haspopup="true" class="has-tip tip-right" title="Campo OBLIGATORIO" style="color: red;">*</span></h6>
-				<textarea name="descripcion" form="mod-partido" rows=4></textarea>
+				<textarea name="descripcion" form="mod-partido" rows=4>{{ partido.descripcion }}</textarea>
 			</label>
 		</div>
 	</div>
@@ -149,16 +149,11 @@ Virtuagora - Modificar partido político
 	$(document).ready(function() {
 		$('[name="nombre"]').val('{{ partido.nombre }}');
 		$('[name="acronimo"]').val('{{ partido.acronimo }}');
-		$('[name="descripcion"]').val('{{ partido.descripcion }}');
 		$('[name="fecha"]').attr('value',('{{ partido.fecha_fundacion }}').substring(0,10));
 		$('[name="fundador"]').val('{{ partido.fundador }}');
 		$('[name="url"]').val('{{ partido.contacto.web }}');
 		$('[name="email"]').val('{{ partido.contacto.email }}');
 		$('[name="telefono"]').val('{{ partido.contacto.telefono }}');
-	});
-
-	$(document).on('change', '#uploadBtn', function() {
-		alert(this.val());
 	});
 </script>
 {% endblock %}

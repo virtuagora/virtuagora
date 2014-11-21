@@ -8,7 +8,6 @@ class ComentarioCtrl extends Controller {
             ->addRule('tipoRaiz', new Validate\Rule\InArray(array('Propuesta', 'Problematica')))
             ->addRule('cuerpo', new Validate\Rule\MinLength(4))
             ->addRule('cuerpo', new Validate\Rule\MaxLength(2048))
-            ->addFilter('cuerpo', 'htmlspecialchars')
             ->addFilter('tipoRaiz', 'ucfirst');
         $req = $this->request;
         $data = array_merge(array('idRaiz' => $idRaiz, 'tipoRaiz' => $tipoRaiz), $req->post());

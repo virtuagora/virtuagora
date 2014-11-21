@@ -2,7 +2,7 @@
 
 class PartidoCtrl extends Controller {
 
-    public function listarPartidos() {
+    public function listar() {
         $partidos = Partido::all();
         $this->render('partido/listar.twig', array('partidos' => $partidos->toArray()));
     }
@@ -158,7 +158,6 @@ class PartidoCtrl extends Controller {
             ->addRule('url', new Validate\Rule\URL())
             ->addRule('email', new Validate\Rule\Email())
             ->addRule('telefono', new Validate\Rule\Telephone())
-            ->addFilter('descripcion', 'htmlspecialchars')
             ->addFilter('fundador', FilterFactory::emptyToNull())
             ->addFilter('fecha', FilterFactory::emptyToNull())
             ->addFilter('url', FilterFactory::emptyToNull())

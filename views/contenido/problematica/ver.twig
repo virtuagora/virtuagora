@@ -173,11 +173,11 @@ Virtuagora - Problematica #{{ problematica.id }} por {{ problematica.autor.nombr
 	$(document).ready(function() {
 		{% if voto is not null %}
 		var votoUsuario = {{ voto.postura }};
-		if(votoUsuario == 0){
+		if(votoUsuario == 2){
 			$("#afec_directo").addClass("voto-elegido");
 		} else if (votoUsuario == 1){
 			$("#afec_indirecto").addClass("voto-elegido");
-		} else if (votoUsuario == 2){
+		} else if (votoUsuario == 0){
 			$("#afec_indiferente").addClass("voto-elegido");
 		}
 		{% endif %}

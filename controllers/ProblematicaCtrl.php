@@ -75,7 +75,6 @@ class ProblematicaCtrl extends Controller {
             ->addRule('cuerpo', new Validate\Rule\MinLength(8))
             ->addRule('cuerpo', new Validate\Rule\MaxLength(8192))
             ->addRule('categoria', new Validate\Rule\NumNatural())
-            ->addFilter('titulo', 'htmlspecialchars')
             ->addFilter('cuerpo', FilterFactory::escapeHTML());
         $req = $this->request;
         if (!$vdt->validate($req->post())) {

@@ -15,6 +15,18 @@ $capsule->addConnection(array(
 ));
 $capsule->setAsGlobal();
 
+function superDelete($path) {
+    if (is_dir($path) === true) {
+        $files = array_diff(scandir($path), array('.', '..'));
+        foreach ($files as $file) {
+            superDelete(realpath($path) . '/' . $file);
+        }
+        return rmdir($path);
+    } else if (is_file($path) === true) {
+        return unlink($path);
+    }
+}
+
 Capsule::schema()->dropIfExists('comentarios');
 echo '1 ';
 Capsule::schema()->dropIfExists('problematica_votos');
@@ -46,4 +58,8 @@ echo '14 ';
 Capsule::schema()->dropIfExists('partidos');
 echo '15 ';
 Capsule::schema()->dropIfExists('usuarios');
-echo 'DONE! ';
+echo 'DONE!<br>';
+
+echo 'deleting files... ';
+superDelete('../public/img/partido');
+echo 'DONE!<br>';

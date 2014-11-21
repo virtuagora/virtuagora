@@ -1,14 +1,11 @@
-<?php
+<?php use Augusthur\Validation as Validate;
 
 class PropuestaCtrl extends Controller {
 
-    public function ver($id) {
-        $validator = new Augusthur\Validation\Validator();
-        $validator->addRule('id', new Augusthur\Validation\Rule\NumNatural());
-        if (!$validator->validate(array('id' => $id))) {
-            $this->notFound();
-        }
-        $propuesta = Propuesta::with(array('contenido', 'comentarios'))->findOrFail($id);
+    public function ver($idPro) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idPro, new Validate\Rule\NumNatural());
+        $propuesta = Propuesta::with(array('contenido', 'comentarios'))->findOrFail($idPro);
         $contenido = $propuesta->contenido;
         $comentarios = $propuesta->comentarios;
         $datosPropuesta = array_merge($contenido->toArray(), $propuesta->toArray());
@@ -17,14 +14,13 @@ class PropuestaCtrl extends Controller {
     }
 
     public function votar($idPro) {
-        $validator = new Augusthur\Validation\Validator();
-        $validator
-            ->addRule('postura', new Augusthur\Validation\Rule\InArray(array(-1, 0, 1)))
-            ->addRule('idPro', new Augusthur\Validation\Rule\NumNatural());
+        $vdt = new Validate\Validator();
+        $vdt->addRule('postura', new Validate\Rule\InArray(array(-1, 0, 1)))
+            ->addRule('idPro', new Validate\Rule\NumNatural());
         $req = $this->request;
         $data = array_merge(array('idPro' => $idPro), $req->post());
-        if (!$validator->validate($data)) {
-            throw (new TurnbackException())->setErrors($validator->getErrors());
+        if (!$vdt->validate($data)) {
+            throw (new TurnbackException())->setErrors($vdt->getErrors());
         }
         $idUsuario = $this->session->user('id');
         $publico = false;
@@ -56,13 +52,16 @@ class PropuestaCtrl extends Controller {
     }
 
     public function crear() {
-        $validator = new Augusthur\Validation\Validator();
-        $validator
-            ->addRule('titulo', new Augusthur\Validation\Rule\MinLength(8))
-            ->addRule('titulo', new Augusthur\Validation\Rule\MaxLength(128));
+        $vdt = new Validate\Validator();
+        $vdt->addRule('titulo', new Validate\Rule\MinLength(8))
+            ->addRule('titulo', new Validate\Rule\MaxLength(128))
+            ->addRule('cuerpo', new Validate\Rule\MinLength(8))
+            ->addRule('cuerpo', new Validate\Rule\MaxLength(8192))
+            ->addRule('categoria', new Validate\Rule\NumNatural())
+            ->addFilter('cuerpo', FilterFactory::escapeHTML());
         $req = $this->request;
-        if (!$validator->validate($req->post())) {
-            throw (new TurnbackException())->setErrors($validator->getErrors());
+        if (!$vdt->validate($req->post())) {
+            throw (new TurnbackException())->setErrors($vdt->getErrors());
         }
         $autor = $this->session->getUser();
         $propuesta = new Propuesta;

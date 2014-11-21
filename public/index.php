@@ -1,5 +1,4 @@
-<?php
-require __DIR__.'/../vendor/autoload.php';
+<?php require __DIR__.'/../vendor/autoload.php';
 
 // Prepare app
 $app = new \Slim\Slim(array(
@@ -33,25 +32,7 @@ $app->error(function (Exception $e) use ($app) {
     } else if ($e instanceof Illuminate\Database\Eloquent\ModelNotFoundException) {
         $app->notFound();
     } else {
-        $code = $e->getCode();
-        $message = $e->getMessage();
-        $file = $e->getFile();
-        $line = $e->getLine();
-        $trace = str_replace(array('#', '\n'), array('<div>#', '</div>'), $e->getTraceAsString());
-        $html = '<h1>FATAL ERROR!</h1><p>The application could not run because of the following error:</p>';
-        $html .= '<h2>Details</h2>' . sprintf('<div><strong>Type:</strong> %s</div>', get_class($e));
-        if ($code) $html .= sprintf('<div><strong>Code:</strong> %s</div>', $code);
-        if ($message) $html .= sprintf('<div><strong>Message:</strong> %s</div>', $message);
-        if ($file) $html .= sprintf('<div><strong>File:</strong> %s</div>', $file);
-        if ($line) $html .= sprintf('<div><strong>Line:</strong> %s</div>', $line);
-        if ($trace) {
-            $html .= '<h2>Trace</h2>';
-            $html .= sprintf('<pre>%s</pre>', $trace);
-        }
-        echo sprintf('<html><head><title>Virtuagora - Fail</title><style>body{margin:0;padding:30px;'.
-                     'font:12px/1.5 Helvetica,Arial,Verdana,sans-serif;}h1{margin:0;font-size:48px;'.
-                     'font-weight:normal;line-height:48px;}strong{display:inline-block;width:65px;}</style>'.
-                     '</head><body>%s</body></html>', $html);
+        $app->render('misc/fatal-error.twig', array('type' => get_class($e), 'exception' => $e));
     }
 });
 
@@ -86,6 +67,7 @@ $app->get('/usuario', function () use ($app) {
 });
 
 $app->get('/test', function () use ($app) {
+    throw new ErrorException('holis!');
     var_dump($app->urlFor('shwAdmOrganismos'));
 });
 
