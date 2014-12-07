@@ -187,15 +187,15 @@ Capsule::schema()->create('propuestas', function($table) {
     $table->softDeletes();
 });
 
-Capsule::schema()->create('propuesta_usuario', function($table) {
+Capsule::schema()->create('propuesta_votos', function($table) {
     $table->engine = 'InnoDB';
 
+    $table->increments('id');
     $table->integer('postura');
     $table->boolean('publico');
     $table->integer('propuesta_id')->unsigned();
     $table->integer('usuario_id')->unsigned();
 
-    $table->primary(array('propuesta_id', 'usuario_id'));
     $table->foreign('propuesta_id')->references('id')->on('propuestas')->onDelete('cascade');
 
     $table->timestamps();

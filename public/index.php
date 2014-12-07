@@ -92,6 +92,7 @@ $app->group('/admin', function () use ($app) {
 $app->group('/propuesta', function () use ($app) {
     $app->get('/:idPro', 'PropuestaCtrl:ver')->name('shwPropues');
     $app->post('/:idPro/votar', checkRole('usr'), 'PropuestaCtrl:votar')->name('runVotarPropues');
+    $app->post('/:idPro/cambiar-privacidad', checkRole('usr'), 'PropuestaCtrl:cambiarPrivacidad')->name('runModifPrvPropues');
 });
 
 $app->group('/problematica', function () use ($app) {

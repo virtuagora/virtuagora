@@ -22,28 +22,53 @@ class PropuestaCtrl extends Controller {
         if (!$vdt->validate($data)) {
             throw (new TurnbackException())->setErrors($vdt->getErrors());
         }
-        $idUsuario = $this->session->user('id');
-        $publico = false;
-        if ($req->post('publico') == 'on') {
-            $publico = true;
-        }
-        $postura = $req->post('postura');
+        $usuario = $this->session->getUser();
         $propuesta = Propuesta::findOrFail($idPro);
-        $propuesta->posturas()->attach($idUsuario, array('postura' => $postura,
-                                                         'publico' => $publico));
+        $voto = VotoPropuesta::firstOrNew(array('propuesta_id' => $propuesta->id,
+                                                'usuario_id' => $usuario->id));
+        $postura = $vdt->getData('postura');
+        if (!$voto->exists) {
+            $voto->publico = ($vdt->getData('publico') == 'on');
+            $usuario->increment('puntos', 3); // TODO revisar cuantos puntos otorgar
+        } else if ($voto->postura == $postura) {
+            throw (new TurnbackException())->setErrors(array('No puede votar dos veces la misma postura.'));
+        } else {
+            $fecha = Carbon\Carbon::now();
+            $fecha->subDays(3);
+            if ($fecha->lt($voto->updated_at)) {
+                throw (new TurnbackException())->setErrors(array('No puede cambiar su voto tan pronto.'));
+            }
+            $usuario->decrement('puntos', 5); // TODO revisar cuantos puntos quitar
+        }
+        $voto->postura = $postura;
         switch ($postura) {
             case -1:
-                $propuesta->votos_contra++;
+                $propuesta->increment('votos_contra');
                 break;
             case 0:
-                $propuesta->votos_neutro++;
+                $propuesta->increment('votos_neutro');
                 break;
             case 1:
-                $propuesta->votos_favor++;
+                $propuesta->increment('votos_favor');
                 break;
         }
-        $propuesta->save();
-        $this->redirect($req->getRootUri().'/propuesta/'.$propuesta->id);
+        $voto->save();
+        $usuario->save();
+        $this->flash('success', 'Su voto fue registrado exitosamente.');
+        $this->redirect($this->urlFor('shwPropues', array('idPro' => $idPro)));
+    }
+
+    public function cambiarPrivacidad($idPro) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idPro, new Validate\Rule\NumNatural());
+        $req = $this->request;
+        $voto = VotoPropuesta::where(array('propuesta_id' => $idPro,
+                                           'usuario_id' => $this->session->user('id')));
+        $voto->publico = ($req->post('publico') == 'on');
+        $voto->save();
+        $msg = $voto->publico ? '' : 'no ';
+        $this->flash('success', 'Ahora los demás usuarios '.$msg.'podrán ver su postura sobre esta propuesta.');
+        $this->redirect($this->urlFor('shwPropues', array('idPro' => $idPro)));
     }
 
     public function verCrear() {
@@ -77,7 +102,7 @@ class PropuestaCtrl extends Controller {
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($propuesta);
         $contenido->save();
-        $this->redirect($req->getRootUri().'/propuesta/'.$propuesta->id);
+        $this->redirect($this->urlFor('shwPropues', array('idPro' => $propuesta->id)));
     }
 
 }
