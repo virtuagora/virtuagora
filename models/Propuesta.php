@@ -16,7 +16,7 @@ class Propuesta extends Eloquent {
         return $this->morphMany('Comentario', 'comentable');
     }
 
-    public function posturas() {
-        return $this->belongsToMany('Usuario')->withPivot('postura', 'publico')->withTimestamps();
+    public function votos() {
+        return $this->hasMany('VotoPropuesta');
     }
 }

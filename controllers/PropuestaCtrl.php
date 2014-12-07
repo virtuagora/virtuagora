@@ -7,10 +7,13 @@ class PropuestaCtrl extends Controller {
         $vdt->test($idPro, new Validate\Rule\NumNatural());
         $propuesta = Propuesta::with(array('contenido', 'comentarios'))->findOrFail($idPro);
         $contenido = $propuesta->contenido;
-        $comentarios = $propuesta->comentarios;
+        $voto = $propuesta->votos()->where('usuario_id', $this->session->user('id'))->first();
+        $comentarios = $propuesta->comentarios->toArray();
         $datosPropuesta = array_merge($contenido->toArray(), $propuesta->toArray());
+        $datosVoto = $voto ? $voto->toArray() : null;
         $this->render('contenido/propuesta/ver.twig', array('propuesta' => $datosPropuesta,
-                                                            'comentarios' =>  $comentarios->toArray()));
+                                                            'comentarios' =>  $comentarios,
+                                                            'voto' => $datosVoto));
     }
 
     public function votar($idPro) {
