@@ -66,14 +66,21 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
     <div class="row">
         <div class="large-6 large-centered columns">
             <h4 class="subheader text-center"><b>¿Que te parecio la propuesta?</b></h4>
+            {% if voto is not null %}
+            <div class="panel text-center" style="padding: 10px 10px;">
+                <p style="font-size: 12px;">{{ user.nombre }}, ya votaste esta propuesta anteriormente opinando que <br /><span class='label'>{{ voto.postura == 1 ? 'estas a favor': '' }}{{ voto.postura == 0 ? 'te da igual': '' }}{{ voto.postura == -1 ? 'no estas a favor': '' }}</span>
+                    <br /><br />Podes cambiar tu postura luego de los 3 dias de haber votado, pero a cambio de<i class="fa fa-star fa-fw fa-lg"></i><span style="color: red;"><b>-20</b></span> puntos que seran descontados de tu reputación.
+                </p>
+            </div>
+            {% endif %}
             <ul class="button-group even-3" >
                 <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Me gusta mucho!">
-                    <a id="voto_favor" href="#" class="button secondary small" style="background: #C8EDB5;"><i class="fa fa-thumbs-o-up fa-fw fa-2x"></i></a>
+                    <div id="voto_favor" href="#" class="button secondary small" style="background: #C8EDB5;"><i class="fa fa-thumbs-o-up fa-fw fa-2x"></i></div>
                     </span></li>
                 <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Tengo mis dudas aún..">
-                    <a id="voto_neutro" href="#" class="button secondary small"><i class="fa fa-meh-o fa-2x"></i></a></span></li>
+                    <div id="voto_neutro" href="#" class="button secondary small"><i class="fa fa-meh-o fa-2x"></i></div></span></li>
                 <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="No la apruebo">
-                    <a id="voto_contra" href="#" class="button secondary small" style="background: #F4BCBC;"><i class="fa fa-thumbs-o-down fa-2x"></i></a></span></li>
+                    <div id="voto_contra" href="#" class="button secondary small" style="background: #F4BCBC;"><i class="fa fa-thumbs-o-down fa-2x"></i></div></span></li>
             </ul>
         </div>
     </div>
@@ -163,6 +170,18 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
 <script src="{{ baseUrl }}/assets/js/foundation/foundation.tooltip.js"></script>
 <script src="{{ baseUrl }}/assets/js/underscore/underscore-min.js"></script>
 <script>
+    $(document).ready(function() {
+		{% if voto is not null %}
+		var votoUsuario = {{ voto.postura }};
+		if(votoUsuario == 1){
+			$("#voto_favor").addClass("voto-elegido");
+		} else if (votoUsuario == 0){
+			$("#voto_neutro").addClass("voto-elegido");
+		} else if (votoUsuario == -1){
+			$("#voto_contra").addClass("voto-elegido");
+		}
+		{% endif %}
+	});
     // Para porcentajes
     // foo([13.626332, 47.989636, 9.596008, 28.788024], 100) // => [48, 29, 14, 9]
     var showResultadosPropuesta = function (l, target) {
@@ -185,26 +204,6 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
 
     var hideResultadosPropuesta = function (){
         $("#propuesta-resultado").hide(500);
-    }
-
-    var modalPosturaCompletar = function (valorPostura){
-        $("#posturaInfo").removeAttr("class");
-        $("#posturaInfo i").removeAttr("class");
-        $("#posturaInfo h6 b").empty();
-        $("#posturaInfo").addClass("text-center");
-        if(valorPostura == 1){
-            $("#posturaInfo").attr("style","background: #C8EDB5;");
-            $("#posturaInfo i").addClass( $("#voto_favor i").attr('class') );
-            $("#posturaInfo h6 b").html("¡Estas a favor de la propuesta!");
-        } else if (valorPostura == 0) {
-            $("#posturaInfo").attr("style","background: #e7e7e7;");
-            $("#posturaInfo i").addClass( $("#voto_neutro i").attr('class') );
-            $("#posturaInfo h6 b").html("Tu posicion con la postura es neutra");
-        } else if (valorPostura == -1) {
-            $("#posturaInfo").attr("style","background: #F4BCBC;");
-            $("#posturaInfo i").addClass( $("#voto_contra i").attr('class') );
-            $("#posturaInfo h6 b").html("Estas en contra de la postura");
-        }
     }
 
     var usuarioLogueado = function (){
@@ -242,9 +241,59 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
         }
     });
 
-	{% if comments == true %}
-	{% include "misc/comentarios.js.twig" %}
-	{% endif %}
+        var modalPosturaCompletar = function (valorPostura){
+        $("#posturaInfo").removeAttr("class");
+        $("#posturaInfo i").removeAttr("class");
+        $("#intro-comentario p").empty();
+        $("#posturaInfo").addClass("text-center");
+		{% if voto.postura is null %}
+        $("#cuadro-comentario").show();
+		$("#intro-comentario h6 b").html("¿Estas seguro que este es tu voto?");
+		$("#intro-comentario p:eq(0)").html("Podras cambiarlo luego, pero a cambio de<i class=\"fa fa-star fa-fw fa-lg\"></i><span style=\"color: red;\"><b>-20</b></span> puntos");
+        $("#intro-comentario p:eq(1)").html("Tambien tienes la <b>opción</b> de dejar un comentario. En caso de no querer dejar un comentario simplemente deja en blanco el cuadro de texto");
+		{% else %}
+        $("#cuadro-comentario").hide();
+		$("#intro-comentario h6 b").html("¿Estas seguro que deseas cambiar tu voto?");
+		$("#intro-comentario p:eq(0)").html("Cambiarlo te costará <i class=\"fa fa-star fa-fw fa-lg\"></i><span style=\"color: red;\"><b>-20</b></span> puntos");
+		{% endif %}
+		$(".bt-enviar").show();
+        if(valorPostura == 1){
+            $("#posturaInfo").attr("style","background: #C8EDB5;");
+            $("#posturaInfo i").addClass( $("#voto_favor i").attr('class') );
+            $("#posturaInfo h6 b").html("¡Estas a favor de la propuesta!");
+			{% if voto.postura is not null and voto.postura == 1 %}
+			$("#intro-comentario h6 b").html("Ya votaste esta postura");
+			$("#intro-comentario p").empty();
+			$(".bt-enviar").hide();
+			{% endif %}
+        } else if (valorPostura == 0) {
+            $("#posturaInfo").attr("style","background: #e7e7e7;");
+            $("#posturaInfo i").addClass( $("#voto_neutro i").attr('class') );
+            $("#posturaInfo h6 b").html("Tu posicion con la postura es neutra");
+			{% if voto.postura is not null and voto.postura == 0 %}
+			$("#intro-comentario h6 b").html("Ya votaste esta postura");
+			$("#intro-comentario p").empty();
+			$(".bt-enviar").hide();
+			{% endif %}
+        } else if (valorPostura == -1) {
+           $("#posturaInfo").attr("style","background: #F4BCBC;");
+            $("#posturaInfo i").addClass( $("#voto_contra i").attr('class') );
+            $("#posturaInfo h6 b").html("Estas en contra de la postura");
+			{% if voto.postura is not null and voto.postura == -1 %}
+			$("#intro-comentario h6 b").html("Ya votaste esta postura");
+			$("#intro-comentario p").empty();
+			$(".bt-enviar").hide();
+			{% endif %}
+        }
+    }
+
+    $(".cerrar-modal").on("click", function() {
+        $('#publicarPostura').foundation('reveal', 'close');
+    });
+
+    {% if comments == true %}
+    {% include "misc/comentarios.js.twig" %}
+    {% endif %}
 
 </script>
 {% endblock %}
