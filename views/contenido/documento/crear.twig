@@ -1,0 +1,87 @@
+{# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
+{% set url_atras = '#' %}
+{% set i_class_icon = 'fa fa-edit fa-fw' %}
+{% set titulo = 'Crear un documento abierto' %}
+{% set comments = false %}
+
+{# VARIABLES DE LA VISTA #}
+
+{# ---------------------- #}
+
+{% extends "master-body.twig" %}
+
+{% block titulo %}
+Virtuagora - Crear un documento abierto
+{% endblock %}
+
+{% block linkhead %}
+<link rel="stylesheet" href="{{ baseUrl() }}/assets/css/sceditor-main.css">
+{% endblock %}
+
+{% block contenido %}
+<section id="alta-contenido">
+	<form action="" method="POST">
+		<div class="row">
+			<div class="large-11 large-centered columns">
+				<label><h6 class="subheader"><i class="fa fa-pencil fa-fw"></i>&nbsp;&nbsp;<b>Título del documento</b></h6>
+					<input name="titulo" type="text" placeholder="Escriba el título del documento a publicar" />
+				</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-11 large-centered columns">
+				<label><h6 class="subheader"><i class="fa fa-tag fa-fw"></i>&nbsp;&nbsp;<b>Categoria asociada con el documento</b></h6>
+					<select name="categoria">
+						{% for categoria in categorias %}
+						<option value="{{categoria.id}}">{{categoria.nombre|capitalize}}</option>
+						{% endfor %}
+					</select>
+				</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-11 large-centered columns">
+				<label><h6 class="subheader"><i class="fa fa-pencil fa-fw"></i>&nbsp;&nbsp;<b>Breve introducción al documento</b></h6>
+				<textarea name="<intro></intro>" placeholder="Desarrolle en pocas palabras una descripción de lo que tratará el documento a publicar." rows=3></textarea>
+				</label>
+			</div>
+		</div>
+		<div class="row" style="margin-bottom:12px;">
+			<div class="large-11 large-centered columns">
+				<label><h6 class="subheader"><i class="fa fa-file-text-o fa-fw"></i>&nbsp;&nbsp;<b>Cuerpo del documento</b></h6>
+					<textarea id="cuerpo" name="cuerpo" rows=15></textarea>
+				</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-11 large-centered columns">
+				<label><h6 class="subheader"><i class="fa fa-tag fa-fw"></i>&nbsp;&nbsp;<b>Tags</b></h6></label>
+				<input name="tags" type="text" placeholder="Comience escribiendo tags" disabled/>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="large-11 large-centered columns text-center">
+				<button type="submit" class="button small success radius"><i class="fa fa-check fa-lg fa-fw"></i>&nbsp;Publicar</button>
+			</div>
+		</div>
+	</form>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ baseUrl }}/assets/js/foundation/foundation.tooltip.js"></script>
+<script src="{{ baseUrl }}/assets/js/underscore/underscore-min.js"></script>
+<script src="{{ baseUrl() }}/assets/js/jquery/jquery.sceditor.bbcode.min.js"></script>
+<script>
+	$(function() {
+		$("#cuerpo").sceditor({
+			plugins: "bbcode",
+			emoticonsEnabled: false,
+			width: 'auto',
+			style: "{{ baseUrl() }}/assets/css/sceditor-panel.css"
+		});
+	});
+</script>
+
+{% endblock %}
