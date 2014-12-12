@@ -48,16 +48,18 @@ $(document).ready(function() {
 
 	$(document).on ("click", ".bt-rta", function () {
 		if(usuarioLogueado()){
+            $(this).hide(200);
 			var idrta = $(this).attr('id');
 			idrta = idrta.replace('bt-rta-','');
 			console.log(idrta);
-			var html = "<div class=\"rta comentario push\"> <form action=\"{{ rtaUrl }}idRaiz\" method=\"POST\"> <a href=\"#\">nombre</a> <small>responde lo siguiente...</small> <br/> <textarea name=\"respuesta\" rows=2 style=\"margin-top: 5px; margin-bottom: 5px;\"></textarea><button class=\"button success small right\" style=\"padding: 8px 15px; margin-bottom: 0;\"><i class=\"fa fa-check fa-fw\"></i>&nbsp;Enviar</button> </form> </div>";
+			var html = "<div class=\"rta comentario push\"> <form action=\"{{ rtaUrl }}idRaiz\" method=\"POST\"> <a href=\"#\">nombre</a> <small>responde lo siguiente...</small> <br/> <textarea name=\"cuerpo\" rows=2 style=\"margin-top: 5px; margin-bottom: 5px;\"></textarea><button class=\"button success small right radius\" style=\"padding: 8px 15px; margin-bottom: 0;\"><i class=\"fa fa-check fa-fw\"></i>&nbsp;Enviar</button> </form> </div>";
 			html = html.replace("nombre", "{{ user.nombre }} {{ user.apellido }}" );
 			html = html.replace("idRaiz",idrta);
 			console.log($("#c-" + idrta));
 			$("#c-" + idrta).after(
 				$(html)
-			)
+			);
+            $("#c-" + idrta).after().show(500);
 		} else {
 			$('#login-modal').foundation('reveal', 'open');
 		}
