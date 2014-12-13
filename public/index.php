@@ -67,8 +67,7 @@ $app->get('/usuario', function () use ($app) {
 });
 
 $app->get('/test', function () use ($app) {
-    throw new ErrorException('holis!');
-    var_dump($app->urlFor('shwAdmOrganismos'));
+    $app->render('test.twig', array('propuesta' => Propuesta::first()->toArray()));
 });
 
 $app->get('/', 'PortalCtrl:verIndex')->name('shwIndex');
@@ -114,6 +113,8 @@ $app->group('/crear', function () use ($app) {
     $app->post('/partido', checkRole('fnc'), 'PartidoCtrl:crear')->name('runCrearPartido');
     $app->get('/propuesta', checkRole('fnc'), 'PropuestaCtrl:verCrear')->name('shwCrearPropues');
     $app->post('/propuesta', checkRole('fnc'), 'PropuestaCtrl:crear')->name('runCrearPropues');
+    $app->get('/docabierto', checkRole('fnc'), 'DocabiertoCtrl:verCrear')->name('shwCrearDocabie');
+    $app->post('/docabierto', checkRole('fnc'), 'DocabiertoCtrl:crear')->name('runCrearDocabie');
     $app->get('/problematica', checkRole('usr'), 'ProblematicaCtrl:verCrear')->name('shwCrearProblem');
     $app->post('/problematica', checkRole('usr'), 'ProblematicaCtrl:crear')->name('runCrearProblem');
 });

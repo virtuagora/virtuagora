@@ -5,7 +5,7 @@ class ComentarioCtrl extends Controller {
     public function comentar($tipoRaiz, $idRaiz) {
         $vdt = new Validate\Validator();
         $vdt->addRule('idRaiz', new Validate\Rule\NumNatural())
-            ->addRule('tipoRaiz', new Validate\Rule\InArray(array('Propuesta', 'Problematica')))
+            ->addRule('tipoRaiz', new Validate\Rule\InArray(array('Propuesta', 'Problematica', 'Comentario')))
             ->addRule('cuerpo', new Validate\Rule\MinLength(4))
             ->addRule('cuerpo', new Validate\Rule\MaxLength(2048))
             ->addFilter('tipoRaiz', 'ucfirst');
@@ -16,6 +16,9 @@ class ComentarioCtrl extends Controller {
         }
         $autor = $this->session->getUser();
         $comentable = call_user_func($vdt->getData('tipoRaiz').'::findOrFail', $vdt->getData('idRaiz'));
+        if ($vdt->getData('tipoRaiz') == 'Comentario' && isset($comentable->comentable_id)) {
+            throw (new TurnbackException())->setErrors(array('No puede responderse una respuesta.'));
+        }
         $comentario = new Comentario;
         $comentario->cuerpo = $vdt->getData('cuerpo');
         $comentario->autor()->associate($autor);

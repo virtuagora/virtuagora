@@ -58,7 +58,7 @@ class PropuestaCtrl extends Controller {
         $voto->save();
         $usuario->save();
         $this->flash('success', 'Su voto fue registrado exitosamente.');
-        $this->redirect($this->urlFor('shwPropues', array('idPro' => $idPro)));
+        $this->redirectTo('shwPropues', array('idPro' => $idPro));
     }
 
     public function cambiarPrivacidad($idPro) {
@@ -71,7 +71,7 @@ class PropuestaCtrl extends Controller {
         $voto->save();
         $msg = $voto->publico ? '' : 'no ';
         $this->flash('success', 'Ahora los demás usuarios '.$msg.'podrán ver su postura sobre esta propuesta.');
-        $this->redirect($this->urlFor('shwPropues', array('idPro' => $idPro)));
+        $this->redirectTo('shwPropues', array('idPro' => $idPro));
     }
 
     public function verCrear() {
@@ -105,7 +105,7 @@ class PropuestaCtrl extends Controller {
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($propuesta);
         $contenido->save();
-        $this->redirect($this->urlFor('shwPropues', array('idPro' => $propuesta->id)));
+        $this->redirectTo('shwPropues', array('idPro' => $propuesta->id));
     }
 
 }

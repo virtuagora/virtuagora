@@ -13,7 +13,7 @@ abstract class Controller {
     }
 
     public function __call($name, $args) {
-        call_user_func_array(array($this->app, $name), $args);
+        return call_user_func_array(array($this->app, $name), $args);
     }
 
 }

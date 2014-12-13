@@ -227,6 +227,40 @@ Capsule::schema()->create('problematica_votos', function($table) {
     $table->timestamps();
 });
 
+Capsule::schema()->create('documentos', function($table) {
+    $table->engine = 'InnoDB';
+
+    $table->increments('id');
+    $table->string('descripcion');
+    $table->integer('ultima_version')->unsigned();
+
+    $table->timestamps();
+    $table->softDeletes();
+});
+
+Capsule::schema()->create('documento_versiones', function($table) {
+    $table->engine = 'InnoDB';
+
+    $table->increments('id');
+    $table->integer('version')->unsigned();
+    $table->integer('documento_id')->unsigned();
+
+    $table->timestamps();
+    $table->softDeletes();
+});
+
+Capsule::schema()->create('documento_parrafos', function($table) {
+    $table->engine = 'InnoDB';
+
+    $table->increments('id');
+    $table->text('cuerpo');
+    $table->integer('ubicacion')->unsigned();
+    $table->integer('version_id')->unsigned();
+
+    $table->timestamps();
+    $table->softDeletes();
+});
+
 Capsule::schema()->create('comentarios', function($table) {
     $table->engine = 'InnoDB';
 
