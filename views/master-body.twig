@@ -2,127 +2,150 @@
 
 {% block body %}
 <section id="wide-panel">
-	<div class="row">
-		<div class="large-10 large-centered columns">
-			<div class="extremos">
-				<!-- CONTENIDO! -->
-				<!-- Titulo -->
-				<div class="row">
-					<div class="large-12 large-centered columns">
-						<h2>
-							<a href="{{ url_atras }}"><i class="fa fa-arrow-circle-left fa-border"></i></a>
-							<i class="{{ i_class_titulo }}"></i>&nbsp;<b>{{ titulo }}</b>
-						</h2>
-					</div>
-					<hr>
-				</div>
-				<!-- contenido -->
-				{% if flash['success'] is defined %}
-				<div data-alert class="alert-box success text-center" style="padding: 5px 15px; margin-bottom: 10px;">
-					<i class="fa fa-check-square-o fa-fw fa-lg"></i>&nbsp;{{ flash['success'] }}
-					<a href="#" class="close">&times;</a>
-				</div>
-				<hr style="margin-top:0;"/>
-				{% endif %}
-				{% if flash['warnings'] is defined %}
-				{% for error in flash['warnings'] %}
-				<div data-alert class="alert-box swarning text-center" style="padding: 5px 15px; margin-bottom: 10px;">
-					<i class="fa fa-warning fa-fw fa-lg"></i>&nbsp;{{ error }}
-					<a href="#" class="close">&times;</a>
-				</div>
-				{% endfor %}
-				<hr style="margin-top:0;"/>
-				{% endif %}
+    <div class="row">
+        <div class="large-10 large-centered columns">
+            <div class="extremos">
+                <!-- CONTENIDO! -->
+                <!-- Titulo -->
+                <div class="row">
+                    <div class="large-12 large-centered columns">
+                        <h2>
+                            <a href="{{ url_atras }}"><i class="fa fa-arrow-circle-left fa-border"></i></a>
+                            <i class="{{ i_class_titulo }}"></i>&nbsp;<b>{{ titulo }}</b>
+                        </h2>
+                    </div>
+                    <hr>
+                </div>
+                <!-- contenido -->
+                {% if flash['success'] is defined %}
+                <div data-alert class="alert-box success text-center" style="padding: 5px 15px; margin-bottom: 10px;">
+                    <i class="fa fa-check-square-o fa-fw fa-lg"></i>&nbsp;{{ flash['success'] }}
+                    <a href="#" class="close">&times;</a>
+                </div>
+                <hr style="margin-top:0;"/>
+                {% endif %}
+                {% if flash['warnings'] is defined %}
+                {% for error in flash['warnings'] %}
+                <div data-alert class="alert-box swarning text-center" style="padding: 5px 15px; margin-bottom: 10px;">
+                    <i class="fa fa-warning fa-fw fa-lg"></i>&nbsp;{{ error }}
+                    <a href="#" class="close">&times;</a>
+                </div>
+                {% endfor %}
+                <hr style="margin-top:0;"/>
+                {% endif %}
 
-				{% block contenido %}{% endblock %}
-				<!-- Comentarios -->
-				{% if comments == true %}
-				<hr id="top-comentarios">
+                {% block contenido %}{% endblock %}
+                <!-- Comentarios -->
+                {% if comments == true %}
+                <hr id="top-comentarios">
 
-				{% if comentarios|length == 0 %}
-				<div id="row-sin-comentarios" class="row" style="margin-bottom: 20px;">
-					<div class="large-12 large-centered columns">
-						<div class="text-center">
-							<i class="fa fa-chain-broken fa-fw fa-3x"></i>
-							<br />
-							<b>~ Nadie ha comentado esta publicación..  ~</b>
-							<br />
-							¡Animate y dejá el primer comentario!
-						</div>
-					</div>
-				</div>
-				{% endif %}
+                {% if comentarios|length == 0 %}
+                <div id="row-sin-comentarios" class="row" style="margin-bottom: 20px;">
+                    <div class="large-12 large-centered columns">
+                        <div class="text-center">
+                            <i class="fa fa-chain-broken fa-fw fa-3x"></i>
+                            <br />
+                            <b>~ Nadie ha comentado esta publicación..  ~</b>
+                            <br />
+                            ¡Animate y dejá el primer comentario!
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
 
-				<div id="row-comentar" class="row">
-					<div class="large-6 large-centered columns text-center">
-						<div id="bt-comentar" class="button radius">
-							<i class="fa fa-comments fa-fw fa-lg"></i>&nbsp;Dejar un comentario
-						</div>
-					</div>
-				</div>
+                <div id="row-comentar" class="row">
+                    <div class="large-6 large-centered columns text-center">
+                        <div id="bt-comentar" class="button radius">
+                            <i class="fa fa-comments fa-fw fa-lg"></i>&nbsp;Dejar un comentario
+                        </div>
+                    </div>
+                </div>
 
-				<div id="row-comentar-box" class="row" hidden>
-					<div class="large-8 large-centered columns">
-						<div id="bt-comentar">
-							<form action={{commentUrl}} method="POST">
-								<a href="#"><img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}">&nbsp;{{ user.nombre }} {{ user.apellido }}</a> <small>quiere comentar lo siguiente...</small>
-								<br/>
-								<textarea name="cuerpo" rows=4 style="margin-top: 5px; margin-bottom: 5px;"></textarea>
-								<button class="button success small radius right" style="padding: 8px 15px; margin-bottom: 0;"><i class="fa fa-check fa-fw"></i>&nbsp;Enviar</button>
-							</form>
-						</div>
-					</div>
-				</div>
+                <div id="row-comentar-box" class="row" hidden>
+                    <div class="large-8 large-centered columns">
+                        <div id="bt-comentar">
+                            <form action={{commentUrl}} method="POST">
+                                <a href="#"><img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}">&nbsp;{{ user.nombre }} {{ user.apellido }}</a> <small>quiere comentar lo siguiente...</small>
+                                <br/>
+                                <textarea name="cuerpo" rows=4 style="margin-top: 5px; margin-bottom: 5px;"></textarea>
+                                <button class="button success small radius right" style="padding: 8px 15px; margin-bottom: 0;"><i class="fa fa-check fa-fw"></i>&nbsp;Enviar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
-				<div class="comentario-wrap">
-					<div class="row">
-						<div id="comentarios" class="large-10 large-centered columns">
-							{% if comentarios|length > 0 %}
-							{% for comentario in comentarios %}
-							<div id="c-{{ comentario.id }}" class="comentario">
-								<section class="top">
-									<h6 class="byline">
-										<a href="urlUser"><img src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 32) }}">{{ comentario.autor.nombre }} {{ comentario.autor.apellido }}</a>
-										<small> dijo en fecha
-											<span class="data">
-												{{ comentario.updated_at|date("d/m/Y") }} a las {{ comentario.updated_at|date("H:i") }}
-											</span>
-										</small>
-									</h6>
-								</section>
-								<section class="content">
-									<p>{{ comentario.cuerpo }}</p>
-								</section>
-								<section class="actions">
-									<ul class="inline-list">
-										<li><a href='#'>{{ comentario.votos }}&nbsp;<i class="fa fa-arrow-up fa-fw fa-lg" style="color:#33cc33;"></i></a></li>
+                <div class="comentario-wrap">
+                    <div class="row">
+                        <div id="comentarios" class="large-10 large-centered columns">
+                            {% if comentarios|length > 0 %}
+                            {% for comentario in comentarios %}
+                            <div id="c-{{ comentario.id }}" class="comentario">
+                                <section class="top">
+                                    <h6 class="byline">
+                                        <a href="urlUser"><img src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 32) }}">{{ comentario.autor.nombre }} {{ comentario.autor.apellido }}</a>
+                                        <small> dijo en fecha
+                                            <span class="data">
+                                                {{ comentario.updated_at|date("d/m/Y") }} a las {{ comentario.updated_at|date("H:i") }}
+                                            </span>
+                                        </small>
+                                    </h6>
+                                </section>
+                                <section class="content">
+                                    <p>{{ comentario.cuerpo }}</p>
+                                </section>
+                                <section class="actions">
+                                    <ul class="inline-list">
+                                        <li><a href='#'>{{ comentario.votos }}&nbsp;<i class="fa fa-arrow-up fa-fw fa-lg" style="color:#33cc33;"></i></a></li>
                                         <li><a href='#'><i class="fa fa-arrow-down fa-fw fa-lg" style="color:#FF4040;"></i></a></li>
-										<li><a id="bt-rta-{{ comentario.id }}" href='javascript:void(0)' class="bt-rta" >Responder&nbsp;<i class="fa fa-pencil-square-o fa-fw"></i></a></li>
-									</ul>
-								</section>
-							</div>
-							{% endfor %}
-							<div id="row-fin-comentarios" class="row" style="margin: 20px 0px;">
-								<div class="large-6 large-centered columns">
-									<div class="text-center">
-										<i class="fa fa-flag-checkered fa-fw fa-3x"></i>
-										<br />
-										<b>~ Fin de los comentarios ~</b>
-										<br />
-										<div id="bt-comentar-aux" class="button tiny secondary radius">
-											<i class="fa fa-comments fa-fw fa-lg"></i>&nbsp;¿Desearias dejar un comentario?
-										</div>
-									</div>
-								</div>
-							</div>
-							{% endif %}
-						</div>
-					</div>
-				</div>
-				{% endif %}
-			</div>
-			<div class="extremos final"></div>
-		</div>
-	</div>
+                                        <li><a id="bt-rta-{{ comentario.id }}" href='javascript:void(0)' class="bt-rta" >Responder&nbsp;<i class="fa fa-pencil-square-o fa-fw"></i></a></li>
+                                    </ul>
+                                </section>
+                            </div>
+                            {% for respuesta in comentarios.respuestas %}
+                            <div id="c-{{ comentario.id }}-rta-{{ respuesta.id }}" class="rta comentario push">
+                                <section class="top">
+                                    <h6 class="byline">
+                                        <a href="urlUser"><img src="{{ avatarUrl(respuesta.autor.img_tipo, respuesta.autor.img_hash, 32) }}">{{ respuesta.autor.nombre }} {{ respuesta.autor.apellido }}</a>
+                                        <small>respondió el
+                                            <span class="data">
+                                                {{ respuesta.updated_at|date("d/m/Y") }} a las {{ respuesta.updated_at|date("H:i") }}
+                                            </span>
+                                        </small>
+                                    </h6>
+                                </section>
+                                <section class="content">
+                                    <p>{{ respuesta.cuerpo }}</p>
+                                </section>
+                                <section class="actions">
+                                    <ul class="inline-list">
+                                        <li><a href="#">{{ respuesta.votos }}&nbsp;<i class="fa fa-arrow-up fa-fw fa-lg" style="color:#33cc33;"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-arrow-down fa-fw fa-lg" style="color:#FF4040;"></i></a></li>
+                                    </ul>
+                                </section>
+                            </div>
+                            {% endfor %}
+                            {% endfor %}
+                            <div id="row-fin-comentarios" class="row" style="margin: 20px 0px;">
+                                <div class="large-6 large-centered columns">
+                                    <div class="text-center">
+                                        <i class="fa fa-flag-checkered fa-fw fa-3x"></i>
+                                        <br />
+                                        <b>~ Fin de los comentarios ~</b>
+                                        <br />
+                                        <div id="bt-comentar-aux" class="button tiny secondary radius">
+                                            <i class="fa fa-comments fa-fw fa-lg"></i>&nbsp;¿Desearias dejar un comentario?
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="extremos final"></div>
+        </div>
+    </div>
 </section>
 {% endblock %}
