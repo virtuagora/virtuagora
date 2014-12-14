@@ -69,7 +69,7 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
             {% if voto is not null %}
             <div class="panel text-center" style="padding: 10px 10px;">
                 <p style="font-size: 12px;">{{ user.nombre }}, ya votaste esta propuesta anteriormente opinando que <br /><span class='label'>{{ voto.postura == 1 ? 'estas a favor': '' }}{{ voto.postura == 0 ? 'te da igual': '' }}{{ voto.postura == -1 ? 'no estas a favor': '' }}</span>
-                    <br /><br />Podes cambiar tu postura luego de los 3 dias de haber votado, pero a cambio de<i class="fa fa-star fa-fw fa-lg"></i><span style="color: red;"><b>-20</b></span> puntos que seran descontados de tu reputación.
+                    <br /><br />Podes cambiar tu postura luego de los 3 dias de haber votado, pero a cambio de<i class="fa fa-star fa-fw fa-lg"></i><span style="color: red;"><b>-5</b></span> puntos que seran descontados de tu reputación. <br /> <u>Nota</u>: Cambiar la privacidad de la postura no descuenta puntos.
                 </p>
             </div>
             {% endif %}
@@ -247,14 +247,12 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
         $("#intro-comentario p").empty();
         $("#posturaInfo").addClass("text-center");
 		{% if voto.postura is null %}
-        $("#cuadro-comentario").show();
 		$("#intro-comentario h6 b").html("¿Estas seguro que este es tu voto?");
-		$("#intro-comentario p:eq(0)").html("Podras cambiarlo luego, pero a cambio de<i class=\"fa fa-star fa-fw fa-lg\"></i><span style=\"color: red;\"><b>-20</b></span> puntos");
-        $("#intro-comentario p:eq(1)").html("Tambien tienes la <b>opción</b> de dejar un comentario. En caso de no querer dejar un comentario simplemente deja en blanco el cuadro de texto");
+		$("#intro-comentario p").html("Podra cambiarlo luego, a cambio de<i class=\"fa fa-star fa-fw fa-lg\"></i><span style=\"color: red;\"><b>-5</b></span> puntos");
 		{% else %}
-        $("#cuadro-comentario").hide();
 		$("#intro-comentario h6 b").html("¿Estas seguro que deseas cambiar tu voto?");
-		$("#intro-comentario p:eq(0)").html("Cambiarlo te costará <i class=\"fa fa-star fa-fw fa-lg\"></i><span style=\"color: red;\"><b>-20</b></span> puntos");
+		$("#intro-comentario p").html("Cambiarlo te costará <i class=\"fa fa-star fa-fw fa-lg\"></i><span style=\"color: red;\"><b>-5</b></span> puntos");
+        $("#checkbox").prop('checked',{{ voto.publico }});
 		{% endif %}
 		$(".bt-enviar").show();
         if(valorPostura == 1){
@@ -263,8 +261,7 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
             $("#posturaInfo h6 b").html("¡Estas a favor de la propuesta!");
 			{% if voto.postura is not null and voto.postura == 1 %}
 			$("#intro-comentario h6 b").html("Ya votaste esta postura");
-			$("#intro-comentario p").empty();
-			$(".bt-enviar").hide();
+			$("#intro-comentario p").html("¿Deseas cambiar la privacidad de tu voto?");
 			{% endif %}
         } else if (valorPostura == 0) {
             $("#posturaInfo").attr("style","background: #e7e7e7;");
@@ -272,8 +269,7 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
             $("#posturaInfo h6 b").html("Tu posicion con la postura es neutra");
 			{% if voto.postura is not null and voto.postura == 0 %}
 			$("#intro-comentario h6 b").html("Ya votaste esta postura");
-			$("#intro-comentario p").empty();
-			$(".bt-enviar").hide();
+			$("#intro-comentario p").html("¿Deseas cambiar la privacidad de tu voto?");
 			{% endif %}
         } else if (valorPostura == -1) {
            $("#posturaInfo").attr("style","background: #F4BCBC;");
@@ -281,8 +277,7 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
             $("#posturaInfo h6 b").html("Estas en contra de la postura");
 			{% if voto.postura is not null and voto.postura == -1 %}
 			$("#intro-comentario h6 b").html("Ya votaste esta postura");
-			$("#intro-comentario p").empty();
-			$(".bt-enviar").hide();
+			$("#intro-comentario p").html("¿Deseas cambiar la privacidad de tu voto?");
 			{% endif %}
         }
     }
