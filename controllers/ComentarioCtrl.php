@@ -16,7 +16,7 @@ class ComentarioCtrl extends Controller {
         }
         $autor = $this->session->getUser();
         $comentable = call_user_func($vdt->getData('tipoRaiz').'::findOrFail', $vdt->getData('idRaiz'));
-        if ($vdt->getData('tipoRaiz') == 'Comentario' && isset($comentable->comentable_id)) {
+        if ($vdt->getData('tipoRaiz') == 'Comentario' && $comentable->comentable_type == 'Comentario') {
             throw (new TurnbackException())->setErrors(array('No puede responderse una respuesta.'));
         }
         $comentario = new Comentario;

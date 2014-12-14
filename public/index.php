@@ -113,8 +113,8 @@ $app->group('/crear', function () use ($app) {
     $app->post('/partido', checkRole('fnc'), 'PartidoCtrl:crear')->name('runCrearPartido');
     $app->get('/propuesta', checkRole('fnc'), 'PropuestaCtrl:verCrear')->name('shwCrearPropues');
     $app->post('/propuesta', checkRole('fnc'), 'PropuestaCtrl:crear')->name('runCrearPropues');
-    $app->get('/docabierto', checkRole('fnc'), 'DocabiertoCtrl:verCrear')->name('shwCrearDocabie');
-    $app->post('/docabierto', checkRole('fnc'), 'DocabiertoCtrl:crear')->name('runCrearDocabie');
+    $app->get('/documento', checkRole('fnc'), 'DocumentoCtrl:verCrear')->name('shwCrearDocumen');
+    $app->post('/documento', checkRole('fnc'), 'DocumentoCtrl:crear')->name('runCrearDocumen');
     $app->get('/problematica', checkRole('usr'), 'ProblematicaCtrl:verCrear')->name('shwCrearProblem');
     $app->post('/problematica', checkRole('usr'), 'ProblematicaCtrl:crear')->name('runCrearProblem');
 });
