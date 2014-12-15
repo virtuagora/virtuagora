@@ -51,7 +51,7 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
                 <li class="puntos">
                     <span><i class="fa fa-trophy fa-border"></i></span>&nbsp;
                     <span>{{ propuesta.autor.puntos }}</span>
-                    <span>puntitos!</span>
+                    <span><small>puntos</small></span>
                 </li>
             </ul>
         </div>
@@ -63,23 +63,24 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
             </div>
         </div>
     </div>
+    <p></p>
     <div class="row">
         <div class="large-6 large-centered columns">
-            <h4 class="subheader text-center"><b>¿Que te parecio la propuesta?</b></h4>
+            <h4 class="subheader text-center"><b>¿Que le pareció la propuesta?</b></h4>
             {% if voto is not null %}
             <div class="panel text-center" style="padding: 10px 10px;">
-                <p style="font-size: 12px;">{{ user.nombre }}, ya votaste esta propuesta anteriormente opinando que <br /><span class='label'>{{ voto.postura == 1 ? 'estas a favor': '' }}{{ voto.postura == 0 ? 'te da igual': '' }}{{ voto.postura == -1 ? 'no estas a favor': '' }}</span>
-                    <br /><br />Podes cambiar tu postura luego de los 3 dias de haber votado, pero a cambio de<i class="fa fa-star fa-fw fa-lg"></i><span style="color: red;"><b>-5</b></span> puntos que seran descontados de tu reputación. <br /> <u>Nota</u>: Cambiar la privacidad de la postura no descuenta puntos.
+                <p style="font-size: 12px;">{{ user.nombre }}, ya votó esta propuesta anteriormente opinando que <br /><span class='label'>{{ voto.postura == 1 ? 'está a favor': '' }}{{ voto.postura == 0 ? 'le es indiferente': '' }}{{ voto.postura == -1 ? 'no está a favor': '' }}</span>
+                    <br /><br />Puede cambiar su postura luego de los 3 días de haber votado, pero a cambio de<i class="fa fa-star fa-fw fa-lg"></i><span style="color: red;"><b>-5</b></span> puntos que seran descontados de sus puntos de reputación. <br /> <u>Nota</u>: Cambiar la privacidad de la postura no descuenta puntos.
                 </p>
             </div>
             {% endif %}
             <ul class="button-group even-3" >
-                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Me gusta mucho!">
+                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Estoy a favor">
                     <div id="voto_favor" href="#" class="button secondary small" style="background: #C8EDB5;"><i class="fa fa-thumbs-o-up fa-fw fa-2x"></i></div>
                     </span></li>
-                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Tengo mis dudas aún..">
+                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Es indiferente">
                     <div id="voto_neutro" href="#" class="button secondary small"><i class="fa fa-meh-o fa-2x"></i></div></span></li>
-                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="No la apruebo">
+                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="No estoy a favor">
                     <div id="voto_contra" href="#" class="button secondary small" style="background: #F4BCBC;"><i class="fa fa-thumbs-o-down fa-2x"></i></div></span></li>
             </ul>
         </div>
@@ -112,7 +113,7 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
                                 <p id="porc_favor" class="percentage"></p>
                             </td>
                             <td class="chart">
-                                {{ propuesta.votos_favor }} persona{{ (propuesta.votos_favor > 1) or (propuesta.votos_favor == 0) ? 's' : '' }} aprueba{{ (propuesta.votos_favor > 1) or (propuesta.votos_favor == 0) ? 'n' : '' }} la propuesta
+                                {{ propuesta.votos_favor }} persona{{ (propuesta.votos_favor > 1) or (propuesta.votos_favor == 0) ? 's' : '' }} aprueba{{ (propuesta.votos_favor > 1) or (propuesta.votos_favor == 0) ? 'n' : '' }} la propuesta.
                                 <div class="barchart">
                                     <span id="barra_favor" class="meter" ></span>
                                 </div>
@@ -123,7 +124,7 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
                                 <p id="porc_neutro" class="percentage"></p>
                             </td>
                             <td class="chart">
-                                {{ propuesta.votos_neutro }} persona{{ (propuesta.votos_neutro > 1) or (propuesta.votos_neutro == 0) ? 's' : '' }} no tiene{{ (propuesta.votos_neutro > 1) or (propuesta.votos_neutro == 0) ? 'n' : '' }} posicion sobre la propuesta
+                                {{ propuesta.votos_neutro }} persona{{ (propuesta.votos_neutro > 1) or (propuesta.votos_neutro == 0) ? 's' : '' }} no tiene{{ (propuesta.votos_neutro > 1) or (propuesta.votos_neutro == 0) ? 'n' : '' }} posición sobre la propuesta.
                                 <div class="barchart">
                                     <span id="barra_neutro" class="meter" ></span>
                                 </div>
@@ -134,7 +135,7 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
                                 <p id="porc_contra" class="percentage"></p>
                             </td>
                             <td class="chart">
-                                {{ propuesta.votos_contra }} persona{{ (propuesta.votos_contra > 1) or (propuesta.votos_contra == 0) ? 's' : '' }} no aprueba{{ (propuesta.votos_contra > 1) or (propuesta.votos_contra == 0) ? 'n' : '' }} la propuesta
+                                {{ propuesta.votos_contra }} persona{{ (propuesta.votos_contra > 1) or (propuesta.votos_contra == 0) ? 's' : '' }} no aprueba{{ (propuesta.votos_contra > 1) or (propuesta.votos_contra == 0) ? 'n' : '' }} la propuesta.
                                 <div class="barchart">
                                     <span id="barra_contra" class="meter" ></span>
                                 </div>
@@ -148,8 +149,8 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
         <div class="row">
             <div class="large-10 large-centered columns">
                 <div class="text-center">
-                    <h3>¡Nadie ha participado aún!</h3>
-                    <h3><small>Se el primero dejando una opinion al respecto <i class="fa fa-smile-o fa-fw fa-lg"></i></small></h3>
+                    <h3>Nadie ha participado aún</h3>
+                    <h3><small>Participe y deje su postura al respecto</small></h3>
                 </div>
 
             </div>
@@ -247,37 +248,37 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
         $("#intro-comentario p").empty();
         $("#posturaInfo").addClass("text-center");
 		{% if voto.postura is null %}
-		$("#intro-comentario h6 b").html("¿Estas seguro que este es tu voto?");
-		$("#intro-comentario p").html("Podra cambiarlo luego, a cambio de<i class=\"fa fa-star fa-fw fa-lg\"></i><span style=\"color: red;\"><b>-5</b></span> puntos");
+		$("#intro-comentario h6 b").html("¿Está seguro que este será su voto?");
+		$("#intro-comentario p").html("Podrá cambiarlo más tarde, a cambio de<i class=\"fa fa-star fa-fw fa-lg\"></i><span style=\"color: red;\"><b>-5</b></span> puntos");
 		{% else %}
-		$("#intro-comentario h6 b").html("¿Estas seguro que deseas cambiar tu voto?");
-		$("#intro-comentario p").html("Cambiarlo te costará <i class=\"fa fa-star fa-fw fa-lg\"></i><span style=\"color: red;\"><b>-5</b></span> puntos");
+		$("#intro-comentario h6 b").html("¿Está seguro que desea cambiar su voto?");
+		$("#intro-comentario p").html("Cambiarlo le costará <i class=\"fa fa-star fa-fw fa-lg\"></i><span style=\"color: red;\"><b>-5</b></span> puntos");
         $("#checkbox").prop('checked',{{ voto.publico }});
 		{% endif %}
 		$(".bt-enviar").show();
         if(valorPostura == 1){
             $("#posturaInfo").attr("style","background: #C8EDB5;");
             $("#posturaInfo i").addClass( $("#voto_favor i").attr('class') );
-            $("#posturaInfo h6 b").html("¡Estas a favor de la propuesta!");
+            $("#posturaInfo h6 b").html("Usted está a favor de la propuesta");
 			{% if voto.postura is not null and voto.postura == 1 %}
-			$("#intro-comentario h6 b").html("Ya votaste esta postura");
-			$("#intro-comentario p").html("¿Deseas cambiar la privacidad de tu voto?");
+			$("#intro-comentario h6 b").html("Usted ya ha votado esta postura");
+			$("#intro-comentario p").html("¿Deseas cambiar la privacidad de su voto?");
 			{% endif %}
         } else if (valorPostura == 0) {
             $("#posturaInfo").attr("style","background: #e7e7e7;");
             $("#posturaInfo i").addClass( $("#voto_neutro i").attr('class') );
-            $("#posturaInfo h6 b").html("Tu posicion con la postura es neutra");
+            $("#posturaInfo h6 b").html("Su posición es neutra");
 			{% if voto.postura is not null and voto.postura == 0 %}
-			$("#intro-comentario h6 b").html("Ya votaste esta postura");
-			$("#intro-comentario p").html("¿Deseas cambiar la privacidad de tu voto?");
+			$("#intro-comentario h6 b").html("Usted ya ha votado esta postura");
+			$("#intro-comentario p").html("¿Deseas cambiar la privacidad de su voto?");
 			{% endif %}
         } else if (valorPostura == -1) {
            $("#posturaInfo").attr("style","background: #F4BCBC;");
             $("#posturaInfo i").addClass( $("#voto_contra i").attr('class') );
-            $("#posturaInfo h6 b").html("Estas en contra de la postura");
+            $("#posturaInfo h6 b").html("Usted esta en contra de la postura");
 			{% if voto.postura is not null and voto.postura == -1 %}
-			$("#intro-comentario h6 b").html("Ya votaste esta postura");
-			$("#intro-comentario p").html("¿Deseas cambiar la privacidad de tu voto?");
+			$("#intro-comentario h6 b").html("Usted ya ha votado esta postura");
+			$("#intro-comentario p").html("¿Desea cambiar la privacidad de su voto?");
 			{% endif %}
         }
     }

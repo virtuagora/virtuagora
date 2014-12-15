@@ -1,6 +1,6 @@
 {# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
 {% set url_atras = '#' %}
-{% set i_class_titulo = 'fa fa-cog fa-spin fa-fw' %}
+{% set i_class_titulo = 'fa fa-cog fa-fw' %}
 {% set titulo = 'Administrar funcionarios' %}
 {% set comments = false %}
 
@@ -19,8 +19,8 @@ Virtuagora - Administrar funcionarios
     <div class="row">
         <div class="large-12 columns text-center">
             <div class="panel">
-                <h6><b>Usted esta administrando los funcionarios de <a href='#'>{{ organismo.nombre }}</a>.</b></h6>
-                <h6><b>Cuando hayas terminado, recuerda hacer clic en <a href='#' class="button boton-agregar radius warning" disabled>Aplicar los cambios</a></b></h6>
+                <h6>Usted esta administrando los funcionarios de <b><a href='#'>{{ organismo.nombre }}</a></b>.</h6>
+                <h6>Cuando hayas terminado, recuerda hacer clic en el boton de <b>Aplicar los cambios</b></h6>
             </div>
         </div>
     </div>
@@ -78,7 +78,7 @@ Virtuagora - Administrar funcionarios
         </div>
         <fieldset>
             <legend>Opciones del cupo</legend>
-            <ul class="stack button-group">
+            <ul class="stack button-group radius">
                 <li><a id="bt-cambiar" class="button"><i class="fa fa-search fa-fw"></i>&nbsp;Buscar candidatos</a></li>
                 <li><a id="bt-vacante" class="button"><i class="fa fa-external-link fa-fw"></i>&nbsp;Dejar el puesto vacante</a></li>
                 <li><a id="bt-cancelar" class="button"><i class="fa fa-user fa-fw"></i>&nbsp;Mantener funcionario actual</a></li>
@@ -134,7 +134,7 @@ Virtuagora - Administrar funcionarios
                 '<img src="http://lorempixel.com/g/128/128/">&nbsp;&nbsp;'+
                 funcionarios[i]['nombre']+' '+
                 funcionarios[i]['apellido']+'</td><td id="nuevo-'+i+'" class="text-center">- sin cambio -</td><td class="text-center"><a id="cambiar-'+
-                i+'" class="button boton-mini cambiar"><i class="fa fa-pencil fa-fw"></i></a></td></tr>';
+                i+'" class="button boton-mini radius cambiar"><i class="fa fa-pencil fa-fw"></i></a></td></tr>';
             $(newFuncionario).appendTo("#plantel");
             $('#cambiar-'+i).data('id', i);
             func_act[i] = funcionarios[i]['id'];
@@ -142,7 +142,7 @@ Virtuagora - Administrar funcionarios
         }
         for (var i=cupos_ocu; i<cupos_tot; i++) {
             var newFuncionario = '<tr><td id="actual-'+i+'" class="text-center">- vacante -</td><td id="nuevo-'+
-                i+'" class="text-center">- sin cambio -</td><td class="text-center"><a id="cambiar-'+i+'" class="button boton-mini cambiar">'+
+                i+'" class="text-center">- sin cambio -</td><td class="text-center"><a id="cambiar-'+i+'" class="button boton-mini radius cambiar">'+
                 '<i class="fa fa-pencil fa-fw"></i></a></td></tr>';
             $(newFuncionario).appendTo("#plantel");
             $('#cambiar-'+i).data('id', i);

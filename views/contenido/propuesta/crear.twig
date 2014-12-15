@@ -23,13 +23,13 @@ Virtuagora - Crear una propuesta
 	<form action="" method="POST">
 		<div class="row">
 			<div class="large-11 large-centered columns">
-				<label><h6 class="subheader"><i class="fa fa-pencil fa-fw"></i>&nbsp;&nbsp;<b>Titulo de la propuesta</b></h6></label>
+				<label><h6 class="subheader"><i class="fa fa-pencil fa-fw"></i>&nbsp;&nbsp;<b>Título de la propuesta</b></h6></label>
 				<input name="titulo" type="text" placeholder="Escriba aqui el titulo de la propuesta" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="large-11 large-centered columns">
-				<label><h6 class="subheader"><i class="fa fa-tag fa-fw"></i>&nbsp;&nbsp;<b>Categorias asociadas</b></h6></label>
+				<label><h6 class="subheader"><i class="fa fa-tag fa-fw"></i>&nbsp;&nbsp;<b>Categorías asociadas</b></h6></label>
 				<select name="categoria">
 					{% for categoria in categorias %}
 					<option value="{{categoria.id}}">{{categoria.nombre|capitalize}}</option>
@@ -39,20 +39,20 @@ Virtuagora - Crear una propuesta
 		</div>
 		<div class="row">
 			<div class="large-11 large-centered columns">
-				<label><h6 class="subheader"><i class="fa fa-file-text-o fa-fw"></i>&nbsp;&nbsp;<b>Descripcion de la propuesta</b></h6></label>
-				<textarea id="cuerpo" name="cuerpo" placeholder="Describa de que se trata la propuesta" rows=10>holis</textarea>
+				<label><h6 class="subheader"><i class="fa fa-file-text-o fa-fw"></i>&nbsp;&nbsp;<b>Descripción de la propuesta</b></h6></label>
+				<textarea id="cuerpo" name="cuerpo" placeholder="Describa de que se trata la propuesta" rows=10></textarea>
 			</div>
 		</div>
 		<div class="row">
 			<div class="large-11 large-centered columns">
-				<label><h6 class="subheader"><i class="fa fa-tag fa-fw"></i>&nbsp;&nbsp;<b>Problematicas asociadas</b></h6></label>
-				<input name="problematicas" type="text" placeholder="Comience escribiendo el numero de una problematica">
+				<label><h6 class="subheader"><i class="fa fa-tag fa-fw"></i>&nbsp;&nbsp;<b>Problemáticas asociadas</b></h6></label>
+				<input name="problematicas" type="text" placeholder="Comience escribiendo el número de una problematica">
 			</div>
 		</div>
 		<div class="row">
 			<div class="large-11 large-centered columns">
 				<label><h6 class="subheader"><i class="fa fa-tag fa-fw"></i>&nbsp;&nbsp;<b>Tags</b></h6></label>
-				<input name="tags" type="text" placeholder="Comience escribiendo tags" disabled/>
+				<input name="tags" type="text" placeholder="Comience escribiendo Tags" disabled/>
 			</div>
 		</div>
 		<hr>

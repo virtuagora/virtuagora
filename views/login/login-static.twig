@@ -22,7 +22,7 @@ Virtuagora - Login
                     {% if flash['error'] is defined %}
                     <div data-alert class="alert-box warning text-center"><b>{{ flash['error'] }}</b></div>
                     {% else %}
-                        <p><b>¡Te estabamos esperando! ¡Bienvenido de vuelta!</b></p>
+                    <p><b>¡Bienvenido de vuelta!</b> Inicie sesión para entrar al portal</p>
                     {% endif %}
                 <form data-abide action="{{ baseUrl }}/login" method="POST">
                     <div class="row collapse">
@@ -52,8 +52,8 @@ Virtuagora - Login
                 </form>
                 <div class="row">
                     <div class="small-8 small-centered columns text-center">
-                        <p>Si no posee una cuenta en Virtuagora...</p>
-                        <a href="#" class="button secondary round small">Crear una cuenta &raquo;</a>
+                        <p>Si aun no posee una cuenta en Virtuagora...</p>
+                        <a href="{{urlFor('shwIndex')}}" class="button secondary radius small">Crear una cuenta &raquo;</a>
                     </div>
                 </div>
             </div>

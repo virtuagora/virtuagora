@@ -36,7 +36,7 @@ Virtuagora - Problematica #{{ problematica.id }} por {{ problematica.autor.nombr
     </div>
     <div class="row">
         <div class="large-6 large-centered columns">
-            <h6 class="subheader text-center"><b>Autor de la problematica</b></h6>
+            <h6 class="subheader text-center"><b>Autor de la problemática</b></h6>
             <ul class="vcard">
                 <li clearfix>
                     <div class="left autor">
@@ -51,7 +51,7 @@ Virtuagora - Problematica #{{ problematica.id }} por {{ problematica.autor.nombr
                 <li class="puntos">
                     <span><i class="fa fa-trophy fa-border"></i></span>&nbsp;
                     <span>{{ problematica.autor.puntos }}</span>
-                    <span>puntitos!</span>
+                    <span><small>puntos</small></span>
                 </li>
             </ul>
         </div>
@@ -65,23 +65,23 @@ Virtuagora - Problematica #{{ problematica.id }} por {{ problematica.autor.nombr
     </div>
     <div class="row" style="margin-top:20px;">
         <div class="large-6 large-centered columns">
-            <h4 class="subheader text-center"><b>¿Como te afecta este problema?</b></h4>
+            <h4 class="subheader text-center"><b>¿Como le afecta esta problemática?</b></h4>
 			{% if voto is not null %}
             <div class="panel text-center" style="padding: 10px 10px;">
-            	<p style="font-size: 12px;">{{ user.nombre }}, ya votaste esta problematica anteriormente opinando que <br /><span class='label'>{{ voto.postura == 0 ? 'te afecta directamente': '' }}{{ voto.postura == 1 ? 'te afecta indirectamente': '' }}{{ voto.postura == 2 ? 'te es indiferente': '' }}</span>
-            	<br /><br />Podes cambiar tu postura luego de los 3 dias de haber votado, pero a cambio de<i class="fa fa-star fa-fw fa-lg"></i><span style="color: red;"><b>-20</b></span> puntos que seran descontados de tu reputación.
+            	<p style="font-size: 12px;">{{ user.nombre }}, ya votó esta problematica anteriormente opinando que <br /><span class='label'>{{ voto.postura == 0 ? 'le afecta directamente': '' }}{{ voto.postura == 1 ? 'le afecta indirectamente': '' }}{{ voto.postura == 2 ? 'le es indiferente': '' }}</span>
+            	<br /><br />Puede cambiar su postura luego de los 3 días de haber votado, pero a cambio de<i class="fa fa-star fa-fw fa-lg"></i><span style="color: red;"><b>-5</b></span> puntos que serán descontados de sus puntos de reputación.
             	</p>
 
 
             </div>
 			{% endif%}
             <ul class="button-group even-3" >
-                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Me afecta directamente!">
+                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Afecta directamente">
                     <div id="afec_directo" href="#" class="button secondary small" style="background: #F7D363;"><i class="fa fa-child fa-fw fa-2x"></i><i class="fa fa-exclamation fa-2x"></i></div>
                     </span></li>
-                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Me afecta indirectamente">
+                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Afecta indirectamente">
                     <div id="afec_indirecto" href="#" class="button secondary small" style="background: #FAE8B0;"><i class="fa fa-male fa-2x"></i></div></span></li>
-                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Me es indiferente...">
+                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Indiferente">
                     <div id="afec_indiferente" href="#" class="button secondary small"><i class="fa fa-meh-o fa-2x"></i></div></span></li>
             </ul>
         </div>
@@ -113,7 +113,7 @@ Virtuagora - Problematica #{{ problematica.id }} por {{ problematica.autor.nombr
                                 <p id="porc_afec_directos" class="percentage"></p>
                             </td>
                             <td class="chart">
-                                {{ problematica.afectados_directos }} persona{{ (problematica.afectados_directos > 1) or (problematica.afectados_directos == 0) ? 's' : '' }} le{{ (problematica.afectados_directos > 1) or (problematica.afectados_directos == 0) ? 's' : '' }} afecta directamente la problemática
+                                {{ problematica.afectados_directos }} persona{{ (problematica.afectados_directos > 1) or (problematica.afectados_directos == 0) ? 's' : '' }} le{{ (problematica.afectados_directos > 1) or (problematica.afectados_directos == 0) ? 's' : '' }} afecta directamente la problemática.
                                 <div class="barchart">
                                     <span id="barra_directo" class="meter" ></span>
                                 </div>
@@ -124,7 +124,7 @@ Virtuagora - Problematica #{{ problematica.id }} por {{ problematica.autor.nombr
                                 <p id="porc_afec_indirectos" class="percentage"></p>
                             </td>
                             <td class="chart">
-                                {{ problematica.afectados_indirectos }} persona{{ (problematica.afectados_indirectos > 1) or (problematica.afectados_indirectos == 0) ? 's' : '' }} le{{ (problematica.afectados_indirectos > 1) or (problematica.afectados_indirectos == 0) ? 's' : '' }} afecta indirectamente la problemática
+                                {{ problematica.afectados_indirectos }} persona{{ (problematica.afectados_indirectos > 1) or (problematica.afectados_indirectos == 0) ? 's' : '' }} le{{ (problematica.afectados_indirectos > 1) or (problematica.afectados_indirectos == 0) ? 's' : '' }} afecta indirectamente la problemática.
                                 <div class="barchart">
                                     <span id="barra_indirecto" class="meter" ></span>
                                 </div>
@@ -135,7 +135,7 @@ Virtuagora - Problematica #{{ problematica.id }} por {{ problematica.autor.nombr
                                 <p id="porc_afec_indiferentes" class="percentage"></p>
                             </td>
                             <td class="chart">
-                                {{ problematica.afectados_indiferentes }} persona{{ (problematica.afectados_indiferentes > 1) or (problematica.afectados_indiferentes == 0) ? 's' : '' }} le{{ (problematica.afectados_indiferentes > 1) or (problematica.afectados_indiferentes == 0) ? 's' : '' }} es indiferente la problemática
+                                {{ problematica.afectados_indiferentes }} persona{{ (problematica.afectados_indiferentes > 1) or (problematica.afectados_indiferentes == 0) ? 's' : '' }} le{{ (problematica.afectados_indiferentes > 1) or (problematica.afectados_indiferentes == 0) ? 's' : '' }} es indiferente la problemática.
                                 <div class="barchart">
                                     <span id="barra_indiferente" class="meter" ></span>
                                 </div>
@@ -149,8 +149,8 @@ Virtuagora - Problematica #{{ problematica.id }} por {{ problematica.autor.nombr
         <div class="row">
             <div class="large-10 large-centered columns">
                 <div class="text-center">
-                    <h3>¡Nadie ha participado aún!</h3>
-                    <h3><small>Se el primero dejando una opinion al respecto <i class="fa fa-smile-o fa-fw fa-lg"></i></small></h3>
+                    <h3>Nadie ha participado aún</h3>
+                    <h3><small>Participe y deje su postura al respecto</small></h3>
                 </div>
 
             </div>
@@ -213,38 +213,38 @@ Virtuagora - Problematica #{{ problematica.id }} por {{ problematica.autor.nombr
         $("#posturaInfo h6 b").empty();
         $("#posturaInfo").addClass("text-center");
 		{% if voto.postura is null %}
-		$("#intro-comentario h6 b").html("¿Estas seguro que este es tu voto?");
-		$("#intro-comentario p").html("Podras cambiarlo luego, pero a cambio de<i class=\"fa fa-star fa-fw fa-lg\"></i><span style=\"color: red;\"><b>-20</b></span> puntos");
+		$("#intro-comentario h6 b").html("¿Está seguro que este será su voto?");
+		$("#intro-comentario p").html("Podrá cambiarlo más tarde, a cambio de<i class=\"fa fa-star fa-fw fa-lg\"></i><span style=\"color: red;\"><b>-5</b></span> puntos");
 		{% else %}
-		$("#intro-comentario h6 b").html("¿Estas seguro que deseas cambiar tu voto?");
-		$("#intro-comentario p").html("Cambiarlo te costará <i class=\"fa fa-star fa-fw fa-lg\"></i><span style=\"color: red;\"><b>-20</b></span> puntos");
+		$("#intro-comentario h6 b").html("¿Está seguro que desea cambiar su voto");
+		$("#intro-comentario p").html("Cambiarlo le costará <i class=\"fa fa-star fa-fw fa-lg\"></i><span style=\"color: red;\"><b>-5</b></span> puntos");
 		{% endif %}
 		$(".bt-enviar").show();
         if(valorPostura == 2){
             $("#posturaInfo").attr("style","background: #F7D363;");
             $("#posturaInfo i").html( $("#afec_directo").html() );
-            $("#posturaInfo h6 b").html("Esta problemática te afecta directamente");
+            $("#posturaInfo h6 b").html("Esta problemática le afecta directamente");
 			{% if voto.postura is not null and voto.postura == 2 %}
-			$("#intro-comentario h6 b").html("Ya votaste esta postura");
-			$("#intro-comentario p").html("");
+			$("#intro-comentario h6 b").html("Usted ya ha votado esta postura");
+			$("#intro-comentario p").empty();
 			$(".bt-enviar").hide();
 			{% endif %}
         } else if (valorPostura == 1) {
             $("#posturaInfo").attr("style","background: #FAE8B0;");
             $("#posturaInfo i").html( $("#afec_indirecto").html() );
-            $("#posturaInfo h6 b").html("Esta problemática te afecta indirectamente");
+            $("#posturaInfo h6 b").html("Esta problemática le afecta indirectamente");
 			{% if voto.postura is not null and voto.postura == 1 %}
-			$("#intro-comentario h6 b").html("Ya votaste esta postura");
-			$("#intro-comentario p").html("");
+			$("#intro-comentario h6 b").html("Usted ya ha votado esta postura");
+			$("#intro-comentario p").empty();
 			$(".bt-enviar").hide();
 			{% endif %}
         } else if (valorPostura == 0) {
             $("#posturaInfo").attr("style","background: #e7e7e7;");
             $("#posturaInfo i").html( $("#afec_indiferente").html() );
-            $("#posturaInfo h6 b").html("Esta problemática te es indiferente");
+            $("#posturaInfo h6 b").html("Esta problemática le es indiferente");
 			{% if voto.postura is not null and voto.postura == 0 %}
-			("#intro-comentario h6 b").html("Ya votaste esta postura");
-			("#intro-comentario p").html("");
+			("#intro-comentario h6 b").html("Usted ya ha votado esta postura");
+			("#intro-comentario p").empty();
 			(".bt-enviar").hide();
 			{% endif %}
         }

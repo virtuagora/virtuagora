@@ -8,16 +8,7 @@ Virtuagora - Verificación incorrecta
 {% endif %}
 {% endblock %}
 
-
-
 {% block body %}
-<section id="expositor">
-    <div class="row">
-        <div class="medium-8 medium-centered large-6 large-centered columns">
-            <h1 class="text-center logo-font">Virtuagora</h1>
-        </div>
-    </div>
-</section>
 
 <section id="passport">
     <div class="row">
@@ -26,18 +17,22 @@ Virtuagora - Verificación incorrecta
                 {% if usuarioValido == true %}
                 <i class="success fa fa-envelope-o fa-5x"></i>
                 <p class="welcome">Tu dirección de email ha sido verificada<br />
-                <p>Gracias por haber verificado que tu casilla <b>{{ email }}</b>.</p>
+                <p>Ya puede comenzar a participar en el portal.</p>
+                <div class="row">
+                    <div class="small-10 small-centered columns text-center">
+                        <a href="{{ urlFor('shwLogin') }}" class="button radius success small">Iniciar sesión en Virtuágora &raquo</a>
+                    </div>
+                </div>
                 {% else %}
                 <i class="fail fa fa-question-circle fa-5x"></i>
                 <p class="welcome">Link de validación incorrecto</p>
-                <p>El link ingresado es incorrecto. Verifique que el link que hemos enviado a su direccion de correo electronico es el mismo que ingresó en la barra de direcciones.</p> <p>Si sigue viendo este mensaje, comuníquese con un administrador.</p>
-                {% endif %}
-
+                <p>El link ingresado es incorrecto. Verifique que el link que hemos enviado a su dirección de correo electrónico es el mismo que ingresó en la barra de direcciones.</p> <p>Si sigue viendo este mensaje, comuníquese con un administrador.</p>
                 <div class="row">
                     <div class="small-10 small-centered columns text-center">
-                        <a href="#" class="button round success small">Volver a Virtuagora &raquo</a>
+                        <a href="{{ urlFor('shwIndex') }}" class="button radius success small">Volver a Virtuágora &raquo</a>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>

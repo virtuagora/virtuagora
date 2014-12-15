@@ -18,7 +18,7 @@ Virtuagora - Crear partido político
 <div class="row">
 	<div class="large-12 large-centered columns">
 		<div class="panel text-center">
-			Aqui puedes ver los partidos políticos que participan. Puede obtener mas información acerca de alguno haciendo clic sobre el icono <i class="fa fa-info fa-fw"></i> que te direccionará al perfil del partido.
+			Aqui puede ver los partidos políticos que participan. Puede obtener mas información acerca de alguno haciendo clic sobre el icono <i class="fa fa-info fa-fw"></i> que lo redireccionará al perfil del partido.
 		</div>
 	</div>
 </div>
@@ -105,7 +105,7 @@ Virtuagora - Crear partido político
 				// TODO: PONER LA ACCION A LA QUE SE ENVIA PARA DESAFILIAR EL PARTIDO
 				$("#form-unirse").attr('action','{{ baseUrl }}/partido/dejar');
 			} else if ( p_user != null){
-				mensaje = "<p>Usted ya pertenece a un partido político. Confirmando la accion, "
+				mensaje = "<p>Usted ya pertenece a un partido político. Confirmando la acción, "
 				+"usted estaría uniendose al partido <br /><b>"
 				+ p_nombre + "</b></p>" +
 				"<p>¿Confirma su cambio de partido?</p>";
@@ -113,7 +113,7 @@ Virtuagora - Crear partido político
 				$("#bt-confirmar").html('Cambiar de partido');
 				$("#form-unirse").attr('action','{{ baseUrl }}/partido/' + p_id + '/unirse');
 			} else {
-				mensaje = "<p>Usted esta a punto de unirse al partido politico<br /><b>"
+				mensaje = "<p>Usted esta a punto de unirse al partido político<br /><b>"
 				+ p_nombre + "</b></p>" +
 				"<p>¿Confirma unirse al partido?</p>";
 				$("#valor-p").val(p_id)
