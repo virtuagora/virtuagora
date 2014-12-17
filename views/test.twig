@@ -1,1 +1,105 @@
-{{ urlFor('shwPropues', {"idPro": propuesta.id}) }}
+{# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
+{% set url_atras = '#' %}
+{% set i_class_icon = 'fa fa-bullhorn fa-fw' %}
+{% set titulo = 'Ver propuesta' %}
+{% set comments = true %}
+{% set commentUrl = baseUrl() ~ "/comentar/propuesta/" ~ propuesta.id %}
+{% set rtaUrl = baseUrl() ~ "/comentar/comentario/" %}
+
+{# VARIABLES DE LA VISTA #}
+{% set total_votos = propuesta.votos_favor + propuesta.votos_neutro + propuesta.votos_contra %}
+{% if total_votos > 0 %}
+{% set porc_favor = ( propuesta.votos_favor / ( total_votos ))*100 %}
+{% set porc_neutro = ( propuesta.votos_neutro / ( total_votos ))*100 %}
+{% set porc_contra = ( propuesta.votos_contra / ( total_votos ))*100 %}
+{% endif %}
+
+{# ---------------------- #}
+
+{% extends "master-body.twig" %}
+
+{% block titulo %}
+Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ propuesta.autor.apellido }}
+{% endblock %}
+
+{% block contenido %}
+<!-- Fila c/ titulo y otros datos! -->
+<section id="vista-contenido">
+    <div class="row">
+        <div class="large-10 large-centered columns">
+            <div class="text-center">
+                <h1><b>LEY 12360 - SISTEMA DE INFORMACIÓN DE NORMATIVA (SIN)</b></h1>
+                <h4 class="subheader"><small>Creado el {{ propuesta.created_at|date("d/m/Y") }}</small></h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-6 large-centered columns">
+            <h6 class="subheader text-center"><b>Autor de la propuesta</b></h6>
+            <ul class="vcard">
+                <li clearfix>
+                    <div class="left autor">
+                        <a href='#'><img src="{{ avatarUrl(propuesta.autor.img_tipo, propuesta.autor.img_hash, 32) }}" alt="profile image"></a>
+                    </div>
+                </li>
+                <li class="nombre">
+                    <span><i class="fa fa-user fa-border"></i></span>&nbsp;
+                    <a href='#'><b><span>{{ propuesta.autor.nombre|capitalize  }}</span>
+                        <span>{{ propuesta.autor.apellido|capitalize  }}</span></b></a>
+                </li>
+                <li class="puntos">
+                    <span><i class="fa fa-trophy fa-border"></i></span>&nbsp;
+                    <span>{{ propuesta.autor.puntos }}</span>
+                    <span><small>puntos</small></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-10 large-centered columns">
+            <div class="texto text-justify">
+                <dl class="accordion" data-accordion>
+                    <dd class="accordion-navigation">
+                        <a href="#panel1b"><b>ARTICULO 2.</b>- Los Poderes Ejecutivo, Legislativo, y Judicial, los organismos
+descentralizados y las empresas donde el Estado Provincial posea mayoría
+accionaria emplearán en sus sistemas y equipamientos de informática
+preferentemente software libre.
+</a>
+                        <div id="panel1b" class="content"> COSAAAAAAAAAAAAAAAAAAAAAAAAAAS
+</div>
+                    </dd>
+                    <dd class="accordion-navigation">
+                        <a href="#panel2b"><b>ARTICULO 3.</b>- La autoridad de Aplicación de esta Ley será el Ministerio de
+Hacienda y Finanzas.
+
+
+</a>
+                        <div id="panel2b" class="content"> COSAAAAAAAAAAAAAAAAAAAAAAAAAAS </div>
+                    </dd>
+                    <dd class="accordion-navigation">
+                        <a href="#panel3b"><b>ARTICULO 4.</b>- La Autoridad de Aplicación será el encargado de establecer los
+casos en que podrá utilizarse software propietario.
+Las reparticiones del Estado Provincial incluidas en esta ley, podrán gestionar
+un permiso de empleo de software no libre para tareas que dependan
+directamente del uso del programa en cuestión.</a>
+                        <div id="panel3b" class="content"> PCOSAAAAAAAAAAAAAAAAAAAAAAAAAAS</div>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block modal %}
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+
+    {% if comments == true %}
+    {% include "misc/comentarios.js.twig" %}
+    {% endif %}
+</script>
+{% endblock %}
