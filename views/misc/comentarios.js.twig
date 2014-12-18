@@ -66,6 +66,10 @@ $(document).ready(function() {
 	});
 });
 
+    var usuarioLogueado = function (){
+        var hayLogin = {{ (user.nombre is not empty) ? 'true' : 'false' }} ;
+    return hayLogin;
+    }
 
 /*
 function confettiComentarios(){
