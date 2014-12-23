@@ -67,7 +67,7 @@ $app->get('/usuario', function () use ($app) {
 });
 
 $app->get('/test', function () use ($app) {
-    $app->render('test.twig', array('propuesta' => Propuesta::first()->toArray()));
+    $app->render('test.twig'); //, array('propuesta' => Propuesta::first()->toArray()));
 });
 
 $app->get('/', 'PortalCtrl:verIndex')->name('shwIndex');
@@ -97,6 +97,11 @@ $app->group('/propuesta', function () use ($app) {
 $app->group('/problematica', function () use ($app) {
     $app->get('/:idPro', 'ProblematicaCtrl:ver')->name('shwProblem');
     $app->post('/:idPro/votar', checkRole('usr'), 'ProblematicaCtrl:votar')->name('runVotarProblem');
+});
+
+$app->group('/documento', function () use ($app) {
+    $app->get('/:idDoc', 'DocumentoCtrl:ver')->name('shwDocumen');
+    $app->get('/:idDoc/v/:idVer', 'DocumentoCtrl:ver')->name('shwVerDocumen');
 });
 
 $app->group('/partido', function () use ($app) {

@@ -3,8 +3,8 @@
 $usuario = new Usuario;
 $usuario->email = 'admin@virtuago.ra';
 $usuario->password = password_hash('12345678', PASSWORD_DEFAULT);
-$usuario->nombre = 'Lilita';
-$usuario->apellido = 'Carrio';
+$usuario->nombre = 'Juan';
+$usuario->apellido = 'Presidente';
 $usuario->token_verificacion = bin2hex(openssl_random_pseudo_bytes(16));
 $usuario->verificado = true;
 $usuario->puntos = 0;

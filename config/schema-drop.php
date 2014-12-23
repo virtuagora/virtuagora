@@ -39,7 +39,7 @@ Capsule::schema()->dropIfExists('problematica_votos');
 echo '5 ';
 Capsule::schema()->dropIfExists('problematicas');
 echo '6 ';
-Capsule::schema()->dropIfExists('propuesta_usuario');
+Capsule::schema()->dropIfExists('propuesta_votos');
 echo '7 ';
 Capsule::schema()->dropIfExists('propuestas');
 echo '8 ';
