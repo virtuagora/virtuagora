@@ -14,7 +14,7 @@ class DocumentoCtrl extends Controller {
         $version = $documento->versiones()->where('version', $idVersion)->first();
         $datosDocumento = array_merge($contenido->toArray(), $documento->toArray());
         $this->render('contenido/documento/ver.twig', array('documento' => $datosDocumento,
-                                                            'version' =>  $version->toArray());
+                                                            'version' =>  $version->toArray()));
     }
 
     public function verCrear() {
