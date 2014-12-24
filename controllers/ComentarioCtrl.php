@@ -5,7 +5,7 @@ class ComentarioCtrl extends Controller {
     public function comentar($tipoRaiz, $idRaiz) {
         $vdt = new Validate\Validator();
         $vdt->addRule('idRaiz', new Validate\Rule\NumNatural())
-            ->addRule('tipoRaiz', new Validate\Rule\InArray(array('Propuesta', 'Problematica', 'Comentario')))
+            ->addRule('tipoRaiz', new Validate\Rule\InArray(array('Propuesta', 'Problematica', 'Comentario', 'ParrafoDocumento')))
             ->addRule('cuerpo', new Validate\Rule\MinLength(4))
             ->addRule('cuerpo', new Validate\Rule\MaxLength(2048))
             ->addFilter('tipoRaiz', 'ucfirst');
