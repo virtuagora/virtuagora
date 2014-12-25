@@ -103,17 +103,17 @@
         },
         {
             "name": "illuminate/container",
-            "version": "v4.2.12",
+            "version": "v4.2.16",
             "target-dir": "Illuminate/Container",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "f997841ddce41ebf3202b698c021a81f69f7be9b"
+                "reference": "8db091c1b4e503ef8dcd4586d5c63e3997bc4e89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/f997841ddce41ebf3202b698c021a81f69f7be9b",
-                "reference": "f997841ddce41ebf3202b698c021a81f69f7be9b",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/8db091c1b4e503ef8dcd4586d5c63e3997bc4e89",
+                "reference": "8db091c1b4e503ef8dcd4586d5c63e3997bc4e89",
                 "shasum": ""
             },
             "require": {
@@ -140,21 +140,21 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
-            "time": "2014-09-24 01:34:02"
+            "time": "2014-12-17 20:39:51"
         },
         {
             "name": "illuminate/database",
-            "version": "v4.2.12",
+            "version": "v4.2.16",
             "target-dir": "Illuminate/Database",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "e067562e295aea78e1b11952d0668b61f2863767"
+                "reference": "5d07587a51b13224cdda6417fbc25e9c13d276c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/e067562e295aea78e1b11952d0668b61f2863767",
-                "reference": "e067562e295aea78e1b11952d0668b61f2863767",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/5d07587a51b13224cdda6417fbc25e9c13d276c9",
+                "reference": "5d07587a51b13224cdda6417fbc25e9c13d276c9",
                 "shasum": ""
             },
             "require": {
@@ -197,11 +197,11 @@
                 "orm",
                 "sql"
             ],
-            "time": "2014-11-28 21:32:31"
+            "time": "2014-12-22 20:55:49"
         },
         {
             "name": "illuminate/events",
-            "version": "v4.2.12",
+            "version": "v4.2.16",
             "target-dir": "Illuminate/Events",
             "source": {
                 "type": "git",
@@ -244,17 +244,17 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v4.2.12",
+            "version": "v4.2.16",
             "target-dir": "Illuminate/Support",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "888e81e77a675e4848d5b8375a9e68d1b9de3de9"
+                "reference": "015f51f4d8cb3d9a29e7fe7932843acf15232941"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/888e81e77a675e4848d5b8375a9e68d1b9de3de9",
-                "reference": "888e81e77a675e4848d5b8375a9e68d1b9de3de9",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/015f51f4d8cb3d9a29e7fe7932843acf15232941",
+                "reference": "015f51f4d8cb3d9a29e7fe7932843acf15232941",
                 "shasum": ""
             },
             "require": {
@@ -288,7 +288,7 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
-            "time": "2014-11-23 23:01:17"
+            "time": "2014-12-19 18:02:33"
         },
         {
             "name": "nesbot/carbon",
