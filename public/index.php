@@ -102,6 +102,10 @@ $app->group('/problematica', function () use ($app) {
 $app->group('/documento', function () use ($app) {
     $app->get('/:idDoc', 'DocumentoCtrl:ver')->name('shwDocumen');
     $app->get('/:idDoc/v/:idVer', 'DocumentoCtrl:ver')->name('shwVerDocumen');
+    $app->get('/:idDoc/modificar', 'DocumentoCtrl:verModificar')->name('shwModifDocumen');
+    $app->post('/:idDoc/modificar', 'DocumentoCtrl:modificar')->name('runModifDocumen');
+    $app->get('/:idDoc/nueva-version', 'DocumentoCtrl:verNuevaVersion')->name('shwNuVerDocumen');
+    $app->post('/:idDoc/nueva-version', 'DocumentoCtrl:nuevaVersion')->name('runNuVerDocumen');
 });
 
 $app->group('/partido', function () use ($app) {
