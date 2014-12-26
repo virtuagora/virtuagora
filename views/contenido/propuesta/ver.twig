@@ -29,7 +29,11 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
 		<div class="large-10 large-centered columns">
 			<div class="text-center">
 				<h1><b>{{ propuesta.titulo }}</b></h1>
-				<h4 class="subheader"><small>Creado el {{ propuesta.created_at|date("d/m/Y") }}</small></h1>
+				<h4 class="subheader"><small>Creado el {{ propuesta.created_at|date("d/m/Y") }}</small></h4>
+				{% if propuesta.autor.id == user.id %}
+					<a href="#" class="button tiny radius" style="padding: 10px 10px;"><i class="fa fa-pencil fa-fw fa-lg"></i>&nbsp;Modificar documento</a>
+					<div id="eliminar" class="button tiny radius alert" style="padding: 10px 10px;"><i class="fa fa-times fa-fw fa-lg"></i>&nbsp;Eliminar</div>
+				{% endif%}
 			</div>
 
 		</div>
@@ -174,6 +178,25 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
 <div id="publicarPostura" class="reveal-modal remove-whitespace small" data-reveal>
 	{% include "contenido/propuesta/publicar-postura.twig" %}
 </div>
+
+{% if propuesta.autor.id == user.id %}
+<div id="modal-eliminar" class="reveal-modal remove-whitespace small" style="display: none; background: #F04124;" data-reveal>
+<div class="text-center">
+<h4 style="color: #FFFFFF"><i class="fa fa-warning fa-fw fa-2x"></i></h4>
+	<h4 style="color: #FFFFFF"><b>Esta a punto de eliminar la propuesta</b></h4>
+	<h6 style="color: #FFFFFF">Una vez que usted confirma su eliminación, no podrá volver a recuperarlo.</h6>
+	<h6 style="color: #FFFFFF">¿Está seguro?</h6>
+	<br>
+	<div class="large-7 large-centered columns clearfix">
+		<form action="" method="POST">
+		<button class="button small radius"><i class="fa fa-bomb fa-fw fa-lg"></i>&nbsp;Si, confirmar</button>
+		<div id="bt-cerrar-elim" class="button secondary small radius">No, Cancelar</div>
+		</form>
+	</div>
+</div>
+<a class="close-reveal-modal" style="color: white;">&#215;</a>
+</div>
+{% endif %}
 {% endblock %}
 
 
@@ -308,6 +331,14 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
 						 $(".cerrar-modal").on("click", function() {
 							 $('#publicarPostura').foundation('reveal', 'close');
 						 });
+
+	$("#eliminar").on("click", function() {
+		$('#modal-eliminar').foundation('reveal', 'open');
+	});
+
+	$("#bt-cerrar-elim").on("click", function() {
+		$('#modal-eliminar').foundation('reveal', 'close');
+	});
 
 						 {% if comments == true %}
 						 {% include "misc/comentarios.js.twig" %}
