@@ -3,8 +3,8 @@
 {% set i_class_icon = 'fa fa-bullhorn fa-fw' %}
 {% set titulo = 'Ver problemática' %}
 {% set comments = true %}
-{% set commentUrl = baseUrl() ~ "/comentar/problematica/" ~ problematica.id %}
-{% set rtaUrl = baseUrl() ~ "/comentar/comentario/" %}
+{% set commentUrl = urlFor('runComentar', {"tipoRaiz": "problematica" , "idRaiz": problematica.id}) %}
+{% set rtaUrl = urlFor('runComentar', {"tipoRaiz": "comentario", "idRaiz": ""}) %}
 
 {# VARIABLES DE LA VISTA #}
 {% set total_afectados = problematica.afectados_directos + problematica.afectados_indirectos + problematica.afectados_indiferentes %}
