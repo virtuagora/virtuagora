@@ -3,8 +3,8 @@
 {% set i_class_icon = 'fa fa-bullhorn fa-fw' %}
 {% set titulo = 'Ver documento' %}
 {% set comments = true %}
-{% set commentUrl = baseUrl() ~ "/comentar/documento/" ~ documento.id %}
-{% set rtaUrl = baseUrl() ~ "/comentar/comentario/" %}
+{% set commentUrl = urlFor('runComentar', {"tipoRaiz": "documento" , "idRaiz": documento.id}) %}
+{% set rtaUrl = urlFor('runComentar', {"tipoRaiz": "comentario", "idRaiz": ""}) %}
 
 {# VARIABLES DE LA VISTA #}
 
@@ -73,7 +73,7 @@ Virtuagora - Documento #{{ documento.id }} por {{ documento.autor.nombre }} {{ d
 												<div class="comentario">
 													<section class="top">
 														<h6 class="byline">
-															<a href="urlUser" style="font-size: 12px;"><img src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 32) }}">{{ parrafo.comentarios[rand].autor.nombre }} {{ parrafo.comentarios[rand].autor.apellido }}</a>
+															<a href="urlUser" style="font-size: 12px;"><img src="{{ avatarUrl(parrafo.comentarios[rand].autor.img_tipo, parrafo.comentarios[rand].autor.img_hash, 32) }}">{{ parrafo.comentarios[rand].autor.nombre }} {{ parrafo.comentarios[rand].autor.apellido }}</a>
 															<small> dijo en fecha
 																<span class="data">
 																	{{ parrafo.comentarios[rand].updated_at|date("d/m/Y") }} a las {{ parrafo.comentarios[rand].updated_at|date("H:i") }}
@@ -86,12 +86,19 @@ Virtuagora - Documento #{{ documento.id }} por {{ documento.autor.nombre }} {{ d
 													</section>
 												</div>
 												<div class="text-center">
-													<div id="bt-c-parrafo-1" class="bt-ver-comentarios button tiny radius"><i class="fa fa-comments fa-fw fa-lg"></i>Ver todos los comentarios (X)</div>
+													<div id="bt-c-parrafo-{{ parrafo.id }}" class="bt-ver-comentarios button tiny radius"><i class="fa fa-comments fa-fw fa-lg"></i>&nbsp;Ver todos los comentarios ({{parrafo.comentarios|lenght}})</div>
 												</div>
 												{% elseif %}
-												<div>
-													No hay nada
-												</div>
+												<section class="top text-center">
+														<span class="fa-stack fa-lg ">
+															<i class="fa fa-comment-o fa-stack-2x"></i>
+															<i class="fa fa-question fa-stack-1x"></i>
+														</span>
+													</section>
+													<section class="content text-center">
+														<h6><b>Este parrafo no tiene comentarios</b></h6>
+														<p style="font-size: 11px;">Sea el primero en dejar un comentario</p>
+													</section>
 												{% endif %}
 											</div>
 											<div class="large-5 columns">
@@ -101,14 +108,14 @@ Virtuagora - Documento #{{ documento.id }} por {{ documento.autor.nombre }} {{ d
 														<a href="urlUser" style="font-size: 12px;"><img src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 32) }}">{{ user.nombre }} {{ user.apellido }} </a>
 													</h6>
 												</section>
-												<form action="">
+												<form action="{{ urlFor('runComentar', {"tipoRaiz": "parrafodocumento" , "idRaiz": parrafo.id}) }}" method="POST">
 												<textarea name="comentario" rows=4 placeholder="Su comentario..." style="font-size: 11px; margin: 7px;"></textarea>
 												<button class="button success tiny right radius" style=" padding: 8px 12px;"><i class="fa fa-check fa-fw fa-lg"></i>&nbsp;Enviar</div>
 												</form>
 											{% else %}
 												<section class="top">
-													<h6 class="byline">
-														Para poder comentar, debe iniciar sesión...
+													<h5 class="byline">
+														<a href="urlUser" style="font-size: 12px;"><img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}"></a> <small><b>Para comentar debe iniciar sesión</b></small>
 													</h6>
 												</section>
 												<textarea rows=4 placeholder="Su comentario..." style="font-size: 11px; margin: 7px;" disabled></textarea>
