@@ -16,13 +16,19 @@
 			</div>
 		</div>
 	</div>
+	{% if voto.postura is null %}
 	<div class="row">
 		<div class="large-12 large-centered columns">
 			<div id="cuadro-comentario" class="text-center">
-				<input id="checkbox" name="publico" type="checkbox"><label for="checkbox" class="inline">Hacer que mi postura sea <b>pública</b> </label>
+			<div class="switch tiny round">
+				<input id="checkbox" name="publico" type="checkbox">
+				<label for="checkbox"></label>
+				<p id="checkbox-texto" style="font-size: 12px;"><b>Comentario público</b></p>
+			</div>
 			</div>
 		</div>
 	</div>
+	{% endif %}
 	<div class="row">
 		<div class="large-12 large-centered columns text-center">
 			<div class="cerrar-modal button secondary small radius"><i class="fa fa-times fa-lg fa-fw"></i>&nbsp;Cancelar</div>
