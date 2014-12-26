@@ -2,7 +2,7 @@
 {% set url_atras = '#' %}
 {% set i_class_icon = 'fa fa-bullhorn fa-fw' %}
 {% set titulo = 'Ver documento' %}
-{% set comments = true %}
+{% set comments = false %}
 {% set commentUrl = urlFor('runComentar', {"tipoRaiz": "documento" , "idRaiz": documento.id}) %}
 {% set rtaUrl = urlFor('runComentar', {"tipoRaiz": "comentario", "idRaiz": ""}) %}
 
@@ -77,7 +77,7 @@ Virtuagora - Documento #{{ documento.id }} por {{ documento.autor.nombre }} {{ d
 												<div class="comentario">
 													<section class="top">
 														<h6 class="byline">
-															<a href="urlUser" style="font-size: 12px;"><img src="{{ avatarUrl(parrafo.comentarios[rand].autor.img_tipo, parrafo.comentarios[rand].autor.img_hash, 32) }}">{{ parrafo.comentarios[rand].autor.nombre }} {{ parrafo.comentarios[rand].autor.apellido }}</a>
+															<a href="urlUser" style="font-size: 12px;"><img src="{{ avatarUrl(parrafo.comentarios[rand].autor.img_tipo, parrafo.comentarios[rand].autor.img_hash, 32) }}">&nbsp;&nbsp;{{ parrafo.comentarios[rand].autor.nombre }} {{ parrafo.comentarios[rand].autor.apellido }}</a>
 															<small> dijo en fecha
 																<span class="data">
 																	{{ parrafo.comentarios[rand].updated_at|date("d/m/Y") }} a las {{ parrafo.comentarios[rand].updated_at|date("H:i") }}
