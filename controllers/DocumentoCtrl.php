@@ -64,6 +64,17 @@ class DocumentoCtrl extends Controller {
         $this->redirectTo('shwDocumen', array('idDoc' => $documento->id));
     }
 
+    public function verNuevaVersion($idDoc) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idDoc, new Validate\Rule\NumNatural());
+        $documento = Documento::with('contenido')->findOrFail($idDoc);
+        $contenido = $documento->contenido;
+        $version = $documento->versiones()->where('version', $documento->ultima_version)->first();
+        $datosDocumento = array_merge($contenido->toArray(), $documento->toArray());
+        $this->render('contenido/documento/nueva-version.twig', array('documento' => $datosDocumento,
+                                                                      'version' =>  $version->toArray()));
+    }
+
     public function nuevaVersion($idDoc) {
         $vdt = new Validate\Validator();
         $vdt->addRule($idDoc, new Validate\Rule\NumNatural())
@@ -92,7 +103,16 @@ class DocumentoCtrl extends Controller {
         $this->redirectTo('shwDocumen', array('idDoc' => $documento->id));
     }
 
-    public function modificarDatos($idDoc) {
+    public function verModificar($idDoc) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idDoc, new Validate\Rule\NumNatural());
+        $documento = Documento::with('contenido')->findOrFail($idDoc);
+        $contenido = $documento->contenido;
+        $datosDocumento = array_merge($contenido->toArray(), $documento->toArray());
+        $this->render('contenido/documento/nueva-version.twig', array('documento' => $datosDocumento));
+    }
+
+    public function modificar($idDoc) {
         $vdt = new Validate\Validator();
         $vdt->addRule('titulo', new Validate\Rule\MinLength(8))
             ->addRule('titulo', new Validate\Rule\MaxLength(128))
