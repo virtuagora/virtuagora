@@ -37,18 +37,19 @@ Virtuagora - Portal de usuario
 </table>
 <h3>Opciones como administrador</h3>
 {% if esModerador %}
-    <a href="{{ baseUrl }}/admin/organismo">Administrar organismos.</a><br>
+    <a href="{{ urlFor('shwAdmOrganis') }}">Administrar organismos.</a><br>
 {% else %}
 	<div class="label warning"><i class="fa fa-times fa-fw fa-lg"></i>&nbsp;No sos administrador!</div>
 {% endif %}
 <h3>Opciones como funcionario</h3>
 {% if esFuncionario %}
-    <a href="{{ baseUrl }}/crear/propuesta">Crear propuesta.</a><br>
-    <a href="{{ baseUrl }}/crear/partido">Crear partido.</a><br>
+    <a href="{{ urlFor('shwCrearPropues') }}">Crear propuesta.</a><br>
+    <a href="{{ urlFor('shwCrearPartido') }}">Crear partido.</a><br>
+    <a href="{{ urlFor('shwCrearDocumen') }}">Crear documento abierto.</a><br>
 {% else %}
 	<div class="label warning"><i class="fa fa-times fa-fw fa-lg"></i>&nbsp;No sos funcionario!</div>
 {% endif %}
 <h3>Opciones como usuario</h3>
-    <a href="{{ baseUrl }}/crear/problematica">Crear problematica.</a><br>
-    <a href="{{ baseUrl }}/partido">Listar partidos.</a><br>
+    <a href="{{ urlFor('shwCrearProblem') }}">Crear problematica.</a><br>
+    <a href="{{ urlFor('shwListaPartido') }}">Listar partidos.</a><br>
 {% endblock %}
