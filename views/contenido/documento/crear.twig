@@ -20,7 +20,7 @@ Virtuagora - Crear un documento abierto
 
 {% block contenido %}
 <section id="alta-contenido">
-	<form action="" method="POST">
+	<form action="{{ urlFor('runCrearDocumen') }}" method="POST">
 		<div class="row">
 			<div class="large-11 large-centered columns">
 				<label><h6 class="subheader"><i class="fa fa-pencil fa-fw"></i>&nbsp;&nbsp;<b>Título del documento</b></h6>
@@ -62,7 +62,7 @@ Virtuagora - Crear un documento abierto
 		<hr>
 		<div class="row">
 			<div class="large-11 large-centered columns text-center">
-				<button type="submit" class="button small success radius"><i class="fa fa-check fa-lg fa-fw"></i>&nbsp;Publicar</button>
+				<button type="submit" class="button small success radius"><i class="fa fa-check fa-lg fa-fw"></i>&nbsp;Publicar documento</button>
 			</div>
 		</div>
 	</form>
