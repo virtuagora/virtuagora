@@ -5,13 +5,13 @@ class DocumentoCtrl extends Controller {
     public function ver($idDoc, $idVer = 0) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idDoc, new Validate\Rule\NumNatural());
-        $vdt->test($idVer, new Validate\Rule\NumNatural());
+        //$vdt->test($idVer, new Validate\Rule\NumNatural()); TODO hacer opcional
         $documento = Documento::with('contenido')->findOrFail($idDoc);
         $contenido = $documento->contenido;
         if ($idVer == 0) {
             $idVer = $documento->ultima_version;
         }
-        $version = $documento->versiones()->where('version', $idVersion)->first();
+        $version = $documento->versiones()->where('version', $idVer)->first();
         $datosDocumento = array_merge($contenido->toArray(), $documento->toArray());
         $this->render('contenido/documento/ver.twig', array('documento' => $datosDocumento,
                                                             'version' =>  $version->toArray()));
@@ -46,7 +46,7 @@ class DocumentoCtrl extends Controller {
         $docVersion->documento()->associate($documento);
         $docVersion->save();
         $parrafos = $this->parsearParrafos($vdt->getData('cuerpo'));
-        for ($parrafos as $i => $parrafo) {
+        foreach ($parrafos as $i => $parrafo) {
             $docParrafo = new ParrafoDocumento;
             $docParrafo->cuerpo = htmlspecialchars($parrafo, ENT_QUOTES);
             $docParrafo->ubicacion = $i;
@@ -81,7 +81,7 @@ class DocumentoCtrl extends Controller {
         $docVersion->documento()->associate($documento);
         $docVersion->save();
         $parrafos = $this->parsearParrafos($vdt->getData('cuerpo'));
-        for ($parrafos as $i => $parrafo) {
+        foreach ($parrafos as $i => $parrafo) {
             $docParrafo = new ParrafoDocumento;
             $docParrafo->cuerpo = htmlspecialchars($parrafo, ENT_QUOTES);
             $docParrafo->ubicacion = $i;

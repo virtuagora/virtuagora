@@ -90,9 +90,9 @@ Virtuagora - Documento #{{ documento.id }} por {{ documento.autor.nombre }} {{ d
 													</section>
 												</div>
 												<div class="text-center">
-													<div id="bt-c-parrafo-{{ parrafo.id }}" class="bt-ver-comentarios button tiny radius"><i class="fa fa-comments fa-fw fa-lg"></i>&nbsp;Ver todos los comentarios ({{parrafo.comentarios|lenght}})</div>
+													<div id="bt-c-parrafo-{{ parrafo.id }}" class="bt-ver-comentarios button tiny radius"><i class="fa fa-comments fa-fw fa-lg"></i>&nbsp;Ver todos los comentarios ({{parrafo.comentarios|length}})</div>
 												</div>
-												{% elseif %}
+												{% else %}
 												<section class="top text-center">
 														<span class="fa-stack fa-lg ">
 															<i class="fa fa-comment-o fa-stack-2x"></i>

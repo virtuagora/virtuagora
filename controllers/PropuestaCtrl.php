@@ -66,7 +66,7 @@ class PropuestaCtrl extends Controller {
         $vdt->test($idPro, new Validate\Rule\NumNatural());
         $req = $this->request;
         $voto = VotoPropuesta::where(array('propuesta_id' => $idPro,
-                                           'usuario_id' => $this->session->user('id')));
+                                           'usuario_id' => $this->session->user('id')))->first();
         $voto->publico = ($req->post('publico') == 'on');
         $voto->save();
         $msg = $voto->publico ? '' : 'no ';

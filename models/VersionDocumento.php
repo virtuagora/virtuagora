@@ -3,8 +3,7 @@
 class VersionDocumento extends Eloquent {
     use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-    $table = 'documento_versiones';
-
+    protected $table = 'documento_versiones';
     protected $dates = ['deleted_at'];
     protected $visible = array('id', 'version', 'parrafos');
     protected $with = array('parrafos');
@@ -14,7 +13,7 @@ class VersionDocumento extends Eloquent {
     }
 
     public function parrafos() {
-        return $this->hasMany('VersionParrafo');
+        return $this->hasMany('ParrafoDocumento', 'version_id');
     }
 
 }
