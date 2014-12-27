@@ -23,119 +23,170 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
 {% endblock %}
 
 {% block contenido %}
-<!-- Fila c/ titulo y otros datos! -->
-<section id="vista-contenido">
-    <div class="row">
-        <div class="large-10 large-centered columns">
-            <div class="text-center">
-                <h1><b>LEY 12360 - SISTEMA DE INFORMACIÓN DE NORMATIVA (SIN)</b></h1>
-                <h4 class="subheader"><small>Creado el {{ propuesta.created_at|date("d/m/Y") }}</small></h1>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-6 large-centered columns">
-            <h6 class="subheader text-center"><b>Autor de la propuesta</b></h6>
-            <ul class="vcard">
-                <li clearfix>
-                    <div class="left autor">
-                        <a href='#'><img src="{{ avatarUrl(propuesta.autor.img_tipo, propuesta.autor.img_hash, 32) }}" alt="profile image"></a>
-                    </div>
-                </li>
-                <li class="nombre">
-                    <span><i class="fa fa-user fa-border"></i></span>&nbsp;
-                    <a href='#'><b><span>{{ propuesta.autor.nombre|capitalize  }}</span>
-                        <span>{{ propuesta.autor.apellido|capitalize  }}</span></b></a>
-                </li>
-                <li class="puntos">
-                    <span><i class="fa fa-trophy fa-border"></i></span>&nbsp;
-                    <span>{{ propuesta.autor.puntos }}</span>
-                    <span><small>puntos</small></span>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-10 large-centered columns">
-            <div class="texto text-justify">
-                <dl class="accordion" data-accordion>
-                    <dd class="accordion-navigation">
-                        <a href="#panel1b"><b>ARTICULO 2.</b>- Los Poderes Ejecutivo, Legislativo, y Judicial, los organismos
-                            descentralizados y las empresas donde el Estado Provincial posea mayoría
-                            accionaria emplearán en sus sistemas y equipamientos de informática
-                            preferentemente software libre.
-                        </a>
-                        <div id="panel1b" class="content" style="background: #f4f4f4;">
-                            <div class="row">
-                                <div class="large-12 large-centered columns">
-                                    <div class="large-7 columns" style="border-right: 1px solid #5DA9D8">
-                                        <div id="c-{{ comentario.id }}" class="comentario">
-                                            <section class="top">
-                                                <h6 class="byline">
-                                                    <a href="urlUser" style="font-size: 12px;"><img src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 32) }}">Augusto Mathurin</a>
-                                                    <small> dijo en fecha
-                                                        <span class="data">
-                                                            30/12/2014
-                                                        </span>
-                                                    </small>
-                                                </h6>
-                                            </section>
-                                            <section class="content">
-                                                <p style="font-size: 11px;">Esta muy buena pero no me agrada que sea de el articulo 2, podria ser del articulo 3, aunque es una propuesta muy interesante y me gustaria que sigan asi porque es muy necesario para la gente que se entere de estas cosas.</p>
-                                            </section>
-                                        </div>
-                                        <ul class="pagination ">
-                                        <li class="arrow unavailable"><a href=""><i class="fa fa-chevron-left fa-fw"></i></a></li>
-                                        <li class="current"><a href="">1</a></li>
-                                        <li><a href="">2</a></li>
-                                        <li><a href="">3</a></li>
-                                        <li><a href="">4</a></li>
-                                        <li class="unavailable"><a href="">&hellip;</a></li>
-                                        <li><a href="">12</a></li>
-                                        <li><a href="">13</a></li>
-                                        <li class="arrow"><a href=""><i class="fa fa-chevron-right fa-fw"></i></a></li>
-                                    </ul>
-                                    </div>
-                                    <div class="large-5 columns">
-                                        <textarea name="comentario" rows=4 placeholder="Su comentario..." style="font-size: 11px; margin: 7px;"></textarea>
-                                        <button class="button success tiny right radius" style=" padding: 8px 12px;"><i class="fa fa-check fa-fw fa-lg"></i>&nbsp;Enviar</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            </dd>
-                    <dd class="accordion-navigation">
-                        <a href="#panel2b"><b>ARTICULO 3.</b>- La autoridad de Aplicación de esta Ley será el Ministerio de
-                            Hacienda y Finanzas.
+<div class="row">
+	<div class="large-12 large-centered columns">
+		<div class="large-4 columns">
+			<div class="avatar32">
+				<span class="overlay"></span>
+				<img class="imgborder" alt="" src="http://lorempixel.com/32/32/sports/">
+			</div>
+		</div>
+		<div class="large-4 columns">
+			<div class="avatar32">
+				<span class="overlay"></span>
+				<img class="imgborder" alt="" src="http://lorempixel.com/32/32/sports/">
+			</div>
+		</div>
+		<div class="large-4 columns">
+			<div class="avatar32">
+				<span class="overlay">Gols</span>
+				<img class="imgborder" alt="" src="http://lorempixel.com/32/32/sports/">
+			</div>
+		</div>
+	</div>
+</div>
 
 
-                        </a>
-                        <div id="panel2b" class="content"> COSAAAAAAAAAAAAAAAAAAAAAAAAAAS </div>
-                    </dd>
-                    <dd class="accordion-navigation">
-                        <a href="#panel3b"><b>ARTICULO 4.</b>- La Autoridad de Aplicación será el encargado de establecer los
-                            casos en que podrá utilizarse software propietario.
-                            Las reparticiones del Estado Provincial incluidas en esta ley, podrán gestionar
-                            un permiso de empleo de software no libre para tareas que dependan
-                            directamente del uso del programa en cuestión.</a>
-                        <div id="panel3b" class="content"> PCOSAAAAAAAAAAAAAAAAAAAAAAAAAAS</div>
-                    </dd>
-                </dl>
-            </div>
-        </div>
-    </div>
-</section>
+<div class="row">
+	<div class="avatar64">
+		<span class="overlay"></span>
+		<img class="imgborder" alt="" src="http://lorempixel.com/64/64/sports/">
+	</div>
+</div>
+
 {% endblock %}
 
 {% block modal %}
-{% endblock %}
+<div id="modal-sancion" class="reveal-modal remove-whitespace medium"  data-reveal>
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="large-4 columns">
+				<div class="text-center">
+					<img class="imgborder" alt="" src="http://lorempixel.com/160/160/sports/">
+				</div>
+				<hr>
+				<div class="text-center">
+					<h6><b>Tipo de sancion</b><h6>
+						</div>
+						<dl id="sanciones" class="tabs vertical" role=tablist data-tab>
+							<dd class="active"><a href="#panel1">Sanción por puntos</a></dd>
+							<dd><a href="#panel2">Sanción por advertencia</a></dd>
+							<dd><a href="#panel3">Sanción por suspensión</a></dd>
+						</dl>
+						</div>
+					<div class="large-8 columns">
+						<h2><b>Sancionar usuario</b><br><small>Guillermo Croppi<small> - 52&nbsp;<i class="fa fa-star fa-fw" style="color:#e2b12d;"></i>&nbsp;puntos</small></small></h2>
+						<hr>
+						<div class="tabs-content vertical">
+							<div class="content active" id="panel1">
+								<form action="" method="POST" data-abide>
+									<p>Elija la cantidad de puntos a quitarle al usuario.</p>
+									<div class="range-slider radius" data-slider data-options="start: 1; end: 52; display_selector: #slider-out-pts;">
+										<span class="range-slider-handle" role="slider"></span>
+										<span class="range-slider-active-segment"></span>
+										<input name="pts" type="hidden">
+									</div>
+									<label>Razon de la sanción <small>requerido</small>
+										<textarea name="justificacion" placeholder="Relate brevemente la razón de la sanción..." required></textarea>
+									</label>
+									<small class="error">Se requiere que justifique la sanción</small>
+									<div class="row">
+										<button class="button radius small warning right" type="submit" style="margin-bottom:0px"><i class="fa fa-star-half-o fa-fw fa-lg"></i>&nbsp;Quitar <span id="slider-out-pts"></span> punto(s)</button>
+									</div>
+									<div class="row right"><h5><small>Sancionado por <b>Augusto Mathurin</b></small></h5></div>
+								</form>
+							</div>
+							<div class="content" id="panel2">
+								<form action="" method="POST" data-abide>
+									<p>Elija el mensaje de advertencia y los dias que permanecerá activa.</p>
+									<div class="range-slider radius" data-slider data-options="start: 1; end: 30; display_selector: #slider-out-dias-a;">
+										<span class="range-slider-handle" role="slider"></span>
+										<span class="range-slider-active-segment"></span>
+										<input name="dias" type="hidden">
+									</div>
+									<label>Mensaje de advertencia <small>requerido</small>
+										<textarea name="justificacion" placeholder="Escriba el porqué de advertencia..." required></textarea>
+									</label>
+									<small class="error">Se requiere que justifique la sanción</small>
+									<div class="row">
+										<button class="button radius small warning right" type="submit" style="margin-bottom:0px"><i class="fa fa-warning fa-fw fa-lg"></i>&nbsp;Advertir por <span id="slider-out-dias-a"></span> dia(s)</button>
+									</div>
+									<div class="row right"><h5><small>Sancionado por <b>Augusto Mathurin</b></small></h5></div>
+								</form>
+							</div>
+							<div class="content" id="panel3">
+								<form action="" method="POST" data-abide>
+									<p>Elija como desea suspender al usurio, si por dia o indefinidamente</p>
+									<div class="range-slider radius" data-slider data-options="start: 1; end: 30; display_selector: #slider-out-dias-s;">
+										<span class="range-slider-handle" role="slider"></span>
+										<span class="range-slider-active-segment"></span>
+										<input name="dias" type="hidden">
+									</div>
+									<label>Razon de la suspención <small>requerido</small>
+										<textarea name="justificacion" placeholder="Relate brevemente la razón de la suspención" required></textarea>
+									</label>
+									<small class="error">Se requiere que justifique la sanción</small>
+									<div class="row text-center">
+										<button class="button radius small alert" type="submit" style="margin-bottom:0px"><i class="fa fa-warning fa-fw fa-lg"></i>&nbsp;Suspender cuenta por <span id="slider-out-dias-s"></span> dia(s)</button>
+									</div>
+								</form>
+								<hr>
+								<form action="" method="POST" data-abide>
+									<div class="row text-center">
+										<button class="button radius alert" type="submit" style="margin-bottom:0px"><i class="fa fa-times fa-fw fa-lg"></i>&nbsp;Suspender cuenta indefninidamente</button>
+									</div>
+									<div class="row right"><h5><small>Sancionado por <b>Augusto Mathurin</b></small></h5></div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a class="close-reveal-modal">&#215;</a>
+		</div>
+		{% endblock %}
 
 
-{% block scripts %}
-<script>
+		{% block scripts %}
+		<script src="{{ baseUrl }}/assets/js/foundation/foundation.abide.js"></script>
+		<script src="{{ baseUrl }}/assets/js/foundation/foundation.slider.js"></script>
+		<script>
+//			$(function() {
+//				// OPACITY OF BUTTON SET TO 0%
+//				$(".overlay").css("opacity","0");
+//
+//				// ON MOUSE OVER
+//				$(".overlay").hover(
+//					function () {
+//						// SET OPACITY TO 70%
+//						$(this).stop().animate({
+//							opacity: .75
+//						}, "slow");
+//					},
+//					// ON MOUSE OUT
+//					function () {
+//						// SET OPACITY BACK TO 50%
+//						$(this).stop().animate({
+//							opacity: 0
+//						}, "slow");
+//					});
+//			});
+//
+//			$('div[class^="avatar"]').on("click", function() {
+//				console.log($(this));
+//				$('#modal-sancion').foundation('reveal', 'open');
+//			});
+//
+////			$( "form" ).submit(function( event ) {
+////				console.log( $( this ).serializeArray() );
+////				event.preventDefault();
+////			});
+//			 $('#sanciones').on('toggled', function (event, tab) {
+//				$(document).foundation('slider', 'reflow');
+//			 });
 
-    {% if comments == true %}
-    {% include "misc/comentarios.js.twig" %}
-    {% endif %}
-</script>
-{% endblock %}
+			{% if comments == true %}
+			{% include "misc/comentarios.js.twig" %}
+			{% endif %}
+		</script>
+		{% endblock %}
