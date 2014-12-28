@@ -6,6 +6,7 @@
         "twig/twig": "*",
         "illuminate/database": "*",
         "codeguy/upload": "*",
+        "ircmaxell/password-compat": "*",
         "augusthur/validation": "*"
     },
     "repositories": [
