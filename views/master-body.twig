@@ -60,11 +60,12 @@
                         </div>
                     </div>
                 </div>
+                {% if user is not empty %}
                 <div id="row-comentar-box" class="row" hidden>
                     <div class="large-8 large-centered columns">
                         <div id="bt-comentar">
                             <form action={{ commentUrl }} method="POST">
-                                <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}"><a href="#">&nbsp;&nbsp;{{ user.nombre }} {{ user.apellido }}</a> <small>quiere comentar lo siguiente</small>
+								<a href="#"><img id="{{ user.id }}" src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}"></a><a href="#">&nbsp;&nbsp;{{ user.nombre }} {{ user.apellido }}</a> <small>quiere comentar lo siguiente</small>
                                 <br/>
                                 <textarea name="cuerpo" rows=4 style="margin-top: 5px; margin-bottom: 5px;"></textarea>
                                 <button class="button success small radius right" style="padding: 8px 15px; margin-bottom: 0;"><i class="fa fa-check fa-fw"></i>&nbsp;Enviar</button>
@@ -72,6 +73,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
                 <div class="comentario-wrap">
                     <div class="row">
                         <div id="comentarios" class="large-10 large-centered columns">
@@ -80,7 +82,7 @@
                             <div id="c-{{ comentario.id }}" class="comentario">
                                 <section class="top">
                                     <h6 class="byline">
-										<div class="avatar32"><span class="overlay"></span><img src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 32) }}"></div><a href="#">{{ comentario.autor.nombre }} {{ comentario.autor.apellido }}</a>
+										<a href="{{baseUrl()}}/perfil/{{comentario.autor.id}}" {{ esModerador ? 'class="flag32"' : "" }}><img src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 32) }}"></a>&nbsp;&nbsp;<a href="#">{{ comentario.autor.nombre }} {{ comentario.autor.apellido }}</a>
                                         <small> dijo en fecha
                                             <span class="data">
                                                 {{ comentario.updated_at|date("d/m/Y") }} a las {{ comentario.updated_at|date("H:i") }}
@@ -103,7 +105,7 @@
                             <div id="c-{{ comentario.id }}-rta-{{ respuesta.id }}" class="rta comentario push">
                                 <section class="top">
                                     <h6 class="byline">
-										<div class="avatar32"><span class="overlay"></span><img class="imgborder" src="{{ avatarUrl(respuesta.autor.img_tipo, respuesta.autor.img_hash, 32) }}"></div><a href="#">{{ respuesta.autor.nombre }} {{ respuesta.autor.apellido }} </a>
+										<a href="{{baseUrl()}}/perfil/{{comentario.autor.id}}" {{ esModerador ? 'class="flag32"' : '' }} ><img class="imgborder" src="{{ avatarUrl(respuesta.autor.img_tipo, respuesta.autor.img_hash, 32) }}"></a>&nbsp;&nbsp;<a href="#">{{ respuesta.autor.nombre }} {{ respuesta.autor.apellido }} </a>
                                         <small>respondió el
                                             <span class="data">
                                                 {{ respuesta.updated_at|date("d/m/Y") }} a las {{ respuesta.updated_at|date("H:i") }}
