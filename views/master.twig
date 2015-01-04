@@ -29,13 +29,13 @@
 		{% block body %}{% endblock %}
 		<!-- Incluir modal -->
 		{% block modal %}{% endblock %}
-		{% if true %}
+		{% if esModerador %}
 		<div id="modal-sancion" class="reveal-modal remove-whitespace medium"  data-reveal>
 			<div class="row">
 				<div class="large-12 columns">
 					<div class="large-4 columns">
 						<div class="text-center">
-							<img class="imgborder" alt="" src="http://lorempixel.com/160/160/sports/">
+							<img class="sancionando-avatar" alt="" src="http://lorempixel.com/160/160/sports/">
 						</div>
 						<hr>
 						<div class="text-center">
@@ -48,11 +48,12 @@
 						</dl>
 					</div>
 					<div class="large-8 columns">
-						<h2><b>Sancionar usuario</b><br><small>Guillermo Croppi<small> - 52&nbsp;<i class="fa fa-star fa-fw" style="color:#e2b12d;"></i>&nbsp;puntos</small></small></h2>
+						<h2><b>Sancionar usuario</b><br><small><span id="sancionando-nombre"></span> <span id="sancionando-apellido"></span><small> - <span id="sancionando-pts"></span>&nbsp;<i class="fa fa-star fa-fw" style="color:#e2b12d;"></i>&nbsp;puntos</small></small></h2>
 						<hr>
 						<div class="tabs-content vertical">
 							<div class="content active" id="sancion-puntos">
-								<form action="" method="POST" data-abide>
+								<form action="/sancionar" method="POST" data-abide>
+									<input hidden name="tipo" value="puntos">
 									<p>Elija la cantidad de puntos a quitarle al usuario.</p>
 									<div class="range-slider radius" data-slider data-options="start: 1; end: 52; display_selector: #slider-out-pts;">
 										<span class="range-slider-handle" role="slider"></span>
@@ -66,16 +67,17 @@
 									<div class="row">
 										<button class="button radius small warning right" type="submit" style="margin-bottom:0px"><i class="fa fa-star-half-o fa-fw fa-lg"></i>&nbsp;Quitar <span id="slider-out-pts"></span> punto(s)</button>
 									</div>
-									<div class="row right"><h5><small>Sancionado por <b>Augusto Mathurin</b></small></h5></div>
+									<div class="row right"><h5><small>Sancionado por <b>{{user.nombre}} {{user.apellido}}</b></small></h5></div>
 								</form>
 							</div>
 							<div class="content" id="sancion-advertencia">
-								<form action="" method="POST" data-abide>
+								<form action="/sancionar" method="POST" data-abide>
+									<input hidden name="tipo" value="advertencia">
 									<p>Elija el mensaje de advertencia y los dias que permanecerá activa.</p>
 									<div class="range-slider radius" data-slider data-options="start: 1; end: 30; display_selector: #slider-out-dias-a;">
 										<span class="range-slider-handle" role="slider"></span>
 										<span class="range-slider-active-segment"></span>
-										<input name="dias" type="hidden">
+										<input name="dias-adv" type="hidden">
 									</div>
 									<label>Mensaje de advertencia <small>requerido</small>
 										<textarea name="justificacion" placeholder="Escriba el porqué de advertencia..." required></textarea>
@@ -84,16 +86,17 @@
 									<div class="row">
 										<button class="button radius small warning right" type="submit" style="margin-bottom:0px"><i class="fa fa-warning fa-fw fa-lg"></i>&nbsp;Advertir por <span id="slider-out-dias-a"></span> dia(s)</button>
 									</div>
-									<div class="row right"><h5><small>Sancionado por <b>Augusto Mathurin</b></small></h5></div>
+									<div class="row right"><h5><small>Sancionado por <b>{{user.nombre}} {{user.apellido}}</b></small></h5></div>
 								</form>
 							</div>
 							<div class="content" id="sancion-suspension">
-								<form action="" method="POST" data-abide>
+								<form id="form-susp" action="/sancionar" method="POST" data-abide>
+									<input hidden name="tipo" value="suspension">
 									<p>Elija como desea suspender al usurio, si por dia o indefinidamente</p>
 									<div class="range-slider radius" data-slider data-options="start: 1; end: 30; display_selector: #slider-out-dias-s;">
 										<span class="range-slider-handle" role="slider"></span>
 										<span class="range-slider-active-segment"></span>
-										<input name="dias" type="hidden">
+										<input name="dias-susp" type="hidden">
 									</div>
 									<label>Razon de la suspensión <small>requerido</small>
 										<textarea name="justificacion" placeholder="Relate brevemente la razón de la suspención" required></textarea>
@@ -104,12 +107,10 @@
 									</div>
 								</form>
 								<hr>
-								<form action="" method="POST" data-abide>
-									<div class="row text-center">
-										<button class="button radius alert" type="submit" style="margin-bottom:0px"><i class="fa fa-times fa-fw fa-lg"></i>&nbsp;Suspender cuenta indefninidamente</button>
-									</div>
-									<div class="row right"><h5><small>Sancionado por <b>Augusto Mathurin</b></small></h5></div>
-								</form>
+								<div class="row text-center">
+									<div id="b-susp-indf" class="button radius alert" type="submit" style="margin-bottom:0px"><i class="fa fa-times fa-fw fa-lg"></i>&nbsp;Suspender cuenta indefninidamente</div>
+								</div>
+								<div class="row right"><h5><small>Sancionado por <b>{{user.nombre}} {{user.apellido}}</b></small></h5></div>
 							</div>
 						</div>
 					</div>
@@ -124,16 +125,54 @@
 		<script src="{{ baseUrl }}/assets/js/jquery/jquery.min.js"></script>
 		<script src="{{ baseUrl }}/assets/js/foundation/foundation.min.js"></script>
 		{% block scripts %}{% endblock %}
-		{% if true %}
+		{% if esModerador %}
 		<script src="{{ baseUrl }}/assets/js/foundation/foundation.abide.js"></script>
 		<script src="{{ baseUrl }}/assets/js/foundation/foundation.slider.js"></script>
 		<script>
-			$('div[class^="avatar"]').on("click", function() {
-				console.log($(this));
+			$('a[class^="flag"]').on("click", function() {
+				event.preventDefault();
+				var id = $(this).attr('href');
+				id = id.replace('{{baseUrl()}}/perfil/','');
+				console.log(id);
+				completarModalSancion(id);
+				$('#modal-sancion').foundation('reveal', 'open');
+			});
+			$('div[id^="bt-sancionar"]').on("click", function() {
+				var id = $(this).attr('id');
+				id = id.replace('bt-sancionar-','');
+				console.log(id);
+				completarModalSancion(id);
 				$('#modal-sancion').foundation('reveal', 'open');
 			});
 			$('#sanciones').on('toggled', function (event, tab) {
 				$(document).foundation('slider', 'reflow');
+			});
+
+			function completarModalSancion(id) {
+				var request = $.ajax({
+					url: '{{ baseUrl() }}/usuario/'+id,
+					cache: false,
+					dataType: "json"
+				});
+				request.done(function(resultado) {
+					$('#sancionando-nombre').html(resultado.nombre);
+					$('#sancionando-apellido').html(resultado.apellido);
+					$('#sancionando-pts').html(resultado.nombre);
+
+					return true;
+				});
+				request.fail(function(jqXHR, textStatus) {
+					alert("Request failed: " + textStatus);
+					return false;
+				});
+			}
+			$( "#form-susp" ).submit(function( event ) {
+				console.log( $( this ).serializeArray() );
+				alert( "Handler for .submit() called." );
+			});
+			$( "#b-susp-indf" ).click(function() {
+				$('input[name="dias-susp"]').val("0");
+				$( "#form-susp" ).submit();
 			});
 		</script>
 		{% endif %}
