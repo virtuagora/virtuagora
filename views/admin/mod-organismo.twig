@@ -1,0 +1,80 @@
+{# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
+{% set url_atras = 'javascript:history.back()' %}
+{% set i_class_titulo = 'fa fa-gear fa-fw' %}
+{% set titulo = 'Modificar organismo público' %}
+{% set comments = false %}
+
+{# VARIABLES DE LA VISTA #}
+
+{# ---------------------- #}
+
+{% extends "master-body.twig" %}
+
+{% block titulo %}
+Virtuagora - Modificar organismo público
+{% endblock %}
+
+{% block contenido %}
+<form action="{{ urlFor('runModifOrganis') }}" id="mod-organismo" method="POST"></form>
+<form action="{{ urlFor('runModifImgOrganis', {'idOrg': organismo.id}) }}" id="cambiar-imagen" method="POST" enctype="multipart/form-data"></form>
+<section id="formulario">
+    <div class="row">
+        <div class="large-10 large-centered columns clearfix">
+            <div class="large-3 columns text-center" style="padding: 20px;" >
+                <img src="http://placehold.it/160x160">
+                <div class="fileUpload btn btn-primary button tiny expand" style="margin-bottom:0;">
+                    <span style="color: #FFFFFF"><i class="fa fa-photo fa-fw fa-lg"></i> Cargar imagen</span>
+                    <input id="uploadBtn" name="imagen" form="cambiar-imagen" type="file" onchange="this.form.submit();" class="upload" />
+                </div>
+            </div>
+            <div class="large-9 columns right inline">
+                <label style="margin-bottom: 15px;"><h6 class="subheader"><i class="fa fa-pencil fa-fw"></i>&nbsp;&nbsp;<b>Nombre del organismo publico</b></h6>
+                    <input type="text" name="nombre" form="mod-organismo" >
+                </label>
+                <div class="row collapse clearfix">
+                    <div class="large-5 columns">
+                        <span class="prefix">
+                            &nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Cupos para funcionarios</b>
+                        </span>
+                    </div>
+                    <div class="large-4 end columns">
+                        <input type="number" name="cupo" form="mod-organismo" placeholder="Ingrese un número">
+                    </div>
+                </div>
+                <div class="row collapse clearfix">
+                    <div class="large-12 columns">
+                        <div class="panel text-center" style="padding:10px;">
+                            <i class="fa fa-warning fa-lg fa-fw left"></i>
+                            <p style="font-size:12px;">Nota: Podrá subir una imagen luego de haber creado el partído</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;">
+        <div class="large-10 large-centered columns">
+            <label><h6 class="subheader"><i class="fa fa-file-text-o fa-fw"></i>&nbsp;&nbsp;<b>Descripción del organismo</b></h6>
+                <textarea name="descripcion" form="mod-organismo" rows=4></textarea>
+            </label>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="large-5 large-centered columns text-center">
+            <button type="submit" class="button radius small success" form="mod-organismo"><i class="fa fa-check fa-fw"></i>&nbsp;Aplicar los cambios</button>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+	$(document).ready(function() {
+		$('[name="nombre"]').val('{{ organismo.nombre }}');
+		$('[name="cupo"]').val('{{ organismo.cupo }}');
+		$('[name="descripcion"]').val('{{ organismo.descripcion }}');
+	});
+</script>
+{% endblock %}
