@@ -77,4 +77,43 @@ class AdminCtrl extends Controller {
         $this->redirect($req->getRootUri().'/admin/organismo');
     }
 
+    public function sancUsuario($idUsr) {
+        $vdt = new Validate\Validator();
+        $vdt->addRule('idUsr', new Validate\Rule\NumNatural())
+            ->addRule('tipo', new Validate\Rule\InArray(array('Suspension', 'Advertencia', 'Quita')))
+            ->addRule('mensaje', new Validate\Rule\MinLength(4))
+            ->addRule('mensaje', new Validate\Rule\MaxLength(128))
+            ->addRule('cantidad', new Validate\Rule\NumNatural());
+        $req = $this->request;
+        $data = array_merge(array('idUsr' => $idUsr), $req->post());
+        if (!$vdt->validate($data)) {
+            throw (new TurnbackException())->setErrors($vdt->getErrors());
+        }
+        $usuario = Usuario::findOrFail($vdt->getData('idUsr'));
+        switch ($vdt->getData('tipo')) {
+            case 'Suspension':
+                $usuario->suspendido = true;
+                if ($vdt->getData('cantidad') > 0) {
+                    $usuario->fin_suspension = Carbon\Carbon::now()->addDays($vdt->getData('cantidad'));
+                } else {
+                    $usuario->fin_suspension = null;
+                }
+                $usuario->save();
+                $mensaje = "El usuario fue suspendido.";
+                break;
+            case 'Advertencia':
+                $usuario->advertencia = $vdt->getData('mensaje');
+                $usuario->fin_advertencia = Carbon\Carbon::now()->addDays($vdt->getData('cantidad'));
+                $usuario->save();
+                $mensaje = "El usuario ha sido advertido.";
+                break;
+            case 'Quita':
+                $usuario->decrement('puntos', $vdt->getData('cantidad'));
+                $mensaje = "Se le han quitado los puntos al usuario.";
+                break;
+        }
+        $this->flash('success', $mensaje);
+        $this->redirect($req->getReferrer());
+    }
+
 }

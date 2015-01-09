@@ -35,6 +35,10 @@ Capsule::schema()->create('usuarios', function($table) {
     $table->dateTime('fecha_certificado')->nullable();
     $table->integer('partido_id')->unsigned()->nullable();
 
+    $table->string('advertencia')->nullable();
+    $table->dateTime('fin_advertencia')->nullable();
+    $table->dateTime('fin_suspension')->nullable();
+
     $table->timestamps();
     $table->softDeletes();
 });

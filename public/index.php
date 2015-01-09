@@ -86,6 +86,7 @@ $app->group('/admin', function () use ($app) {
     $app->post('/organismo/crear', checkRole('mod'), 'AdminCtrl:crearOrganismo')->name('runCrearOrganis');
     $app->get('/organismo/:idOrg/funcionario', checkRole('mod'), 'AdminCtrl:verAdminFuncionarios')->name('shwAdmFuncion');
     $app->post('/organismo/:idOrg/funcionario', checkRole('mod'), 'AdminCtrl:adminFuncionarios')->name('runAdmFuncion');
+    $app->post('/sancionar/:idUsr', checkRole('mod'), 'AdminCtrl:sancUsuario')->name('runSanUsuario');
 });
 
 $app->group('/propuesta', function () use ($app) {
