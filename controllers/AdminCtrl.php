@@ -33,6 +33,42 @@ class AdminCtrl extends Controller {
         $this->redirect($req->getRootUri().'/admin/organismo');
     }
 
+    public function verModificarOrganismo($idOrg) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idOrg, new Validate\Rule\NumNatural());
+        $organismo = Organismo::with('contacto')->findOrFail($idOrg);
+        $datosOrganismo = $organismo->toArray();
+        $datosOrganismo['contacto'] = $organismo->contacto ? $organismo->contacto->toArray() : null;
+        $this->render('admin/mod-organismo.twig', array('organismo' => $datosOrganismo));
+    }
+
+    public function cambiarImgOrganismo($idOrg) {
+        $dir = 'img/organismo/' . $idOrg;
+        if (!is_dir($dir)) {
+            mkdir('$dir', 0777, true);
+        }
+        $storage = new \Upload\Storage\FileSystem($dir, true);
+        $file = new \Upload\File('imagen', $storage);
+        $filename = 'original';
+        $file->setName($filename);
+        $file->addValidations(array(
+            new \Upload\Validation\Mimetype(array('image/png', 'image/jpg', 'image/jpeg', 'image/gif')),
+            new \Upload\Validation\Size('1M')
+        ));
+        $file->upload();
+        foreach (array(32, 64, 160) as $res) {
+            $image = new ZebraImage();
+            $image->source_path = $dir . '/' . $file->getNameWithExtension();
+            $image->target_path = $dir . '/' . $res . '.png';
+            $image->preserve_aspect_ratio = true;
+            $image->enlarge_smaller_images = true;
+            $image->preserve_time = true;
+            $image->resize($res, $res, ZEBRA_IMAGE_CROP_CENTER);
+        }
+        $this->flash('success', 'Imagen cargada exitosamente.');
+        $this->redirect($this->request->getReferrer());
+    }
+
     public function verAdminFuncionarios($id) {
         $organismo = Organismo::findOrFail($id);
         $this->render('admin/funcionarios.twig', array('organismo' => $organismo->toArray(),

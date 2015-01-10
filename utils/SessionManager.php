@@ -46,6 +46,7 @@ class SessionManager {
 
     public function setUser($user) {
         $_SESSION['user'] = $user->toArray();
+        $_SESSION['user']['es_moderador'] = $this->hasRole('mod');
     }
 
     public function exists() {
