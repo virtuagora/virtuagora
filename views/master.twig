@@ -52,16 +52,16 @@
 						<hr>
 						<div class="tabs-content vertical">
 							<div class="content active" id="sancion-puntos">
-								<form action="/sancionar" method="POST" data-abide>
-									<input hidden name="tipo" value="puntos">
+								<form action="" class="form-sancion" method="POST" data-abide>
+									<input hidden name="tipo" value="quita">
 									<p>Elija la cantidad de puntos a quitarle al usuario.</p>
-									<div class="range-slider radius" data-slider data-options="start: 1; end: 52; display_selector: #slider-out-pts;">
+									<div class="range-slider radius" data-slider data-options="start: 1; end: 100; display_selector: #slider-out-pts;">
 										<span class="range-slider-handle" role="slider"></span>
 										<span class="range-slider-active-segment"></span>
-										<input name="pts" type="hidden">
+										<input id="pts" name="cantidad" type="hidden">
 									</div>
 									<label>Razon de la sanción <small>requerido</small>
-										<textarea name="justificacion" placeholder="Relate brevemente la razón de la sanción..." required></textarea>
+										<textarea name="mensaje" placeholder="Relate brevemente la razón de la sanción..." required></textarea>
 									</label>
 									<small class="error">Se requiere que justifique la sanción</small>
 									<div class="row">
@@ -71,16 +71,16 @@
 								</form>
 							</div>
 							<div class="content" id="sancion-advertencia">
-								<form action="/sancionar" method="POST" data-abide>
+								<form action="" class="form-sancion" method="POST" data-abide>
 									<input hidden name="tipo" value="advertencia">
 									<p>Elija el mensaje de advertencia y los dias que permanecerá activa.</p>
 									<div class="range-slider radius" data-slider data-options="start: 1; end: 30; display_selector: #slider-out-dias-a;">
 										<span class="range-slider-handle" role="slider"></span>
 										<span class="range-slider-active-segment"></span>
-										<input name="dias-adv" type="hidden">
+										<input id="dias-adv" name="cantidad" type="hidden">
 									</div>
 									<label>Mensaje de advertencia <small>requerido</small>
-										<textarea name="justificacion" placeholder="Escriba el porqué de advertencia..." required></textarea>
+										<textarea name="mensaje" placeholder="Escriba el porqué de advertencia..." required></textarea>
 									</label>
 									<small class="error">Se requiere que justifique la sanción</small>
 									<div class="row">
@@ -90,16 +90,16 @@
 								</form>
 							</div>
 							<div class="content" id="sancion-suspension">
-								<form id="form-susp" action="/sancionar" method="POST" data-abide>
+								<form id="form-susp" action="" class="form-sancion" method="POST" data-abide>
 									<input hidden name="tipo" value="suspension">
 									<p>Elija como desea suspender al usurio, si por dia o indefinidamente</p>
 									<div class="range-slider radius" data-slider data-options="start: 1; end: 30; display_selector: #slider-out-dias-s;">
 										<span class="range-slider-handle" role="slider"></span>
 										<span class="range-slider-active-segment"></span>
-										<input name="dias-susp" type="hidden">
+										<input id="dias-susp" name="cantidad" type="hidden">
 									</div>
 									<label>Razon de la suspensión <small>requerido</small>
-										<textarea name="justificacion" placeholder="Relate brevemente la razón de la suspención" required></textarea>
+										<textarea name="mensaje" placeholder="Relate brevemente la razón de la suspención" required></textarea>
 									</label>
 									<small class="error">Se requiere que justifique la sanción</small>
 									<div class="row text-center">
@@ -134,15 +134,17 @@
 				var id = $(this).attr('href');
 				id = id.replace('{{baseUrl()}}/perfil/','');
 				console.log(id);
-				completarModalSancion(id);
-				$('#modal-sancion').foundation('reveal', 'open');
+				if( completarModalSancion(id) ){
+				    $('#modal-sancion').foundation('reveal', 'open');
+                }
 			});
 			$('div[id^="bt-sancionar"]').on("click", function() {
 				var id = $(this).attr('id');
 				id = id.replace('bt-sancionar-','');
 				console.log(id);
-				completarModalSancion(id);
-				$('#modal-sancion').foundation('reveal', 'open');
+				if( completarModalSancion(id) ){
+				    $('#modal-sancion').foundation('reveal', 'open');
+                }
 			});
 			$('#sanciones').on('toggled', function (event, tab) {
 				$(document).foundation('slider', 'reflow');
@@ -155,10 +157,10 @@
 					dataType: "json"
 				});
 				request.done(function(resultado) {
+                    $('.form-sancion').attr(attr('action', '{{ baseUrl() }}/sancionar/' + id);)
 					$('#sancionando-nombre').html(resultado.nombre);
 					$('#sancionando-apellido').html(resultado.apellido);
 					$('#sancionando-pts').html(resultado.nombre);
-
 					return true;
 				});
 				request.fail(function(jqXHR, textStatus) {
@@ -166,12 +168,11 @@
 					return false;
 				});
 			}
-			$( "#form-susp" ).submit(function( event ) {
+			$( "form" ).submit(function( event ) {
 				console.log( $( this ).serializeArray() );
-				alert( "Handler for .submit() called." );
 			});
 			$( "#b-susp-indf" ).click(function() {
-				$('input[name="dias-susp"]').val("0");
+				$('#dias-susp').val("0");
 				$( "#form-susp" ).submit();
 			});
 		</script>
