@@ -12,24 +12,15 @@ class AdminCtrl extends Controller {
     }
 
     public function crearOrganismo() {
-        $vdt = new Validate\Validator();
-        $vdt->addRule('nombre', new Validate\Rule\Alpha(array(' ')))
-            ->addRule('nombre', new Validate\Rule\MinLength(2))
-            ->addRule('nombre', new Validate\Rule\MaxLength(64))
-            ->addRule('descripcion', new Validate\Rule\MaxLength(512))
-            ->addRule('cupo', new Validate\Rule\NumNatural())
-            ->addRule('cupo', new Validate\Rule\NumMin(1))
-            ->addRule('cupo', new Validate\Rule\NumMax(32));
         $req = $this->request;
-        if (!$vdt->validate($req->post())) {
-            throw (new TurnbackException())->setErrors($vdt->getErrors());
-        }
+        $vdt = $this->validarOrganismo($req->post());
         $organismo = new Organismo;
         $organismo->nombre = $vdt->getData('nombre');
         $organismo->descripcion = $vdt->getData('descripcion');
         $organismo->cupo = $vdt->getData('cupo');
         $organismo->imagen = false;
         $organismo->save();
+        $this->crearImagen($organismo->id, $organismo->nombre);
         $this->redirect($req->getRootUri().'/admin/organismo');
     }
 
@@ -40,6 +31,29 @@ class AdminCtrl extends Controller {
         $datosOrganismo = $organismo->toArray();
         $datosOrganismo['contacto'] = $organismo->contacto ? $organismo->contacto->toArray() : null;
         $this->render('admin/mod-organismo.twig', array('organismo' => $datosOrganismo));
+    }
+
+    public function modificarOrganismo($idOrg) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idOrg, new Validate\Rule\NumNatural());
+        $organismo = Organismo::with('contacto')->findOrFail($idOrg);
+        $req = $this->request;
+        $vdt = $this->validarPartido($req->post());
+        $organismo->nombre = $vdt->getData('nombre');
+        $organismo->descripcion = $vdt->getData('descripcion');
+        if ($vdt->getData('cupo') < $organismo->funcionarios_count) {
+            throw (new TurnbackException())->setErrors(array('Actualmente hay más funcionarios que el cupo deseado, elimine algunos.'));
+        } else {
+            $organismo->cupo = $vdt->getData('cupo');
+        }
+        $organismo->save();
+        $contacto = $organismo->contacto ?: new Contacto;
+        $contacto->email = $vdt->getData('email');
+        $contacto->web = $vdt->getData('url');
+        $contacto->telefono = $vdt->getData('telefono');
+        $contacto->save();
+        $this->flash('success', 'Los datos del organismo fueron modificados exitosamente.');
+        $this->redirect($this->request->getReferrer());
     }
 
     public function cambiarImgOrganismo($idOrg) {
@@ -67,6 +81,38 @@ class AdminCtrl extends Controller {
         }
         $this->flash('success', 'Imagen cargada exitosamente.');
         $this->redirect($this->request->getReferrer());
+    }
+
+    private function crearImagen($id, $nombre) {
+        $dir = 'img/organis/' . $id;
+        if (!is_dir($dir)) {
+            mkdir($dir, 0777, true);
+        }
+        $hash = md5(strtolower(trim($nombre)));
+        foreach (array(32, 64, 160) as $res) {
+            $ch = curl_init('http://www.gravatar.com/avatar/'.$hash.'?d=identicon&f=y&s='.$res);
+            $fp = fopen($dir . '/' . $res . '.png', 'wb');
+            curl_setopt($ch, CURLOPT_FILE, $fp);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_exec($ch);
+            curl_close($ch);
+            fclose($fp);
+        }
+    }
+
+    private function validarOrganismo($data) {
+        $vdt = new Validate\Validator();
+        $vdt->addRule('nombre', new Validate\Rule\Alpha(array(' ')))
+            ->addRule('nombre', new Validate\Rule\MinLength(2))
+            ->addRule('nombre', new Validate\Rule\MaxLength(64))
+            ->addRule('descripcion', new Validate\Rule\MaxLength(512))
+            ->addRule('cupo', new Validate\Rule\NumNatural())
+            ->addRule('cupo', new Validate\Rule\NumMin(1))
+            ->addRule('cupo', new Validate\Rule\NumMax(32));
+        if (!$vdt->validate($data)) {
+            throw (new TurnbackException())->setErrors($vdt->getErrors());
+        }
+        return $vdt;
     }
 
     public function verAdminFuncionarios($id) {

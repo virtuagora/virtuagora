@@ -17,6 +17,10 @@ class Organismo extends Eloquent {
         return $this->belongsToMany('Usuario', 'funcionarios')->whereNull('funcionarios.deleted_at')->withTimestamps();
     }
 
+    public function contacto() {
+        return $this->morphOne('Contacto', 'contactable');
+    }
+
     public function getFuncionariosCountAttribute() {
         return $this->funcionarios->count();
     }

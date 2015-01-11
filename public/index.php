@@ -67,7 +67,8 @@ $app->get('/usuario', function () use ($app) {
 });
 
 $app->get('/test', function () use ($app) {
-    $app->render('test.twig'); //, array('propuesta' => Propuesta::first()->toArray()));
+    $organismo = Organismo::with('contacto')->first();
+    var_dump($organismo->contacto ?: 'holis', 1?2:'hol');
 });
 
 $app->get('/', 'PortalCtrl:verIndex')->name('shwIndex');
@@ -84,9 +85,9 @@ $app->group('/admin', function () use ($app) {
     $app->get('/organismo', checkRole('mod'), 'AdminCtrl:verOrganismos')->name('shwAdmOrganis');
     $app->get('/organismo/crear', checkRole('mod'), 'AdminCtrl:verCrearOrganismo')->name('shwCrearOrganis');
 
-    $app->get('/organismo/modificar', checkRole('mod'), 'AdminCtrl:verModificarOrganismo')->name('shwModifOrganis');
-    $app->post('/organismo/modificar', checkRole('mod'), 'AdminCtrl:modificarOrganismo')->name('runModifOrganis');
-    $app->post('/organismo/cambiar-imagen', checkRole('mod'), 'AdminCtrl:cambiarImgOrganismo')->name('runModifImgOrganis');
+    $app->get('/organismo/:idOrg/modificar', checkRole('mod'), 'AdminCtrl:verModificarOrganismo')->name('shwModifOrganis');
+    $app->post('/organismo/:idOrg/modificar', checkRole('mod'), 'AdminCtrl:modificarOrganismo')->name('runModifOrganis');
+    $app->post('/organismo/:idOrg/cambiar-imagen', checkRole('mod'), 'AdminCtrl:cambiarImgOrganismo')->name('runModifImgOrganis');
 
     $app->post('/organismo/crear', checkRole('mod'), 'AdminCtrl:crearOrganismo')->name('runCrearOrganis');
     $app->get('/organismo/:idOrg/funcionario', checkRole('mod'), 'AdminCtrl:verAdminFuncionarios')->name('shwAdmFuncion');
