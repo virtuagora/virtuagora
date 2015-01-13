@@ -65,6 +65,11 @@ $app->get('/usuario', function () use ($app) {
         echo Usuario::all()->toJson();
     }
 });
+$app->get('/usuario/:idUsr', function () use ($app) {
+    if (strpos($app->request->headers->get('ACCEPT'), 'application/json') !== FALSE) {
+        echo Usuario::findOrFail($idUsr)->toJson();
+    }
+});
 
 $app->get('/test', function () use ($app) {
     $organismo = Organismo::with('contacto')->first();
