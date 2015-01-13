@@ -30,11 +30,11 @@ Virtuagora - Documento #{{ documento.id }} por {{ documento.autor.nombre }} {{ d
 					<div class="text-center">
 						<h1><b>{{ documento.titulo }}</b></h1>
 						<h4 class="subheader"><small>Version X | Creado el {{ documento.created_at|date("d/m/Y") }}</small></h4>
-						{% if documento.autor.id == user.id %}
+						{% if documento.autor.id == user.id || user.es_moderador == true %}
 					<a href="#" class="button tiny radius" style="padding: 10px 10px;"><i class="fa fa-pencil fa-fw fa-lg"></i>&nbsp;Modificar</a>
 					<div id="eliminar" class="button tiny radius alert" style="padding: 10px 10px;"><i class="fa fa-times fa-fw fa-lg"></i>&nbsp;Eliminar</div>
 					{% endif%}
-					{% if esModerador %}
+					{% if user.es_moderador %}
 					<div id="bt-sancionar-{{ documento.autor.id }}" class="sancionar button tiny radius alert" style="padding: 10px 10px;"><i class="fa fa-flag fa-fw fa-lg"></i>&nbsp;Sancionar</div>
 					{% endif%}
 					</div>

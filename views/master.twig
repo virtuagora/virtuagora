@@ -29,7 +29,7 @@
 		{% block body %}{% endblock %}
 		<!-- Incluir modal -->
 		{% block modal %}{% endblock %}
-		{% if esModerador %}
+		{% if user.es_moderador %}
 		<div id="modal-sancion" class="reveal-modal remove-whitespace medium"  data-reveal>
 			<div class="row">
 				<div class="large-12 columns">
@@ -125,7 +125,7 @@
 		<script src="{{ baseUrl }}/assets/js/jquery/jquery.min.js"></script>
 		<script src="{{ baseUrl }}/assets/js/foundation/foundation.min.js"></script>
 		{% block scripts %}{% endblock %}
-		{% if esModerador %}
+		{% if user.es_moderador %}
 		<script src="{{ baseUrl }}/assets/js/foundation/foundation.abide.js"></script>
 		<script src="{{ baseUrl }}/assets/js/foundation/foundation.slider.js"></script>
 		<script>

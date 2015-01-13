@@ -30,11 +30,11 @@ Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ p
 			<div class="text-center">
 				<h1><b>{{ propuesta.titulo }}</b></h1>
 				<h4 class="subheader"><small>Creado el {{ propuesta.created_at|date("d/m/Y") }}</small></h4>
-				{% if propuesta.autor.id == user.id %}
+				{% if propuesta.autor.id == user.id || user.es_moderador == true %}
 					<a href="#" class="button tiny radius" style="padding: 10px 10px;"><i class="fa fa-pencil fa-fw fa-lg"></i>&nbsp;Modificar documento</a>
 					<div id="eliminar" class="button tiny radius alert" style="padding: 10px 10px;"><i class="fa fa-times fa-fw fa-lg"></i>&nbsp;Eliminar</div>
 				{% endif%}
-				{% if esModerador %}
+				{% if user.es_moderador %}
 				<div id="bt-sancionar-{{ propuesta.autor.id }}" class="sancionar button tiny radius alert" style="padding: 10px 10px;"><i class="fa fa-flag fa-fw fa-lg"></i>&nbsp;Sancionar</div>
 				{% endif%}
 			</div>

@@ -82,7 +82,7 @@
                             <div id="c-{{ comentario.id }}" class="comentario">
                                 <section class="top">
                                     <h6 class="byline">
-										<a href="{{baseUrl()}}/perfil/{{comentario.autor.id}}" {{ esModerador ? 'class="flag32"' : "" }}><img src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 32) }}"></a>&nbsp;&nbsp;<a href="#">{{ comentario.autor.nombre }} {{ comentario.autor.apellido }}</a>
+										<a href="{{baseUrl()}}/perfil/{{comentario.autor.id}}" {{ user.es_moderador ? 'class="flag32"' : "" }}><img src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 32) }}"></a>&nbsp;&nbsp;<a href="#">{{ comentario.autor.nombre }} {{ comentario.autor.apellido }}</a>
                                         <small> dijo en fecha
                                             <span class="data">
                                                 {{ comentario.updated_at|date("d/m/Y") }} a las {{ comentario.updated_at|date("H:i") }}
@@ -105,7 +105,7 @@
                             <div id="c-{{ comentario.id }}-rta-{{ respuesta.id }}" class="rta comentario push">
                                 <section class="top">
                                     <h6 class="byline">
-										<a href="{{baseUrl()}}/perfil/{{comentario.autor.id}}" {{ esModerador ? 'class="flag32"' : '' }} ><img class="imgborder" src="{{ avatarUrl(respuesta.autor.img_tipo, respuesta.autor.img_hash, 32) }}"></a>&nbsp;&nbsp;<a href="#">{{ respuesta.autor.nombre }} {{ respuesta.autor.apellido }} </a>
+										<a href="{{baseUrl()}}/perfil/{{comentario.autor.id}}" {{ user.es_moderador ? 'class="flag32"' : '' }} ><img class="imgborder" src="{{ avatarUrl(respuesta.autor.img_tipo, respuesta.autor.img_hash, 32) }}"></a>&nbsp;&nbsp;<a href="#">{{ respuesta.autor.nombre }} {{ respuesta.autor.apellido }} </a>
                                         <small>respondió el
                                             <span class="data">
                                                 {{ respuesta.updated_at|date("d/m/Y") }} a las {{ respuesta.updated_at|date("H:i") }}

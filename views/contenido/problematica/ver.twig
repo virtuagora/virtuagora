@@ -30,11 +30,11 @@ Virtuagora - Problematica #{{ problematica.id }} por {{ problematica.autor.nombr
             <div class="text-center">
                 <h1><b>{{ problematica.titulo }}</b></h1>
                 <h4 class="subheader"><small>Creado el {{ problematica.created_at|date("m/d/Y") }}</small></h4>
-                {% if documento.autor.id == user.id %}
+                {% if documento.autor.id == user.id || user.es_moderador == true %}
 					<a href="#" class="button tiny radius" style="padding: 10px 10px;"><i class="fa fa-pencil fa-fw fa-lg"></i>&nbsp;Modificar</a>
 					<div class="button tiny radius alert" style="padding: 10px 10px;"><i class="fa fa-times fa-fw fa-lg"></i>&nbsp;Eliminar</div>
 				{% endif%}
-           		{% if esModerador %}
+           		{% if user.es_moderador %}
 				<div id="bt-sancionar-{{ problematica.autor.id }}" class="sancionar button tiny radius alert" style="padding: 10px 10px;"><i class="fa fa-flag fa-fw fa-lg"></i>&nbsp;Sancionar</div>
 				{% endif%}
             </div>
