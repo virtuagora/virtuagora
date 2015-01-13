@@ -134,17 +134,17 @@
 				var id = $(this).attr('href');
 				id = id.replace('{{baseUrl()}}/perfil/','');
 				console.log(id);
-				if( completarModalSancion(id) ){
-				    $('#modal-sancion').foundation('reveal', 'open');
-                }
+				completarModalSancion(id);
+                console.log('llego!');
+				$('#modal-sancion').foundation('reveal', 'open');
 			});
 			$('div[id^="bt-sancionar"]').on("click", function() {
 				var id = $(this).attr('id');
 				id = id.replace('bt-sancionar-','');
 				console.log(id);
-				if( completarModalSancion(id) ){
-				    $('#modal-sancion').foundation('reveal', 'open');
-                }
+				completarModalSancion(id);
+                console.log('llego!');
+				$('#modal-sancion').foundation('reveal', 'open');
 			});
 			$('#sanciones').on('toggled', function (event, tab) {
 				$(document).foundation('slider', 'reflow');
@@ -160,7 +160,7 @@
                     $('.form-sancion').attr('action', '{{ baseUrl() }}/sancionar/' + id);
 					$('#sancionando-nombre').html(resultado.nombre);
 					$('#sancionando-apellido').html(resultado.apellido);
-					$('#sancionando-pts').html(resultado.nombre);
+					$('#sancionando-pts').html(resultado.puntos);
 					return true;
 				});
 				request.fail(function(jqXHR, textStatus) {
