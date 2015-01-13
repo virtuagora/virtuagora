@@ -44,7 +44,7 @@ Virtuagora - Administrar organismos
                 <tr>
                     <td class="opciones">
                         <a href='#'><i class="fa fa-search fa-border"></i></a>
-                        <a href='#'><i class="fa fa-pencil fa-border"></i></a>
+                        <a href='{{ urlFor('shwModifOrganis',{'idOrg': org.id}) }}'><i class="fa fa-pencil fa-border"></i></a>
                     </td>
                     <td id="d-nombre">
                         <a href='{{ baseUrl() }}/admin/organismo/{{ org.id }}/funcionario'>
