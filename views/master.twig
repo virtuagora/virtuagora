@@ -129,7 +129,7 @@
 		<script src="{{ baseUrl }}/assets/js/foundation/foundation.abide.js"></script>
 		<script src="{{ baseUrl }}/assets/js/foundation/foundation.slider.js"></script>
 		<script>
-			$('a[class^="flag"]').on("click", function() {
+			$('a[class^="flag32"]').on("click", function(event) {
 				event.preventDefault();
 				var id = $(this).attr('href');
 				id = id.replace('{{baseUrl()}}/perfil/','');
@@ -157,7 +157,7 @@
 					dataType: "json"
 				});
 				request.done(function(resultado) {
-                    $('.form-sancion').attr(attr('action', '{{ baseUrl() }}/sancionar/' + id);)
+                    $('.form-sancion').attr('action', '{{ baseUrl() }}/sancionar/' + id);
 					$('#sancionando-nombre').html(resultado.nombre);
 					$('#sancionando-apellido').html(resultado.apellido);
 					$('#sancionando-pts').html(resultado.nombre);
