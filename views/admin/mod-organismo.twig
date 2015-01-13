@@ -15,7 +15,7 @@ Virtuagora - Modificar organismo público
 {% endblock %}
 
 {% block contenido %}
-<form action="{{ urlFor('runModifOrganis') }}" id="mod-organismo" method="POST"></form>
+<form action="{{ urlFor('runModifOrganis', {'idOrg': organismo.id}) }}" id="mod-organismo" method="POST"></form>
 <form action="{{ urlFor('runModifImgOrganis', {'idOrg': organismo.id}) }}" id="cambiar-imagen" method="POST" enctype="multipart/form-data"></form>
 <section id="formulario">
     <div class="row">
@@ -59,6 +59,48 @@ Virtuagora - Modificar organismo público
             </label>
         </div>
     </div>
+    <div class="row">
+			<div class="large-10 large-centered columns">
+				<div class="row collapse clearfix">
+					<div class="large-4 columns">
+						<span class="prefix">
+							&nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Pagina web</b>
+						</span>
+					</div>
+					<div class="large-8 end columns">
+						<input type="text" name="utl" form="mod-organismo" placeholder="Ej: http://www.google.com">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-10 large-centered columns">
+				<div class="row collapse clearfix">
+					<div class="large-4 columns">
+						<span class="prefix">
+							&nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Email</b>
+						</span>
+					</div>
+					<div class="large-8 end columns">
+						<input type="text" name="email" form="mod-organismo" placeholder="Ej: ejemplo@servidor.com">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-10 large-centered columns">
+				<div class="row collapse clearfix">
+					<div class="large-4 columns">
+						<span class="prefix">
+							&nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Teléfono</b>
+						</span>
+					</div>
+					<div class="large-8 end columns">
+						<input type="text" name="telefono" form="mod-organismo" placeholder="(0342) 452-XXXX">
+					</div>
+				</div>
+			</div>
+		</div>
     <hr>
     <div class="row">
         <div class="large-5 large-centered columns text-center">
@@ -75,6 +117,9 @@ Virtuagora - Modificar organismo público
 		$('[name="nombre"]').val('{{ organismo.nombre }}');
 		$('[name="cupo"]').val('{{ organismo.cupo }}');
 		$('[name="descripcion"]').val('{{ organismo.descripcion }}');
+        $('[name="url"]').val('{{ organismo.url }}');
+        $('[name="email"]').val('{{ organismo.email }}');
+        $('[name="telefono"]').val('{{ organismo.telefono }}');
 	});
 </script>
 {% endblock %}
