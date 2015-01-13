@@ -65,15 +65,14 @@ $app->get('/usuario', function () use ($app) {
         echo Usuario::all()->toJson();
     }
 });
-$app->get('/usuario/:idUsr', function () use ($app) {
+$app->get('/usuario/:idUsr', function ($idUsr) use ($app) {
     if (strpos($app->request->headers->get('ACCEPT'), 'application/json') !== FALSE) {
         echo Usuario::findOrFail($idUsr)->toJson();
     }
 });
 
 $app->get('/test', function () use ($app) {
-    $organismo = Organismo::with('contacto')->first();
-    var_dump($organismo->contacto ?: 'holis', 1?2:'hol');
+    var_dump($app->session->user('es_moderador'));
 });
 
 $app->get('/', 'PortalCtrl:verIndex')->name('shwIndex');
