@@ -21,7 +21,7 @@ Virtuagora - Modificar organismo público
     <div class="row">
         <div class="large-10 large-centered columns clearfix">
             <div class="large-3 columns text-center" style="padding: 20px;" >
-                <img src="http://placehold.it/160x160">
+                <img src="{{baseUrl()}}/img/organismo/{{ organismo.id }}/160.png?x={{random()}}">
                 <div class="fileUpload btn btn-primary button tiny expand" style="margin-bottom:0;">
                     <span style="color: #FFFFFF"><i class="fa fa-photo fa-fw fa-lg"></i> Cargar imagen</span>
                     <input id="uploadBtn" name="imagen" form="cambiar-imagen" type="file" onchange="this.form.submit();" class="upload" />
