@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "augusthur/validation",
-            "version": "v2.3",
+            "version": "v2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/augusthur/PHP-Validation.git",
-                "reference": "075c42605d4e2e17b3c0f71822d6cbefaf6a6215"
+                "reference": "f82ecf5fba59ee628f9667344660d3618a3b283a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/augusthur/PHP-Validation/zipball/075c42605d4e2e17b3c0f71822d6cbefaf6a6215",
-                "reference": "075c42605d4e2e17b3c0f71822d6cbefaf6a6215",
+                "url": "https://api.github.com/repos/augusthur/PHP-Validation/zipball/f82ecf5fba59ee628f9667344660d3618a3b283a",
+                "reference": "f82ecf5fba59ee628f9667344660d3618a3b283a",
                 "shasum": ""
             },
             "require": {
@@ -50,9 +50,9 @@
                 "validation"
             ],
             "support": {
-                "source": "https://github.com/augusthur/PHP-Validation/tree/v2.3"
+                "source": "https://github.com/augusthur/PHP-Validation/tree/v2.4"
             },
-            "time": "2014-11-20 02:54:09"
+            "time": "2015-01-29 00:00:52"
         },
         {
             "name": "codeguy/upload",
@@ -479,16 +479,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.16.3",
+            "version": "v1.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "6dc11a1e8ecfc30e2c68aaeb218148409d8e68af"
+                "reference": "4cf7464348e7f9893a93f7096a90b73722be99cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/6dc11a1e8ecfc30e2c68aaeb218148409d8e68af",
-                "reference": "6dc11a1e8ecfc30e2c68aaeb218148409d8e68af",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/4cf7464348e7f9893a93f7096a90b73722be99cf",
+                "reference": "4cf7464348e7f9893a93f7096a90b73722be99cf",
                 "shasum": ""
             },
             "require": {
@@ -497,7 +497,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.16-dev"
+                    "dev-master": "1.18-dev"
                 }
             },
             "autoload": {
@@ -532,7 +532,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2014-12-25 19:58:19"
+            "time": "2015-01-25 17:32:08"
         }
     ],
     "packages-dev": [],

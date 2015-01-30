@@ -30,11 +30,12 @@ class ProblematicaCtrl extends Controller {
         $voto = VotoProblematica::firstOrNew(array('problematica_id' => $problematica->id,
                                                    'usuario_id' => $usuario->id));
         $postura = $vdt->getData('postura');
-
         if (!$voto->exists) {
-            $voto->usuario_id = $usuario->id;
-            $voto->usuario()->associate($usuario);
-            $usuario->increment('puntos'); // TODO revisar cuantos puntos otorgar
+            $usuario->increment('puntos');
+            $accion->tipo = 'vot_problem';
+            $accion->objeto()->associate($problematica);
+            $accion->actor()->associate($usuario);
+            $accion->save();
         } else if ($voto->postura == $postura) {
             throw (new TurnbackException())->setErrors(array('No puede votar dos veces la misma postura.'));
         } else {
@@ -43,24 +44,23 @@ class ProblematicaCtrl extends Controller {
             if ($fecha->lt($voto->updated_at)) {
                 throw (new TurnbackException())->setErrors(array('No puede cambiar su voto tan pronto.'));
             }
-            $usuario->decrement('puntos'); // TODO revisar cuantos puntos quitar
+            $usuario->decrement('puntos', 5);
+            switch ($voto->postura) {
+                case 0: $problematica->decrement('afectados_indiferentes'); break;
+                case 1: $problematica->decrement('afectados_indirectos'); break;
+                case 2: $problematica->decrement('afectados_directos'); break;
+            }
         }
         $voto->postura = $postura;
         switch ($postura) {
-            case 0:
-                $problematica->increment('afectados_indiferentes');
-                break;
-            case 1:
-                $problematica->increment('afectados_indirectos');
-                break;
-            case 2:
-                $problematica->increment('afectados_directos');
-                break;
+            case 0: $problematica->increment('afectados_indiferentes'); break;
+            case 1: $problematica->increment('afectados_indirectos'); break;
+            case 2: $problematica->increment('afectados_directos'); break;
         }
         $voto->save();
         $usuario->save();
         $this->flash('success', 'Su voto fue registrado exitosamente.');
-        $this->redirect($req->getRootUri().'/problematica/'.$idPro);
+        $this->redirectTo('shwProblem', array('idPro' => $problematica->id));
     }
 
     public function verCrear() {
@@ -72,9 +72,10 @@ class ProblematicaCtrl extends Controller {
         $vdt = new Validate\Validator();
         $vdt->addRule('titulo', new Validate\Rule\MinLength(8))
             ->addRule('titulo', new Validate\Rule\MaxLength(128))
+            ->addRule('categoria', new Validate\Rule\NumNatural())
+            ->addRule('categoria', new Validate\Rule\Exists('categorias'))
             ->addRule('cuerpo', new Validate\Rule\MinLength(8))
             ->addRule('cuerpo', new Validate\Rule\MaxLength(8192))
-            ->addRule('categoria', new Validate\Rule\NumNatural())
             ->addFilter('cuerpo', FilterFactory::escapeHTML());
         $req = $this->request;
         if (!$vdt->validate($req->post())) {
@@ -90,12 +91,16 @@ class ProblematicaCtrl extends Controller {
         $contenido = new Contenido;
         $contenido->titulo = $vdt->getData('titulo');
         $contenido->puntos = 0;
-        $contenido->categoria_id = $vdt->getData('categoria'); // TODO controla que existe esa categoria
+        $contenido->categoria_id = $vdt->getData('categoria');
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($problematica);
         $contenido->save();
+        $accion->tipo = 'new_problem';
+        $accion->objeto()->associate($problematica);
+        $accion->actor()->associate($autor);
+        $accion->save();
         $this->flash('success', 'Su problemática se creó exitosamente.');
-        $this->redirect($req->getRootUri().'/problematica/'.$problematica->id);
+        $this->redirectTo('shwProblem', array('idPro' => $problematica->id));
     }
 
 }

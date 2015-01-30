@@ -85,6 +85,33 @@ Capsule::schema()->create('funcionarios', function($table) {
     $table->softDeletes();
 });
 
+Capsule::schema()->create('acciones', function($table) {
+    $table->engine = 'InnoDB';
+
+    $table->increments('id')->unsigned();
+    $table->string('tipo');
+    $table->morphs('objeto');
+    $table->integer('actor_id')->unsigned();
+
+    $table->foreign('actor_id')->references('id')->on('usuarios')->onDelete('cascade');
+
+    $table->timestamps();
+    $table->softDeletes();
+});
+
+Capsule::schema()->create('notificaciones', function($table) {
+    $table->engine = 'InnoDB';
+
+    $table->increments('id')->unsigned();
+    $table->morphs('notificable');
+    $table->integer('usuario_id')->unsigned();
+
+    $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
+
+    $table->timestamps();
+    $table->softDeletes();
+});
+
 Capsule::schema()->create('usuario_datos', function($table) {
     $table->engine = 'InnoDB';
 
@@ -278,6 +305,19 @@ Capsule::schema()->create('comentarios', function($table) {
 
     $table->timestamps();
     $table->softDeletes();
+});
+
+Capsule::schema()->create('comentario_votos', function($table) {
+    $table->engine = 'InnoDB';
+
+    $table->increments('id');
+    $table->integer('valor');
+    $table->integer('usuario_id')->unsigned();
+    $table->integer('comentario_id')->unsigned();
+
+    $table->foreign('comentario_id')->references('id')->on('comentarios')->onDelete('cascade');
+
+    $table->timestamps();
 });
 
 echo 'holis';

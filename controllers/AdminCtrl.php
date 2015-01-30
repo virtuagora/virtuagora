@@ -3,8 +3,14 @@
 class AdminCtrl extends Controller {
 
     public function verOrganismos() {
-        $organismos = Organismo::all();
-        $this->render('admin/organismos.twig', array('organismos' => $organismos->toArray()));
+        $req = $this->request;
+        $vdt = Paginator::validate($req->get());
+        $url = $req->getUrl().$req->getPath();
+        $paginator = new Paginator(Organismo::query(), $url, $vdt->getData());
+        $organismos = $paginator->query->get();
+        $nav = $paginator->links;
+        $this->render('admin/organismos.twig', array('organismos' => $organismos->toArray(),
+                                                     'nav' => $nav));
     }
 
     public function verCrearOrganismo() {
@@ -18,10 +24,10 @@ class AdminCtrl extends Controller {
         $organismo->nombre = $vdt->getData('nombre');
         $organismo->descripcion = $vdt->getData('descripcion');
         $organismo->cupo = $vdt->getData('cupo');
-        $organismo->imagen = false;
         $organismo->save();
-        $this->crearImagen($organismo->id, $organismo->nombre);
-        $this->redirect($req->getRootUri().'/admin/organismo');
+        ImageManager::crearImagen('organis', $organismo->id, $organismo->nombre, array(32, 64, 160));
+        $this->flash('success', 'Se ha credo el organismo existosamente.');
+        $this->redirectTo('shwAdmOrganis');
     }
 
     public function verModificarOrganismo($idOrg) {
@@ -57,47 +63,21 @@ class AdminCtrl extends Controller {
     }
 
     public function cambiarImgOrganismo($idOrg) {
-        $dir = 'img/organismo/' . $idOrg;
-        if (!is_dir($dir)) {
-            mkdir('$dir', 0777, true);
-        }
-        $storage = new \Upload\Storage\FileSystem($dir, true);
-        $file = new \Upload\File('imagen', $storage);
-        $filename = 'original';
-        $file->setName($filename);
-        $file->addValidations(array(
-            new \Upload\Validation\Mimetype(array('image/png', 'image/jpg', 'image/jpeg', 'image/gif')),
-            new \Upload\Validation\Size('1M')
-        ));
-        $file->upload();
-        foreach (array(32, 64, 160) as $res) {
-            $image = new ZebraImage();
-            $image->source_path = $dir . '/' . $file->getNameWithExtension();
-            $image->target_path = $dir . '/' . $res . '.png';
-            $image->preserve_aspect_ratio = true;
-            $image->enlarge_smaller_images = true;
-            $image->preserve_time = true;
-            $image->resize($res, $res, ZEBRA_IMAGE_CROP_CENTER);
-        }
+        ImageManager::crearImagen('organis', $idOrg, array(32, 64, 160));
         $this->flash('success', 'Imagen cargada exitosamente.');
         $this->redirect($this->request->getReferrer());
     }
 
-    private function crearImagen($id, $nombre) {
-        $dir = 'img/organis/' . $id;
-        if (!is_dir($dir)) {
-            mkdir($dir, 0777, true);
+    public function eliminarOrganismo($idOrg) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idOrg, new Validate\Rule\NumNatural());
+        $organismo = Organismo::findOrFail($idOrg);
+        if ($organismo->funcionarios_count > 0) {
+            throw (new TurnbackException())->setErrors(array('Para eliminar un organismo no debe haber funcionarios dentro de este.'));
         }
-        $hash = md5(strtolower(trim($nombre)));
-        foreach (array(32, 64, 160) as $res) {
-            $ch = curl_init('http://www.gravatar.com/avatar/'.$hash.'?d=identicon&f=y&s='.$res);
-            $fp = fopen($dir . '/' . $res . '.png', 'wb');
-            curl_setopt($ch, CURLOPT_FILE, $fp);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_exec($ch);
-            curl_close($ch);
-            fclose($fp);
-        }
+        $organismo->delete()
+        $this->flash('success', 'El organismo fue eliminado exitosamente.');
+        $this->redirectTo('shwAdmOrganis');
     }
 
     private function validarOrganismo($data) {
@@ -115,8 +95,10 @@ class AdminCtrl extends Controller {
         return $vdt;
     }
 
-    public function verAdminFuncionarios($id) {
-        $organismo = Organismo::findOrFail($id);
+    public function verAdminFuncionarios($idOrg) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idOrg, new Validate\Rule\NumNatural());
+        $organismo = Organismo::findOrFail($idOrg);
         $this->render('admin/funcionarios.twig', array('organismo' => $organismo->toArray(),
                                                        'funcionarios' => $organismo->usuarios->toArray()));
     }
@@ -156,7 +138,8 @@ class AdminCtrl extends Controller {
             $funcionario->organismo_id = $id;
             $funcionario->save();
         }
-        $this->redirect($req->getRootUri().'/admin/organismo');
+        $this->flash('success', 'Se han modificado los funcionarios del organismo exitosamente.');
+        $this->redirectTo('shwAdmOrganis');
     }
 
     public function sancUsuario($idUsr) {

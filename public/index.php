@@ -72,7 +72,11 @@ $app->get('/usuario/:idUsr', function ($idUsr) use ($app) {
 });
 
 $app->get('/test', function () use ($app) {
-    var_dump($app->session->user('es_moderador'));
+    var_dump(Contenido::findOrFail(1)->nombre ?: Contenido::findOrFail(1)->titulo);
+    //var_dump($app->router()->getCurrentRoute());
+    //$req = $app->request;
+    //$p = new Paginator(Comentario::query(), $req->getUrl().$req->getPath(), $req->get(), 2, 1);
+    //var_dump($p->links, $p->query->get()->toJson());
 });
 
 $app->get('/', 'PortalCtrl:verIndex')->name('shwIndex');
@@ -80,7 +84,7 @@ $app->get('/login', 'checkNoSession', 'PortalCtrl:verLogin')->name('shwLogin');
 $app->post('/login', 'checkNoSession', 'PortalCtrl:login')->name('runLogin');
 $app->post('/logout', 'PortalCtrl:logout')->name('runLogout');
 $app->post('/registro', 'checkNoSession', 'PortalCtrl:registrar')->name('runCrearUsuario');
-$app->get('/validar/:idUsr/:token', 'PortalCtrl:validar')->name('runValidarUsuario');
+$app->get('/verificar/:idUsr/:token', 'PortalCtrl:verificarEmail')->name('runVerifUsuario');
 
 $app->get('/perfil/cambiar-clave', checkRole('usr'), 'PortalCtrl:verCambiarClave')->name('shwModifClvUsuario');
 $app->post('/perfil/cambiar-clave', checkRole('usr'), 'PortalCtrl:cambiarClave')->name('runModifClvUsuario');
@@ -92,6 +96,7 @@ $app->group('/admin', function () use ($app) {
     $app->get('/organismo/:idOrg/modificar', checkRole('mod'), 'AdminCtrl:verModificarOrganismo')->name('shwModifOrganis');
     $app->post('/organismo/:idOrg/modificar', checkRole('mod'), 'AdminCtrl:modificarOrganismo')->name('runModifOrganis');
     $app->post('/organismo/:idOrg/cambiar-imagen', checkRole('mod'), 'AdminCtrl:cambiarImgOrganismo')->name('runModifImgOrganis');
+    $app->post('/organismo/:idOrg/eliminar', checkRole('mod'), 'AdminCtrl:eliminarOrganismo')->name('runElimiOrganis');
 
     $app->post('/organismo/crear', checkRole('mod'), 'AdminCtrl:crearOrganismo')->name('runCrearOrganis');
     $app->get('/organismo/:idOrg/funcionario', checkRole('mod'), 'AdminCtrl:verAdminFuncionarios')->name('shwAdmFuncion');
@@ -103,6 +108,7 @@ $app->group('/propuesta', function () use ($app) {
     $app->get('/:idPro', 'PropuestaCtrl:ver')->name('shwPropues');
     $app->post('/:idPro/votar', checkRole('usr'), 'PropuestaCtrl:votar')->name('runVotarPropues');
     $app->post('/:idPro/cambiar-privacidad', checkRole('usr'), 'PropuestaCtrl:cambiarPrivacidad')->name('runModifPrvPropues');
+    $app->post('/:idPro/eliminar', checkRole('usr'), 'PropuestaCtrl:eliminar')->name('runElimiPropues');
 });
 
 $app->group('/problematica', function () use ($app) {

@@ -5,7 +5,7 @@ class DocumentoCtrl extends Controller {
     public function ver($idDoc, $idVer = 0) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idDoc, new Validate\Rule\NumNatural());
-        //$vdt->test($idVer, new Validate\Rule\NumNatural()); TODO hacer opcional
+        $vdt->test($idVer, new Validate\Rule\NumNatural());
         $documento = Documento::with('contenido')->findOrFail($idDoc);
         $contenido = $documento->contenido;
         if ($idVer == 0) {
@@ -23,19 +23,8 @@ class DocumentoCtrl extends Controller {
     }
 
     public function crear() {
-        $vdt = new Validate\Validator();
-        $vdt->addRule('titulo', new Validate\Rule\MinLength(8))
-            ->addRule('titulo', new Validate\Rule\MaxLength(128))
-            ->addRule('descripcion', new Validate\Rule\MinLength(8))
-            ->addRule('descripcion', new Validate\Rule\MaxLength(1024))
-            ->addRule('cuerpo', new Validate\Rule\MinLength(8))
-            ->addRule('cuerpo', new Validate\Rule\MaxLength(8192))
-            ->addRule('categoria', new Validate\Rule\NumNatural())
-            ->addFilter('cuerpo', FilterFactory::escapeHTML());
         $req = $this->request;
-        if (!$vdt->validate($req->post())) {
-            throw (new TurnbackException())->setErrors($vdt->getErrors());
-        }
+        $vdt = $this->validarOrganismo($req->post(), true);
         $autor = $this->session->getUser();
         $documento = new Documento;
         $documento->descripcion = $vdt->getData('descripcion');
@@ -56,10 +45,15 @@ class DocumentoCtrl extends Controller {
         $contenido = new Contenido;
         $contenido->titulo = $vdt->getData('titulo');
         $contenido->puntos = 0;
-        $contenido->categoria_id = $vdt->getData('categoria'); // TODO controlar que existe esa categoria
+        $contenido->categoria_id = $vdt->getData('categoria');
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($documento);
         $contenido->save();
+        $accion = new Accion;
+        $accion->tipo = 'new_documen';
+        $accion->objeto()->associate($documento);
+        $accion->actor()->associate($autor);
+        $accion->save();
         $this->flash('success', 'Su documento abierto se creó exitosamente.');
         $this->redirectTo('shwDocumen', array('idDoc' => $documento->id));
     }
@@ -109,29 +103,55 @@ class DocumentoCtrl extends Controller {
         $documento = Documento::with('contenido')->findOrFail($idDoc);
         $contenido = $documento->contenido;
         $datosDocumento = array_merge($contenido->toArray(), $documento->toArray());
-        $this->render('contenido/documento/nueva-version.twig', array('documento' => $datosDocumento));
+        $this->render('contenido/documento/modificar.twig', array('documento' => $datosDocumento));
     }
 
     public function modificar($idDoc) {
+        $req = $this->request;
+        $vdt = $this->validarOrganismo($req->post(), false);
+        $documento = Documento::with('contenido')->findOrFail($idDoc);
+        if ($documento->contenido->autor_id != $this->session->user('id')) {
+            throw new BearableException('No puede modificar el documento de otro.');
+        }
+        $documento->descripcion = $vdt->getData('descripcion');
+        $documento->save();
+        $contenido = $documento->contenido;
+        $contenido->titulo = $vdt->getData('titulo');
+        $contenido->categoria_id = $vdt->getData('categoria');
+        $contenido->save();
+        $this->flash('success', 'Los datos del documento fueron modificados exitosamente.');
+        $this->redirect($this->request->getReferrer());
+    }
+
+    public function eliminar($idDoc) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idDoc, new Validate\Rule\NumNatural());
+        $documento = Propuesta::with(array('contenido', 'comentarios.votos'))->findOrFail($idDoc);
+        if ($documento->contenido->autor_id != $this->session->user('id')) {
+            throw new BearableException('No puede eliminar el documento de otro.');
+        }
+        $documento->delete();
+        $this->flash('success', 'Su documento fue eliminado exitosamente.');
+        $this->redirect($req->getReferrer());
+    }
+
+    private function validarDocumento($data, $cuerpo = true) {
         $vdt = new Validate\Validator();
         $vdt->addRule('titulo', new Validate\Rule\MinLength(8))
             ->addRule('titulo', new Validate\Rule\MaxLength(128))
             ->addRule('descripcion', new Validate\Rule\MinLength(8))
             ->addRule('descripcion', new Validate\Rule\MaxLength(1024))
-            ->addRule('categoria', new Validate\Rule\NumNatural());
-        $req = $this->request;
-        if (!$vdt->validate($req->post())) {
+            ->addRule('categoria', new Validate\Rule\NumNatural())
+            ->addRule('categoria', new Validate\Rule\Exists('categorias'));
+        if ($cuerpo) {
+            $vdt->addRule('cuerpo', new Validate\Rule\MinLength(8))
+                ->addRule('cuerpo', new Validate\Rule\MaxLength(8192))
+                ->addFilter('cuerpo', FilterFactory::escapeHTML());
+        }
+        if (!$vdt->validate($data)) {
             throw (new TurnbackException())->setErrors($vdt->getErrors());
         }
-        $documento = Documento::with('contenido')->findOrFail($idDoc);
-        $documento->descripcion = $vdt->getData('descripcion');
-        $documento->save();
-        $contenido = $documento->contenido;
-        $contenido->titulo = $vdt->getData('titulo');
-        $contenido->categoria_id = $vdt->getData('categoria'); // TODO controlar que existe esa categoria
-        $contenido->save();
-        $this->flash('success', 'Los datos del documento fueron modificados exitosamente.');
-        $this->redirect($this->request->getReferrer());
+        return $vdt;
     }
 
     private function parsearParrafos($cuerpo) {

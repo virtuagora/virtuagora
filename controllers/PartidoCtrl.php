@@ -3,8 +3,14 @@
 class PartidoCtrl extends Controller {
 
     public function listar() {
-        $partidos = Partido::all();
-        $this->render('partido/listar.twig', array('partidos' => $partidos->toArray()));
+        $req = $this->request;
+        $vdt = Paginator::validate($req->get());
+        $url = $req->getUrl().$req->getPath();
+        $paginator = new Paginator(Partido::query(), $url, $vdt->getData());
+        $partidos = $paginator->query->get();
+        $nav = $paginator->links;
+        $this->render('partido/listar.twig', array('partidos' => $partidos->toArray(),
+                                                   'nav' => $nav));
     }
 
     public function verCrear() {
@@ -33,9 +39,14 @@ class PartidoCtrl extends Controller {
         $contacto->telefono = $vdt->getData('telefono');
         $contacto->contactable()->associate($partido);
         $contacto->save();
-        $this->crearImagen($partido->id, $partido->nombre);
+        $accion = new Accion;
+        $accion->tipo = 'new_partido';
+        $accion->objeto()->associate($partido);
+        $accion->actor()->associate($usuario);
+        $accion->save();
+        ImageManager::crearImagen('partido', $partido->id, $partido->nombre, array(32, 64, 160));
         $this->flash('success', 'El partido '.$partido->nombre.' fue creado exitosamente.');
-        $this->redirect($req->getRootUri().'/partido');
+        $this->redirectTo('shwListaPartido');
     }
 
     public function unirse($idPar) {
@@ -48,9 +59,13 @@ class PartidoCtrl extends Controller {
         }
         $usuario->partido()->associate($partido);
         $usuario->save();
+        $accion->tipo = 'joi_partido';
+        $accion->objeto()->associate($partido);
+        $accion->actor()->associate($usuario);
+        $accion->save();
         $this->session->setUser($usuario);
         $this->flash('success', 'Se ha unido al partido '.$partido->nombre.'.');
-        $this->redirect($this->request->getRootUri().'/partido');
+        $this->redirectTo('shwListaPartido');
     }
 
     public function dejar() {
@@ -58,15 +73,18 @@ class PartidoCtrl extends Controller {
         $partido = $usuario->partido;
         if (!$partido) {
             throw new BearableException('Usted no pertenece a ningún partido.');
-        }
-        if ($partido->creador_id == $usuario->id) {
+        } else if ($partido->creador_id == $usuario->id) {
             throw new BearableException('Usted no puede dejar el partido que creó.');
         }
         $usuario->partido()->dissociate();
         $usuario->save();
+        $accion->tipo = 'lef_partido';
+        $accion->objeto()->associate($partido);
+        $accion->actor()->associate($usuario);
+        $accion->save();
         $this->session->setUser($usuario);
         $this->flash('success', 'Ha dejado el partido '.$partido->nombre.'.');
-        $this->redirect($this->request->getRootUri().'/partido');
+        $this->redirectTo('shwListaPartido');
     }
 
     public function verModificar($idPar) {
@@ -82,6 +100,10 @@ class PartidoCtrl extends Controller {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idPar, new Validate\Rule\NumNatural());
         $partido = Partido::with('contacto')->findOrFail($idPar);
+        $usuario = $this->session->getUser();
+        if ($usuario->partido_id != $partido->id || !$usuario->es_jefe) {
+            throw new BearableException('Debe ser jefe del partido para poder modificarlo.');
+        }
         $req = $this->request;
         $vdt = $this->validarPartido($req->post());
         $partido->nombre = $vdt->getData('nombre');
@@ -100,47 +122,9 @@ class PartidoCtrl extends Controller {
     }
 
     public function cambiarImagen($idPar) {
-        $dir = 'img/partido/' . $idPar;
-        if (!is_dir($dir)) {
-            mkdir('$dir', 0777, true);
-        }
-        $storage = new \Upload\Storage\FileSystem($dir, true);
-        $file = new \Upload\File('imagen', $storage);
-        $filename = 'original';
-        $file->setName($filename);
-        $file->addValidations(array(
-            new \Upload\Validation\Mimetype(array('image/png', 'image/jpg', 'image/jpeg', 'image/gif')),
-            new \Upload\Validation\Size('1M')
-        ));
-        $file->upload();
-        foreach (array(32, 64, 160) as $res) {
-            $image = new ZebraImage();
-            $image->source_path = $dir . '/' . $file->getNameWithExtension();
-            $image->target_path = $dir . '/' . $res . '.png';
-            $image->preserve_aspect_ratio = true;
-            $image->enlarge_smaller_images = true;
-            $image->preserve_time = true;
-            $image->resize($res, $res, ZEBRA_IMAGE_CROP_CENTER);
-        }
+        ImageManager::crearImagen('partido', $idPar, array(32, 64, 160));
         $this->flash('success', 'Imagen cargada exitosamente.');
         $this->redirect($this->request->getReferrer());
-    }
-
-    private function crearImagen($id, $nombre) {
-        $dir = 'img/partido/' . $id;
-        if (!is_dir($dir)) {
-            mkdir($dir, 0777, true);
-        }
-        $hash = md5(strtolower(trim($nombre)));
-        foreach (array(32, 64, 160) as $res) {
-            $ch = curl_init('http://www.gravatar.com/avatar/'.$hash.'?d=identicon&f=y&s='.$res);
-            $fp = fopen($dir . '/' . $res . '.png', 'wb');
-            curl_setopt($ch, CURLOPT_FILE, $fp);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_exec($ch);
-            curl_close($ch);
-            fclose($fp);
-        }
     }
 
     private function validarPartido($data) {
@@ -151,6 +135,7 @@ class PartidoCtrl extends Controller {
             ->addRule('acronimo', new Validate\Rule\Alpha())
             ->addRule('acronimo', new Validate\Rule\MinLength(2))
             ->addRule('acronimo', new Validate\Rule\MaxLength(8))
+            ->addRule('descripcion', new Validate\Rule\MinLength(4))
             ->addRule('descripcion', new Validate\Rule\MaxLength(512))
             ->addRule('fundador', new Validate\Rule\Alpha(array(' ')))
             ->addRule('fundador', new Validate\Rule\MaxLength(32))
@@ -162,7 +147,12 @@ class PartidoCtrl extends Controller {
             ->addFilter('fecha', FilterFactory::emptyToNull())
             ->addFilter('url', FilterFactory::emptyToNull())
             ->addFilter('email', FilterFactory::emptyToNull())
-            ->addFilter('telefono', FilterFactory::emptyToNull());
+            ->addFilter('telefono', FilterFactory::emptyToNull())
+            ->addOptional('fundador')
+            ->addOptional('fecha')
+            ->addOptional('url')
+            ->addOptional('email')
+            ->addOptional('telefono');
         if (!$vdt->validate($data)) {
             throw (new TurnbackException())->setErrors($vdt->getErrors());
         }

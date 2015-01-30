@@ -18,4 +18,17 @@ class Comentario extends Eloquent {
         return $this->morphMany('Comentario', 'comentable');
     }
 
+    public function votos() {
+        return $this->hasMany('VotoComentario');
+    }
+
+    public static function boot() {
+        parent::boot();
+        static::deleting(function($comentario) {
+            $comentario->respuestas()->delete();
+            $comentario->votos()->delete();
+            return true;
+        });
+    }
+
 }

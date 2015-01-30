@@ -3,8 +3,7 @@
 class Documento extends Eloquent {
     use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-    //$table = 'documento';
-
+    //protected $table = 'documento';
     protected $dates = ['deleted_at'];
     protected $visible = array('id', 'descripcion', 'ultima_version');
 
@@ -14,6 +13,15 @@ class Documento extends Eloquent {
 
     public function versiones() {
         return $this->hasMany('VersionDocumento');
+    }
+
+    public static function boot() {
+        parent::boot();
+        static::deleting(function($documento) {
+            $documento->comentarios()->delete();
+            $documento->contenido()->delete();
+            return true;
+        });
     }
 
 }

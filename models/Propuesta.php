@@ -3,8 +3,7 @@
 class Propuesta extends Eloquent {
     use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-    //$table = 'propuestas';
-
+    //protected $table = 'propuestas';
     protected $dates = ['deleted_at'];
     protected $visible = array('id', 'cuerpo', 'votos_favor', 'votos_contra', 'votos_neutro');
 
@@ -18,5 +17,14 @@ class Propuesta extends Eloquent {
 
     public function votos() {
         return $this->hasMany('VotoPropuesta');
+    }
+
+    public static function boot() {
+        parent::boot();
+        static::deleting(function($propuesta) {
+            $propuesta->comentarios()->delete();
+            $propuesta->contenido()->delete();
+            return true;
+        });
     }
 }

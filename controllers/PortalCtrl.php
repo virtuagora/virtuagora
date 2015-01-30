@@ -5,9 +5,7 @@ class PortalCtrl extends Controller {
     public function verIndex() {
         if ($this->session->exists()) {
             $contenidos = Contenido::all();
-            $this->render('usuario/portal.twig', array('contenidos' => $contenidos->toArray(),
-                                                       'esModerador' => $this->session->hasRole('mod'),
-                                                       'esFuncionario' => $this->session->hasRole('fnc')));
+            $this->render('usuario/portal.twig', array('contenidos' => $contenidos->toArray()));
         } else {
             $this->render('registro/registro.twig');
         }
@@ -27,13 +25,13 @@ class PortalCtrl extends Controller {
             $this->redirect($this->request->getReferrer());
         } else {
             $this->flash('error', 'Datos de ingreso incorrectos. Por favor vuelva a intentarlo.');
-            $this->redirect($req->getRootUri().'/login');
+            $this->redirectTo('shwLogin');
         }
     }
 
     public function logout() {
         $this->session->logout();
-        $this->redirect($this->request->getRootUri().'/');
+        $this->redirectTo('shwIndex');
     }
 
     public function registrar() {
@@ -84,18 +82,15 @@ class PortalCtrl extends Controller {
         $this->render('registro/registro-exito.twig', array('email' => $usuario->email));
     }
 
-    public function validar($id, $token) {
-        $vdt = new Validate\Validator();
-        $vdt->addRule('id', new Validate\Rule\NumNatural())
-            ->addRule('token', new Validate\Rule\MinLength(8))
-            ->addRule('token', new Validate\Rule\AlphaNumeric());
-        $data = array('id' => $id, 'token' => $token);
-        if (!$vdt->validate($data)) {
-            $this->notFound();
-        }
-        $usuario = Usuario::findOrFail($id);
+    public function verificarEmail($idUsr, $token) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idUsr, new Validate\Rule\NumNatural());
+        $vdt->test($token, new Validate\Rule\AlphaNumeric());
+        $vdt->test($token, new Validate\Rule\MinLength(8));
+        $usuario = Usuario::findOrFail($idUsr);
         if ($usuario->verificado) {
-            $this->redirect($this->request->getRootUri().'/');
+            $this->flash('warning', 'Su cuenta ya cuenta con un email verificado.');
+            $this->redirectTo('shwIndex');
         }
         if ($token == $usuario->token_verificacion) {
             $usuario->verificado = true;

@@ -14,4 +14,16 @@ class FilterFactory {
         };
     }
 
+    public static function radioToBool() {
+        return function($v) {
+            return $v == 'on';
+        };
+    }
+
+    public static function explode($a) {
+        return function($v) use ($a) {
+            return explode($a, $v);
+        };
+    }
+
 }
