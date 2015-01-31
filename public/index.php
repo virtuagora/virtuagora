@@ -45,7 +45,7 @@ $app->hook('slim.before', function () use ($app) {
 // Prepare middlewares
 function checkNoSession() {
     global $app;
-    if ($app->session->exists()) {
+    if ($app->session->check()) {
         $app->redirect($app->request->getRootUri());
     }
 }
@@ -86,8 +86,13 @@ $app->post('/logout', 'PortalCtrl:logout')->name('runLogout');
 $app->post('/registro', 'checkNoSession', 'PortalCtrl:registrar')->name('runCrearUsuario');
 $app->get('/verificar/:idUsr/:token', 'PortalCtrl:verificarEmail')->name('runVerifUsuario');
 
-$app->get('/perfil/cambiar-clave', checkRole('usr'), 'PortalCtrl:verCambiarClave')->name('shwModifClvUsuario');
-$app->post('/perfil/cambiar-clave', checkRole('usr'), 'PortalCtrl:cambiarClave')->name('runModifClvUsuario');
+$app->get('/perfil/modificar', checkRole('usr'), 'UsuarioCtrl:verModificar')->name('shwModifUsuario');
+$app->post('/perfil/modificar', checkRole('usr'), 'UsuarioCtrl:modificar')->name('runModifUsuario');
+$app->post('/perfil/cambiar-imagen', checkRole('usr'), 'UsuarioCtrl:cambiarImagen')->name('runModifImgUsuario');
+$app->get('/perfil/cambiar-clave', checkRole('usr'), 'UsuarioCtrl:verCambiarClave')->name('shwModifClvUsuario');
+$app->post('/perfil/cambiar-clave', checkRole('usr'), 'UsuarioCtrl:cambiarClave')->name('runModifClvUsuario');
+$app->get('/perfil/eliminar', checkRole('usr'), 'UsuarioCtrl:verEliminar')->name('shwElimiUsuario');
+$app->post('/perfil/eliminar', checkRole('usr'), 'UsuarioCtrl:eliminar')->name('runElimiUsuario');
 
 $app->group('/admin', function () use ($app) {
     $app->get('/organismo', checkRole('mod'), 'AdminCtrl:verOrganismos')->name('shwAdmOrganis');
@@ -108,6 +113,8 @@ $app->group('/propuesta', function () use ($app) {
     $app->get('/:idPro', 'PropuestaCtrl:ver')->name('shwPropues');
     $app->post('/:idPro/votar', checkRole('usr'), 'PropuestaCtrl:votar')->name('runVotarPropues');
     $app->post('/:idPro/cambiar-privacidad', checkRole('usr'), 'PropuestaCtrl:cambiarPrivacidad')->name('runModifPrvPropues');
+    $app->get('/:idPro/modificar', 'PropuestaCtrl:verModificar')->name('shwModifPropues');
+    $app->post('/:idPro/modificar', 'PropuestaCtrl:modificar')->name('runModifPropues');
     $app->post('/:idPro/eliminar', checkRole('usr'), 'PropuestaCtrl:eliminar')->name('runElimiPropues');
 });
 
@@ -123,6 +130,7 @@ $app->group('/documento', function () use ($app) {
     $app->post('/:idDoc/modificar', 'DocumentoCtrl:modificar')->name('runModifDocumen');
     $app->get('/:idDoc/nueva-version', 'DocumentoCtrl:verNuevaVersion')->name('shwNuVerDocumen');
     $app->post('/:idDoc/nueva-version', 'DocumentoCtrl:nuevaVersion')->name('runNuVerDocumen');
+    $app->post('/:idDoc/eliminar', 'DocumentoCtrl:eliminar')->name('runElimiDocumen');
 });
 
 $app->group('/partido', function () use ($app) {

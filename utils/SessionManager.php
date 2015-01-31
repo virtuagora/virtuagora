@@ -15,7 +15,7 @@ class SessionManager {
     }
 
     public function logout () {
-        if ($this->exists()) {
+        if ($this->check()) {
             $_SESSION = array();
             if (isset($_COOKIE[session_name()])) {
                 setcookie(session_name(), '', time() - 3600);
@@ -24,8 +24,16 @@ class SessionManager {
         }
     }
 
+    public function check($idUsr) {
+        if ($idUsr) {
+            return $this->user('id') == $idUsr;
+        } else {
+            return isset($_SESSION['user']);
+        }
+    }
+
     public function user($attr = null) {
-        if ($this->exists()) {
+        if ($this->check()) {
             if ($attr) {
                 return $_SESSION['user'][$attr];
             } else {
@@ -36,32 +44,28 @@ class SessionManager {
         }
     }
 
+    public function setUser($user = null) {
+        $_SESSION['user'] = $user->toArray();
+        $_SESSION['user']['es_moderador'] = $this->hasRole('mod');
+    }
+
     public function getUser() {
-        if ($this->exists()) {
-            return Usuario::find($_SESSION['user']['id']);
+        if ($this->check()) {
+            return Usuario::find($this->user('id'));
         } else {
             return null;
         }
     }
 
-    public function setUser($user) {
-        $_SESSION['user'] = $user->toArray();
-        $_SESSION['user']['es_moderador'] = $this->hasRole('mod');
-    }
-
-    public function exists() {
-        return isset($_SESSION['user']);
-    }
-
     public function hasRole($role) {
-        if (!$this->exists()) return false;
+        if (!$this->check()) return false;
         switch ($role) {
             case 'usr':
                 return true;
             case 'fnc':
-                return Usuario::where('id', $_SESSION['user']['id'])->pluck('es_funcionario');
+                return Usuario::where('id', $this->user('id'))->pluck('es_funcionario');
             case 'mod':
-                return !is_null(Moderador::find($_SESSION['user']['id']));
+                return !is_null(Moderador::find($this->user('id')));
             default:
                 return false;
         }

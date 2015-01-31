@@ -63,7 +63,7 @@ class AdminCtrl extends Controller {
     }
 
     public function cambiarImgOrganismo($idOrg) {
-        ImageManager::crearImagen('organis', $idOrg, array(32, 64, 160));
+        ImageManager::cambiarImagen('organis', $idOrg, array(32, 64, 160));
         $this->flash('success', 'Imagen cargada exitosamente.');
         $this->redirect($this->request->getReferrer());
     }
@@ -75,7 +75,7 @@ class AdminCtrl extends Controller {
         if ($organismo->funcionarios_count > 0) {
             throw (new TurnbackException())->setErrors(array('Para eliminar un organismo no debe haber funcionarios dentro de este.'));
         }
-        $organismo->delete()
+        $organismo->delete();
         $this->flash('success', 'El organismo fue eliminado exitosamente.');
         $this->redirectTo('shwAdmOrganis');
     }
@@ -88,7 +88,13 @@ class AdminCtrl extends Controller {
             ->addRule('descripcion', new Validate\Rule\MaxLength(512))
             ->addRule('cupo', new Validate\Rule\NumNatural())
             ->addRule('cupo', new Validate\Rule\NumMin(1))
-            ->addRule('cupo', new Validate\Rule\NumMax(32));
+            ->addRule('cupo', new Validate\Rule\NumMax(32))
+            ->addRule('url', new Validate\Rule\URL())
+            ->addRule('email', new Validate\Rule\Email())
+            ->addRule('telefono', new Validate\Rule\Telephone())
+            ->addOptional('url')
+            ->addOptional('email')
+            ->addOptional('telefono');
         if (!$vdt->validate($data)) {
             throw (new TurnbackException())->setErrors($vdt->getErrors());
         }

@@ -49,7 +49,7 @@ class ExtendedTwig extends Twig_Extension {
             case 2:
                 return 'http://graph.facebook.com/'.$hash.'/picture?width='.$size;
             default:
-                return Slim\Slim::getInstance()->request()->getRootUri().'/img/usuarios/'.$hash.'/'.$size.'.jpg';
+                return Slim\Slim::getInstance()->request()->getRootUri().'/img/usuario/'.$hash.'/'.$size.'.jpg';
         }
     }
 

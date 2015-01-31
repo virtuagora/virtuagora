@@ -7,7 +7,7 @@ class Contenido extends Eloquent {
 
     protected $dates = ['deleted_at'];
     protected $visible = array('id', 'titulo', 'contenible_id', 'contenible_type', 'puntos', 'autor', 'created_at');
-    protected $with = array('autor');
+    protected $with = array('autor', 'categoria');
 
     public function contenible() {
         return $this->morphTo();
@@ -15,6 +15,10 @@ class Contenido extends Eloquent {
 
     public function autor() {
         return $this->belongsTo('Usuario');
+    }
+
+    public function categoria() {
+        return $this->belongsTo('Categoria');
     }
 
     public function tags() {

@@ -45,6 +45,7 @@ class PartidoCtrl extends Controller {
         $accion->actor()->associate($usuario);
         $accion->save();
         ImageManager::crearImagen('partido', $partido->id, $partido->nombre, array(32, 64, 160));
+        //TODO actualizar sesion
         $this->flash('success', 'El partido '.$partido->nombre.' fue creado exitosamente.');
         $this->redirectTo('shwListaPartido');
     }
@@ -122,8 +123,21 @@ class PartidoCtrl extends Controller {
     }
 
     public function cambiarImagen($idPar) {
-        ImageManager::crearImagen('partido', $idPar, array(32, 64, 160));
+        ImageManager::cambiarImagen('partido', $idPar, array(32, 64, 160));
         $this->flash('success', 'Imagen cargada exitosamente.');
+        $this->redirect($this->request->getReferrer());
+    }
+
+    public function eliminar($idPar) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idPar, new Validate\Rule\NumNatural());
+        $partido = Partido::with('contacto')->findOrFail($idPar);
+        if ($this->session->check($partido->creador_id)) {
+            throw new BearableException('Un partido puede ser eliminado solamente por su creador.');
+        }
+        $partido->delete();
+        //TODO actualizar sesion
+        $this->flash('success', 'El partido ha sido eliminado exitosamente.');
         $this->redirect($this->request->getReferrer());
     }
 
@@ -143,11 +157,6 @@ class PartidoCtrl extends Controller {
             ->addRule('url', new Validate\Rule\URL())
             ->addRule('email', new Validate\Rule\Email())
             ->addRule('telefono', new Validate\Rule\Telephone())
-            ->addFilter('fundador', FilterFactory::emptyToNull())
-            ->addFilter('fecha', FilterFactory::emptyToNull())
-            ->addFilter('url', FilterFactory::emptyToNull())
-            ->addFilter('email', FilterFactory::emptyToNull())
-            ->addFilter('telefono', FilterFactory::emptyToNull())
             ->addOptional('fundador')
             ->addOptional('fecha')
             ->addOptional('url')

@@ -96,13 +96,13 @@ class PropuestaCtrl extends Controller {
         $vdt = $this->validarPropuesta($req->post());
         $autor = $this->session->getUser();
         $propuesta = new Propuesta;
-        $propuesta->cuerpo = htmlspecialchars($req->post('cuerpo'), ENT_QUOTES);
+        $propuesta->cuerpo = $vdt->getData('cuerpo');
         $propuesta->votos_favor = 0;
         $propuesta->votos_contra = 0;
         $propuesta->votos_neutro = 0;
         $propuesta->save();
         $contenido = new Contenido;
-        $contenido->titulo = htmlspecialchars($req->post('titulo'));
+        $contenido->titulo = $vdt->getData('titulo');
         $contenido->puntos = 0;
         $contenido->categoria_id = $vdt->getData('categoria');
         $contenido->autor()->associate($autor);
@@ -118,10 +118,12 @@ class PropuestaCtrl extends Controller {
     public function verModificar($idPro) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idPro, new Validate\Rule\NumNatural());
+        $categorias = Categoria::all()->toArray();
         $propuesta = Propuesta::with('contenido')->findOrFail($idPro);
         $contenido = $propuesta->contenido;
         $datosPropuesta = array_merge($contenido->toArray(), $propuesta->toArray());
-        $this->render('contenido/propuesta/modificar.twig', array('propuesta' => $datosPropuesta));
+        $this->render('contenido/propuesta/modificar.twig', array('propuesta' => $datosPropuesta,
+                                                                  'categorias' => $categorias));
     }
 
     public function modificar($idPro) {

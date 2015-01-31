@@ -100,10 +100,12 @@ class DocumentoCtrl extends Controller {
     public function verModificar($idDoc) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idDoc, new Validate\Rule\NumNatural());
+        $categorias = Categoria::all()->toArray();
         $documento = Documento::with('contenido')->findOrFail($idDoc);
         $contenido = $documento->contenido;
         $datosDocumento = array_merge($contenido->toArray(), $documento->toArray());
-        $this->render('contenido/documento/modificar.twig', array('documento' => $datosDocumento));
+        $this->render('contenido/documento/modificar.twig', array('documento' => $datosDocumento,
+                                                                  'categorias' => $categorias));
     }
 
     public function modificar($idDoc) {

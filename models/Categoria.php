@@ -3,14 +3,12 @@
 class Categoria extends Eloquent {
     use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-    //$table = 'categorias';
-
+    //protected $table = 'categorias';
     protected $dates = ['deleted_at'];
     protected $visible = array('id', 'nombre');
 
-
     public function contenidos() {
-        return $this->belongsToMany('Contenido');
+        return $this->hasMany('Contenido');
     }
 
 }

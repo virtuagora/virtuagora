@@ -25,6 +25,12 @@ class Partido extends Eloquent {
             Usuario::where('id', $partido->creador_id)->update(array('es_jefe' => true,
                                                                      'partido_id' => $partido->id));
         });
+        static::deleting(function($partido) {
+            Usuario::where('partido_id', $partido->id)->update(array('partido_id' => null,
+                                                                     'es_jefe' => false));
+            $partido->contacto->delete();
+            return true;
+        });
     }
 
 }
