@@ -4,7 +4,7 @@
         "slim/slim": "2.*",
         "slim/views": "*",
         "twig/twig": "*",
-        "illuminate/database": "*",
+        "illuminate/database": "4.2.*",
         "codeguy/upload": "*",
         "ircmaxell/password-compat": "*",
         "augusthur/validation": "*"
