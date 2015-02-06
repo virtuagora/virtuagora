@@ -148,7 +148,7 @@ class PropuestaCtrl extends Controller {
         $accion->tipo = 'mod_propues';
         $accion->objeto()->associate($propuesta);
         $accion->actor()->associate($usuario);
-        $accion->save()
+        $accion->save();
         foreach ($propuesta->votos as $voto) {
             $notif = new Notificacion();
             $notif->usuario_id = $voto->usuario_id;
