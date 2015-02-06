@@ -32,6 +32,7 @@ class ProblematicaCtrl extends Controller {
         $postura = $vdt->getData('postura');
         if (!$voto->exists) {
             $usuario->increment('puntos');
+            $accion = new Accion;
             $accion->tipo = 'vot_problem';
             $accion->objeto()->associate($problematica);
             $accion->actor()->associate($usuario);
@@ -95,6 +96,7 @@ class ProblematicaCtrl extends Controller {
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($problematica);
         $contenido->save();
+        $accion = new Accion;
         $accion->tipo = 'new_problem';
         $accion->objeto()->associate($problematica);
         $accion->actor()->associate($autor);

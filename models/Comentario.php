@@ -1,8 +1,10 @@
 <?php use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Comentario extends Eloquent {
-    //$table = 'comentarios';
+    use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
+    //protected $table = 'comentarios';
+    protected $dates = array('deleted_at');
     protected $visible = array('id', 'cuerpo', 'comentable_type', 'votos', 'created_at', 'updated_at', 'autor', 'respuestas');
     protected $with = array('autor', 'respuestas');
 
@@ -25,7 +27,11 @@ class Comentario extends Eloquent {
     public static function boot() {
         parent::boot();
         static::deleting(function($comentario) {
-            $comentario->respuestas()->delete();
+            $answerIds = $comentario->respuestas()->lists('id');
+            if ($answerIds) {
+                VotoComentario::whereIn('comentario_id', $answerIds)->delete();
+                $comentario->respuestas()->delete();
+            }
             $comentario->votos()->delete();
             return true;
         });

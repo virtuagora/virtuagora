@@ -34,6 +34,7 @@ class PropuestaCtrl extends Controller {
         if (!$voto->exists) {
             $voto->publico = $vdt->getData('publico');
             $usuario->increment('puntos');
+            $accion = new Accion;
             $accion->tipo = 'vot_propues';
             $accion->objeto()->associate($propuesta);
             $accion->actor()->associate($usuario);
@@ -108,6 +109,7 @@ class PropuestaCtrl extends Controller {
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($propuesta);
         $contenido->save();
+        $accion = new Accion;
         $accion->tipo = 'vot_propues';
         $accion->objeto()->associate($propuesta);
         $accion->actor()->associate($autor);
@@ -146,6 +148,7 @@ class PropuestaCtrl extends Controller {
         $accion->tipo = 'mod_propues';
         $accion->objeto()->associate($propuesta);
         $accion->actor()->associate($usuario);
+        $accion->save()
         foreach ($propuesta->votos as $voto) {
             $notif = new Notificacion();
             $notif->usuario_id = $voto->usuario_id;

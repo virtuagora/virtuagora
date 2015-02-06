@@ -15,11 +15,28 @@ class Documento extends Eloquent {
         return $this->hasMany('VersionDocumento');
     }
 
+    public function parrafos() {
+        return $this->hasManyThrough('ParrafoDocumento', 'VersionDocumento', 'documento_id', 'version_id');
+    }
+
     public static function boot() {
         parent::boot();
         static::deleting(function($documento) {
-            $documento->comentarios()->delete();
-            $documento->contenido()->delete();
+            foreach ($documento->parrafos as $parrafo) {
+                $CommentIds = $parrafo->comentarios()->lists('id');
+                if ($CommentIds) {
+                    $AnswerIds = Comentario::where('comentable_type', 'Comentario')->whereIn('comentable_id', $CommentIds)->lists('id');
+                    if ($AnswerIds) {
+                        VotoComentario::whereIn('comentario_id', $AnswerIds)->delete();
+                        Comentario::whereIn('id', $AnswerIds)->delete();
+                    }
+                    VotoComentario::whereIn('comentario_id', $CommentIds)->delete();
+                    $parrafo->comentarios()->delete();
+                }
+            }
+            $documento->parrafos()->delete();
+            $documento->versiones()->delete();
+            $documento->contenido->delete();
             return true;
         });
     }

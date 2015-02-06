@@ -17,4 +17,23 @@ class Usuario extends Eloquent {
         return $this->hasOne('Moderador');
     }
 
+    public function contenidos() {
+        return $this->hasMany('Contenido', 'autor_id');
+    }
+
+    public static function boot() {
+        parent::boot();
+        static::deleting(function($usuario) {
+            foreach ($usuario->contenidos as $contenido) {
+                $contenido->contenible->delete();
+            }
+            $usuario->contacto->delete();
+            $partido = Partido::where('usuario_id', $usuario->id)->first();
+            if ($partido) {
+                $partido->delete();
+            }
+            return true;
+        });
+    }
+
 }

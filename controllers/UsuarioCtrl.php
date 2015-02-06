@@ -91,7 +91,7 @@ class UsuarioCtrl extends Controller {
             throw (new TurnbackException())->setErrors(array('Contraseña inválida.'));
         }
         $usuario = $this->session->getUser();
-        //TODO programar logica
+        $usuario->delete();
         $this->session->logout();
         $this->flash('success', 'Su cuenta ha sido eliminada.');
         $this->redirectTo('shwIndex');

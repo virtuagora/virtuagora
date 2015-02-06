@@ -24,7 +24,7 @@ class SessionManager {
         }
     }
 
-    public function check($idUsr) {
+    public function check($idUsr = null) {
         if ($idUsr) {
             return $this->user('id') == $idUsr;
         } else {

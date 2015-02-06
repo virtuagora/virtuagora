@@ -60,6 +60,7 @@ class PartidoCtrl extends Controller {
         }
         $usuario->partido()->associate($partido);
         $usuario->save();
+        $accion = new Accion;
         $accion->tipo = 'joi_partido';
         $accion->objeto()->associate($partido);
         $accion->actor()->associate($usuario);
@@ -79,6 +80,7 @@ class PartidoCtrl extends Controller {
         }
         $usuario->partido()->dissociate();
         $usuario->save();
+        $accion = new Accion;
         $accion->tipo = 'lef_partido';
         $accion->objeto()->associate($partido);
         $accion->actor()->associate($usuario);

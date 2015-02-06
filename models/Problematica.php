@@ -20,4 +20,16 @@ class Problematica extends Eloquent {
         return $this->hasMany('VotoProblematica');
     }
 
+    public static function boot() {
+        parent::boot();
+        static::deleting(function($problematica) {
+            foreach ($problematica->comentarios as $comentario) {
+                $comentario->delete();
+            }
+            $problematica->votos()->delete();
+            $problematica->contenido->delete();
+            return true;
+        });
+    }
+
 }

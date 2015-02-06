@@ -59,12 +59,24 @@ function checkRole($role) {
     };
 }
 
+function negotiate($content) {
+    return function () use ($content) {
+        global $app;
+        if (strpos($app->request->headers->get('ACCEPT'), $content) === FALSE) {
+            $app->pass();
+        }
+    };
+}
+
 // Prepare dispatcher
+$app->get('/:recurso', negotiate('application/json'), 'ApiCtrl:listar');
+/*
 $app->get('/usuario', function () use ($app) {
     if (strpos($app->request->headers->get('ACCEPT'), 'application/json') !== FALSE) {
         echo Usuario::all()->toJson();
     }
 });
+*/
 $app->get('/usuario/:idUsr', function ($idUsr) use ($app) {
     if (strpos($app->request->headers->get('ACCEPT'), 'application/json') !== FALSE) {
         echo Usuario::findOrFail($idUsr)->toJson();
@@ -72,7 +84,13 @@ $app->get('/usuario/:idUsr', function ($idUsr) use ($app) {
 });
 
 $app->get('/test', function () use ($app) {
-    var_dump(Contenido::findOrFail(1)->nombre ?: Contenido::findOrFail(1)->titulo);
+    $c = Problematica::findOrFail(4);
+    //var_dump($c->respuestas()->lists('id'));
+    $c->delete();
+    echo 'holis';
+    //$c->load('contenidos');
+    //var_dump($c->contenidos()->toArray());
+    //var_dump(Contenido::findOrFail(1)->nombre ?: Contenido::findOrFail(1)->titulo);
     //var_dump($app->router()->getCurrentRoute());
     //$req = $app->request;
     //$p = new Paginator(Comentario::query(), $req->getUrl().$req->getPath(), $req->get(), 2, 1);
