@@ -24,7 +24,7 @@ class DocumentoCtrl extends Controller {
 
     public function crear() {
         $req = $this->request;
-        $vdt = $this->validarOrganismo($req->post(), true);
+        $vdt = $this->validarDocumento($req->post(), true);
         $autor = $this->session->getUser();
         $documento = new Documento;
         $documento->descripcion = $vdt->getData('descripcion');
