@@ -24,7 +24,7 @@ class PortalCtrl extends Controller {
         if ($vdt->validate($req->post()) && $this->session->login($vdt->getData('email'), $vdt->getData('password'))) {
             $this->redirect($this->request->getReferrer());
         } else {
-            $this->flash('error', 'Datos de ingreso incorrectos. Por favor vuelva a intentarlo.');
+            $this->flash('errors', array('Datos de ingreso incorrectos. Por favor vuelva a intentarlo.'));
             $this->redirectTo('shwLogin');
         }
     }
@@ -74,8 +74,7 @@ class PortalCtrl extends Controller {
         $to = $usuario->email;
         $subject = 'Confirma tu registro en Virtuagora';
         $message = 'Hola, te registraste en virtuagora. Entra a este link para confirmar tu email: ' .
-                    $req->getUrl() . $req->getRootUri() . '/validar/' .
-                    $usuario->id . '/' . $usuario->token_verificacion;
+                   $this->urlFor('runVerifUsuario', array('idUsr' => $usuario->id, 'token' => $usuario->token_verificacion));
         $header = 'From:noreply@'.$_SERVER['SERVER_NAME'].' \r\n';
         $retval = mail($to, $subject, $message, $header);
 

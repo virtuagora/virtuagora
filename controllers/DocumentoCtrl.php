@@ -5,7 +5,7 @@ class DocumentoCtrl extends Controller {
     public function ver($idDoc, $idVer = 0) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idDoc, new Validate\Rule\NumNatural());
-        $vdt->test($idVer, new Validate\Rule\NumNatural());
+        //$vdt->test($idVer, new Validate\Rule\NumNatural()); //TODO Arreglar parametro auxiliar
         $documento = Documento::with('contenido')->findOrFail($idDoc);
         $contenido = $documento->contenido;
         if ($idVer == 0) {
