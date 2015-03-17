@@ -7,7 +7,7 @@ class PartidoCtrl extends Controller {
         $vdt = Paginator::validate($req->get());
         $url = $req->getUrl().$req->getPath();
         $paginator = new Paginator(Partido::query(), $url, $vdt->getData());
-        $partidos = $paginator->query->get();
+        $partidos = $paginator->rows;
         $nav = $paginator->links;
         $this->render('partido/listar.twig', array('partidos' => $partidos->toArray(),
                                                    'nav' => $nav));

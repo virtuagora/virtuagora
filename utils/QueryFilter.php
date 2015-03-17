@@ -8,7 +8,7 @@ class QueryFilter {
     public function __construct($query, $params = array(), $filtrables = array()) {
         $this->filters = array();
         if (isset($params['where'])) {
-            $filtros = explode(';', $this->params['where']);
+            $filtros = explode(';', $params['where']);
             foreach ($filtros as $filtro) {
                 $regla = explode(',', $filtro);
                 if (count($regla) != 3) {
@@ -28,11 +28,25 @@ class QueryFilter {
                 }
                 //TODO ver si se controla el contenido del filtro
                 $this->filters[] = $regla;
-                $this->query = $this->query->where($regla[0], $regla[1], $regla[2]);
+                $query = $query->where($regla[0], $regla[1], $regla[2]);
             }
-        } else {
-            $this->query = $query;
         }
+
+        if (isset($params['sort'])) {
+            $sorters = explode(',', $params['sort']);
+            foreach ($sorters as $sorter) {
+                $direction = 'ASC';
+                if (substr($sorter, 0, 1) == '-') {
+                    $direction = 'DESC';
+                    $sorter = substr($sorter, 1);
+                } else if (substr($sorter, 0, 1) == '+') {
+                    $sorter = substr($sorter, 1);
+                }
+                $query = $query->orderBy($sorter, $direction);
+            }
+        }
+
+         $this->query = $query;
     }
 
 }

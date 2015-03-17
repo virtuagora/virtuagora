@@ -69,7 +69,7 @@ class PropuestaCtrl extends Controller {
     public function cambiarPrivacidad($idPro) {
         $vdt = new Validate\Validator();
         $vdt->addRule('idPro', new Validate\Rule\NumNatural())
-            ->addFilter('publico', FilterFactory::radioToBool());
+            ->addRule('publico', new Validate\Rule\InArray(array(1, 0)));
         $req = $this->request;
         $data = array_merge(array('idPro' => $idPro), $req->post());
         if (!$vdt->validate($data)) {

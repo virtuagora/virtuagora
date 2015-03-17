@@ -21,7 +21,7 @@ class ApiCtrl extends Controller {
             $res->headers->set('Link', implode(', ', $linkArray));
         }
 
-        echo $paginator->query->get()->toJson();
+        echo $paginator->rows->toJson();
     }
 
 }

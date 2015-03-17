@@ -7,7 +7,7 @@ class AdminCtrl extends Controller {
         $vdt = Paginator::validate($req->get());
         $url = $req->getUrl().$req->getPath();
         $paginator = new Paginator(Organismo::query(), $url, $vdt->getData());
-        $organismos = $paginator->query->get();
+        $organismos = $paginator->rows;
         $nav = $paginator->links;
         $this->render('admin/organismos.twig', array('organismos' => $organismos->toArray(),
                                                      'nav' => $nav));

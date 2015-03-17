@@ -2,6 +2,25 @@
 
 class PortalCtrl extends Controller {
 
+    public function restListContenido() {
+        $req = $this->request;
+        $queryFilter = new QueryFilter(Contenido::query, $req->get());
+        $url = $req->getUrl().$req->getPath();
+        $paginator = new Paginator($queryFilter->query, $url, $req->get());
+
+        $res = $this->response;
+        $res->headers->set('Content-Type', 'application/json');
+        if (!empty($paginator->links)) {
+            $linkArray = array();
+            foreach ($paginator->links as $rel => $link) {
+                $linkArray[] = '<' . $link . '>; rel="' . $rel . '"';
+            }
+            $res->headers->set('Link', implode(', ', $linkArray));
+        }
+
+        echo $paginator->rows->toJson();
+    }
+
     public function verIndex() {
         if ($this->session->check()) {
             $contenidos = Contenido::all();
