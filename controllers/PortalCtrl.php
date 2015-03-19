@@ -3,8 +3,8 @@
 class PortalCtrl extends Controller {
     use RestTrait;
 
-    private ordenables = array('id', 'puntos');
-    private filtrables = array('id', 'puntos');
+    private $ordenables = array('id', 'puntos');
+    private $filtrables = array('id', 'puntos');
 
     public function restListContenido() {
         this->restList(Contenido::query());
