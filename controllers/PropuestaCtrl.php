@@ -156,7 +156,7 @@ class PropuestaCtrl extends Controller {
             $notif->save();
         }
         $this->flash('success', 'Los datos de la propuesta fueron modificados exitosamente.');
-        $this->redirect($this->request->getReferrer());
+        $this->redirectTo('shwPropues', array('idPro' => $idPro));
     }
 
     public function eliminar($idPro) {

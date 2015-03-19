@@ -6,14 +6,16 @@ class Paginator {
     public $rows;
     public $links;
 
-    public static function validate($data) {
+    public function validate($data) {
         $vdt = new Validate\Validator();
         $vdt->addRule('page', new Validate\Rule\NumNatural())
             ->addRule('page', new Validate\Rule\NumMin(1))
             ->addRule('take', new Validate\Rule\NumNatural())
             ->addRule('take', new Validate\Rule\NumMin(1))
+            ->addRule('count', new Validate\Rule\InArray(true, false)) // TODO ver si filtro
             ->addOptional('page')
-            ->addOptional('take');
+            ->addOptional('take')
+            ->addOptional('count');
         if (!$vdt->validate($data)) {
             throw new BearableException('Parámetros de paginación incorrectos.');
         }
@@ -21,9 +23,10 @@ class Paginator {
     }
 
     public function __construct($query, $url = '', $params = array()) {
-        $page = isset($params['page']) ? $params['page'] : 1;
-        $take = isset($params['take']) ? $params['take'] : 10;
-        $count = isset($params['count']) ? $params['count'] : true;
+        $vdt = $this->validate($params);
+        $page = $vdt->getData('page') ?: 1;
+        $take = $vdt->getData('take') ?: 10;
+        $count = $vdt->getData('count') ?: true;
         if ($count) {
             $lastPage = ceil($query->count()/$take);
             $page = min($page, $lastPage);

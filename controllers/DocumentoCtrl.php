@@ -64,9 +64,13 @@ class DocumentoCtrl extends Controller {
         $documento = Documento::with('contenido')->findOrFail($idDoc);
         $contenido = $documento->contenido;
         $version = $documento->versiones()->where('version', $documento->ultima_version)->first();
+        $cuerpo = "";
+        foreach ($version->parrafos as $parrafo) {
+            $cuerpo .= $parrafo->cuerpo;
+        }
         $datosDocumento = array_merge($contenido->toArray(), $documento->toArray());
         $this->render('contenido/documento/nueva-version.twig', array('documento' => $datosDocumento,
-                                                                      'version' =>  $version->toArray()));
+                                                                      'cuerpo' =>  $cuerpo));
     }
 
     public function nuevaVersion($idDoc) {
@@ -110,7 +114,7 @@ class DocumentoCtrl extends Controller {
 
     public function modificar($idDoc) {
         $req = $this->request;
-        $vdt = $this->validarOrganismo($req->post(), false);
+        $vdt = $this->validarDocumento($req->post(), false);
         $documento = Documento::with('contenido')->findOrFail($idDoc);
         if ($documento->contenido->autor_id != $this->session->user('id')) {
             throw new BearableException('No puede modificar el documento de otro.');

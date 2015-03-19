@@ -1,24 +1,13 @@
 <?php use Augusthur\Validation as Validate;
 
 class PortalCtrl extends Controller {
+    use RestTrait;
+
+    private ordenables = array('id', 'puntos');
+    private filtrables = array('id', 'puntos');
 
     public function restListContenido() {
-        $req = $this->request;
-        $queryFilter = new QueryFilter(Contenido::query, $req->get());
-        $url = $req->getUrl().$req->getPath();
-        $paginator = new Paginator($queryFilter->query, $url, $req->get());
-
-        $res = $this->response;
-        $res->headers->set('Content-Type', 'application/json');
-        if (!empty($paginator->links)) {
-            $linkArray = array();
-            foreach ($paginator->links as $rel => $link) {
-                $linkArray[] = '<' . $link . '>; rel="' . $rel . '"';
-            }
-            $res->headers->set('Link', implode(', ', $linkArray));
-        }
-
-        echo $paginator->rows->toJson();
+        this->restList(Contenido::query());
     }
 
     public function verIndex() {
