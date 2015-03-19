@@ -7,7 +7,7 @@ class PortalCtrl extends Controller {
     private $filtrables = array('id', 'puntos');
 
     public function restListContenido() {
-        this->restList(Contenido::query());
+        $this->restList(Contenido::query());
     }
 
     public function verIndex() {
