@@ -12,13 +12,13 @@ class ComentarioCtrl extends Controller {
         $req = $this->request;
         $data = array_merge(array('idRaiz' => $idRaiz, 'tipoRaiz' => $tipoRaiz), $req->post());
         if (!$vdt->validate($data)) {
-            throw (new TurnbackException())->setErrors($vdt->getErrors());
+            throw new TurnbackException($vdt->getErrors());
         }
         $autor = $this->session->getUser();
         $comentable = call_user_func($vdt->getData('tipoRaiz').'::findOrFail', $vdt->getData('idRaiz'));
         if ($vdt->getData('tipoRaiz') == 'Comentario') {
             if ($comentable->comentable_type == 'Comentario') {
-                throw (new TurnbackException())->setErrors(array('No puede responderse una respuesta.'));
+                throw new TurnbackException('No puede responderse una respuesta.');
             }
             $objType = $comentable->comentable_type;
             $objId = $comentable->comentable_id;
@@ -48,7 +48,7 @@ class ComentarioCtrl extends Controller {
         $req = $this->request;
         $data = array_merge(array('idCom' => $idCom), $req->post());
         if (!$vdt->validate($data)) {
-            throw (new TurnbackException())->setErrors($vdt->getErrors());
+            throw new TurnbackException($vdt->getErrors());
         }
         $usuario = $this->session->getUser();
         $comentario = Comentario::findOrFail($idCom);
@@ -59,7 +59,7 @@ class ComentarioCtrl extends Controller {
             $voto->save();
             $comentario->increment('votos', $voto->cantidad);
         } else {
-            throw (new TurnbackException())->setErrors(array('No puede votar dos veces el mismo comentario.'));
+            throw new TurnbackException('No puede votar dos veces el mismo comentario.');
         }
         $this->flash('success', 'Su voto fue registrado exitosamente.');
         $this->redirect($req->getReferrer());

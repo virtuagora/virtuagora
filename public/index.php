@@ -59,6 +59,7 @@ function checkRole($role) {
     };
 }
 
+/*
 function negotiate($content) {
     return function () use ($content) {
         global $app;
@@ -67,27 +68,26 @@ function negotiate($content) {
         }
     };
 }
+*/
 
 // Prepare dispatcher
-$app->get('/:recurso', negotiate('application/json'), 'ApiCtrl:listar');
+//$app->get('/:recurso', negotiate('application/json'), 'ApiCtrl:listar');
+//$app->get('/contenido', negotiate('application/json'), 'PortalCtrl:restList');
 /*
 $app->get('/usuario', function () use ($app) {
     if (strpos($app->request->headers->get('ACCEPT'), 'application/json') !== FALSE) {
         echo Usuario::all()->toJson();
     }
 });
-*/
+
 $app->get('/usuario/:idUsr', function ($idUsr) use ($app) {
     if (strpos($app->request->headers->get('ACCEPT'), 'application/json') !== FALSE) {
         echo Usuario::findOrFail($idUsr)->toJson();
     }
 });
-
+*/
 $app->get('/test', function () use ($app) {
-    $c = Problematica::findOrFail(4);
-    //var_dump($c->respuestas()->lists('id'));
-    $c->delete();
-    echo 'holis';
+    var_dump(implode(', ', array()));
     //$c->load('contenidos');
     //var_dump($c->contenidos()->toArray());
     //var_dump(Contenido::findOrFail(1)->nombre ?: Contenido::findOrFail(1)->titulo);
@@ -101,8 +101,15 @@ $app->get('/', 'PortalCtrl:verIndex')->name('shwIndex');
 $app->get('/login', 'checkNoSession', 'PortalCtrl:verLogin')->name('shwLogin');
 $app->post('/login', 'checkNoSession', 'PortalCtrl:login')->name('runLogin');
 $app->post('/logout', 'PortalCtrl:logout')->name('runLogout');
+$app->get('/registro', 'checkNoSession', 'PortalCtrl:verRegistrar')->name('shwCrearUsuario');
 $app->post('/registro', 'checkNoSession', 'PortalCtrl:registrar')->name('runCrearUsuario');
 $app->get('/verificar/:idUsr/:token', 'PortalCtrl:verificarEmail')->name('runVerifUsuario');
+
+$app->get('/contenido/:idCon', 'ContenidoCtrl:ver')->name('shwConteni');
+$app->get('/contenido', 'ContenidoCtrl:listar')->name('shwListaConteni');
+
+$app->get('/usuario/:idUsr', 'UsuarioCtrl:ver')->name('shwUsuario');
+$app->get('/usuario', 'UsuarioCtrl:listar')->name('shwListaUsuario');
 
 $app->get('/perfil/modificar', checkRole('usr'), 'UsuarioCtrl:verModificar')->name('shwModifUsuario');
 $app->post('/perfil/modificar', checkRole('usr'), 'UsuarioCtrl:modificar')->name('runModifUsuario');

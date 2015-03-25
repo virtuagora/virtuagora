@@ -17,6 +17,6 @@
     ],
     "autoload": {
         "files": [ "config/database.php" ],
-        "classmap": [ "models", "controllers", "utils" ]
+        "classmap": [ "models", "controllers", "representations", "utils" ]
     }
 }

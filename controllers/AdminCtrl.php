@@ -48,7 +48,7 @@ class AdminCtrl extends Controller {
         $organismo->nombre = $vdt->getData('nombre');
         $organismo->descripcion = $vdt->getData('descripcion');
         if ($vdt->getData('cupo') < $organismo->funcionarios_count) {
-            throw (new TurnbackException())->setErrors(array('Actualmente hay más funcionarios que el cupo deseado, elimine algunos.'));
+            throw new TurnbackException('Actualmente hay más funcionarios que el cupo deseado, elimine algunos.');
         } else {
             $organismo->cupo = $vdt->getData('cupo');
         }
@@ -73,7 +73,7 @@ class AdminCtrl extends Controller {
         $vdt->test($idOrg, new Validate\Rule\NumNatural());
         $organismo = Organismo::findOrFail($idOrg);
         if ($organismo->funcionarios_count > 0) {
-            throw (new TurnbackException())->setErrors(array('Para eliminar un organismo no debe haber funcionarios dentro de este.'));
+            throw new TurnbackException('Para eliminar un organismo no debe haber funcionarios dentro de este.');
         }
         $organismo->delete();
         $this->flash('success', 'El organismo fue eliminado exitosamente.');
@@ -96,7 +96,7 @@ class AdminCtrl extends Controller {
             ->addOptional('email')
             ->addOptional('telefono');
         if (!$vdt->validate($data)) {
-            throw (new TurnbackException())->setErrors($vdt->getErrors());
+            throw new TurnbackException($vdt->getErrors());
         }
         return $vdt;
     }
@@ -116,9 +116,8 @@ class AdminCtrl extends Controller {
             ->addRule('salientes', new Validate\Rule\Regex('/^\[\d*(?:,\d+)*\]$/'));
         $req = $this->request;
         $data = array_merge(array('id' => $id), $req->post());
-        $errormsg = array('Configuración inválida.');
         if (!$vdt->validate($data)) {
-            throw (new TurnbackException())->setErrors($errormsg);
+            throw new TurnbackException('Configuración inválida.');
         }
         $organismo = Organismo::findOrFail($id);
         $funcionarios = $organismo->funcionarios;
@@ -129,10 +128,10 @@ class AdminCtrl extends Controller {
         $entrantes = json_decode($vdt->getData('entrantes'));
         $salientes = json_decode($vdt->getData('salientes'));
         if (array_intersect($actuales, $entrantes)) {
-            throw (new TurnbackException())->setErrors($errormsg);
+            throw new TurnbackException('Configuración inválida.');
         }
         if (array_diff($salientes, $actuales)) {
-            throw (new TurnbackException())->setErrors($errormsg);
+            throw new TurnbackException('Configuración inválida.');
         }
         if ($salientes) {
             Funcionario::whereIn('usuario_id', $salientes)->delete();
@@ -158,7 +157,7 @@ class AdminCtrl extends Controller {
         $req = $this->request;
         $data = array_merge(array('idUsr' => $idUsr), $req->post());
         if (!$vdt->validate($data)) {
-            throw (new TurnbackException())->setErrors($vdt->getErrors());
+            throw new TurnbackException($vdt->getErrors());
         }
         $usuario = Usuario::findOrFail($vdt->getData('idUsr'));
         switch ($vdt->getData('tipo')) {

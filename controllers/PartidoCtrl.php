@@ -2,15 +2,32 @@
 
 class PartidoCtrl extends Controller {
 
-    public function listar() {
-        $req = $this->request;
-        $vdt = Paginator::validate($req->get());
-        $url = $req->getUrl().$req->getPath();
-        $paginator = new Paginator(Partido::query(), $url, $vdt->getData());
+    use RestTrait;
+
+    private $ordenables = array('id', 'nombre', 'acronimo', 'fecha_fundacion', 'created_at');
+    private $filtrables = array('id', 'nombre', 'acronimo');
+
+    public function getRepresentation($conneg) {
+        if (substr($conneg, 0, 16) == 'application/json') {
+            return new JsonRepr();
+        } else {
+            return new ViewRepr();
+        }
+    }
+
+    public function queryModel() {
+        return Partido::query();
+    }
+
+    public function executeListCtrl($paginator) {
         $partidos = $paginator->rows;
         $nav = $paginator->links;
         $this->render('partido/listar.twig', array('partidos' => $partidos->toArray(),
                                                    'nav' => $nav));
+    }
+
+    public function executeGetCtrl($partido) {
+        $this->render('partido/ver.twig', array('partido' => $partido->toArray()));
     }
 
     public function verCrear() {
@@ -22,7 +39,7 @@ class PartidoCtrl extends Controller {
         $vdt = $this->validarPartido($req->post());
         $usuario = $this->session->getUser();
         if ($usuario->partido_id) {
-            throw (new TurnbackException())->setErrors(array('No es posible crear un partido si ya está afilado a otro.'));
+            throw new TurnbackException('No es posible crear un partido si ya está afilado a otro.');
         }
         $partido = new Partido;
         $partido->nombre = $vdt->getData('nombre');
@@ -45,7 +62,7 @@ class PartidoCtrl extends Controller {
         $accion->actor()->associate($usuario);
         $accion->save();
         ImageManager::crearImagen('partido', $partido->id, $partido->nombre, array(32, 64, 160));
-        //TODO actualizar sesion
+        $this->session->setUser($usuario);
         $this->flash('success', 'El partido '.$partido->nombre.' fue creado exitosamente.');
         $this->redirectTo('shwListaPartido');
     }
@@ -56,7 +73,7 @@ class PartidoCtrl extends Controller {
         $partido = Partido::findOrFail($idPar);
         $usuario = $this->session->getUser();
         if ($usuario->partido) {
-            throw (new TurnbackException())->setErrors(array('Usted ya está afiliado a otro partido.'));
+            throw new TurnbackException('Usted ya está afiliado a otro partido.');
         }
         $usuario->partido()->associate($partido);
         $usuario->save();
@@ -138,7 +155,7 @@ class PartidoCtrl extends Controller {
             throw new BearableException('Un partido puede ser eliminado solamente por su creador.');
         }
         $partido->delete();
-        //TODO actualizar sesion
+        $this->session->setUser($this->session->getUser());
         $this->flash('success', 'El partido ha sido eliminado exitosamente.');
         $this->redirect($this->request->getReferrer());
     }
@@ -165,7 +182,7 @@ class PartidoCtrl extends Controller {
             ->addOptional('email')
             ->addOptional('telefono');
         if (!$vdt->validate($data)) {
-            throw (new TurnbackException())->setErrors($vdt->getErrors());
+            throw new TurnbackException($vdt->getErrors());
         }
         return $vdt;
     }

@@ -66,7 +66,7 @@ class DocumentoCtrl extends Controller {
         $version = $documento->versiones()->where('version', $documento->ultima_version)->first();
         $cuerpo = "";
         foreach ($version->parrafos as $parrafo) {
-            $cuerpo .= $parrafo->cuerpo;
+            $cuerpo .= $parrafo->cuerpo . PHP_EOL;
         }
         $datosDocumento = array_merge($contenido->toArray(), $documento->toArray());
         $this->render('contenido/documento/nueva-version.twig', array('documento' => $datosDocumento,
@@ -81,7 +81,7 @@ class DocumentoCtrl extends Controller {
             ->addFilter('cuerpo', FilterFactory::escapeHTML());
         $req = $this->request;
         if (!$vdt->validate($req->post())) {
-            throw (new TurnbackException())->setErrors($vdt->getErrors());
+            throw new TurnbackException($vdt->getErrors());
         }
         $documento = Documento::findOrFail($idDoc);
         $documento->increment('ultima_version');
@@ -155,7 +155,7 @@ class DocumentoCtrl extends Controller {
                 ->addFilter('cuerpo', FilterFactory::escapeHTML());
         }
         if (!$vdt->validate($data)) {
-            throw (new TurnbackException())->setErrors($vdt->getErrors());
+            throw new TurnbackException($vdt->getErrors());
         }
         return $vdt;
     }

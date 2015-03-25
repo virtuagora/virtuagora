@@ -1,27 +1,28 @@
-<?php
+<?php use Augusthur\Validation as Validate;
 
 trait RestTrait {
 
-    public function restList($query) {
-        $req = $this->request;
+    abstract public function queryModel();
+    abstract public function getRepresentation($conneg);
 
-        $queryMaker = new QueryMaker($query, $req->get());
+    public function listar() {
+        $req = $this->request;
+        $queryMaker = new QueryMaker($this->queryModel(), $req->get());
         $queryMaker->addFilters($this->filtrables);
         $queryMaker->addSorters($this->ordenables);
         $url = $req->getUrl().$req->getPath();
         $paginator = new Paginator($queryMaker->query, $url, $queryMaker->params);
+        $repr = $this->getRepresentation($req->headers->get('ACCEPT'));
+        $repr->shwCollection($this, $paginator);
+    }
 
-        $res = $this->response;
-        $res->headers->set('Content-Type', 'application/json');
-        if (!empty($paginator->links)) {
-            $linkArray = array();
-            foreach ($paginator->links as $rel => $link) {
-                $linkArray[] = '<' . $link . '>; rel="' . $rel . '"';
-            }
-            $res->headers->set('Link', implode(', ', $linkArray));
-        }
-
-        echo $paginator->rows->toJson();
+    public function ver($id) {
+        $req = $this->request;
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($id, new Validate\Rule\NumNatural());
+        $resource = $this->queryModel()->findOrFail($id);
+        $repr = $this->getRepresentation($req->headers->get('ACCEPT'));
+        $repr->shwResource($this, $resource);
     }
 
 }

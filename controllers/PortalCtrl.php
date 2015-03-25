@@ -1,21 +1,14 @@
 <?php use Augusthur\Validation as Validate;
 
 class PortalCtrl extends Controller {
-    use RestTrait;
-
-    private $ordenables = array('id', 'puntos');
-    private $filtrables = array('id', 'puntos');
-
-    public function restListContenido() {
-        $this->restList(Contenido::query());
-    }
 
     public function verIndex() {
         if ($this->session->check()) {
             $contenidos = Contenido::all();
             $this->render('usuario/portal.twig', array('contenidos' => $contenidos->toArray()));
         } else {
-            $this->render('registro/registro.twig');
+            //$this->render('introduccion.twig');
+            echo 'holis';
         }
     }
 
@@ -42,6 +35,10 @@ class PortalCtrl extends Controller {
         $this->redirectTo('shwIndex');
     }
 
+    public function verRegistrar() {
+        $this->render('registro/registro.twig');
+    }
+
     public function registrar() {
         $vdt = new Validate\Validator();
         $vdt->addRule('nombre', new Validate\Rule\NotEmpty())
@@ -62,7 +59,7 @@ class PortalCtrl extends Controller {
             ->addRule('password', new Validate\Rule\Matches('password2'));
         $req = $this->request;
         if (!$vdt->validate($req->post())) {
-            throw (new TurnbackException())->setErrors($vdt->getErrors());
+            throw new TurnbackException($vdt->getErrors());
         }
         $usuario = new Usuario;
         $usuario->email = $vdt->getData('email');

@@ -23,7 +23,7 @@ class ProblematicaCtrl extends Controller {
         $req = $this->request;
         $data = array_merge(array('idPro' => $idPro), $req->post());
         if (!$vdt->validate($data)) {
-            throw (new TurnbackException())->setErrors($vdt->getErrors());
+            throw new TurnbackException($vdt->getErrors());
         }
         $usuario = $this->session->getUser();
         $problematica = Problematica::findOrFail($idPro);
@@ -38,12 +38,12 @@ class ProblematicaCtrl extends Controller {
             $accion->actor()->associate($usuario);
             $accion->save();
         } else if ($voto->postura == $postura) {
-            throw (new TurnbackException())->setErrors(array('No puede votar dos veces la misma postura.'));
+            throw new TurnbackException('No puede votar dos veces la misma postura.');
         } else {
             $fecha = Carbon\Carbon::now();
             $fecha->subDays(3);
             if ($fecha->lt($voto->updated_at)) {
-                throw (new TurnbackException())->setErrors(array('No puede cambiar su voto tan pronto.'));
+                throw new TurnbackException('No puede cambiar su voto tan pronto.');
             }
             $usuario->decrement('puntos', 5);
             switch ($voto->postura) {
@@ -80,7 +80,7 @@ class ProblematicaCtrl extends Controller {
             ->addFilter('cuerpo', FilterFactory::escapeHTML());
         $req = $this->request;
         if (!$vdt->validate($req->post())) {
-            throw (new TurnbackException())->setErrors($vdt->getErrors());
+            throw new TurnbackException($vdt->getErrors());
         }
         $autor = $this->session->getUser();
         $problematica = new Problematica;

@@ -24,7 +24,7 @@ class PropuestaCtrl extends Controller {
         $req = $this->request;
         $data = array_merge(array('idPro' => $idPro), $req->post());
         if (!$vdt->validate($data)) {
-            throw (new TurnbackException())->setErrors($vdt->getErrors());
+            throw new TurnbackException($vdt->getErrors());
         }
         $usuario = $this->session->getUser();
         $propuesta = Propuesta::findOrFail($idPro);
@@ -40,12 +40,12 @@ class PropuestaCtrl extends Controller {
             $accion->actor()->associate($usuario);
             $accion->save();
         } else if ($voto->postura == $postura) {
-            throw (new TurnbackException())->setErrors(array('No puede votar dos veces la misma postura.'));
+            throw new TurnbackException('No puede votar dos veces la misma postura.');
         } else {
             $fecha = Carbon\Carbon::now();
             $fecha->subDays(3);
             if ($fecha->lt($voto->updated_at)) {
-                throw (new TurnbackException())->setErrors(array('No puede cambiar su voto tan pronto.'));
+                throw new TurnbackException('No puede cambiar su voto tan pronto.');
             }
             $usuario->decrement('puntos', 5);
             switch ($voto->postura) {
@@ -73,7 +73,7 @@ class PropuestaCtrl extends Controller {
         $req = $this->request;
         $data = array_merge(array('idPro' => $idPro), $req->post());
         if (!$vdt->validate($data)) {
-            throw (new TurnbackException())->setErrors($vdt->getErrors());
+            throw new TurnbackException($vdt->getErrors());
         }
         $voto = VotoPropuesta::where(array('propuesta_id' => $idPro,
                                            'usuario_id' => $this->session->user('id')))->first();
@@ -114,6 +114,7 @@ class PropuestaCtrl extends Controller {
         $accion->objeto()->associate($propuesta);
         $accion->actor()->associate($autor);
         $accion->save();
+        $this->flash('success', 'Su propuesta fue creada exitosamente.');
         $this->redirectTo('shwPropues', array('idPro' => $propuesta->id));
     }
 
@@ -181,7 +182,7 @@ class PropuestaCtrl extends Controller {
             ->addRule('cuerpo', new Validate\Rule\MaxLength(8192))
             ->addFilter('cuerpo', FilterFactory::escapeHTML());
         if (!$vdt->validate($data)) {
-            throw (new TurnbackException())->setErrors($vdt->getErrors());
+            throw new TurnbackException($vdt->getErrors());
         }
         return $vdt;
     }

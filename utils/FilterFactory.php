@@ -20,6 +20,12 @@ class FilterFactory {
         };
     }
 
+    public static function booleanFilter() {
+        return function($v) {
+            return filter_var($v, FILTER_VALIDATE_BOOLEAN);
+        };
+    }
+
     public static function explode($a) {
         return function($v) use ($a) {
             return explode($a, $v);

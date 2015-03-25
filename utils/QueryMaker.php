@@ -40,12 +40,11 @@ class QueryMaker {
         if (isset($this->params['sort'])) {
             $sorters = explode(',', $this->params['sort']);
             foreach ($sorters as $sorter) {
-                $direction = 'ASC';
                 if (substr($sorter, 0, 1) == '-') {
                     $direction = 'DESC';
                     $sorter = substr($sorter, 1);
-                } else if (substr($sorter, 0, 1) == '+') {
-                    $sorter = substr($sorter, 1);
+                } else {
+                    $direction = 'ASC';
                 }
                 $this->query = $this->query->orderBy($sorter, $direction);
             }

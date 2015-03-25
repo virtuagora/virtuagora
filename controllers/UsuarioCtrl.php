@@ -2,6 +2,23 @@
 
 class UsuarioCtrl extends Controller {
 
+    use RestTrait;
+
+    private $ordenables = array('id', 'nombre', 'apellido', 'es_funcionario', 'es_jefe', 'puntos', 'created_at');
+    private $filtrables = array('id', 'nombre', 'apellido', 'es_funcionario', 'es_jefe', 'puntos');
+
+    public function getRepresentation($conneg) {
+        if (substr($conneg, 0, 16) == 'application/json') {
+            return new JsonRepr();
+        } else {
+            throw new BearableException('Petición de formato de contenido no disponible.', 406);
+        }
+    }
+
+    public function queryModel() {
+        return Usuario::query();
+    }
+
     public function verCambiarClave() {
         $this->render('perfil/cambiar-clave.twig');
     }
@@ -16,10 +33,10 @@ class UsuarioCtrl extends Controller {
             ->addRule('pass-new', new Validate\Rule\Matches('pass-verif'));
         $req = $this->request;
         if (!$vdt->validate($req->post())) {
-            throw (new TurnbackException())->setErrors($vdt->getErrors());
+            throw new TurnbackException($vdt->getErrors());
         }
         if (!$this->session->login($this->session->user('email'), $vdt->getData('pass-old'))) {
-            throw (new TurnbackException())->setErrors(array('Contraseña inválida.'));
+            throw new TurnbackException('Contraseña inválida.');
         }
         $usuario = $this->session->getUser();
         $usuario->password = password_hash($vdt->getData('pass-new'), PASSWORD_DEFAULT);
@@ -49,7 +66,7 @@ class UsuarioCtrl extends Controller {
             ->addOptional('telefono');
         $req = $this->request;
         if (!$vdt->validate($req->post())) {
-            throw (new TurnbackException())->setErrors($vdt->getErrors());
+            throw new TurnbackException($vdt->getErrors());
         }
         $usuario = $this->session->getUser();
         $usuario->nombre = $vdt->getData('nombre');
@@ -85,10 +102,10 @@ class UsuarioCtrl extends Controller {
             ->addRule('password', new Validate\Rule\MaxLength(128));
         $req = $this->request;
         if (!$vdt->validate($req->post())) {
-            throw (new TurnbackException())->setErrors($vdt->getErrors());
+            throw new TurnbackException($vdt->getErrors());
         }
         if (!$this->session->login($this->session->user('email'), $vdt->getData('password'))) {
-            throw (new TurnbackException())->setErrors(array('Contraseña inválida.'));
+            throw new TurnbackException('Contraseña inválida.');
         }
         $usuario = $this->session->getUser();
         $usuario->delete();

@@ -12,10 +12,10 @@ class Paginator {
             ->addRule('page', new Validate\Rule\NumMin(1))
             ->addRule('take', new Validate\Rule\NumNatural())
             ->addRule('take', new Validate\Rule\NumMin(1))
-            ->addRule('count', new Validate\Rule\InArray(true, false)) // TODO ver si filtro
+            ->addFilter('endless', FilterFactory::booleanFilter())
             ->addOptional('page')
             ->addOptional('take')
-            ->addOptional('count');
+            ->addOptional('endless');
         if (!$vdt->validate($data)) {
             throw new BearableException('Parámetros de paginación incorrectos.');
         }
@@ -26,27 +26,27 @@ class Paginator {
         $vdt = $this->validate($params);
         $page = $vdt->getData('page') ?: 1;
         $take = $vdt->getData('take') ?: 10;
-        $count = $vdt->getData('count') ?: true;
-        if ($count) {
+        $endless = $vdt->getData('endless') ?: false;
+        if ($endless) {
+            $this->query = $query->skip(($page-1)*$take)->take($take+1);
+            $this->rows = $this->query->get();
+            $moreRows = ($this->rows->count() > $take);
+        } else {
             $lastPage = ceil($query->count()/$take);
             $page = min($page, $lastPage);
             $this->query = $query->skip(($page-1)*$take)->take($take);
             $this->rows = $this->query->get();
             $moreRows = ($page < $lastPage);
-        } else {
-            $this->query = $query->skip(($page-1)*$take)->take($take+1);
-            $this->rows = $this->query->get();
-            $moreRows = ($this->result->count() > $take);
         }
         $this->links = array();
         if ($moreRows) {
             $params['page'] = $page+1;
             $this->links['next'] = $url . '?' . http_build_query($params);
-            if ($count) {
+            if ($endless) {
+                $this->rows->pop();
+            } else {
                 $params['page'] = $lastPage;
                 $this->links['last'] = $url . '?' . http_build_query($params);
-            } else {
-                $this->rows->pop();
             }
         }
         if ($page > 1) {
@@ -55,6 +55,14 @@ class Paginator {
             $params['page'] = 1;
             $this->links['first'] = $url . '?' . http_build_query($params);
         }
+    }
+
+    public function getLinkHeader() {
+        $linkArray = array();
+        foreach ($this->links as $rel => $link) {
+            $linkArray[] = '<' . $link . '>; rel="' . $rel . '"';
+        }
+        return implode(', ', $linkArray);
     }
 
 }
