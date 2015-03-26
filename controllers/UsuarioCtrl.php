@@ -20,7 +20,7 @@ class UsuarioCtrl extends Controller {
     }
 
     public function verCambiarClave() {
-        $this->render('perfil/cambiar-clave.twig');
+        $this->render('usuario/cambiar-clave.twig');
     }
 
     public function cambiarClave() {
@@ -47,7 +47,7 @@ class UsuarioCtrl extends Controller {
 
     public function verModificar() {
         $usuario = $this->session->getUser();
-        $this->render('contenido/propuesta/modificar.twig', array('usuario' => $usuario->toArray()));
+        $this->render('/usuario/modificar.twig', array('usuario' => $usuario->toArray()));
     }
 
     public function modificar() {
@@ -93,7 +93,7 @@ class UsuarioCtrl extends Controller {
     }
 
     public function verEliminar() {
-        $this->render('perfil/eliminar.twig');
+        $this->render('usuario/eliminar.twig');
     }
 
     public function eliminar() {
