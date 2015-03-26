@@ -3562,7 +3562,7 @@ blockquote p {
 }
 @font-face {
   font-family: "Flaticon";
-  src: url('../fonts/flaticon.woff?1427229551') format("woff");
+  src: url('../fonts/flaticon.woff?1427377551') format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -3744,7 +3744,7 @@ blockquote p {
 /* Icons */
 @font-face {
   font-family: "slick";
-  src: url('../fonts/slick.woff?1422751998') format("woff");
+  src: url('../fonts/slick.woff?1427377551') format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -4288,7 +4288,7 @@ html, body {
 
 /* line 2, ../scss/layouts/_introduction.scss */
 #introduction #header {
-  background: url('../img/bg.jpg?1427215118') no-repeat center bottom;
+  background: url('../img/bg.jpg?1427377551') no-repeat center bottom;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -4330,7 +4330,7 @@ html, body {
 /* line 38, ../scss/layouts/_introduction.scss */
 #introduction .pre-registro {
   padding: 2.5rem 0;
-  background: url('../img/pre-registro-bg.jpg?1427252403') no-repeat center bottom;
+  background: url('../img/pre-registro-bg.jpg?1427377551') no-repeat center bottom;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -4565,7 +4565,7 @@ html, body {
 #introduction .final {
   margin-bottom: 1px;
   padding: 200px 0px;
-  background: url('../img/pre-registro-bg.jpg?1427252403') no-repeat center bottom;
+  background: url('../img/pre-registro-bg.jpg?1427377551') no-repeat center bottom;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
