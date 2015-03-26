@@ -44,7 +44,7 @@ class AdminCtrl extends Controller {
         $vdt->test($idOrg, new Validate\Rule\NumNatural());
         $organismo = Organismo::with('contacto')->findOrFail($idOrg);
         $req = $this->request;
-        $vdt = $this->validarPartido($req->post());
+        $vdt = $this->validarOrganismo($req->post());
         $organismo->nombre = $vdt->getData('nombre');
         $organismo->descripcion = $vdt->getData('descripcion');
         if ($vdt->getData('cupo') < $organismo->funcionarios_count) {
