@@ -75,8 +75,7 @@ class DocumentoCtrl extends Controller {
 
     public function nuevaVersion($idDoc) {
         $vdt = new Validate\Validator();
-        $vdt->addRule($idDoc, new Validate\Rule\NumNatural())
-            ->addRule('cuerpo', new Validate\Rule\MinLength(8))
+        $vdt->addRule('cuerpo', new Validate\Rule\MinLength(8))
             ->addRule('cuerpo', new Validate\Rule\MaxLength(8192))
             ->addFilter('cuerpo', FilterFactory::escapeHTML());
         $req = $this->request;

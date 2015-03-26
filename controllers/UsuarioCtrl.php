@@ -32,13 +32,13 @@ class UsuarioCtrl extends Controller {
             ->addRule('pass-new', new Validate\Rule\MaxLength(128))
             ->addRule('pass-new', new Validate\Rule\Matches('pass-verif'));
         $req = $this->request;
+        $usuario = $this->session->getUser();
         if (!$vdt->validate($req->post())) {
             throw new TurnbackException($vdt->getErrors());
         }
         if (!$this->session->login($this->session->user('email'), $vdt->getData('pass-old'))) {
             throw new TurnbackException('Contraseña inválida.');
         }
-        $usuario = $this->session->getUser();
         $usuario->password = password_hash($vdt->getData('pass-new'), PASSWORD_DEFAULT);
         $usuario->save();
         $this->flash('success', 'Su contraseña fue modificada exitosamente.');
@@ -86,7 +86,7 @@ class UsuarioCtrl extends Controller {
         $usuario->img_tipo = 0;
         $usuario->img_hash = $usuario->id;
         $usuario->save();
-        ImageManager::crearImagen('usuario', $usuario->id, array(32, 64, 160));
+        ImageManager::cambiarImagen('usuario', $usuario->id, array(32, 64, 160));
         $this->session->setUser($usuario);
         $this->flash('success', 'Imagen cargada exitosamente.');
         $this->redirect($this->request->getReferrer());
