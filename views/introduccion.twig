@@ -201,9 +201,9 @@
             </div>
         </section>
     </div>
- <div class="final">
-           <div class="row text-center">
-               <a href="{{ urlFor('shwCrearUsuario') }}" class="boton-final button oposite radius large"><i class="fa fa-heart-o fa-fw"></i> Comenzar a participar!</a>
+    <div class="final">
+        <div class="row text-center">
+            <a href="{{ urlFor('shwCrearUsuario') }}" class="boton-final button oposite radius large"><i class="fa fa-heart-o fa-fw"></i> Comenzar a participar!</a>
         </div>
     </div>
 
@@ -219,7 +219,10 @@
     });
 
     $('.form-pre-registro').submit(function(){
-        window.location.href = "{{urlFor('shwCrearUsuario')}}?"+$(this).serialize();
+        window.location.href = "{{urlFor('shwCrearUsuario')}}#"
+            + $('input[name="nombre"]').val() + '&'
+            + $('input[name="apellido"]').val() + '&'
+            + $('input[name="email"]').val();
         return false;
     });
 
