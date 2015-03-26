@@ -27,6 +27,8 @@ function superDelete($path) {
     }
 }
 
+Capsule::schema()->dropIfExists('comentario_votos');
+echo '0 ';
 Capsule::schema()->dropIfExists('comentarios');
 echo '1 ';
 Capsule::schema()->dropIfExists('documento_parrafos');
@@ -45,6 +47,10 @@ Capsule::schema()->dropIfExists('propuestas');
 echo '8 ';
 Capsule::schema()->dropIfExists('imagenes');
 echo '9 ';
+Capsule::schema()->dropIfExists('contenido_tag');
+echo '9.1 ';
+Capsule::schema()->dropIfExists('tags');
+echo '9.2 ';
 Capsule::schema()->dropIfExists('contenidos');
 echo '10 ';
 Capsule::schema()->dropIfExists('categorias');
