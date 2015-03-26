@@ -190,15 +190,20 @@
         .extra-4 {
             background-color: $documento-color;
             .icono{
-                i.flaticon::before{
-                    font-size: rem-calc(130);
-                    margin: 0;
-                }
+                font-size: rem-calc(130);
+                top: 35px;
+                right: -15px;
+                margin: 0;
+            }
+            .contenido{
+                top: 45px;
             }
         }
         .extra-5 {
             background-color: $propuesta-color;
+            padding: 70px 0;
             .icono{
+                top: -25px;
                 i.flaticon::before{
                     font-size: rem-calc(130);
                     margin: 0;
@@ -262,17 +267,27 @@
     .final{
         margin-bottom: 1px;
         padding: 200px 0px;
-            background: image-url("pre-registro-bg.jpg") no-repeat center bottom;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
-            .boton-final{
-                font-size: rem-calc(40);
-                padding: 15px 80px;
-                letter-spacing: -1px;
+        background: image-url("pre-registro-bg.jpg") no-repeat center bottom;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        .boton-final{
+            font-size: rem-calc(40);
+            padding: 15px 80px;
+            letter-spacing: -1px;
+        }
+        .github-final{
+            padding: 30px 0;
+            .git-final{
+                color: #FFFFFF;
+                font-size: rem-calc(25);
+                &:hover{
+                   color: #FFFFFF;
+                }
             }
         }
+    }
 
 
 

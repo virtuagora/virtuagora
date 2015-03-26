@@ -4491,38 +4491,49 @@ html, body {
 #introduction .features .extra-4 {
   background-color: #5D46B9;
 }
-/* line 193, ../scss/layouts/_introduction.scss */
-#introduction .features .extra-4 .icono i.flaticon::before {
+/* line 192, ../scss/layouts/_introduction.scss */
+#introduction .features .extra-4 .icono {
   font-size: 8.125rem;
+  top: 35px;
+  right: -15px;
   margin: 0;
 }
-/* line 199, ../scss/layouts/_introduction.scss */
-#introduction .features .extra-5 {
-  background-color: #4688B9;
+/* line 198, ../scss/layouts/_introduction.scss */
+#introduction .features .extra-4 .contenido {
+  top: 45px;
 }
 /* line 202, ../scss/layouts/_introduction.scss */
+#introduction .features .extra-5 {
+  background-color: #4688B9;
+  padding: 70px 0;
+}
+/* line 205, ../scss/layouts/_introduction.scss */
+#introduction .features .extra-5 .icono {
+  top: -25px;
+}
+/* line 207, ../scss/layouts/_introduction.scss */
 #introduction .features .extra-5 .icono i.flaticon::before {
   font-size: 8.125rem;
   margin: 0;
 }
-/* line 210, ../scss/layouts/_introduction.scss */
+/* line 215, ../scss/layouts/_introduction.scss */
 #introduction .spotlight {
   padding: 40px 0px;
 }
-/* line 213, ../scss/layouts/_introduction.scss */
+/* line 218, ../scss/layouts/_introduction.scss */
 #introduction .spotlight .titulo h1 {
   margin-bottom: 50px;
   letter-spacing: -2px;
 }
-/* line 218, ../scss/layouts/_introduction.scss */
+/* line 223, ../scss/layouts/_introduction.scss */
 #introduction .spotlight .espaciado-abajo {
   margin-bottom: 45px;
 }
-/* line 222, ../scss/layouts/_introduction.scss */
+/* line 227, ../scss/layouts/_introduction.scss */
 #introduction .spotlight .herramienta-wrapper .herramienta-icono {
   margin-bottom: 20px;
 }
-/* line 224, ../scss/layouts/_introduction.scss */
+/* line 229, ../scss/layouts/_introduction.scss */
 #introduction .spotlight .herramienta-wrapper .herramienta-icono i.flaticon::before {
   border: 1px solid #E5E5E5;
   border-radius: 50px;
@@ -4530,38 +4541,38 @@ html, body {
   padding: 25px;
   font-size: 3rem;
 }
-/* line 231, ../scss/layouts/_introduction.scss */
+/* line 236, ../scss/layouts/_introduction.scss */
 #introduction .spotlight .herramienta-wrapper .herramienta-icono i.h-propuesta.flaticon::before {
   color: #4688B9 !important;
 }
-/* line 234, ../scss/layouts/_introduction.scss */
+/* line 239, ../scss/layouts/_introduction.scss */
 #introduction .spotlight .herramienta-wrapper .herramienta-icono i.h-problematica.flaticon::before {
   color: #EC8B44 !important;
 }
-/* line 237, ../scss/layouts/_introduction.scss */
+/* line 242, ../scss/layouts/_introduction.scss */
 #introduction .spotlight .herramienta-wrapper .herramienta-icono i.h-documento.flaticon::before {
   color: #5D46B9 !important;
 }
-/* line 240, ../scss/layouts/_introduction.scss */
+/* line 245, ../scss/layouts/_introduction.scss */
 #introduction .spotlight .herramienta-wrapper .herramienta-icono i.h-evento.flaticon::before {
   color: #46B988 !important;
 }
-/* line 243, ../scss/layouts/_introduction.scss */
+/* line 248, ../scss/layouts/_introduction.scss */
 #introduction .spotlight .herramienta-wrapper .herramienta-icono i.h-anuncio.flaticon::before {
   color: #B94646 !important;
 }
-/* line 249, ../scss/layouts/_introduction.scss */
+/* line 254, ../scss/layouts/_introduction.scss */
 #introduction .spotlight .herramienta-wrapper .herramienta-titulo h3 {
   letter-spacing: -1px;
 }
-/* line 253, ../scss/layouts/_introduction.scss */
+/* line 258, ../scss/layouts/_introduction.scss */
 #introduction .spotlight .herramienta-wrapper .herramienta-descripcion {
   padding: 0 30px;
   font-size: 0.8125rem;
   letter-spacing: -0.5px;
   color: #848484;
 }
-/* line 262, ../scss/layouts/_introduction.scss */
+/* line 267, ../scss/layouts/_introduction.scss */
 #introduction .final {
   margin-bottom: 1px;
   padding: 200px 0px;
@@ -4571,11 +4582,24 @@ html, body {
   -o-background-size: cover;
   background-size: cover;
 }
-/* line 270, ../scss/layouts/_introduction.scss */
+/* line 275, ../scss/layouts/_introduction.scss */
 #introduction .final .boton-final {
   font-size: 2.5rem;
   padding: 15px 80px;
   letter-spacing: -1px;
+}
+/* line 280, ../scss/layouts/_introduction.scss */
+#introduction .final .github-final {
+  padding: 30px 0;
+}
+/* line 282, ../scss/layouts/_introduction.scss */
+#introduction .final .github-final .git-final {
+  color: #FFFFFF;
+  font-size: 1.5625rem;
+}
+/* line 285, ../scss/layouts/_introduction.scss */
+#introduction .final .github-final .git-final:hover {
+  color: #FFFFFF;
 }
 
 /* line 1, ../scss/layouts/_registro.scss */
