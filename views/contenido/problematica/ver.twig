@@ -24,7 +24,7 @@
 {# ----------------------------------------------------------- #}
 {% set autor_id = problematica.autor.id %}
 {% set autor_nombre_apellido = problematica.autor.nombre ~ ' ' ~ problematica.autor.apellido %}
-{% set autor_avatar = avatarUrl(user.img_tipo, user.img_hash, 160) %}
+{% set autor_avatar = avatarUrl(problematica.autor.img_tipo, problematica.autor.img_hash, 160) %}
 {% set autor_avatar_32 = avatarUrl(problematica.autor.img_tipo, problematica.autor.img_hash, 32) %}
 {% set autor_puntos = problematica.autor.puntos %}
 {% set autor_descripcion = 'Aca deberia haber una descripcion!' %}
