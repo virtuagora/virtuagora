@@ -1,0 +1,26 @@
+<div id="header-nav">
+    <div id="header-contenido">
+        <h1 class="title"><a href="{{ urlFor('shwIndex') }}">[ <i class="fa fa-university fa-fw"></i> ]</a> <b>Virtuágora</b></h1>
+        <ul class="nav">
+            {% if user is not empty %}
+            <li><i class="bt-menu-ovrl js-main-menu-open fa fa-bars fa-2x fa-fw"></i></li>
+            <li>
+                <form action="{{ urlFor('runLogout') }}" method="POST">
+                    <button type="submit" class="button alert radius small"><i class="fa fa-sign-out fa-fw"></i>&nbsp;Salir</button>
+                </form>
+            </li>
+            {% else %}
+            <li><a class="button radius small" href="{{ urlFor('shwLogin') }}"><i class="fa fa-sign-in fa-fw"></i>&nbsp;Entrar</a></li>
+            {% endif %}
+        </ul>
+        <ul class="info">
+           {% if user is not empty %}
+            <li><b></b>{{ user.nombre }}</li>
+            <li><a href="#"><img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}"></a></li>
+            <li><i class="fa fa-trophy fa-fw"></i>&nbsp;{{ user.puntos }}</li>
+            {% else %}
+            <li>¡Bienvenido, Anonimo!</li>
+            {% endif %}
+        </ul>
+    </div>
+</div>

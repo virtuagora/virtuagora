@@ -1,0 +1,151 @@
+{# VARIBLES #}
+{% set footer = true %}
+{% set barraNav = false %}
+{% set html_class = '' %}
+{% set body_class = 'color-documento' %}
+
+{% extends "master.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Crear una propuesta{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}
+<link rel="stylesheet" type="text/css" href="{{ baseUrl }}/assets/css/powertip/jquery.powertip.css"/>
+<link rel="stylesheet" href="{{ baseUrl() }}/assets/css/sceditor/sceditor-main.css">
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block body %}
+<div class="crear-contenido nueva-version">
+    <div class="row">
+        <div class="large-12 large-centered columns">
+            <section class="intro-cont text-center">
+                <i class="fa fa-file-text-o fa-fw fa-2x"></i><br />NUEVA VERSIÓN<br />
+
+                <a class="button oposite radius small" href="{{ urlFor('shwDocumen', {'idDoc': documento.id}) }}"><i class="fa fa-undo fa-fw fa-lg"></i>&nbsp;No, no quiero hacer nada</a>
+            </section>
+        </div>
+    </div>
+    <form action="{{ urlFor('runNuVerDocumen', {'idDoc': documento.id}) }}" method="POST">
+        <div class="row">
+            <div class="large-12 large-centered columns">
+                <div class="panel-crear-cont">
+                    <div class="row">
+                        <div class="large-10 large-centered columns">
+                            <section class="titulo-cont">
+                                <div class="docu-titulo-fijo text-center">
+                                    {{ documento.titulo }}
+                                </div>
+                            </section>
+                            <section class="datos-cont text-center">
+                                {{ documento.created_at|date("d/m/Y") }} - Ver. {{documento.id + 1}} <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}"> {{ documento.autor.nombre }} {{ documento.autor.apellido }} <span class="usuario-pts"><i class="fa fa-trophy fa-fw"></i>&nbsp;{{ user.puntos }}</span>
+                            </section>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="large-7 large-centered columns">
+                            <section class="docu-descripcion-fijo">
+                                <div class="text-center">
+                                    {{ documento.descripcion }}
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="large-10 large-centered columns">
+                            <section class="cuerpo-cont">
+                                <textarea name="cuerpo" placeholder="Describa de que se trata la propuesta"></textarea>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row collapse prefix-radius">
+                            <section class="tags-cont" style="padding-bottom: 70px">
+                                <div class="large-10 large-centered columns">
+                                    <div class="large-1 columns">
+                                        <span class="prefix">Tags</span>
+                                    </div>
+                                    <div class="large-11 columns">
+                                        <input name="tags" type="text" placeholder="Comience escribiendo Tags" disabled/>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-8 large-centered columns">
+                <section class="publicar-cont">
+                    <div class="row">
+                        <div class="panel warning text-center">
+                            <i class="fa fa-warning fa-fw fa-lg"></i>&nbsp;Cada nueva versión cuenta con sus propios comentarios. Los comentarios con versiones anteriores no se cruzan con los nuevos.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button type="submit" class="button oposite large expand radius"><i class="fa fa-send-o fa-fw fa-lg"></i>&nbsp;Confirmar los cambios</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="tooltip-categoria-data" class="text-left" hidden>
+    <i class="fa fa-lightbulb-o fa-fw fa-lg"></i>&nbsp;Elija una categoria, la cual
+    <br> vea que su problematica se ajusta.
+</div>
+<div id="tooltip-titulo-data" class="text-left" hidden>
+    <i class="fa fa-lightbulb-o fa-fw fa-lg"></i>&nbsp;El título debe ser claro, atractivo, para que la gente se vea interesada.
+</div>
+
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}
+<script src="{{ baseUrl }}/assets/js/autosize/autosize.min.js"></script>
+<script src="{{ baseUrl }}/assets/js/powertip/jquery.powertip.min.js"></script>
+<script src="{{ baseUrl() }}/assets/js/jquery/jquery.sceditor.bbcode.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $("textarea[name='cuerpo']").sceditor({
+            plugins: "bbcode",
+            emoticonsEnabled: false,
+            width: 'auto',
+            style: "{{ baseUrl() }}/assets/css/sceditor/sceditor-panel.css",
+            autoexpand: true
+        });
+    });
+
+    $(document).ready(function(){
+        $('[name="titulo"]').val('{{ documento.titulo }}');
+        $('[name="categoria"] select').val('{{ documento.categoria }}');
+        $('[name="descripcion"]').html("{{ documento.descripcion }}");
+        autosize($("textarea[name='titulo']"));
+        autosize($("textarea[name='descripcion']"));
+
+    });
+    $("textarea[name='titulo']").keypress(function(event) {
+        // Check the keyCode and if the user pressed Enter (code = 13)
+        // disable it
+        if (event.keyCode == 13) {
+            event.preventDefault();
+        }
+    });
+
+
+    $('#tooltip-categoria').data('powertiptarget', 'tooltip-categoria-data');
+    $('#tooltip-categoria').powerTip({
+        placement: 'e',
+        mouseOnToPopup: true
+    });
+    $('#tooltip-titulo').data('powertiptarget', 'tooltip-titulo-data');
+    $('#tooltip-titulo').powerTip({
+        placement: 'n',
+        mouseOnToPopup: true
+    });
+</script>
+{% endblock %}
+{# ----------------------------------------------------------- #}

@@ -1,0 +1,46 @@
+.login-bg {
+    background: image-url('login-bg1.jpg',false,false) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#login{
+    #row-panel{
+        padding: rem-calc(100px) 0 0 0;
+    }
+    .panel{
+        background-color: rgba(255, 255, 255, 0.9);
+        -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.4);
+        -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.4);
+        box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.4);
+        border: 0;
+    }
+    #row-arriba{
+        color: #585858;
+        padding: rem-calc(15px) rem-calc(15px);
+        #logo{
+            font-size: rem-calc(50px);
+        }
+        p {
+            color: #585858;
+            margin-bottom: rem-calc(8px);
+            font-size: rem-calc(13px);
+        }
+    }
+    #row-abajo{
+        font-size: rem-calc(14px);
+        padding: rem-calc(10px) rem-calc(15px) ;
+        #reg-titulo{
+            font-size: rem-calc(16px);
+        }
+        #reg-cond{
+            font-size: rem-calc(12px);
+        }
+        input{
+            font-size: rem-calc(14px);
+            height: rem-calc(45px)
+        }
+    }
+}

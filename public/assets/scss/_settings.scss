@@ -79,7 +79,7 @@ $include-html-global-classes: $include-html-classes;
 // $include-html-grid-classes: $include-html-classes;
 // $include-xl-html-grid-classes: false;
 
- $row-width: rem-calc(1200);
+// $row-width: rem-calc(1000);
 // $total-columns: 12;
 // $column-gutter: rem-calc(30);
 
@@ -88,20 +88,13 @@ $include-html-global-classes: $include-html-classes;
 
 // We use these to define default font stacks
 // $font-family-sans-serif: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+ $font-family-sans-serif: "Open Sans", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
 // $font-family-serif: Georgia, Cambria, "Times New Roman", Times, serif;
 // $font-family-monospace: Consolas, "Liberation Mono", Courier, monospace;
 
 // We use these to define default font weights
 // $font-weight-normal: normal !default;
 // $font-weight-bold: bold !default;
-
-// We use these as default colors throughout
-// $primary-color: #008CBA;
-// $secondary-color: #e7e7e7;
-// $alert-color: #f04124;
-// $success-color: #43AC6A;
-// $warning-color: #f08a24;
-// $info-color: #a0d3e8;
 
 // $white       : #FFFFFF;
 // $ghost       : #FAFAFA;
@@ -122,6 +115,14 @@ $include-html-global-classes: $include-html-classes;
 // $oil         : #333333;
 // $jet         : #222222;
 // $black       : #000000;
+
+// We use these as default colors throughout
+// $primary-color: #008CBA;
+// $secondary-color: #e7e7e7;
+// $alert-color: #f04124;
+// $success-color: #43AC6A;
+// $warning-color: #f08a24;
+// $info-color: #a0d3e8;
 
 // We use these to control various global styles
 // $body-bg: $white;
@@ -317,15 +318,15 @@ $include-html-global-classes: $include-html-classes;
 
 // $include-html-accordion-classes: $include-html-classes;
 
-$accordion-navigation-padding: rem-calc(10);
-$accordion-navigation-bg-color: #FFFFFF  ;
-$accordion-navigation-hover-bg-color: #ffe3ad;
-$accordion-navigation-active-bg-color: #ffc861;
-$accordion-navigation-font-color: #000000;
-$accordion-navigation-font-size: rem-calc(14);
-$accordion-navigation-font-family: inherit;
+// $accordion-navigation-padding: rem-calc(16);
+// $accordion-navigation-bg-color: $silver;
+// $accordion-navigation-hover-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -5%);
+// $accordion-navigation-active-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -3%);
+// $accordion-navigation-font-color: $jet;
+// $accordion-navigation-font-size: rem-calc(16);
+// $accordion-navigation-font-family: $body-font-family;
 
-// $accordion-content-padding: $column-gutter/2;
+// $accordion-content-padding: ($column-gutter/2);
 // $accordion-content-active-bg-color: $white;
 
 // 02. Alert Boxes
@@ -426,9 +427,17 @@ $accordion-navigation-font-family: inherit;
 // $button-med: rem-calc(16);
 // $button-lrg: rem-calc(18);
 
+ $button-tny: rem-calc(4);
+ $button-sml: rem-calc(7);
+ $button-med: rem-calc(10);
+ $button-lrg: rem-calc(14);
+
 // We use this to control the display property.
 // $button-display: inline-block;
 // $button-margin-bottom: rem-calc(20);
+
+ $button-display: inline-block;
+ $button-margin-bottom: rem-calc(5);
 
 // We use these to control button text styles.
 // $button-font-family: $body-font-family;
@@ -440,6 +449,18 @@ $accordion-navigation-font-family: inherit;
 // $button-font-lrg: rem-calc(20);
 // $button-font-weight: $font-weight-normal;
 // $button-font-align: center;
+
+// $button-font-family: $body-font-family;
+$button-font-color: #333;
+$button-font-color-alt: #333;
+ $button-font-tny: rem-calc(11);
+ $button-font-sml: rem-calc(13);
+ $button-font-med: rem-calc(15);
+ $button-font-lrg: rem-calc(20);
+// $button-font-weight: $font-weight-normal;
+// $button-font-align: center;
+
+
 
 // We use these to control various hover effects.
 // $button-function-factor: -20%;
@@ -456,6 +477,19 @@ $accordion-navigation-font-family: inherit;
 // $success-button-border-color: $success-button-bg-hover;
 // $alert-button-bg-hover: scale-color($alert-color, $lightness: $button-function-factor);
 // $alert-button-border-color: $alert-button-bg-hover;
+
+ $button-border-width: 1px;
+// $button-border-style: solid;
+// $button-bg-color: rgba(44, 108, 229, 0);
+// $button-bg-hover: rgba(44, 108, 229, 0.8);
+// $button-border-color: #333;
+// $secondary-button-bg-hover: scale-color($secondary-color, $lightness: $button-function-factor);
+// $secondary-button-border-color: $secondary-button-bg-hover;
+// $success-button-bg-hover: scale-color($success-color, $lightness: $button-function-factor);
+// $success-button-border-color: $success-button-bg-hover;
+// $alert-button-bg-hover: scale-color($alert-color, $lightness: $button-function-factor);
+// $alert-button-border-color: $alert-button-bg-hover;
+
 
 // We use this to set the default radius used throughout the core.
 // $button-radius: $global-radius;
@@ -545,7 +579,7 @@ $accordion-navigation-font-family: inherit;
 // $f-dropdown-font-size: rem-calc(14);
 // $f-dropdown-list-padding: rem-calc(5, 10);
 // $f-dropdown-line-height: rem-calc(18);
-// $f-dropdown-list-hover-bg: $smoke  ;
+// $f-dropdown-list-hover-bg: $smoke;
 // $dropdown-mobile-default-float: 0;
 
 // We use this to control the styles for when the dropdown has custom content.
@@ -573,25 +607,25 @@ $accordion-navigation-font-family: inherit;
 // $dropdown-button-padding-tny: $button-pip-tny * 7;
 // $dropdown-button-pip-size-tny: $button-pip-tny;
 // $dropdown-button-pip-opposite-tny: $button-pip-tny * 3;
-// $dropdown-button-pip-top-tny: -$button-pip-tny / 2 + rem-calc(1);
+// $dropdown-button-pip-top-tny: (-$button-pip-tny / 2) + rem-calc(1);
 
 // We use these to style small dropdown buttons
 // $dropdown-button-padding-sml: $button-pip-sml * 7;
 // $dropdown-button-pip-size-sml: $button-pip-sml;
 // $dropdown-button-pip-opposite-sml: $button-pip-sml * 3;
-// $dropdown-button-pip-top-sml: -$button-pip-sml / 2 + rem-calc(1);
+// $dropdown-button-pip-top-sml: (-$button-pip-sml / 2) + rem-calc(1);
 
 // We use these to style medium dropdown buttons
 // $dropdown-button-padding-med: $button-pip-med * 6 + rem-calc(3);
 // $dropdown-button-pip-size-med: $button-pip-med - rem-calc(3);
 // $dropdown-button-pip-opposite-med: $button-pip-med * 2.5;
-// $dropdown-button-pip-top-med: -$button-pip-med / 2 + rem-calc(2);
+// $dropdown-button-pip-top-med: (-$button-pip-med / 2) + rem-calc(2);
 
 // We use these to style large dropdown buttons
 // $dropdown-button-padding-lrg: $button-pip-lrg * 5 + rem-calc(3);
 // $dropdown-button-pip-size-lrg: $button-pip-lrg - rem-calc(6);
 // $dropdown-button-pip-opposite-lrg: $button-pip-lrg * 2.5;
-// $dropdown-button-pip-top-lrg: -$button-pip-lrg / 2 + rem-calc(3);
+// $dropdown-button-pip-top-lrg: (-$button-pip-lrg / 2) + rem-calc(3);
 
 // 10. Flex Video
 // - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -667,6 +701,7 @@ $accordion-navigation-font-family: inherit;
 // $input-error-message-font-weight: $font-weight-normal;
 // $input-error-message-font-style: italic;
 // $input-error-message-font-color: $white;
+// $input-error-message-bg-color: $alert-color;
 // $input-error-message-font-color-alt: $oil;
 
 // We use this to style the glowing effect of inputs when focused
@@ -685,9 +720,11 @@ $accordion-navigation-font-family: inherit;
 // $include-html-icon-bar-classes: $include-html-classes;
 // $icon-bar-bg: $oil;
 // $icon-bar-font-color: $white;
+// $icon-bar-font-color-hover: $icon-bar-font-color;
 // $icon-bar-font-size: 1rem;
 // $icon-bar-hover-color: $primary-color;
 // $icon-bar-icon-color: $white;
+// $icon-bar-icon-color-hover: $icon-bar-icon-color;
 // $icon-bar-icon-size: 1.875rem;
 // $icon-bar-image-width: 1.875rem;
 // $icon-bar-image-height: 1.875rem;
@@ -961,7 +998,9 @@ $accordion-navigation-font-family: inherit;
 
 // We use these to set default inner padding and bottom margin
 // $panel-margin-bottom: rem-calc(20);
-// $panel-padding: rem-calc(15);
+ $panel-margin-bottom: rem-calc(8);
+// $panel-padding: rem-calc(20);
+$panel-padding: rem-calc(10);
 
 // We use these to set default font colors
 // $panel-font-color: $oil;
@@ -991,7 +1030,7 @@ $accordion-navigation-font-family: inherit;
 // $price-title-font-family: $body-font-family;
 
 // We use these to control the price styles
-// $price-money-bg: $vapor  ;
+// $price-money-bg: $vapor;
 // $price-money-padding: rem-calc(15 20);
 // $price-money-align: center;
 // $price-money-color: $oil;
@@ -1093,6 +1132,7 @@ $accordion-navigation-font-family: inherit;
 // $reveal-modal-bg: $white;
 // $reveal-position-top: rem-calc(100);
 // $reveal-default-width: 80%;
+// $reveal-max-width: $row-width;
 // $reveal-modal-padding: rem-calc(20);
 // $reveal-box-shadow: 0 0 10px rgba($black,.4);
 
@@ -1139,7 +1179,7 @@ $accordion-navigation-font-family: inherit;
 // $side-nav-font-weight: $font-weight-normal;
 // $side-nav-font-weight-active: $side-nav-font-weight;
 // $side-nav-font-family: $body-font-family;
-// $side-nav-active-font-family: $side-nav-font-family;
+// $side-nav-font-family-active: $side-nav-font-family;
 
 // We use these to control heading styles.
 // $side-nav-heading-color: $side-nav-link-color;
@@ -1230,8 +1270,8 @@ $accordion-navigation-font-family: inherit;
 // $switch-border-color: scale-color($white, $lightness: -20%);
 // $switch-border-style: solid;
 // $switch-border-width: 1px;
-// $switch-bg: $white;
-
+ $switch-bg: #BEBEBE;
+ $switch-active-color: #BADA55;
 // We use these to control the switch heights for our default classes
 // $switch-height-tny: rem-calc(22);
 // $switch-height-sml: rem-calc(28);
@@ -1267,7 +1307,7 @@ $accordion-navigation-font-family: inherit;
 
 // These control the background color for the table and even rows
 // $table-bg: $white;
-// $table-even-row-bg: $snow  ;
+// $table-even-row-bg: $snow;
 
 // These control the table cell border style
 // $table-border-style: solid;
@@ -1307,7 +1347,7 @@ $accordion-navigation-font-family: inherit;
 // $tabs-navigation-font-family: $body-font-family;
 
 // $tabs-content-margin-bottom: rem-calc(24);
-// $tabs-content-padding: $column-gutter/2;
+// $tabs-content-padding: ($column-gutter/2);
 
 // $tabs-vertical-navigation-margin-bottom: 1.25rem;
 
@@ -1364,7 +1404,7 @@ $accordion-navigation-font-family: inherit;
 // $topbar-bg: $topbar-bg-color;
 
 // Height and margin
-// $topbar-height: 45px;
+// $topbar-height: rem-calc(45);
 // $topbar-margin-bottom: 0;
 
 // Controlling the styles for the title in the top bar
@@ -1375,6 +1415,7 @@ $accordion-navigation-font-family: inherit;
 // $topbar-dropdown-bg: $oil;
 // $topbar-dropdown-link-color: $white;
 // $topbar-dropdown-link-bg: $oil;
+// $topbar-dropdown-link-bg-hover: $oil;
 // $topbar-dropdown-link-weight: $font-weight-normal;
 // $topbar-dropdown-toggle-size: 5px;
 // $topbar-dropdown-toggle-color: $white;
@@ -1390,12 +1431,12 @@ $accordion-navigation-font-family: inherit;
 // $topbar-link-hover-lightness: -10%; // Darken by 10%
 // $topbar-link-bg: $topbar-bg;
 // $topbar-link-bg-color-hover: $charcoal;
-// $topbar-link-bg-hover: #272727;
+// $topbar-link-bg-hover: $oil;
 // $topbar-link-bg-active: $primary-color;
 // $topbar-link-bg-active-hover: scale-color($primary-color, $lightness: -14%);
 // $topbar-link-font-family: $body-font-family;
 // $topbar-link-text-transform: none;
-// $topbar-link-padding: $topbar-height / 3;
+// $topbar-link-padding: ($topbar-height / 3);
 // $topbar-back-link-size: $h5-font-size;
 // $topbar-link-dropdown-padding: 20px;
 

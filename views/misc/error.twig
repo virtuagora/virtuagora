@@ -1,25 +1,39 @@
+{# VARIBLES #}
+{% set footer = false %}
+{% set html_class = 'error-bg' %}
+{% set body_class = 'no-body-bg' %}
+
 {% extends "master.twig" %}
 
-{% block titulo %}
-Virtuagora - ¡Ha ocurrido un error!
-{% endblock %}
-
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - ¡Ha ocurrido un error!{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}{% endblock %}
+{# ----------------------------------------------------------- #}
 {% block body %}
-
-<section id="passport">
-    <div class="row">
-        <div class="medium-8 medium-centered large-6 large-centered columns">
-            <div class="panel text-center">
-                <i class="fail fa fa-times fa-5x"></i>
-                <p class="welcome">¡Algo anduvo mal!</p>
-                <p>{{ mensaje }}</p>
+<div id="login">
+    <div id="row-panel" class="row">
+        <div class="large-8 large-centered columns">
+            <div class="panel">
                 <div class="row">
-                    <div class="small-10 small-centered columns text-center">
-                        <a href="{{ baseUrl }}" class="button round success small">Ir a la página principal &raquo</a>
+                    <div class="large-10 large-centered columns">
+                        <div id="row-abajo" class="text-center">
+                                <i class="fa fa-times fa-5x fa-fw" style="color: #d87232; margin-bottom: 10px;"></i>
+                                <h5>¡Algo anduvo mal!</h5>
+                            <p style="font-size: 13px;">{{ mensaje }}</p>
+
+                            <a href="{{ urlFor('shwIndex') }}" class="button radius">Ir al inicio</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
+
 {% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}{% endblock %}
+{# ----------------------------------------------------------- #}

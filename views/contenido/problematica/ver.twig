@@ -1,12 +1,4 @@
-{# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
-{% set url_atras = '#' %}
-{% set i_class_icon = 'fa fa-bullhorn fa-fw' %}
-{% set titulo = 'Ver problemática' %}
-{% set comments = true %}
-{% set commentUrl = urlFor('runComentar', {"tipoRaiz": "problematica" , "idRaiz": problematica.id}) %}
-{% set rtaUrl = urlFor('runComentar', {"tipoRaiz": "comentario", "idRaiz": ""}) %}
-
-{# VARIABLES DE LA VISTA #}
+{# VARIBLES #}
 {% set total_afectados = problematica.afectados_directos + problematica.afectados_indirectos + problematica.afectados_indiferentes %}
 {% if total_afectados > 0 %}
 {% set porc_afec_directos = ( problematica.afectados_directos / ( total_afectados ))*100 %}
@@ -14,183 +6,233 @@
 {% set porc_afec_indiferentes = ( problematica.afectados_indiferentes / ( total_afectados ))*100 %}
 {% endif %}
 
-{# ---------------------- #}
+{% extends "contenido/ver-contenido.twig" %}
 
-{% extends "master-body.twig" %}
-
-{% block titulo %}
-Virtuagora - Problematica #{{ problematica.id }} por {{ problematica.autor.nombre }} {{ problematica.autor.apellido }}
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Problematica #{{ problematica.id }} {% endblock %}
+{# ----------------------------------------------------------- #}
+{% set color_cont = 'color-problematica' %}
+{# ----------------------------------------------------------- #}
+{% set titulo_cont = problematica.titulo %}
+{% set fecha_cont = '' ~ problematica.created_at|date("d/m/Y") %}
+{# set url_modificar = urlFor('shwModifProblem', {'idPro': problematica.id}) #}
+{% set ver_comentarios = true %}
+{% set url_comentar = urlFor('runComentar', {'tipoRaiz': 'problematica' , 'idRaiz': problematica.id}) %}
+{% block cuerpo_cont %}
+{{ problematica.cuerpo|bbCode }}
 {% endblock %}
-
-{% block contenido %}
-<!-- Fila c/ titulo y otros datos! -->
-<section id="vista-contenido">
+{# ----------------------------------------------------------- #}
+{% set autor_id = problematica.autor.id %}
+{% set autor_nombre_apellido = problematica.autor.nombre ~ ' ' ~ problematica.autor.apellido %}
+{% set autor_avatar = avatarUrl(user.img_tipo, user.img_hash, 160) %}
+{% set autor_avatar_32 = avatarUrl(problematica.autor.img_tipo, problematica.autor.img_hash, 32) %}
+{% set autor_puntos = problematica.autor.puntos %}
+{% set autor_descripcion = 'Aca deberia haber una descripcion!' %}
+{# ----------------------------------------------------------- #}
+{% block opciones_cont %}
+{% if user.id != problematica.autor.id %}
+<section class="problematica-voto">
     <div class="row">
-        <div class="large-10 large-centered columns">
-            <div class="text-center">
-                <h1><b>{{ problematica.titulo }}</b></h1>
-                <h4 class="subheader"><small>Creado el {{ problematica.created_at|date("m/d/Y") }}</small></h4>
-                {% if documento.autor.id == user.id or user.es_moderador == true %}
-					<a href="#" class="button tiny radius" style="padding: 10px 10px;"><i class="fa fa-pencil fa-fw fa-lg"></i>&nbsp;Modificar</a>
-					<div class="button tiny radius alert" style="padding: 10px 10px;"><i class="fa fa-times fa-fw fa-lg"></i>&nbsp;Eliminar</div>
-				{% endif%}
-           		{% if user.es_moderador %}
-				<div id="bt-sancionar-{{ problematica.autor.id }}" class="sancionar button tiny radius alert" style="padding: 10px 10px;"><i class="fa fa-flag fa-fw fa-lg"></i>&nbsp;Sancionar</div>
-				{% endif%}
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-6 large-centered columns">
-            <h6 class="subheader text-center"><b>Autor de la problemática</b></h6>
-            <ul class="vcard">
-                <li clearfix>
-                    <div class="left autor">
-                        <a href='#'><img src="{{ avatarUrl(problematica.autor.img_tipo, problematica.autor.img_hash, 32) }}" alt="profile image"></a>
+        <section id="votando-problematica" class="votando-problematica small-10 small-centered columns text-center">
+            <h1>¿Como le afecta esta problemática?</h1>
+            <ul>
+                <li><div class="bt-directamente button oposite large radius"><i class="fa fa-exclamation fa-rotate-180 fa-2x"></i><i class="fa fa-child fa-fw fa-2x"></i><i class="fa fa-exclamation fa-2x"></i></div></li>
+                <li><div class="bt-indirectamente button oposite large radius"><i class="fa fa-male fa-2x"></i></div></li>
+                <li><div class="bt-indiferente button oposite large radius"><i class="fa fa-meh-o fa-fw fa-2x"></i></div></li>
+            </ul>
+        </section>
+        <section id="cambiando-posicion" class="votando-problematica small-8 small-centered columns text-center">
+            <div class="row">
+                <div class="small-10 small-centered columns">
+                    <div class="small-3 columns text-center">
+                        <div class="icono-posicion-votada"></div>
                     </div>
-                </li>
-                <li class="nombre">
-                    <span><i class="fa fa-user fa-border"></i></span>&nbsp;
-                    <a href='#'><b><span>{{ problematica.autor.nombre }}</span>
-                        <span>{{ problematica.autor.apellido }}</span></b></a>
-                </li>
-                <li class="puntos">
-                    <span><i class="fa fa-trophy fa-border"></i></span>&nbsp;
-                    <span>{{ problematica.autor.puntos }}</span>
-                    <span><small>puntos</small></span>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-10 large-centered columns">
-            <div class="texto text-justify">
-                {{ problematica.cuerpo|bbCode }}
-            </div>
-        </div>
-    </div>
-    <div class="row" style="margin-top:20px;">
-        <div class="large-6 large-centered columns">
-            <h4 class="subheader text-center"><b>¿Como le afecta esta problemática?</b></h4>
-			{% if voto is not null %}
-            <div class="panel text-center" style="padding: 10px 10px;">
-            	<p style="font-size: 12px;">{{ user.nombre }}, ya votó esta problematica anteriormente opinando que <br /><span class='label'>{{ voto.postura == 0 ? 'le afecta directamente': '' }}{{ voto.postura == 1 ? 'le afecta indirectamente': '' }}{{ voto.postura == 2 ? 'le es indiferente': '' }}</span>
-            	<br /><br />Puede cambiar su postura luego de los 3 días de haber votado, pero a cambio de<i class="fa fa-star fa-fw fa-lg"></i><span style="color: red;"><b>-5</b></span> puntos que serán descontados de sus puntos de reputación.
-            	</p>
-
-
-            </div>
-			{% endif%}
-            <ul class="button-group even-3" >
-                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Afecta directamente">
-                    <div id="afec_directo" href="#" class="button secondary small" style="background: #F7D363;"><i class="fa fa-child fa-fw fa-2x"></i><i class="fa fa-exclamation fa-2x"></i></div>
-                    </span></li>
-                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Afecta indirectamente">
-                    <div id="afec_indirecto" href="#" class="button secondary small" style="background: #FAE8B0;"><i class="fa fa-male fa-2x"></i></div></span></li>
-                <li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Indiferente">
-                    <div id="afec_indiferente" href="#" class="button secondary small"><i class="fa fa-meh-o fa-2x"></i></div></span></li>
-            </ul>
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-4 large-centered columns text-center">
-            <div class="button warning radius small" onclick="showResultadosProblematica([{{ porc_afec_directos }},{{ porc_afec_indirectos }},{{ porc_afec_indiferentes }}], 100)"><i class="fa fa-bar-chart fa-fw fa-lg"></i>&nbsp;Ver resultados parciales</div>
-        </div>
-    </div>
-    <!-- Resultados problematica - div oculto-->
-    <div id="problematica-resultado" style="display: none;" class="row">
-        {% if total_afectados > 0 %}
-        <div class="row">
-            <div class="large-10 large-centered columns">
-                <div class="clearfix">
-                    <div class="right">
-                        <small>Cerrar</small>
-                        <a href="#" onclick="hideResultadosProblematica()"><i class="fa fa-times fa-fw fa-lg"></i></a>
+                    <div class="small-9 columns text-center">
+                        <div class="postura-posicion-votada panel">
+                            <h6></h6>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="large-10 large-centered columns">
-                <table class="chart">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <p id="porc_afec_directos" class="percentage"></p>
-                            </td>
-                            <td class="chart">
-                                {{ problematica.afectados_directos }} persona{{ (problematica.afectados_directos > 1) or (problematica.afectados_directos == 0) ? 's' : '' }} le{{ (problematica.afectados_directos > 1) or (problematica.afectados_directos == 0) ? 's' : '' }} afecta directamente la problemática.
-                                <div class="barchart">
-                                    <span id="barra_directo" class="meter" ></span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p id="porc_afec_indirectos" class="percentage"></p>
-                            </td>
-                            <td class="chart">
-                                {{ problematica.afectados_indirectos }} persona{{ (problematica.afectados_indirectos > 1) or (problematica.afectados_indirectos == 0) ? 's' : '' }} le{{ (problematica.afectados_indirectos > 1) or (problematica.afectados_indirectos == 0) ? 's' : '' }} afecta indirectamente la problemática.
-                                <div class="barchart">
-                                    <span id="barra_indirecto" class="meter" ></span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p id="porc_afec_indiferentes" class="percentage"></p>
-                            </td>
-                            <td class="chart">
-                                {{ problematica.afectados_indiferentes }} persona{{ (problematica.afectados_indiferentes > 1) or (problematica.afectados_indiferentes == 0) ? 's' : '' }} le{{ (problematica.afectados_indiferentes > 1) or (problematica.afectados_indiferentes == 0) ? 's' : '' }} es indiferente la problemática.
-                                <div class="barchart">
-                                    <span id="barra_indiferente" class="meter" ></span>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        {% else %}
-        <div class="row">
-            <div class="large-10 large-centered columns">
-                <div class="text-center">
-                    <h3>Nadie ha participado aún</h3>
-                    <h3><small>Participe y deje su postura al respecto</small></h3>
+            <hr>
+            <h1>¿Qué le gustaría hacer?</h1>
+            <div class="row">
+                <div class="small-10 small-centered columns text-center">
+                    <h4>Redefinir como me afecta la problemática</h4>
+                    <ul>
+                        <li class='cambiar-directamente'><div class="bt-directamente button oposite radius"><i class="fa fa-exclamation fa-rotate-180 fa-2x"></i><i class="fa fa-child fa-fw fa-2x"></i><i class="fa fa-exclamation fa-2x"></i></div></li>
+                        <li class='cambiar-indirectamente'><div class="bt-indirectamente button oposite radius"><i class="fa fa-male fa-2x"></i></div></li>
+                        <li class='cambiar-indiferente'><div class="bt-indiferente button oposite radius"><i class="fa fa-meh-o fa-fw fa-2x"></i></div></li>
+                    </ul>
                 </div>
-
             </div>
-        </div>
-        {% endif %}
+        </section>
+        <section class="confirmar-voto small-8 small-centered columns text-center">
+            <div class="row">
+                <div class="small-3 columns">
+                    <div class="icono-voto-seleccionado"></div>
+                </div>
+                <div class="small-8 columns">
+                    <form action="{{ urlFor('runVotarProblem', {'idPro': problematica.id}) }}" method="POST">
+                        <div class="panel postura-posicion">
+                            <h6></h6>
+                        </div>
+                        <input type="hidden" id="posturaVoto" name="postura" value="">
+                        <div class="postura-info">
+                            <p></p>
+                            <p></p>
+                        </div>
+                        <ul>
+                            <li><div class="bt-cancelar-voto button oposite radius"><i class="fa fa-undo fa-fw fa-lg"></i>&nbsp;Cancelar</div></li>
+                            <li><button class="button oposite radius"><i class="fa fa-check fa-fw fa-lg"></i>&nbsp;Enviar</button></li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </section>
     </div>
 </section>
-{% endblock %}
+{% endif %}
+<section class="resultados resultados-problematica">
+    {% if total_afectados > 0 %}
+    <div class="vista-resultados row text-ceter">
+        <div class="small-10 small-centered columns">
+            <table class="grafico">
+                <tbody>
+                    <tr>
+                        <td>
+                            <p id="porc-directamente" class="porcentaje"></p>
+                        </td>
+                        <td class="grafico">
+                            {{ problematica.afectados_directos }} persona{{ (problematica.afectados_directos > 1) or (problematica.afectados_directos == 0) ? 's' : '' }} le{{ (problematica.afectados_directos > 1) or (problematica.afectados_directos == 0) ? 's' : '' }} afecta directamente la problemática.
+                            <div class="grafico-barra">
+                                <span id="barra-directamente" class="metro" ></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p id="porc-indirectamente" class="porcentaje"></p>
+                        </td>
+                        <td class="grafico">
+                            {{ problematica.afectados_indirectos }} persona{{ (problematica.afectados_indirectos > 1) or (problematica.afectados_indirectos == 0) ? 's' : '' }} le{{ (problematica.afectados_indirectos > 1) or (problematica.afectados_indirectos == 0) ? 's' : '' }} afecta indirectamente la problemática.
+                            <div class="grafico-barra">
+                                <span id="barra-indirectamente" class="metro" ></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p id="porc-indiferente" class="porcentaje"></p>
+                        </td>
+                        <td class="grafico">
+                            {{ problematica.afectados_indiferentes }} persona{{ (problematica.afectados_indiferentes > 1) or (problematica.afectados_indiferentes == 0) ? 's' : '' }} le{{ (problematica.afectados_indiferentes > 1) or (problematica.afectados_indiferentes == 0) ? 's' : '' }} es indiferente la problemática.
+                            <div class="grafico-barra">
+                                <span id="barra-indiferente" class="metro" ></span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+    <div class="vista-sin-resultados row">
+        <div class="large-10 large-centered columns">
+            <div class="text-center">
+                <h2>Nadie ha participado aún</h2>
+                <h3><small>Participe y deje su postura al respecto</small></h3>
+            </div>
 
-{% block modal %}
-<div id="publicarPostura" class="reveal-modal remove-whitespace tiny" data-reveal>
-    {% include "contenido/problematica/publicar-postura.twig" %}
+        </div>
+    </div>
+    {% endif %}
+</section>
+<div class="borde-bt-resultados text-center {{ color_cont }}">
+    <div class="row">
+        <div class="small-6 small-centered columns">
+            <div class="bt-ver-resultados button expand" onclick="showResultadosProblematica([{{ porc_afec_directos }},{{ porc_afec_indirectos }},{{ porc_afec_indiferentes }}], 100)"><i class="fa fa-bar-chart fa-fw fa-lg"></i>&nbsp;Ver/Ocultar los resultados</div>
+        </div>
+    </div>
 </div>
 {% endblock %}
-
-{% block scripts %}
-<script src="{{ baseUrl }}/assets/js/foundation/foundation.tooltip.js"></script>
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts_cont %}
 <script src="{{ baseUrl }}/assets/js/underscore/underscore-min.js"></script>
 <script>
-	$(document).ready(function() {
-		{% if voto is not null %}
-		var votoUsuario = {{ voto.postura }};
-		if(votoUsuario == 2){
-			$("#afec_directo").addClass("voto-elegido");
-		} else if (votoUsuario == 1){
-			$("#afec_indirecto").addClass("voto-elegido");
-		} else if (votoUsuario == 0){
-			$("#afec_indiferente").addClass("voto-elegido");
-		}
-		{% endif %}
-	});
+    var votoPostura = {{ voto.postura is null ? 'null' : voto.postura }};
+    $(document).ready(function(){
+        $('.resultados').hide();
+        $('.confirmar-voto').hide();
+        if(votoPostura != null){
+            completarCambiarVoto(votoPostura);
+            $('#votando-problematica').hide();
+        } else{
+            $('#cambiando-posicion').hide();
+        }
+    });
 
-    // Para porcentajes
-    // foo([13.626332, 47.989636, 9.596008, 28.788024], 100) // => [48, 29, 14, 9]
+    $( ".bt-ver-resultados" ).click(function() {
+        $('.resultados').slideToggle();
+    });
+
+    $( ".bt-cancelar-voto" ).click(function() {
+        if(votoPostura == null){
+            $('#votando-problematica').slideToggle();
+        } else {
+            $('#cambiando-posicion').slideToggle();
+        }
+        $('.confirmar-voto').slideToggle();
+    });
+
+    $( ".bt-directamente" ).click(function() {
+        if(usuarioLogueado()){
+            $("#posturaVoto").val(2);
+            confirmarCompletar(2);
+            if(votoPostura == null){
+                $('#votando-problematica').slideToggle();
+            } else {
+                $('#cambiando-posicion').slideToggle();
+            }
+            $('.confirmar-voto').slideToggle();
+        } else {
+            alert('Inicie Sesion');
+        }
+
+    });
+
+    $( ".bt-indirectamente" ).click(function() {
+        if(usuarioLogueado()){
+            $("#posturaVoto").val(1);
+            confirmarCompletar(1);
+            if(votoPostura == null){
+                $('#votando-problematica').slideToggle();
+            } else {
+                $('#cambiando-posicion').slideToggle();
+            }
+            $('.confirmar-voto').slideToggle();
+        } else {
+            alert('Inicie Sesion');
+        }
+    });
+
+    $( ".bt-indiferente" ).click(function() {
+        if(usuarioLogueado()){
+            $("#posturaVoto").val(0);
+            confirmarCompletar(0);
+            if(votoPostura == null){
+                $('#votando-problematica').slideToggle();
+            } else {
+                $('#cambiando-posicion').slideToggle();
+            }
+            $('.confirmar-voto').slideToggle();
+        } else {
+            alert('Inicie Sesion');
+        }
+    });
+
     var showResultadosProblematica = function (l, target) {
         var $sum = _.reduce(l, function(memo, num){ return memo + num; }, 0);
         if ($sum > 0) {
@@ -199,105 +241,81 @@ Virtuagora - Problematica #{{ problematica.id }} por {{ problematica.autor.nombr
             //sortBy(function(x) { return Math.round(x) - x }).
             map(function(x, i) { return Math.round(x) + ($off > i) - (i >= (l.length + $off)) }).
             value();
-            $("#porc_afec_directos").html($porcentajes[0] + "%");
-            $("#porc_afec_indirectos").html($porcentajes[1] + "%");
-            $("#porc_afec_indiferentes").html($porcentajes[2] + "%");
-            $("#barra_directo").css("width",($porcentajes[0]).toString() + "%");
-            $("#barra_indirecto").css("width",($porcentajes[1]).toString() + "%");
-            $("#barra_indiferente").css("width",($porcentajes[2]).toString() + "%");
+            $("#porc-directamente").html($porcentajes[0] + "%");
+            $("#porc-indirectamente").html($porcentajes[1] + "%");
+            $("#porc-indiferente").html($porcentajes[2] + "%");
+            $("#barra-directamente").css("width",($porcentajes[0]).toString() + "%");
+            $("#barra-indirectamente").css("width",($porcentajes[1]).toString() + "%");
+            $("#barra-indiferente").css("width",($porcentajes[2]).toString() + "%");
         }
-        $("#problematica-resultado").show(500);
+        $("#propuesta-resultado").show(500);
     }
 
-    var hideResultadosProblematica = function (){
-        $("#problematica-resultado").hide(500);
-    }
-
-    var modalPosturaCompletar = function (valorPostura){
-        $("#posturaInfo").removeAttr("class");
-        $("#posturaInfo i").removeAttr("class");
-        $("#posturaInfo h6 b").empty();
-        $("#posturaInfo").addClass("text-center");
-		{% if voto.postura is null %}
-		$("#intro-comentario h6 b").html("¿Está seguro que este será su voto?");
-		$("#intro-comentario p").html("Podrá cambiarlo más tarde, a cambio de<i class=\"fa fa-star fa-fw fa-lg\"></i><span style=\"color: red;\"><b>-5</b></span> puntos");
-		{% else %}
-		$("#intro-comentario h6 b").html("¿Está seguro que desea cambiar su voto");
-		$("#intro-comentario p").html("Cambiarlo le costará <i class=\"fa fa-star fa-fw fa-lg\"></i><span style=\"color: red;\"><b>-5</b></span> puntos");
-		{% endif %}
-		$(".bt-enviar").show();
-        if(valorPostura == 2){
-            $("#posturaInfo").attr("style","background: #F7D363;");
-            $("#posturaInfo i").html( $("#afec_directo").html() );
-            $("#posturaInfo h6 b").html("Esta problemática le afecta directamente");
-			{% if voto.postura is not null and voto.postura == 2 %}
-			$("#intro-comentario h6 b").html("Usted ya ha votado esta postura");
-			$("#intro-comentario p").empty();
-			$(".bt-enviar").hide();
-			{% endif %}
-        } else if (valorPostura == 1) {
-            $("#posturaInfo").attr("style","background: #FAE8B0;");
-            $("#posturaInfo i").html( $("#afec_indirecto").html() );
-            $("#posturaInfo h6 b").html("Esta problemática le afecta indirectamente");
-			{% if voto.postura is not null and voto.postura == 1 %}
-			$("#intro-comentario h6 b").html("Usted ya ha votado esta postura");
-			$("#intro-comentario p").empty();
-			$(".bt-enviar").hide();
-			{% endif %}
-        } else if (valorPostura == 0) {
-            $("#posturaInfo").attr("style","background: #e7e7e7;");
-            $("#posturaInfo i").html( $("#afec_indiferente").html() );
-            $("#posturaInfo h6 b").html("Esta problemática le es indiferente");
-			{% if voto.postura is not null and voto.postura == 0 %}
-			("#intro-comentario h6 b").html("Usted ya ha votado esta postura");
-			("#intro-comentario p").empty();
-			(".bt-enviar").hide();
-			{% endif %}
+    var confirmarCompletar = function (valorPostura){
+        $(".icono-voto-seleccionado").empty();
+        if(valorPostura == 2 && votoPostura == null){
+            var icono = $('<i class="fa fa-child fa-fw"></i>');
+            $(".icono-voto-seleccionado").append(icono);
+            $(".postura-posicion h6").html('Esta problemática le afecta <b>directamente</b>');
+            $(".postura-info p:nth-child(1)").html('¿Está seguro que esta es su postura?');
+            $(".postura-info p:nth-child(2)").html('Podrá cambiarlo luego de 3 días, a cambio de <i class="fa fa-trophy fa-fw"></i> <b>-5</b> puntos');
+        } else if (valorPostura == 2 && votoPostura != null) {
+            var icono = $('<i class="fa fa-child fa-fw"></i>');
+            $(".icono-voto-seleccionado").append(icono);
+            $(".postura-posicion h6").html('Su postura cambiará a que está problematica le afecta <b>directamente</b>');
+            $(".postura-info p:nth-child(1)").html('¿Está seguro que esta será su nueva postura?');
+            $(".postura-info p:nth-child(2)").html('Cambiarlo le costará <i class="fa fa-trophy fa-fw"></i> <b>-5</b> puntos');
+        } else if (valorPostura == 1 && votoPostura == null) {
+            var icono = $('<i class="fa fa-male fa-fw"></i>');
+            $(".icono-voto-seleccionado").append(icono);
+            $(".postura-posicion h6").html('Esta problemática le afecta <b>indirectamente</b>');
+            $(".postura-info p:nth-child(1)").html('¿Está seguro que esta es su postura?');
+            $(".postura-info p:nth-child(2)").html('Podrá cambiarlo luego de 3 días, a cambio de <i class="fa fa-trophy fa-fw"></i> <b>-5</b> puntos');
+        } else if (valorPostura == 1 && votoPostura != null) {
+            var icono = $('<i class="fa fa-male fa-fw"></i>');
+            $(".icono-voto-seleccionado").append(icono);
+            $(".postura-posicion h6").html('Su postura cambiará a que está problematica le afecta <b>indirectamente</b>');
+            $(".postura-info p:nth-child(1)").html('¿Está seguro que esta será su nueva postura?');
+            $(".postura-info p:nth-child(2)").html('Cambiarlo le costará <i class="fa fa-trophy fa-fw"></i> <b>-5</b> puntos');
+        } else if (valorPostura == 0 && votoPostura == null) {
+            var icono = $('<i class="fa fa-meh-o fa-fw"></i>');
+            $(".icono-voto-seleccionado").append(icono);
+            $(".postura-posicion h6").html('Esta problemática le es <b>indiferente</b>');
+            $(".postura-info p:nth-child(1)").html('¿Está seguro que esta es su postura?');
+            $(".postura-info p:nth-child(2)").html('Podrá cambiarlo luego de 3 días, a cambio de <i class="fa fa-trophy fa-fw"></i> <b>-5</b> puntos');
+        } else if (valorPostura == 0 && votoPostura != null) {
+            var icono = $('<i class="fa fa-meh-o fa-fw"></i>');
+            $(".icono-voto-seleccionado").append(icono);
+            $(".postura-posicion h6").html('Su postura cambiará a que está problematica le resulta <b>indiferente</b>');
+            $(".postura-info p:nth-child(1)").html('¿Está seguro que esta será su nueva postura?');
+            $(".postura-info p:nth-child(2)").html('Cambiarlo le costará <i class="fa fa-trophy fa-fw"></i> <b>-5</b> puntos');
         }
     }
+
+    var completarCambiarVoto = function(postura,publico) {
+        if (postura == 2) {
+            var icono = $('<i class="fa fa-child fa-fw"></i>');
+            $(".icono-posicion-votada").append(icono);
+            $('.postura-posicion-votada h6').html('{{ user.nombre }}, has definido que la problemática te afecta <b>directamente</b>');
+            $('li.cambiar-directamente').remove();
+        } else if (postura == 1) {
+            var icono = $('<i class="fa fa-men fa-fw"></i>');
+            $(".icono-posicion-votada").append(icono);
+            $('.postura-posicion-votada h6').html('{{ user.nombre }}, has definido que la problemática te afecta <b>indirectamente</b>');
+            $('li.cambiar-indirectamente').remove();
+        } else if (postura == 0) {
+            var icono = $('<i class="fa fa-meh-o fa-fw"></i>');
+            $(".icono-posicion-votada").append(icono);
+            $('.postura-posicion-votada h6').html('{{ user.nombre }}, has definido que la problemática te es <b>indiferente</b>');
+            $('li.cambiar-indiferente').remove();
+        }
+    }
+
 
     var usuarioLogueado = function (){
         var hayLogin = {{ (user.nombre is not empty) ? 'true' : 'false' }} ;
     return hayLogin;
     }
-
-    $("#afec_directo").on("click", function() {
-        if(usuarioLogueado()){
-            $("#posturaProblematica").val(2);
-            modalPosturaCompletar(2);
-            $('#publicarPostura').foundation('reveal', 'open');
-        } else {
-            $('#login-modal').foundation('reveal', 'open');
-        }
-    });
-
-    $("#afec_indirecto").on("click", function() {
-        if(usuarioLogueado()){
-            $("#posturaProblematica").val(1);
-            modalPosturaCompletar(1);
-            $('#publicarPostura').foundation('reveal', 'open');
-        } else {
-            $('#login-modal').foundation('reveal', 'open');
-        }
-    });
-
-    $("#afec_indiferente").on("click", function() {
-        if(usuarioLogueado()){
-            $("#posturaProblematica").val(0);
-            modalPosturaCompletar(0);
-            $('#publicarPostura').foundation('reveal', 'open');
-        } else {
-            $('#login-modal').foundation('reveal', 'open');
-        }
-    });
-
-	$(".cerrar-modal").on("click", function() {
-        $('#publicarPostura').foundation('reveal', 'close');
-    });
-
-	{% if comments == true %}
-	{% include "misc/comentarios.js.twig" %}
-	{% endif %}
-
 </script>
 {% endblock %}
+{# ----------------------------------------------------------- #}

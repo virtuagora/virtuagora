@@ -1,0 +1,58 @@
+.user-panel{
+    .cambiar-clave{
+        .consideraciones{
+            p, ul li{
+                font-size: rem-calc(12);
+            }
+        }
+        .form-clave{
+            input{
+                border-radius: 5px;
+                font-size: rem-calc(20);
+                height: rem-calc(45);
+                text-align: center;
+            }
+        }
+    }
+    .cambiar-datos{
+        .cambiar-avatar{
+            min-height: 180px;
+            img{
+                margin: 10px 15px
+            }
+            .fileUpload {
+                margin: 30px 15px;
+                position: relative;
+                overflow: hidden;
+            }
+            .fileUpload input.upload {
+                position: absolute;
+                top: 0;
+                right: 0;
+                margin: 0;
+                padding: 0;
+                font-size: 150px;
+                cursor: pointer;
+                opacity: 0;
+                filter: alpha(opacity=0);
+            }
+        }
+    }
+    .eliminar-cuenta{
+        .panel{
+            background-color: #ffe9d9;
+            h3{
+                margin:15px;
+                color: #FF0000;
+            }
+        }
+        .descripcion{
+            margin: 45px 0px;
+        }
+        .segundo-boton{
+            .bt-segunda-conf{
+                font-size: rem-calc(30);
+            }
+        }
+    }
+}

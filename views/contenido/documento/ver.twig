@@ -1,239 +1,179 @@
-{# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
-{% set url_atras = '#' %}
-{% set i_class_icon = 'fa fa-bullhorn fa-fw' %}
-{% set titulo = 'Ver documento' %}
-{% set comments = false %}
-{% set commentUrl = urlFor('runComentar', {"tipoRaiz": "documento" , "idRaiz": documento.id}) %}
-{% set rtaUrl = urlFor('runComentar', {"tipoRaiz": "comentario", "idRaiz": ""}) %}
+{# VARIBLES #}
+{% set cant_parrafos = version.parrafos|length %}
 
-{# VARIABLES DE LA VISTA #}
+{% extends "contenido/ver-contenido.twig" %}
 
-{# ---------------------- #}
-
-{% extends "master-body.twig" %}
-
-{% block titulo %}
-Virtuagora - Documento #{{ documento.id }} por {{ documento.autor.nombre }} {{ documento.autor.apellido }}
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - documento #{{ documento.id }} {% endblock %}
+{# ----------------------------------------------------------- #}
+{% set color_cont = 'color-documento' %}
+{% block linkheads_cont %}
+<link rel="stylesheet" type="text/css" href="{{ baseUrl }}/assets/css/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="{{ baseUrl }}/assets/css/slick/slick-theme.css"/>
+{% endblock linkheads_cont %}
+{# ----------------------------------------------------------- #}
+{% set titulo_cont = documento.titulo %}
+{% set fecha_cont = '' ~ documento.created_at|date("d/m/Y") %}
+{% set ver_comentarios = false %}
+{% set url_modificar = urlFor('shwModifDocumen', {'idDoc': documento.id}) %}
+{% block botones_cont %}
+<li><a href="{{ urlFor('shwNuVerDocumen', {'idDoc': documento.id}) }}" class="button oposite radius"><i class="fa fa-plus fa-fw"></i>&nbsp;Nueva Version</a></li>
 {% endblock %}
+{% block cuerpo_cont %}
+<section class="doc-descripcion">
+    <div class="row">
+        <div class="small-8 small-centered columns panel text-center">
+            {{ documento.descripcion }}
+        </div>
+    </div>
+</section>
+<section class="doc-texto">
+    <div class="text text-justify">
+        {% for parrafo in version.parrafos %}
+        <p id="p{{ parrafo.id }}" class="parrafo">
+            {{ parrafo.cuerpo|bbCode }}
+            <i id="p{{ parrafo.id }}-bt-comentar" class="bt-comentar fa fa-plus-circle fa-fw fa-lg" style="display: none;"></i>
+            <i id="p{{ parrafo.id }}-bt-comentarios" class="bt-comentarios fa fa-comments-o fa-fw fa-lg" style="display: none;"></i>
+        </p>
+        {% if parrafo.comentarios|length > 0 %}
+        <div id="p{{ parrafo.id }}-box-comentarios" class="box-comentarios" hidden>
+            <div class="wrapper-comentarios">
+                {% for comentario in parrafo.comentarios %}
+                <div class="box-comentario small-11 small-centered columns">
+                    <div class="info-user-row row">
+                        <ul class="info">
+                            <li><a href="#"><img src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 32) }}"></a></li>
+                            <li><i class="fa fa-comment fa-fw"></i> {{ comentario.autor.nombre }} {{ comentario.autor.apellido }} <i class="fa fa-caret-right fa-fw fa-lg"></i> {{ documento.autor.nombre ~ ' ' ~ documento.autor.apellido }} en Parrafo # {{ parrafo.id }} </li>
+                            <li><i class="fa fa-calendar fa-fw"></i> {{ comentario.updated_at|date("d/m/Y") }} {{ comentario.updated_at|date("H:i") }}</li>
+                        </ul>
+                    </div>
+                    <div class="comentario-row row">
+                        {{ comentario.cuerpo }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="controles-row row text-center">
+                <i class="bt-atras-menu fa fa-step-backward fa-fw fa-lg"></i>&nbsp;<i class="bt-cerrar-comentarios fa fa-times fa-fw fa-lg"></i>&nbsp;<i class="bt-adelante-menu fa fa-step-forward fa-fw fa-lg"></i>
+            </div>
+        </div>
+        {% else %}
+        <div id="p{{ parrafo.id }}-box-comentarios" class="box-comentarios" hidden>
+            <div class="wrapper-comentarios">
+                <div class="nadie-comento-icono row text-center">
+                    <span class="fa-stack fa-lg ">
+                        <i class="fa fa-comment-o fa-stack-2x"></i>
+                        <i class="fa fa-question fa-stack-1x"></i>
+                    </span>
+                </div>
+                <div class="nadie-comento row text-center">
+                    <h4><b>Este parrafo no tiene comentarios</b></h4>
+                    <p>Sea el primero en dejar un comentario</p>
+                </div>
+            </div>
+            <div class="controles-row row text-center">
+                <i class="bt-cerrar-comentarios fa fa-times fa-fw fa-lg"></i>
+            </div>
+        </div>
+        {% endif %}
+        {% if user is not empty %}
+        <div id="p{{ parrafo.id }}-box-comentar" class="box-comentar" hidden>
+            <div class="small-12 small-centered columns">
+                <div class="info-user-row row">
+                    <ul class="info">
+                        <li><a href="#"><img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}"></a></li>
+                        <li><i class="fa fa-comment fa-fw"></i> {{ user.nombre }} {{ user.apellido }} <i class="fa fa-caret-right fa-fw fa-lg"></i> {{ documento.autor.nombre ~ ' ' ~ documento.autor.apellido }} en Parrafo # {{ parrafo.id }} </li>
+                        <li class="right"><i class="bt-cerrar-box fa fa-times fa-2x"></i></li>
+                    </ul>
+                </div>
+                <form action="{{ urlFor('runComentar', {'tipoRaiz': 'ParrafoDocumento' , 'idRaiz': parrafo.id}) }}" method="POST">
+                    <div class="redactor-row row">
+                        <textarea name="cuerpo" placeholder="Escriba su comentario con respecto al párrafo"></textarea>
+                    </div>
+                    <div class="confirmar-row row text-center">
+                        <button class="button success small radius"><i class="fa fa-send fa-fw"></i>&nbsp;Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+        <div id="p{{ parrafo.id }}-tt-comentarios" class="bt-comentarios" hidden>
+            <div class="tt-comentarios row">
+                <i class="fa fa-comments-o fa-fw fa-lg"></i>&nbsp;{{ parrafo.comentarios|length }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% set autor_id = documento.autor.id %}
+{% set autor_nombre_apellido = documento.autor.nombre ~ ' ' ~ documento.autor.apellido %}
+{% set autor_avatar = avatarUrl(user.img_tipo, user.img_hash, 160) %}
+{% set autor_avatar_32 = avatarUrl(documento.autor.img_tipo, documento.autor.img_hash, 32) %}
+{% set autor_puntos = documento.autor.puntos %}
+{% set autor_descripcion = 'Aca deberia haber una descripcion!' %}
+{# ----------------------------------------------------------- #}
+{% block opciones_cont %}
+<section>
 
-{% block contenido %}
-<!-- Fila c/ titulo y otros datos! -->
-<dl class="tabs" data-tab>
-	<dd class="active"><a href="#panel1">Version actual</a></dd>
-	<dd><a href="#panel2">Ver otras versiones</a></dd>
-</dl>
-<div class="tabs-content">
-	<div class="content active" id="panel1">
-		<section id="vista-contenido">
-			<div class="row">
-				<div class="large-10 large-centered columns">
-					<div class="text-center">
-						<h1><b>{{ documento.titulo }}</b></h1>
-						<h4 class="subheader"><small>Version X | Creado el {{ documento.created_at|date("d/m/Y") }}</small></h4>
-						{% if documento.autor.id == user.id or user.es_moderador == true %}
-					<a href="#" class="button tiny radius" style="padding: 10px 10px;"><i class="fa fa-pencil fa-fw fa-lg"></i>&nbsp;Modificar</a>
-					<div id="eliminar" class="button tiny radius alert" style="padding: 10px 10px;"><i class="fa fa-times fa-fw fa-lg"></i>&nbsp;Eliminar</div>
-					{% endif%}
-					{% if user.es_moderador %}
-					<div id="bt-sancionar-{{ documento.autor.id }}" class="sancionar button tiny radius alert" style="padding: 10px 10px;"><i class="fa fa-flag fa-fw fa-lg"></i>&nbsp;Sancionar</div>
-					{% endif%}
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="large-6 large-centered columns">
-					<h6 class="subheader text-center"><b>Autor del documento</b></h6>
-					<ul class="vcard">
-						<li clearfix>
-							<div class="left autor">
-								<a href='#'><img src="{{ avatarUrl(documento.autor.img_tipo, documento.autor.img_hash, 32) }}" alt="profile image"></a>
-							</div>
-						</li>
-						<li class="nombre">
-							<span><i class="fa fa-user fa-border"></i></span>&nbsp;
-							<a href='#'><b><span>{{ documento.autor.nombre|capitalize  }}</span>
-								<span>{{ documento.autor.apellido|capitalize  }}</span></b></a>
-						</li>
-						<li class="puntos">
-							<span><i class="fa fa-trophy fa-border"></i></span>&nbsp;
-							<span>{{ documento.autor.puntos }}</span>
-							<span><small>puntos</small></span>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="row">
-				<div class="large-10 large-centered columns">
-					<div class="texto text-justify">
-						<dl class="accordion" data-accordion>
-							{% for parrafo in version.parrafos %}
-							<dd class="accordion-navigation">
-								<a href="#parrafo-{{ parrafo.id }}">
-									{{ parrafo.cuerpo|bbCode }}
-								</a>
-								<div id="parrafo-{{ parrafo.id }}" class="content" style="background: #f4f4f4;">
-									<div class="row">
-										<div class="large-12 large-centered columns">
-											<div class="large-7 columns" style="border-right: 1px solid #5DA9D8">
-												{% if parrafo.comentarios|length > 0 %}
-												{% set rand = random(parrafo.comentarios|length -1 ) %}
-												<div class="comentario">
-													<section class="top">
-														<h6 class="byline">
-															<a href="urlUser" style="font-size: 12px;"><img src="{{ avatarUrl(parrafo.comentarios[rand].autor.img_tipo, parrafo.comentarios[rand].autor.img_hash, 32) }}">&nbsp;&nbsp;{{ parrafo.comentarios[rand].autor.nombre }} {{ parrafo.comentarios[rand].autor.apellido }}</a>
-															<small> dijo en fecha
-																<span class="data">
-																	{{ parrafo.comentarios[rand].updated_at|date("d/m/Y") }} a las {{ parrafo.comentarios[rand].updated_at|date("H:i") }}
-																</span>
-															</small>
-														</h6>
-													</section>
-													<section class="content">
-														<p style="font-size: 11px;">{{parrafo.comentarios[rand].cuerpo}}</p>
-													</section>
-												</div>
-												<div class="text-center">
-													<div id="bt-c-parrafo-{{ parrafo.id }}" class="bt-ver-comentarios button tiny radius"><i class="fa fa-comments fa-fw fa-lg"></i>&nbsp;Ver todos los comentarios ({{parrafo.comentarios|length}})</div>
-												</div>
-												{% else %}
-												<section class="top text-center">
-														<span class="fa-stack fa-lg ">
-															<i class="fa fa-comment-o fa-stack-2x"></i>
-															<i class="fa fa-question fa-stack-1x"></i>
-														</span>
-													</section>
-													<section class="content text-center">
-														<h6><b>Este parrafo no tiene comentarios</b></h6>
-														<p style="font-size: 11px;">Sea el primero en dejar un comentario</p>
-													</section>
-												{% endif %}
-											</div>
-											<div class="large-5 columns">
-											{% if user is not empty %}
-												<section class="top">
-													<h5 class="byline">
-														<a href="urlUser" style="font-size: 12px;"><img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}">&nbsp;&nbsp;{{ user.nombre }} {{ user.apellido }} </a>
-													</h5>
-												</section>
-												<form action="{{ urlFor('runComentar', {'tipoRaiz': "ParrafoDocumento" , 'idRaiz': parrafo.id}) }}" method="POST">
-												<textarea name="cuerpo" rows=4 placeholder="Su comentario..." style="font-size: 11px; margin: 7px;"></textarea>
-												<button class="button success tiny right radius" style=" padding: 8px 12px;"><i class="fa fa-check fa-fw fa-lg"></i>&nbsp;Enviar</div>
-												</form>
-											{% else %}
-												<section class="top">
-													<h5 class="byline">
-														<small><b>Para comentar debe iniciar sesión</b></small>
-													</h6>
-												</section>
-												<textarea rows=4 placeholder="Su comentario..." style="font-size: 11px; margin: 7px;" disabled></textarea>
-												<div class="button tiny right radius bt-login" style=" padding: 8px 12px;"><i class="fa fa-check fa-fw fa-lg"></i>Iniciar sesión</div>
-											{% endif %}
-											</div>
-										</div>
-									</div>
-								</dd>
-								{% endfor %}
-						</dl>
-					</div>
-				</div>
-			</div>
-		</section>
-	</div>
-	<div class="content" id="panel2">
-		Aca irian un link a otras versiones.
-	</div>
-</div>
+</section>
 
 {% endblock %}
-
-{% block modal %}
-<div id="parrafo-comentarios" class="reveal-modal remove-whitespace small" style="display: none" data-reveal>
-	{% for parrafo in version.parrafos %}
-	<div id="c-parrafo-{{ parrafo.id }}" class="row comentarios-parrafos">
-		<div class="large-10 large-centered columns">
-			{% for comentario in parrafo.comentarios %}
-			<div id="c-{{ comentario.id }}" class="comentario">
-				<section class="top">
-					<h6 class="byline">
-						<a href="urlUser" style="font-size: 12px;"><img src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 32) }}">&nbsp;&nbsp;{{ comentario.autor.nombre }} {{ comentario.autor.apellido }}</a>
-						<small> dijo el
-							<span class="data">
-								{{ comentario.updated_at|date("d/m/Y") }} a las {{ comentario.updated_at|date("H:i") }}
-							</span>
-						</small>
-					</h6>
-				</section>
-				<section class="content">
-					<p style="font-size: 11px;">{{ comentario.cuerpo }}</p>
-				</section>
-			</div>
-			<hr>
-			{% endfor %}
-		</div>
-	</div>
-	{% endfor %}
-	<a class="close-reveal-modal">&#215;</a>
-	<div class="row">
-		<div class="large-12 columns text-center">
-		<div class="button bt-cerrar-comentarios small radius secondary">Cerrar</div>
-		</div>
-	</div>
-</div>
-
-{% if documento.autor.id == user.id %}
-<div id="modal-eliminar" class="reveal-modal remove-whitespace small" style="display: none; background: #F04124;" data-reveal>
-<div class="text-center">
-<h4 style="color: #FFFFFF"><i class="fa fa-warning fa-fw fa-2x"></i></h4>
-	<h4 style="color: #FFFFFF"><b>Esta a punto de eliminar el documento</b></h4>
-	<h6 style="color: #FFFFFF">Una vez que usted confirma su eliminación, no podrá volver a recuperarlo.</h6>
-	<h6 style="color: #FFFFFF">¿Está seguro?</h6>
-	<br>
-	<div class="large-7 large-centered columns clearfix">
-		<form action="" method="POST">
-		<button class="button small radius"><i class="fa fa-bomb fa-fw fa-lg"></i>&nbsp;Si, confirmar</button>
-		<div id="bt-cerrar-elim" class="button secondary small radius">No, Cancelar</div>
-		</form>
-	</div>
-</div>
-<a class="close-reveal-modal" style="color: white;">&#215;</a>
-</div>
-{% endif %}
-{% endblock %}
-
-
-{% block scripts %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts_cont %}
+<script src="{{ baseUrl }}/assets/js/slick/slick.min.js"></script>
 <script>
-	$(document).ready(function() {
-		$(".comentarios-parrafos").hide();
-	});
+    var cantParrafos =  {{ cant_parrafos }};
+    $(document).ready(function(){
+        for(i = 1; i <= cantParrafos; i++){
+            $('#p'+i).data('powertiptarget', 'p'+i+'-tt-comentarios');
+            $('#p'+i).powerTip({
+                placement: 'w',
+                mouseOnToPopup: true,
+                offset: 15
+            });
+        }
+        autosize($("textarea[name='cuerpo']"));
+    });
 
-	$(".bt-ver-comentarios").on("click", function() {
-		$(".comentarios-parrafos").hide();
-		var id = $(this).attr('id');
-		id = id.replace('bt-c-parrafo-','');
-		$('#c-parrafo-'+id).show();
-		console.log('c-parrafo-'+id);
-		$('#parrafo-comentarios').foundation('reveal', 'open');
-	});
+    $('.doc-texto p').hover(function () {
+        $(this).find(".bt-comentar").show();
+        $(this).find(".bt-comentarios").show();
+    },function () {
+        $(this).find(".bt-comentar").hide();
+        $(this).find(".bt-comentarios").hide();
+    });
 
-	$(".bt-cerrar-comentarios").on("click", function() {
-		$('#parrafo-comentarios').foundation('reveal', 'close');
-	});
+    $( ".bt-comentar" ).click(function() {
+        $('.box-comentar').hide();
+        $('.box-comentarios').hide();
+        console.log($(this).parent().attr('id'));
+        var parrafoId = $(this).parent().attr('id');
+        $('#'+parrafoId+'-box-comentar').slideToggle();
+    });
 
-	$(".bt-login").on("click", function() {
-        $('#login-modal').foundation('reveal', 'open');
-	});
+    $( ".bt-cerrar-box" ).click(function() {
+        $('.box-comentar').hide();
+    });
 
-	$("#eliminar").on("click", function() {
-		$('#modal-eliminar').foundation('reveal', 'open');
-	});
+    $( ".bt-cerrar-comentarios" ).click(function() {
+        $('.box-comentarios').hide();
+    });
 
-	$("#bt-cerrar-elim").on("click", function() {
-		$('#modal-eliminar').foundation('reveal', 'close');
-	});
+    $( ".bt-comentarios" ).click(function() {
+        $('.box-comentar').hide();
+        $('.box-comentarios').hide();
+        var parrafoId = $(this).parent().attr('id');
+        $('#'+parrafoId+'-box-comentarios').show();
+    });
 
-	{% if comments == true %}
-	{% include "misc/comentarios.js.twig" %}
-	{% endif %}
+    var asociarTooltipParrafo = function() {
+
+    }
+
 </script>
 {% endblock %}
+{# ----------------------------------------------------------- #}

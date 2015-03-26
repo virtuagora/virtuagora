@@ -1,55 +1,246 @@
-{# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
-{% set url_atras = '#' %}
-{% set i_class_titulo = 'fa fa-leaf fa-fw' %}
-{% set titulo = 'Portal de usuario' %}
-{% set comments = false %}
+{# VARIBLES #}
+{% set footer = true %}
+{% set barraNav = true %}
+{% set html_class = '' %}
+{% set body_class = 'portal-bg' %}
 
-{# VARIABLES DE LA VISTA #}
+{% extends "master.twig" %}
 
-{# ---------------------- #}
-
-{% extends "master-body.twig" %}
-
-{% block titulo %}
-Virtuagora - Portal de usuario
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Inicio{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}
+<link rel="stylesheet" type="text/css" href="{{ baseUrl }}/assets/css/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="{{ baseUrl }}/assets/css/slick/slick-theme.css"/>
 {% endblock %}
+{# ----------------------------------------------------------- #}
+{% block body %}
+<div class="portal-usuario">
+    <section class="portal-intro">
+        <div class="row text-center">
+            <h4><b>Bienvenido {{ user.nombre }} a tu portal</b><br>
+                <small>Estas son las ultimas actualizaciones</small></h4>
+        </div>
+    </section>
+    <section class="portal-feed">
+        <div class="row text-center">
+            <div class="small-12 small-centered columns">
+                <h3><b>Feed de actividad</b></h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 70%;">Título</th>
+                            <th class="text-center" style="width: 20%;">Autor</th>
+                            <th class="text-center" style="width: 20%;">Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for con in contenidos %}
+                        <tr>
+                            <td><a href='{{ baseUrl }}/{{ con.contenible_type|lower }}/{{ con.contenible_id }}'>{{ con.titulo }}</a></td>
+                            <td>{{ con.autor.nombre }} {{ con.autor.apellido }}</td>
+                            <td>{{ con.created_at|date("m/d/Y") }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <section class="portal-menu-acciones">
+        <div class="row text-center">
+            <h3><b>Menú de acciones usuario</b></h3>
+        </div>
+        <div class="row">
+            <div class="menu-acciones usuario" style="width: 100%">
+                <div class="colum-accion color-propuesta">
+                    <div>
+                        <i class="logo fa fa-comment-o pull-left fa-fw fa-4x"></i>
+                        <p class="titulo">Crear una propuesta</p>
+                    </div>
+                    <p class="descripcion">¿Tenes alguna idea interesante que quieras poner en marcha? Publicá una propuesta para que todos puedan aportar y ayudar a ser realizada.</p>
+                    <a class="button oposite radius small" href="{{ urlFor('runCrearPropues') }}"><i class="fa fa-plus fa-fw"></i>&nbsp;Nueva propuesta</a>
+                </div>
+                <div class="colum-accion color-propuesta">
+                    <div>
+                        <i class="logo fa fa-comments-o pull-left fa-fw fa-4x"></i>
+                        <p class="titulo">Buscar otras propuestas</p>
+                    </div>
+                    <p class="descripcion">Hay buenas ideas y que merecen ser escuchadas. Encontrará un basto listado de ellas a continuación.</p>
+                    <a class="button oposite radius small" href="javascript:return(0)"><i class="fa fa-search fa-fw"></i>&nbsp;Ver propuestas</a>
+                </div>
+                <div class="colum-accion color-problematica">
+                    <div>
+                        <i class="logo fa fa-warning pull-left fa-fw fa-4x"></i>
+                        <p class="titulo">Informar una problematica</p>
+                    </div>
+                    <p class="descripcion">¿Queres informar acerca de alguna problematica? Crea una nueva problematica para que todos se enteren.</p>
+                    <a class="button oposite radius small" href="{{ urlFor('shwCrearProblem') }}"><i class="fa fa-plus fa-fw"></i>&nbsp;Nueva problematica</a>
+                </div>
+                <div class="colum-accion color-problematica">
+                    <div>
+                        <i class="logo fa fa-group pull-left fa-fw fa-4x"></i>
+                        <p class="titulo">Ver otras problematicas</p>
+                    </div>
+                    <p class="descripcion">Enterate de otras problematicas, la gente anda necesitando tu colaboración y vos podes aportar dando tu opinion con respecto.</p>
+                    <a class="button oposite radius small disabled" href="javascript:return(0)"><i class="fa fa-search fa-fw"></i>&nbsp;Ver problematicas</a>
+                </div>
 
-{% block contenido %}
-
-<h1>Contenidos</h1>
-<table>
-    <thead>
-        <tr>
-            <th class="text-center" style="width: 50%;">Título</th>
-            <th class="text-center" style="width: 10%;">Autor</th>
-            <th class="text-center" style="width: 10%;">Fecha</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for con in contenidos %}
-            <tr>
-                <td><a href='{{ baseUrl }}/{{ con.contenible_type|lower }}/{{ con.contenible_id }}'>{{ con.titulo }}</a></td>
-                <td>{{ con.autor.nombre }} {{ con.autor.apellido }}</td>
-                <td>{{ con.created_at|date("m/d/Y") }}</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
-<h3>Opciones como administrador</h3>
-{% if esModerador %}
-    <a href="{{ urlFor('shwAdmOrganis') }}">Administrar organismos.</a><br>
-{% else %}
-	<div class="label warning"><i class="fa fa-times fa-fw fa-lg"></i>&nbsp;No sos administrador!</div>
-{% endif %}
-<h3>Opciones como funcionario</h3>
-{% if esFuncionario %}
-    <a href="{{ urlFor('shwCrearPropues') }}">Crear propuesta.</a><br>
-    <a href="{{ urlFor('shwCrearPartido') }}">Crear partido.</a><br>
-    <a href="{{ urlFor('shwCrearDocumen') }}">Crear documento abierto.</a><br>
-{% else %}
-	<div class="label warning"><i class="fa fa-times fa-fw fa-lg"></i>&nbsp;No sos funcionario!</div>
-{% endif %}
-<h3>Opciones como usuario</h3>
-    <a href="{{ urlFor('shwCrearProblem') }}">Crear problematica.</a><br>
-    <a href="{{ urlFor('shwListaPartido') }}">Listar partidos.</a><br>
+                <div class="colum-accion color-evento">
+                    <div>
+                        <i class="logo fa fa-calendar pull-left fa-fw fa-4x"></i>
+                        <p class="titulo">Participar de eventos</p>
+                    </div>
+                    <p class="descripcion">Vea el listado de eventos disponibles publicados por los representantes</p>
+                    <a class="button oposite radius small disabled" href="javascript:return(0)"><i class="fa fa-search fa-fw"></i>&nbsp;Ver eventos</a>
+                </div>
+                <div class="color-novedad colum-accion">
+                    <div>
+                        <i class="logo fa fa-file-text-o pull-left fa-fw fa-4x"></i>
+                        <p class="titulo">Ver las ultimas novedades</p>
+                    </div>
+                    <p class="descripcion">Vea las novedades que otros representantes han publicado e informesé</p>
+                    <a class="button oposite radius small disabled" href="javascript:return(0)"><i class="fa fa-search fa-fw"></i>&nbsp;Ver novedades</a>
+                </div>
+                <div class="colum-accion color-documento">
+                    <div>
+                        <i class="logo fa fa-file-text-o pull-left fa-fw fa-4x"></i>
+                        <p class="titulo">Ver documentos participativos</p>
+                    </div>
+                    <p class="descripcion">Vea documentos y participe en ellos activamente. Proponga cambios, de opiniones, comparta su opinion y vea lo que los demas opinan!</p>
+                    <a class="button oposite radius small disabled" href="javascript:return(0)"><i class="fa fa-search fa-fw"></i>&nbsp;Ver documentos</a>
+                </div>
+                <div class="colum-accion color-partido">
+                    <div>
+                        <i class="logo fa fa-flag pull-left fa-fw fa-4x"></i>
+                        <p class="titulo">Ver los partidos político</p>
+                    </div>
+                    <p class="descripcion">Descubra otros partidos y asociecé a aquel que mas le interesa ser parte</p>
+                    <a class="button oposite radius small" href="{{ urlFor('shwListaPartido') }}"><i class="fa fa-search fa-fw"></i>&nbsp;Ver partidos políticos</a>
+                </div>
+            </div>
+            <div class="row text-center">
+                <i class="bt-atras-menu usuario fa fa-caret-left fa-fw fa-2x"></i>&nbsp;<i class="bt-adelante-menu usuario fa fa-caret-right fa-fw fa-2x"></i>
+            </div>
+        </div>
+    </section>
+    {% if user.es_funcionario == true %}
+    <section class="portal-menu-acciones">
+        <div class="row text-center">
+            <h3><b>Menú de acciones de funcionario</b></h3>
+        </div>
+        <div class="row">
+            <div class="menu-acciones funcionarios" style="width: 100%">
+                <div class="colum-accion color-evento">
+                    <div>
+                        <i class="logo fa fa-calendar-o pull-left fa-fw fa-4x"></i>
+                        <p class="titulo">Crear un evento</p>
+                    </div>
+                    <p class="descripcion">Defina fecha, hora y lugar y sera publicado para que todos puedan verlo.</p>
+                    <a class="button oposite radius small" href="javascript:return(0)"><i class="fa fa-plus fa-fw"></i>&nbsp;Nueva evento</a>
+                </div>
+                <div class="color-novedad colum-accion">
+                    <div>
+                        <i class="logo fa fa-file-text-o pull-left fa-fw fa-4x"></i>
+                        <p class="titulo">Informar una novedad</p>
+                    </div>
+                    <p class="descripcion">De la novedad enviando una noticia a los usuarios</p>
+                    <a class="button oposite radius small" href="javascript:return(0)"><i class="fa fa-plus fa-fw"></i>&nbsp;Nueva novedad</a>
+                </div>
+                <div class="colum-accion color-documento">
+                    <div>
+                        <i class="logo fa fa-file-text-o pull-left fa-fw fa-4x"></i>
+                        <p class="titulo">Crear un documento</p>
+                    </div>
+                    <p class="descripcion">Permita que la comunidad activa se interese en sus nuevos proyectos y participe colaborativamente de su redacción</p>
+                    <a class="button oposite radius small" href="{{ urlFor('shwCrearDocumen') }}"><i class="fa fa-plus fa-fw"></i>&nbsp;Nuevo documento</a>
+                </div>
+                <div class="colum-accion color-partido">
+                    <div>
+                        <i class="logo fa fa-flag pull-left fa-fw fa-4x"></i>
+                        <p class="titulo">Crear un partido politico</p>
+                    </div>
+                    <p class="descripcion">Registré su partido político para agrupar a tanto a funcionarios como inscriptos a su partido.</p>
+                    <a class="button oposite radius small" href="{{ urlFor('shwCrearPartido') }}"><i class="fa fa-plus fa-fw"></i>&nbsp;Nuevo partido</a>
+                </div>
+            </div>
+            <div class="row text-center">
+                <i class="bt-atras-menu funcionarios fa fa-caret-left fa-fw fa-2x"></i>&nbsp;<i class="bt-adelante-menu funcionarios fa fa-caret-right fa-fw fa-2x"></i>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    {% if user.es_moderador == true %}
+    <section class="portal-menu-acciones">
+        <div class="row text-center">
+            <h3><b>Menú de acciones de Administrador</b></h3>
+        </div>
+        <div class="row">
+            <div class="menu-acciones administradores" style="width: 100%">
+                <div class="colum-accion color-config">
+                    <div>
+                        <i class="logo fa fa-university pull-left fa-fw fa-4x"></i>
+                        <p class="titulo">Crear un nuevo organismo</p>
+                    </div>
+                    <p class="descripcion">Agregue a un nuevo organismo en la lista de organismos disponibles para luego añadir a los funcionarios del mismo.</p>
+                    <a class="button oposite radius small" href="{{ urlFor('shwCrearOrganis') }}"><i class="fa fa-plus fa-fw"></i>&nbsp;Nuevo organismo</a>
+                </div>
+                <div class="color-config colum-accion">
+                    <div>
+                        <i class="logo fa fa-university pull-left fa-fw fa-4x"></i>
+                        <p class="titulo">Administre los organismos</p>
+                    </div>
+                    <p class="descripcion">Modifique los datos, elimine organismos, o re-organice quienes ocupan los puestos a cargo en la actualidad dentro del organismo.</p>
+                    <a class="button oposite radius small" href="{{ urlFor('shwAdmOrganis') }}"><i class="fa fa-search fa-fw"></i>&nbsp;Administrar organismos</a>
+                </div>
+            </div>
+            <div class="row text-center">
+                <i class="bt-atras-menu administradores fa fa-caret-left fa-fw fa-2x"></i>&nbsp;<i class="bt-adelante-menu administradores fa fa-caret-right fa-fw fa-2x"></i>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+</div>
 {% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}
+<script src="{{ baseUrl }}/assets/js/slick/slick.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.menu-acciones').slick({
+            dots: true,
+            infinite: true,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            pauseOnHover: true,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            arrows: false,
+            speed: 200
+        });
+    });
+
+    $( ".bt-adelante-menu.usuario" ).click(function() {
+        $('.menu-acciones.usuario').slick('slickNext');
+    });
+    $( ".bt-atras-menu.usuario" ).click(function() {
+        $('.menu-acciones.usuario').slick('slickPrev');
+    });
+    $( ".bt-adelante-menu.funcionarios" ).click(function() {
+        $('.menu-acciones.funcionarios').slick('slickNext');
+    });
+    $( ".bt-atras-menu.funcionarios" ).click(function() {
+        $('.menu-acciones.funcionarios').slick('slickPrev');
+    });
+    $( ".bt-adelante-menu.administradores" ).click(function() {
+        $('.menu-acciones.funcionarios').slick('slickNext');
+    });
+    $( ".bt-atras-menu.administradores" ).click(function() {
+        $('.menu-acciones.administradores').slick('slickPrev');
+    });
+
+</script>
+{% endblock %}
+{# ----------------------------------------------------------- #}

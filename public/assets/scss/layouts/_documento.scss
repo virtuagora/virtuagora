@@ -1,0 +1,144 @@
+// CREAR
+
+.crear-contenido{
+    .descripcion-doc, {
+        padding-top: 20px;
+
+        textarea[name=descripcion]{
+            font-family: "Lora", serif;
+            font-style: italic;
+            font-weight: 400;
+            line-height: rem-calc(28px);
+            font-size: rem-calc(18px);
+            text-rendering: optimizelegibility;
+            color: #383838;
+            border: 0px solid #484848;
+            box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+            text-align: center;
+            min-height: 10px;
+            resize: none;
+            &:focus{
+                background-color: #fff4c4;
+            }
+            margin: 0;
+        }
+    }
+    .asociar-ubic {
+        padding: 20px 0px 70px 0px;
+        input{
+            font-size: rem-calc(12px);
+        }
+    }
+
+    .panel-crear-cont{
+        .docu-titulo-fijo{
+            font-family: "Source Sans Pro",sans-serif;
+            font-weight: 700;
+            font-style: normal;
+            font-size: rem-calc(50px);
+            text-rendering: optimizelegibility;
+            color: #383838;
+        }
+        .docu-descripcion-fijo{
+            font-family: "Lora", serif;
+            font-style: italic;
+            font-weight: 400;
+            line-height: rem-calc(28px);
+            font-size: rem-calc(18px);
+            text-rendering: optimizelegibility;
+            color: #383838;
+            padding: 40px 0 10px 0;
+        }
+
+    }
+}
+
+
+
+// VER
+
+.vista-cuerpo-cont{
+    .doc-descripcion{
+        .panel{
+            padding-left: 20px;
+            padding-right: 20px;
+            margin-bottom: 60px;
+            font-size: rem-calc(18);
+            font-style: italic;
+        }
+    }
+    .doc-texto{
+        p{
+            font-size: rem-calc(16);
+        }
+        .wrapper-comentarios{
+            padding-top: 20px;
+            margin-top: 10px;
+            border-top: 1px dashed #adadad;
+            .nadie-comento{
+                font-family: 'Open Sans', sans-serif;
+                h4, p{
+                    margin-bottom: 5px;
+                }
+                p{
+                    font-size: rem-calc(14);
+                }
+            }
+        }
+        .box-comentar, .box-comentario{
+            font-family: "Source Sans Pro",sans-serif;
+            background: #FFFFFF;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+            .info-user-row{
+                height: 50px;
+                background-color: #f2f2f2;
+                border-bottom: 1px dashed #adadad;
+                ul.info{
+                    padding: 8px 8px 8px 0px;
+                    margin: 0px;
+                    li {
+                        display: inline-block;
+                        vertical-align: middle;
+                        list-style-type: none;
+                        margin: 0px 0px 0px 10px;
+                    }
+                }
+            }
+        }
+        .box-comentar{
+            z-index: 10;
+            position: absolute;
+            float:left;
+            width: 96.5%;
+            .redactor-row{
+                textarea{
+                    margin: 0;
+                    border: 0;
+                    border-bottom: 1px dashed #adadad;
+                    resize: none;
+                    font-size: rem-calc(16);
+                    min-height: 150px;
+                }
+            }
+            .confirmar-row{
+                padding: 5px 5px 0px 0px;
+            }
+        }
+        .box-comentario{
+            margin-bottom: 10px;
+            .comentario-row{
+                font-size: rem-calc(15);
+                padding: 7px;
+            }
+        }
+        .controles-row{
+            padding: 5px 0px 10px 0px;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed #adadad;
+        }
+    }
+}
+
+#powerTip .tt-comentarios{
+    font-size: 18px;
+}

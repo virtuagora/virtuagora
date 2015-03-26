@@ -1,0 +1,110 @@
+.crear-contenido{
+    .intro-cont{
+        font-family: "Source Sans Pro",sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        font-size: rem-calc(50);
+        text-rendering: optimizelegibility;
+        color: #FFFFFF;
+        padding: 70px 0px 55px 0px;
+    }
+
+    .panel-crear-cont{
+        @include panel();
+        background: #FFFFFF;
+        color: #383838;
+
+        .titulo-cont{
+            padding: 40px 15px 0px 15px;
+            position: relative;
+            margin-bottom: rem-calc(5);
+
+            &:before {
+                position: absolute;
+                content: " ";
+                display: block;
+                min-width: rem-calc(180);
+                width: 60%;
+                height: rem-calc(1);
+                bottom: rem-calc(-15);
+                left: 50%;
+                right: auto;
+                -webkit-transform: translateX(-50%);
+                transform: translateX(-50%);
+                background-color: #000000;
+            }
+
+            &:after {
+                position: absolute;
+                content: " ";
+                display: block;
+                width: rem-calc(7);
+                height: rem-calc(7);
+                bottom: rem-calc(-18);
+                left: 50%;
+                right: auto;
+                -webkit-transform: translateX(-50%);
+                transform: translateX(-50%);
+                background-color: #000000;
+                border-radius: 100%;
+            }
+
+            textarea[name=titulo]{
+                font-family: "Source Sans Pro",sans-serif;
+                font-weight: 700;
+                font-style: normal;
+                font-size: rem-calc(50);
+                text-rendering: optimizelegibility;
+                color: #383838;
+                border: 0px solid #484848;
+                width: 100%;
+                min-height: 82px;
+                box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+                text-align: center;
+                resize: none;
+                &:focus{
+                    background-color: #fff4c4;
+                }
+                margin: 0;
+            }
+        }
+
+        .datos-cont {
+            font-family: "Source Sans Pro",sans-serif;
+            //font-weight: 700;
+            font-style: normal;
+            font-size: rem-calc(18px);
+            margin-top: 30px;
+            img{
+                border-radius: 32px;
+                margin: 0px 5px 0px 25px;
+            }
+            .usuario-pts{
+                margin: 0px 0px 0px 25px;
+            }
+        }
+
+        .categoria-cont{
+            margin: 30px 0px;
+        }
+    }
+
+    .publicar-cont{
+        margin: 75px 0px;
+    }
+
+    .cuerpo-cont{
+        margin: 30px 0px 20px 0px;
+        textarea[name=cuerpo]{
+            min-height: 400px;
+            resize: vertical;
+        }
+    }
+
+    .tags-cont {
+        padding: 20px 0px;
+        input[name=tags]{
+            font-size: rem-calc(12px);
+        }
+    }
+}

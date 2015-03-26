@@ -1,89 +1,171 @@
-{# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
-{% set url_atras = '#' %}
-{% set i_class_icon = 'fa fa-edit fa-fw' %}
-{% set titulo = 'Crear una problemática' %}
-{% set comments = false %}
+{# VARIBLES #}
+{% set footer = true %}
+{% set barraNav = false %}
+{% set html_class = '' %}
+{% set body_class = 'color-problematica' %}
 
-{# VARIABLES DE LA VISTA #}
+{% extends "master.twig" %}
 
-{# ---------------------- #}
-
-{% extends "master-body.twig" %}
-
-{% block titulo %}
-Virtuagora - Crear una propuesta
-{% endblock %}
-
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Crear una propuesta{% endblock %}
+{# ----------------------------------------------------------- #}
 {% block linkhead %}
-<link rel="stylesheet" href="{{ baseUrl() }}/assets/css/sceditor-main.css">
+<link rel="stylesheet" type="text/css" href="{{ baseUrl }}/assets/css/powertip/jquery.powertip.min.css"/>
+<link rel="stylesheet" href="{{ baseUrl() }}/assets/css/sceditor/sceditor-main.css">
 {% endblock %}
+{# ----------------------------------------------------------- #}
+{% block body %}
+<div class="crear-contenido">
+    <div class="row">
+        <div class="large-12 large-centered columns">
+            <section class="intro-cont text-center">
+                <i class="fa fa-file-text-o fa-fw fa-2x"></i><br />NUEVA PROBLEMATICA<br />
+                <a class="button oposite radius small" href="{{ urlFor('shwIndex') }}"><i class="fa fa-undo fa-fw fa-lg"></i>&nbsp;Volver atras</a>
+            </section>
+        </div>
+    </div>
+    <form action="{{ urlFor('runCrearProblem') }}" method="POST">
+        <div class="row">
+            <div class="large-12 large-centered columns">
+                <div class="panel-crear-cont">
+                    <div class="row">
+                        <div class="large-10 large-centered columns">
+                            <section class="titulo-cont">
+                                <textarea id="tooltip-titulo" type="text" name="titulo" id="tooltip-titulo" rows="1" placeholder="Escriba aqui un título"></textarea>
+                            </section>
+                            <section class="datos-cont text-center">
+                                {{ "now"|date("d/m/Y") }} <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}"> {{ user.nombre }} {{ user.apellido }} <span class="usuario-pts"><i class="fa fa-trophy fa-fw"></i>&nbsp;{{ user.puntos }}</span>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row collapse prefix-radius">
+                            <section class="categoria-cont">
+                                <div class="large-5 large-centered columns">
+                                    <div class="large-4 columns">
+                                        <span class="prefix">Categoria</span>
+                                    </div>
+                                    <div class="large-8 columns">
+                                        <select name="categoria" id="tooltip-categoria">
+                                            {% for categoria in categorias %}
+                                            <option value="{{categoria.id}}">{{categoria.nombre|capitalize}}</option>
+                                            {% endfor %}
+                                        </select>
 
-{% block contenido %}
-<section id="alta-contenido">
-	<form action="" method="POST">
-		<div class="row">
-			<div class="large-11 large-centered columns">
-				<label><h6 class="subheader"><i class="fa fa-pencil fa-fw"></i>&nbsp;&nbsp;<b>Título de la problemática</b></h6>
-					<input name="titulo" type="text" placeholder="Escriba aquí el título de la problemática" />
-				</label>
-			</div>
-		</div>
-		<div class="row">
-			<div class="large-11 large-centered columns">
-				<label><h6 class="subheader"><i class="fa fa-tag fa-fw"></i>&nbsp;&nbsp;<b>Categoría asociada</b></h6>
-					<select name="categoria">
-						{% for categoria in categorias %}
-						<option value="{{categoria.id}}">{{categoria.nombre|capitalize}}</option>
-						{% endfor %}
-					</select>
-				</label>
-			</div>
-		</div>
-		<div class="row" style="margin-bottom:12px;">
-			<div class="large-11 large-centered columns">
-				<label><h6 class="subheader"><i class="fa fa-file-text-o fa-fw"></i>&nbsp;&nbsp;<b>Descripción de la propuesta</b></h6>
-					<textarea id="cuerpo" name="cuerpo" placeholder="Describa de que se trata la propuesta" rows=10></textarea>
-				</label>
-			</div>
-		</div>
-		<div class="row">
-			<div class="large-11 large-centered columns">
-				<fieldset>
-					<legend>Opcional</legend>
-					<label>Subir imagenes</label>
-					<label>Registrar una ubicacion geografica</label>
-				</fieldset>
-			</div>
-		</div>
-		<div class="row">
-			<div class="large-11 large-centered columns">
-				<label><h6 class="subheader"><i class="fa fa-tag fa-fw"></i>&nbsp;&nbsp;<b>Tags</b></h6></label>
-				<input name="tags" type="text" placeholder="Comience escribiendo Tags" disabled/>
-			</div>
-		</div>
-		<hr>
-		<div class="row">
-			<div class="large-11 large-centered columns text-center">
-				<button type="submit" class="button small success radius"><i class="fa fa-check fa-lg fa-fw"></i>&nbsp;Publicar</button>
-			</div>
-		</div>
-	</form>
-</section>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="large-10 large-centered columns">
+                            <section class="cuerpo-cont">
+                                <textarea name="cuerpo" placeholder="Describa de que se trata la propuesta"></textarea>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row collapse prefix-radius">
+                            <section class="tags-cont">
+                                <div class="large-10 large-centered columns">
+                                    <div class="large-1 columns">
+                                        <span class="prefix">Tags</span>
+                                    </div>
+                                    <div class="large-11 columns">
+                                        <input name="tags" type="text" placeholder="Comience escribiendo Tags" disabled/>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row collapse prefix-radius">
+                            <section class="cargar-img">
+                                <div class="large-10 large-centered columns">
+                                    <div class="large-3 columns">
+                                        <span class="prefix">Subir una(s) imagen(es)</span>
+                                    </div>
+                                    <div class="large-9 columns">
+                                        <input type="text" disabled/>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row collapse prefix-radius">
+                            <section class="asociar-ubic">
+                                <div class="large-10 large-centered columns">
+                                    <div class="large-3 columns">
+                                        <span class="prefix">Asocie una ubicación geográfica</span>
+                                    </div>
+                                    <div class="large-9 columns">
+                                        <input type="text" disabled/>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-8 large-centered columns">
+                <section class="publicar-cont">
+                    <button type="submit" class="button oposite large expand radius"><i class="fa fa-send-o fa-fw fa-lg"></i>&nbsp;Publicar nueva problemática</button>
+                </section>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="tooltip-categoria-data" class="text-left" hidden>
+    <i class="fa fa-lightbulb-o fa-fw fa-lg"></i>&nbsp;Elija una categoria, la cual
+    <br> vea que su problematica se ajusta.
+</div>
+<div id="tooltip-titulo-data" class="text-left" hidden>
+    <i class="fa fa-lightbulb-o fa-fw fa-lg"></i>&nbsp;El título debe ser claro, atractivo, para que la gente se vea interesada.
+</div>
+
+
 {% endblock %}
-
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
 {% block scripts %}
-<script src="{{ baseUrl }}/assets/js/foundation/foundation.tooltip.js"></script>
-<script src="{{ baseUrl }}/assets/js/underscore/underscore-min.js"></script>
+<script src="{{ baseUrl() }}/assets/js/autosize/autosize.min.js"></script>
+<script src="{{ baseUrl() }}/assets/js/powertip/jquery.powertip.min.js"></script>
 <script src="{{ baseUrl() }}/assets/js/jquery/jquery.sceditor.bbcode.min.js"></script>
-<script>
-	$(function() {
-		$("#cuerpo").sceditor({
-			plugins: "bbcode",
-			emoticonsEnabled: false,
-			width: 'auto',
-			style: "{{ baseUrl() }}/assets/css/sceditor-panel.css"
-		});
-	});
+<script type="text/javascript">
+    $(document).ready(function(){
+        autosize($("textarea[name='titulo']"));
+    });
+        $("textarea[name='titulo']").keypress(function(event) {
+        // Check the keyCode and if the user pressed Enter (code = 13)
+        // disable it
+        if (event.keyCode == 13) {
+            event.preventDefault();
+        }
+    });
+    $(function() {
+        $("textarea[name='cuerpo']").sceditor({
+            plugins: "bbcode",
+            emoticonsEnabled: false,
+            width: 'auto',
+            style: "{{ baseUrl() }}/assets/css/sceditor/sceditor-panel.css",
+            autoexpand: true
+        });
+    });
+    $('#tooltip-categoria').data('powertiptarget', 'tooltip-categoria-data');
+    $('#tooltip-categoria').powerTip({
+        placement: 'e',
+        mouseOnToPopup: true
+    });
+    $('#tooltip-titulo').data('powertiptarget', 'tooltip-titulo-data');
+    $('#tooltip-titulo').powerTip({
+        placement: 'n',
+        mouseOnToPopup: true
+    });
 </script>
-
 {% endblock %}
+{# ----------------------------------------------------------- #}

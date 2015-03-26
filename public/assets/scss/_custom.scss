@@ -1,0 +1,72 @@
+// RE-MADE OF .button FROM ZURB FOUNDATION
+.button{
+    color: #1d80d0;
+    border-color: rgba(58, 137, 201, 1);
+    background-color: rgba(58, 137, 201, 0.1);
+    &:hover{
+        color: #FFFFFF;
+        border-color: rgba(58, 137, 201, 0.0);
+        background-color: rgba(58, 137, 201, 1);
+    }
+    &.alert{
+        color: #ce1a1a;
+        border-color: rgb(201, 58, 58);
+        background-color:  rgba(201, 58, 58, 0.1);
+        &:hover{
+            color: #FFFFFF;
+            border-color: rgba(201, 58, 58, 0);
+            background-color:  rgba(201, 58, 58, 1);
+        }
+    }
+    &.success{
+        color: #14a248;
+        border-color: rgb(67, 172, 106);
+        background-color:  rgba(67, 172, 106, 0.1);
+        &:hover{
+            color: #FFFFFF;
+            border-color: rgba(67, 172, 106,0);
+            background-color:  rgba(67, 172, 106, 1);
+        }
+    }
+    &.warning{
+        color: #c76300;
+        border-color: rgba(207, 110, 14, 1);
+        background-color:  rgba(207, 110, 14, 0.1);
+        &:hover{
+            color: #FFFFFF;
+            border-color: rgba(207, 110, 14, 0);
+            background-color:  rgba(207, 110, 14, 1);
+        }
+    }
+    &.oposite{
+        color: #FFFFFF;
+        border-color: rgb(255, 255, 255);
+        background-color:  rgba(255, 255, 255, 0);
+        &:hover{
+            color: #4e4e4e !important;
+            border-color: rgba(207, 110, 14, 0);
+            background-color:  rgb(255, 255, 255);
+        }
+    }
+    /* &.secondary{
+    color: #c93a3a;
+    border-color: rgb(201, 58, 58);
+    background-color:  rgba(201, 58, 58, 0);
+    &:hover{
+    color: #FFFFFF;
+    border-color: rgba(201, 58, 58, 0);
+    background-color:  rgba(201, 58, 58, 1);
+}
+}*/
+}
+
+// -------------------------------------------
+
+.alert-box{
+    margin-bottom: 0;
+    .close{
+        padding: 0;
+        color: #FFF;
+        opacity: 1;
+    }
+}

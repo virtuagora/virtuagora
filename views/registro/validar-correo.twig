@@ -1,40 +1,68 @@
+{# VARIBLES #}
+{% set footer = false %}
+{% set barraNav = false %}
+{% set html_class = 'registro-exito-bg' %}
+{% set body_class = 'no-body-bg' %}
+
 {% extends "master.twig" %}
 
-{% block titulo %}
-{% if usuarioValido == true %}
-Virtuagora - Correo verificado
-{% else %}
-Virtuagora - Verificación incorrecta
-{% endif %}
-{% endblock %}
-
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Registro exitoso{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}{% endblock %}
+{# ----------------------------------------------------------- #}
 {% block body %}
+<div id="login">
+    <div id="row-panel" class="row">
+        <div class="large-8 large-centered columns">
+            <div class="panel">
+                <div class="row">
+                    <div class="large-8 large-centered columns">
+                        <div id="row-arriba">
+                            <div id="logo" class="text-center">
+                                <b>Virtuágora</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="large-10 large-centered columns">
+                        <div id="row-abajo" class="text-center">
+                            {% if usuarioValido == true %}
+                            <div class="green-panel panel text-center" style="margin-bottom: 20px;">
+                                <i class="fa fa-envelope fa-4x fa-fw" style="color: #61bf26; margin-bottom: 10px;"></i>
+                                <h5>Su dirección de email ha sido verificada</h5>
+                            </div>
+                            <p style="font-size: 13px;">Ya puede comenzar a participar en el portal..</p>
+                            <a href="{{ urlFor('shwIndex') }}" class="button radius success">Iniciar sesión en Virtuágora</a>
+                            {% else %}
+                            <div class="green-panel panel text-center" style="margin-bottom: 20px;">
+                                <i class="fa fa-envelope fa-4x fa-fw" style="color: #61bf26; margin-bottom: 10px;"></i>
+                                <h5>Su dirección de email ha sido verificada</h5>
+                            </div>
+                            <p style="font-size: 13px;">Ya puede comenzar a participar en el portal..</p>
+                            <a href="{{ urlFor('shwIndex') }}" class="button radius success">Iniciar sesión en Virtuágora</a>
 
-<section id="passport">
-    <div class="row">
-        <div class="medium-8 medium-centered large-6 large-centered columns">
-            <div class="panel text-center">
-                {% if usuarioValido == true %}
-                <i class="success fa fa-envelope-o fa-5x"></i>
-                <p class="welcome">Tu dirección de email ha sido verificada<br />
-                <p>Ya puede comenzar a participar en el portal.</p>
-                <div class="row">
-                    <div class="small-10 small-centered columns text-center">
-                        <a href="{{ urlFor('shwLogin') }}" class="button radius success small">Iniciar sesión en Virtuágora &raquo</a>
+                            <i class="fail fa fa-question-circle fa-5x"></i>
+                            <p class="welcome">Link de validación incorrecto</p>
+                            <p>El link ingresado es incorrecto. Verifique que el link que hemos enviado a su dirección de correo electrónico es el mismo que ingresó en la barra de direcciones.</p> <p>Si sigue viendo este mensaje, comuníquese con un administrador.</p>
+                            <div class="row">
+                                <div class="small-10 small-centered columns text-center">
+                                    <a href="{{ urlFor('shwIndex') }}" class="button radius success small">Volver a Virtuágora &raquo</a>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-                {% else %}
-                <i class="fail fa fa-question-circle fa-5x"></i>
-                <p class="welcome">Link de validación incorrecto</p>
-                <p>El link ingresado es incorrecto. Verifique que el link que hemos enviado a su dirección de correo electrónico es el mismo que ingresó en la barra de direcciones.</p> <p>Si sigue viendo este mensaje, comuníquese con un administrador.</p>
-                <div class="row">
-                    <div class="small-10 small-centered columns text-center">
-                        <a href="{{ urlFor('shwIndex') }}" class="button radius success small">Volver a Virtuágora &raquo</a>
-                    </div>
-                </div>
-                {% endif %}
             </div>
         </div>
     </div>
-</section>
+</div>
+
 {% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}{% endblock %}
+{# ----------------------------------------------------------- #}

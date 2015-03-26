@@ -1,0 +1,68 @@
+.portal-bg{
+
+}
+
+.portal-usuario{
+
+    .portal-intro{
+        padding: 30px 0px 30px 0px;
+    }
+
+    .portal-menu-acciones{
+        padding-bottom: 5px;
+        border-bottom: 1px solid #d0d0d0;
+        margin: 20px 0px;
+    }
+
+    .menu-acciones {
+        .colum-accion {
+            @include panel();
+            margin: 8px;
+            border: 0;
+            height: 215px;
+            position: relative;
+            .logo{
+                color: #FFF;
+            }
+            p {
+                color: #FFF;
+                margin-bottom: rem-calc(4);
+                &.titulo {
+                    text-align: left;
+                    font-size: rem-calc(19px);
+                }
+
+                &.descripcion {
+                    text-align: left;
+                    font-size: rem-calc(12px);
+                    margin-top: rem-calc(10px);
+                }
+            }
+            a {
+                position: absolute;
+                margin: 10px 0px;
+                bottom: 10px;
+                width: 80%;
+                left: 10%;
+            }
+        }
+        ul.slick-dots{
+            margin-left: 0;
+        }
+    }
+
+    .bt-atras-menu, .bt-adelante-menu{
+       cursor: pointer;
+    }
+
+    .portal-feed{
+        border-top: 1px solid #d0d0d0;
+        border-bottom: 1px solid #d0d0d0;
+        background-color: #ededed;
+        padding: 20px 0px;
+    }
+
+    .portal-feed{
+        font-size: rem-calc(12px);
+    }
+}

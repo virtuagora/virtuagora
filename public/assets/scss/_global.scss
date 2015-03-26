@@ -1,0 +1,259 @@
+
+.color-problematica{background-color: $problematica-color !important;}
+.color-propuesta{background-color: $propuesta-color !important;}
+.color-documento{background-color: $documento-color !important;}
+.color-novedad{background-color: $novedad-color !important;}
+.color-evento{background-color: $evento-color !important;}
+.color-partido{background-color: $partido-color !important;}
+
+.color-config{background-color: $config-color !important;}
+
+//--------------------------------------------------------------------
+
+// Sticky Footer by Ryan Fait
+// http://ryanfait.com/
+
+*{
+    margin: 0px;
+}
+
+html, body {
+    height: 100%;
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto rem-calc(-143px);
+}
+
+#footer, .push {
+    height: rem-calc(143px);
+}
+
+#footer{
+    background-color: #333333;
+    .row{
+        max-width: 95%
+    }
+    .footer-links{
+        li a {
+            font-size: rem-calc(15px);
+            color: #CCC;
+        }
+    }
+    .credits{
+        p {
+            font-size: rem-calc(12);
+            color: #666666;
+            margin: 0;
+        }
+        a {
+            color: #FFFFFF;
+        }
+    }
+    .footer-share{
+        p {
+            padding-left: 50%
+        }
+        em {
+            font-size: rem-calc(12px);
+            color: #666666;
+        }
+        a i {
+            font-size: rem-calc(28px);
+            color: #FFF;
+            padding: rem-calc(0px) rem-calc(5px);
+        }
+
+    }
+    padding: rem-calc(15px) rem-calc(5px) rem-calc(5px);
+}
+
+//----------------------------------------
+
+// Remover Background
+.no-body-bg{
+    background: 0;
+}
+
+//----------------------------------------
+
+#header-nav{
+    background: none repeat scroll 0% 0% #FFF;
+    border-bottom: 1px solid #d0d0d0;
+    display: block;
+    padding: 10px;
+    width: 100%;
+    height: 53px;
+    top: 0px;
+    z-index: 10000;
+    font-size: rem-calc(14px);
+
+    #header-contenido{
+        margin:auto;
+    }
+    h1.title{
+        float: left;
+        font-size: rem-calc(21px);
+        margin: 0;
+    }
+
+    ul.nav, ul.info {
+        margin: 0px;
+        li {
+            display: inline-block;
+            vertical-align: middle;
+            list-style-type: none;
+            margin: 0px 0px 0px 10px;
+            font-size: rem-calc(14);
+            .button{
+                font-size: rem-calc(14);
+                margin: 0;
+                padding: 5px 15px;
+            }
+            img{
+                border-radius: 3px 3px 3px 3px;
+            }
+        }
+    }
+    ul.nav {
+        float: right;
+    }
+    ul.info {
+        display: block;
+        text-align: center;
+    }
+}
+
+//----------------------------------------
+
+// menu based on : http://tympanus.net/Development/FullscreenOverlayStyles/index.html
+/* main-menu-ovrl style */
+.bt-menu-ovrl{
+    cursor: pointer;
+}
+
+.main-menu-ovrl {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(#000000, .9);
+    -webkit-user-select: none;
+    user-select: none;
+    /* main-menu-ovrl closing cross */
+    .main-menu-ovrl-close {
+        font-size: rem-calc(60);
+        text-align: center;
+        position: absolute;
+        right: rem-calc(35);
+        top: rem-calc(35);
+        overflow: hidden;
+        border: none;
+        color: #FFFFFF;
+        outline: none;
+        z-index: 100;
+        cursor: pointer;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    /* Menu style */
+    nav {
+        text-align: center;
+        position: relative;
+        top: 50%;
+        height: 60%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 auto;
+        display: inline-block;
+        height: 100%;
+        position: relative;
+        -webkit-user-select: none;
+        user-select: none;
+        li {
+            display: block;
+            height: 20%;
+            height: calc(100% / 5);
+            min-height: rem-calc(54);
+            a {
+                font-weight: 300;
+                display: block;
+                color: #FFFFFF;
+                font-size: rem-calc(54);
+                -webkit-transition: color 0.2s;
+                transition: color 0.2s;
+                font-family: 'Source Sans Pro', sans-serif;
+                text-decoration: none;
+                &:hover, &:focus {
+                    color: darken(#FFFFFF, 50%);
+                }
+            }
+        }
+    }
+}
+
+/* Effects */
+.main-menu-ovrl-hugeinc {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity 0.5s, visibility 0s 0.5s;
+    transition: opacity 0.5s, visibility 0s 0.5s;
+    nav {
+        -webkit-perspective: rem-calc(1200);
+        perspective: rem-calc(1200);
+        ul {
+            opacity: 0.4;
+            -webkit-transform: translateY(-25%) rotateX(35deg);
+            transform: translateY(-25%) rotateX(35deg);
+            -webkit-transition: -webkit-transform 0.5s, opacity 0.5s;
+            transition: transform 0.5s, opacity 0.5s;
+        }
+    }
+    &.open {
+        opacity: 1;
+        visibility: visible;
+        -webkit-transition: opacity 0.5s;
+        transition: opacity 0.5s;
+        nav {
+            ul {
+                opacity: 1;
+                -webkit-transform: rotateX(0deg);
+                transform: rotateX(0deg);
+            }
+        }
+    }
+    &.close {
+        nav {
+            ul {
+                -webkit-transform: translateY(25%) rotateX(-35deg);
+                transform: translateY(25%) rotateX(-35deg);
+            }
+        }
+    }
+}
+
+@media screen and (max-height: 30.5em) {
+    .main-menu-ovrl nav {
+        height: 70%;
+        li a {
+            font-size: rem-calc(34);
+            img {
+                width: 64px;
+                height: 64px;
+            }
+        }
+    }
+    .main-menu-ovrl ul li {
+        min-height: rem-calc(34);
+    }
+}
+
+//----------------------------------------------

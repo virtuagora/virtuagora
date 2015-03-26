@@ -1,0 +1,75 @@
+.user-panel, .admin-panel{
+    .row.row-full{
+        margin: 0;
+        width: 100%;
+        max-width: none;
+        min-height: 650px;
+    }
+    .panel-izq{
+        background-color: #848484;
+        padding-left: 0;
+        padding-right: 10px;
+        min-height: 650px;
+        ul.opciones{
+            margin: 0;
+            li{
+                font-family: "Source Sans Pro",sans-serif;
+                padding: 15px;
+                font-size:  rem-calc(20);
+                color: #FFFFFF;
+                list-style: none;
+                border-bottom: 1px dashed #a7a7a7;
+                a, a:hover{
+                    color: #FFFFFF;
+                }
+            }
+        }
+    }
+    .panel-der{
+        padding: 20px;
+        background-color: #FFFFFF;
+        min-height: 650px;
+        .intro-titulo{
+            h1{
+                font-family: "Source Sans Pro",sans-serif;
+            }
+            border-bottom: 1px solid #bebebe;
+            margin-bottom: 20px;
+        }
+    }
+
+    .wrapper-elementos{
+        @include panel();
+        background-color: #FFFFFF;
+        padding: 0;
+        border: 1px solid #C3C3C3;
+        .header{
+            font-size: rem-calc(12);
+            padding: 5px 10px;
+            background-color: #EAEAEA;
+            border-bottom: 1px solid #C3C3C3;
+        }
+        .fila, .ultima-fila{
+            font-size: rem-calc(12);
+            padding: 5px 10px;
+            background-color: #FFFFFF;
+            border-bottom: 1px solid #C3C3C3;
+            .titulo-fila{
+                margin: 5px;
+            }
+            input{
+                border-radius: 5px;
+                font-size: rem-calc(13);
+                padding: 3px 8px;
+                height: 30px;
+                margin-bottom: 10px;
+            }
+        }
+        .fila{
+            border-bottom: 1px solid #C3C3C3;
+        }
+        .ultima-fila{
+            border-bottom: 0 !important;
+        }
+    }
+}

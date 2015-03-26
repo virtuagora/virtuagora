@@ -1,64 +1,62 @@
-{# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
-{% set url_atras = '#' %}
-{% set i_class_titulo = 'fa fa-gears fa-fw' %}
-{% set titulo = 'Administrar organismos' %}
-{% set comments = false %}
+{# VARIBLES #}
 
-{# VARIABLES DE LA VISTA #}
+{% extends "admin/ver-administracion.twig" %}
 
-{# ---------------------- #}
-
-{% extends "master-body.twig" %}
-
-{% block titulo %}
-Virtuagora - Administrar organismos
-{% endblock %}
-
-{% block contenido %}
-<section id="tabla-organismos">
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Administrar organismos{% endblock %}
+{# ----------------------------------------------------------- #}
+{% set intro_titulo = 'Administrar organismos' %}
+{# ----------------------------------------------------------- #}
+{% block administracion %}
+<div class="listar-organismos">
     <div class="row">
-        <div class="large-12 columns text-center">
+        <div class="large-9 columns text-center">
             <div class="panel">
                 <h6>Administre los organismos publicos ya existentes o <b><a href="{{urlFor('shwCrearOrganis')}}">agregue uno nuevo</a></b></h6>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="large-11 large-centered columns">
-            <table align="center">
+        <div class="large-9 columns">
+            <table class="tabla-org">
                 <thead>
                     <tr>
-                        <th class="text-center"><i class="fa fa-gears fa-lg"></i></th>
-                        <th id="nombre" width="500" class="clearfix">Nombre</th>
-                        <th id="cupos-o" class="text-center">Cupos<br>ocupados</th>
-                        <th id="cupos-t" class="text-center">Cupos<br>totales</th>
-                        <th width="60" class="text-center"><i class="fa fa-gear fa-lg"></i></th>
+                        <th class="text-center"><i class="fa fa-pencil-square-o fa-lg"></i></th>
+                        <th class="titulo">Nombre</th>
+                        <th class="cupos-o text-center">Cupos ocupados</th>
+                        <th class="cupos-t text-center">Cupos totales</th>
+                        <th class="text-center"><i class="fa fa-gear fa-lg"></i></th>
                     </tr>
-                </thead><tbody>
-                <tr>
-                    <td colspan="5" class="opciones">
-                        <a href="{{ baseUrl() }}/admin/organismo/crear" class="button boton-agregar expand warning radius"><i class="fa fa-plus fa-fw fa-lg"></i>&nbsp;&nbsp;&nbsp;Agregar nuevo</a>
-                    </td>
-                </tr>
-                {% for org in organismos %}
-                <tr>
-                    <td class="opciones">
-                        <a href='#'><i class="fa fa-search fa-border"></i></a>
-                        <a href='{{ urlFor('shwModifOrganis',{'idOrg': org.id}) }}'><i class="fa fa-pencil fa-border"></i></a>
-                    </td>
-                    <td id="d-nombre">
-                        <a href='{{ baseUrl() }}/admin/organismo/{{ org.id }}/funcionario'>
-                            <img src="http://lorempixel.com/g/128/128/">&nbsp;&nbsp;{{ org.nombre|capitalize }}
-                        </a>
-                    </td>
-                    <td class="n-cupo">{{ org.funcionarios_count }}</td>
-                    <td class="n-cupo">{{ org.cupo }}</td>
-                    <td><a href="{{ baseUrl() }}/admin/organismo/{{ org.id }}/funcionario" class="button boton-mini radius">Editar cupos</a></td>
-                </tr>
-                {% endfor %}
+                </thead>
+                <tbody>
+                    {% for org in organismos %}
+                    <tr>
+                        <td class="text-center">
+                            <a href="javascript:return(0)" class="modificar button tiny radius small warning"><i class="fa fa-trash-o fa-fw fa-lg"></i></a>
+                            <a href="{{ urlFor('shwModifOrganis',{'idOrg': org.id}) }}" class="modificar button tiny radius small secondary"><i class="fa fa-pencil fa-fw fa-lg"></i></a>
+                        </td>
+                        <td id="d-nombre"><i class="fa fa-university fa-fw"></i> {{ org.nombre|capitalize }}</td>
+                        <td class="text-center">{{ org.funcionarios_count }}</td>
+                        <td class="text-center">{{ org.cupo }}</td>
+                        <td><a href="{{ urlFor('shwAdmFuncion', {'idOrg': org.id }) }}" class="modificar button tiny radius"><i class="fa fa-list-alt fa-fw fa-lg"></i></a></td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
-</section>
+</div>
+
 {% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts_cont %}
+<script>
+    $(document).ready(function(){
+
+    });
+
+</script>
+{% endblock %}
+{# ----------------------------------------------------------- #}

@@ -1,87 +1,102 @@
+{# VARIBLES #}
+{% set footer = false %}
+{% set barraNav = false %}
+{% set html_class = 'registro-bg' %}
+{% set body_class = 'no-body-bg' %}
+
 {% extends "master.twig" %}
 
-{% block titulo %}
-Virtuagora - Registro
-{% endblock %}
-
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Registro{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}{% endblock %}
+{# ----------------------------------------------------------- #}
 {% block body %}
-<!-- Aca viene la sesion de panel -->
-<section id="passport">
-    <div class="row">
-        <div class="medium-8 medium-centered large-6 large-centered columns">
+<div id="registro">
+    <div id="row-panel" class="row">
+        <div class="large-10 large-centered columns">
             <div class="panel">
-                <p class="welcome"> Bienvenido a <b class = "logo-font">Virtuagora</b></p>
-                <p>Involúcrese en la busqueda de mejores politicas para todos. <br />Es <b>gratis</b> y totalmente abierto.</p>
-                <form data-abide action="registro" method="POST">
-                    <div class="row collapse">
-                        <div class="small-2  columns">
-                            <span class="prefix"><i class="fa fa-user"></i></span>
-                        </div>
-                        <div class="small-10 columns">
-                            <div class="row collapse">
-                                <div class="small-6 columns">
-                                    <input name="nombre" type="text" placeholder="Nombre" required pattern="nombre">
-                                    <small class="error text-center">Obligatorio. Como máximo se aceptá hasta 2 nombres</small>
-
-                                </div>
-                                <div class="small-6 columns">
-                                    <input name="apellido" type="text" placeholder="Apellido" required pattern="apellido">
-                                    <small class="error text-center">Obligatorio. Como máximo se aceptá hasta 1 apellido</small>
-                                </div>
+                <div class="row">
+                    <div class="large-12 large-centered columns">
+                        <div id="column-left" class="large-5 columns">
+                            <div id="logo">
+                                <b>Virtuágora</b><br><small>Registrarse</small>
+                            </div>
+                            <br>
+                            <div class="text-left">
+                                <p>Si ya cuenta con una cuenta... </p>
+                                <a href="{{ urlFor('shwLogin') }}" class="button tiny radius">Inicie sesión</a>
                             </div>
                         </div>
-                    </div>
+                        <div id="column-right" class="large-7 columns">
 
-                    <div class="row collapse">
-                        <div class="small-2 columns">
-                            <span class="prefix"><i class="fa fa-envelope"></i></span>
+                            <div id="reg-titulo" class="text-center">Complete los siguientes campos con sus datos</div>
+                            <br>
+                            <form data-abide action="{{ urlFor('runCrearUsuario') }}" method="POST">
+                                <div class="row collapse">
+                                    <div class="large-12 columns">
+                                        <div class="row collapse">
+                                            <div class="small-6 columns">
+                                                <input name="nombre" type="text" placeholder="Su nombre(s)..." required pattern="nombre">
+                                                <small class="error text-center">Obligatorio. Hasta 2 nombres</small>
+                                            </div>
+                                            <div class="small-6 columns">
+                                                <input name="apellido" type="text" placeholder="Su apellido..." required pattern="apellido">
+                                                <small class="error text-center">Obligatorio. Hasta un apellido</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row collapse">
+                                    <div class="large-12 columns">
+                                        <input name="email" type="email" placeholder="Su dirección de email..." required pattern="email">
+                                        <small class="error text-center">Obligatorio. Debe ser una dirección bien formada</small>
+                                    </div>
+                                </div>
+                                <div class="row collapse">
+                                    <div class="large-12 columns">
+                                        <input id="password" name="password" type="password" placeholder="Su contraseña...">
+                                        <small class="error text-center">Obligatorio</small>
+                                    </div>
+                                </div>
+                                <div class="row collapse">
+                                    <div class="large-12 columns">
+                                        <input type="password" name="password2" placeholder="Reingrese su contraseña..." data-equalto="password">
+                                        <small class="error text-center">No coinciden</small>
+                                    </div>
+                                </div>
+                                <div class="row collapse">
+                                    <div class="large-12 columns text-center">
+                                        <p id="reg-cond">Al hacer clic en <b>Registrarse</b>, usted acepta las <a href="#">Condiciones de uso</a> y confirma que ha leído nuestra Política de uso de datos, incluido el uso de cookies.</p>
+                                        <button class="button success radius large expand"><i class="fa fa-check fa-fw fa-lg"></i> Registrarse</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="small-10 columns">
-                            <input name="email" type="email" placeholder="Direccion de email" required pattern="email">
-                            <small class="error text-center">Ingrese un mail bien formado. Ej: email@correo.com</small>
-                        </div>
-                    </div>
-                    <div class="row collapse">
-                        <div class="small-2 columns ">
-                            <span class="prefix"><i class="fa fa-lock"></i></span>
-                        </div>
-                        <div class="small-10 columns ">
-                            <input id="campo-password-registro" name="password" type="password" placeholder="Contraseña">
-                            <small class="error text-center">Obligatorio, de hasta 8 letras</small>
-                        </div>
-                    </div>
-                    <div class="row collapse">
-                        <div class="small-2 columns ">
-                            <span class="prefix"><i class="fa fa-check-square-o"></i></span>
-                        </div>
-                        <div class="small-10 columns ">
-                            <input type="password" data-equalto="campo-password-registro" name="password2" placeholder="Reingrese la contraseña">
-                            <small class="error text-center">Las contraseñas no coinciden</small>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <p class="text-centered">Al hacer clic en <b>Registrarse</b>, usted acepta las <a href="#">Condiciones de uso</a> y confirma que ha leído nuestra Política de uso de datos, incluido el uso de cookies.</p>
-                    </div>
-                    <div class="row">
-                        <div class="small-8 small-centered columns ">
-                            <input type="submit" class="button success expand radius" value="Registrarse &raquo">
-                        </div>
-                    </div>
-                </form>
-                <p>Si ya posee una cuenta en Virtuagora...</p>
-                <div class="row">
-                    <div class="small-8 small-centered columns text-center">
-                        <a href="{{ urlFor('shwLogin') }}" class="button radius small">Inicie sesión</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
-{% endblock %}
+</div>
 
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
 {% block scripts %}
 <script src="{{ baseUrl }}/assets/js/foundation/foundation.abide.js"></script>
-<script src="{{ baseUrl }}/assets/js/foundation/foundation.orbit.js"></script>
+<script>
+    $(document).foundation({
+        abide : {
+            patterns: {
+                nombre: /(^([A-Za-zñÑáéíóúÁÉÍÓÚ]+)$)|(^([A-Za-zñÑáéíóúÁÉÍÓÚ]+)\s([A-Za-zñÑáéíóúÁÉÍÓÚ]+)$)/,
+                apellido: /(^([A-Za-zñÑáéíóúÁÉÍÓÚ]+)$)/,
+                //Email Validation as per RFC2822 standards.
+                email: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+            }
+        }
+    });
+</script>
 {% endblock %}
+{# ----------------------------------------------------------- #}

@@ -1,0 +1,92 @@
+// CREAR
+
+.crear-contenido{
+    .problematicas-asoc {
+        padding: 20px 0px 70px 0px;
+        input[name=problematicas]{
+            font-size: rem-calc(12px);
+        }
+    }
+}
+
+// VER
+
+
+.vista-cuerpo-cont{
+    .propuesta-voto{
+        padding-top: rem-calc(40);
+        padding-bottom: rem-calc(40);
+        background-color: scale-color($propuesta-color, $lightness: 25%);
+        //background-color: $propuesta-color;
+        h1, h2, h3, h4, h5, h6{
+            color: #FFF;
+        }
+        .votando-propuesta{
+            h1 {
+                margin: 0px 0px 20px 0px;
+                padding: 0;
+                font-family: 'Source Sans Pro', sans-serif;
+                font-weight: 700;
+                font-size: rem-calc(36);
+            }
+            ul {
+                margin: 0px;
+                li {
+                    display: inline-block;
+                    vertical-align: middle;
+                    list-style-type: none;
+                    margin: 0px 0px 0px 10px;
+                }
+            }
+            .panel{
+                h6 {
+                    color: #000;
+                    margin-bottom: 0;
+                    line-height: normal;
+                }
+            }
+            .icono-posicion-votada i{
+                font-size: rem-calc(65);
+                color: #FFF;
+            }
+        }
+        .confirmar-voto{
+            .icono-voto-seleccionado{
+                font-size: rem-calc(140);
+                margin-right: rem-calc(15);
+                color: #FFF;
+            }
+            .panel{
+                margin-top: rem-calc(20);
+                h6 {
+                    color: #000;
+                    margin-bottom: 0;
+                }
+            }
+            h6, p {
+                color:#FFF;
+                margin-bottom: rem-calc(5);
+            }
+            p {
+                font-size: rem-calc(12);
+            }
+            .opcion-voto-publico{
+                margin: rem-calc(10 0);
+            }
+            ul {
+                margin: 0px;
+                li {
+                    display: inline-block;
+                    vertical-align: middle;
+                    list-style-type: none;
+                    margin: 0px 0px 0px 10px;
+                }
+            }
+        }
+    }
+    .resultados-propuesta{
+        background-color: scale-color($propuesta-color, $lightness: 75%);
+    }
+
+}
+

@@ -1,23 +1,16 @@
-{# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
-{% set url_atras = '#' %}
-{% set i_class_titulo = 'fa fa-cog fa-fw' %}
-{% set titulo = 'Administrar funcionarios' %}
-{% set comments = false %}
+{# VARIBLES #}
 
-{# VARIABLES DE LA VISTA #}
+{% extends "admin/ver-administracion.twig" %}
 
-{# ---------------------- #}
-
-{% extends "master-body.twig" %}
-
-{% block titulo %}
-Virtuagora - Administrar funcionarios
-{% endblock %}
-
-{% block contenido %}
-<section id="tabla-organismos">
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Administrar funcionarios {% endblock %}
+{# ----------------------------------------------------------- #}
+{% set intro_titulo = 'Administrar funcionarios' %}
+{# ----------------------------------------------------------- #}
+{% block administracion %}
+<div class="listar-funcionarios">
     <div class="row">
-        <div class="large-12 columns text-center">
+        <div class="large-8 columns text-center">
             <div class="panel">
                 <h6>Usted esta administrando los funcionarios de <b><a href='#'>{{ organismo.nombre }}</a></b>.</h6>
                 <h6>Cuando hayas terminado, recuerda hacer clic en el boton de <b>Aplicar los cambios</b></h6>
@@ -25,8 +18,8 @@ Virtuagora - Administrar funcionarios
         </div>
     </div>
     <div class="row">
-        <div class="large-11 large-centered columns">
-            <table align="center">
+        <div class="large-8 columns">
+            <table class="tabla-funcionarios">
                 <thead>
                     <tr>
                         <th class="text-center">Funcionario actual</th>
@@ -36,54 +29,51 @@ Virtuagora - Administrar funcionarios
                 </thead>
                 <tbody id="plantel">
                 </tbody>
-                <tbody id="finalizar">
-                    <tr>
-                        <td colspan="3">
-                            <form method="POST" action="">
-                                <input type="hidden" id="entrantes" name="entrantes">
-                                <input type="hidden" id="salientes" name="salientes">
-                                <input type="submit" id="bt-aplicar" class="button boton-agregar expand warning radius" value="Aplicar cambios">
-                            </form>
-                        </td>
-                    </tr>
-                </tbody>
             </table>
+            <form method="POST" action="">
+                <input type="hidden" id="entrantes" name="entrantes">
+                <input type="hidden" id="salientes" name="salientes">
+                <div class="text-center large-4 large-centered columns">
+                    <button type="submit" id="bt-aplicar" class="modificar button boton-agregar success radius"><i class="fa fa-check fa-fw"></i> Aplicar los cambios</button>
+                </div>
+            </form>
         </div>
     </div>
-</section>
-{% endblock %}
+</div>
 
-{% block modal %}
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}
+
 <div id="opcionesCupo" class="reveal-modal remove-whitespace small" data-reveal>
     <div id="nuevo">
         <div class="row">
-            <div class="large-12 columns">
-                <section id="tabla-organismos">
-                    <table align="center">
-                        <thead>
-                            <tr>
-                                <th class="text-center">Funcionario actual</th>
-                                <th class="text-center">Nuevo funcionario</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td id="funcActual" class="text-center"></td>
-                                <td id="funcNuevo" class="text-center"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </section>
+            <div class="listar-funcionarios large-9 large-centered columns text-center">
+                <table class="tabla-funcionarios">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Funcionario actual</th>
+                            <th class="text-center">Nuevo funcionario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="funcActual" class="text-center"></td>
+                            <td id="funcNuevo" class="text-center"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+        <div class="large-8 large-centered columns">
         <fieldset>
             <legend>Opciones del cupo</legend>
-            <ul class="stack button-group radius">
-                <li><a id="bt-cambiar" class="button"><i class="fa fa-search fa-fw"></i>&nbsp;Buscar candidatos</a></li>
-                <li><a id="bt-vacante" class="button"><i class="fa fa-external-link fa-fw"></i>&nbsp;Dejar el puesto vacante</a></li>
-                <li><a id="bt-cancelar" class="button"><i class="fa fa-user fa-fw"></i>&nbsp;Mantener funcionario actual</a></li>
-            </ul>
+                <a id="bt-cambiar" class="button expand radius"><i class="fa fa-search fa-fw"></i>&nbsp;Buscar candidatos</a>
+                <a id="bt-vacante" class="button expand radius"><i class="fa fa-external-link fa-fw"></i>&nbsp;Dejar el puesto vacante</a>
+                <a id="bt-cancelar" class="button expand radius"><i class="fa fa-user fa-fw"></i>&nbsp;Mantener funcionario actual</a>
+
         </fieldset>
+        </div>
     </div>
     <div class="row">
         <div class="large-4 large-centered columns">
@@ -94,19 +84,17 @@ Virtuagora - Administrar funcionarios
 
 <div id="posiblesCandidatos" class="reveal-modal remove-whitespace small" data-reveal>
     <div class="row">
-        <div class="large-12 columns">
-            <section id="tabla-organismos">
-                <table align="center" id="funcCandidatos">
-                    <thead>
-                        <tr>
-                            <th class="text-center">Candidatos elegibles</th>
-                            <th class="text-center"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </section>
+        <div class="listar-funcionarios large-9 large-centered columns text-center">
+            <table class="tabla-funcionarios" id="funcCandidatos">
+                <thead>
+                    <tr>
+                        <th class="text-center">Candidatos elegibles</th>
+                        <th class="text-center"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
     </div>
     <div class="row">
@@ -115,11 +103,11 @@ Virtuagora - Administrar funcionarios
         </div>
     </div>
 </div>
-
 {% endblock %}
-
-{% block scripts %}
-<script type="text/javascript" charset="utf-8">
+{# ----------------------------------------------------------- #}
+{% block scripts_cont %}
+<script src="{{ baseUrl }}/assets/js/underscore/underscore-min.js"></script>
+<script>
     var cupos_tot = {{ organismo['cupo'] }};
     var cupos_ocu = {{ organismo['funcionarios_count'] }};
     var funcionarios = {{ funcionarios|json_encode|raw }};
@@ -131,10 +119,10 @@ Virtuagora - Administrar funcionarios
         $('#nuevo').hide();
         for (var i=0; i<cupos_ocu; i++) {
             var newFuncionario = '<tr><td id="actual-'+i+'" class="text-center">'+
-                '<img src="http://lorempixel.com/g/128/128/">&nbsp;&nbsp;'+
+                '<i class="fa fa-user fa-fw fa-lg"></i>&nbsp;'+
                 funcionarios[i]['nombre']+' '+
                 funcionarios[i]['apellido']+'</td><td id="nuevo-'+i+'" class="text-center">- sin cambio -</td><td class="text-center"><a id="cambiar-'+
-                i+'" class="button boton-mini radius cambiar"><i class="fa fa-pencil fa-fw"></i></a></td></tr>';
+                i+'" class="modificar button radius cambiar"><i class="fa fa-pencil fa-fw"></i></a></td></tr>';
             $(newFuncionario).appendTo("#plantel");
             $('#cambiar-'+i).data('id', i);
             func_act[i] = funcionarios[i]['id'];
@@ -142,7 +130,7 @@ Virtuagora - Administrar funcionarios
         }
         for (var i=cupos_ocu; i<cupos_tot; i++) {
             var newFuncionario = '<tr><td id="actual-'+i+'" class="text-center">- vacante -</td><td id="nuevo-'+
-                i+'" class="text-center">- sin cambio -</td><td class="text-center"><a id="cambiar-'+i+'" class="button boton-mini radius cambiar">'+
+                i+'" class="text-center">- sin cambio -</td><td class="text-center"><a id="cambiar-'+i+'" class="modificar button radius cambiar">'+
                 '<i class="fa fa-pencil fa-fw"></i></a></td></tr>';
             $(newFuncionario).appendTo("#plantel");
             $('#cambiar-'+i).data('id', i);
@@ -228,7 +216,6 @@ Virtuagora - Administrar funcionarios
             for (var i=0; i<resultados.length; i++) {
                 var candidato = $("<li>");
                 agregarCandidatoTabla(
-                    'http://lorempixel.com/g/128/128',
                     resultados[i].nombre,
                     resultados[i].apellido,
                     resultados[i].id,
@@ -253,16 +240,16 @@ Virtuagora - Administrar funcionarios
         }
     }
 
-    function agregarCandidatoTabla(urlImagen, nombre, apellido, nuevoId, nuevoNombre) {
+    function agregarCandidatoTabla(nombre, apellido, nuevoId, nuevoNombre) {
         $("#funcCandidatos").find('tbody')
-        .append($('<tr>')
-                .append($('<td>')
-                        .attr('class', 'text-center')
-                        .html(nombre +' '+ apellido),
-                        $('<td>')
-                        .attr('class', 'text-center')
-                        .append($('<a>').html('<i class="fa fa-check fa-border"></i>').click(function() {cambiarBanca(nuevoId, nuevoNombre);})
-                               )));
+            .append($('<tr>')
+                    .append($('<td>')
+                            .attr('class', 'text-center')
+                            .html(nombre +' '+ apellido),
+                            $('<td>')
+                            .attr('class', 'text-center')
+                            .append($('<a class="modificar button success radius">').html('<i class="fa fa-check"></i>').click(function() {cambiarBanca(nuevoId, nuevoNombre);})
+                                   )));
     }
 
     function efectuarIntercambio(nuevoId, nuevoNombre) {
@@ -287,5 +274,7 @@ Virtuagora - Administrar funcionarios
         $('#entrantes').val('['+func_in.join()+']');
         $('#salientes').val('['+func_out.join()+']');
     }
+
 </script>
 {% endblock %}
+{# ----------------------------------------------------------- #}

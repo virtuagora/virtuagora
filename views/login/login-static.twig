@@ -1,67 +1,78 @@
+{# VARIBLES #}
+{% set footer = false %}
+{% set barraNav = false %}
+{% set html_class = 'login-bg' %}
+{% set body_class = 'no-body-bg' %}
+
 {% extends "master.twig" %}
 
-{% block titulo %}
-Virtuagora - Login
-{% endblock %}
-
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Login{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}{% endblock %}
+{# ----------------------------------------------------------- #}
 {% block body %}
-<section id="expositor">
-    <div class="row">
-        <div class="medium-8 medium-centered large-6 large-centered columns">
-            <h1 class="text-center logo-font">Virtuagora</h1>
-        </div>
-    </div>
-</section>
-
-<!-- Aca viene la sesion de panel -->
-<section id="passport">
-    <div class="row">
-        <div class="medium-8 medium-centered large-6 large-centered columns">
+<div id="login">
+    <div id="row-panel" class="row">
+        <div class="large-8 large-centered columns">
             <div class="panel">
-                <b>
-                    {% if flash['error'] is defined %}
-                    <div data-alert class="alert-box warning text-center"><b>{{ flash['error'] }}</b></div>
-                    {% else %}
-                    <p><b>¡Bienvenido de vuelta!</b> Inicie sesión para entrar al portal</p>
-                    {% endif %}
-                <form data-abide action="{{ baseUrl }}/login" method="POST">
-                    <div class="row collapse">
-                        <div class="small-2 columns">
-                            <span class="prefix"><i class="fa fa-envelope"></i></span>
-                        </div>
-                        <div class="small-10 columns">
-                            <input name="email" type="email" placeholder="Direccion de email" required pattern="email">
-                            <small class="error text-center">Ingrese un mail bien formado. Ej: email@correo.com</small>
-                        </div>
-                    </div>
-                    <div class="row collapse">
-                        <div class="small-2 columns ">
-                            <span class="prefix"><i class="fa fa-lock"></i></span>
-                        </div>
-                        <div class="small-10 columns ">
-                            <input id="campo-password-registro" name="password" type="password" placeholder="Contraseña">
-                            <small class="error text-center">Obligatorio, de hasta 8 letras</small>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="small-8 small-centered columns ">
-                            <input type="submit" class="button expand" value="Iniciar sesión &raquo;">
-                        </div>
-                    </div>
-                </form>
                 <div class="row">
-                    <div class="small-8 small-centered columns text-center">
-                        <p>Si aun no posee una cuenta en Virtuagora...</p>
-                        <a href="{{urlFor('shwIndex')}}" class="button secondary radius small">Crear una cuenta &raquo;</a>
+                    <div class="large-8 large-centered columns">
+                        <div id="row-arriba">
+                            <div id="logo" class="text-center">
+                                <b>Virtuágora</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="large-8 large-centered columns">
+                        <div id="row-abajo">
+                            <form data-abide action="{{ urlFor('runLogin') }}" method="POST">
+                                <div class="row collapse">
+                                    <div class="large-12 columns">
+                                        <input name="email" type="email" placeholder="Su dirección de email..." required pattern="email">
+                                        <small class="error text-center">Obligatorio. Debe ser una dirección bien formada</small>
+                                    </div>
+                                </div>
+                                <div class="row collapse">
+                                    <div class="large-12 columns">
+                                        <input id="campo-password" name="password" type="password" required placeholder="Su contraseña...">
+                                        <small class="error text-center">Obligatorio</small>
+                                    </div>
+                                </div>
+                                <div class="row collapse">
+                                    <div class="large-12 columns text-center">
+                                        <button class="button radius large expand"><i class="fa fa-sign-in fa-fw fa-lg"></i>&nbsp;Iniciar sesión</button>
+                                        <p id="reg-cond">Si aun no posee una cuenta en Virtuagora...</p>
+                                        <a href="{{urlFor('shwIndex')}}" class="button secondary radius small"><i class="fa fa-user-plus fa-lg fa-fw"></i>&nbsp;Crear una cuenta &raquo;</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
-{% endblock %}
+</div>
 
+
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
 {% block scripts %}
 <script src="{{ baseUrl }}/assets/js/foundation/foundation.abide.js"></script>
+<script>
+    $(document).foundation({
+        abide : {
+            patterns: {
+                //Email Validation as per RFC2822 standards.
+                email: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+            }
+        }
+    });
+</script>
 {% endblock %}
+{# ----------------------------------------------------------- #}

@@ -1,0 +1,49 @@
+{# VARIBLES #}
+{% set footer = true %}
+{% set barraNav = true %}
+{% set html_class = '' %}
+{% set body_class = 'color-config' %}
+
+{% extends "master.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block linkhead %}
+<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/powertip/jquery.powertip.css"/>
+{% block linkheads_cont %}{% endblock linkheads_cont %}
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block body %}
+<div class="admin-panel">
+    <div class="row row-full">
+        <div class=" panel-izq medium-3 columns">
+            <ul class="opciones">
+                <li><a href="{{ urlFor('shwAdmOrganis') }}">Listar los organismos</a></li>
+                <li><a href="{{ urlFor('shwCrearOrganis') }}">Crear un nuevo organismo</a></li>
+                <li><a href="{{ urlFor('shwIndex') }}" class="bt-volver button oposite radius expand"><i class="fa fa-undo fa-fw"></i> Volver al inicio</a></li>
+            </ul>
+        </div>
+        <div class="panel-der medium-9 columns">
+            <div class="row">
+                <div class="intro-titulo">
+                <h1><b><i class="fa fa-caret-right fa-fw"></i>{{ intro_titulo|upper }}</b>&nbsp;<small><i class="fa fa-question-circle fa-fw"></i></small></h1>
+                </div>
+            </div>
+            {% block administracion %}
+            {% endblock administracion %}
+        </div>
+    </div>
+</div>
+{% endblock body %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}
+<script src="{{ baseUrl() }}/assets/js/powertip/jquery.powertip.min.js"></script>
+<script src="{{ baseUrl() }}/assets/js/autosize/autosize.min.js"></script>
+{% block scripts_cont %}{% endblock scripts_cont %}
+<script>
+    $(document).ready(function(){
+
+    });
+
+</script>
+{% endblock scripts %}
+{# ----------------------------------------------------------- #}

@@ -1,44 +1,52 @@
+{# VARIBLES #}
+{% set footer = false %}
+{% set barraNav = false %}
+{% set html_class = 'registro-exito-bg' %}
+{% set body_class = 'no-body-bg' %}
+
 {% extends "master.twig" %}
 
-{% block titulo %}
-Virtuagora - ¡Registro exitoso!
-{% endblock %}
-
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Registro exitoso{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}{% endblock %}
+{# ----------------------------------------------------------- #}
 {% block body %}
-<p></p>
-<section id="passport">
-    <div class="row">
-        <div class="medium-8 medium-centered large-6 large-centered columns">
-            <div class="panel text-center">
-                <i class="success fa fa-envelope-o"></i>
-                <p class="welcome">¡Gracias por registrarse!<br /> Solo falta un paso...</p>
-                <p>No se olvide de que la dirección de email <b>{{ email }}</b> es efectívamente suyo.<br />
-                    Para eso, ingrese a su email y siga las instrucciones que le enviamos a su dirección.</p>
-                <p><b>Una vez hecho este último paso, ya estará listo para comenzar a participar</b></p>
+<div id="login">
+    <div id="row-panel" class="row">
+        <div class="large-8 large-centered columns">
+            <div class="panel">
                 <div class="row">
-                    <div class="small-12 small-centered columns text-center">
-                        <div class="mailShowcase 4-up">
-                            <a href="http://www.outlook.com/" class="item">
-                                <i class="fa fa-windows"></i>
-                                <label>Outlook</label>
-                            </a>
-                            <a href="http://www.gmail.com/" class="item">
-                                <i class="fa fa-google"></i>
-                                <label>Gmail</label>
-                            </a>
-                            <a href="http://www.yahoo.com/" class="item">
-                                <i class="fa fa-yahoo"></i>
-                                <label>Yahoo</label>
-                            </a>
-                            <a href="{{ urlFor('shwIndex') }}" class="item">
-                                <i class="fa fa-reply"></i>
-                                <label>Volver atrás</label>
-                            </a>
+                    <div class="large-8 large-centered columns">
+                        <div id="row-arriba">
+                            <div id="logo" class="text-center">
+                                <b>Virtuágora</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="large-10 large-centered columns">
+                        <div id="row-abajo" class="text-center">
+                            <div class="panel text-center" style="background-color: #EEFFEA; margin-bottom: 20px;">
+                                <i class="fa fa-envelope fa-4x fa-fw" style="color: #61bf26; margin-bottom: 10px;"></i>
+                                <h5>Se ha registrado exitosamente</h5>
+                            </div>
+                            <p style="font-size: 13px;">Antes de comenzar, es necesario que <b>verifique su direccion de correo electrónico</b>. Para ello, le hemos enviado a su dirección de email <b>{{ email }}</b> un correo para realizar la verificación de su cuenta.</p>
+
+                                <p style="font-size: 13px;">Le pedimos que ingrese a su email y realice la verificación. Una vez hecho, ya podrá comenzar a utilizar el portal.</p>
+                                <a href="{{ urlFor('shwIndex') }}" class="button radius">Ir al inicio</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
+
 {% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}{% endblock %}
+{# ----------------------------------------------------------- #}

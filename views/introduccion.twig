@@ -1,0 +1,91 @@
+{# VARIBLES #}
+{% set footer = true %}
+{% set barraNav = false %}
+
+{% extends "master.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block titulo %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block body %}
+<div id="introduction">
+    <div id="header">
+        <section class="row">
+            <article class="small-12 columns">
+                <img src="assets/img/virtuagora_logo_start.png">
+                <div class="text-center">
+                    <a href="{{urlFor('shwLogin')}}" class="button radius large"><i class="fa fa-sign-in fa-fw fa-lg"></i>&nbsp;Iniciar sesión</a>
+                    <a href="{{urlFor('shwCrearUsuario')}}" class="button radius large"><i class="fa fa-user-plus fa-fw fa-lg"></i>&nbsp;Registrarse</a>
+                </div>
+                <p class="text-center">
+                    <em class="sunheader">- Encontranos -</em><br>
+                    <a href="https://www.facebook.com/virtuagora"><i class="fa fa-facebook-square"></i></a>
+                    <a href="https://twitter.com/virtuagora"><i class="fa fa-twitter-square"></i></a>
+                </p>
+            </article>
+        </section>
+    </div>
+    <section class="pre-registro">
+           <div class="row">
+            <div class="large-10 large-centered columns">
+                <div class="descripcion large-6 columns">
+                   <h1><b>¡Bienvenidos a Virtuágora!</b></h1>
+                    <p><b>Una nueva propuesta para la participación ciudadana</b></p>
+                    <p>¡Registresé ya mismo!</p>
+                </div>
+                <div class="large-6 columns">
+                    <form class="form-pre-registro" method="POST">
+                        <div class="row">
+                            <input type="text" name="nombre" placeholder="Su nombre..">
+                            <input type="text" name="apellido" placeholder="Su apellido..">
+                            <input type="text" name="email" placeholder="Su email..">
+                        </div>
+                        <div class="row text-center">
+                            <button class="button radius success expand"><i class="fa fa-check fa-lg fa-fw"></i>&nbsp;Registrarse</button>
+                            <p>Usted sera redirigido luego a una pagina aparte para seguir completando con su informacion de registro</p>
+                        </div>
+                    </form>
+                </div>
+               </div>
+    </section>
+    <div class="features">
+        <section class="fila que-es">
+            <div class="izquierdo row">
+                <div class="small-10 small-centered columns">
+                    <div class="icono">
+                        <i class="fa fa-lightbulb-o"></i>
+                    </div>
+                    <div class="contenido">
+                        <h1><b>¿Que es Virtuágora?</b></h1>
+                        <p>Virtuágora es una plataforma web pensada para cualquier ámbito democrático, en la que los ciudadanos puedan expresar su opinión y participar frente a los anuncios y actividades de funcionarios públicos.</p>
+                        <p>Además, se funda dentro de las buenas prácticas del concepto de Gobierno Abierto y aporta el potencial de las TICs para mejorar la comunicación entre representantes y representados. Buscando así, generar un círculo virtuoso de intercambio de opiniones para construir una mejor sociedad.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+
+</div>
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+
+    });
+
+    $('.form-pre-registro').submit(function(){
+        window.location.href = "{{urlFor('shwCrearUsuario')}}?"+$(this).serialize();
+        return false;
+    });
+
+</script>
+{% endblock %}
+{# ----------------------------------------------------------- #}

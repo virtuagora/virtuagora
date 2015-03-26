@@ -1,0 +1,59 @@
+.listar-organismos, .listar-funcionarios{
+    .tabla-org, .tabla-funcionarios{
+        width: 100%;
+        thead tr th{
+            font-size: rem-calc(13);
+            font-weight: 400;
+            padding: 5px 10px;
+            background-color: #e3e3e3;
+            .titulo{
+                width: 70%;
+            }
+        }
+        tr:nth-of-type(even){
+            background-color: #f5f5f5;
+        }
+        td{
+            padding: 3px 10px;
+            .button{
+                margin: 0;
+            }
+            .modificar{
+                font-size: rem-calc(15);
+                padding: 2px 5px;
+            }
+        }
+    }
+}
+.listar-organismos{
+    .tabla-org{
+        .titulo{
+            width: 53%;
+        }
+    }
+}
+
+.crear-organismo{
+    .cambiar-avatar{
+        min-height: 180px;
+        img{
+            margin: 10px 15px
+        }
+        .fileUpload {
+            margin: 30px 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        .fileUpload input.upload {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 150px;
+            cursor: pointer;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+    }
+}

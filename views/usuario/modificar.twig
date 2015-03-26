@@ -1,0 +1,116 @@
+{# VARIBLES #}
+
+{% extends "usuario/ver-config.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Modificar datos personales{% endblock %}
+{# ----------------------------------------------------------- #}
+{% set intro_titulo = 'Modificar datos personales' %}
+{# ----------------------------------------------------------- #}
+{% block configuracion %}
+<div class="cambiar-datos">
+    <div class="row">
+        <div class="large-8 columns">
+            <div class="cambiar-avatar">
+                <div class="large-5 columns">
+                   <div class="wrapper-elementos">
+                    <div class="header" style="border-bottom: 0;">
+                        <i class="fa fa-question-circle fa-fw fa-lg"></i><i class="fa fa-pencil fa-fw fa-lg"></i> Modificar mi imagen de perfíl
+
+                    </div>
+
+                </div>
+                    <form id="cambiar-imagen" action="{{ urlFor('runModifImgUsuario') }}" method="POST" enctype="multipart/form-data">
+                        <div class="fileUpload button large radius" style="margin-bottom:0;" onclick='$("#uploadBtn").click()'>
+                            <input id="uploadBtn" name="imagen" form="cambiar-imagen" type="file" onchange="this.form.submit();" class="upload" />
+                            <i class="fa fa-photo fa-fw fa-lg"></i> Cargar imagen
+                        </div>
+                    </form>
+                </div>
+                <div class="show-avatares large-7 columns">
+                    <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}">
+                    <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 64) }}">
+                    <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 160) }}">
+                </div>
+            </div>
+            <hr>
+            <div class="cambiar-datos">
+                <div class="large-10 columns">
+                    <div class="wrapper-elementos">
+                       <form action="{{ urlFor('runModifUsuario') }}" method="POST">
+                        <div class="header">
+                            <i class="fa fa-question-circle fa-fw fa-lg"></i><i class="fa fa-pencil fa-fw fa-lg"></i> Modificar mis datos personales
+                        </div>
+                        <div class="fila">
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    <div class="large-6 columns">
+                                        <div class="titulo-fila">Nombre</div>
+                                        <input class="campo-fila" type="text" name="nombre">
+                                    </div>
+                                    <div class="large-6 columns">
+                                        <div class="titulo-fila">Apellido</div>
+                                        <input class="campo-fila" type="text" name="apellido">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fila">
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    <div class="large-8 columns">
+                                        <div class="titulo-fila">URL</div>
+                                        <input class="campo-fila" type="text" name="url" placeholder="Ej: www.usuario-web.com">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fila">
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    <div class="large-8 columns">
+                                        <div class="titulo-fila">Email</div>
+                                        <input class="campo-fila" type="email" name="email" placeholder="No editable" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ultima-fila">
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    <div class="large-8 columns">
+                                        <div class="titulo-fila">Telefono</div>
+                                        <input class="campo-fila" type="text" name="telefono" placeholder="Ej: (0342) 452-XXXX">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="button success small radius"><i class="fa fa-check fa-fw"></i> Aceptar los cambios</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts_cont %}
+<script src="{{ baseUrl }}/assets/js/underscore/underscore-min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('input[name="nombre"]').val('{{ user.nombre }}');
+        $('input[name="apellido"]').val('{{ user.apellido }}');
+        $('input[name="url"]').val('{{ user.url }}');
+        $('input[name="email"]').val('{{ user.email }}');
+        $('input[name="telefono"]').val('{{ user.telefono }}');
+    });
+
+</script>
+{% endblock %}
+{# ----------------------------------------------------------- #}

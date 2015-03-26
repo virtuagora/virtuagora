@@ -1,146 +1,188 @@
-{# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
-{% set url_atras = '#' %}
-{% set i_class_titulo = 'fa fa-gear fa-fw' %}
-{% set titulo = 'Crear partido político' %}
-{% set comments = false %}
+{# VARIBLES #}
+{% set footer = true %}
+{% set barraNav = false %}
+{% set html_class = '' %}
+{% set body_class = 'color-partido' %}
 
-{# VARIABLES DE LA VISTA #}
+{% extends "master.twig" %}
 
-{# ---------------------- #}
-
-{% extends "master-body.twig" %}
-
-{% block titulo %}
-Virtuagora - Crear partido político
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Crear un partido político{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}
+<link rel="stylesheet" type="text/css" href="{{ baseUrl }}/assets/css/powertip/jquery.powertip.min.css"/>
 {% endblock %}
+{# ----------------------------------------------------------- #}
+{% block body %}
+<div class="crear-partido">
+    <div class="row">
+        <div class="small-12 small-centered columns">
+            <section class="intro-partido text-center">
+                <i class="fa fa-flag fa-fw fa-2x"></i><br />NUEVO PARTIDO POLÍTICO<br />
+                <a class="button oposite radius small" href="{{ urlFor('shwIndex') }}"><i class="fa fa-undo fa-fw fa-lg"></i>&nbsp;Volver atrás</a>
+            </section>
+        </div>
+    </div>
+    <form action="{{ urlFor('runCrearPartido') }}" method="POST">
+        <div class="row">
+            <div class="small-12 small-centered columns">
+                <div class="panel-crear-partido">
+                    <div class="row">
+                        <div class="small-10 small-centered columns">
+                            <section class="nombre-partido">
+                                <textarea id="tooltip-titulo" type="text" name="nombre" id="tooltip-nombre" rows="1" placeholder="Escriba el nombre del partido"></textarea>
+                            </section>
+                            <section class="datos-partido text-center">
+                                Añadido el {{ "now"|date("d/m/Y") }} por el funcionario <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}"> {{ user.nombre }} {{ user.apellido }}</span>
+                            </section>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row collapse prefix-radius">
+                        <section class="acronimo-partido">
+                            <div class="small-3 small-centered columns">
+                                <div class="small-6 columns">
+                                    <span class="prefix"><b><i class="fa fa-caret-right fa-fw"></i>Acrónimo</b></span>
+                                </div>
+                                <div class="small-6 columns">
+                                    <input name="acronimo" type="text" id="tooltip-acronimo" placeholder="2 a 8 caracteres">
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="small-8 small-centered columns">
+                        <section class="descripcion-partido">
+                            <div class="titulo-campo text-center"><b><i class="fa fa-pencil fa-fw"></i> Descripción del partido político <span class="asterisco">*</span></b></div>
+                            <textarea name="descripcion" rows=3 placeholder="Escriba aquí la descripcion de su partido politico"></textarea>
+                        </section>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="small-6 small-centered columns">
+                        <div class="row collapse">
+                            <div class="small-5 columns">
+                                <span class="prefix">
+                                    &nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Fecha de fundación</b>
+                                </span>
+                            </div>
+                            <div class="small-7 columns">
+                                <input type="date" name="fecha">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="small-6 small-centered columns">
+                        <div class="row collapse">
+                            <div class="small-5 columns">
+                                <span class="prefix">
+                                    &nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Fundador histórico</b>
+                                </span>
+                            </div>
+                            <div class="small-7 end columns">
+                                <input type="text" name="fundador" placeholder="Ingrese Nombre y Apellido">
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-{% block contenido %}
-<section id="formulario">
-	<form action="" method="POST">
-		<div class="row">
-			<div class="large-10 large-centered columns clearfix">
-				<div class="large-3 columns text-center" style="padding: 20px;" >
-					<i class="fa fa-flag fa-border fa-5x"></i>
-				</div>
-				<div class="large-9 columns right inline">
-					<label style="margin-bottom: 20px;"><h6 class="subheader"><i class="fa fa-pencil fa-fw"></i>&nbsp;&nbsp;<b>Nombre del partido político</b> <span data-tooltip aria-haspopup="true" class="has-tip tip-right" title="Campo OBLIGATORIO" style="color: red;">*</span></h6>
-						<input type="text" name="nombre" style="text-align: center;">
-					</label>
-					<div class="row collapse clearfix">
-						<div class="large-3 columns">
-							<span class="prefix">
-								&nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Acrónimo</b>
-							</span>
-						</div>
-						<div class="large-4 end columns">
-							<input type="text" name="acronimo" placeholder="Use 2 a 8 caracteres" style="text-align: center;">
-						</div>
-					</div>
-					<div class="row collapse clearfix">
-						<div class="large-12 columns">
-							<div class="panel text-center" style="padding:10px;">
-								<i class="fa fa-warning fa-lg fa-fw left"></i>
-								<p style="font-size:12px;">Nota: Podrá subir una imagen luego de haber creado el partído</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="large-10 large-centered columns">
-				<label><h6 class="subheader"><i class="fa fa-file-text-o fa-fw"></i>&nbsp;&nbsp;<b>Descripción</b> <span data-tooltip aria-haspopup="true" class="has-tip tip-right" title="Campo OBLIGATORIO" style="color: red;">*</span></h6>
-					<textarea name="descripcion" rows=4></textarea>
-				</label>
-			</div>
-		</div>
-		<div class="row">
-			<div class="large-10 large-centered columns">
-				<div class="row collapse">
-					<div class="large-4 columns">
-						<span class="prefix">
-							&nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Fecha de fundación</b>
-						</span>
-					</div>
-					<div class="large-3 end columns">
-						<input type="date" name="fecha">
-					</div>
-					<div class="large-4 right columns">
-						<div class="panel text-center" style="padding:8px; font-size:11px;">
-							<b>Firefox:</b> dd/mm/yyyy | <b>Chrome:</b> mm/dd/yyyy
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="large-10 large-centered columns">
-				<div class="row collapse">
-					<div class="large-4 columns">
-						<span class="prefix">
-							&nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Fundador histórico</b>
-						</span>
-					</div>
-					<div class="large-8 end columns">
-						<input type="text" name="fundador" placeholder="Ingrese Nombre y Apellido">
-					</div>
-				</div>
-			</div>
-		</div>
+                <div class="row">
+                    <div class="small-6 small-centered columns">
+                        <div class="row collapse clearfix">
+                            <div class="small-5 columns">
+                                <span class="prefix">
+                                    &nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Página web</b>
+                                </span>
+                            </div>
+                            <div class="small-7 end columns">
+                                <input type="url" name="text" placeholder="Ej: www.partido-politico.com">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="small-6 small-centered columns">
+                        <div class="row collapse clearfix">
+                            <div class="small-5 columns">
+                                <span class="prefix">
+                                    &nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Email de contacto</b>
+                                </span>
+                            </div>
+                            <div class="small-7 end columns">
+                                <input type="text" name="email" placeholder="Ej: ejemplo@servidor.com">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="small-6 small-centered columns">
+                        <div class="row collapse clearfix">
+                            <div class="small-5 columns">
+                                <span class="prefix">
+                                    &nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Teléfono de contacto</b>
+                                </span>
+                            </div>
+                            <div class="small-7 end columns">
+                                <input type="text" name="telefono" placeholder="(0342) 452-XXXX">
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-		<div class="row">
-			<div class="large-10 large-centered columns">
-				<div class="row collapse clearfix">
-					<div class="large-4 columns">
-						<span class="prefix">
-							&nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Pagina web</b>
-						</span>
-					</div>
-					<div class="large-8 end columns">
-						<input type="url" name="text" placeholder="Ej: www.partido-politico.com">
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="large-10 large-centered columns">
-				<div class="row collapse clearfix">
-					<div class="large-4 columns">
-						<span class="prefix">
-							&nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Email de contacto</b>
-						</span>
-					</div>
-					<div class="large-8 end columns">
-						<input type="text" name="email" placeholder="Ej: ejemplo@servidor.com">
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="large-10 large-centered columns">
-				<div class="row collapse clearfix">
-					<div class="large-4 columns">
-						<span class="prefix">
-							&nbsp;<i class="fa fa-caret-right fa-fw"></i>&nbsp;<b>Teléfono de contacto</b>
-						</span>
-					</div>
-					<div class="large-8 end columns">
-						<input type="text" name="telefono" placeholder="(0342) 452-XXXX">
-					</div>
-				</div>
-			</div>
-		</div>
-		<hr>
-		<div class="row">
-			<div class="large-5 large-centered columns text-center">
-				<button type="submit" class="button radius small success"><i class="fa fa-plus fa-fw"></i>&nbsp;Crear partido político</button>
-			</div>
-		</div>
-	</form>
-</section>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-8 small-centered columns">
+                <section class="publicar-partido">
+                    <button type="submit" class="button oposite large expand radius"><i class="fa fa-flag fa-fw fa-lg"></i><i class="fa fa-plus fa-fw fa-lg"></i>&nbsp;Crear nuevo partido político</button>
+                </section>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="tooltip-categoria-data" class="text-left" hidden>
+    <i class="fa fa-lightbulb-o fa-fw fa-lg"></i>&nbsp;Elija una categoria, la cual
+    <br> vea que su problematica se ajusta.
+</div>
+<div id="tooltip-titulo-data" class="text-left" hidden>
+    <i class="fa fa-lightbulb-o fa-fw fa-lg"></i>&nbsp;El título debe ser claro, atractivo, para que la gente se vea interesada.
+</div>
+
 
 {% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}
+<script src="{{ baseUrl() }}/assets/js/autosize/autosize.min.js"></script>
+<script src="{{ baseUrl() }}/assets/js/powertip/jquery.powertip.min.js"></script>
 
-{% block script %}
-
+<script type="text/javascript">
+    $(document).ready(function(){
+        autosize($("textarea[name='nombre']"));
+        autosize($("textarea[name='descripcion']"));
+    });
+    $("textarea[name='nombre']").keypress(function(event) {
+        // Check the keyCode and if the user pressed Enter (code = 13)
+        // disable it
+        if (event.keyCode == 13) {
+            event.preventDefault();
+        }
+    });
+    });
+    $('#tooltip-categoria').data('powertiptarget', 'tooltip-categoria-data');
+    $('#tooltip-categoria').powerTip({
+        placement: 'e',
+        mouseOnToPopup: true
+    });
+    $('#tooltip-titulo').data('powertiptarget', 'tooltip-titulo-data');
+    $('#tooltip-titulo').powerTip({
+        placement: 'n',
+        mouseOnToPopup: true
+    });
+</script>
 {% endblock %}
+{# ----------------------------------------------------------- #}

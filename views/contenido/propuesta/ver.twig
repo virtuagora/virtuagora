@@ -1,12 +1,4 @@
-{# VARIABLES PARA FORMATO DE MASTER-BODY.TWIG #}
-{% set url_atras = '#' %}
-{% set i_class_icon = 'fa fa-bullhorn fa-fw' %}
-{% set titulo = 'Ver propuesta' %}
-{% set comments = true %}
-{% set commentUrl = urlFor('runComentar', {"tipoRaiz": "propuesta" , "idRaiz": propuesta.id}) %}
-{% set rtaUrl = urlFor('runComentar', {"tipoRaiz": "comentario", "idRaiz": ""}) %}
-
-{# VARIABLES DE LA VISTA #}
+{# VARIBLES #}
 {% set total_votos = propuesta.votos_favor + propuesta.votos_neutro + propuesta.votos_contra %}
 {% if total_votos > 0 %}
 {% set porc_favor = ( propuesta.votos_favor / ( total_votos ))*100 %}
@@ -14,338 +6,351 @@
 {% set porc_contra = ( propuesta.votos_contra / ( total_votos ))*100 %}
 {% endif %}
 
-{# ---------------------- #}
+{% extends "contenido/ver-contenido.twig" %}
 
-{% extends "master-body.twig" %}
-
-{% block titulo %}
-Virtuagora - Propuesta #{{ propuesta.id }} por {{ propuesta.autor.nombre }} {{ propuesta.autor.apellido }}
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Propuesta #{{ propuesta.id }} {% endblock %}
+{# ----------------------------------------------------------- #}
+{% set color_cont = 'color-propuesta' %}
+{# ----------------------------------------------------------- #}
+{% set titulo_cont = propuesta.titulo %}
+{% set fecha_cont = '' ~ propuesta.created_at|date("d/m/Y") %}
+{% set url_modificar = urlFor('shwModifPropues', {'idPro': propuesta.id}) %}
+{% set ver_comentarios = true %}
+{% set url_comentar = urlFor('runComentar', {'tipoRaiz': 'propuesta' , 'idRaiz': propuesta.id}) %}
+{% block cuerpo_cont %}
+{{ propuesta.cuerpo|bbCode }}
 {% endblock %}
-
-{% block contenido %}
-<!-- Fila c/ titulo y otros datos! -->
-<section id="vista-contenido">
-	<div class="row">
-		<div class="large-10 large-centered columns">
-			<div class="text-center">
-				<h1><b>{{ propuesta.titulo }}</b></h1>
-				<h4 class="subheader"><small>Creado el {{ propuesta.created_at|date("d/m/Y") }}</small></h4>
-				{% if propuesta.autor.id == user.id or user.es_moderador == true %}
-					<a href="#" class="button tiny radius" style="padding: 10px 10px;"><i class="fa fa-pencil fa-fw fa-lg"></i>&nbsp;Modificar documento</a>
-					<div id="eliminar" class="button tiny radius alert" style="padding: 10px 10px;"><i class="fa fa-times fa-fw fa-lg"></i>&nbsp;Eliminar</div>
-				{% endif%}
-				{% if user.es_moderador %}
-				<div id="bt-sancionar-{{ propuesta.autor.id }}" class="sancionar button tiny radius alert" style="padding: 10px 10px;"><i class="fa fa-flag fa-fw fa-lg"></i>&nbsp;Sancionar</div>
-				{% endif%}
-			</div>
-
-		</div>
-	</div>
-	<div class="row">
-		<div class="large-6 large-centered columns">
-			<h6 class="subheader text-center"><b>Autor de la propuesta</b></h6>
-			<ul class="vcard">
-				<li clearfix>
-					<div class="left autor">
-						<a href='#'><img src="{{ avatarUrl(propuesta.autor.img_tipo, propuesta.autor.img_hash, 32) }}" alt="profile image"></a>
-					</div>
-				</li>
-				<li class="nombre">
-					<span><i class="fa fa-user fa-border"></i></span>&nbsp;
-					<a href='#'><b><span>{{ propuesta.autor.nombre|capitalize  }}</span>
-						<span>{{ propuesta.autor.apellido|capitalize  }}</span></b></a>
-				</li>
-				<li class="puntos">
-					<span><i class="fa fa-trophy fa-border"></i></span>&nbsp;
-					<span>{{ propuesta.autor.puntos }}</span>
-					<span><small>puntos</small></span>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div class="row">
-		<div class="large-10 large-centered columns">
-			<div class="texto text-justify">
-				{{ propuesta.cuerpo|bbCode }}
-			</div>
-		</div>
-	</div>
-	<p></p>
-	<div class="row">
-		<div class="large-6 large-centered columns">
-			<h4 class="subheader text-center"><b>¿Que le pareció la propuesta?</b></h4>
-			{% if voto is not null %}
-			<div class="panel text-center" style="padding: 10px 10px;">
-				<p style="font-size: 12px;">{{ user.nombre }}, ya votó esta propuesta anteriormente opinando que <br /><span class='label'>{{ voto.postura == 1 ? 'está a favor': '' }}{{ voto.postura == 0 ? 'le es indiferente': '' }}{{ voto.postura == -1 ? 'no está a favor': '' }}</span>
-					<br /><br />Puede cambiar su postura luego de los 3 días de haber votado, pero a cambio de<i class="fa fa-star fa-fw fa-lg"></i><span style="color: red;"><b>-5</b></span> puntos que seran descontados de sus puntos de reputación. <br /> <u>Nota</u>: Cambiar la privacidad de la postura no descuenta puntos.
-				</p>
-			</div>
-			{% endif %}
-			<ul class="button-group even-3" >
-				<li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Estoy a favor">
-					<div id="voto_favor" href="#" class="button secondary small" style="background: #C8EDB5;"><i class="fa fa-thumbs-o-up fa-fw fa-2x"></i></div>
-					</span></li>
-				<li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="Es indiferente">
-					<div id="voto_neutro" href="#" class="button secondary small"><i class="fa fa-meh-o fa-2x"></i></div></span></li>
-				<li><span data-tooltip aria-haspopup="true" class="has-tip tip-bottom" title="No estoy a favor">
-					<div id="voto_contra" href="#" class="button secondary small" style="background: #F4BCBC;"><i class="fa fa-thumbs-o-down fa-2x"></i></div></span></li>
-			</ul>
-			{% if voto is not null %}
-			<div class="text-center">
-				<p style="font-size: 12px;">La privacidad de su voto es <span class='label'>{{ voto.publico == 0 ? 'PÚBLICO': 'PRIVADO' }}</span>. ¿Desea cambiarla?</p>
-				<form action="{{ urlFor('runModifPrvPropues', {"idPro": propuesta.id}) }}" method="POST">
-				<input name="publico" value="{{ voto.publico == 0 ? '1': '0' }}" hidden>
-				<button class="button success tiny radius" style="padding: 10px 10px;">Si. Cambiar privacidad a {{ voto.publico == 0 ? 'PRIVADO': 'PÚBLICO' }}</button>
-				</form>
-			</div>
-			{% endif %}
-
-		</div>
-	</div>
-	<div class="row">
-		<div class="large-4 large-centered columns text-center">
-			<div class="button warning radius small" onclick="showResultadosPropuesta([{{ porc_favor }},{{ porc_neutro }},{{ porc_contra }}], 100)"><i class="fa fa-bar-chart fa-fw fa-lg"></i>&nbsp;Ver resultados parciales</div>
-		</div>
-	</div>
-	<!-- Resultados propuesta - div oculto-->
-	<div id="propuesta-resultado" style="display: none;" class="row">
-		{% if total_votos > 0 %}
-		<div class="row">
-			<div class="large-10 large-centered columns">
-				<div class="clearfix">
-					<div class="right">
-						<small>Cerrar</small>
-						<a href="#" onclick="hideResultadosPropuesta()"><i class="fa fa-times fa-fw fa-lg"></i></a>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		<div class="row">
-			<div class="large-10 large-centered columns">
-				<table class="chart">
-					<tbody>
-						<tr>
-							<td>
-								<p id="porc_favor" class="percentage"></p>
-							</td>
-							<td class="chart">
-								{{ propuesta.votos_favor }} persona{{ (propuesta.votos_favor > 1) or (propuesta.votos_favor == 0) ? 's' : '' }} aprueba{{ (propuesta.votos_favor > 1) or (propuesta.votos_favor == 0) ? 'n' : '' }} la propuesta.
-								<div class="barchart">
-									<span id="barra_favor" class="meter" ></span>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<p id="porc_neutro" class="percentage"></p>
-							</td>
-							<td class="chart">
-								{{ propuesta.votos_neutro }} persona{{ (propuesta.votos_neutro > 1) or (propuesta.votos_neutro == 0) ? 's' : '' }} no tiene{{ (propuesta.votos_neutro > 1) or (propuesta.votos_neutro == 0) ? 'n' : '' }} posición sobre la propuesta.
-								<div class="barchart">
-									<span id="barra_neutro" class="meter" ></span>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<p id="porc_contra" class="percentage"></p>
-							</td>
-							<td class="chart">
-								{{ propuesta.votos_contra }} persona{{ (propuesta.votos_contra > 1) or (propuesta.votos_contra == 0) ? 's' : '' }} no aprueba{{ (propuesta.votos_contra > 1) or (propuesta.votos_contra == 0) ? 'n' : '' }} la propuesta.
-								<div class="barchart">
-									<span id="barra_contra" class="meter" ></span>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		{% else %}
-		<div class="row">
-			<div class="large-10 large-centered columns">
-				<div class="text-center">
-					<h3>Nadie ha participado aún</h3>
-					<h3><small>Participe y deje su postura al respecto</small></h3>
-				</div>
-
-			</div>
-		</div>
-		{% endif %}
-	</div>
+{# ----------------------------------------------------------- #}
+{% set autor_id = propuesta.autor.id %}
+{% set autor_nombre_apellido = propuesta.autor.nombre ~ ' ' ~ propuesta.autor.apellido %}
+{% set autor_avatar = avatarUrl(propuesta.autor.img_tipo, propuesta.autor.img_hash, 160) %}
+{% set autor_avatar_32 = avatarUrl(propuesta.autor.img_tipo, propuesta.autor.img_hash, 32) %}
+{% set autor_puntos = propuesta.autor.puntos %}
+{% set autor_descripcion = 'Aca deberia haber una descripcion!' %}
+{# ----------------------------------------------------------- #}
+{% block opciones_cont %}
+{% if user.id != propuesta.autor.id %}
+<section class="propuesta-voto">
+    <div class="row">
+        <section id="votando-posicion" class="votando-propuesta small-10 small-centered columns text-center">
+            <h1>¿Qué le pareció la propuesta?</h1>
+            <ul>
+                <li><div class="bt-voto-favor button oposite large radius"><i class="fa fa-thumbs-o-up fa-fw fa-3x"></i></div></li>
+                <li><div class="bt-voto-neutro button oposite large radius"><i class="fa fa-meh-o fa-fw fa-3x"></i></div></li>
+                <li><div class="bt-voto-contra button oposite large radius"><i class="fa fa-thumbs-o-down fa-fw fa-3x"></i></div></li>
+            </ul>
+        </section>
+        <section id="cambiando-posicion" class="votando-propuesta small-8 small-centered columns text-center">
+            <div class="row">
+                <div class="small-10 small-centered columns">
+                    <div class="small-3 columns text-center">
+                        <div class="icono-posicion-votada"><i class="fa fa-fw"></i></div>
+                    </div>
+                    <div class="small-9 columns text-center">
+                        <div class="postura-posicion-votada panel">
+                            <h6></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <h1>¿Qué le gustaría hacer?</h1>
+            <div class="row">
+                <div class="small-6 columns text-center">
+                    <h4>Cambiar mi voto</h4>
+                    <ul>
+                        <li class='cambiar-voto-favor'><div class="bt-voto-favor button oposite radius"><i class="fa fa-thumbs-o-up fa-fw fa-2x"></i></div></li>
+                        <li class='cambiar-voto-neutro'><div class="bt-voto-neutro button oposite radius"><i class="fa fa-meh-o fa-fw fa-2x"></i></div></li>
+                        <li class='cambiar-voto-contra'><div class="bt-voto-contra button oposite radius"><i class="fa fa-thumbs-o-down fa-fw fa-2x"></i></div></li>
+                    </ul>
+                </div>
+                <div class="small-6 columns text-center">
+                    <h4>Cambiar la privacidad</h4>
+                    <form action="{{ urlFor('runModifPrvPropues', {'idPro': propuesta.id}) }}" method="POST">
+                        <input name="publico" value="{{ voto.publico == 0 ? '1': '0' }}" hidden>
+                        <button class="button oposite radius">Cambiar a <b>{{ voto.publico == 0 ? 'PÚBLICO': 'PRIVADO' }}</b></button>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <section class="confirmar-voto small-8 small-centered columns text-center">
+            <div class="row">
+                <div class="small-3 columns">
+                    <span class="icono-voto-seleccionado"><i class="fa fa-fw"></i></span>
+                </div>
+                <div class="small-8 columns">
+                    <form action="{{ urlFor('runVotarPropues', {'idPro': propuesta.id}) }}" method="POST">
+                        <div class="panel postura-posicion">
+                            <h6></h6>
+                        </div>
+                        <input type="hidden" id="posturaVoto" name="postura" value="">
+                        <div class="postura-info">
+                            <p></p>
+                            <p></p>
+                        </div>
+                        <div class="opcion-voto-publico switch small round">
+                            <input id="checkbox" name="publico" type="checkbox">
+                            <label for="checkbox"></label>
+                            <h6 class="checkbox-titulo"><b></b></h6>
+                            <p class="checkbox-texto"></p>
+                        </div>
+                        <ul>
+                            <li><div class="bt-cancelar-voto button oposite radius"><i class="fa fa-undo fa-fw fa-lg"></i>&nbsp;Cancelar</div></li>
+                            <li><button class="button oposite radius"><i class="fa fa-check fa-fw fa-lg"></i>&nbsp;Enviar</button></li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
 </section>
-{% endblock %}
-
-{% block modal %}
-<div id="publicarPostura" class="reveal-modal remove-whitespace small" data-reveal>
-	{% include "contenido/propuesta/publicar-postura.twig" %}
-</div>
-
-{% if propuesta.autor.id == user.id %}
-<div id="modal-eliminar" class="reveal-modal remove-whitespace small" style="display: none; background: #F04124;" data-reveal>
-<div class="text-center">
-<h4 style="color: #FFFFFF"><i class="fa fa-warning fa-fw fa-2x"></i></h4>
-	<h4 style="color: #FFFFFF"><b>Esta a punto de eliminar la propuesta</b></h4>
-	<h6 style="color: #FFFFFF">Una vez que usted confirma su eliminación, no podrá volver a recuperarlo.</h6>
-	<h6 style="color: #FFFFFF">¿Está seguro?</h6>
-	<br>
-	<div class="large-7 large-centered columns clearfix">
-		<form action="" method="POST">
-		<button class="button small radius"><i class="fa fa-bomb fa-fw fa-lg"></i>&nbsp;Si, confirmar</button>
-		<div id="bt-cerrar-elim" class="button secondary small radius">No, Cancelar</div>
-		</form>
-	</div>
-</div>
-<a class="close-reveal-modal" style="color: white;">&#215;</a>
-</div>
 {% endif %}
+<section class="resultados resultados-propuesta">
+    {% if total_votos > 0 %}
+    <div class="vista-resultados row text-ceter">
+        <div class="small-10 small-centered columns">
+            <table class="grafico">
+                <tbody>
+                    <tr>
+                        <td>
+                            <p id="porc_favor" class="porcentaje"></p>
+                        </td>
+                        <td class="grafico">
+                            {{ propuesta.votos_favor }} persona{{ (propuesta.votos_favor > 1) or (propuesta.votos_favor == 0) ? 's' : '' }} aprueba{{ (propuesta.votos_favor > 1) or (propuesta.votos_favor == 0) ? 'n' : '' }} la propuesta.
+                            <div class="grafico-barra">
+                                <span id="barra_favor" class="metro" ></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p id="porc_neutro" class="porcentaje"></p>
+                        </td>
+                        <td class="grafico">
+                            {{ propuesta.votos_neutro }} persona{{ (propuesta.votos_neutro > 1) or (propuesta.votos_neutro == 0) ? 's' : '' }} no tiene{{ (propuesta.votos_neutro > 1) or (propuesta.votos_neutro == 0) ? 'n' : '' }} posición sobre la propuesta.
+                            <div class="grafico-barra">
+                                <span id="barra_neutro" class="metro" ></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p id="porc_contra" class="porcentaje"></p>
+                        </td>
+                        <td class="grafico">
+                            {{ propuesta.votos_contra }} persona{{ (propuesta.votos_contra > 1) or (propuesta.votos_contra == 0) ? 's' : '' }} no aprueba{{ (propuesta.votos_contra > 1) or (propuesta.votos_contra == 0) ? 'n' : '' }} la propuesta.
+                            <div class="grafico-barra">
+                                <span id="barra_contra" class="metro" ></span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+    <div class="vista-sin-resultados row">
+        <div class="large-10 large-centered columns">
+            <div class="text-center">
+                <h2>Nadie ha participado aún</h2>
+                <h3><small>Participe y deje su postura al respecto</small></h3>
+            </div>
+
+        </div>
+    </div>
+    {% endif %}
+</section>
+<div class="borde-bt-resultados text-center {{ color_cont }}">
+    <div class="row">
+        <div class="small-6 small-centered columns">
+            <div class="bt-ver-resultados button expand" onclick="showResultadosPropuesta([{{ porc_favor }},{{ porc_neutro }},{{ porc_contra }}], 100)"><i class="fa fa-bar-chart fa-fw fa-lg"></i>&nbsp;Ver/Ocultar los resultados</div>
+        </div>
+    </div>
+</div>
 {% endblock %}
-
-
-{% block scripts %}
-<script src="{{ baseUrl }}/assets/js/foundation/foundation.tooltip.js"></script>
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts_cont %}
 <script src="{{ baseUrl }}/assets/js/underscore/underscore-min.js"></script>
 <script>
-	$(document).ready(function() {
-		{% if voto is not null %}
-		var votoUsuario = {{ voto.postura }};
-		if(votoUsuario == 1){
-			$("#voto_favor").addClass("voto-elegido");
-		} else if (votoUsuario == 0){
-			$("#voto_neutro").addClass("voto-elegido");
-		} else if (votoUsuario == -1){
-			$("#voto_contra").addClass("voto-elegido");
-		}
+    var votoPostura = {{ voto.postura is null ? 'null' : voto.postura }};
+    var votoPublico = {{ voto.publico is null ? 'null' : voto.publico }};
+    $(document).ready(function(){
+        completarCheckbox();
+        $('.resultados').hide();
+        $('.confirmar-voto').hide();
+        if(votoPostura != null){
+            completarCambiarVoto(votoPostura, votoPublico);
+            $('#votando-posicion').hide();
+        } else{
+            $('#cambiando-posicion').hide();
+        }
+    });
 
-		{% endif %}
-		});
-		// Para porcentajes
-		// foo([13.626332, 47.989636, 9.596008, 28.788024], 100) // => [48, 29, 14, 9]
-		var showResultadosPropuesta = function (l, target) {
-			var $sum = _.reduce(l, function(memo, num){ return memo + num; }, 0);
-			if ($sum > 0) {
-				var $off = target - _.reduce(l, function(acc, x) { return acc + Math.round(x) }, 0);
-				var $porcentajes = _.chain(l).
-				//sortBy(function(x) { return Math.round(x) - x }).
-				map(function(x, i) { return Math.round(x) + ($off > i) - (i >= (l.length + $off)) }).
-				value();
-				$("#porc_favor").html($porcentajes[0] + "%");
-				$("#porc_neutro").html($porcentajes[1] + "%");
-				$("#porc_contra").html($porcentajes[2] + "%");
-				$("#barra_favor").css("width",($porcentajes[0]).toString() + "%");
-				$("#barra_neutro").css("width",($porcentajes[1]).toString() + "%");
-				$("#barra_contra").css("width",($porcentajes[2]).toString() + "%");
-			}
-			$("#propuesta-resultado").show(500);
-		}
+    $( ".bt-ver-resultados" ).click(function() {
+        $('.resultados').slideToggle();
+    });
 
-		var hideResultadosPropuesta = function (){
-			$("#propuesta-resultado").hide(500);
-		}
+    $( ".bt-cancelar-voto" ).click(function() {
+        if(votoPostura == null){
+            $('#votando-posicion').slideToggle();
+        } else {
+            $('#cambiando-posicion').slideToggle();
+        }
+        $('.confirmar-voto').slideToggle();
+    });
 
-		var usuarioLogueado = function (){
-			var hayLogin = {{ (user.nombre is not empty) ? 'true' : 'false' }} ;
-		return hayLogin;
-	}
+    $( ".bt-voto-favor" ).click(function() {
+        if(usuarioLogueado()){
+            $("#posturaVoto").val(1);
+            confirmarCompletar(1);
+            if(votoPostura == null){
+                $('#votando-posicion').slideToggle();
+            } else {
+                $('#cambiando-posicion').slideToggle();
+            }
+            $('.confirmar-voto').slideToggle();
+        } else {
+            alert('Inicie Sesion');
+        }
 
-					  $("#voto_favor").on("click", function() {
-		if(usuarioLogueado()){
-			$("#posturaVoto").val(1);
-			modalPosturaCompletar(1);
-			$('#publicarPostura').foundation('reveal', 'open');
-		} else {
-			$('#login-modal').foundation('reveal', 'open');
-		}
-	});
+    });
 
-	$("#voto_neutro").on("click", function() {
-		if(usuarioLogueado()){
-			$("#posturaVoto").val(0);
-			modalPosturaCompletar(0);
-			$('#publicarPostura').foundation('reveal', 'open');
-		} else {
-			$('#login-modal').foundation('reveal', 'open');
-		}
-	});
+    $( ".bt-voto-neutro" ).click(function() {
+        if(usuarioLogueado()){
+            $("#posturaVoto").val(0);
+            confirmarCompletar(0);
+            if(votoPostura == null){
+                $('#votando-posicion').slideToggle();
+            } else {
+                $('#cambiando-posicion').slideToggle();
+            }
+            $('.confirmar-voto').slideToggle();
+        } else {
+            alert('Inicie Sesion');
+        }
+    });
 
-	$("#voto_contra").on("click", function() {
-		if(usuarioLogueado()){
-			$("#posturaVoto").val(-1);
-			modalPosturaCompletar(-1);
-			$('#publicarPostura').foundation('reveal', 'open');
-		} else {
-			$('#login-modal').foundation('reveal', 'open');
-		}
-	});
+    $( ".bt-voto-contra" ).click(function() {
+        if(usuarioLogueado()){
+            $("#posturaVoto").val(-1);
+            confirmarCompletar(-1);
+            if(votoPostura == null){
+                $('#votando-posicion').slideToggle();
+            } else {
+                $('#cambiando-posicion').slideToggle();
+            }
+            $('.confirmar-voto').slideToggle();
+        } else {
+            alert('Inicie Sesion');
+        }
+    });
 
-	$('#checkbox').click(function() {
-		if ($(this).is(':checked')) {
-			$("#checkbox-texto").html('Dejar mi voto como <b>PRIVADO</b>');
-		} else {
-			$("#checkbox-texto").html('Dejar mi voto como <b>PÚBLICO</b>');
-		}
-	});
+    var showResultadosPropuesta = function (l, target) {
+        var $sum = _.reduce(l, function(memo, num){ return memo + num; }, 0);
+        if ($sum > 0) {
+            var $off = target - _.reduce(l, function(acc, x) { return acc + Math.round(x) }, 0);
+            var $porcentajes = _.chain(l).
+            //sortBy(function(x) { return Math.round(x) - x }).
+            map(function(x, i) { return Math.round(x) + ($off > i) - (i >= (l.length + $off)) }).
+            value();
+            $("#porc_favor").html($porcentajes[0] + "%");
+            $("#porc_neutro").html($porcentajes[1] + "%");
+            $("#porc_contra").html($porcentajes[2] + "%");
+            $("#barra_favor").css("width",($porcentajes[0]).toString() + "%");
+            $("#barra_neutro").css("width",($porcentajes[1]).toString() + "%");
+            $("#barra_contra").css("width",($porcentajes[2]).toString() + "%");
+        }
+        $("#propuesta-resultado").show(500);
+    }
 
-	var modalPosturaCompletar = function (valorPostura){
-		$("#posturaInfo").removeAttr("class");
-		$("#posturaInfo i").removeAttr("class");
-		$("#intro-comentario p").empty();
-		$("#posturaInfo").addClass("text-center");
-		{% if voto.postura is null %}
-		$("#intro-comentario h6 b").html("¿Está seguro que este será su voto?");
-		 $("#intro-comentario p").html("Podrá cambiarlo más tarde, a cambio de<i class=\"fa fa-star fa-fw fa-lg\"></i><span style=\"color: red;\"><b>-5</b></span> puntos");
-		 $('#checkbox').prop('checked', false);
-		 $("#checkbox-texto").html('Dejar mi propuesta <b>pública</b>');
-		 {% else %}
-		 $("#intro-comentario h6 b").html("¿Está seguro que desea cambiar su voto?");
-		  $("#intro-comentario p").html("Cambiarlo le costará <i class=\"fa fa-star fa-fw fa-lg\"></i><span style=\"color: red;\"><b>-5</b></span> puntos");
-		  $("#checkbox").hide();
-		  $("#checkbox-texto").hide();
-		  {% endif %}
-		  $(".bt-enviar").show();
-		   if(valorPostura == 1){
-			   $("#posturaInfo").attr("style","background: #C8EDB5;");
-			   $("#posturaInfo i").addClass( $("#voto_favor i").attr('class') );
-			   $("#posturaInfo h6 b").html("Usted está a favor de la propuesta");
-			   {% if voto.postura is not null and voto.postura == 1 %}
-			   $("#intro-comentario h6 b").html("Usted ya ha votado esta postura");
-				$("#intro-comentario p").html("¿Deseas cambiar la privacidad de su voto?");
-				{% endif %}
-				} else if (valorPostura == 0) {
-					$("#posturaInfo").attr("style","background: #e7e7e7;");
-					$("#posturaInfo i").addClass( $("#voto_neutro i").attr('class') );
-					$("#posturaInfo h6 b").html("Su posición es neutra");
-					{% if voto.postura is not null and voto.postura == 0 %}
-					$("#intro-comentario h6 b").html("Usted ya ha votado esta postura");
-					 $("#intro-comentario p").html("¿Deseas cambiar la privacidad de su voto?");
-					 {% endif %}
-					 } else if (valorPostura == -1) {
-						 $("#posturaInfo").attr("style","background: #F4BCBC;");
-						 $("#posturaInfo i").addClass( $("#voto_contra i").attr('class') );
-						 $("#posturaInfo h6 b").html("Usted esta en contra de la postura");
-						 {% if voto.postura is not null and voto.postura == -1 %}
-						 $("#intro-comentario h6 b").html("Usted ya ha votado esta postura");
-						  $("#intro-comentario p").html("¿Desea cambiar la privacidad de su voto?");
-						  {% endif %}
-						  }
-						 }
+    var confirmarCompletar = function (valorPostura){
+        if(valorPostura == 1 && votoPostura == null){
+            $(".icono-voto-seleccionado i").removeAttr('class');
+            $(".icono-voto-seleccionado i").addClass('fa fa-fw fa-thumbs-o-up');
+            $(".postura-posicion h6").html('Usted está a favor de la propuesta');
+            $(".postura-info p:nth-child(1)").html('¿Está seguro que este será su voto?');
+            $(".postura-info p:nth-child(2)").html('Podrá cambiarlo luego de 3 días, a cambio de <i class="fa fa-trophy fa-fw"></i> <b>-5</b> puntos');
+        } else if (valorPostura == 1 && votoPostura != null) {
+            $(".icono-voto-seleccionado i").removeAttr('class');
+            $(".icono-voto-seleccionado i").addClass('fa fa-fw fa-thumbs-o-up');
+            $(".postura-posicion h6").html('Esta cambiando su posición a estar a favor');
+            $(".postura-info p:nth-child(1)").html('¿Está seguro que será su nuevo voto?');
+            $(".postura-info p:nth-child(2)").html('Cambiarlo le costará <i class="fa fa-trophy fa-fw"></i> <b>-5</b> puntos');
+            $(".opcion-voto-publico").remove();
+        } else if (valorPostura == 0 && votoPostura == null) {
+            $(".icono-voto-seleccionado i").removeAttr('class');
+            $(".icono-voto-seleccionado i").addClass('fa fa-fw fa-meh-o');
+            $(".postura-posicion h6").html('Su posición es neutra');
+            $(".postura-info p:nth-child(1)").html('¿Está seguro que este será su voto?');
+            $(".postura-info p:nth-child(2)").html('Podrá cambiarlo luego de 3 días, a cambio de <i class="fa fa-trophy fa-fw"></i> <b>-5</b> puntos');
+        } else if (valorPostura == 0 && votoPostura != null) {
+            $(".icono-voto-seleccionado i").removeAttr('class');
+            $(".icono-voto-seleccionado i").addClass('fa fa-fw fa-meh-o');
+            $(".postura-posicion h6").html('Está cambiando su posición a ser neutra');
+            $(".postura-info p:nth-child(1)").html('¿Está seguro que será su nuevo voto?');
+            $(".postura-info p:nth-child(2)").html('Cambiarlo le costará <i class="fa fa-trophy fa-fw"></i> <b>-5</b> puntos');
+            $(".opcion-voto-publico").remove();
+        } else if (valorPostura == -1 && votoPostura == null) {
+            $(".icono-voto-seleccionado i").removeAttr('class');
+            $(".icono-voto-seleccionado i").addClass('fa fa-fw fa-thumbs-o-down');
+            $(".postura-posicion h6").html('Usted esta en contra de la postura');
+            $(".postura-info p:nth-child(1)").html('¿Está seguro que este será su voto?');
+            $(".postura-info p:nth-child(2)").html('Podrá cambiarlo luego de 3 días, a cambio de <i class="fa fa-trophy fa-fw"></i> <b>-5</b> puntos');
+        } else if (valorPostura == -1 && votoPostura != null) {
+            $(".icono-voto-seleccionado i").removeAttr('class');
+            $(".icono-voto-seleccionado i").addClass('fa fa-fw fa-thumbs-o-down');
+            $(".postura-posicion h6").html('Esta cambiando su posición a estar en contra');
+            $(".postura-info p:nth-child(1)").html('¿Está seguro que será su nuevo voto?');
+            $(".postura-info p:nth-child(2)").html('Cambiarlo le costará <i class="fa fa-trophy fa-fw"></i> <b>-5</b> puntos');
+            $(".opcion-voto-publico").remove();
+        }
+    }
 
-						 $(".cerrar-modal").on("click", function() {
-							 $('#publicarPostura').foundation('reveal', 'close');
-						 });
+    var completarCheckbox = function() {
+        if ($('#checkbox').is(':checked')) {
+            $(".checkbox-titulo b").html('VOTO PRIVADO');
+            $(".checkbox-texto").html('NO dar mi nombre y apellido');
+            $("#checkbox").attr("checked");
+        } else {
+            $(".checkbox-titulo b").html('VOTO PÚBLICO');
+            $(".checkbox-texto").html('Dar mi nombre y apellido');
+            $("#checkbox").removeAttr("checked");
+        }
+    }
 
-	$("#eliminar").on("click", function() {
-		$('#modal-eliminar').foundation('reveal', 'open');
-	});
+    var completarCambiarVoto = function(postura,publico) {
+        if (postura == 1) {
+            $('.icono-posicion-votada i').addClass("fa-thumbs-o-up");
+            $('.postura-posicion-votada h6').html('{{ user.nombre }}, has votado que tu posición es <b>a favor</b>');
+            $('li.cambiar-voto-favor').remove();
+        } else if (postura == 0) {
+            $('.icono-posicion-votada i').addClass("fa-meh-o");
+            $('.postura-posicion-votada h6').html('{{ user.nombre }}, has votado que tu posición es <b>neutra</b>');
+            $('li.cambiar-voto-neutro').remove();
+        } else if (postura == -1) {
+            $('.icono-posicion-votada i').addClass("fa-thumbs-o-down");
+            $('.postura-posicion-votada h6').html('{{ user.nombre }}, has votado que tu posición es<b>en contra</b>');
+            $('li.cambiar-voto-contra').remove();
+        }
+        $('.postura-posicion-votada h6').append(', ademas de ser tu voto ');
+        if(publico == 1){
+            $('.postura-posicion-votada h6').append('<b>PUBLICO</b>');
+        } else if(publico == 0){
+            $('.postura-posicion-votada h6').append('<b>PRIVADO</b>');
 
-	$("#bt-cerrar-elim").on("click", function() {
-		$('#modal-eliminar').foundation('reveal', 'close');
-	});
+        }
+    }
 
-						 {% if comments == true %}
-						 {% include "misc/comentarios.js.twig" %}
-						 {% endif %}
 
+    $('#checkbox').click(completarCheckbox);
+
+    var usuarioLogueado = function (){
+        var hayLogin = {{ (user.nombre is not empty) ? 'true' : 'false' }} ;
+    return hayLogin;
+    }
 </script>
 {% endblock %}
+{# ----------------------------------------------------------- #}
