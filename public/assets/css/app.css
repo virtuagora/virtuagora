@@ -3560,6 +3560,186 @@ blockquote p {
     font-size: 1rem;
   }
 }
+@font-face {
+  font-family: "Flaticon";
+  src: url('../fonts/flaticon.woff?1427229551') format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+/* line 7, ../scss/flaticon/_flaticon.scss */
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {
+  font-family: Flaticon;
+  font-size: 20px;
+  font-style: normal;
+  margin-left: 20px;
+}
+
+/* line 13, ../scss/flaticon/_flaticon.scss */
+.flaticon-alert9:before {
+  content: "\e000";
+}
+
+/* line 16, ../scss/flaticon/_flaticon.scss */
+.flaticon-applicattion:before {
+  content: "\e001";
+}
+
+/* line 19, ../scss/flaticon/_flaticon.scss */
+.flaticon-bookmark50:before {
+  content: "\e002";
+}
+
+/* line 22, ../scss/flaticon/_flaticon.scss */
+.flaticon-clouds11:before {
+  content: "\e003";
+}
+
+/* line 25, ../scss/flaticon/_flaticon.scss */
+.flaticon-connected22:before {
+  content: "\e004";
+}
+
+/* line 28, ../scss/flaticon/_flaticon.scss */
+.flaticon-connection27:before {
+  content: "\e005";
+}
+
+/* line 31, ../scss/flaticon/_flaticon.scss */
+.flaticon-contract11:before {
+  content: "\e006";
+}
+
+/* line 34, ../scss/flaticon/_flaticon.scss */
+.flaticon-data2:before {
+  content: "\e007";
+}
+
+/* line 37, ../scss/flaticon/_flaticon.scss */
+.flaticon-earth213:before {
+  content: "\e008";
+}
+
+/* line 40, ../scss/flaticon/_flaticon.scss */
+.flaticon-handshake1:before {
+  content: "\e009";
+}
+
+/* line 43, ../scss/flaticon/_flaticon.scss */
+.flaticon-head21:before {
+  content: "\e00a";
+}
+
+/* line 46, ../scss/flaticon/_flaticon.scss */
+.flaticon-help21:before {
+  content: "\e00b";
+}
+
+/* line 49, ../scss/flaticon/_flaticon.scss */
+.flaticon-idea14:before {
+  content: "\e00c";
+}
+
+/* line 52, ../scss/flaticon/_flaticon.scss */
+.flaticon-information3:before {
+  content: "\e00d";
+}
+
+/* line 55, ../scss/flaticon/_flaticon.scss */
+.flaticon-inspiration:before {
+  content: "\e00e";
+}
+
+/* line 58, ../scss/flaticon/_flaticon.scss */
+.flaticon-leader:before {
+  content: "\e00f";
+}
+
+/* line 61, ../scss/flaticon/_flaticon.scss */
+.flaticon-list4:before {
+  content: "\e010";
+}
+
+/* line 64, ../scss/flaticon/_flaticon.scss */
+.flaticon-list61:before {
+  content: "\e011";
+}
+
+/* line 67, ../scss/flaticon/_flaticon.scss */
+.flaticon-man282:before {
+  content: "\e012";
+}
+
+/* line 70, ../scss/flaticon/_flaticon.scss */
+.flaticon-marketing8:before {
+  content: "\e013";
+}
+
+/* line 73, ../scss/flaticon/_flaticon.scss */
+.flaticon-month1:before {
+  content: "\e014";
+}
+
+/* line 76, ../scss/flaticon/_flaticon.scss */
+.flaticon-multiple25:before {
+  content: "\e015";
+}
+
+/* line 79, ../scss/flaticon/_flaticon.scss */
+.flaticon-news29:before {
+  content: "\e016";
+}
+
+/* line 82, ../scss/flaticon/_flaticon.scss */
+.flaticon-profile8:before {
+  content: "\e017";
+}
+
+/* line 85, ../scss/flaticon/_flaticon.scss */
+.flaticon-protest:before {
+  content: "\e018";
+}
+
+/* line 88, ../scss/flaticon/_flaticon.scss */
+.flaticon-speechbubble6:before {
+  content: "\e019";
+}
+
+/* line 91, ../scss/flaticon/_flaticon.scss */
+.flaticon-speech55:before {
+  content: "\e01a";
+}
+
+/* line 94, ../scss/flaticon/_flaticon.scss */
+.flaticon-staff1:before {
+  content: "\e01b";
+}
+
+/* line 97, ../scss/flaticon/_flaticon.scss */
+.flaticon-three115:before {
+  content: "\e01c";
+}
+
+/* line 100, ../scss/flaticon/_flaticon.scss */
+.flaticon-users6:before {
+  content: "\e01d";
+}
+
+/* line 103, ../scss/flaticon/_flaticon.scss */
+.flaticon-website17:before {
+  content: "\e01e";
+}
+
+/* line 106, ../scss/flaticon/_flaticon.scss */
+.flaticon-windows50:before {
+  content: "\e01f";
+}
+
+/* line 109, ../scss/flaticon/_flaticon.scss */
+.flaticon-working-out:before {
+  content: "\e020";
+}
+
 /* Slider */
 /* Icons */
 @font-face {
@@ -4246,17 +4426,156 @@ html, body {
   background-color: #3a89c9;
 }
 /* line 129, ../scss/layouts/_introduction.scss */
-#introduction .features .que-es .icono {
-  font-size: 12.875rem;
+#introduction .features .que-es i.flaticon::before {
+  font-size: 11.6875rem;
+  margin: 0;
+  position: absolute;
+  top: -15px;
+  left: -60px;
 }
-/* line 133, ../scss/layouts/_introduction.scss */
+/* line 137, ../scss/layouts/_introduction.scss */
 #introduction .features .que-es .contenido h1, #introduction .features .que-es .contenido p {
   color: #fff;
+  letter-spacing: -1px;
 }
-/* line 136, ../scss/layouts/_introduction.scss */
+/* line 141, ../scss/layouts/_introduction.scss */
 #introduction .features .que-es .contenido p {
   text-align: justify;
   font-size: 0.875rem;
+  letter-spacing: -0.2px;
+}
+/* line 148, ../scss/layouts/_introduction.scss */
+#introduction .features .extra-1, #introduction .features .extra-2, #introduction .features .extra-3, #introduction .features .extra-4, #introduction .features .extra-5 {
+  color: #fff;
+  min-height: 300px;
+}
+/* line 152, ../scss/layouts/_introduction.scss */
+#introduction .features .extra-1 .contenido h1, #introduction .features .extra-1 .contenido p, #introduction .features .extra-2 .contenido h1, #introduction .features .extra-2 .contenido p, #introduction .features .extra-3 .contenido h1, #introduction .features .extra-3 .contenido p, #introduction .features .extra-4 .contenido h1, #introduction .features .extra-4 .contenido p, #introduction .features .extra-5 .contenido h1, #introduction .features .extra-5 .contenido p {
+  color: #fff;
+  letter-spacing: -1px;
+}
+/* line 156, ../scss/layouts/_introduction.scss */
+#introduction .features .extra-1 .contenido p, #introduction .features .extra-2 .contenido p, #introduction .features .extra-3 .contenido p, #introduction .features .extra-4 .contenido p, #introduction .features .extra-5 .contenido p {
+  text-align: justify;
+  font-size: 0.875rem;
+  letter-spacing: -0.2px;
+}
+/* line 163, ../scss/layouts/_introduction.scss */
+#introduction .features .extra-1 {
+  background-color: #848484;
+}
+/* line 166, ../scss/layouts/_introduction.scss */
+#introduction .features .extra-1 .icono i.flaticon::before {
+  font-size: 8.125rem;
+  margin: 0;
+}
+/* line 172, ../scss/layouts/_introduction.scss */
+#introduction .features .extra-2 {
+  background-color: #84a240;
+}
+/* line 175, ../scss/layouts/_introduction.scss */
+#introduction .features .extra-2 .icono i.flaticon::before {
+  font-size: 8.125rem;
+  margin: 0;
+}
+/* line 181, ../scss/layouts/_introduction.scss */
+#introduction .features .extra-3 {
+  background-color: #EC8B44;
+}
+/* line 184, ../scss/layouts/_introduction.scss */
+#introduction .features .extra-3 .icono i.flaticon::before {
+  font-size: 8.125rem;
+  margin: 0;
+}
+/* line 190, ../scss/layouts/_introduction.scss */
+#introduction .features .extra-4 {
+  background-color: #5D46B9;
+}
+/* line 193, ../scss/layouts/_introduction.scss */
+#introduction .features .extra-4 .icono i.flaticon::before {
+  font-size: 8.125rem;
+  margin: 0;
+}
+/* line 199, ../scss/layouts/_introduction.scss */
+#introduction .features .extra-5 {
+  background-color: #4688B9;
+}
+/* line 202, ../scss/layouts/_introduction.scss */
+#introduction .features .extra-5 .icono i.flaticon::before {
+  font-size: 8.125rem;
+  margin: 0;
+}
+/* line 210, ../scss/layouts/_introduction.scss */
+#introduction .spotlight {
+  padding: 40px 0px;
+}
+/* line 213, ../scss/layouts/_introduction.scss */
+#introduction .spotlight .titulo h1 {
+  margin-bottom: 50px;
+  letter-spacing: -2px;
+}
+/* line 218, ../scss/layouts/_introduction.scss */
+#introduction .spotlight .espaciado-abajo {
+  margin-bottom: 45px;
+}
+/* line 222, ../scss/layouts/_introduction.scss */
+#introduction .spotlight .herramienta-wrapper .herramienta-icono {
+  margin-bottom: 20px;
+}
+/* line 224, ../scss/layouts/_introduction.scss */
+#introduction .spotlight .herramienta-wrapper .herramienta-icono i.flaticon::before {
+  border: 1px solid #E5E5E5;
+  border-radius: 50px;
+  margin: 0;
+  padding: 25px;
+  font-size: 3rem;
+}
+/* line 231, ../scss/layouts/_introduction.scss */
+#introduction .spotlight .herramienta-wrapper .herramienta-icono i.h-propuesta.flaticon::before {
+  color: #4688B9 !important;
+}
+/* line 234, ../scss/layouts/_introduction.scss */
+#introduction .spotlight .herramienta-wrapper .herramienta-icono i.h-problematica.flaticon::before {
+  color: #EC8B44 !important;
+}
+/* line 237, ../scss/layouts/_introduction.scss */
+#introduction .spotlight .herramienta-wrapper .herramienta-icono i.h-documento.flaticon::before {
+  color: #5D46B9 !important;
+}
+/* line 240, ../scss/layouts/_introduction.scss */
+#introduction .spotlight .herramienta-wrapper .herramienta-icono i.h-evento.flaticon::before {
+  color: #46B988 !important;
+}
+/* line 243, ../scss/layouts/_introduction.scss */
+#introduction .spotlight .herramienta-wrapper .herramienta-icono i.h-anuncio.flaticon::before {
+  color: #B94646 !important;
+}
+/* line 249, ../scss/layouts/_introduction.scss */
+#introduction .spotlight .herramienta-wrapper .herramienta-titulo h3 {
+  letter-spacing: -1px;
+}
+/* line 253, ../scss/layouts/_introduction.scss */
+#introduction .spotlight .herramienta-wrapper .herramienta-descripcion {
+  padding: 0 30px;
+  font-size: 0.8125rem;
+  letter-spacing: -0.5px;
+  color: #848484;
+}
+/* line 262, ../scss/layouts/_introduction.scss */
+#introduction .final {
+  margin-bottom: 1px;
+  padding: 200px 0px;
+  background: url('../img/pre-registro-bg.jpg?1427252403') no-repeat center bottom;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+/* line 270, ../scss/layouts/_introduction.scss */
+#introduction .final .boton-final {
+  font-size: 2.5rem;
+  padding: 15px 80px;
+  letter-spacing: -1px;
 }
 
 /* line 1, ../scss/layouts/_registro.scss */

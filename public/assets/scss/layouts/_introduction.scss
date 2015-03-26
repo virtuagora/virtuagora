@@ -126,20 +126,153 @@
         .que-es{
             color: #fff;
             background-color: #3a89c9;
-            .icono{
-                font-size: rem-calc(206);
+            i.flaticon::before{
+                font-size: rem-calc(187);
+                margin: 0;
+                position: absolute;
+                top: -15px;
+                left: -60px;
             }
             .contenido{
                 h1, p{
                     color: #fff;
+                    letter-spacing: -1px;
                 }
                 p {
                     text-align: justify;
                     font-size: rem-calc(14);
+                    letter-spacing: -0.2px;
+                }
+            }
+        }
+        .extra-1, .extra-2, .extra-3, .extra-4, .extra-5{
+            color: #fff;
+            min-height: 300px;
+            .contenido{
+                h1, p{
+                    color: #fff;
+                    letter-spacing: -1px;
+                }
+                p {
+                    text-align: justify;
+                    font-size: rem-calc(14);
+                    letter-spacing: -0.2px;
+                }
+            }
+        }
+        .extra-1 {
+            background-color: #848484;
+            .icono{
+                i.flaticon::before{
+                    font-size: rem-calc(130);
+                    margin: 0;
+                }
+            }
+        }
+        .extra-2 {
+            background-color: $partido-color;
+            .icono{
+                i.flaticon::before{
+                    font-size: rem-calc(130);
+                    margin: 0;
+                }
+            }
+        }
+        .extra-3 {
+            background-color: $problematica-color;
+            .icono{
+                i.flaticon::before{
+                    font-size: rem-calc(130);
+                    margin: 0;
+                }
+            }
+        }
+        .extra-4 {
+            background-color: $documento-color;
+            .icono{
+                i.flaticon::before{
+                    font-size: rem-calc(130);
+                    margin: 0;
+                }
+            }
+        }
+        .extra-5 {
+            background-color: $propuesta-color;
+            .icono{
+                i.flaticon::before{
+                    font-size: rem-calc(130);
+                    margin: 0;
                 }
             }
         }
     }
+
+    .spotlight{
+        padding: 40px 0px;
+        .titulo{
+            h1{
+                margin-bottom: 50px;
+                letter-spacing: -2px;
+            }
+        }
+        .espaciado-abajo{
+            margin-bottom: 45px;
+        }
+        .herramienta-wrapper{
+            .herramienta-icono{
+                margin-bottom: 20px;
+                i.flaticon::before{
+                    border: 1px solid #E5E5E5;
+                    border-radius: 50px;
+                    margin: 0;
+                    padding: 25px;
+                    font-size: rem-calc(48);
+                }
+                i.h-propuesta.flaticon::before{
+                    color: $propuesta-color !important;
+                }
+                i.h-problematica.flaticon::before{
+                    color: $problematica-color !important;
+                }
+                i.h-documento.flaticon::before{
+                    color: $documento-color !important;
+                }
+                i.h-evento.flaticon::before{
+                    color: $evento-color !important;
+                }
+                i.h-anuncio.flaticon::before{
+                    color: $novedad-color !important;
+                }
+
+            }
+            .herramienta-titulo{
+                h3{
+                    letter-spacing: -1px;
+                }
+            }
+            .herramienta-descripcion{
+                padding: 0 30px;
+                font-size: rem-calc(13);
+                letter-spacing: -0.5px;
+                color: #848484;
+            }
+        }
+    }
+
+    .final{
+        margin-bottom: 1px;
+        padding: 200px 0px;
+            background: image-url("pre-registro-bg.jpg") no-repeat center bottom;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            .boton-final{
+                font-size: rem-calc(40);
+                padding: 15px 80px;
+                letter-spacing: -1px;
+            }
+        }
 
 
 
