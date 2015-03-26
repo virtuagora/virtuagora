@@ -7,8 +7,8 @@ class PortalCtrl extends Controller {
             $contenidos = Contenido::all();
             $this->render('usuario/portal.twig', array('contenidos' => $contenidos->toArray()));
         } else {
-            //$this->render('introduccion.twig');
-            echo 'holis';
+            $this->render('introduccion.twig');
+            //echo 'holis';
         }
     }
 
