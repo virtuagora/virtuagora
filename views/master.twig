@@ -70,11 +70,11 @@
             </nav>
         </div>
         <!-- Javascript/Jquery -->
-        <script src="{{ baseUrl }}/assets/js/jquery/jquery.min.js"></script>
-        <script src="{{ baseUrl }}/assets/js/foundation/foundation.min.js"></script>
-        <script src="{{ baseUrl }}/assets/js/foundation/foundation.alert.js"></script>
+        <script src="{{ baseUrl() }}/assets/js/jquery/jquery.min.js"></script>
+        <script src="{{ baseUrl() }}/assets/js/foundation/foundation.min.js"></script>
+        <script src="{{ baseUrl() }}/assets/js/foundation/foundation.alert.js"></script>
         {% block scripts %}{% endblock %}
-        <script src="{{ baseUrl }}/assets/js/app.js"></script>
+        <script src="{{ baseUrl() }}/assets/js/app.js"></script>
         <script>
             var menuOvrl = $('.js-main-menu-ovrl');
             var menuHamburger = $('.js-main-menu-open');
