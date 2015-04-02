@@ -1,0 +1,54 @@
+// CREAR
+
+.crear-contenido{
+    .panel-crear-cont{
+        .imagen-evento{
+            padding: 40px 90px;
+            background-color: #F2F2F2;
+            color: #8d8d8d;
+            border: 1px solid #8d8d8d;
+            position: relative;
+            float:left;
+            font-size: rem-calc(80px)
+        }
+        //.datos-cont{
+           // .tags-cont{
+          //
+           // }
+           // font-size: rem-calc(14);
+           // img{
+           //     margin: 0 5px;
+          //      width: 20px;
+          //      height: 20px;
+          //  }
+        //}
+        .fecha-row{
+            margin-bottom: 50px;
+        }
+        .datos-evento{
+            margin-left: 300px;
+        }
+        #datepicker{
+            font-family: "Source Sans Pro",sans-serif;
+            font-style: normal;
+            font-size: rem-calc(35);
+            text-rendering: optimizelegibility;
+            color: #383838;
+            border: 0px solid #484848;
+            width: 100%;
+            min-height: 70px;
+            box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+            text-align: center;
+            resize: none;
+            &:focus{
+                background-color: #fff4c4;
+                outline: 0;
+            }
+            margin: 0;
+        }
+    }
+}
+
+#ui-datepicker-div{
+    font-size: rem-calc(13);
+}
