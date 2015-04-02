@@ -4672,23 +4672,23 @@ html, body {
   top: 0px;
   z-index: 10000;
 }
-/* line 14, ../scss/global/_barra-nav.scss */
+/* line 11, ../scss/global/_barra-nav.scss */
 .barra-nav .izquierda {
   position: relative;
   float: left;
   margin: 0;
 }
-/* line 19, ../scss/global/_barra-nav.scss */
+/* line 16, ../scss/global/_barra-nav.scss */
 .barra-nav .derecha {
   position: relative;
   float: right;
   margin: 0;
 }
-/* line 25, ../scss/global/_barra-nav.scss */
+/* line 22, ../scss/global/_barra-nav.scss */
 .barra-nav ul.nav {
   margin: 0px;
 }
-/* line 27, ../scss/global/_barra-nav.scss */
+/* line 24, ../scss/global/_barra-nav.scss */
 .barra-nav ul.nav li {
   display: inline-block;
   vertical-align: middle;
@@ -4697,23 +4697,23 @@ html, body {
   font-size: 0.8125rem;
   letter-spacing: -0.5px;
 }
-/* line 34, ../scss/global/_barra-nav.scss */
+/* line 31, ../scss/global/_barra-nav.scss */
 .barra-nav ul.nav li a.bt-logout {
   color: #ce1a1a;
 }
-/* line 37, ../scss/global/_barra-nav.scss */
+/* line 34, ../scss/global/_barra-nav.scss */
 .barra-nav ul.nav li a {
   color: #000000;
 }
-/* line 41, ../scss/global/_barra-nav.scss */
+/* line 38, ../scss/global/_barra-nav.scss */
 .barra-nav ul.nav li .notificaciones {
   position: relative;
 }
-/* line 43, ../scss/global/_barra-nav.scss */
+/* line 40, ../scss/global/_barra-nav.scss */
 .barra-nav ul.nav li .notificaciones i {
   float: left;
 }
-/* line 46, ../scss/global/_barra-nav.scss */
+/* line 43, ../scss/global/_barra-nav.scss */
 .barra-nav ul.nav li .notificaciones .contador-on {
   position: absolute;
   width: 15px;
@@ -4727,7 +4727,7 @@ html, body {
   text-align: center;
   font-size: 0.625rem;
 }
-/* line 61, ../scss/global/_barra-nav.scss */
+/* line 58, ../scss/global/_barra-nav.scss */
 .barra-nav ul.nav li i.bt {
   font-size: 1.75rem;
 }
