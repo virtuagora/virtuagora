@@ -1,0 +1,60 @@
+// Sticky Footer by Ryan Fait
+// http://ryanfait.com/
+
+*{
+    margin: 0px;
+}
+
+html, body {
+    height: 100%;
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto rem-calc(-143px);
+}
+
+#footer, .push {
+    height: rem-calc(143px);
+}
+
+#footer{
+    background-color: #333333;
+    .row{
+        max-width: 95%
+    }
+    .footer-links{
+        li a {
+            font-size: rem-calc(15px);
+            color: #CCC;
+        }
+    }
+    .credits{
+        p {
+            font-size: rem-calc(12);
+            color: #666666;
+            margin: 0;
+        }
+        a {
+            color: #FFFFFF;
+        }
+    }
+    .footer-share{
+        p {
+            padding-left: 50%
+        }
+        em {
+            font-size: rem-calc(12px);
+            color: #666666;
+        }
+        a i {
+            font-size: rem-calc(28px);
+            color: #FFF;
+            padding: rem-calc(0px) rem-calc(5px);
+        }
+
+    }
+    padding: rem-calc(15px) rem-calc(5px) rem-calc(5px);
+}
