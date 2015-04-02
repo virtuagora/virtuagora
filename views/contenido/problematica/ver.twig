@@ -160,7 +160,7 @@
 {% block modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block scripts_cont %}
-<script src="{{ baseUrl }}/assets/js/underscore/underscore-min.js"></script>
+<script src="{{ baseUrl() }}/assets/js/underscore/underscore-min.js"></script>
 <script>
     var votoPostura = {{ voto.postura is null ? 'null' : voto.postura }};
     $(document).ready(function(){

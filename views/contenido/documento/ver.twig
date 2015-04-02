@@ -8,8 +8,8 @@
 {# ----------------------------------------------------------- #}
 {% set color_cont = 'color-documento' %}
 {% block linkheads_cont %}
-<link rel="stylesheet" type="text/css" href="{{ baseUrl }}/assets/css/slick/slick.css"/>
-<link rel="stylesheet" type="text/css" href="{{ baseUrl }}/assets/css/slick/slick-theme.css"/>
+<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/slick/slick-theme.css"/>
 {% endblock linkheads_cont %}
 {# ----------------------------------------------------------- #}
 {% set titulo_cont = documento.titulo %}
@@ -124,7 +124,7 @@
 {% block modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block scripts_cont %}
-<script src="{{ baseUrl }}/assets/js/slick/slick.min.js"></script>
+<script src="{{ baseUrl() }}/assets/js/slick/slick.min.js"></script>
 <script>
     var cantParrafos =  {{ cant_parrafos }};
     $(document).ready(function(){

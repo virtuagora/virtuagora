@@ -106,7 +106,7 @@
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block scripts_cont %}
-<script src="{{ baseUrl }}/assets/js/underscore/underscore-min.js"></script>
+<script src="{{ baseUrl() }}/assets/js/underscore/underscore-min.js"></script>
 <script>
     var cupos_tot = {{ organismo['cupo'] }};
     var cupos_ocu = {{ organismo['funcionarios_count'] }};
