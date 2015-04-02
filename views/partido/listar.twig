@@ -24,6 +24,9 @@
                 <div class="panel small-8 small-centered columns">
                     Aqui puede ver los partidos políticos que participan. Puede obtener mas información acerca de alguno haciendo clic sobre el icono <i class="fa fa-info fa-fw"></i> que lo redireccionará al perfil del partido.
                 </div>
+                {% if user and (user.es_funcionario == 1) and (user.es_jefe == 0) %}
+                <a class="button oposite radius small" href="{{ urlFor('shwCrearPartido') }}"><i class="fa fa-plus fa-fw fa-lg"></i>&nbsp;Crear un nuevo partido</a>
+                {% endif %}
                 <a class="button oposite radius small" href="{{ urlFor('shwIndex') }}"><i class="fa fa-undo fa-fw fa-lg"></i>&nbsp;Volver atrás</a>
             </section>
         </div>
