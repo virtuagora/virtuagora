@@ -4564,52 +4564,17 @@ blockquote p {
   opacity: 0.75;
 }
 
-/* line 2, ../scss/_global.scss */
-.color-problematica {
-  background-color: #EC8B44 !important;
-}
-
-/* line 3, ../scss/_global.scss */
-.color-propuesta {
-  background-color: #4688B9 !important;
-}
-
-/* line 4, ../scss/_global.scss */
-.color-documento {
-  background-color: #5D46B9 !important;
-}
-
-/* line 5, ../scss/_global.scss */
-.color-anuncio {
-  background-color: #B94646 !important;
-}
-
-/* line 6, ../scss/_global.scss */
-.color-evento {
-  background-color: #46B988 !important;
-}
-
-/* line 7, ../scss/_global.scss */
-.color-partido {
-  background-color: #84a240 !important;
-}
-
-/* line 8, ../scss/_global.scss */
-.color-config {
-  background-color: #848484 !important;
-}
-
-/* line 15, ../scss/_global.scss */
+/* line 4, ../scss/global/_sticky-footer.scss */
 * {
   margin: 0px;
 }
 
-/* line 19, ../scss/_global.scss */
+/* line 8, ../scss/global/_sticky-footer.scss */
 html, body {
   height: 100%;
 }
 
-/* line 23, ../scss/_global.scss */
+/* line 12, ../scss/global/_sticky-footer.scss */
 .wrapper {
   min-height: 100%;
   height: auto !important;
@@ -4617,248 +4582,161 @@ html, body {
   margin: 0 auto -8.9375rem;
 }
 
-/* line 30, ../scss/_global.scss */
+/* line 19, ../scss/global/_sticky-footer.scss */
 #footer, .push {
   height: 8.9375rem;
 }
 
-/* line 34, ../scss/_global.scss */
+/* line 23, ../scss/global/_sticky-footer.scss */
 #footer {
   background-color: #333333;
   padding: 0.9375rem 0.3125rem 0.3125rem;
 }
-/* line 36, ../scss/_global.scss */
+/* line 25, ../scss/global/_sticky-footer.scss */
 #footer .row {
   max-width: 95%;
 }
-/* line 40, ../scss/_global.scss */
+/* line 29, ../scss/global/_sticky-footer.scss */
 #footer .footer-links li a {
   font-size: 0.9375rem;
   color: #CCC;
 }
-/* line 46, ../scss/_global.scss */
+/* line 35, ../scss/global/_sticky-footer.scss */
 #footer .credits p {
   font-size: 0.75rem;
   color: #666666;
   margin: 0;
 }
-/* line 51, ../scss/_global.scss */
+/* line 40, ../scss/global/_sticky-footer.scss */
 #footer .credits a {
   color: #FFFFFF;
 }
-/* line 56, ../scss/_global.scss */
+/* line 45, ../scss/global/_sticky-footer.scss */
 #footer .footer-share p {
   padding-left: 50%;
 }
-/* line 59, ../scss/_global.scss */
+/* line 48, ../scss/global/_sticky-footer.scss */
 #footer .footer-share em {
   font-size: 0.75rem;
   color: #666666;
 }
-/* line 63, ../scss/_global.scss */
+/* line 52, ../scss/global/_sticky-footer.scss */
 #footer .footer-share a i {
   font-size: 1.75rem;
   color: #FFF;
   padding: 0 0.3125rem;
 }
 
-/* line 76, ../scss/_global.scss */
-.no-body-bg {
-  background: 0;
+/* line 1, ../scss/global/_colores.scss */
+.color-problematica {
+  background-color: #EC8B44 !important;
 }
 
-/* line 82, ../scss/_global.scss */
-#header-nav {
+/* line 2, ../scss/global/_colores.scss */
+.color-propuesta {
+  background-color: #4688B9 !important;
+}
+
+/* line 3, ../scss/global/_colores.scss */
+.color-documento {
+  background-color: #5D46B9 !important;
+}
+
+/* line 4, ../scss/global/_colores.scss */
+.color-anuncio {
+  background-color: #B94646 !important;
+}
+
+/* line 5, ../scss/global/_colores.scss */
+.color-evento {
+  background-color: #46B988 !important;
+}
+
+/* line 6, ../scss/global/_colores.scss */
+.color-partido {
+  background-color: #84a240 !important;
+}
+
+/* line 7, ../scss/global/_colores.scss */
+.color-config {
+  background-color: #848484 !important;
+}
+
+/* line 2, ../scss/global/_barra-nav.scss */
+.barra-nav {
   background: none repeat scroll 0% 0% #FFF;
-  border-bottom: 1px solid #d0d0d0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   display: block;
   padding: 10px;
-  width: 100%;
-  height: 53px;
+  height: 46px;
   top: 0px;
   z-index: 10000;
-  font-size: 0.875rem;
 }
-/* line 93, ../scss/_global.scss */
-#header-nav #header-contenido {
-  margin: auto;
-}
-/* line 96, ../scss/_global.scss */
-#header-nav h1.title {
+/* line 14, ../scss/global/_barra-nav.scss */
+.barra-nav .izquierda {
+  position: relative;
   float: left;
-  font-size: 1.3125rem;
   margin: 0;
 }
-/* line 102, ../scss/_global.scss */
-#header-nav ul.nav, #header-nav ul.info {
+/* line 19, ../scss/global/_barra-nav.scss */
+.barra-nav .derecha {
+  position: relative;
+  float: right;
+  margin: 0;
+}
+/* line 25, ../scss/global/_barra-nav.scss */
+.barra-nav ul.nav {
   margin: 0px;
 }
-/* line 104, ../scss/_global.scss */
-#header-nav ul.nav li, #header-nav ul.info li {
+/* line 27, ../scss/global/_barra-nav.scss */
+.barra-nav ul.nav li {
   display: inline-block;
   vertical-align: middle;
   list-style-type: none;
   margin: 0px 0px 0px 10px;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
+  letter-spacing: -0.5px;
 }
-/* line 110, ../scss/_global.scss */
-#header-nav ul.nav li .button, #header-nav ul.info li .button {
-  font-size: 0.875rem;
-  margin: 0;
-  padding: 5px 15px;
+/* line 34, ../scss/global/_barra-nav.scss */
+.barra-nav ul.nav li a.bt-logout {
+  color: #ce1a1a;
 }
-/* line 115, ../scss/_global.scss */
-#header-nav ul.nav li img, #header-nav ul.info li img {
-  border-radius: 3px 3px 3px 3px;
+/* line 37, ../scss/global/_barra-nav.scss */
+.barra-nav ul.nav li a {
+  color: #000000;
 }
-/* line 120, ../scss/_global.scss */
-#header-nav ul.nav {
-  float: right;
+/* line 41, ../scss/global/_barra-nav.scss */
+.barra-nav ul.nav li .notificaciones {
+  position: relative;
 }
-/* line 123, ../scss/_global.scss */
-#header-nav ul.info {
-  display: block;
-  text-align: center;
+/* line 43, ../scss/global/_barra-nav.scss */
+.barra-nav ul.nav li .notificaciones i {
+  float: left;
 }
-
-/* main-menu-ovrl style */
-/* line 133, ../scss/_global.scss */
-.bt-menu-ovrl {
-  cursor: pointer;
-}
-
-/* line 137, ../scss/_global.scss */
-.main-menu-ovrl {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.9);
-  -webkit-user-select: none;
-  user-select: none;
-  /* main-menu-ovrl closing cross */
-  /* Menu style */
-}
-/* line 147, ../scss/_global.scss */
-.main-menu-ovrl .main-menu-ovrl-close {
-  font-size: 3.75rem;
-  text-align: center;
+/* line 46, ../scss/global/_barra-nav.scss */
+.barra-nav ul.nav li .notificaciones .contador-on {
   position: absolute;
-  right: 2.1875rem;
-  top: 2.1875rem;
-  overflow: hidden;
-  border: none;
-  color: #FFFFFF;
-  outline: none;
-  z-index: 100;
-  cursor: pointer;
-  -webkit-user-select: none;
-  user-select: none;
-}
-/* line 163, ../scss/_global.scss */
-.main-menu-ovrl nav {
+  width: 15px;
+  left: 20px;
+  top: -10px;
+  line-height: 15px;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  background-color: #ce1a1a;
+  color: white;
   text-align: center;
-  position: relative;
-  top: 50%;
-  height: 60%;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
+  font-size: 0.625rem;
 }
-/* line 171, ../scss/_global.scss */
-.main-menu-ovrl ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 auto;
-  display: inline-block;
-  height: 100%;
-  position: relative;
-  -webkit-user-select: none;
-  user-select: none;
-}
-/* line 180, ../scss/_global.scss */
-.main-menu-ovrl ul li {
-  display: block;
-  height: 20%;
-  height: calc(100% / 5);
-  min-height: 3.375rem;
-}
-/* line 185, ../scss/_global.scss */
-.main-menu-ovrl ul li a {
-  font-weight: 300;
-  display: block;
-  color: #FFFFFF;
-  font-size: 3.375rem;
-  -webkit-transition: color 0.2s;
-  transition: color 0.2s;
-  font-family: 'Source Sans Pro', sans-serif;
-  text-decoration: none;
-}
-/* line 194, ../scss/_global.scss */
-.main-menu-ovrl ul li a:hover, .main-menu-ovrl ul li a:focus {
-  color: gray;
+/* line 61, ../scss/global/_barra-nav.scss */
+.barra-nav ul.nav li i.bt {
+  font-size: 1.75rem;
 }
 
-/* Effects */
-/* line 203, ../scss/_global.scss */
-.main-menu-ovrl-hugeinc {
-  opacity: 0;
-  visibility: hidden;
-  -webkit-transition: opacity 0.5s, visibility 0s 0.5s;
-  transition: opacity 0.5s, visibility 0s 0.5s;
-}
-/* line 208, ../scss/_global.scss */
-.main-menu-ovrl-hugeinc nav {
-  -webkit-perspective: 75rem;
-  perspective: 75rem;
-}
-/* line 211, ../scss/_global.scss */
-.main-menu-ovrl-hugeinc nav ul {
-  opacity: 0.4;
-  -webkit-transform: translateY(-25%) rotateX(35deg);
-  transform: translateY(-25%) rotateX(35deg);
-  -webkit-transition: -webkit-transform 0.5s, opacity 0.5s;
-  transition: transform 0.5s, opacity 0.5s;
-}
-/* line 219, ../scss/_global.scss */
-.main-menu-ovrl-hugeinc.open {
-  opacity: 1;
-  visibility: visible;
-  -webkit-transition: opacity 0.5s;
-  transition: opacity 0.5s;
-}
-/* line 225, ../scss/_global.scss */
-.main-menu-ovrl-hugeinc.open nav ul {
-  opacity: 1;
-  -webkit-transform: rotateX(0deg);
-  transform: rotateX(0deg);
-}
-/* line 234, ../scss/_global.scss */
-.main-menu-ovrl-hugeinc.close nav ul {
-  -webkit-transform: translateY(25%) rotateX(-35deg);
-  transform: translateY(25%) rotateX(-35deg);
+/* line 2, ../scss/global/_misc.scss */
+.no-body-bg {
+  background: 0;
 }
 
-@media screen and (max-height: 30.5em) {
-  /* line 243, ../scss/_global.scss */
-  .main-menu-ovrl nav {
-    height: 70%;
-  }
-  /* line 245, ../scss/_global.scss */
-  .main-menu-ovrl nav li a {
-    font-size: 2.125rem;
-  }
-  /* line 247, ../scss/_global.scss */
-  .main-menu-ovrl nav li a img {
-    width: 64px;
-    height: 64px;
-  }
-
-  /* line 253, ../scss/_global.scss */
-  .main-menu-ovrl ul li {
-    min-height: 2.125rem;
-  }
-}
 /* line 2, ../scss/_custom.scss */
 .button {
   color: #1d80d0;
