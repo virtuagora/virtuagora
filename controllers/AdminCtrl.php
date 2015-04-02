@@ -4,7 +4,6 @@ class AdminCtrl extends Controller {
 
     public function verOrganismos() {
         $req = $this->request;
-        $vdt = Paginator::validate($req->get());
         $url = $req->getUrl().$req->getPath();
         $paginator = new Paginator(Organismo::query(), $url, $vdt->getData());
         $organismos = $paginator->rows;

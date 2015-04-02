@@ -1,19 +1,9 @@
 <?php use Augusthur\Validation as Validate;
 
-class ContenidoCtrl extends Controller {
+class ContenidoCtrl extends RMRController {
 
-    use RestTrait;
-
-    private $ordenables = array('id', 'puntos', 'created_at');
-    private $filtrables = array('id', 'puntos');
-
-    public function getRepresentation($conneg) {
-        if (substr($conneg, 0, 16) == 'application/json') {
-            return new JsonRepr();
-        } else {
-            throw new BearableException('Petición de formato de contenido no disponible.', 406);
-        }
-    }
+    protected $mediaTypes = array('json');
+    protected $properties = array('id', 'puntos', 'created_at');
 
     public function queryModel() {
         return Contenido::query();

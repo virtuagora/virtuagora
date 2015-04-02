@@ -20,6 +20,11 @@ $patrulla->nombre = 'moderadores';
 $patrulla->descripcion = 'Los moderadores.';
 $patrulla->save();
 
+$poder = new Poder;
+$poder->accion = 'admConteni';
+$poder->patrulla()->associate($patrulla);
+$poder->save();
+
 $moderador = new Moderador;
 $moderador->usuario()->associate($usuario);
 $moderador->patrulla()->associate($patrulla);

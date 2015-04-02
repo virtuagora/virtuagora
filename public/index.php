@@ -22,24 +22,33 @@ $app->container->singleton('session', function () {
     return new SessionManager();
 });
 
+$app->api = false;
+
 // Prepare error handler
 $app->error(function (Exception $e) use ($app) {
-    if ($e instanceof TurnbackException) {
-        $app->flash('errors', $e->getErrors());
-        $app->redirect($app->request->getReferrer());
-    } else if ($e instanceof BearableException) {
-        $app->render('misc/error.twig', array('mensaje' => $e->getMessage()), $e->getCode());
-    } else if ($e instanceof Illuminate\Database\Eloquent\ModelNotFoundException) {
-        $app->notFound();
+    if ($app->api) {
+        $msg = array('code' => $e->getCode(), 'message' => $e->getMessage());
+        if ($e instanceof TurnbackException) {
+            $msg['errors'] = $e->getErrors();
+        }
+        echo json_encode($msg);
     } else {
-        $app->render('misc/fatal-error.twig', array('type' => get_class($e), 'exception' => $e));
+        if ($e instanceof TurnbackException) {
+            $app->flash('errors', $e->getErrors());
+            $app->redirect($app->request->getReferrer());
+        } else if ($e instanceof BearableException) {
+            $app->render('misc/error.twig', array('mensaje' => $e->getMessage()), $e->getCode());
+        } else if ($e instanceof Illuminate\Database\Eloquent\ModelNotFoundException) {
+            $app->notFound();
+        } else {
+            $app->render('misc/fatal-error.twig', array('type' => get_class($e), 'exception' => $e));
+        }
     }
 });
 
 // Prepare hooks
 $app->hook('slim.before', function () use ($app) {
-    $app->view()->appendData(array('baseUrl' => $app->request->getRootUri(),
-                                   'user' => $app->session->user()));
+    $app->view()->appendData(array('user' => $app->session->user()));
 });
 
 // Prepare middlewares
@@ -53,41 +62,60 @@ function checkNoSession() {
 function checkRole($role) {
     return function () use ($role) {
         global $app;
-        if (!$app->session->hasRole($role)) {
+        if (is_array($role)) {
+            $rejected = empty($app->session->grantedRoles($role));
+        } else {
+            $rejected = !$app->session->hasRole($role);
+        }
+        if ($rejected) {
+            throw new BearableException('No tiene permiso para realizar esta acción', 403);
+        }
+    };
+}
+
+function checkUserAuth($action, $checkMod = false) {
+    global $app;
+    $roles = $app->session->rolesAllowedTo($action);
+    if ($checkMod && count($roles) == 1 && $roles[0] == 'mod') {
+        return checkAdminAuth('admConteni');
+    } else {
+        return checkRole($roles);
+    }
+}
+
+function checkAdminAuth($action) {
+    return function () use ($action) {
+        global $app;
+        if (!$app->session->isAdminAllowedTo($action)) {
             throw new BearableException('No tiene permiso para realizar esta acción', 403);
         }
     };
 }
 
 /*
-function negotiate($content) {
-    return function () use ($content) {
-        global $app;
-        if (strpos($app->request->headers->get('ACCEPT'), $content) === FALSE) {
-            $app->pass();
-        }
-    };
-}
+checkAdminAuth('accion')
+
+checkUserAuth('accion') <------------- por ahora uso checkRole
+
+checkAdminOrUserAuth('accion')
+
+---
+
+rolesAllowedTo('accion') -> ['rol1', 'rol2', ...]
+
+grantedRoles(['rolX', 'rolY', ...]) -> ['rol1']
 */
 
-// Prepare dispatcher
-//$app->get('/:recurso', negotiate('application/json'), 'ApiCtrl:listar');
-//$app->get('/contenido', negotiate('application/json'), 'PortalCtrl:restList');
-/*
-$app->get('/usuario', function () use ($app) {
-    if (strpos($app->request->headers->get('ACCEPT'), 'application/json') !== FALSE) {
-        echo Usuario::all()->toJson();
-    }
-});
-
-$app->get('/usuario/:idUsr', function ($idUsr) use ($app) {
-    if (strpos($app->request->headers->get('ACCEPT'), 'application/json') !== FALSE) {
-        echo Usuario::findOrFail($idUsr)->toJson();
-    }
-});
-*/
 $app->get('/test', function () use ($app) {
-    var_dump(implode(', ', array()));
+    /*$mod = Moderador::with(['patrulla.poderes' => function($query) {
+        $query->where('accion', 'admContenis');
+    }])->find(1);*/
+
+    $mod = Moderador::whereHas('patrulla.poderes', function($q) {
+        $q->where('accion', 'admConteni');
+    })->find(1);
+
+    var_dump($mod);
     //$c->load('contenidos');
     //var_dump($c->contenidos()->toArray());
     //var_dump(Contenido::findOrFail(1)->nombre ?: Contenido::findOrFail(1)->titulo);
@@ -111,13 +139,17 @@ $app->get('/contenido', 'ContenidoCtrl:listar')->name('shwListaConteni');
 $app->get('/usuario/:idUsr', 'UsuarioCtrl:ver')->name('shwUsuario');
 $app->get('/usuario', 'UsuarioCtrl:listar')->name('shwListaUsuario');
 
-$app->get('/perfil/modificar', checkRole('usr'), 'UsuarioCtrl:verModificar')->name('shwModifUsuario');
-$app->post('/perfil/modificar', checkRole('usr'), 'UsuarioCtrl:modificar')->name('runModifUsuario');
-$app->post('/perfil/cambiar-imagen', checkRole('usr'), 'UsuarioCtrl:cambiarImagen')->name('runModifImgUsuario');
-$app->get('/perfil/cambiar-clave', checkRole('usr'), 'UsuarioCtrl:verCambiarClave')->name('shwModifClvUsuario');
-$app->post('/perfil/cambiar-clave', checkRole('usr'), 'UsuarioCtrl:cambiarClave')->name('runModifClvUsuario');
-$app->get('/perfil/eliminar', checkRole('usr'), 'UsuarioCtrl:verEliminar')->name('shwElimiUsuario');
-$app->post('/perfil/eliminar', checkRole('usr'), 'UsuarioCtrl:eliminar')->name('runElimiUsuario');
+$app->post('/comentar/:tipoRaiz/:idRaiz', checkRole('usr'), 'ComentarioCtrl:comentar')->name('runComentar');
+
+$app->group('/perfil', function () use ($app) {
+    $app->get('/modificar', checkRole('usr'), 'UsuarioCtrl:verModificar')->name('shwModifUsuario');
+    $app->post('/modificar', checkRole('usr'), 'UsuarioCtrl:modificar')->name('runModifUsuario');
+    $app->post('/cambiar-imagen', checkRole('usr'), 'UsuarioCtrl:cambiarImagen')->name('runModifImgUsuario');
+    $app->get('/cambiar-clave', checkRole('usr'), 'UsuarioCtrl:verCambiarClave')->name('shwModifClvUsuario');
+    $app->post('/cambiar-clave', checkRole('usr'), 'UsuarioCtrl:cambiarClave')->name('runModifClvUsuario');
+    $app->get('/eliminar', checkRole('usr'), 'UsuarioCtrl:verEliminar')->name('shwElimiUsuario');
+    $app->post('/eliminar', checkRole('usr'), 'UsuarioCtrl:eliminar')->name('runElimiUsuario');
+});
 
 $app->group('/admin', function () use ($app) {
     $app->get('/organismo', checkRole('mod'), 'AdminCtrl:verOrganismos')->name('shwAdmOrganis');
@@ -135,50 +167,45 @@ $app->group('/admin', function () use ($app) {
 });
 
 $app->group('/propuesta', function () use ($app) {
+    $app->get('/crear', checkRole('fnc'), 'PropuestaCtrl:verCrear')->name('shwCrearPropues');
+    $app->post('/crear', checkRole('fnc'), 'PropuestaCtrl:crear')->name('runCrearPropues');
     $app->get('/:idPro', 'PropuestaCtrl:ver')->name('shwPropues');
     $app->post('/:idPro/votar', checkRole('usr'), 'PropuestaCtrl:votar')->name('runVotarPropues');
     $app->post('/:idPro/cambiar-privacidad', checkRole('usr'), 'PropuestaCtrl:cambiarPrivacidad')->name('runModifPrvPropues');
-    $app->get('/:idPro/modificar', 'PropuestaCtrl:verModificar')->name('shwModifPropues');
-    $app->post('/:idPro/modificar', 'PropuestaCtrl:modificar')->name('runModifPropues');
-    $app->post('/:idPro/eliminar', checkRole('usr'), 'PropuestaCtrl:eliminar')->name('runElimiPropues');
+    $app->get('/:idPro/modificar', checkRole(['fnc', 'mod']), 'PropuestaCtrl:verModificar')->name('shwModifPropues');
+    $app->post('/:idPro/modificar', checkRole(['fnc', 'mod']), 'PropuestaCtrl:modificar')->name('runModifPropues');
+    $app->post('/:idPro/eliminar', checkRole(['fnc', 'mod']), 'PropuestaCtrl:eliminar')->name('runElimiPropues');
 });
 
 $app->group('/problematica', function () use ($app) {
+    $app->get('/crear', checkRole('usr'), 'ProblematicaCtrl:verCrear')->name('shwCrearProblem');
+    $app->post('/crear', checkRole('usr'), 'ProblematicaCtrl:crear')->name('runCrearProblem');
     $app->get('/:idPro', 'ProblematicaCtrl:ver')->name('shwProblem');
     $app->post('/:idPro/votar', checkRole('usr'), 'ProblematicaCtrl:votar')->name('runVotarProblem');
 });
 
 $app->group('/documento', function () use ($app) {
+    $app->get('/crear', checkRole('fnc'), 'DocumentoCtrl:verCrear')->name('shwCrearDocumen');
+    $app->post('/crear', checkRole('fnc'), 'DocumentoCtrl:crear')->name('runCrearDocumen');
     $app->get('/:idDoc', 'DocumentoCtrl:ver')->name('shwDocumen');
     $app->get('/:idDoc/v/:idVer', 'DocumentoCtrl:ver')->name('shwVerDocumen');
-    $app->get('/:idDoc/modificar', 'DocumentoCtrl:verModificar')->name('shwModifDocumen');
-    $app->post('/:idDoc/modificar', 'DocumentoCtrl:modificar')->name('runModifDocumen');
-    $app->get('/:idDoc/nueva-version', 'DocumentoCtrl:verNuevaVersion')->name('shwNuVerDocumen');
-    $app->post('/:idDoc/nueva-version', 'DocumentoCtrl:nuevaVersion')->name('runNuVerDocumen');
-    $app->post('/:idDoc/eliminar', 'DocumentoCtrl:eliminar')->name('runElimiDocumen');
+    $app->get('/:idDoc/modificar', checkRole(['fnc', 'mod']), 'DocumentoCtrl:verModificar')->name('shwModifDocumen');
+    $app->post('/:idDoc/modificar', checkRole(['fnc', 'mod']), 'DocumentoCtrl:modificar')->name('runModifDocumen');
+    $app->get('/:idDoc/nueva-version', checkRole('fnc'), 'DocumentoCtrl:verNuevaVersion')->name('shwNuVerDocumen');
+    $app->post('/:idDoc/nueva-version', checkRole('fnc'), 'DocumentoCtrl:nuevaVersion')->name('runNuVerDocumen');
+    $app->post('/:idDoc/eliminar', checkRole(['fnc', 'mod']), 'DocumentoCtrl:eliminar')->name('runElimiDocumen');
 });
 
 $app->group('/partido', function () use ($app) {
     $app->get('', 'PartidoCtrl:listar')->name('shwListaPartido');
-    $app->post('/:idPar/unirse', checkRole('usr'), 'PartidoCtrl:unirse')->name('runUnirsePartido');
+    $app->get('/crear', checkRole('fnc'), 'PartidoCtrl:verCrear')->name('shwCrearPartido');
+    $app->post('/crear', checkRole('fnc'), 'PartidoCtrl:crear')->name('runCrearPartido');
     $app->post('/dejar', checkRole('usr'), 'PartidoCtrl:dejar')->name('runDejarPartido');
+    $app->post('/:idPar/unirse', checkRole('usr'), 'PartidoCtrl:unirse')->name('runUnirsePartido');
+    $app->get('/:idPar/modificar', checkRole('fnc'), 'PartidoCtrl:verModificar')->name('shwModifPartido');
+    $app->post('/:idPar/modificar', checkRole('fnc'), 'PartidoCtrl:modificar')->name('runModifPartido');
+    $app->post('/:idPar/cambiar-imagen', checkRole('fnc'), 'PartidoCtrl:cambiarImagen')->name('runModifImgPartido');
 });
-$app->get('/modificar/partido/:idPar', checkRole('fnc'), 'PartidoCtrl:verModificar')->name('shwModifPartido');
-$app->post('/modificar/partido/:idPar', checkRole('fnc'), 'PartidoCtrl:modificar')->name('runModifPartido');
-$app->post('/cambiar-imagen/partido/:idPar', checkRole('fnc'), 'PartidoCtrl:cambiarImagen')->name('runModifImgPartido');
-
-$app->group('/crear', function () use ($app) {
-    $app->get('/partido', checkRole('fnc'), 'PartidoCtrl:verCrear')->name('shwCrearPartido');
-    $app->post('/partido', checkRole('fnc'), 'PartidoCtrl:crear')->name('runCrearPartido');
-    $app->get('/propuesta', checkRole('fnc'), 'PropuestaCtrl:verCrear')->name('shwCrearPropues');
-    $app->post('/propuesta', checkRole('fnc'), 'PropuestaCtrl:crear')->name('runCrearPropues');
-    $app->get('/documento', checkRole('fnc'), 'DocumentoCtrl:verCrear')->name('shwCrearDocumen');
-    $app->post('/documento', checkRole('fnc'), 'DocumentoCtrl:crear')->name('runCrearDocumen');
-    $app->get('/problematica', checkRole('usr'), 'ProblematicaCtrl:verCrear')->name('shwCrearProblem');
-    $app->post('/problematica', checkRole('usr'), 'ProblematicaCtrl:crear')->name('runCrearProblem');
-});
-
-$app->post('/comentar/:tipoRaiz/:idRaiz', checkRole('usr'), 'ComentarioCtrl:comentar')->name('runComentar');
 
 session_cache_limiter(false);
 session_start();

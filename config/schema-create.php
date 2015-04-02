@@ -163,6 +163,18 @@ Capsule::schema()->create('moderadores', function($table) {
     $table->timestamps();
 });
 
+Capsule::schema()->create('poderes', function($table) {
+    $table->engine = 'InnoDB';
+
+    $table->increments('id');
+    $table->integer('patrulla_id')->unsigned();
+    $table->string('accion');
+
+    $table->foreign('patrulla_id')->references('id')->on('patrullas')->onDelete('cascade');
+
+    $table->timestamps();
+});
+
 Capsule::schema()->create('categorias', function($table) {
     $table->engine = 'InnoDB';
 

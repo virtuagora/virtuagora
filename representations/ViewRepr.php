@@ -10,4 +10,8 @@ class ViewRepr implements ReprInterface {
         $ctrl->executeGetCtrl($model);
     }
 
+    public function getName() {
+        return 'view';
+    }
+
 }
