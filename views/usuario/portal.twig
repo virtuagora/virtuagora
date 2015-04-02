@@ -1,6 +1,6 @@
 {# VARIBLES #}
 {% set footer = true %}
-{% set barraNav = false %}
+{% set barraNav = true %}
 {% set html_class = '' %}
 {% set body_class = 'portal-bg' %}
 
@@ -23,29 +23,19 @@
 {% block body %}
 <div class="portal-usuario">
     <div class="welcome row">
-        <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 64) }}" alt="Foto de perfil">
-        <div class="wrapper-botones">
-            <ul>
-                <li>
-                    <div class="notificaciones">
-                        <i class="fa fa-inbox fa-fw fa-lg"></i>
-                        <span class="contador-on" {{ user.notificaciones|length ?: 'hidden' }}>{{ user.notificaciones|length }}</span>
-                    </div>
-                </li>
-                <li><i class="fa fa-bars fa-fw fa-lg"></i></li>
-                <li>
-                    <form id="form-salir" action="{{ urlFor('runLogout') }}" method="POST">
-                        <a href='#' class="bt-logout"><i class="fa fa-sign-out fa-fw fa-lg"></i></a>
-                    </form>
-                </li>
-            </ul>
-        </div>
         <div class="wrapper-texto">
+            {% if user %}
+            <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 64) }}" alt="User avatar">
             <h2><b>Bienvenido, {{ user.nombre }} {{ user.apellido }}</b></h2>
             {% if user.notificaciones|length > 0 %}
             <p class="con-notificaciones"><i class="fa fa-exclamation-circle fa-fw fa-lg"></i>Usted tiene {{user.notificaciones|length}} nuevas notificaciones</p>
             {% else %}
             <p>Sin nuevas notificaciones&nbsp;&nbsp;&nbsp;<small>Bien!</small></p>
+            {% endif %}
+            {% else %}
+            <img src="{{ baseUrl() }}/assets/img/anon64.jpg" alt="User avatar">
+            <h2><b>Bienvenido a Virtuágora</b></h2>
+            <p>Si desea participar, considere <a href="{{ urlFor('shwCrearUsuario') }}">registrarse</a> en nuestra plataforma</p>
             {% endif %}
         </div>
     </div>
