@@ -10,34 +10,33 @@
 {% block configuracion %}
 <div class="cambiar-datos">
     <div class="row">
-        <div class="large-10 columns">
-            <div class="cambiar-avatar">
-                <div class="large-5 columns">
-                   <div class="wrapper-elementos">
+        <div class="cambiar-avatar">
+            <div class="large-5 columns">
+                <div class="wrapper-elementos">
                     <div class="header" style="border-bottom: 0;">
                         <i class="fa fa-question-circle fa-fw fa-lg"></i><i class="fa fa-pencil fa-fw fa-lg"></i> Modificar mi imagen de perfíl
 
                     </div>
 
                 </div>
-                    <form id="cambiar-imagen" action="{{ urlFor('runModifImgUsuario') }}" method="POST" enctype="multipart/form-data">
-                        <div class="fileUpload button large radius" style="margin-bottom:0;" onclick='$("#uploadBtn").click()'>
-                            <input id="uploadBtn" name="imagen" form="cambiar-imagen" type="file" onchange="this.form.submit();" class="upload" />
-                            <i class="fa fa-photo fa-fw fa-lg"></i> Cargar imagen
-                        </div>
-                    </form>
-                </div>
-                <div class="show-avatares large-7 columns">
-                    <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}">
-                    <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 64) }}">
-                    <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 160) }}">
-                </div>
+                <form id="cambiar-imagen" action="{{ urlFor('runModifImgUsuario') }}" method="POST" enctype="multipart/form-data">
+                    <div class="fileUpload button large radius" style="margin-bottom:0;" onclick='$("#uploadBtn").click()'>
+                        <input id="uploadBtn" name="imagen" form="cambiar-imagen" type="file" onchange="this.form.submit();" class="upload" />
+                        <i class="fa fa-photo fa-fw fa-lg"></i> Cargar imagen
+                    </div>
+                </form>
             </div>
-            <hr>
-            <div class="cambiar-datos">
-                <div class="large-10 columns">
-                    <div class="wrapper-elementos">
-                       <form action="{{ urlFor('runModifUsuario') }}" method="POST">
+            <div class="show-avatares large-7 columns">
+                <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}">
+                <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 64) }}">
+                <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 160) }}">
+            </div>
+        </div>
+        <hr>
+        <div class="cambiar-datos">
+            <div class="large-10 columns">
+                <div class="wrapper-elementos">
+                    <form action="{{ urlFor('runModifUsuario') }}" method="POST">
                         <div class="header">
                             <i class="fa fa-question-circle fa-fw fa-lg"></i><i class="fa fa-pencil fa-fw fa-lg"></i> Modificar mis datos personales
                         </div>
@@ -85,11 +84,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="text-center">
-                        <button class="button success small radius"><i class="fa fa-check fa-fw"></i> Aceptar los cambios</button>
-                    </div>
                     </form>
+                </div>
+                <div class="text-center">
+                    <button class="button success small radius"><i class="fa fa-check fa-fw"></i> Aceptar los cambios</button>
                 </div>
             </div>
         </div>
