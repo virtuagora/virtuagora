@@ -9,7 +9,7 @@
 {% block linkheads_cont %}
 {% endblock linkheads_cont %}
 {# ----------------------------------------------------------- #}
-{% set titulo_cont = 'Titulo de un anuncio' %}
+{% set titulo_cont = novedad.titulo %}
 {% set fecha_cont = '' ~ novedad.created_at|date("d/m/Y") %}
 {% set ver_comentarios = true %}
 {% set url_modificar = '' %}
@@ -30,9 +30,7 @@
 {% set autor_nombre_apellido = novedad.autor.nombre ~ ' ' ~ novedad.autor.apellido %}
 {% set autor_avatar_32 = avatarUrl(novedad.autor.img_tipo, documento.autor.img_hash, 32) %}
 {# ----------------------------------------------------------- #}
-{% block opciones_cont %}
-
-{% endblock %}
+{% block opciones_cont %}{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block modals_cont %}{% endblock %}
 {# ----------------------------------------------------------- #}
@@ -41,7 +39,6 @@
     $(document).ready(function(){
 
     });
-
 </script>
 {% endblock %}
 {# ----------------------------------------------------------- #}
