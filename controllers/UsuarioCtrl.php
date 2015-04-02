@@ -1,19 +1,9 @@
 <?php use Augusthur\Validation as Validate;
 
-class UsuarioCtrl extends Controller {
+class UsuarioCtrl extends RMRController {
 
-    use RestTrait;
-
-    private $ordenables = array('id', 'nombre', 'apellido', 'es_funcionario', 'es_jefe', 'puntos', 'created_at');
-    private $filtrables = array('id', 'nombre', 'apellido', 'es_funcionario', 'es_jefe', 'puntos');
-
-    public function getRepresentation($conneg) {
-        if (substr($conneg, 0, 16) == 'application/json') {
-            return new JsonRepr();
-        } else {
-            throw new BearableException('Petición de formato de contenido no disponible.', 406);
-        }
-    }
+    protected $mediaTypes = array('json');
+    protected $properties = array('id', 'nombre', 'apellido', 'es_funcionario', 'es_jefe', 'puntos', 'created_at');
 
     public function queryModel() {
         return Usuario::query();

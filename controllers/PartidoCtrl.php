@@ -1,19 +1,9 @@
 <?php use Augusthur\Validation as Validate;
 
-class PartidoCtrl extends Controller {
+class PartidoCtrl extends RMRController {
 
-    use RestTrait;
-
-    private $ordenables = array('id', 'nombre', 'acronimo', 'fecha_fundacion', 'created_at');
-    private $filtrables = array('id', 'nombre', 'acronimo');
-
-    public function getRepresentation($conneg) {
-        if (substr($conneg, 0, 16) == 'application/json') {
-            return new JsonRepr();
-        } else {
-            return new ViewRepr();
-        }
-    }
+    protected $mediaTypes = array('json', 'view');
+    protected $properties = array('id', 'nombre', 'acronimo', 'fecha_fundacion', 'created_at');
 
     public function queryModel() {
         return Partido::query();

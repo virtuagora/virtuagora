@@ -9,4 +9,8 @@ class Patrulla extends Eloquent {
         return $this->hasMany('Moderador');
     }
 
+    public function poderes() {
+        return $this->hasMany('Poder');
+    }
+
 }

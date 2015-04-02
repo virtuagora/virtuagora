@@ -71,4 +71,25 @@ class SessionManager {
         }
     }
 
+    public function grantedRoles(array $roles) {
+        $granted = array();
+        foreach ($roles as $r) {
+            if ($app->session->hasRole($r)) {
+                $granted[] = $r;
+            }
+        }
+        return $granted;
+    }
+
+    public function isAdminAllowedTo($action) {
+        $mod = Moderador::whereHas('patrulla.poderes', function($q) {
+            $q->where('accion', 'admConteni');
+        })->find(1);
+        return isset($mod);
+    }
+
+    public function rolesAllowedTo($action) {
+        return array('mod', 'fnc');
+    }
+
 }

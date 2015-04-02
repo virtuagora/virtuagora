@@ -57,6 +57,8 @@ Capsule::schema()->dropIfExists('categorias');
 echo '11 ';
 Capsule::schema()->dropIfExists('moderadores');
 echo '12 ';
+Capsule::schema()->dropIfExists('poderes');
+echo '12.1 ';
 Capsule::schema()->dropIfExists('patrullas');
 echo '13 ';
 Capsule::schema()->dropIfExists('contactos');
