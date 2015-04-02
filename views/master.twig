@@ -57,37 +57,11 @@
         {% endif %}
         <!-- modals -->
         {% block modals %}{% endblock %}
-        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
-            <i class="fa fa-times main-menu-ovrl-close js-main-menu-close"></i>
-            <nav>
-                <ul>
-                    <li><a href="#"><img src="{{ avatarUrl(user.img_tipo, user.img_hash, 160) }}"></a></li>
-                    <li></li>
-                    <li><a href="{{ urlFor('shwIndex') }}">Ir al Inicio</a></li>
-                    <li><a href="{{ urlFor('shwIndex') }}">Ver Perfil</a></li>
-                    <li><a href="{{ urlFor('shwModifUsuario') }}">Opciones</a></li>
-                </ul>
-            </nav>
-        </div>
         <!-- Javascript/Jquery -->
         <script src="{{ baseUrl() }}/assets/js/jquery/jquery.min.js"></script>
         <script src="{{ baseUrl() }}/assets/js/foundation/foundation.min.js"></script>
         <script src="{{ baseUrl() }}/assets/js/foundation/foundation.alert.js"></script>
         {% block scripts %}{% endblock %}
         <script src="{{ baseUrl() }}/assets/js/app.js"></script>
-        <script>
-            var menuOvrl = $('.js-main-menu-ovrl');
-            var menuHamburger = $('.js-main-menu-open');
-            $('.js-main-menu-open').click(function(e) {
-                e.preventDefault();
-                menuHamburger.hide();
-                menuOvrl.addClass('open');
-            });
-            $('.js-main-menu-close').click(function(e) {
-                e.preventDefault();
-                menuOvrl.removeClass('open');
-                menuHamburger.show();
-            });
-        </script>
     </body>
 </html>

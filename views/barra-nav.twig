@@ -1,26 +1,35 @@
-<div id="header-nav">
-    <div id="header-contenido">
-        <h1 class="title"><a href="{{ urlFor('shwIndex') }}">[ <i class="fa fa-university fa-fw"></i> ]</a> <b>Virtuágora</b></h1>
-        <ul class="nav">
-            {% if user is not empty %}
-            <li><i class="bt-menu-ovrl js-main-menu-open fa fa-bars fa-2x fa-fw"></i></li>
-            <li>
-                <form action="{{ urlFor('runLogout') }}" method="POST">
-                    <button type="submit" class="button alert radius small"><i class="fa fa-sign-out fa-fw"></i>&nbsp;Salir</button>
-                </form>
-            </li>
-            {% else %}
-            <li><a class="button radius small" href="{{ urlFor('shwLogin') }}"><i class="fa fa-sign-in fa-fw"></i>&nbsp;Entrar</a></li>
-            {% endif %}
-        </ul>
-        <ul class="info">
-           {% if user is not empty %}
-            <li><b></b>{{ user.nombre }}</li>
-            <li><a href="#"><img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}"></a></li>
-            <li><i class="fa fa-trophy fa-fw"></i>&nbsp;{{ user.puntos }}</li>
-            {% else %}
-            <li>¡Bienvenido, Anonimo!</li>
-            {% endif %}
-        </ul>
+<div class="barra-nav" >
+    <div class="barra-contenido row">
+        <div class="izquierda">
+            <ul class="nav">
+                <li><a href="{{ urlFor('shwIndex') }}"><i class="bt fa fa-home fa-fw"></i></a></li>
+                {% if user is not empty %}
+                <li>{{ user.nombre }}</li>
+                {% else %}
+                <li>Bienvenido!</li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="derecha">
+            <ul class="nav">
+                {% if user is not empty %}
+                <li>
+                     <div class="notificaciones">
+                        <i class="bt fa fa-inbox fa-fw fa-lg"></i>
+                        <span class="contador-on" {{ user.notificaciones|length ?: 'hidden' }}>{{ user.notificaciones|length }}</span>
+                    </div>
+                </li>
+                <li><i class="bt fa fa-bars fa-fw"></i></li>
+                <li>
+                    <form id="form-salir"  action="{{ urlFor('runLogout') }}" method="POST">
+                        <a href='#' class="bt-logout"><i class="bt fa fa-sign-out fa-fw fa-lg"></i></a>
+                    </form>
+                </li>
+                {% else %}
+                <li><a href="{{ urlFor('shwLogin') }}">¿Tienes cuenta? Iniciar sesión <i class="fa fa-caret-down"></i></a></li>
+                <li><a href="{{ urlFor('shwLogin') }}"><i class="bt fa fa-sign-in fa-fw"></i></a></li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
 </div>

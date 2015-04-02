@@ -1,6 +1,6 @@
 {# VARIBLES #}
 {% set footer = true %}
-{% set barraNav = false %}
+{% set barraNav = true %}
 {% set html_class = '' %}
 {% set body_class = 'portal-bg' %}
 
@@ -16,36 +16,26 @@
 {% block titulo %}Virtuagora - Inicio{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block linkhead %}
-<link rel="stylesheet" type="text/css" href="{{ baseUrl }}/assets/css/slick/slick.css"/>
-<link rel="stylesheet" type="text/css" href="{{ baseUrl }}/assets/css/slick/slick-theme.css"/>
+<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/slick/slick-theme.css"/>
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block body %}
 <div class="portal-usuario">
     <div class="welcome row">
-        <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 64) }}" alt="Foto de perfil">
-        <div class="wrapper-botones">
-            <ul>
-                <li>
-                    <div class="notificaciones">
-                        <i class="fa fa-inbox fa-fw fa-lg"></i>
-                        <span class="contador-on" {{ user.notificaciones|length ?: 'hidden' }}>{{ user.notificaciones|length }}</span>
-                    </div>
-                </li>
-                <li><i class="fa fa-bars fa-fw fa-lg"></i></li>
-                <li>
-                    <form id="form-salir" action="{{ urlFor('runLogout') }}" method="POST">
-                        <a href='#' class="bt-logout"><i class="fa fa-sign-out fa-fw fa-lg"></i></a>
-                    </form>
-                </li>
-            </ul>
-        </div>
         <div class="wrapper-texto">
+            {% if user %}
+            <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 64) }}" alt="User avatar">
             <h2><b>Bienvenido, {{ user.nombre }} {{ user.apellido }}</b></h2>
             {% if user.notificaciones|length > 0 %}
             <p class="con-notificaciones"><i class="fa fa-exclamation-circle fa-fw fa-lg"></i>Usted tiene {{user.notificaciones|length}} nuevas notificaciones</p>
             {% else %}
             <p>Sin nuevas notificaciones&nbsp;&nbsp;&nbsp;<small>Bien!</small></p>
+            {% endif %}
+            {% else %}
+            <img src="{{ baseUrl() }}/assets/img/anon64.jpg" alt="User avatar">
+            <h2><b>Bienvenido a Virtuágora</b></h2>
+            <p>Si desea participar, considere <a href="{{ urlFor('shwCrearUsuario') }}">registrarse</a> en nuestra plataforma</p>
             {% endif %}
         </div>
     </div>
@@ -73,7 +63,7 @@
             {% endfor %}
         </div>
         <div class="paneles row text-center">
-            {% if user.es_moderador == true %}
+            {% if user and (user.es_moderador == true) %}
             <div class="medium-3 columns"><div class="bt-menu contenidos"><a href="javascript:void(0)"><i class="fa fa-book fa-fw"></i> Contenidos</a></div></div>
             <div class="medium-3 columns"><div class="bt-menu organizaciones"><a href="javascript:void(0)"><i class="fa fa-university fa-fw"></i> Organizaciones</a></div></div>
             <div class="medium-3 columns"><div class="bt-menu partidos"><a href="{{ urlFor('shwListaPartido') }}"><i class="fa fa-flag fa-fw"></i> Partidos</a></div></div>
@@ -100,13 +90,15 @@
                 <li>
                     <div class="button problematicas">
                         <i class="flaticon flaticon-man282"></i> &nbsp;Problematicas
+                        {% if user %}
                         <a href="{{ urlFor('shwCrearProblem') }}" class="bt-mas oposite button radius right"><i class="fa fa-plus"></i></a>
+                        {% endif %}
                     </div>
                 </li>
                 <li>
                     <div class="button propuestas">
                         <i class="flaticon flaticon-inspiration"></i> &nbsp;Propuestas
-                        {% if user.es_funcionario == true %}
+                        {% if user and (user.es_funcionario == true) %}
                         <a href="{{ urlFor('shwCrearPropues') }}" class="bt-mas oposite button radius right"><i class="fa fa-plus"></i></a>
                         {% endif %}
                     </div>
@@ -114,21 +106,21 @@
                 <li>
                     <div class="button documentos">
                         <i class="flaticon flaticon-contract11"></i> &nbsp;Documentos
-                        {% if user.es_funcionario == true %}
+                        {% if user and (user.es_funcionario == true) %}
                         <a href="{{ urlFor('shwCrearDocumen') }}" class="bt-mas oposite button radius right"><i class="fa fa-plus"></i></a>
                         {% endif %}
                     </div>
                 </li>
                 <li>
                     <div class="button eventos"><i class="flaticon flaticon-month1"></i> &nbsp;Eventos
-                        {% if user.es_funcionario == true %}
+                        {% if user and (user.es_funcionario == true) %}
                         <a href="#" class="bt-mas oposite button radius right"><i class="fa fa-plus"></i></a>
                         {% endif %}
                     </div>
                 </li>
                 <li>
                     <div class="button anuncios"><i class="flaticon flaticon-news29"></i> &nbsp;Anuncios
-                        {% if user.es_funcionario == true %}
+                        {% if user and (user.es_funcionario == true) %}
                         <a href="#" class="bt-mas oposite button radius right"><i class="fa fa-plus"></i></a>
                         {% endif %}
                     </div>

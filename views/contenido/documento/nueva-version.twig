@@ -10,7 +10,7 @@
 {% block titulo %}Virtuagora - Crear una propuesta{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block linkhead %}
-<link rel="stylesheet" type="text/css" href="{{ baseUrl }}/assets/css/powertip/jquery.powertip.css"/>
+<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/powertip/jquery.powertip.css"/>
 <link rel="stylesheet" href="{{ baseUrl() }}/assets/css/sceditor/sceditor-main.css">
 {% endblock %}
 {# ----------------------------------------------------------- #}
@@ -105,8 +105,8 @@
 {% block modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block scripts %}
-<script src="{{ baseUrl }}/assets/js/autosize/autosize.min.js"></script>
-<script src="{{ baseUrl }}/assets/js/powertip/jquery.powertip.min.js"></script>
+<script src="{{ baseUrl() }}/assets/js/autosize/autosize.min.js"></script>
+<script src="{{ baseUrl() }}/assets/js/powertip/jquery.powertip.min.js"></script>
 <script src="{{ baseUrl() }}/assets/js/jquery/jquery.sceditor.bbcode.min.js"></script>
 <script type="text/javascript">
     $(function() {

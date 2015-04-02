@@ -481,3 +481,30 @@
         padding: 7px;
     }
 }
+
+#eliminarContenido{
+    p, ul li{
+        letter-spacing: -0.7px;
+     font-size: rem-calc(15);
+    }
+    ul li{
+        line-height: normal;
+        margin: 10px;
+    }
+    .fa-li{
+        top: rem-calc(4);
+    }
+    p{
+        margin-bottom: 10px;
+    }
+    .panel.titulo{
+        font-size: rem-calc(33);
+        letter-spacing: -1.5px;
+        background-color: #FFFFFF;
+        border-radius: 7px;
+        color: #B61212;
+    }
+    .bt-cancelar-eliminar{
+        margin-bottom: 15px
+    }
+}
