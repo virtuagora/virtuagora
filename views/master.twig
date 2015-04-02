@@ -4,9 +4,9 @@
         <title>{% block titulo %}Virtuágora{% endblock %}</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{ baseUrl }}/assets/css/app.css">
+        <link rel="stylesheet" href="{{ baseUrl() }}/assets/css/app.css">
         {% block linkhead %}{% endblock %}
-        <script src="{{ baseUrl }}/assets/js/modernizr/modernizr.js"></script>
+        <script src="{{ baseUrl() }}/assets/js/modernizr/modernizr.js"></script>
     </head>
     <body {% if body_class is defined %}class='{{ body_class }}'{% endif %}>
         <div class="wrapper">
