@@ -63,7 +63,7 @@
             {% endfor %}
         </div>
         <div class="paneles row text-center">
-            {% if user.es_moderador == true %}
+            {% if user and (user.es_moderador == true) %}
             <div class="medium-3 columns"><div class="bt-menu contenidos"><a href="javascript:void(0)"><i class="fa fa-book fa-fw"></i> Contenidos</a></div></div>
             <div class="medium-3 columns"><div class="bt-menu organizaciones"><a href="javascript:void(0)"><i class="fa fa-university fa-fw"></i> Organizaciones</a></div></div>
             <div class="medium-3 columns"><div class="bt-menu partidos"><a href="{{ urlFor('shwListaPartido') }}"><i class="fa fa-flag fa-fw"></i> Partidos</a></div></div>
@@ -90,13 +90,15 @@
                 <li>
                     <div class="button problematicas">
                         <i class="flaticon flaticon-man282"></i> &nbsp;Problematicas
+                        {% if user %}
                         <a href="{{ urlFor('shwCrearProblem') }}" class="bt-mas oposite button radius right"><i class="fa fa-plus"></i></a>
+                        {% endif %}
                     </div>
                 </li>
                 <li>
                     <div class="button propuestas">
                         <i class="flaticon flaticon-inspiration"></i> &nbsp;Propuestas
-                        {% if user.es_funcionario == true %}
+                        {% if user and (user.es_funcionario == true) %}
                         <a href="{{ urlFor('shwCrearPropues') }}" class="bt-mas oposite button radius right"><i class="fa fa-plus"></i></a>
                         {% endif %}
                     </div>
@@ -104,21 +106,21 @@
                 <li>
                     <div class="button documentos">
                         <i class="flaticon flaticon-contract11"></i> &nbsp;Documentos
-                        {% if user.es_funcionario == true %}
+                        {% if user and (user.es_funcionario == true) %}
                         <a href="{{ urlFor('shwCrearDocumen') }}" class="bt-mas oposite button radius right"><i class="fa fa-plus"></i></a>
                         {% endif %}
                     </div>
                 </li>
                 <li>
                     <div class="button eventos"><i class="flaticon flaticon-month1"></i> &nbsp;Eventos
-                        {% if user.es_funcionario == true %}
+                        {% if user and (user.es_funcionario == true) %}
                         <a href="#" class="bt-mas oposite button radius right"><i class="fa fa-plus"></i></a>
                         {% endif %}
                     </div>
                 </li>
                 <li>
                     <div class="button anuncios"><i class="flaticon flaticon-news29"></i> &nbsp;Anuncios
-                        {% if user.es_funcionario == true %}
+                        {% if user and (user.es_funcionario == true) %}
                         <a href="#" class="bt-mas oposite button radius right"><i class="fa fa-plus"></i></a>
                         {% endif %}
                     </div>
