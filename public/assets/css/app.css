@@ -6462,6 +6462,37 @@ html, body {
   padding: 7px;
 }
 
+/* line 486, ../scss/layouts/_ver-contenido.scss */
+#eliminarContenido p, #eliminarContenido ul li {
+  letter-spacing: -0.7px;
+  font-size: 0.9375rem;
+}
+/* line 490, ../scss/layouts/_ver-contenido.scss */
+#eliminarContenido ul li {
+  line-height: normal;
+  margin: 10px;
+}
+/* line 494, ../scss/layouts/_ver-contenido.scss */
+#eliminarContenido .fa-li {
+  top: 0.25rem;
+}
+/* line 497, ../scss/layouts/_ver-contenido.scss */
+#eliminarContenido p {
+  margin-bottom: 10px;
+}
+/* line 500, ../scss/layouts/_ver-contenido.scss */
+#eliminarContenido .panel.titulo {
+  font-size: 2.0625rem;
+  letter-spacing: -1.5px;
+  background-color: #FFFFFF;
+  border-radius: 7px;
+  color: #B61212;
+}
+/* line 507, ../scss/layouts/_ver-contenido.scss */
+#eliminarContenido .bt-cancelar-eliminar {
+  margin-bottom: 15px;
+}
+
 /* line 4, ../scss/layouts/_propuesta.scss */
 .crear-contenido .problematicas-asoc {
   padding: 20px 0px 70px 0px;
