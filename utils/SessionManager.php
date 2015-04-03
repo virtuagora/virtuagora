@@ -8,7 +8,7 @@ class SessionManager {
         if (!is_null($usuario) && password_verify($password, $usuario->password)) {
             if ($usuario->verificado) {
                 $success = true;
-                $this->setUser($usuario);
+                $this->update($usuario);
             }
         }
         return $success;
@@ -78,7 +78,7 @@ class SessionManager {
     public function grantedRoles(array $roles) {
         $granted = array();
         foreach ($roles as $r) {
-            if ($app->session->hasRole($r)) {
+            if ($this->hasRole($r)) {
                 $granted[] = $r;
             }
         }
@@ -88,12 +88,14 @@ class SessionManager {
     public function isAdminAllowedTo($action) {
         $mod = Moderador::whereHas('patrulla.poderes', function($q) {
             $q->where('accion', 'admConteni');
-        })->find(1);
+        })->find($this->user('id'));
         return isset($mod);
     }
 
+/* NO ES NECESARIO POR AHORA
     public function rolesAllowedTo($action) {
         return array('mod', 'fnc');
     }
+*/
 
 }

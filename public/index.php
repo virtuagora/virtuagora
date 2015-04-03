@@ -73,16 +73,6 @@ function checkRole($role) {
     };
 }
 
-function checkUserAuth($action, $checkMod = false) {
-    global $app;
-    $roles = $app->session->rolesAllowedTo($action);
-    if ($checkMod && count($roles) == 1 && $roles[0] == 'mod') {
-        return checkAdminAuth('admConteni');
-    } else {
-        return checkRole($roles);
-    }
-}
-
 function checkAdminAuth($action) {
     return function () use ($action) {
         global $app;
@@ -92,30 +82,36 @@ function checkAdminAuth($action) {
     };
 }
 
-/*
-checkAdminAuth('accion')
+function checkModifyAuth($resource, $moderable = true) {
+    return function ($route) use ($resource, $moderable) {
+        global $app;
+        $idRes = reset($route->getParams());
+        $idUsr = $app->session->user('id');
+        $query = call_user_func($resource.'::modifiableBy', $idUsr);
+        if (is_null($query->find($idRes)) && !($moderable && $app->session->isAdminAllowedTo('admConteni'))) {
+            throw new BearableException('No tiene permiso para realizar esta acción', 403);
+        }
+    };
+}
 
-checkUserAuth('accion') <------------- por ahora uso checkRole
-
-checkAdminOrUserAuth('accion')
-
----
-
-rolesAllowedTo('accion') -> ['rol1', 'rol2', ...]
-
-grantedRoles(['rolX', 'rolY', ...]) -> ['rol1']
+/* NO ES NECESARIO POR AHORA
+function checkUserAuth($action, $checkMod = false) {
+    global $app;
+    $roles = $app->session->rolesAllowedTo($action);
+    if ($checkMod && count($roles) == 1 && $roles[0] == 'mod') {
+        return checkAdminAuth('admConteni');
+    } else {
+        return checkRole($roles);
+    }
+}
 */
 
 $app->get('/test', function () use ($app) {
-    /*$mod = Moderador::with(['patrulla.poderes' => function($query) {
-        $query->where('accion', 'admContenis');
-    }])->find(1);*/
-
     $mod = Moderador::whereHas('patrulla.poderes', function($q) {
-        $q->where('accion', 'admConteni');
-    })->find(1);
-
-    var_dump($mod);
+            $q->where('accion', 'admConteni');
+        })->find($app->session->user('id'));
+    var_dump($mod, $app->session->getUser());
+    echo '?';
     //$c->load('contenidos');
     //var_dump($c->contenidos()->toArray());
     //var_dump(Contenido::findOrFail(1)->nombre ?: Contenido::findOrFail(1)->titulo);
@@ -172,9 +168,9 @@ $app->group('/propuesta', function () use ($app) {
     $app->get('/:idPro', 'PropuestaCtrl:ver')->name('shwPropues');
     $app->post('/:idPro/votar', checkRole('usr'), 'PropuestaCtrl:votar')->name('runVotarPropues');
     $app->post('/:idPro/cambiar-privacidad', checkRole('usr'), 'PropuestaCtrl:cambiarPrivacidad')->name('runModifPrvPropues');
-    $app->get('/:idPro/modificar', checkRole(['fnc', 'mod']), 'PropuestaCtrl:verModificar')->name('shwModifPropues');
-    $app->post('/:idPro/modificar', checkRole(['fnc', 'mod']), 'PropuestaCtrl:modificar')->name('runModifPropues');
-    $app->post('/:idPro/eliminar', checkRole(['fnc', 'mod']), 'PropuestaCtrl:eliminar')->name('runElimiPropues');
+    $app->get('/:idPro/modificar', checkModifyAuth('Contenido'), 'PropuestaCtrl:verModificar')->name('shwModifPropues');
+    $app->post('/:idPro/modificar', checkModifyAuth('Contenido'), 'PropuestaCtrl:modificar')->name('runModifPropues');
+    $app->post('/:idPro/eliminar', checkModifyAuth('Contenido'), 'PropuestaCtrl:eliminar')->name('runElimiPropues');
 });
 
 $app->group('/problematica', function () use ($app) {
@@ -189,11 +185,11 @@ $app->group('/documento', function () use ($app) {
     $app->post('/crear', checkRole('fnc'), 'DocumentoCtrl:crear')->name('runCrearDocumen');
     $app->get('/:idDoc', 'DocumentoCtrl:ver')->name('shwDocumen');
     $app->get('/:idDoc/v/:idVer', 'DocumentoCtrl:ver')->name('shwVerDocumen');
-    $app->get('/:idDoc/modificar', checkRole(['fnc', 'mod']), 'DocumentoCtrl:verModificar')->name('shwModifDocumen');
-    $app->post('/:idDoc/modificar', checkRole(['fnc', 'mod']), 'DocumentoCtrl:modificar')->name('runModifDocumen');
-    $app->get('/:idDoc/nueva-version', checkRole('fnc'), 'DocumentoCtrl:verNuevaVersion')->name('shwNuVerDocumen');
-    $app->post('/:idDoc/nueva-version', checkRole('fnc'), 'DocumentoCtrl:nuevaVersion')->name('runNuVerDocumen');
-    $app->post('/:idDoc/eliminar', checkRole(['fnc', 'mod']), 'DocumentoCtrl:eliminar')->name('runElimiDocumen');
+    $app->get('/:idDoc/modificar', checkModifyAuth('Contenido'), 'DocumentoCtrl:verModificar')->name('shwModifDocumen');
+    $app->post('/:idDoc/modificar', checkModifyAuth('Contenido'), 'DocumentoCtrl:modificar')->name('runModifDocumen');
+    $app->get('/:idDoc/nueva-version', checkModifyAuth('Contenido', false), 'DocumentoCtrl:verNuevaVersion')->name('shwNuVerDocumen');
+    $app->post('/:idDoc/nueva-version', checkModifyAuth('Contenido', false), 'DocumentoCtrl:nuevaVersion')->name('runNuVerDocumen');
+    $app->post('/:idDoc/eliminar', checkModifyAuth('Contenido'), 'DocumentoCtrl:eliminar')->name('runElimiDocumen');
 });
 
 $app->group('/novedad', function () use ($app) {
@@ -208,9 +204,11 @@ $app->group('/partido', function () use ($app) {
     $app->post('/crear', checkRole('fnc'), 'PartidoCtrl:crear')->name('runCrearPartido');
     $app->post('/dejar', checkRole('usr'), 'PartidoCtrl:dejar')->name('runDejarPartido');
     $app->post('/:idPar/unirse', checkRole('usr'), 'PartidoCtrl:unirse')->name('runUnirsePartido');
-    $app->get('/:idPar/modificar', checkRole('fnc'), 'PartidoCtrl:verModificar')->name('shwModifPartido');
-    $app->post('/:idPar/modificar', checkRole('fnc'), 'PartidoCtrl:modificar')->name('runModifPartido');
-    $app->post('/:idPar/cambiar-imagen', checkRole('fnc'), 'PartidoCtrl:cambiarImagen')->name('runModifImgPartido');
+    $app->get('/:idPar/modificar', checkModifyAuth('Partido'), 'PartidoCtrl:verModificar')->name('shwModifPartido');
+    $app->post('/:idPar/modificar', checkModifyAuth('Partido'), 'PartidoCtrl:modificar')->name('runModifPartido');
+    $app->post('/:idPar/cambiar-imagen', checkModifyAuth('Partido'), 'PartidoCtrl:cambiarImagen')->name('runModifImgPartido');
+    $app->get('/:idPar/cambiar-rol', checkModifyAuth('Partido', false), 'PartidoCtrl:verCambiarRol')->name('shwModifRolPartido');
+    $app->post('/:idPar/cambiar-rol', checkModifyAuth('Partido', false), 'PartidoCtrl:cambiarRol')->name('runModifRolPartido');
 });
 
 session_cache_limiter(false);

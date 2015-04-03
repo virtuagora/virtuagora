@@ -9,6 +9,10 @@ class Contenido extends Eloquent {
     protected $visible = array('id', 'titulo', 'contenible_id', 'contenible_type', 'impulsor_id', 'puntos', 'autor', 'created_at');
     protected $with = array('autor', 'categoria');
 
+    public function scopeModifiableBy($query, $id) {
+        return $query->where('autor_id', $id);
+    }
+
     public function contenible() {
         return $this->morphTo();
     }

@@ -150,6 +150,47 @@ class PartidoCtrl extends RMRController {
         $this->redirect($this->request->getReferrer());
     }
 
+    public function verCambiarRol($idPar) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idPar, new Validate\Rule\NumNatural());
+        $partido = Partido::findOrFail($idPar);
+        $jefes = $partido->afiliados()->where('es_jefe', 1)->get();
+        $afiliados = $partido->afiliados()->where('es_jefe', 0)->get();
+        $this->render('partido/cambiar-rol.twig', array('partido' => $partido->toArray(),
+                                                        'jefes' => $jefes->toArray(),
+                                                        'afiliados' => $afiliados->toArray()));
+    }
+
+    public function cambiarRol($idPar) {
+        $vdt = new Validate\Validator();
+        $vdt->addRule('idPar', new Validate\Rule\NumNatural())
+            ->addRule('idUsr', new Validate\Rule\NumNatural())
+            ->addRule('jefe', new Validate\Rule\InArray(array(1, 0)));
+        $req = $this->request;
+        $data = array_merge(array('idPar' => $idPar), $req->post());
+        if (!$vdt->validate($data)) {
+            throw new TurnbackException($vdt->getErrors());
+        }
+        $usuario = Usuario::where(array('id' => $vdt->getData('idUsr'),
+                                        'partido_id' => $vdt->getData('idPar')))->first();
+        if (is_null($usuario)) {
+            throw new TurnbackException($usuario->nombre_completo.' no pertenece al partido.');
+        }
+        if (!($usuario->es_jefe xor $vdt->getData('jefe'))) {
+            throw new TurnbackException('Configuración inválida.');
+        }
+        $usuario->es_jefe = $vdt->getData('jefe');
+        $usuario->save();
+        $accion = new Accion;
+        $accion->tipo = $usuario->es_jefe ? 'new_jefe' : 'del_jefe';
+        $accion->objeto()->associate($partido);
+        $accion->actor()->associate($usuario);
+        $accion->save();
+        $msg = $usuario->es_jefe ? ' comenzó a ' : ' dejó de ';
+        $this->flash('success', $usuario->nombre_completo.$msg.'ser jefe del partido.');
+        $this->redirectTo('shwModifRolPartido', array('idPar' => $idPar));
+    }
+
     private function validarPartido($data) {
         $vdt = new Validate\Validator();
         $vdt->addRule('nombre', new Validate\Rule\Alpha(array(' ')))

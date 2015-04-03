@@ -3,9 +3,14 @@
 class Partido extends Eloquent {
     use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-    //$table = 'partidos';
-
+    //protected $table = 'partidos';
     protected $visible = array('id', 'nombre', 'acronimo', 'descripcion', 'fecha_fundacion', 'fundador');
+
+    public function scopeModifiableBy($query, $id) {
+        return $query->whereHas('afiliados', function($q) {
+            $q->where('id', $id)->where('es_jefe', 1);
+        });
+    }
 
     public function creador() {
         return $this->belongsTo('Usuario');

@@ -21,6 +21,10 @@ class Usuario extends Eloquent {
         return $this->hasMany('Contenido', 'autor_id');
     }
 
+    public function getNombreCompleto() {
+        return $this->nombre.' '.$this->apellido;
+    }
+
     public static function boot() {
         parent::boot();
         static::deleting(function($usuario) {

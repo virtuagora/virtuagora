@@ -115,9 +115,6 @@ class DocumentoCtrl extends Controller {
         $req = $this->request;
         $vdt = $this->validarDocumento($req->post(), false);
         $documento = Documento::with('contenido')->findOrFail($idDoc);
-        if ($documento->contenido->autor_id != $this->session->user('id')) {
-            throw new BearableException('No puede modificar el documento de otro.');
-        }
         $documento->descripcion = $vdt->getData('descripcion');
         $documento->save();
         $contenido = $documento->contenido;
@@ -132,9 +129,6 @@ class DocumentoCtrl extends Controller {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idDoc, new Validate\Rule\NumNatural());
         $documento = Propuesta::with(array('contenido', 'comentarios.votos'))->findOrFail($idDoc);
-        if ($documento->contenido->autor_id != $this->session->user('id')) {
-            throw new BearableException('No puede eliminar el documento de otro.');
-        }
         $documento->delete();
         $this->flash('success', 'Su documento fue eliminado exitosamente.');
         $this->redirect($req->getReferrer());
