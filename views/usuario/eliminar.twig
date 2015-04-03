@@ -10,39 +10,37 @@
 {% block configuracion %}
 <div class="eliminar-cuenta">
     <div class="row">
-        <div class="large-8 columns">
-            <div class="panel large-12 columns text-center">
-                <h3><i class="fa fa-warning fa-fw fa-lg"></i> <b>ATENCIÓN</b> <i class="fa fa-warning fa-fw fa-lg"></i></h3>
-                Sea consciente de lo que está a punto de hacer...
-            </div>
-            <div class="descripcion large-12 columns text-center">
-                Usted esta a punto de eliminar su cuenta
-                <br>
-                <h4><b>¿Está seguro de lo que desea hacer?</b></h4>
-            </div>
-            <div class="primer-boton large-12 columns text-center">
-                <div class="bt-primer-conf button large warning radius"><i class="fa fa-user-times fa-fw fa-lg"></i> Estoy seguro</div>
-            </div>
-            <div class="segundo-boton large-12 columns text-center" hidden>
-                <form action="{{ runElimiUsuario }}" method="POST">
-                    <div class="large-6 large-centered columns">
-                        <div class="wrapper-elementos">
-                            <div class="header">
-                                <i class="fa fa-question-circle fa-fw fa-lg"></i><i class="fa fa-pencil fa-fw fa-lg"></i> Escriba su contraseña para eliminar su cuenta
-                            </div>
-                            <div class="fila">
-                                <div class="row">
-                                    <div class="large-12 columns">
-                                        <input type="password" name="password">
-                                    </div>
-
+        <div class="panel large-8 large-centered columns text-center">
+            <h3><i class="fa fa-warning fa-fw fa-lg"></i> <b>ATENCIÓN</b> <i class="fa fa-warning fa-fw fa-lg"></i></h3>
+            Sea consciente de lo que está a punto de hacer...
+        </div>
+        <div class="descripcion large-12 columns text-center">
+            Usted esta a punto de eliminar su cuenta
+            <br>
+            <h4><b>¿Está seguro de lo que desea hacer?</b></h4>
+        </div>
+        <div class="primer-boton large-12 columns text-center">
+            <div class="bt-primer-conf button large warning radius"><i class="fa fa-user-times fa-fw fa-lg"></i> Estoy seguro</div>
+        </div>
+        <div class="segundo-boton large-12 columns text-center" hidden>
+            <form action="{{ runElimiUsuario }}" method="POST">
+                <div class="large-7 large-centered columns">
+                    <div class="wrapper-elementos">
+                        <div class="header">
+                            <i class="fa fa-question-circle fa-fw fa-lg"></i><i class="fa fa-pencil fa-fw fa-lg"></i> Escriba su contraseña para eliminar su cuenta
+                        </div>
+                        <div class="fila">
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    <input type="password" name="password">
                                 </div>
+
                             </div>
                         </div>
                     </div>
-                    <button class="bt-segunda-conf button large alert radius"><i class="fa fa-trash-o fa-fw fa-lg"></i> Si, confirmo la eliminación</button>
-                    </div>
-                </form>
+                </div>
+                <button class="bt-segunda-conf button large alert radius"><i class="fa fa-trash-o fa-fw fa-lg"></i> Si, confirmo la eliminación</button>
+            </form>
         </div>
     </div>
 </div>
