@@ -110,7 +110,7 @@ class PropuestaCtrl extends Controller {
         $contenido->contenible()->associate($propuesta);
         $contenido->save();
         $accion = new Accion;
-        $accion->tipo = 'vot_propues';
+        $accion->tipo = 'new_propues';
         $accion->objeto()->associate($propuesta);
         $accion->actor()->associate($autor);
         $accion->save();

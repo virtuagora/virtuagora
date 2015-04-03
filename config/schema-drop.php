@@ -31,6 +31,8 @@ Capsule::schema()->dropIfExists('comentario_votos');
 echo '0 ';
 Capsule::schema()->dropIfExists('comentarios');
 echo '1 ';
+Capsule::schema()->dropIfExists('novedades');
+echo '1.1 ';
 Capsule::schema()->dropIfExists('documento_parrafos');
 echo '2 ';
 Capsule::schema()->dropIfExists('documento_versiones');

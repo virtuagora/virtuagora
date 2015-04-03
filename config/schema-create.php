@@ -194,7 +194,7 @@ Capsule::schema()->create('contenidos', function($table) {
     $table->integer('puntos')->unsigned();
     $table->integer('autor_id')->unsigned();
     $table->integer('categoria_id')->unsigned();
-    $table->integer('partido_id')->unsigned()->nullable();
+    $table->integer('impulsor_id')->unsigned()->nullable();
 
     $table->foreign('autor_id')->references('id')->on('usuarios')->onDelete('cascade');
     $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('restrict');
@@ -316,6 +316,16 @@ Capsule::schema()->create('documento_parrafos', function($table) {
     $table->text('cuerpo');
     $table->integer('ubicacion')->unsigned();
     $table->integer('version_id')->unsigned();
+
+    $table->timestamps();
+    $table->softDeletes();
+});
+
+Capsule::schema()->create('novedades', function($table) {
+    $table->engine = 'InnoDB';
+
+    $table->increments('id');
+    $table->text('cuerpo');
 
     $table->timestamps();
     $table->softDeletes();

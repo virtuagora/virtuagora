@@ -6,7 +6,7 @@ class Contenido extends Eloquent {
     //$table = 'contenidos';
 
     protected $dates = ['deleted_at'];
-    protected $visible = array('id', 'titulo', 'contenible_id', 'contenible_type', 'puntos', 'autor', 'created_at');
+    protected $visible = array('id', 'titulo', 'contenible_id', 'contenible_type', 'impulsor_id', 'puntos', 'autor', 'created_at');
     protected $with = array('autor', 'categoria');
 
     public function contenible() {
@@ -15,6 +15,10 @@ class Contenido extends Eloquent {
 
     public function autor() {
         return $this->belongsTo('Usuario');
+    }
+
+    public function impulsor() {
+        return $this->belongsTo('Partido');
     }
 
     public function categoria() {

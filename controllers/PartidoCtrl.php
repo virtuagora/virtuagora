@@ -52,7 +52,7 @@ class PartidoCtrl extends RMRController {
         $accion->actor()->associate($usuario);
         $accion->save();
         ImageManager::crearImagen('partido', $partido->id, $partido->nombre, array(32, 64, 160));
-        $this->session->setUser($usuario);
+        $this->session->update();
         $this->flash('success', 'El partido '.$partido->nombre.' fue creado exitosamente.');
         $this->redirectTo('shwListaPartido');
     }
@@ -72,7 +72,7 @@ class PartidoCtrl extends RMRController {
         $accion->objeto()->associate($partido);
         $accion->actor()->associate($usuario);
         $accion->save();
-        $this->session->setUser($usuario);
+        $this->session->update($usuario);
         $this->flash('success', 'Se ha unido al partido '.$partido->nombre.'.');
         $this->redirectTo('shwListaPartido');
     }
@@ -92,7 +92,7 @@ class PartidoCtrl extends RMRController {
         $accion->objeto()->associate($partido);
         $accion->actor()->associate($usuario);
         $accion->save();
-        $this->session->setUser($usuario);
+        $this->session->update($usuario);
         $this->flash('success', 'Ha dejado el partido '.$partido->nombre.'.');
         $this->redirectTo('shwListaPartido');
     }
@@ -145,7 +145,7 @@ class PartidoCtrl extends RMRController {
             throw new BearableException('Un partido puede ser eliminado solamente por su creador.');
         }
         $partido->delete();
-        $this->session->setUser($this->session->getUser());
+        $this->session->update();
         $this->flash('success', 'El partido ha sido eliminado exitosamente.');
         $this->redirect($this->request->getReferrer());
     }

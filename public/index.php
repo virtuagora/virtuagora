@@ -196,6 +196,12 @@ $app->group('/documento', function () use ($app) {
     $app->post('/:idDoc/eliminar', checkRole(['fnc', 'mod']), 'DocumentoCtrl:eliminar')->name('runElimiDocumen');
 });
 
+$app->group('/novedad', function () use ($app) {
+    $app->get('/crear', checkRole('fnc'), 'NovedadCtrl:verCrear')->name('shwCrearNovedad');
+    $app->post('/crear', checkRole('fnc'), 'NovedadCtrl:crear')->name('runCrearNovedad');
+    $app->get('/:idNov', 'NovedadCtrl:ver')->name('shwNovedad');
+});
+
 $app->group('/partido', function () use ($app) {
     $app->get('', 'PartidoCtrl:listar')->name('shwListaPartido');
     $app->get('/crear', checkRole('fnc'), 'PartidoCtrl:verCrear')->name('shwCrearPartido');
