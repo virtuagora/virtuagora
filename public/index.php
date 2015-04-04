@@ -85,7 +85,8 @@ function checkAdminAuth($action) {
 function checkModifyAuth($resource, $moderable = true) {
     return function ($route) use ($resource, $moderable) {
         global $app;
-        $idRes = reset($route->getParams());
+        $params = $route->getParams();
+        $idRes = reset($params);
         $idUsr = $app->session->user('id');
         $query = call_user_func($resource.'::modifiableBy', $idUsr);
         if (is_null($query->find($idRes)) && !($moderable && $app->session->isAdminAllowedTo('admConteni'))) {
@@ -107,11 +108,7 @@ function checkUserAuth($action, $checkMod = false) {
 */
 
 $app->get('/test', function () use ($app) {
-    $mod = Moderador::whereHas('patrulla.poderes', function($q) {
-            $q->where('accion', 'admConteni');
-        })->find($app->session->user('id'));
-    var_dump($mod, $app->session->getUser());
-    echo '?';
+    var_dump($app->request->get());
     //$c->load('contenidos');
     //var_dump($c->contenidos()->toArray());
     //var_dump(Contenido::findOrFail(1)->nombre ?: Contenido::findOrFail(1)->titulo);

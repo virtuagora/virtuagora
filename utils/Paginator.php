@@ -12,6 +12,7 @@ class Paginator {
             ->addRule('page', new Validate\Rule\NumMin(1))
             ->addRule('take', new Validate\Rule\NumNatural())
             ->addRule('take', new Validate\Rule\NumMin(1))
+            ->addRule('take', new Validate\Rule\NumMax(100))
             ->addFilter('endless', FilterFactory::booleanFilter())
             ->addOptional('page')
             ->addOptional('take')
