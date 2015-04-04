@@ -1,0 +1,31 @@
+{# VARIBLES #}
+
+{% extends "jefe/ver-administracion.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Gestionar roles{% endblock %}
+{# ----------------------------------------------------------- #}
+{% set intro_titulo = 'Gestionar Roles' %}
+{# ----------------------------------------------------------- #}
+{% block configuracion %}
+<div class="cambiar-clave">
+    <div class="row">
+     Roles actuales
+     <hr>
+    </div>
+</div>
+
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts_cont %}
+<script src="{{ baseUrl() }}/assets/js/underscore/underscore-min.js"></script>
+<script>
+    $(document).ready(function(){
+
+    });
+
+</script>
+{% endblock %}
+{# ----------------------------------------------------------- #}
