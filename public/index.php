@@ -157,6 +157,9 @@ $app->group('/admin', function () use ($app) {
     $app->get('/organismo/:idOrg/funcionario', checkRole('mod'), 'AdminCtrl:verAdminFuncionarios')->name('shwAdmFuncion');
     $app->post('/organismo/:idOrg/funcionario', checkRole('mod'), 'AdminCtrl:adminFuncionarios')->name('runAdmFuncion');
     $app->post('/sancionar/:idUsr', checkRole('mod'), 'AdminCtrl:sancUsuario')->name('runSanUsuario');
+
+    $app->get('/verificar', checkRole('mod'), 'AdminCtrl:verVerifCiudadano')->name('shwAdmVrfUsuario');
+    $app->post('/verificar', checkRole('mod'), 'AdminCtrl:verifCiudadano')->name('runAdmVrfUsuario');
 });
 
 $app->group('/propuesta', function () use ($app) {

@@ -198,7 +198,10 @@ class AdminCtrl extends Controller {
         }
         $entrantes = json_decode($vdt->getData('entrantes'));
         $usuarios = Usuario::whereIn('id', $entrantes)->whereNull('fecha_validacion')->get();
-        $usuarios->increment('puntos', 25, array('verified_at' => Carbon\Carbon::now())); // TODO definir cuantos puntos se dan
+        if ($usuarios) {
+            $usuarios->increment('puntos', 25, array('verified_at' => Carbon\Carbon::now()));
+            // TODO definir cuantos puntos se dan
+        }
         // TODO crear accion de verificacion de ciudadano
         $this->flash('success', 'Se han verificado los ciudadanos seleccionados exitosamente.');
         $this->redirectTo('shwAdmVrfUsuario');
