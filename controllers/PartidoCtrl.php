@@ -156,9 +156,9 @@ class PartidoCtrl extends RMRController {
         $partido = Partido::findOrFail($idPar);
         $jefes = $partido->afiliados()->where('es_jefe', 1)->get();
         $afiliados = $partido->afiliados()->where('es_jefe', 0)->get();
-        $this->render('partido/cambiar-rol.twig', array('partido' => $partido->toArray(),
-                                                        'jefes' => $jefes->toArray(),
-                                                        'afiliados' => $afiliados->toArray()));
+        $this->render('partido/gestionar-roles.twig', array('partido' => $partido->toArray(),
+                                                            'jefes' => $jefes->toArray(),
+                                                            'afiliados' => $afiliados->toArray()));
     }
 
     public function cambiarRol($idPar) {

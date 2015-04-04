@@ -51,7 +51,7 @@ class NovedadCtrl extends Controller {
         $categorias = Categoria::all()->toArray();
         $novedad = Novedad::with('contenido')->findOrFail($idNov);
         $contenido = $novedad->contenido;
-        $datos = array_merge($novedad->toArray(), $contenido->toArray());
+        $datos = array_merge($contenido->toArray(), $novedad->toArray());
         $this->render('contenido/novedad/modificar.twig', array('novedad' => $datos,
                                                                 'categorias' => $categorias));
     }
