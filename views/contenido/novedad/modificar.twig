@@ -131,7 +131,7 @@
         });
     });
 
-    var partido_id = {{ novedad.impulsor_id ? novedad.impulsor_id }};
+    var partido_id = {{ novedad.impulsor_id ? novedad.impulsor_id : 'null' }};
 
     $(document).ready(function(){
         $('[name="titulo"]').val('{{ novedad.titulo }}');
