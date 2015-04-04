@@ -124,7 +124,7 @@ $app->post('/login', 'checkNoSession', 'PortalCtrl:login')->name('runLogin');
 $app->post('/logout', 'PortalCtrl:logout')->name('runLogout');
 $app->get('/registro', 'checkNoSession', 'PortalCtrl:verRegistrar')->name('shwCrearUsuario');
 $app->post('/registro', 'checkNoSession', 'PortalCtrl:registrar')->name('runCrearUsuario');
-$app->get('/verificar/:idUsr/:token', 'PortalCtrl:verificarEmail')->name('runVerifUsuario');
+$app->get('/validar/:idUsr/:token', 'PortalCtrl:verificarEmail')->name('runValidUsuario');
 
 $app->get('/contenido/:idCon', 'ContenidoCtrl:ver')->name('shwConteni');
 $app->get('/contenido', 'ContenidoCtrl:listar')->name('shwListaConteni');

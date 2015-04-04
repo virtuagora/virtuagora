@@ -86,6 +86,7 @@ class PartidoCtrl extends RMRController {
             throw new BearableException('Usted no puede dejar el partido que creó.');
         }
         $usuario->partido()->dissociate();
+        $usuario->es_jefe = false;
         $usuario->save();
         $accion = new Accion;
         $accion->tipo = 'lef_partido';

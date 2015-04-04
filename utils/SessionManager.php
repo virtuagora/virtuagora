@@ -6,7 +6,7 @@ class SessionManager {
         $success = false;
         $usuario = Usuario::where('email', $email)->first();
         if (!is_null($usuario) && password_verify($password, $usuario->password)) {
-            if ($usuario->verificado) {
+            if ($usuario->validado) {
                 $success = true;
                 $this->update($usuario);
             }

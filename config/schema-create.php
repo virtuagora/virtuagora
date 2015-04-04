@@ -23,8 +23,8 @@ Capsule::schema()->create('usuarios', function($table) {
     $table->string('password');
     $table->string('nombre');
     $table->string('apellido');
-    $table->string('token_verificacion');
-    $table->boolean('verificado');
+    $table->string('emailed_token');
+    $table->boolean('validado');
     $table->integer('img_tipo')->unsigned();
     $table->string('img_hash');
     $table->integer('puntos');
@@ -32,7 +32,7 @@ Capsule::schema()->create('usuarios', function($table) {
     $table->boolean('es_funcionario');
     $table->boolean('es_jefe');
     $table->string('dni')->nullable();
-    $table->dateTime('fecha_certificado')->nullable();
+    $table->dateTime('verified_at')->nullable();
     $table->integer('partido_id')->unsigned()->nullable();
 
     $table->string('advertencia')->nullable();
