@@ -223,16 +223,16 @@
                         font-size: rem-calc(12);
                     }
                 }
-                &.anuncios{
-                    color: $anuncio-color;
+                &.novedades{
+                    color: $novedad-color;
                     background-color:  rgba(185, 70, 70, 0.2);
                     &:hover{
                         color: #FFFFFF;
                         background-color: rgba(185, 70, 70, 1);
                     }
                     .bt-mas{
-                        color: $anuncio-color;
-                        border: 1px solid $anuncio-color;
+                        color: $novedad-color;
+                        border: 1px solid $novedad-color;
                         padding: 3px 6px;
                         font-size: rem-calc(12);
                     }

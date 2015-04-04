@@ -4643,7 +4643,7 @@ html, body {
 }
 
 /* line 4, ../scss/global/_colores.scss */
-.color-anuncio {
+.color-novedad {
   background-color: #B94646 !important;
 }
 
@@ -5529,17 +5529,17 @@ html, body {
   font-size: 0.75rem;
 }
 /* line 226, ../scss/layouts/_portal.scss */
-.portal-usuario .contenidos .panel-control .button-group .button.anuncios {
+.portal-usuario .contenidos .panel-control .button-group .button.novedades {
   color: #B94646;
   background-color: rgba(185, 70, 70, 0.2);
 }
 /* line 229, ../scss/layouts/_portal.scss */
-.portal-usuario .contenidos .panel-control .button-group .button.anuncios:hover {
+.portal-usuario .contenidos .panel-control .button-group .button.novedades:hover {
   color: #FFFFFF;
   background-color: #b94646;
 }
 /* line 233, ../scss/layouts/_portal.scss */
-.portal-usuario .contenidos .panel-control .button-group .button.anuncios .bt-mas {
+.portal-usuario .contenidos .panel-control .button-group .button.novedades .bt-mas {
   color: #B94646;
   border: 1px solid #B94646;
   padding: 3px 6px;
@@ -7088,53 +7088,57 @@ html, body {
 }
 
 /* line 2, ../scss/layouts/_ver-panel.scss */
-.user-panel .row.row-full, .admin-panel .row.row-full {
+.user-panel .row.row-full, .admin-panel .row.row-full, .jefe-panel .row.row-full {
   margin: 0;
   width: 100%;
   max-width: none;
   min-height: 650px;
 }
 /* line 8, ../scss/layouts/_ver-panel.scss */
-.user-panel .panel-izq, .admin-panel .panel-izq {
+.user-panel .panel-izq, .admin-panel .panel-izq, .jefe-panel .panel-izq {
   background-color: #848484;
   padding-left: 0;
   padding-right: 10px;
   min-height: 650px;
 }
 /* line 13, ../scss/layouts/_ver-panel.scss */
-.user-panel .panel-izq ul.opciones, .admin-panel .panel-izq ul.opciones {
+.user-panel .panel-izq ul.opciones, .admin-panel .panel-izq ul.opciones, .jefe-panel .panel-izq ul.opciones {
   margin: 0;
 }
 /* line 15, ../scss/layouts/_ver-panel.scss */
-.user-panel .panel-izq ul.opciones li, .admin-panel .panel-izq ul.opciones li {
+.user-panel .panel-izq ul.opciones li, .admin-panel .panel-izq ul.opciones li, .jefe-panel .panel-izq ul.opciones li {
   font-family: "Source Sans Pro",sans-serif;
   padding: 15px;
   font-size: 1.25rem;
   color: #FFFFFF;
   list-style: none;
-  border-bottom: 1px dashed #a7a7a7;
+  border-bottom: 1px dashed #ffffff;
 }
 /* line 22, ../scss/layouts/_ver-panel.scss */
-.user-panel .panel-izq ul.opciones li a, .user-panel .panel-izq ul.opciones li a:hover, .admin-panel .panel-izq ul.opciones li a, .admin-panel .panel-izq ul.opciones li a:hover {
+.user-panel .panel-izq ul.opciones li a, .user-panel .panel-izq ul.opciones li a:hover, .admin-panel .panel-izq ul.opciones li a, .admin-panel .panel-izq ul.opciones li a:hover, .jefe-panel .panel-izq ul.opciones li a, .jefe-panel .panel-izq ul.opciones li a:hover {
   color: #FFFFFF;
 }
-/* line 28, ../scss/layouts/_ver-panel.scss */
-.user-panel .panel-der, .admin-panel .panel-der {
+/* line 26, ../scss/layouts/_ver-panel.scss */
+.user-panel .panel-izq ul.opciones li:last-child, .admin-panel .panel-izq ul.opciones li:last-child, .jefe-panel .panel-izq ul.opciones li:last-child {
+  border-bottom: 0;
+}
+/* line 31, ../scss/layouts/_ver-panel.scss */
+.user-panel .panel-der, .admin-panel .panel-der, .jefe-panel .panel-der {
   padding: 20px;
   background-color: #FFFFFF;
   min-height: 650px;
 }
-/* line 32, ../scss/layouts/_ver-panel.scss */
-.user-panel .panel-der .intro-titulo, .admin-panel .panel-der .intro-titulo {
+/* line 35, ../scss/layouts/_ver-panel.scss */
+.user-panel .panel-der .intro-titulo, .admin-panel .panel-der .intro-titulo, .jefe-panel .panel-der .intro-titulo {
   border-bottom: 1px solid #bebebe;
   margin-bottom: 20px;
 }
-/* line 33, ../scss/layouts/_ver-panel.scss */
-.user-panel .panel-der .intro-titulo h1, .admin-panel .panel-der .intro-titulo h1 {
+/* line 36, ../scss/layouts/_ver-panel.scss */
+.user-panel .panel-der .intro-titulo h1, .admin-panel .panel-der .intro-titulo h1, .jefe-panel .panel-der .intro-titulo h1 {
   font-family: "Source Sans Pro",sans-serif;
 }
-/* line 41, ../scss/layouts/_ver-panel.scss */
-.user-panel .wrapper-elementos, .admin-panel .wrapper-elementos {
+/* line 44, ../scss/layouts/_ver-panel.scss */
+.user-panel .wrapper-elementos, .admin-panel .wrapper-elementos, .jefe-panel .wrapper-elementos {
   border-style: solid;
   border-width: 1px;
   border-color: #d8d8d8;
@@ -7147,58 +7151,58 @@ html, body {
   border: 1px solid #C3C3C3;
 }
 /* line 55, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
-.user-panel .wrapper-elementos > :first-child, .admin-panel .wrapper-elementos > :first-child {
+.user-panel .wrapper-elementos > :first-child, .admin-panel .wrapper-elementos > :first-child, .jefe-panel .wrapper-elementos > :first-child {
   margin-top: 0;
 }
 /* line 56, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
-.user-panel .wrapper-elementos > :last-child, .admin-panel .wrapper-elementos > :last-child {
+.user-panel .wrapper-elementos > :last-child, .admin-panel .wrapper-elementos > :last-child, .jefe-panel .wrapper-elementos > :last-child {
   margin-bottom: 0;
 }
 /* line 61, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
-.user-panel .wrapper-elementos h1, .user-panel .wrapper-elementos h2, .user-panel .wrapper-elementos h3, .user-panel .wrapper-elementos h4, .user-panel .wrapper-elementos h5, .user-panel .wrapper-elementos h6, .user-panel .wrapper-elementos p, .user-panel .wrapper-elementos li, .user-panel .wrapper-elementos dl, .admin-panel .wrapper-elementos h1, .admin-panel .wrapper-elementos h2, .admin-panel .wrapper-elementos h3, .admin-panel .wrapper-elementos h4, .admin-panel .wrapper-elementos h5, .admin-panel .wrapper-elementos h6, .admin-panel .wrapper-elementos p, .admin-panel .wrapper-elementos li, .admin-panel .wrapper-elementos dl {
+.user-panel .wrapper-elementos h1, .user-panel .wrapper-elementos h2, .user-panel .wrapper-elementos h3, .user-panel .wrapper-elementos h4, .user-panel .wrapper-elementos h5, .user-panel .wrapper-elementos h6, .user-panel .wrapper-elementos p, .user-panel .wrapper-elementos li, .user-panel .wrapper-elementos dl, .admin-panel .wrapper-elementos h1, .admin-panel .wrapper-elementos h2, .admin-panel .wrapper-elementos h3, .admin-panel .wrapper-elementos h4, .admin-panel .wrapper-elementos h5, .admin-panel .wrapper-elementos h6, .admin-panel .wrapper-elementos p, .admin-panel .wrapper-elementos li, .admin-panel .wrapper-elementos dl, .jefe-panel .wrapper-elementos h1, .jefe-panel .wrapper-elementos h2, .jefe-panel .wrapper-elementos h3, .jefe-panel .wrapper-elementos h4, .jefe-panel .wrapper-elementos h5, .jefe-panel .wrapper-elementos h6, .jefe-panel .wrapper-elementos p, .jefe-panel .wrapper-elementos li, .jefe-panel .wrapper-elementos dl {
   color: #333333;
 }
 /* line 68, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
-.user-panel .wrapper-elementos h1, .user-panel .wrapper-elementos h2, .user-panel .wrapper-elementos h3, .user-panel .wrapper-elementos h4, .user-panel .wrapper-elementos h5, .user-panel .wrapper-elementos h6, .admin-panel .wrapper-elementos h1, .admin-panel .wrapper-elementos h2, .admin-panel .wrapper-elementos h3, .admin-panel .wrapper-elementos h4, .admin-panel .wrapper-elementos h5, .admin-panel .wrapper-elementos h6 {
+.user-panel .wrapper-elementos h1, .user-panel .wrapper-elementos h2, .user-panel .wrapper-elementos h3, .user-panel .wrapper-elementos h4, .user-panel .wrapper-elementos h5, .user-panel .wrapper-elementos h6, .admin-panel .wrapper-elementos h1, .admin-panel .wrapper-elementos h2, .admin-panel .wrapper-elementos h3, .admin-panel .wrapper-elementos h4, .admin-panel .wrapper-elementos h5, .admin-panel .wrapper-elementos h6, .jefe-panel .wrapper-elementos h1, .jefe-panel .wrapper-elementos h2, .jefe-panel .wrapper-elementos h3, .jefe-panel .wrapper-elementos h4, .jefe-panel .wrapper-elementos h5, .jefe-panel .wrapper-elementos h6 {
   line-height: 1;
   margin-bottom: 0.625rem;
 }
 /* line 70, ../../../bower_components/foundation/scss/foundation/components/_panels.scss */
-.user-panel .wrapper-elementos h1.subheader, .user-panel .wrapper-elementos h2.subheader, .user-panel .wrapper-elementos h3.subheader, .user-panel .wrapper-elementos h4.subheader, .user-panel .wrapper-elementos h5.subheader, .user-panel .wrapper-elementos h6.subheader, .admin-panel .wrapper-elementos h1.subheader, .admin-panel .wrapper-elementos h2.subheader, .admin-panel .wrapper-elementos h3.subheader, .admin-panel .wrapper-elementos h4.subheader, .admin-panel .wrapper-elementos h5.subheader, .admin-panel .wrapper-elementos h6.subheader {
+.user-panel .wrapper-elementos h1.subheader, .user-panel .wrapper-elementos h2.subheader, .user-panel .wrapper-elementos h3.subheader, .user-panel .wrapper-elementos h4.subheader, .user-panel .wrapper-elementos h5.subheader, .user-panel .wrapper-elementos h6.subheader, .admin-panel .wrapper-elementos h1.subheader, .admin-panel .wrapper-elementos h2.subheader, .admin-panel .wrapper-elementos h3.subheader, .admin-panel .wrapper-elementos h4.subheader, .admin-panel .wrapper-elementos h5.subheader, .admin-panel .wrapper-elementos h6.subheader, .jefe-panel .wrapper-elementos h1.subheader, .jefe-panel .wrapper-elementos h2.subheader, .jefe-panel .wrapper-elementos h3.subheader, .jefe-panel .wrapper-elementos h4.subheader, .jefe-panel .wrapper-elementos h5.subheader, .jefe-panel .wrapper-elementos h6.subheader {
   line-height: 1.4;
 }
-/* line 46, ../scss/layouts/_ver-panel.scss */
-.user-panel .wrapper-elementos .header, .admin-panel .wrapper-elementos .header {
+/* line 49, ../scss/layouts/_ver-panel.scss */
+.user-panel .wrapper-elementos .header, .admin-panel .wrapper-elementos .header, .jefe-panel .wrapper-elementos .header {
   font-size: 0.75rem;
   padding: 5px 10px;
   background-color: #EAEAEA;
   border-bottom: 1px solid #C3C3C3;
 }
-/* line 52, ../scss/layouts/_ver-panel.scss */
-.user-panel .wrapper-elementos .fila, .user-panel .wrapper-elementos .ultima-fila, .admin-panel .wrapper-elementos .fila, .admin-panel .wrapper-elementos .ultima-fila {
+/* line 55, ../scss/layouts/_ver-panel.scss */
+.user-panel .wrapper-elementos .fila, .user-panel .wrapper-elementos .ultima-fila, .admin-panel .wrapper-elementos .fila, .admin-panel .wrapper-elementos .ultima-fila, .jefe-panel .wrapper-elementos .fila, .jefe-panel .wrapper-elementos .ultima-fila {
   font-size: 0.75rem;
   padding: 5px 10px;
   background-color: #FFFFFF;
   border-bottom: 1px solid #C3C3C3;
 }
-/* line 57, ../scss/layouts/_ver-panel.scss */
-.user-panel .wrapper-elementos .fila .titulo-fila, .user-panel .wrapper-elementos .ultima-fila .titulo-fila, .admin-panel .wrapper-elementos .fila .titulo-fila, .admin-panel .wrapper-elementos .ultima-fila .titulo-fila {
+/* line 60, ../scss/layouts/_ver-panel.scss */
+.user-panel .wrapper-elementos .fila .titulo-fila, .user-panel .wrapper-elementos .ultima-fila .titulo-fila, .admin-panel .wrapper-elementos .fila .titulo-fila, .admin-panel .wrapper-elementos .ultima-fila .titulo-fila, .jefe-panel .wrapper-elementos .fila .titulo-fila, .jefe-panel .wrapper-elementos .ultima-fila .titulo-fila {
   margin: 5px;
 }
-/* line 60, ../scss/layouts/_ver-panel.scss */
-.user-panel .wrapper-elementos .fila input, .user-panel .wrapper-elementos .ultima-fila input, .admin-panel .wrapper-elementos .fila input, .admin-panel .wrapper-elementos .ultima-fila input {
+/* line 63, ../scss/layouts/_ver-panel.scss */
+.user-panel .wrapper-elementos .fila input, .user-panel .wrapper-elementos .ultima-fila input, .admin-panel .wrapper-elementos .fila input, .admin-panel .wrapper-elementos .ultima-fila input, .jefe-panel .wrapper-elementos .fila input, .jefe-panel .wrapper-elementos .ultima-fila input {
   border-radius: 5px;
   font-size: 0.8125rem;
   padding: 3px 8px;
   height: 30px;
   margin-bottom: 10px;
 }
-/* line 68, ../scss/layouts/_ver-panel.scss */
-.user-panel .wrapper-elementos .fila, .admin-panel .wrapper-elementos .fila {
+/* line 71, ../scss/layouts/_ver-panel.scss */
+.user-panel .wrapper-elementos .fila, .admin-panel .wrapper-elementos .fila, .jefe-panel .wrapper-elementos .fila {
   border-bottom: 1px solid #C3C3C3;
 }
-/* line 71, ../scss/layouts/_ver-panel.scss */
-.user-panel .wrapper-elementos .ultima-fila, .admin-panel .wrapper-elementos .ultima-fila {
+/* line 74, ../scss/layouts/_ver-panel.scss */
+.user-panel .wrapper-elementos .ultima-fila, .admin-panel .wrapper-elementos .ultima-fila, .jefe-panel .wrapper-elementos .ultima-fila {
   border-bottom: 0 !important;
 }
 
@@ -7255,6 +7259,22 @@ html, body {
 /* line 53, ../scss/layouts/_panel-usuario.scss */
 .user-panel .eliminar-cuenta .segundo-boton .bt-segunda-conf {
   font-size: 1.875rem;
+}
+
+/* line 4, ../scss/layouts/_panel-jefe.scss */
+.jefe-panel .panel-izq ul.opciones li.datos-partido {
+  min-height: 95px;
+}
+/* line 6, ../scss/layouts/_panel-jefe.scss */
+.jefe-panel .panel-izq ul.opciones li.datos-partido img {
+  position: relative;
+  float: left;
+}
+/* line 10, ../scss/layouts/_panel-jefe.scss */
+.jefe-panel .panel-izq ul.opciones li.datos-partido p {
+  margin-left: 75px;
+  margin-bottom: 0;
+  font-size: 0.875rem;
 }
 
 /* line 2, ../scss/layouts/_administrar.scss */

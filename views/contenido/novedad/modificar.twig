@@ -2,7 +2,7 @@
 {% set footer = true %}
 {% set barraNav = true %}
 {% set html_class = '' %}
-{% set body_class = 'color-anuncio' %}
+{% set body_class = 'color-novedad' %}
 
 {% extends "master.twig" %}
 
@@ -24,7 +24,7 @@
             </section>
         </div>
     </div>
-    <form action="{{ urlFor('runCrearDocumen') }}" method="POST">
+    <form action="{{ urlFor('runModifNovedad', {'idNov': novedad.id} ) }}" method="POST">
         <div class="row">
             <div class="large-12 large-centered columns">
                 <div class="panel-crear-cont">
@@ -117,7 +117,7 @@
 
     $(document).ready(function(){
         $('[name="titulo"]').val('{{ novedad.titulo }}');
-        $("textarea[name='cuerpo']").sceditor('instance').val('{{ propuesta.cuerpo|bbCode }}', false);
+        $("textarea[name='cuerpo']").sceditor('instance').val('{{ novedad.cuerpo|bbCode }}', false);
         autosize($("textarea[name='titulo']"));
         if( partido_id != null){
             $("#checkbox").attr('checked', 'checked');

@@ -2,7 +2,7 @@
 {% set footer = true %}
 {% set barraNav = true %}
 {% set html_class = '' %}
-{% set body_class = 'color-anuncio' %}
+{% set body_class = 'color-novedad' %}
 
 {% extends "master.twig" %}
 
@@ -24,7 +24,7 @@
             </section>
         </div>
     </div>
-    <form action="{{ urlFor('runCrearDocumen') }}" method="POST">
+    <form action="{{ urlFor('runCrearNovedad') }}" method="POST">
         <div class="row">
             <div class="large-12 large-centered columns">
                 <div class="panel-crear-cont">
@@ -35,6 +35,24 @@
                             </section>
                             <section class="datos-cont text-center">
                                 {{ "now"|date("d/m/Y") }} <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}"> {{ user.nombre }} {{ user.apellido }} <span class="usuario-pts"><i class="fa fa-trophy fa-fw"></i>&nbsp;{{ user.puntos }}</span>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row collapse prefix-radius">
+                            <section class="categoria-cont">
+                                <div class="large-5 large-centered columns">
+                                    <div class="large-4 columns">
+                                        <span class="prefix">Categoria</span>
+                                    </div>
+                                    <div class="large-8 columns">
+                                        <select name="categoria" id="tooltip-categoria">
+                                            {% for categoria in categorias %}
+                                            <option value="{{categoria.id}}">{{categoria.nombre|capitalize}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
                             </section>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-.user-panel, .admin-panel{
+.user-panel, .admin-panel, .jefe-panel{
     .row.row-full{
         margin: 0;
         width: 100%;
@@ -18,10 +18,13 @@
                 font-size:  rem-calc(20);
                 color: #FFFFFF;
                 list-style: none;
-                border-bottom: 1px dashed #a7a7a7;
+                border-bottom: 1px dashed #ffffff;
                 a, a:hover{
                     color: #FFFFFF;
                 }
+            }
+            li:last-child{
+                border-bottom: 0;
             }
         }
     }

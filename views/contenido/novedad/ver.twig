@@ -5,15 +5,15 @@
 {# ----------------------------------------------------------- #}
 {% block titulo %}Virtuagora - Novedad #{{ novedad.id }} {% endblock %}
 {# ----------------------------------------------------------- #}
-{% set color_cont = 'color-anuncio' %}
+{% set color_cont = 'color-novedad' %}
 {% block linkheads_cont %}
 {% endblock linkheads_cont %}
 {# ----------------------------------------------------------- #}
 {% set titulo_cont = novedad.titulo %}
 {% set fecha_cont = '' ~ novedad.created_at|date("d/m/Y") %}
 {% set ver_comentarios = true %}
-{% set url_modificar = '' %}
-{% set url_eliminar = '' %}
+{% set url_modificar = urlFor('shwModifNovedad', {'idNov': novedad.id } ) %}
+{% set url_eliminar = urlFor('runElimiNovedad', {'idNov': novedad.id } ) %}
 {% block botones_cont %}{% endblock %}
 {% block cuerpo_cont %}
 <div class="novedad-texto">
@@ -22,7 +22,7 @@
             Publicado el {{ fecha_cont }} <img src="{{ autor_avatar_32 }}"> por {{ autor_nombre_apellido }} <span class="usuario-pts"><i class="fa fa-trophy fa-fw"></i>&nbsp;{{ autor_puntos }}</span>
         </section>
     </div>
-    {{ novedad.cuerpo }}
+    {{ novedad.cuerpo|bbCode }}
 </div>
 {% endblock %}
 {# ----------------------------------------------------------- #}
