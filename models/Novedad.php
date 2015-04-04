@@ -18,7 +18,9 @@ class Novedad extends Eloquent {
     public static function boot() {
         parent::boot();
         static::deleting(function($novedad) {
-            $novedad->comentarios()->delete();
+            foreach ($novedad->comentarios as $comentario) {
+                $comentario->delete();
+            }
             $novedad->contenido->delete();
             return true;
         });

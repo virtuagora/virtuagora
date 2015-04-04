@@ -130,8 +130,8 @@ class DocumentoCtrl extends Controller {
         $vdt->test($idDoc, new Validate\Rule\NumNatural());
         $documento = Propuesta::with(array('contenido', 'comentarios.votos'))->findOrFail($idDoc);
         $documento->delete();
-        $this->flash('success', 'Su documento fue eliminado exitosamente.');
-        $this->redirect($req->getReferrer());
+        $this->flash('success', 'El documento ha sido eliminado exitosamente.');
+        $this->redirectTo('shwIndex');
     }
 
     private function validarDocumento($data, $cuerpo = true) {

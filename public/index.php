@@ -196,6 +196,9 @@ $app->group('/novedad', function () use ($app) {
     $app->get('/crear', checkRole('fnc'), 'NovedadCtrl:verCrear')->name('shwCrearNovedad');
     $app->post('/crear', checkRole('fnc'), 'NovedadCtrl:crear')->name('runCrearNovedad');
     $app->get('/:idNov', 'NovedadCtrl:ver')->name('shwNovedad');
+    $app->get('/:idNov/modificar', checkModifyAuth('Contenido'), 'NovedadCtrl:verModificar')->name('shwModifNovedad');
+    $app->post('/:idNov/modificar', checkModifyAuth('Contenido'), 'NovedadCtrl:modificar')->name('runModifNovedad');
+    $app->post('/:idNov/eliminar', checkModifyAuth('Contenido'), 'NovedadCtrl:eliminar')->name('runElimiNovedad');
 });
 
 $app->group('/partido', function () use ($app) {

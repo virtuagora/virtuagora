@@ -24,7 +24,7 @@ class NovedadCtrl extends Controller {
         $autor = $this->session->getUser();
         $novedad = new Novedad;
         $novedad->cuerpo = $vdt->getData('cuerpo');
-        $propuesta->save();
+        $novedad->save();
         $contenido = new Contenido;
         $contenido->titulo = $vdt->getData('titulo');
         $contenido->puntos = 0;
@@ -43,6 +43,51 @@ class NovedadCtrl extends Controller {
         $accion->save();
         $this->flash('success', 'Su novedad fue creada exitosamente.');
         $this->redirectTo('shwNovedad', array('idNov' => $novedad->id));
+    }
+
+    public function verModificar($idNov) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idNov, new Validate\Rule\NumNatural());
+        $categorias = Categoria::all()->toArray();
+        $novedad = Novedad::with('contenido')->findOrFail($idNov);
+        $contenido = $novedad->contenido;
+        $datos = array_merge($novedad->toArray(), $contenido->toArray());
+        $this->render('contenido/novedad/modificar.twig', array('novedad' => $datos,
+                                                                'categorias' => $categorias));
+    }
+
+    public function modificar($idNov) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idNov, new Validate\Rule\NumNatural());
+        $novedad = Novedad::with('contenido')->findOrFail($idNov);
+        $contenido = $novedad->contenido;
+        $usuario = $this->session->getUser();
+        $req = $this->request;
+        $vdt = $this->validarNovedad($req->post());
+        $novedad->cuerpo = $vdt->getData('cuerpo');
+        $novedad->save();
+        $contenido->titulo = $vdt->getData('titulo');
+        $contenido->categoria_id = $vdt->getData('categoria');
+        if (isset($contenido->impulsor) xor $vdt->getData('asociar')) {
+            $partido = $usuario->partido;
+            if (isset($partido) && $vdt->getData('asociar')) {
+                $contenido->impulsor()->associate($partido);
+            } else {
+                $contenido->impulsor()->dissociate();
+            }
+        }
+        $contenido->save();
+        $this->flash('success', 'Los datos de la novedad fueron modificados exitosamente.');
+        $this->redirectTo('shwNovedad', array('idNov' => $idNov));
+    }
+
+    public function eliminar($idNov) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idNov, new Validate\Rule\NumNatural());
+        $novedad = Novedad::with(array('contenido', 'comentarios.votos'))->findOrFail($idNov);
+        $novedad->delete();
+        $this->flash('success', 'La novedad ha sido eliminada exitosamente.');
+        $this->redirectTo('shwIndex');
     }
 
     private function validarNovedad($data) {

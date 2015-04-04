@@ -135,9 +135,6 @@ class PropuestaCtrl extends Controller {
         $propuesta = Propuesta::with(array('contenido', 'votos'))->findOrFail($idPro);
         $contenido = $propuesta->contenido;
         $usuario = $this->session->getUser();
-        if ($contenido->autor_id != $usuario->id) {
-            throw new BearableException('No puede modificar la propuesta de otro.');
-        }
         $req = $this->request;
         $vdt = $this->validarPropuesta($req->post());
         $propuesta->cuerpo = $vdt->getData('cuerpo');
@@ -164,12 +161,9 @@ class PropuestaCtrl extends Controller {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idPro, new Validate\Rule\NumNatural());
         $propuesta = Propuesta::with(array('contenido', 'comentarios.votos'))->findOrFail($idPro);
-        if ($propuesta->contenido->autor_id != $this->session->user('id')) {
-            throw new BearableException('No puede eliminar la propuesta de otro.');
-        }
         $propuesta->delete();
-        $this->flash('success', 'Su propuesta fue eliminada exitosamente.');
-        $this->redirect($req->getReferrer());
+        $this->flash('success', 'La propuesta ha sido eliminada exitosamente.');
+        $this->redirectTo('shwIndex');
     }
 
     private function validarPropuesta($data) {

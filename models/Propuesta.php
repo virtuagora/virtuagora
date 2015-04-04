@@ -22,7 +22,9 @@ class Propuesta extends Eloquent {
     public static function boot() {
         parent::boot();
         static::deleting(function($propuesta) {
-            $propuesta->comentarios()->delete();
+            foreach ($propuesta->comentarios as $comentario) {
+                $comentario->delete();
+            }
             $propuesta->votos()->delete();
             $propuesta->contenido->delete();
             return true;
