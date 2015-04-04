@@ -7,7 +7,7 @@ class Partido extends Eloquent {
     protected $visible = array('id', 'nombre', 'acronimo', 'descripcion', 'fecha_fundacion', 'fundador');
 
     public function scopeModifiableBy($query, $id) {
-        return $query->whereHas('afiliados', function($q) {
+        return $query->whereHas('afiliados', function($q) use ($id) {
             $q->where('id', $id)->where('es_jefe', 1);
         });
     }
