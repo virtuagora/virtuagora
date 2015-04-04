@@ -8,7 +8,7 @@
 {% set icono_propuesta = '<i class="flaticon flaticon-inspiration"></i>' %}
 {% set icono_documento = '<i class="flaticon flaticon-contract11"></i>' %}
 {% set icono_evento = '<i class="flaticon flaticon-month1"></i>' %}
-{% set icono_anuncio = '<i class="flaticon flaticon-news29"></i>' %}
+{% set icono_novedad = '<i class="flaticon flaticon-news29"></i>' %}
 
 {% extends "master.twig" %}
 
@@ -119,9 +119,9 @@
                     </div>
                 </li>
                 <li>
-                    <div class="button anuncios"><i class="flaticon flaticon-news29"></i> &nbsp;Anuncios
+                    <div class="button novedades"><i class="flaticon flaticon-news29"></i> &nbsp;Novedades
                         {% if user and (user.es_funcionario == true) %}
-                        <a href="#" class="bt-mas oposite button radius right"><i class="fa fa-plus"></i></a>
+                        <a href="{{ urlFor('shwCrearNovedad') }}" class="bt-mas oposite button radius right"><i class="fa fa-plus"></i></a>
                         {% endif %}
                     </div>
                 </li>
@@ -156,8 +156,8 @@
                             {{ icono_documento|raw }}
                             {% elseif contenido.contenible_type == 'Evento' %}
                             {{ icono_evento|raw }}
-                            {% elseif contenido.contenible_type == 'Anuncio' %}
-                            {{ icono_anuncio|raw }}
+                            {% elseif contenido.contenible_type == 'Novedad' %}
+                            {{ icono_novedad|raw }}
                             {% endif %}
                             <div class="puntaje-cont">
                                 <i class="fa fa-line-chart fa-fw"></i> {{ contenido.puntos }}
@@ -242,15 +242,10 @@
         $('.contenido').hide();
         $('.contenido.evento').show();
     });
-    $( ".button.eventos" ).click(function() {
+    $( ".button.novedades" ).click(function() {
         $('.contenido').hide();
-        $('.contenido.evento').show();
+        $('.contenido.novedad').show();
     });
-
-    $( ".bt-logout" ).click(function() {
-        $('#form-salir').submit();
-    });
-
 
 </script>
 {% endblock %}
