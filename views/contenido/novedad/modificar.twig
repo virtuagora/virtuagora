@@ -24,7 +24,7 @@
             </section>
         </div>
     </div>
-    <form action="{{ urlFor('runModifNovedad', {'idNov': novedad.id} ) }}" method="POST">
+    <form id="cacona" action="{{ urlFor('runModifNovedad', {'idNov': novedad.id} ) }}" method="POST">
         <div class="row">
             <div class="large-12 large-centered columns">
                 <div class="panel-crear-cont">
@@ -131,7 +131,7 @@
         });
     });
 
-    var partido_id = {{ novedad.id_partido is null ? 'null' : novedad.id_partido }};
+    var partido_id = {{ novedad.impulsor_id ? novedad.impulsor_id }};
 
     $(document).ready(function(){
         $('[name="titulo"]').val('{{ novedad.titulo }}');
@@ -139,7 +139,7 @@
         $("textarea[name='cuerpo']").sceditor('instance').val('{{ novedad.cuerpo|bbCode }}', false);
         autosize($("textarea[name='titulo']"));
         if( partido_id != null){
-            $("#checkbox").attr('checked', 'checked');
+            $("#checkbox").attr('checked', true);
             completarDescripcion();
         }
 
@@ -154,15 +154,23 @@
     });
 
     var completarDescripcion = function() {
-         if ($('#checkbox').is(':checked')) {
+         if ($('#checkbox').attr('checked')) {
            $('.no-asociar').hide();
         } else {
             $('.no-asociar').show();
         }
     };
 
-    $("#checkbox").click(completarDescripcion);
+    var cambiarEstado = function() {
+         if ($('#checkbox').attr('checked')) {
+           $("#checkbox").attr('checked', false);
+        } else {
+            $("#checkbox").attr('checked', true);
+        }
+        completarDescripcion();
+    };
 
+    $("#checkbox").click(cambiarEstado);
 
     $('#tooltip-categoria').data('powertiptarget', 'tooltip-categoria-data');
     $('#tooltip-categoria').powerTip({
@@ -174,6 +182,7 @@
         placement: 'n',
         mouseOnToPopup: true
     });
+
 </script>
 {% endblock %}
 {# ----------------------------------------------------------- #}
