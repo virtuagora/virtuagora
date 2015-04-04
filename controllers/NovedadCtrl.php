@@ -68,9 +68,9 @@ class NovedadCtrl extends Controller {
         $novedad->save();
         $contenido->titulo = $vdt->getData('titulo');
         $contenido->categoria_id = $vdt->getData('categoria');
-        if (isset($contenido->impulsor) xor $vdt->getData('asociar')) {
+        if ($contenido->impulsor xor $vdt->getData('asociar')) {
             $partido = $usuario->partido;
-            if (isset($partido) && $vdt->getData('asociar')) {
+            if ($partido && $vdt->getData('asociar')) {
                 $contenido->impulsor()->associate($partido);
             } else {
                 $contenido->impulsor()->dissociate();

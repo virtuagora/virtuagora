@@ -5,11 +5,9 @@ class SessionManager {
     public function login($email, $password) {
         $success = false;
         $usuario = Usuario::where('email', $email)->first();
-        if (!is_null($usuario) && password_verify($password, $usuario->password)) {
-            if ($usuario->validado) {
-                $success = true;
-                $this->update($usuario);
-            }
+        if ($usuario && password_verify($password, $usuario->password) && $usuario->validado) {
+            $success = true;
+            $this->update($usuario);
         }
         return $success;
     }
