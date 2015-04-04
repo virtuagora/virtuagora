@@ -38,6 +38,24 @@
                             </section>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="row collapse prefix-radius">
+                            <section class="categoria-cont">
+                                <div class="large-5 large-centered columns">
+                                    <div class="large-4 columns">
+                                        <span class="prefix">Categoria</span>
+                                    </div>
+                                    <div class="large-8 columns">
+                                        <select name="categoria" id="tooltip-categoria">
+                                            {% for categoria in categorias %}
+                                            <option value="{{categoria.id}}">{{categoria.nombre|capitalize}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
                     {% if user.partido_id %}
                     <div class="asociar-partido-row row">
                         <div class="large-6 large-centered columns">
@@ -117,6 +135,7 @@
 
     $(document).ready(function(){
         $('[name="titulo"]').val('{{ novedad.titulo }}');
+        $('[name="categoria"] select').val('{{ novedad.categoria }}');
         $("textarea[name='cuerpo']").sceditor('instance').val('{{ novedad.cuerpo|bbCode }}', false);
         autosize($("textarea[name='titulo']"));
         if( partido_id != null){
