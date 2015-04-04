@@ -66,8 +66,8 @@ class PortalCtrl extends Controller {
         $usuario->password = password_hash($vdt->getData('password'), PASSWORD_DEFAULT);
         $usuario->nombre = $vdt->getData('nombre');
         $usuario->apellido = $vdt->getData('apellido');
-        $usuario->token_verificacion = bin2hex(openssl_random_pseudo_bytes(16));
-        $usuario->verificado = false;
+        $usuario->emailed_token = bin2hex(openssl_random_pseudo_bytes(16));
+        $usuario->validado = false;
         $usuario->puntos = 0;
         $usuario->suspendido = false;
         $usuario->es_funcionario = false;
@@ -79,7 +79,7 @@ class PortalCtrl extends Controller {
         $to = $usuario->email;
         $subject = 'Confirma tu registro en Virtuagora';
         $message = 'Hola, te registraste en virtuagora. Entra a este link para confirmar tu email: ' .
-                   $this->urlFor('runVerifUsuario', array('idUsr' => $usuario->id, 'token' => $usuario->token_verificacion));
+                   $this->urlFor('runValidUsuario', array('idUsr' => $usuario->id, 'token' => $usuario->emailed_token));
         $header = 'From:noreply@'.$_SERVER['SERVER_NAME'].' \r\n';
         $retval = mail($to, $subject, $message, $header);
 
@@ -92,12 +92,12 @@ class PortalCtrl extends Controller {
         $vdt->test($token, new Validate\Rule\AlphaNumeric());
         $vdt->test($token, new Validate\Rule\MinLength(8));
         $usuario = Usuario::findOrFail($idUsr);
-        if ($usuario->verificado) {
-            $this->flash('warning', 'Su cuenta ya cuenta con un email verificado.');
+        if ($usuario->validado) {
+            $this->flash('warning', 'Su cuenta ya cuenta con un email validado.');
             $this->redirectTo('shwIndex');
         }
-        if ($token == $usuario->token_verificacion) {
-            $usuario->verificado = true;
+        if ($token == $usuario->emailed_token) {
+            $usuario->validado = true;
             $usuario->save();
             $this->render('registro/validar-correo.twig', array('usuarioValido' => true,
                                                                 'email' => $usuario->email));

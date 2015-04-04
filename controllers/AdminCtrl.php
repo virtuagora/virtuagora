@@ -5,7 +5,7 @@ class AdminCtrl extends Controller {
     public function verOrganismos() {
         $req = $this->request;
         $url = $req->getUrl().$req->getPath();
-        $paginator = new Paginator(Organismo::query(), $url, $vdt->getData());
+        $paginator = new Paginator(Organismo::query(), $url, $req->get());
         $organismos = $paginator->rows;
         $nav = $paginator->links;
         $this->render('admin/organismos.twig', array('organismos' => $organismos->toArray(),
@@ -183,6 +183,25 @@ class AdminCtrl extends Controller {
         }
         $this->flash('success', $mensaje);
         $this->redirect($req->getReferrer());
+    }
+
+    public function verVerifCiudadano() {
+        $this->render('admin/verificar-usuarios.twig');
+    }
+
+    public function verifCiudadano() {
+        $vdt = new Validate\Validator();
+        $vdt->addRule('entrantes', new Validate\Rule\Regex('/^\[\d+(?:,\d+)*\]$/'));
+        $req = $this->request;
+        if (!$vdt->validate($req->post())) {
+            throw new TurnbackException('Configuración inválida.');
+        }
+        $entrantes = json_decode($vdt->getData('entrantes'));
+        $usuarios = Usuario::whereIn('id', $entrantes)->whereNull('fecha_validacion')->get();
+        $usuarios->increment('puntos', 25, array('verified_at' => Carbon\Carbon::now())); // TODO definir cuantos puntos se dan
+        // TODO crear accion de verificacion de ciudadano
+        $this->flash('success', 'Se han verificado los ciudadanos seleccionados exitosamente.');
+        $this->redirectTo('shwAdmVrfUsuario');
     }
 
 }
