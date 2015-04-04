@@ -125,14 +125,20 @@
                         {% endif %}
                     </div>
                 </li>
+                {% if user and (user.partido_id != null) %}
+                <li>
+                    <div class="button impulsados"><i class="fa fa-flag fa-fw"></i> &nbsp;De mi partido
+                    </div>
+                </li>
+                {% endif %}
             </ul>
         </div>
         <div class="listado-contenidos medium-9 columns">
             <dl class="sub-nav" role="menu" title="Filter Menu List">
-                <dt>Filtrar por:</dt>
-                <dd class="sortRecientes active" role="menuitem" ><a href="javascript:sortRecientes();">Mas recientes</a></dd>
-                <dd class="sortPtsCont" role="menuitem"><a href="javascript:sortPtsCont();">Mas valorados</a></dd>
-                <dd class="sortPtsAutor" role="menuitem"><a href="javascript:sortPtsAutor();">Usuario mas rankeado</a></dd>
+                <dt>Ver:</dt>
+                <dd class="sortRecientes active" role="menuitem" ><a href="javascript:sortRecientes();"><i class="fa fa-plus fa-fw"></i> Recientes</a></dd>
+                <dd class="sortPtsCont" role="menuitem"><a href="javascript:sortPtsCont();"><i class="fa fa-plus fa-fw"></i> valorados</a></dd>
+                <dd class="sortPtsAutor" role="menuitem"><a href="javascript:sortPtsAutor();">Usuario <i class="fa fa-plus fa-fw"></i> rankeado</a></dd>
             </dl>
             <hr>
             <table id="tabla-contenidos">
@@ -142,11 +148,12 @@
                         <th>Fecha contenido</th>
                         <th>Puntos contenido</th>
                         <th>Puntos autor</th>
+                        <th>ID Partido Impulsador</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for contenido in contenidos %}
-                    <tr id="cont-{{contenido.id}}" class="contenido {{ contenido.contenible_type|lower }}">
+                    <tr id="cont-{{contenido.id}}" class="contenido {{ contenido.contenible_type|lower }} {{ contenido.impulsor_id ? 'impulsado impulsor-' ~ contenido.impulsor_id }}">
                         <td>
                             {% if contenido.contenible_type == 'Problematica' %}
                             {{ icono_problematica|raw }}
@@ -175,6 +182,9 @@
                         </td>
                         <td style="display:none;">
                             {{ contenido.autor.puntos }}
+                        </td>
+                        <td style="display:none;">
+                            {{ contenido.impulsor_id }}
                         </td>
                     </tr>
                     {% endfor %}
@@ -245,6 +255,10 @@
     $( ".button.novedades" ).click(function() {
         $('.contenido').hide();
         $('.contenido.novedad').show();
+    });
+    $( ".button.impulsados" ).click(function() {
+        $('.contenido').hide();
+        $('.contenido.impulsado.impulsor-' + {{ user.partido_id }}).show();
     });
 
 </script>

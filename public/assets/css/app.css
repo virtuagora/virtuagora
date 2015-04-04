@@ -5545,27 +5545,37 @@ html, body {
   padding: 3px 6px;
   font-size: 0.75rem;
 }
+/* line 240, ../scss/layouts/_portal.scss */
+.portal-usuario .contenidos .panel-control .button-group .button.impulsados {
+  color: #84a240;
+  background-color: rgba(132, 162, 64, 0.2);
+}
 /* line 243, ../scss/layouts/_portal.scss */
+.portal-usuario .contenidos .panel-control .button-group .button.impulsados:hover {
+  color: #FFFFFF;
+  background-color: #84a240;
+}
+/* line 251, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .listado-contenidos .sub-nav {
   padding-top: 0;
 }
-/* line 246, ../scss/layouts/_portal.scss */
+/* line 254, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .listado-contenidos table {
   width: 100%;
 }
-/* line 248, ../scss/layouts/_portal.scss */
+/* line 256, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .listado-contenidos table tr:nth-of-type(even) {
   background: 0;
 }
-/* line 251, ../scss/layouts/_portal.scss */
+/* line 259, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .listado-contenidos table tr:hover {
   background-color: #fcf6d9;
 }
-/* line 255, ../scss/layouts/_portal.scss */
+/* line 263, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .listado-contenidos table tr.nuevo .button {
   margin: 0;
 }
-/* line 261, ../scss/layouts/_portal.scss */
+/* line 269, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .listado-contenidos table td i.flaticon:before {
   margin: 0;
   position: relative;
@@ -5573,28 +5583,28 @@ html, body {
   top: 10px;
   font-size: 25px;
 }
-/* line 269, ../scss/layouts/_portal.scss */
+/* line 277, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .listado-contenidos table td .puntaje-cont {
   position: relative;
   float: right;
   font-size: 20px;
   color: #DAD3D3;
 }
-/* line 275, ../scss/layouts/_portal.scss */
+/* line 283, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .listado-contenidos table td .listar-cont {
   margin-left: 35px;
 }
-/* line 277, ../scss/layouts/_portal.scss */
+/* line 285, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .listado-contenidos table td .listar-cont h6 {
   margin: 0;
   letter-spacing: -0.5px;
 }
-/* line 281, ../scss/layouts/_portal.scss */
+/* line 289, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .listado-contenidos table td .listar-cont p {
   font-size: 0.6875rem;
   margin: 0;
 }
-/* line 283, ../scss/layouts/_portal.scss */
+/* line 291, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .listado-contenidos table td .listar-cont p img {
   width: 15px;
   height: 15px;

@@ -237,6 +237,14 @@
                         font-size: rem-calc(12);
                     }
                 }
+                &.impulsados{
+                    color: $partido-color;
+                    background-color: rgba(132, 162, 64, 0.2);
+                    &:hover{
+                        color: #FFFFFF;
+                        background-color:  rgba(132, 162, 64, 1);
+                    }
+                }
             }
         }
         .listado-contenidos{
