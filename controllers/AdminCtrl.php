@@ -2,6 +2,32 @@
 
 class AdminCtrl extends Controller {
 
+    public function verAdminAjustes() {
+        $ajustes = Ajustes->all();
+        $this->render('admin/ajustes.twig', array('ajustes' => $ajustes->toArray()));
+    }
+
+    public function adminAjustes() {
+        $vdt = new Validate\Validator();
+        $vdt->addRule('tos', new Validate\Rule\MinLength(8))
+            ->addRule('tos', new Validate\Rule\MaxLength(8192))
+            ->addFilter('tos', FilterFactory::escapeHTML());
+        $req = $this->request;
+        if (!$vdt->validate($req->post())) {
+            throw new TurnbackException($vdt->getErrors());
+        }
+        foreach ($ajustes as $ajuste) {
+            $newValue = $vdt->getData($ajuste->key);
+            if (isset($newValue)) {
+                $ajuste->value = $newValue;
+                $ajuste->save();
+            }
+        }
+        $ajustes = Ajustes->all();
+        $this->flash('success', 'Los ajustes se han modificado exitosamente.');
+        $this->redirectTo('shwAdmAjuste');
+    }
+
     public function verOrganismos() {
         $req = $this->request;
         $url = $req->getUrl().$req->getPath();

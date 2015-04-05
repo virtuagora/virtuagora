@@ -15,6 +15,18 @@ $capsule->addConnection(array(
 ));
 $capsule->setAsGlobal();
 
+Capsule::schema()->create('ajustes', function($table) {
+    $table->engine = 'InnoDB';
+
+    $table->increments('id');
+    $table->string('key')->unique();
+    $table->string('value_type');
+    $table->integer('int_value')->nullable();
+    $table->string('str_value')->nullable();
+    $table->text('txt_value')->nullable();
+    $table->string('description');
+});
+
 Capsule::schema()->create('usuarios', function($table) {
     $table->engine = 'InnoDB';
 

@@ -160,6 +160,8 @@ $app->group('/admin', function () use ($app) {
 
     $app->get('/verificar', checkRole('mod'), 'AdminCtrl:verVerifCiudadano')->name('shwAdmVrfUsuario');
     $app->post('/verificar', checkRole('mod'), 'AdminCtrl:verifCiudadano')->name('runAdmVrfUsuario');
+    $app->get('/ajustes', checkRole('mod'), 'AdminCtrl:verAdminAjustes')->name('shwAdmAjuste');
+    $app->post('/ajustes', checkRole('mod'), 'AdminCtrl:adminAjustes')->name('runAdmAjuste');
 });
 
 $app->group('/propuesta', function () use ($app) {

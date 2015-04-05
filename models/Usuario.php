@@ -21,7 +21,7 @@ class Usuario extends Eloquent {
         return $this->hasMany('Contenido', 'autor_id');
     }
 
-    public function getNombreCompleto() {
+    public function getNombreCompletoAttribute() {
         return $this->nombre.' '.$this->apellido;
     }
 
