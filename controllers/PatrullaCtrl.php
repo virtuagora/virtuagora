@@ -1,6 +1,6 @@
 <?php use Augusthur\Validation as Validate;
 
-class OrganismoCtrl extends RMRController {
+class PatrullaCtrl extends RMRController {
 
     protected $mediaTypes = array('json', 'view');
     protected $properties = array('id', 'nombre', 'descripcion');
@@ -22,7 +22,7 @@ class OrganismoCtrl extends RMRController {
 
     public function modificar($idPat) {
         $vdt = new Validate\Validator();
-        $vdt->addRule('idPat', new Validate\Rule\NumNatural());
+        $vdt->addRule('idPat', new Validate\Rule\NumNatural())
             ->addRule('nombre', new Validate\Rule\Alpha(array(' ')))
             ->addRule('nombre', new Validate\Rule\MinLength(2))
             ->addRule('nombre', new Validate\Rule\MaxLength(64))

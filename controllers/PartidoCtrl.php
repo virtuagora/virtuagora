@@ -200,7 +200,12 @@ class PartidoCtrl extends RMRController {
             ->addOptional('fecha')
             ->addOptional('url')
             ->addOptional('email')
-            ->addOptional('telefono');
+            ->addOptional('telefono')
+            ->addFilter('fundador', FilterFactory::emptyToNull())
+            ->addFilter('fecha', FilterFactory::emptyToNull())
+            ->addFilter('url', FilterFactory::emptyToNull())
+            ->addFilter('email', FilterFactory::emptyToNull())
+            ->addFilter('telefono', FilterFactory::emptyToNull());
         if (!$vdt->validate($data)) {
             throw new TurnbackException($vdt->getErrors());
         }
