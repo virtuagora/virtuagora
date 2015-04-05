@@ -12,7 +12,7 @@ class SessionManager {
         return $success;
     }
 
-    public function logout () {
+    public function logout() {
         if ($this->check()) {
             $_SESSION = array();
             if (isset($_COOKIE[session_name()])) {
@@ -84,8 +84,8 @@ class SessionManager {
     }
 
     public function isAdminAllowedTo($action) {
-        $mod = Moderador::whereHas('patrulla.poderes', function($q) {
-            $q->where('accion', 'admConteni');
+        $mod = Moderador::whereHas('patrulla.poderes', function($q) use ($action) {
+            $q->where('accion', $action);
         })->find($this->user('id'));
         return isset($mod);
     }

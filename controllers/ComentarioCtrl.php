@@ -31,12 +31,7 @@ class ComentarioCtrl extends Controller {
         $comentario->autor()->associate($autor);
         $comentario->comentable()->associate($comentable);
         $comentario->save();
-        $accion = new Accion;
-        $accion->tipo = 'new_comenta';
-        $accion->objeto_type = $objType;
-        $accion->objeto_id = $objId;
-        $accion->actor()->associate($autor);
-        $accion->save();
+        UserlogCtrl::createLog('newComenta', $autor, $objId, $objType);
         $this->flash('success', 'Su comentario fue enviado exitosamente.');
         $this->redirect($req->getReferrer());
     }

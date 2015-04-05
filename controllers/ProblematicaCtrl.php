@@ -32,11 +32,7 @@ class ProblematicaCtrl extends Controller {
         $postura = $vdt->getData('postura');
         if (!$voto->exists) {
             $usuario->increment('puntos');
-            $accion = new Accion;
-            $accion->tipo = 'vot_problem';
-            $accion->objeto()->associate($problematica);
-            $accion->actor()->associate($usuario);
-            $accion->save();
+            UserlogCtrl::createLog('votProblem', $usuario, $problematica);
         } else if ($voto->postura == $postura) {
             throw new TurnbackException('No puede votar dos veces la misma postura.');
         } else {
@@ -96,11 +92,7 @@ class ProblematicaCtrl extends Controller {
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($problematica);
         $contenido->save();
-        $accion = new Accion;
-        $accion->tipo = 'new_problem';
-        $accion->objeto()->associate($problematica);
-        $accion->actor()->associate($autor);
-        $accion->save();
+        UserlogCtrl::createLog('newProblem', $autor, $problematica);
         $this->flash('success', 'Su problemática se creó exitosamente.');
         $this->redirectTo('shwProblem', array('idPro' => $problematica->id));
     }

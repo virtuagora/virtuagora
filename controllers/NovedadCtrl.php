@@ -36,11 +36,7 @@ class NovedadCtrl extends Controller {
             $contenido->impulsor()->associate($partido);
         }
         $contenido->save();
-        $accion = new Accion;
-        $accion->tipo = 'new_novedad';
-        $accion->objeto()->associate($novedad);
-        $accion->actor()->associate($autor);
-        $accion->save();
+        UserlogCtrl::createLog('newNovedad', $autor, $novedad);
         $this->flash('success', 'Su novedad fue creada exitosamente.');
         $this->redirectTo('shwNovedad', array('idNov' => $novedad->id));
     }

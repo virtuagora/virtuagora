@@ -1,13 +1,16 @@
 <?php use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Accion extends Eloquent {
+class Adminlog extends Eloquent {
     use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-    protected $table = 'acciones';
-    protected $dates = array('deleted_at');
-    protected $visible = array('id', 'tipo', 'url_nombre', 'url_params', 'obj_nombre');
+    //protected $table = 'adminlogs';
+    protected $visible = array('id', 'descripcion', 'poder_id', 'url_nombre', 'url_params', 'obj_nombre');
     protected $appends = array('url_nombre', 'url_params', 'obj_nombre');
     protected $with = array('objeto');
+
+    public function poder() {
+        return $this->belongsTo('Poder');
+    }
 
     public function actor() {
         return $this->belongsTo('Usuario');

@@ -1,8 +1,8 @@
 <?php use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Patrulla extends Eloquent {
-    //$table = 'patrullas';
 
+    //protected $table = 'patrullas';
     protected $visible = array('id', 'nombre', 'descripcion');
 
     public function moderadores() {
@@ -10,7 +10,7 @@ class Patrulla extends Eloquent {
     }
 
     public function poderes() {
-        return $this->hasMany('Poder');
+        return $this->belongsToMany('Poder');
     }
 
 }

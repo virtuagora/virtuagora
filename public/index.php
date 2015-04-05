@@ -89,7 +89,7 @@ function checkModifyAuth($resource, $moderable = true) {
         $idRes = reset($params);
         $idUsr = $app->session->user('id');
         $query = call_user_func($resource.'::modifiableBy', $idUsr);
-        if (is_null($query->find($idRes)) && !($moderable && $app->session->isAdminAllowedTo('admConteni'))) {
+        if (is_null($query->find($idRes)) && !($moderable && $app->session->isAdminAllowedTo(1))) {
             throw new BearableException('No tiene permiso para realizar esta acción', 403);
         }
     };
@@ -162,6 +162,8 @@ $app->group('/admin', function () use ($app) {
     $app->post('/verificar', checkRole('mod'), 'AdminCtrl:verifCiudadano')->name('runAdmVrfUsuario');
     $app->get('/ajustes', checkRole('mod'), 'AdminCtrl:verAdminAjustes')->name('shwAdmAjuste');
     $app->post('/ajustes', checkRole('mod'), 'AdminCtrl:adminAjustes')->name('runAdmAjuste');
+    $app->get('/patrulla', checkRole('mod'), 'PatrullaCtrl:listar')->name('shwAdmPatrull');
+    $app->post('/patrulla/:idPat/modificar', checkRole('mod'), 'PatrullaCtrl:modificar')->name('runModifPatrull');
 });
 
 $app->group('/propuesta', function () use ($app) {

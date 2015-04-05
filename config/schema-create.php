@@ -17,7 +17,6 @@ $capsule->setAsGlobal();
 
 Capsule::schema()->create('ajustes', function($table) {
     $table->engine = 'InnoDB';
-
     $table->increments('id');
     $table->string('key')->unique();
     $table->string('value_type');
@@ -25,6 +24,7 @@ Capsule::schema()->create('ajustes', function($table) {
     $table->string('str_value')->nullable();
     $table->text('txt_value')->nullable();
     $table->string('description');
+    $table->timestamps();
 });
 
 Capsule::schema()->create('usuarios', function($table) {
@@ -46,7 +46,6 @@ Capsule::schema()->create('usuarios', function($table) {
     $table->string('dni')->nullable();
     $table->dateTime('verified_at')->nullable();
     $table->integer('partido_id')->unsigned()->nullable();
-
     $table->string('advertencia')->nullable();
     $table->dateTime('fin_advertencia')->nullable();
     $table->dateTime('fin_suspension')->nullable();
@@ -97,33 +96,6 @@ Capsule::schema()->create('funcionarios', function($table) {
     $table->softDeletes();
 });
 
-Capsule::schema()->create('acciones', function($table) {
-    $table->engine = 'InnoDB';
-
-    $table->increments('id')->unsigned();
-    $table->string('tipo');
-    $table->morphs('objeto');
-    $table->integer('actor_id')->unsigned();
-
-    $table->foreign('actor_id')->references('id')->on('usuarios')->onDelete('cascade');
-
-    $table->timestamps();
-    $table->softDeletes();
-});
-
-Capsule::schema()->create('notificaciones', function($table) {
-    $table->engine = 'InnoDB';
-
-    $table->increments('id')->unsigned();
-    $table->morphs('notificable');
-    $table->integer('usuario_id')->unsigned();
-
-    $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
-
-    $table->timestamps();
-    $table->softDeletes();
-});
-
 Capsule::schema()->create('usuario_datos', function($table) {
     $table->engine = 'InnoDB';
 
@@ -152,38 +124,67 @@ Capsule::schema()->create('contactos', function($table) {
     $table->timestamps();
 });
 
+Capsule::schema()->create('acciones', function($table) {
+    $table->engine = 'InnoDB';
+    $table->string('id', 10)->primary();
+    $table->string('nombre');
+});
+
+Capsule::schema()->create('userlogs', function($table) {
+    $table->engine = 'InnoDB';
+    $table->increments('id')->unsigned();
+    $table->morphs('objeto');
+    $table->string('accion_id', 10);
+    $table->integer('actor_id')->unsigned()->references('id')->on('usuarios')->onDelete('cascade');
+    $table->timestamps();
+});
+
+Capsule::schema()->create('notificaciones', function($table) {
+    $table->engine = 'InnoDB';
+    $table->increments('id')->unsigned();
+    $table->morphs('notificable');
+    $table->integer('usuario_id')->unsigned()->references('id')->on('usuarios')->onDelete('cascade');
+    $table->timestamps();
+    $table->softDeletes();
+});
+
 Capsule::schema()->create('patrullas', function($table) {
     $table->engine = 'InnoDB';
-
     $table->increments('id');
     $table->string('nombre');
     $table->text('descripcion');
-
     $table->timestamps();
 });
 
 Capsule::schema()->create('moderadores', function($table) {
     $table->engine = 'InnoDB';
-
-    $table->integer('id')->unsigned();
-    $table->integer('patrulla_id')->unsigned();
-
-    $table->primary('id');
-    $table->foreign('id')->references('id')->on('usuarios')->onDelete('cascade');
-    $table->foreign('patrulla_id')->references('id')->on('patrullas')->onDelete('cascade');
-
+    $table->integer('id')->unsigned()->primary()->references('id')->on('usuarios')->onDelete('cascade');
+    $table->integer('patrulla_id')->unsigned()->references('id')->on('patrullas')->onDelete('cascade');
     $table->timestamps();
 });
 
 Capsule::schema()->create('poderes', function($table) {
     $table->engine = 'InnoDB';
-
     $table->increments('id');
-    $table->integer('patrulla_id')->unsigned();
-    $table->string('accion');
+    $table->string('nombre');
+    $table->string('descripcion');
+    $table->timestamps();
+});
 
-    $table->foreign('patrulla_id')->references('id')->on('patrullas')->onDelete('cascade');
+Capsule::schema()->create('patrulla_poder', function($table) {
+    $table->engine = 'InnoDB';
+    $table->increments('id');
+    $table->integer('patrulla_id')->unsigned()->references('id')->on('patrullas')->onDelete('cascade');
+    $table->integer('poder_id')->unsigned()->references('id')->on('poderes')->onDelete('cascade');
+});
 
+Capsule::schema()->create('adminlogs', function($table) {
+    $table->engine = 'InnoDB';
+    $table->increments('id')->unsigned();
+    $table->string('descripcion');
+    $table->morphs('objeto');
+    $table->integer('actor_id')->unsigned();
+    $table->integer('accion_id')->unsigned();
     $table->timestamps();
 });
 

@@ -3,10 +3,11 @@
 class Poder extends Eloquent {
 
     protected $table = 'poderes';
-    protected $visible = array('id', 'accion', 'patrulla_id', 'created_at', 'updated_at');
+    protected $visible = array('id', 'nombre', 'descripcion');
+    protected $fillable = array('nombre', 'descripcion');
 
-    public function patrulla() {
-        return $this->belongsTo('Patrulla');
+    public function patrullas() {
+        return $this->belongsToMany('Patrulla');
     }
 
 }

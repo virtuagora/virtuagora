@@ -14,6 +14,7 @@ class UsuarioCtrl extends RMRController {
     }
 
     public function cambiarClave() {
+        $usuario = $this->session->getUser();
         $vdt = new Validate\Validator();
         $vdt->setLabel('pass-old', 'La contraseña actual')
             ->setLabel('pass-new', 'La contraseña nueva')
@@ -22,7 +23,6 @@ class UsuarioCtrl extends RMRController {
             ->addRule('pass-new', new Validate\Rule\MaxLength(128))
             ->addRule('pass-new', new Validate\Rule\Matches('pass-verif'));
         $req = $this->request;
-        $usuario = $this->session->getUser();
         if (!$vdt->validate($req->post())) {
             throw new TurnbackException($vdt->getErrors());
         }

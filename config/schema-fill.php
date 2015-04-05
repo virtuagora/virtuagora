@@ -1,5 +1,12 @@
 <?php require __DIR__.'/../vendor/autoload.php';
 
+$ajuste = new Ajuste;
+$ajuste->key = 'tos';
+$ajuste->value_type = 'txt';
+$ajuste->value = 'Holis!!!';
+$ajuste->description = 'Términos y condiciones para el uso de la plataforma.';
+$ajuste->save();
+
 $usuario = new Usuario;
 $usuario->email = 'admin@virtuago.ra';
 $usuario->password = password_hash('12345678', PASSWORD_DEFAULT);
@@ -20,10 +27,8 @@ $patrulla->nombre = 'moderadores';
 $patrulla->descripcion = 'Los moderadores.';
 $patrulla->save();
 
-$poder = new Poder;
-$poder->accion = 'admConteni';
-$poder->patrulla()->associate($patrulla);
-$poder->save();
+$poder = Poder::create(array('nombre' => 'Gestionar plataforma', 'descripcion' => 'Moderar en la la plataforma.'));
+$patrulla->poderes()->attach($poder);
 
 $moderador = new Moderador;
 $moderador->usuario()->associate($usuario);

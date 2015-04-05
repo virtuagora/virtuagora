@@ -49,11 +49,7 @@ class DocumentoCtrl extends Controller {
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($documento);
         $contenido->save();
-        $accion = new Accion;
-        $accion->tipo = 'new_documen';
-        $accion->objeto()->associate($documento);
-        $accion->actor()->associate($autor);
-        $accion->save();
+        UserlogCtrl::createLog('newDocumen', $autor, $documento);
         $this->flash('success', 'Su documento abierto se creó exitosamente.');
         $this->redirectTo('shwDocumen', array('idDoc' => $documento->id));
     }

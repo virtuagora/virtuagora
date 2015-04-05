@@ -46,11 +46,7 @@ class PartidoCtrl extends RMRController {
         $contacto->telefono = $vdt->getData('telefono');
         $contacto->contactable()->associate($partido);
         $contacto->save();
-        $accion = new Accion;
-        $accion->tipo = 'new_partido';
-        $accion->objeto()->associate($partido);
-        $accion->actor()->associate($usuario);
-        $accion->save();
+        UserlogCtrl::createLog('newPartido', $usuario, $partido);
         ImageManager::crearImagen('partido', $partido->id, $partido->nombre, array(32, 64, 160));
         $this->session->update();
         $this->flash('success', 'El partido '.$partido->nombre.' fue creado exitosamente.');
@@ -67,11 +63,7 @@ class PartidoCtrl extends RMRController {
         }
         $usuario->partido()->associate($partido);
         $usuario->save();
-        $accion = new Accion;
-        $accion->tipo = 'joi_partido';
-        $accion->objeto()->associate($partido);
-        $accion->actor()->associate($usuario);
-        $accion->save();
+        UserlogCtrl::createLog('joiPartido', $usuario, $partido);
         $this->session->update($usuario);
         $this->flash('success', 'Se ha unido al partido '.$partido->nombre.'.');
         $this->redirectTo('shwListaPartido');
@@ -88,11 +80,7 @@ class PartidoCtrl extends RMRController {
         $usuario->partido()->dissociate();
         $usuario->es_jefe = false;
         $usuario->save();
-        $accion = new Accion;
-        $accion->tipo = 'lef_partido';
-        $accion->objeto()->associate($partido);
-        $accion->actor()->associate($usuario);
-        $accion->save();
+        UserlogCtrl::createLog('lefPartido', $usuario, $partido);
         $this->session->update($usuario);
         $this->flash('success', 'Ha dejado el partido '.$partido->nombre.'.');
         $this->redirectTo('shwListaPartido');
@@ -182,11 +170,7 @@ class PartidoCtrl extends RMRController {
         }
         $usuario->es_jefe = $vdt->getData('jefe');
         $usuario->save();
-        $accion = new Accion;
-        $accion->tipo = $usuario->es_jefe ? 'new_jefe' : 'del_jefe';
-        $accion->objeto()->associate($partido);
-        $accion->actor()->associate($usuario);
-        $accion->save();
+        UserlogCtrl::createLog($usuario->es_jefe?'newJefPart':'delJefPart', $usuario, $partido);
         $msg = $usuario->es_jefe ? ' comenzó a ' : ' dejó de ';
         $this->flash('success', $usuario->nombre_completo.$msg.'ser jefe del partido.');
         $this->redirectTo('shwModifRolPartido', array('idPar' => $idPar));

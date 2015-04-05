@@ -34,11 +34,7 @@ class PropuestaCtrl extends Controller {
         if (!$voto->exists) {
             $voto->publico = $vdt->getData('publico');
             $usuario->increment('puntos');
-            $accion = new Accion;
-            $accion->tipo = 'vot_propues';
-            $accion->objeto()->associate($propuesta);
-            $accion->actor()->associate($usuario);
-            $accion->save();
+            UserlogCtrl::createLog('votPropues', $usuario, $propuesta);
         } else if ($voto->postura == $postura) {
             throw new TurnbackException('No puede votar dos veces la misma postura.');
         } else {
@@ -109,11 +105,7 @@ class PropuestaCtrl extends Controller {
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($propuesta);
         $contenido->save();
-        $accion = new Accion;
-        $accion->tipo = 'new_propues';
-        $accion->objeto()->associate($propuesta);
-        $accion->actor()->associate($autor);
-        $accion->save();
+        UserlogCtrl::createLog('newPropues', $autor, $propuesta);
         $this->flash('success', 'Su propuesta fue creada exitosamente.');
         $this->redirectTo('shwPropues', array('idPro' => $propuesta->id));
     }
@@ -142,15 +134,11 @@ class PropuestaCtrl extends Controller {
         $contenido->titulo = $vdt->getData('titulo');
         $contenido->categoria_id = $vdt->getData('categoria');
         $contenido->save();
-        $accion = new Accion;
-        $accion->tipo = 'mod_propues';
-        $accion->objeto()->associate($propuesta);
-        $accion->actor()->associate($usuario);
-        $accion->save();
+        $log = UserlogCtrl::createLog('modPropues', $usuario, $propuesta);
         foreach ($propuesta->votos as $voto) {
             $notif = new Notificacion();
             $notif->usuario_id = $voto->usuario_id;
-            $notif->notificable()->associate($accion);
+            $notif->notificable()->associate($log);
             $notif->save();
         }
         $this->flash('success', 'Los datos de la propuesta fueron modificados exitosamente.');
