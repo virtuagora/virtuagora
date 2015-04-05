@@ -168,7 +168,6 @@ Capsule::schema()->create('poderes', function($table) {
     $table->increments('id');
     $table->string('nombre');
     $table->string('descripcion');
-    $table->timestamps();
 });
 
 Capsule::schema()->create('patrulla_poder', function($table) {

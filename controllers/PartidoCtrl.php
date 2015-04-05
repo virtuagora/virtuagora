@@ -130,7 +130,7 @@ class PartidoCtrl extends RMRController {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idPar, new Validate\Rule\NumNatural());
         $partido = Partido::with('contacto')->findOrFail($idPar);
-        if ($this->session->check($partido->creador_id)) {
+        if (!$this->session->check($partido->creador_id)) {
             throw new BearableException('Un partido puede ser eliminado solamente por su creador.');
         }
         $partido->delete();
@@ -160,8 +160,12 @@ class PartidoCtrl extends RMRController {
         if (!$vdt->validate($data)) {
             throw new TurnbackException($vdt->getErrors());
         }
+        $partido = Partido::findOrFail($vdt->getData('idPar'));
         $usuario = Usuario::where(array('id' => $vdt->getData('idUsr'),
                                         'partido_id' => $vdt->getData('idPar')))->first();
+        if ($usuario->id == $partido->creador_id) {
+            throw new TurnbackException('No se puede cambiar el rol del creador del partido.');
+        }
         if (is_null($usuario)) {
             throw new TurnbackException($usuario->nombre_completo.' no pertenece al partido.');
         }

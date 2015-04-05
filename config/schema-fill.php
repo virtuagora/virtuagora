@@ -27,8 +27,17 @@ $patrulla->nombre = 'moderadores';
 $patrulla->descripcion = 'Los moderadores.';
 $patrulla->save();
 
-$poder = Poder::create(array('nombre' => 'Gestionar plataforma', 'descripcion' => 'Moderar en la la plataforma.'));
-$patrulla->poderes()->attach($poder);
+$poderes = [
+    ['nombre' => 'Moderar', 'descripcion' => 'Moderar en la plataforma.'],
+    ['nombre' => 'Configurar plataforma', 'descripcion' => 'Configurar parámetros de Virtugora.'],
+    ['nombre' => 'Administrar organismos', 'descripcion' => 'Definir los organimos existentes.'],
+    ['nombre' => 'Administrar funcionarios', 'descripcion' => 'Asignar los funcionarios a sus respectivos organismos.'],
+    ['nombre' => 'Administrar patrullas', 'descripcion' => 'Definir los distintos grupos de moderación.'],
+    ['nombre' => 'Administrar moderadores', 'descripcion' => 'Asignar los usuarios que serán moderadores.'],
+    ['nombre' => 'Verificar ciudadanos', 'descripcion' => 'Registrar como verificados a usuarios que lo demuestren.'],
+];
+$poder = Poder::insert($poderes);
+$patrulla->poderes()->attach([1,2,3,4,5,6,7]);
 
 $moderador = new Moderador;
 $moderador->usuario()->associate($usuario);
