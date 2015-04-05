@@ -3,7 +3,7 @@
 class AdminCtrl extends Controller {
 
     public function verAdminAjustes() {
-        $ajustes = Ajustes::all();
+        $ajustes = Ajuste::all();
         $this->render('admin/ajustes.twig', array('ajustes' => $ajustes->toArray()));
     }
 
@@ -23,7 +23,7 @@ class AdminCtrl extends Controller {
                 $ajuste->save();
             }
         }
-        $ajustes = Ajustes::all();
+        $ajustes = Ajuste::all();
         $this->flash('success', 'Los ajustes se han modificado exitosamente.');
         $this->redirectTo('shwAdmAjuste');
     }
