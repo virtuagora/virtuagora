@@ -10,11 +10,15 @@
 {% set partido_id = partido.id %}
 {# ----------------------------------------------------------- #}
 {% block configuracion %}
-<div class="cambiar-clave">
+<div class="gestionar-roles">
     <div class="listar-jefes row">
-       <div class="panel">
-           Roles actuales
-       </div>
+        <div class="titulo">
+            <h4>Jefes del partido</h4>
+        </div>
+        <hr>
+        <div class="explicacion panel">
+            Haciendo clic sobre el icono <i class="fa fa-arrow-down"></i> podrá remover a un jefe de la lista de jefes. <b>Nota:</b> Tenga en cuenta que siempre debe haber un jefe, usted puede echar a otros jefes, pero no puede echar al creador del partido en la plataforma.
+        </div>
         <table class="tabla-jefes">
             <thead>
                 <tr style="//display:none;">
@@ -26,6 +30,7 @@
                 </tr>
             </thead>
             <tbody>
+                {% if jefes|length > 0 %}
                 {% for jefe in jefes %}
                 <tr>
                     <td class="text-center"><img src="{{ avatarUrl(jefe.img_tipo, jefe.img_hash, 32) }}" alt=""></td>
@@ -40,36 +45,75 @@
                         {% endif%}
                     </td>
                     <td class="text-center">
-                    <form action="    "></form>
-                    <button class="quitar button tiny radius alert"><i class="fa fa-arrow-down fa-fw fa-lg"></i></button>
+                        <form action="{{ urlFor('runModifRolPartido', {'idPar': partido.id}) }}" method="POST">
+                            <input type="text" name="jefe" value=0 readonly style="display:none">
+                            <input type="text" name="idUsr" value={{ jefe.id }} readonly style="display:none">
+                            <button class="quitar button tiny radius alert"><i class="fa fa-arrow-down fa-fw fa-lg"></i></button>
+                        </form>
                     </td>
                 </tr>
-
                 {% endfor %}
+                <tr>
+                    <td class="text-center" colspan="4"><i class="fa fa-info fa-fw"></i> Fin del listado de jefes</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td class="text-center" colspan="4"><i class="fa fa-chain-broken fa-fw"></i> Sin jefes (inconsistencia)</td>
+                </tr>
+                {% endif %}
             </tbody>
         </table>
     </div>
     <div class="listar-afiliados row">
-       <div class="panel">
-           Afiliados
-       </div>
+        <div class="titulo">
+            <h4>Promover afiliados</h4>
+        </div>
+        <hr>
+        <div class="explicacion panel">
+            A continuacion verá la lista de afiliados al {{ partido.nombre}}. Haciendo clic sobre el icono <i class="fa fa-arrow-up"></i> podrá promover a un afiliado como jefe del partido.
+        </div>
         <table class="tabla-afiliados">
             <thead>
-                <tr style="">
-                    <th><i class="fa fa-photo fa-fw"></i></th>
-                    <th>Fecha contenido</th>
-                    <th>Puntos contenido</th>
-                    <th>Puntos autor</th>
-                    <th>ID Partido Impulsador</th>
+                <tr style="//display:none;">
+                    <th class="text-center"><i class="fa fa-photo fa-fw"></i></th>
+                    <th>Nombre y apellido</th>
+                    <th class="text-center">Posición</th>
+                    <th class="text-center"><i class="fa fa-cog fa-fw"></i></th>
+
                 </tr>
             </thead>
             <tbody>
+                {% if afiliados|length > 0 %}
                 {% for afiliado in afiliados %}
                 <tr>
-                    <td><img src="{{ avatarUrl(afiliado.img_tipo, afiliado.img_hash, 32) }}" alt="">{{ afiliado.nombre }} {{ afiliado.apellido }}</td>
+                    <td class="text-center"><img src="{{ avatarUrl(afiliado.img_tipo, afiliado.img_hash, 32) }}" alt=""></td>
+                    <td>{{ afiliado.nombre }} {{ afiliado.apellido }}</td>
+                    <td class="text-center">
+                        {% if afiliado.es_jefe %}
+                        Jefe
+                        {% elseif afiliado.es_funcionario %}
+                        Funcionario
+                        {% else %}
+                        Afiliado
+                        {% endif%}
+                    </td>
+                    <td class="text-center">
+                        <form action="{{ urlFor('runModifRolPartido', {'idPar': partido.id}) }}" method="POST">
+                            <input type="text" name="jefe" value=1 readonly style="display:none">
+                            <input type="text" name="idUsr" value={{ afiliado.id }} readonly style="display:none">
+                            <button class="agregar button tiny radius"><i class="fa fa-arrow-up fa-fw fa-lg"></i></button>
+                        </form>
+                    </td>
                 </tr>
-
                 {% endfor %}
+                <tr>
+                    <td class="text-center" colspan="4"><i class="fa fa-info fa-fw"></i> Fin de los afiliados</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td class="text-center" colspan="4"><i class="fa fa-chain-broken fa-fw"></i>No hay mas afiliados</td>
+                </tr>
+                {% endif %}
             </tbody>
         </table>
     </div>

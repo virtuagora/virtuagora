@@ -7098,40 +7098,54 @@ html, body {
 }
 
 /* line 224, ../scss/layouts/_partido.scss */
-.listar-jefes .tabla-jefes, .listar-jefes .tabla-afiliados, .listar-afiliados .tabla-jefes, .listar-afiliados .tabla-afiliados {
+.gestionar-roles .titulo h4 {
+  letter-spacing: -0.5px;
+}
+/* line 227, ../scss/layouts/_partido.scss */
+.gestionar-roles .explicacion.panel {
+  letter-spacing: -0.5px;
+  font-size: 0.875rem;
+  padding: 6px;
+}
+/* line 232, ../scss/layouts/_partido.scss */
+.gestionar-roles hr {
+  margin: 0 0 8px 0;
+}
+/* line 236, ../scss/layouts/_partido.scss */
+.gestionar-roles .listar-jefes .tabla-jefes, .gestionar-roles .listar-jefes .tabla-afiliados, .gestionar-roles .listar-afiliados .tabla-jefes, .gestionar-roles .listar-afiliados .tabla-afiliados {
   width: 100%;
 }
-/* line 226, ../scss/layouts/_partido.scss */
-.listar-jefes .tabla-jefes thead tr th, .listar-jefes .tabla-afiliados thead tr th, .listar-afiliados .tabla-jefes thead tr th, .listar-afiliados .tabla-afiliados thead tr th {
+/* line 238, ../scss/layouts/_partido.scss */
+.gestionar-roles .listar-jefes .tabla-jefes thead tr th, .gestionar-roles .listar-jefes .tabla-afiliados thead tr th, .gestionar-roles .listar-afiliados .tabla-jefes thead tr th, .gestionar-roles .listar-afiliados .tabla-afiliados thead tr th {
   font-size: 0.8125rem;
   font-weight: 400;
   padding: 5px 10px;
   background-color: #e3e3e3;
 }
-/* line 231, ../scss/layouts/_partido.scss */
-.listar-jefes .tabla-jefes thead tr th .titulo, .listar-jefes .tabla-afiliados thead tr th .titulo, .listar-afiliados .tabla-jefes thead tr th .titulo, .listar-afiliados .tabla-afiliados thead tr th .titulo {
+/* line 243, ../scss/layouts/_partido.scss */
+.gestionar-roles .listar-jefes .tabla-jefes thead tr th .titulo, .gestionar-roles .listar-jefes .tabla-afiliados thead tr th .titulo, .gestionar-roles .listar-afiliados .tabla-jefes thead tr th .titulo, .gestionar-roles .listar-afiliados .tabla-afiliados thead tr th .titulo {
   width: 70%;
 }
-/* line 235, ../scss/layouts/_partido.scss */
-.listar-jefes .tabla-jefes tr:nth-of-type(even), .listar-jefes .tabla-afiliados tr:nth-of-type(even), .listar-afiliados .tabla-jefes tr:nth-of-type(even), .listar-afiliados .tabla-afiliados tr:nth-of-type(even) {
+/* line 247, ../scss/layouts/_partido.scss */
+.gestionar-roles .listar-jefes .tabla-jefes tr:nth-of-type(even), .gestionar-roles .listar-jefes .tabla-afiliados tr:nth-of-type(even), .gestionar-roles .listar-afiliados .tabla-jefes tr:nth-of-type(even), .gestionar-roles .listar-afiliados .tabla-afiliados tr:nth-of-type(even) {
   background-color: #f5f5f5;
 }
-/* line 238, ../scss/layouts/_partido.scss */
-.listar-jefes .tabla-jefes td, .listar-jefes .tabla-afiliados td, .listar-afiliados .tabla-jefes td, .listar-afiliados .tabla-afiliados td {
+/* line 250, ../scss/layouts/_partido.scss */
+.gestionar-roles .listar-jefes .tabla-jefes td, .gestionar-roles .listar-jefes .tabla-afiliados td, .gestionar-roles .listar-afiliados .tabla-jefes td, .gestionar-roles .listar-afiliados .tabla-afiliados td {
   font-size: 0.8125rem;
   padding: 3px 10px;
 }
-/* line 239, ../scss/layouts/_partido.scss */
-.listar-jefes .tabla-jefes td img, .listar-jefes .tabla-afiliados td img, .listar-afiliados .tabla-jefes td img, .listar-afiliados .tabla-afiliados td img {
+/* line 251, ../scss/layouts/_partido.scss */
+.gestionar-roles .listar-jefes .tabla-jefes td img, .gestionar-roles .listar-jefes .tabla-afiliados td img, .gestionar-roles .listar-afiliados .tabla-jefes td img, .gestionar-roles .listar-afiliados .tabla-afiliados td img {
   width: 20px;
   height: 20px;
 }
-/* line 245, ../scss/layouts/_partido.scss */
-.listar-jefes .tabla-jefes td .button, .listar-jefes .tabla-afiliados td .button, .listar-afiliados .tabla-jefes td .button, .listar-afiliados .tabla-afiliados td .button {
+/* line 257, ../scss/layouts/_partido.scss */
+.gestionar-roles .listar-jefes .tabla-jefes td .button, .gestionar-roles .listar-jefes .tabla-afiliados td .button, .gestionar-roles .listar-afiliados .tabla-jefes td .button, .gestionar-roles .listar-afiliados .tabla-afiliados td .button {
   margin: 0;
 }
-/* line 248, ../scss/layouts/_partido.scss */
-.listar-jefes .tabla-jefes td .quitar, .listar-jefes .tabla-jefes td .agregar, .listar-jefes .tabla-afiliados td .quitar, .listar-jefes .tabla-afiliados td .agregar, .listar-afiliados .tabla-jefes td .quitar, .listar-afiliados .tabla-jefes td .agregar, .listar-afiliados .tabla-afiliados td .quitar, .listar-afiliados .tabla-afiliados td .agregar {
+/* line 260, ../scss/layouts/_partido.scss */
+.gestionar-roles .listar-jefes .tabla-jefes td .quitar, .gestionar-roles .listar-jefes .tabla-jefes td .agregar, .gestionar-roles .listar-jefes .tabla-afiliados td .quitar, .gestionar-roles .listar-jefes .tabla-afiliados td .agregar, .gestionar-roles .listar-afiliados .tabla-jefes td .quitar, .gestionar-roles .listar-afiliados .tabla-jefes td .agregar, .gestionar-roles .listar-afiliados .tabla-afiliados td .quitar, .gestionar-roles .listar-afiliados .tabla-afiliados td .agregar {
   font-size: 0.9375rem;
   padding: 2px 5px;
 }
