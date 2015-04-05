@@ -26,7 +26,8 @@
                 </div>
                 {% if user and (user.es_funcionario == 1) and (user.es_jefe == 0) %}
                 <a class="button oposite radius small" href="{{ urlFor('shwCrearPartido') }}"><i class="fa fa-plus fa-fw fa-lg"></i>&nbsp;Crear un nuevo partido</a>
-                {% elseif user and (user.es_funcionario == 1) and (user.es_jefe == 1) %}
+                {% endif %}
+                {% if user and (user.es_jefe == 1) %}
                 <a class="button oposite radius small" href="{{ urlFor('shwModifPartido',{'idPar': user.partido_id}) }}"><i class="fa fa-edit fa-fw fa-lg"></i>&nbsp;Modificar datos de mi partido</a>
                 <a class="button oposite radius small" href="{{ urlFor('shwModifRolPartido',{'idPar': user.partido_id}) }}"><i class="fa fa-wrench fa-fw fa-lg"></i>&nbsp;Administrar mi partido</a>
                 {% endif %}
@@ -47,7 +48,7 @@
                     {% if user.partido_id is null %}
                     <div class="bt-asociarse button small success radius"><i class="fa fa-plus fa-fw"></i></div>
                     {% elseif user.partido_id == p.id %}
-                    {% if (user.es_funcionario == 1) and (user.es_jefe == 1) %}
+                    {% if (user.es_jefe == 1) %}
                     <a href="{{ urlFor('shwModifPartido',{'idPar': p.id}) }}" class="button small secondary radius"><i class="fa fa-edit fa-fw"></i></a>
                     <a href="{{ urlFor('shwModifRolPartido',{'idPar': p.id}) }}" class="button small warning radius"><i class="fa fa-wrench fa-fw"></i></a>
                     {% else %}
