@@ -1,17 +1,77 @@
 {# VARIBLES #}
 
-{% extends "jefe/ver-administracion.twig" %}
+{% extends "partido/ver-administracion.twig" %}
 
 {# ----------------------------------------------------------- #}
 {% block titulo %}Virtuagora - Gestionar roles{% endblock %}
 {# ----------------------------------------------------------- #}
 {% set intro_titulo = 'Gestionar Roles' %}
+{% set partido_nombre = partido.nombre %}
+{% set partido_id = partido.id %}
 {# ----------------------------------------------------------- #}
 {% block configuracion %}
 <div class="cambiar-clave">
-    <div class="row">
-     Roles actuales
-     <hr>
+    <div class="listar-jefes row">
+       <div class="panel">
+           Roles actuales
+       </div>
+        <table class="tabla-jefes">
+            <thead>
+                <tr style="//display:none;">
+                    <th class="text-center"><i class="fa fa-photo fa-fw"></i></th>
+                    <th>Nombre y apellido</th>
+                    <th class="text-center">Posición</th>
+                    <th class="text-center"><i class="fa fa-cog fa-fw"></i></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for jefe in jefes %}
+                <tr>
+                    <td class="text-center"><img src="{{ avatarUrl(jefe.img_tipo, jefe.img_hash, 32) }}" alt=""></td>
+                    <td>{{ jefe.nombre }} {{ jefe.apellido }}</td>
+                    <td class="text-center">
+                        {% if jefe.es_jefe %}
+                        Jefe
+                        {% elseif jefe.es_funcionario %}
+                        Funcionario
+                        {% else %}
+                        Afiliado
+                        {% endif%}
+                    </td>
+                    <td class="text-center">
+                    <form action="    "></form>
+                    <button class="quitar button tiny radius alert"><i class="fa fa-arrow-down fa-fw fa-lg"></i></button>
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="listar-afiliados row">
+       <div class="panel">
+           Afiliados
+       </div>
+        <table class="tabla-afiliados">
+            <thead>
+                <tr style="">
+                    <th><i class="fa fa-photo fa-fw"></i></th>
+                    <th>Fecha contenido</th>
+                    <th>Puntos contenido</th>
+                    <th>Puntos autor</th>
+                    <th>ID Partido Impulsador</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for afiliado in afiliados %}
+                <tr>
+                    <td><img src="{{ avatarUrl(afiliado.img_tipo, afiliado.img_hash, 32) }}" alt="">{{ afiliado.nombre }} {{ afiliado.apellido }}</td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 

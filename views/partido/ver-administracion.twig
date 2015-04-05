@@ -19,14 +19,14 @@
             <ul class="opciones">
                 <li class="datos-partido">
                    <div class="text-left">
-                       <img src="{{ baseUrl() }}/assets/img/anon64.jpg" alt="">
-                    <p>Partido Justicialista por la Paz Interior Movil</p>
+                       <img src="{{ baseUrl() }}/img/partido/{{ partido_id }}/64.png" alt="Avatar partido">
+                    <p>{{ partido_nombre }}</p>
                    </div>
                 </li>
-                <li><a href="">Gestionar roles</a></li>
-                <li><a href="">Modificar datos</a></li>
-                <li><a href="">Eliminar partido</a></li>
-                <li><a href="" class="bt-volver button oposite radius expand"><i class="fa fa-undo fa-fw"></i> Volver al inicio</a></li>
+                <li><a href="{{ urlFor('shwModifRolPartido', {'idPar': partido.id}) }}">Gestionar roles</a></li>
+                <li><a href="{{ urlFor('shwModifPartido', {'idPar': partido.id}) }}">Modificar datos</a></li>
+                <li><a href="#">Eliminar partido</a></li>
+                <li><a href="{{ urlFor('shwIndex') }}" class="bt-volver button oposite radius expand"><i class="fa fa-undo fa-fw"></i> Volver al inicio</a></li>
             </ul>
         </div>
         <div class="panel-der medium-9 columns">

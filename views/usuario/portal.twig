@@ -258,7 +258,7 @@
     });
     $( ".button.impulsados" ).click(function() {
         $('.contenido').hide();
-        $('.contenido.impulsado.impulsor-' + {{ user.partido_id }}).show();
+        $('.contenido.impulsado.impulsor-{{ user.partido_id ?: '' }}').show();
     });
 
 </script>
