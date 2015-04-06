@@ -14,18 +14,22 @@
 {# ----------------------------------------------------------- #}
 {% block body %}
 <div class="admin-panel">
-    <div class="row row-full">
+    <div class="row">
         <div class=" panel-izq medium-3 columns">
             <ul class="opciones">
                 <li><a href="{{ urlFor('shwAdmOrganis') }}">Listar los organismos</a></li>
-                <li><a href="{{ urlFor('shwCrearOrganis') }}">Crear un nuevo organismo</a></li>
+                <li><a href="{{ urlFor('shwCrearOrganis') }}">Crear nuevo organismo</a></li>
+                <li><a href="{{ urlFor('shwAdmVrfUsuario') }}">Verificar ciudadano</a></li>
+                <li><a href="{{ urlFor('shwAdmAjuste') }}">Ajustes plataforma</a></li>
+                <li><a href="{{ urlFor('shwCrearOrganis') }}">Administrar grupos de moderación</a></li>
+                <li><a href="{{ urlFor('shwCrearOrganis') }}">Administrar permisos de los grupos</a></li>
                 <li><a href="{{ urlFor('shwIndex') }}" class="bt-volver button oposite radius expand"><i class="fa fa-undo fa-fw"></i> Volver al inicio</a></li>
             </ul>
         </div>
         <div class="panel-der medium-9 columns">
             <div class="row">
                 <div class="intro-titulo">
-                <h1><b><i class="fa fa-caret-right fa-fw"></i>{{ intro_titulo|upper }}</b>&nbsp;<small><i class="fa fa-question-circle fa-fw"></i></small></h1>
+                    <h1><b><i class="fa fa-caret-right fa-fw"></i>{{ intro_titulo|upper }}</b>&nbsp;<small><i class="fa fa-question-circle fa-fw"></i></small></h1>
                 </div>
             </div>
             {% block administracion %}
