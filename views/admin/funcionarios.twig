@@ -10,34 +10,31 @@
 {% block administracion %}
 <div class="listar-funcionarios">
     <div class="row">
-        <div class="large-8 columns text-center">
-            <div class="panel">
-                <h6>Usted esta administrando los funcionarios de <b><a href='#'>{{ organismo.nombre }}</a></b>.</h6>
-                <h6>Cuando hayas terminado, recuerda hacer clic en el boton de <b>Aplicar los cambios</b></h6>
-            </div>
+
+        <div class="panel">
+            <h6>Usted esta administrando los funcionarios de <b><a href='#'>{{ organismo.nombre }}</a></b>.</h6>
+            <h6>Cuando hayas terminado, recuerda hacer clic en el boton de <b>Aplicar los cambios</b></h6>
         </div>
     </div>
     <div class="row">
-        <div class="large-8 columns">
-            <table class="tabla-funcionarios">
-                <thead>
-                    <tr>
-                        <th class="text-center">Funcionario actual</th>
-                        <th class="text-center">Nuevo funcionario</th>
-                        <th class="text-center">Cambiar</th>
-                    </tr>
-                </thead>
-                <tbody id="plantel">
-                </tbody>
-            </table>
-            <form method="POST" action="">
-                <input type="hidden" id="entrantes" name="entrantes">
-                <input type="hidden" id="salientes" name="salientes">
-                <div class="text-center large-4 large-centered columns">
-                    <button type="submit" id="bt-aplicar" class="modificar button boton-agregar success radius"><i class="fa fa-check fa-fw"></i> Aplicar los cambios</button>
-                </div>
-            </form>
-        </div>
+        <table class="tabla-funcionarios">
+            <thead>
+                <tr>
+                    <th class="text-center">Funcionario actual</th>
+                    <th class="text-center">Nuevo funcionario</th>
+                    <th class="text-center">Cambiar</th>
+                </tr>
+            </thead>
+            <tbody id="plantel">
+            </tbody>
+        </table>
+        <form method="POST" action="">
+            <input type="hidden" id="entrantes" name="entrantes">
+            <input type="hidden" id="salientes" name="salientes">
+            <div class="text-center large-4 large-centered columns">
+                <button type="submit" id="bt-aplicar" class="modificar button boton-agregar success radius"><i class="fa fa-check fa-fw"></i> Aplicar los cambios</button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -66,13 +63,13 @@
             </div>
         </div>
         <div class="large-8 large-centered columns">
-        <fieldset>
-            <legend>Opciones del cupo</legend>
+            <fieldset>
+                <legend>Opciones del cupo</legend>
                 <a id="bt-cambiar" class="button expand radius"><i class="fa fa-search fa-fw"></i>&nbsp;Buscar candidatos</a>
                 <a id="bt-vacante" class="button expand radius"><i class="fa fa-external-link fa-fw"></i>&nbsp;Dejar el puesto vacante</a>
                 <a id="bt-cancelar" class="button expand radius"><i class="fa fa-user fa-fw"></i>&nbsp;Mantener funcionario actual</a>
 
-        </fieldset>
+            </fieldset>
         </div>
     </div>
     <div class="row">
