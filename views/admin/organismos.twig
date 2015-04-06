@@ -10,40 +10,36 @@
 {% block administracion %}
 <div class="listar-organismos">
     <div class="row">
-        <div class="large-9 columns text-center">
-            <div class="panel">
-                <h6>Administre los organismos publicos ya existentes o <b><a href="{{urlFor('shwCrearOrganis')}}">agregue uno nuevo</a></b></h6>
-            </div>
+        <div class="panel">
+            <h6>Administre los organismos publicos ya existentes o <b><a href="{{urlFor('shwCrearOrganis')}}">agregue uno nuevo</a></b></h6>
         </div>
     </div>
     <div class="row">
-        <div class="large-9 columns">
-            <table class="tabla-org">
-                <thead>
-                    <tr>
-                        <th class="text-center"><i class="fa fa-pencil-square-o fa-lg"></i></th>
-                        <th class="titulo">Nombre</th>
-                        <th class="cupos-o text-center">Cupos ocupados</th>
-                        <th class="cupos-t text-center">Cupos totales</th>
-                        <th class="text-center"><i class="fa fa-gear fa-lg"></i></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for org in organismos %}
-                    <tr>
-                        <td class="text-center">
-                            <a href="javascript:return(0)" class="modificar button tiny radius small warning"><i class="fa fa-trash-o fa-fw fa-lg"></i></a>
-                            <a href="{{ urlFor('shwModifOrganis',{'idOrg': org.id}) }}" class="modificar button tiny radius secondary"><i class="fa fa-pencil fa-fw fa-lg"></i></a>
-                        </td>
-                        <td id="d-nombre"><i class="fa fa-university fa-fw"></i> {{ org.nombre|capitalize }}</td>
-                        <td class="text-center">{{ org.funcionarios_count }}</td>
-                        <td class="text-center">{{ org.cupo }}</td>
-                        <td><a href="{{ urlFor('shwAdmFuncion', {'idOrg': org.id }) }}" class="modificar button tiny radius"><i class="fa fa-list-alt fa-fw fa-lg"></i></a></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+        <table class="tabla-org">
+            <thead>
+                <tr>
+                    <th class="text-center"><i class="fa fa-pencil-square-o fa-lg"></i></th>
+                    <th class="titulo">Nombre</th>
+                    <th class="cupos-o text-center">Cupos ocupados</th>
+                    <th class="cupos-t text-center">Cupos totales</th>
+                    <th class="text-center"><i class="fa fa-gear fa-lg"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for org in organismos %}
+                <tr>
+                    <td class="text-center">
+                        <a href="javascript:return(0)" class="modificar button tiny radius small warning"><i class="fa fa-trash-o fa-fw fa-lg"></i></a>
+                        <a href="{{ urlFor('shwModifOrganis',{'idOrg': org.id}) }}" class="modificar button tiny radius secondary"><i class="fa fa-pencil fa-fw fa-lg"></i></a>
+                    </td>
+                    <td id="d-nombre"><i class="fa fa-university fa-fw"></i> {{ org.nombre|capitalize }}</td>
+                    <td class="text-center">{{ org.funcionarios_count }}</td>
+                    <td class="text-center">{{ org.cupo }}</td>
+                    <td><a href="{{ urlFor('shwAdmFuncion', {'idOrg': org.id }) }}" class="modificar button tiny radius"><i class="fa fa-list-alt fa-fw fa-lg"></i></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 
