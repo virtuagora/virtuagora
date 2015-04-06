@@ -19,7 +19,7 @@
             {% if (ajuste.value_type == 'int') or (ajuste.value_type == 'str') %}
             <div class="large-8 columns">
                 <h5>{{ ajuste.key|capitalize }}</h5>
-                {{ ajuste.descripcion }}
+                {{ ajuste.description }}
             </div>
             <div class="large-4 columns">
                 {% if ajuste.value_type == 'int' %}
@@ -34,7 +34,7 @@
                     <h5>{{ ajuste.key|capitalize }}</h5>
                 </div>
                 <div class="descripcion">
-                    {{ ajuste.descripcion }}
+                    {{ ajuste.description }}
                 </div>
                 <textarea name="{{ ajuste.key }}" rows=10></textarea>
             </div>
@@ -86,7 +86,7 @@
         {% elseif ajuste.value_type == 'str' %}
         $('input[name="{{ ajuste.key }}"]').val({{ ajuste.value }});
         {% elseif ajuste.value_type == 'txt' %}
-        $('textarea[name={{ ajuste.key }}]').sceditor('instance').val('{{ ajuste.val|bbCode }}', false);
+        $('textarea[name={{ ajuste.key }}]').sceditor('instance').val('{{ ajuste.value|bbCode }}', false);
         {% endif %}
         {% endfor %}
     });
