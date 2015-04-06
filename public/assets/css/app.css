@@ -7405,6 +7405,17 @@ html, body {
   filter: alpha(opacity=0);
 }
 
+/* line 62, ../scss/layouts/_administrar.scss */
+.ajustes-plataforma .titulo h5 {
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+/* line 66, ../scss/layouts/_administrar.scss */
+.ajustes-plataforma .descripcion {
+  font-size: 0.75rem;
+  letter-spacing: -0.5px;
+}
+
 /* line 1, ../scss/layouts/_misc.scss */
 .error-bg {
   background: url('../img/error-bg.jpg') no-repeat center center fixed;
