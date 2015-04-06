@@ -16,6 +16,7 @@ class AdminCtrl extends Controller {
         if (!$vdt->validate($req->post())) {
             throw new TurnbackException($vdt->getErrors());
         }
+        $ajustes = Ajuste::all();
         foreach ($ajustes as $ajuste) {
             $newValue = $vdt->getData($ajuste->key);
             if (isset($newValue)) {
@@ -23,7 +24,6 @@ class AdminCtrl extends Controller {
                 $ajuste->save();
             }
         }
-        $ajustes = Ajuste::all();
         $this->flash('success', 'Los ajustes se han modificado exitosamente.');
         $this->redirectTo('shwAdmAjuste');
     }
