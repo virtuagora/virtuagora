@@ -9,72 +9,70 @@
 {# ----------------------------------------------------------- #}
 {% block administracion %}
 <div class="crear-organismo">
-    <div class="large-8 columns">
-        <form action="{{ urlFor('runCrearOrganis') }}" method="POST">
-            <div class="wrapper-elementos">
-                <div class="header">
-                    <i class="fa fa-question-circle fa-fw fa-lg"></i><i class="fa fa-pencil fa-fw fa-lg"></i> Datos del organismo publico
-                </div>
-                <div class="fila">
-                    <div class="row">
-                        <div class="large-12 columns">
-                            <div class="large-9 columns">
-                                <div class="titulo-fila">Nombre del organismo</div>
-                                <input class="campo-fila" type="text" name="nombre">
-                            </div>
-                            <div class="large-3 columns">
-                                <div class="titulo-fila">Cant. de cupos</div>
-                                <input type="number" name="cupo" placeholder="Numero?">
-                            </div>
+    <form action="{{ urlFor('runCrearOrganis') }}" method="POST">
+        <div class="wrapper-elementos">
+            <div class="header">
+                <i class="fa fa-question-circle fa-fw fa-lg"></i><i class="fa fa-pencil fa-fw fa-lg"></i> Datos del organismo publico
+            </div>
+            <div class="fila">
+                <div class="row">
+                    <div class="large-12 columns">
+                        <div class="large-9 columns">
+                            <div class="titulo-fila">Nombre del organismo</div>
+                            <input class="campo-fila" type="text" name="nombre">
                         </div>
-                    </div>
-                </div>
-                <div class="fila">
-                    <div class="row">
-                        <div class="large-12 columns">
-                            <div class="large-12 columns">
-                                <div class="titulo-fila">Descripcion del organismo</div>
-                                <textarea rows=4 name="descripcion"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="fila">
-                    <div class="row">
-                        <div class="large-12 columns">
-                            <div class="large-8 columns">
-                                <div class="titulo-fila">URL</div>
-                                <input type="text" name="utl" placeholder="Ej: http://www.google.com">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="fila">
-                    <div class="row">
-                        <div class="large-12 columns">
-                            <div class="large-8 columns">
-                                <div class="titulo-fila">Email</div>
-                                <input class="campo-fila" type="email" name="email" placeholder="Ej: ejemplo@servidor.com" >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ultima-fila">
-                    <div class="row">
-                        <div class="large-12 columns">
-                            <div class="large-8 columns">
-                                <div class="titulo-fila">Telefono</div>
-                                <input class="campo-fila" type="text" name="telefono" placeholder="Ej: (0342) 452-XXXX">
-                            </div>
+                        <div class="large-3 columns">
+                            <div class="titulo-fila">Cant. de cupos</div>
+                            <input type="number" name="cupo" placeholder="Numero?">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="text-center">
+            <div class="fila">
+                <div class="row">
+                    <div class="large-12 columns">
+                        <div class="large-12 columns">
+                            <div class="titulo-fila">Descripcion del organismo</div>
+                            <textarea rows=4 name="descripcion"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="fila">
+                <div class="row">
+                    <div class="large-12 columns">
+                        <div class="large-8 columns">
+                            <div class="titulo-fila">URL</div>
+                            <input type="text" name="utl" placeholder="Ej: http://www.google.com">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="fila">
+                <div class="row">
+                    <div class="large-12 columns">
+                        <div class="large-8 columns">
+                            <div class="titulo-fila">Email</div>
+                            <input class="campo-fila" type="email" name="email" placeholder="Ej: ejemplo@servidor.com" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ultima-fila">
+                <div class="row">
+                    <div class="large-12 columns">
+                        <div class="large-8 columns">
+                            <div class="titulo-fila">Telefono</div>
+                            <input class="campo-fila" type="text" name="telefono" placeholder="Ej: (0342) 452-XXXX">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
             <button class="button success radius"><i class="fa fa-plus fa-fw fa-lg"></i><i class="fa fa-university fa-fw fa-lg"></i> Crear organismo</button>
-            </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 
 {% endblock %}
