@@ -12,6 +12,7 @@
 {% set titulo_cont = novedad.titulo %}
 {% set fecha_cont = '' ~ novedad.created_at|date("d/m/Y") %}
 {% set ver_comentarios = true %}
+{% set url_comentar = urlFor('runComentar', {'tipoRaiz': 'novedad' , 'idRaiz': novedad.id}) %}
 {% set url_modificar = urlFor('shwModifNovedad', {'idNov': novedad.id } ) %}
 {% set url_eliminar = urlFor('runElimiNovedad', {'idNov': novedad.id } ) %}
 {% block botones_cont %}{% endblock %}
