@@ -40,6 +40,8 @@ $app->error(function (Exception $e) use ($app) {
             $app->render('misc/error.twig', array('mensaje' => $e->getMessage()), $e->getCode());
         } else if ($e instanceof Illuminate\Database\Eloquent\ModelNotFoundException) {
             $app->notFound();
+        } else if ($e instanceof Illuminate\Database\QueryException && $e->getCode() == 23000) {
+            $app->render('misc/error.twig', array('mensaje' => 'La información ingresada es inconsistente.'), 400);
         } else {
             $app->render('misc/fatal-error.twig', array('type' => get_class($e), 'exception' => $e));
         }
@@ -108,7 +110,11 @@ function checkUserAuth($action, $checkMod = false) {
 */
 
 $app->get('/test', function () use ($app) {
-    var_dump(Ajuste::all()->toArray());
+    $patrulla = Patrulla::findOrFail(1);
+    $patrulla->poderes()->sync([1,2,3,4,70]);
+
+    var_dump($patrulla->poderes()->lists('poder_id'));
+
     //$c->load('contenidos');
     //var_dump($c->contenidos()->toArray());
     //var_dump(Contenido::findOrFail(1)->nombre ?: Contenido::findOrFail(1)->titulo);
@@ -164,6 +170,8 @@ $app->group('/admin', function () use ($app) {
     $app->post('/ajustes', checkRole('mod'), 'AdminCtrl:adminAjustes')->name('runAdmAjuste');
     $app->get('/patrulla', checkRole('mod'), 'PatrullaCtrl:listar')->name('shwAdmPatrull');
     $app->post('/patrulla/:idPat/modificar', checkRole('mod'), 'PatrullaCtrl:modificar')->name('runModifPatrull');
+    $app->get('/patrulla/:idPat/cambiar-poder', checkRole('mod'), 'PatrullaCtrl:verCambiarPoder')->name('shwModifPodPatrull');
+    $app->post('/patrulla/:idPat/cambiar-poder', checkRole('mod'), 'PatrullaCtrl:cambiarPoder')->name('runModifPodPatrull');
 });
 
 $app->group('/propuesta', function () use ($app) {

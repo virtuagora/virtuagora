@@ -40,4 +40,31 @@ class PatrullaCtrl extends RMRController {
         $this->redirectTo('shwAdmPatrull');
     }
 
+    public function verCambiarPoder($idPat) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idPat, new Validate\Rule\NumNatural());
+        $patrulla = Patrulla::findOrFail($idPat);
+        $datosPat = $patrulla->toArray();
+        $datosPat['poderes'] = $patrulla->poderes()->lists('id');
+        $poderes = Poder::all()->toArray();
+        $this->render('admin/gestionar-poderes.twig', array('patrulla' => $datosPat,
+                                                            'poderes' => $poderes));
+    }
+
+    public function cambiarPoder($idPat) {
+        $vdt = new Validate\Validator();
+        $vdt->addRule('idPat', new Validate\Rule\NumNatural())
+            ->addRule('poderes', new Validate\Rule\Regex('/^\[\d*(?:,\d+)*\]$/'));
+        $req = $this->request;
+        $data = array_merge(array('idPat' => $idPat), $req->post());
+        if (!$vdt->validate($data)) {
+            throw new TurnbackException($vdt->getErrors());
+        }
+        $patrulla = Patrulla::findOrFail($idPat);
+        $poderes = json_decode($vdt->getData('poderes'));
+        $patrulla->poderes()->sync($poderes);
+        $this->flash('success', 'Los permisos del grupo de moderación fueron modificados exitosamente.');
+        $this->redirectTo('shwAdmPatrull');
+    }
+
 }
