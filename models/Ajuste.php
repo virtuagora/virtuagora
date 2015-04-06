@@ -3,11 +3,11 @@
 class Ajuste extends Eloquent {
 
     //protected $table = 'ajustes';
-    protected $visible = array('id', 'key', 'value_type', 'description');
+    protected $visible = array('id', 'key', 'value_type', 'value', 'description');
     protected $appends = array('value');
 
     public function getValueAttribute() {
-        return $this->value_type.'_value';
+        return $this->attributes[$this->value_type.'_value'];
     }
 
     public function setValueAttribute($value) {
