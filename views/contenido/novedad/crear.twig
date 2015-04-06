@@ -10,7 +10,7 @@
 {% block titulo %}Virtuagora - Nueva novedad{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block linkhead %}
-<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/powertip/jquery.powertip.min.css"/>
+<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/powertip/jquery.powertip.css"/>
 <link rel="stylesheet" href="{{ baseUrl() }}/assets/css/sceditor/sceditor-main.css">
 {% endblock %}
 {# ----------------------------------------------------------- #}
@@ -123,6 +123,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         autosize($("textarea[name='titulo']"));
+        $("#checkbox").attr('checked', false);
     });
     $("textarea[name='titulo']").keypress(function(event) {
         // Check the keyCode and if the user pressed Enter (code = 13)
@@ -141,14 +142,24 @@
         });
     });
 
-    $("#checkbox").click(function() {
+    var completarDescripcion = function() {
          if ($('#checkbox').attr('checked')) {
            $('.no-asociar').hide();
         } else {
             $('.no-asociar').show();
         }
-    });
+    };
 
+    var cambiarEstado = function() {
+         if ($('#checkbox').attr('checked')) {
+           $("#checkbox").attr('checked', false);
+        } else {
+            $("#checkbox").attr('checked', true);
+        }
+        completarDescripcion();
+    };
+
+    $("#checkbox").click(cambiarEstado);
 
     $('#tooltip-categoria').data('powertiptarget', 'tooltip-categoria-data');
     $('#tooltip-categoria').powerTip({
