@@ -223,11 +223,9 @@ class AdminCtrl extends Controller {
             throw new TurnbackException('Configuración inválida.');
         }
         $entrantes = json_decode($vdt->getData('entrantes'));
-        $usuarios = Usuario::whereIn('id', $entrantes)->whereNull('verified_at')->get();
-        if ($usuarios) {
-            $usuarios->increment('puntos', 25, array('verified_at' => Carbon\Carbon::now()));
-            // TODO definir cuantos puntos se dan
-        }
+        Usuario::whereIn('id', $entrantes)->whereNull('verified_at')
+            ->increment('puntos', 25, array('verified_at' => Carbon\Carbon::now()));
+        // TODO definir cuantos puntos se dan
         // TODO crear accion de verificacion de ciudadano
         $this->flash('success', 'Se han verificado los ciudadanos seleccionados exitosamente.');
         $this->redirectTo('shwAdmVrfUsuario');
