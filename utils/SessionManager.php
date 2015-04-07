@@ -85,7 +85,7 @@ class SessionManager {
 
     public function isAdminAllowedTo($action) {
         $mod = Moderador::whereHas('patrulla.poderes', function($q) use ($action) {
-            $q->where('accion', $action);
+            $q->where('poder_id', $action);
         })->find($this->user('id'));
         return isset($mod);
     }
