@@ -14,23 +14,23 @@
     <div class="listar-usuarios row">
         <div class="large-12 columns">
             <div class="titulo">
-                <h4>Usuarios por verificar</h4>
+                <h4>Usuarios sin verificar</h4>
             </div>
             <hr>
             <div class="explicacion panel">
-                Cosas locas
+                En la siguiente tabla tiene la lista de usuarios que no están verificados. Para agregar un usuario a la lista de "Usuarios a verificar" haga clic en el boton con el icono <i class="fa fa-plus fa-fw"></i>
             </div>
-            <dl class="sub-nav" role="menu" title="Filter Menu List">
-                <dt><i class="fa fa-filter fa-fw fa-lg"></i> Ordenar: </dt>
-                <dd class="sortRecientes" role="menuitem" ><a href="javascript:sortRecientes();"><i class="fa fa-sort-alpha-asc fa-fw"></i> Nombre</a></dd>
-                <dd class="sortPtsCont active" role="menuitem"><a href="javascript:sortPtsCont();"><i class="fa fa-sort-alpha-asc fa-fw"></i> Apellido</a></dd>
-                <dd class="sortPtsAutor" role="menuitem"><a href="javascript:sortPtsAutor();"><i class="fa fa-sort-numeric-desc fa-fw"></i> Puntos</a></dd>
+            <dl class="sub-nav sort" role="menu" title="Filter Menu List">
+                <dt><i class="fa fa-list-ol fa-fw fa-lg"></i> Ordenar: </dt>
+                <dd class="sortNombre" role="menuitem" ><a href="javascript:sortNombre();"><i class="fa fa-sort-alpha-asc fa-fw"></i> Nombre</a></dd>
+                <dd class="sortApellido" role="menuitem"><a href="javascript:sortApellido();"><i class="fa fa-sort-alpha-asc fa-fw"></i> Apellido</a></dd>
+                <dd class="sortPuntos" role="menuitem"><a href="javascript:sortPuntos();"><i class="fa fa-sort-numeric-desc fa-fw"></i> Puntos</a></dd>
             </dl>
-            <dl class="sub-nav" role="menu" title="Filter Menu List">
+            <dl class="sub-nav ver" role="menu" title="Filter Menu List">
                 <dt><i class="fa fa-filter fa-fw fa-lg"></i> Filtrar: </dt>
-                <dd class="sortRecientes active" role="menuitem" ><a href="javascript:sortRecientes();"><i class="fa fa-eye fa-fw"></i> Todo</a></dd>
-                <dd class="sortPtsCont" role="menuitem"><a href="javascript:sortPtsCont();"><i class="fa fa-warning fa-fw"></i> Advertidos</a></dd>
-                <dd class="sortPtsAutor" role="menuitem"><a href="javascript:sortPtsAutor();"><i class="fa fa-times fa-fw"></i> Suspendidos</a></dd>
+                <dd class="verTodo active" role="menuitem" ><a href="javascript:verTodo();"><i class="fa fa-eye fa-fw"></i> Todo</a></dd>
+                <dd class="verAdvertidos" role="menuitem"><a href="javascript:verAdvertidos();"><i class="fa fa-warning fa-fw"></i> Advertidos</a></dd>
+                <dd class="verSuspendidos" role="menuitem"><a href="javascript:verSuspendidos();"><i class="fa fa-times fa-fw"></i> Suspendidos</a></dd>
             </dl>
             <table class="tabla-usuarios">
                 <thead>
@@ -59,7 +59,7 @@
             </div>
             <hr>
             <div class="explicacion panel">
-                Aqui se iran listando los usuarios que van a ser verificados.
+                En la siguiente tabla se irán agregando los usuarios que usted eligió verificar de la lista anterior. Puede quitar usuarios de esta lista haciendo clic en el boton <i class="fa fa-minus fa-fw"></i>
             </div>
             <table class="tabla-usuarios-verificar">
                 <thead>
@@ -97,18 +97,18 @@
     var usuarios_verificar = new Array();
 
     $(document).ready(function(){
+        $('.sub-nav').children('dd').hide();
         enviarSolicitud();
-
     });
 
     $(function() {
-    // setTimeout() function will be fired after page is loaded
-    // it will wait for 5 sec. and then will fire
-    // $("#successMessage").hide() function
-    setTimeout(function() {
-        $(".ultima-fila").delay(5000).remove();
-    }, 5000);
-});
+        // setTimeout() function will be fired after page is loaded
+        // it will wait for 5 sec. and then will fire
+        // $("#successMessage").hide() function
+        setTimeout(function() {
+            $(".ultima-fila").remove();
+        }, 2000);
+    });
     var agregarUsuario = function(id, nombre, apellido, puntos, advertencia, suspendido) {
         td_id = $('<td>').addClass('text-center').hide().html( id );
         td_nombre = $('<td>').html( nombre );
@@ -139,6 +139,13 @@
             .append(td_agregar)
             .attr('id','usuario-'+id)
             .addClass('usuario');
+        if( advertencia ){
+            tr_usuario.addClass('advertido');
+        }
+        if( suspendido ){
+            tr_usuario.addClass('suspendido');
+        }
+
 
         $(".tabla-usuarios").find('tbody').append(tr_usuario);
     }
@@ -170,7 +177,10 @@
                     resultados[i].advertencia,
                     resultados[i].suspendido);
             }
-            agregarUltimaFila('<i class="fa fa-check fa-fw"></i> Fin de los usuarios');
+            agregarUltimaFila('<i class="fa fa-check fa-fw"></i> Fin de la busqueda de los usuarios');
+            setTimeout(function() {
+                $('.sub-nav').children('dd').show();
+            }, 2000);
             return true;
         });
         request.fail(function(jqXHR, textStatus) {
@@ -189,6 +199,7 @@
     });
 
     $(document).on('click', '.quitar', function() {
+        verTodo();
         $(this).removeClass('quitar').addClass('agregar');
         $(this).removeClass('alert');
         $(this).children().removeClass('fa-minus').addClass('fa-plus');
@@ -196,7 +207,6 @@
     });
 
     $('#verificar').submit(function() {
-
         $('.agregando').children('tr').each(function () {
             var id_num = $(this).attr('id').replace('usuario-', '');
             alert(id_num);
@@ -206,6 +216,46 @@
         $('input[name="entrantes"]').val(json_usuarios);
         alert($('input[name="entrantes"]').val());
     });
+
+    var sortNombre = function() {
+        $('.sub-nav.sort dd.active').removeClass('active');
+        $('.sortNombre').addClass('active');
+        var sorting = [[0,1]];
+        $('.tabla-usuarios').tablesorter();
+        $('.tabla-usuarios').trigger("sorton",[sorting]);
+    }
+    var sortApellido = function() {
+        $('.sub-nav.sort dd.active').removeClass('active');
+        $('.sortApellido').addClass('active');
+        var sorting = [[0,0]];
+        $('.tabla-usuarios').tablesorter();
+        $('.tabla-usuarios').trigger("sorton",[sorting]);
+    }
+    var sortPuntos = function() {
+        $('.sub-nav.sort dd.active').removeClass('active');
+        $('.sortPuntos').addClass('active');
+        var sorting = [[2,0]];
+        $('.tabla-usuarios').tablesorter();
+        $('.tabla-usuarios').trigger("sorton",[sorting]);
+    }
+    var verTodo = function() {
+        $('.sub-nav.ver dd.active').removeClass('active');
+        $('.verTodo').addClass('active');
+        $('.usuarios tr.usuario').show();
+    }
+    var verAdvertidos = function() {
+        $('.sub-nav.ver dd.active').removeClass('active');
+        $('.verAdvertidos').addClass('active');
+        $('.usuarios tr.usuario').hide();
+        $('.usuarios tr.advertido').show();
+    }
+    var verSuspendidos = function() {
+        $('.sub-nav.ver dd.active').removeClass('active');
+        $('.verSuspendidos').addClass('active');
+        $('.usuarios tr.usuario').hide();
+        $('.usuarios tr.suspendido').show();
+    }
+
 
 </script>
 {% endblock %}
