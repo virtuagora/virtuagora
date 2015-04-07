@@ -1,0 +1,212 @@
+{# VARIBLES #}
+
+{% extends "admin/ver-administracion.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Verificar usuarios{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block linkheads_cont %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% set intro_titulo = 'Verificar usuarios' %}
+{# ----------------------------------------------------------- #}
+{% block administracion %}
+<div class="verificar-usuarios">
+    <div class="listar-usuarios row">
+        <div class="large-12 columns">
+            <div class="titulo">
+                <h4>Usuarios por verificar</h4>
+            </div>
+            <hr>
+            <div class="explicacion panel">
+                Cosas locas
+            </div>
+            <dl class="sub-nav" role="menu" title="Filter Menu List">
+                <dt><i class="fa fa-filter fa-fw fa-lg"></i> Ordenar: </dt>
+                <dd class="sortRecientes" role="menuitem" ><a href="javascript:sortRecientes();"><i class="fa fa-sort-alpha-asc fa-fw"></i> Nombre</a></dd>
+                <dd class="sortPtsCont active" role="menuitem"><a href="javascript:sortPtsCont();"><i class="fa fa-sort-alpha-asc fa-fw"></i> Apellido</a></dd>
+                <dd class="sortPtsAutor" role="menuitem"><a href="javascript:sortPtsAutor();"><i class="fa fa-sort-numeric-desc fa-fw"></i> Puntos</a></dd>
+            </dl>
+            <dl class="sub-nav" role="menu" title="Filter Menu List">
+                <dt><i class="fa fa-filter fa-fw fa-lg"></i> Filtrar: </dt>
+                <dd class="sortRecientes active" role="menuitem" ><a href="javascript:sortRecientes();"><i class="fa fa-eye fa-fw"></i> Todo</a></dd>
+                <dd class="sortPtsCont" role="menuitem"><a href="javascript:sortPtsCont();"><i class="fa fa-warning fa-fw"></i> Advertidos</a></dd>
+                <dd class="sortPtsAutor" role="menuitem"><a href="javascript:sortPtsAutor();"><i class="fa fa-times fa-fw"></i> Suspendidos</a></dd>
+            </dl>
+            <table class="tabla-usuarios">
+                <thead>
+                    <tr style="//display:none;">
+                        <th class="text-center" style="display:none;">ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th class="text-center"><i class="fa fa-trophy fa-fw"></i></th>
+                        <th class="text-center"><i class="fa fa-warning fa-fw"></i></th>
+                        <th class="text-center"><i class="fa fa-times fa-fw"></i></th>
+                        <th class="text-center"><i class="fa fa-cog fa-fw"></i></th>
+                    </tr>
+                </thead>
+                <tbody class="usuarios">
+                    <tr>
+                        <td colspan=6 class="text-center"><i class="fa fa-spinner fa-pulse"></i> Buscando usuarios</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="listar-usuarios row">
+        <div class="large-12 columns">
+            <div class="titulo">
+                <h4>Usuarios a verificar</h4>
+            </div>
+            <hr>
+            <div class="explicacion panel">
+                Aqui se iran listando los usuarios que van a ser verificados.
+            </div>
+            <table class="tabla-usuarios-verificar">
+                <thead>
+                    <tr style="//display:none;">
+                        <th class="text-center" style="display:none;">ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th class="text-center"><i class="fa fa-trophy fa-fw"></i></th>
+                        <th class="text-center"><i class="fa fa-warning fa-fw"></i></th>
+                        <th class="text-center"><i class="fa fa-times fa-fw"></i></th>
+                        <th class="text-center"><i class="fa fa-cog fa-fw"></i></th>
+                    </tr>
+                </thead>
+                <tbody class="agregando">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row text-center">
+        <form id="verificar" action="{{ urlFor('runAdmVrfUsuario') }}" method="POST">
+            <input type="text" name="entrantes" style="display:none;">
+            <button class="button radius success"><i class="fa fa-check fa-fw"></i> Verificar ciudadanos</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts_cont %}
+<script src="{{ baseUrl() }}/assets/js/tablesorter/jquery.tablesorter.js"></script>
+<script>
+    var usuarios_verificar = new Array();
+
+    $(document).ready(function(){
+        enviarSolicitud();
+
+    });
+
+    $(function() {
+    // setTimeout() function will be fired after page is loaded
+    // it will wait for 5 sec. and then will fire
+    // $("#successMessage").hide() function
+    setTimeout(function() {
+        $(".ultima-fila").delay(5000).remove();
+    }, 5000);
+});
+    var agregarUsuario = function(id, nombre, apellido, puntos, advertencia, suspendido) {
+        td_id = $('<td>').addClass('text-center').hide().html( id );
+        td_nombre = $('<td>').html( nombre );
+        td_apellido = $('<td>').html( apellido );
+        td_puntos = $('<td>').addClass('text-center').html( puntos );
+        td_advertencia = $('<td>').addClass('text-center').html( 'null' );
+        td_suspendido = $('<td>').addClass('text-center').html( 'null' );
+        boton_agregar = $('<a>').attr('src','#').addClass('agregar button tiny radius').html('<i class="fa fa-plus fa-fw fa-lg"></i>')
+        td_agregar = $('<td>').addClass('text-center').html( boton_agregar );
+        if( advertencia ){
+            td_advertencia = td_advertencia.html( 'Si' );
+        } else {
+            td_advertencia = td_advertencia.html( 'No' );
+        }
+        if( suspendido ){
+            td_suspendido = td_suspendido.html( 'Si' );
+        } else {
+            td_suspendido = td_suspendido.html( 'No' );
+        }
+
+        tr_usuario = $('<tr>')
+            .append(td_id)
+            .append(td_nombre)
+            .append(td_apellido)
+            .append(td_puntos)
+            .append(td_advertencia)
+            .append(td_suspendido)
+            .append(td_agregar)
+            .attr('id','usuario-'+id)
+            .addClass('usuario');
+
+        $(".tabla-usuarios").find('tbody').append(tr_usuario);
+    }
+    var agregarUltimaFila = function(mensaje) {
+        td_mensaje = $('<td>').addClass('text-center').attr('colspan',6).html( mensaje );
+        tr_ultima = $('<tr>').addClass('ultima-fila').append(td_mensaje);
+        $(".tabla-usuarios").find('tbody').append( tr_ultima );
+    }
+    var agregarErrorFila = function(mensaje) {
+        td_mensaje = $('<td>').addClass('text-center').attr('colspan',6).html( mensaje );
+        tr_ultima = $('<tr>').append(td_mensaje);
+        $(".tabla-usuarios").find('tbody').append( tr_ultima );
+    }
+
+    var enviarSolicitud = function() {
+        var request = $.ajax({
+            url: '{{ baseUrl() }}/usuario',
+            cache: false,
+            dataType: "json"
+        });
+        request.done(function(resultados) {
+            $(".tabla-usuarios").find('tbody').empty();
+            for (var i=0; i<resultados.length; i++) {
+                agregarUsuario(
+                    resultados[i].id,
+                    resultados[i].nombre,
+                    resultados[i].apellido,
+                    resultados[i].puntos,
+                    resultados[i].advertencia,
+                    resultados[i].suspendido);
+            }
+            agregarUltimaFila('<i class="fa fa-check fa-fw"></i> Fin de los usuarios');
+            return true;
+        });
+        request.fail(function(jqXHR, textStatus) {
+            $(".tabla-usuarios").find('tbody').empty();
+            alert("Request failed: " + textStatus);
+            agregarErrorFila( '<i class="fa fa-unlink fa-fw"></i> Error en la busqueda de los usuarios!');
+            return false;
+        });
+    }
+
+    $(document).on('click', '.agregar', function() {
+        $(this).removeClass('agregar').addClass('quitar');
+        $(this).addClass('alert');
+        $(this).children().removeClass('fa-plus').addClass('fa-minus');
+        $('.agregando').append($(this).closest('.usuario'));
+    });
+
+    $(document).on('click', '.quitar', function() {
+        $(this).removeClass('quitar').addClass('agregar');
+        $(this).removeClass('alert');
+        $(this).children().removeClass('fa-minus').addClass('fa-plus');
+        $('.usuarios').append($(this).closest('.usuario'));
+    });
+
+    $('#verificar').submit(function() {
+
+        $('.agregando').children('tr').each(function () {
+            var id_num = $(this).attr('id').replace('usuario-', '');
+            alert(id_num);
+            usuarios_verificar.push(id_num);
+        });
+        json_usuarios = JSON.stringify(usuarios_verificar);
+        $('input[name="entrantes"]').val(json_usuarios);
+        alert($('input[name="entrantes"]').val());
+    });
+
+</script>
+{% endblock %}
+{# ----------------------------------------------------------- #}

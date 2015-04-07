@@ -7131,20 +7131,24 @@ html, body {
   background-color: #f5f5f5;
 }
 /* line 250, ../scss/layouts/_partido.scss */
+.gestionar-roles .listar-jefes .tabla-jefes tr:hover, .gestionar-roles .listar-jefes .tabla-afiliados tr:hover, .gestionar-roles .listar-afiliados .tabla-jefes tr:hover, .gestionar-roles .listar-afiliados .tabla-afiliados tr:hover {
+  background-color: #fcf6d9;
+}
+/* line 253, ../scss/layouts/_partido.scss */
 .gestionar-roles .listar-jefes .tabla-jefes td, .gestionar-roles .listar-jefes .tabla-afiliados td, .gestionar-roles .listar-afiliados .tabla-jefes td, .gestionar-roles .listar-afiliados .tabla-afiliados td {
   font-size: 0.8125rem;
   padding: 3px 10px;
 }
-/* line 251, ../scss/layouts/_partido.scss */
+/* line 254, ../scss/layouts/_partido.scss */
 .gestionar-roles .listar-jefes .tabla-jefes td img, .gestionar-roles .listar-jefes .tabla-afiliados td img, .gestionar-roles .listar-afiliados .tabla-jefes td img, .gestionar-roles .listar-afiliados .tabla-afiliados td img {
   width: 20px;
   height: 20px;
 }
-/* line 257, ../scss/layouts/_partido.scss */
+/* line 260, ../scss/layouts/_partido.scss */
 .gestionar-roles .listar-jefes .tabla-jefes td .button, .gestionar-roles .listar-jefes .tabla-afiliados td .button, .gestionar-roles .listar-afiliados .tabla-jefes td .button, .gestionar-roles .listar-afiliados .tabla-afiliados td .button {
   margin: 0;
 }
-/* line 260, ../scss/layouts/_partido.scss */
+/* line 263, ../scss/layouts/_partido.scss */
 .gestionar-roles .listar-jefes .tabla-jefes td .quitar, .gestionar-roles .listar-jefes .tabla-jefes td .agregar, .gestionar-roles .listar-jefes .tabla-afiliados td .quitar, .gestionar-roles .listar-jefes .tabla-afiliados td .agregar, .gestionar-roles .listar-afiliados .tabla-jefes td .quitar, .gestionar-roles .listar-afiliados .tabla-jefes td .agregar, .gestionar-roles .listar-afiliados .tabla-afiliados td .quitar, .gestionar-roles .listar-afiliados .tabla-afiliados td .agregar {
   font-size: 0.9375rem;
   padding: 2px 5px;
@@ -7414,6 +7418,75 @@ html, body {
 .ajustes-plataforma .descripcion {
   font-size: 0.75rem;
   letter-spacing: -0.5px;
+}
+
+/* line 74, ../scss/layouts/_administrar.scss */
+.verificar-usuarios .titulo h4 {
+  letter-spacing: -0.5px;
+}
+/* line 77, ../scss/layouts/_administrar.scss */
+.verificar-usuarios .explicacion.panel {
+  letter-spacing: -0.5px;
+  font-size: 0.875rem;
+  padding: 6px;
+}
+/* line 82, ../scss/layouts/_administrar.scss */
+.verificar-usuarios hr {
+  margin: 0 0 8px 0;
+}
+/* line 86, ../scss/layouts/_administrar.scss */
+.verificar-usuarios .listar-usuarios .sub-nav {
+  margin-bottom: 5px;
+}
+/* line 88, ../scss/layouts/_administrar.scss */
+.verificar-usuarios .listar-usuarios .sub-nav dt, .verificar-usuarios .listar-usuarios .sub-nav dd {
+  font-size: 0.6875rem;
+}
+/* line 91, ../scss/layouts/_administrar.scss */
+.verificar-usuarios .listar-usuarios .sub-nav dd:hover {
+  background-color: #fcf6d9;
+}
+/* line 95, ../scss/layouts/_administrar.scss */
+.verificar-usuarios .listar-usuarios .tabla-usuarios, .verificar-usuarios .listar-usuarios .tabla-usuarios-verificar {
+  width: 100%;
+}
+/* line 97, ../scss/layouts/_administrar.scss */
+.verificar-usuarios .listar-usuarios .tabla-usuarios thead tr th, .verificar-usuarios .listar-usuarios .tabla-usuarios-verificar thead tr th {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  padding: 5px 10px;
+  background-color: #e3e3e3;
+}
+/* line 102, ../scss/layouts/_administrar.scss */
+.verificar-usuarios .listar-usuarios .tabla-usuarios thead tr th .titulo, .verificar-usuarios .listar-usuarios .tabla-usuarios-verificar thead tr th .titulo {
+  width: 70%;
+}
+/* line 106, ../scss/layouts/_administrar.scss */
+.verificar-usuarios .listar-usuarios .tabla-usuarios tr:nth-of-type(even), .verificar-usuarios .listar-usuarios .tabla-usuarios-verificar tr:nth-of-type(even) {
+  background-color: #f5f5f5;
+}
+/* line 109, ../scss/layouts/_administrar.scss */
+.verificar-usuarios .listar-usuarios .tabla-usuarios tr:hover, .verificar-usuarios .listar-usuarios .tabla-usuarios-verificar tr:hover {
+  background-color: #fcf6d9;
+}
+/* line 112, ../scss/layouts/_administrar.scss */
+.verificar-usuarios .listar-usuarios .tabla-usuarios td, .verificar-usuarios .listar-usuarios .tabla-usuarios-verificar td {
+  font-size: 0.8125rem;
+  padding: 3px 10px;
+}
+/* line 113, ../scss/layouts/_administrar.scss */
+.verificar-usuarios .listar-usuarios .tabla-usuarios td img, .verificar-usuarios .listar-usuarios .tabla-usuarios-verificar td img {
+  width: 20px;
+  height: 20px;
+}
+/* line 119, ../scss/layouts/_administrar.scss */
+.verificar-usuarios .listar-usuarios .tabla-usuarios td .button, .verificar-usuarios .listar-usuarios .tabla-usuarios-verificar td .button {
+  margin: 0;
+}
+/* line 122, ../scss/layouts/_administrar.scss */
+.verificar-usuarios .listar-usuarios .tabla-usuarios td .quitar, .verificar-usuarios .listar-usuarios .tabla-usuarios td .agregar, .verificar-usuarios .listar-usuarios .tabla-usuarios-verificar td .quitar, .verificar-usuarios .listar-usuarios .tabla-usuarios-verificar td .agregar {
+  font-size: 0.9375rem;
+  padding: 2px 5px;
 }
 
 /* line 1, ../scss/layouts/_misc.scss */

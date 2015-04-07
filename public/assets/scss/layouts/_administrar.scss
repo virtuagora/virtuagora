@@ -69,3 +69,61 @@
     }
 
 }
+
+.verificar-usuarios{
+    .titulo h4{
+        letter-spacing: -0.5px;
+    }
+    .explicacion.panel{
+        letter-spacing: -0.5px;
+        font-size: rem-calc(14);
+        padding: 6px;
+    }
+    hr{
+        margin: 0 0 8px 0;
+    }
+    .listar-usuarios{
+        .sub-nav{
+            margin-bottom: 5px;
+            dt, dd{
+                font-size: rem-calc(11);
+            }
+            dd:hover{
+                background-color: #fcf6d9;
+            }
+        }
+        .tabla-usuarios, .tabla-usuarios-verificar{
+            width: 100%;
+            thead tr th{
+                font-size: rem-calc(13);
+                font-weight: 400;
+                padding: 5px 10px;
+                background-color: #e3e3e3;
+                .titulo{
+                    width: 70%;
+                }
+            }
+            tr:nth-of-type(even){
+                background-color: #f5f5f5;
+            }
+            tr:hover{
+                background-color: #fcf6d9;
+            }
+            td{
+                img{
+                    width: 20px;
+                    height: 20px;
+                }
+                font-size: rem-calc(13);
+                padding: 3px 10px;
+                .button{
+                    margin: 0;
+                }
+                .quitar, .agregar{
+                    font-size: rem-calc(15);
+                    padding: 2px 5px;
+                }
+            }
+        }
+    }
+}
