@@ -81,7 +81,7 @@ class PortalCtrl extends Controller {
         $message = 'Hola, te registraste en virtuagora. Entra a este link para confirmar tu email: ' .
                    $this->urlFor('runValidUsuario', array('idUsr' => $usuario->id, 'token' => $usuario->emailed_token));
         $header = 'From:noreply@'.$_SERVER['SERVER_NAME'].' \r\n';
-        $retval = mail($to, $subject, $message, $header);
+        mail($to, $subject, $message, $header);
 
         $this->render('registro/registro-exito.twig', array('email' => $usuario->email));
     }

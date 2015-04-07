@@ -223,7 +223,7 @@ class AdminCtrl extends Controller {
             throw new TurnbackException('Configuración inválida.');
         }
         $entrantes = json_decode($vdt->getData('entrantes'));
-        $usuarios = Usuario::whereIn('id', $entrantes)->whereNull('fecha_validacion')->get();
+        $usuarios = Usuario::whereIn('id', $entrantes)->whereNull('verified_at')->get();
         if ($usuarios) {
             $usuarios->increment('puntos', 25, array('verified_at' => Carbon\Carbon::now()));
             // TODO definir cuantos puntos se dan

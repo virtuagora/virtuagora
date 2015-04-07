@@ -9,9 +9,9 @@ class UserlogCtrl extends RMRController {
         return Userlog::query();
     }
 
-    public static function createLog($accion_id, $actor, $objeto, $tipoObj = null) {
+    public static function createLog($accionId, $actor, $objeto, $tipoObj = null) {
         $log = new Userlog;
-        $log->accion_id = $accion_id;
+        $log->accion_id = $accionId;
         $log->actor()->associate($actor);
         if (is_null($tipoObj)) {
             $log->objeto()->associate($objeto);

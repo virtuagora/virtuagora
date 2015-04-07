@@ -165,11 +165,9 @@ class PartidoCtrl extends RMRController {
                                         'partido_id' => $vdt->getData('idPar')))->first();
         if ($usuario->id == $partido->creador_id) {
             throw new TurnbackException('No se puede cambiar el rol del creador del partido.');
-        }
-        if (is_null($usuario)) {
+        } else if (is_null($usuario)) {
             throw new TurnbackException($usuario->nombre_completo.' no pertenece al partido.');
-        }
-        if (!($usuario->es_jefe xor $vdt->getData('jefe'))) {
+        } else if (!($usuario->es_jefe xor $vdt->getData('jefe'))) {
             throw new TurnbackException('Configuración inválida.');
         }
         $usuario->es_jefe = $vdt->getData('jefe');

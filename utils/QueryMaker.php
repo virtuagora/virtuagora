@@ -4,6 +4,7 @@ class QueryMaker {
 
     public $query;
     public $params;
+    private $operators = array('lt' => '<', 'le' => '<=', 'eq' => '=', 'ne' => '!=', 'ge' => '>=', 'gt' => '>');
 
     public function __construct($query, $params = array()) {
         $this->params = $params;
@@ -12,42 +13,40 @@ class QueryMaker {
 
     public function addFilters($filtrables = array()) {
         if (isset($this->params['where'])) {
-            $filtros = explode(' ', $this->params['where']);
+            $filtros = explode(',', $this->params['where']);
             foreach ($filtros as $filtro) {
                 $regla = explode('-', $filtro);
                 if (count($regla) != 3) {
                     throw new BearableException('Parámetros de filtrado incorrectos.');
                 }
-                if (!in_array($regla[0], $filtrables)) {
+                list($atr, $ope, $val) = $regla;
+                if (!in_array($atr, $filtrables)) {
                     throw new BearableException('Filtro inexistente.');
-                }
-                $match = true;
-                switch ($regla[1]) {
-                    case 'lt': $regla[1] = '<'; break;
-                    case 'le': $regla[1] = '<='; break;
-                    case 'eq': $regla[1] = '='; break;
-                    case 'ge': $regla[1] = '>='; break;
-                    case 'gt': $regla[1] = '>'; break;
-                    case 'ne': $regla[1] = '!='; break;
-                    default: $match = false;
-                }
-                // TODO ver si se controla el contenido del filtro
-                if ($match) {
-                    $this->query = $this->query->where($regla[0], $regla[1], $regla[2]);
-                } else if ($regla[1] == 'in') {
-                    $this->query = $this->query->wherein($regla[0], explode('.', $regla[2]));
+                } else if (isset($this->operators[$ope])) {
+                    $this->query = $this->query->where($atr, $this->operators[$ope], $val);
+                } else if ($ope == 'in') {
+                    $this->query = $this->query->wherein($atr, explode('.', $val));
                 } else {
                     throw new BearableException('Operador inexistente.');
                 }
             }
         }
         if (isset($this->params['where_null'])) {
-            $filtros = explode(' ', $this->params['where_null']);
+            $filtros = explode(',', $this->params['where_null']);
             foreach ($filtros as $filtro) {
                 if (!in_array($filtro, $filtrables)) {
                     throw new BearableException('Filtro inexistente.');
                 }
                 $this->query = $this->query->whereNull($filtro);
+            }
+        }
+        if (isset($this->params['where_not_null'])) {
+            $filtros = explode(',', $this->params['where_not_null']);
+            foreach ($filtros as $filtro) {
+                if (!in_array($filtro, $filtrables)) {
+                    throw new BearableException('Filtro inexistente.');
+                }
+                $this->query = $this->query->whereNotNull($filtro);
             }
         }
     }
@@ -61,6 +60,9 @@ class QueryMaker {
                     $sorter = substr($sorter, 1);
                 } else {
                     $direction = 'ASC';
+                }
+                if (!in_array($sorter, $ordenables)) {
+                    throw new BearableException('Filtro inexistente.');
                 }
                 $this->query = $this->query->orderBy($sorter, $direction);
             }
