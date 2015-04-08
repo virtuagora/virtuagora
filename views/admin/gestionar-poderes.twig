@@ -1,0 +1,71 @@
+{# VARIBLES #}
+
+{% extends "admin/ver-administracion.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Gestionar poderes {% endblock %}
+{# ----------------------------------------------------------- #}
+{% block linkheads_cont %}
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% set intro_titulo = 'Gestionar poderes' %}
+{# ----------------------------------------------------------- #}
+{% block administracion %}
+<div class="poderes-patrulla">
+    <form action="{{ urlFor('runModifPodPatrull',{'idPat': patrulla.id}) }}" method="POST">
+        {% for poder in poderes %}
+        <div class="row">
+            <div class="large-8 columns">
+                <h5>{{ poder.nombre }}</h5>
+                {{ poder.descripcion }}
+            </div>
+            <div class="large-4 columns">
+                <div class="switch small round">
+                    <input id="checkbox" name="asociar" type="checkbox">
+                    <label for="checkbox"></label>
+                </div>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+        {% if poderes|length > 0 %}
+        <div class="row text-center">
+            <button class="button success radius"><i class="fa fa-check fa-fw"></i> Aceptar los cambios</button>
+        </div>
+        {% else %}
+        <div class="row text-center">
+            <div class="large-12 columns">
+                <div class="titulo">
+                    <h5>No hay ajustes para configurar</h5>
+                </div>
+                <div class="descripcion">
+                    Consulte con un experto...
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </form>
+</div>
+
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts_cont %}
+<script>
+
+    $(document).ready(function(){
+//        {% for ajuste in ajustes %}
+//        {% if ajuste.value_type == 'int' %}
+//        $('input[name="{{ ajuste.key }}"]').val({{ ajuste.value }});
+//         {% elseif ajuste.value_type == 'str' %}
+//         $('input[name="{{ ajuste.key }}"]').val({{ ajuste.value }});
+//          {% elseif ajuste.value_type == 'txt' %}
+//          $('textarea[name={{ ajuste.key }}]').sceditor('instance').val('{{ ajuste.value|bbCode }}', false);
+//           {% endif %}
+//           {% endfor %}
+           });
+
+</script>
+{% endblock %}
+{# ----------------------------------------------------------- #}

@@ -7428,12 +7428,12 @@ html, body {
 }
 
 /* line 73, ../scss/layouts/_administrar.scss */
-.ajustes-plataforma .titulo h5 {
+.ajustes-plataforma .titulo h5, .poderes-patrulla .titulo h5 {
   margin: 0;
   letter-spacing: -0.5px;
 }
 /* line 77, ../scss/layouts/_administrar.scss */
-.ajustes-plataforma .descripcion {
+.ajustes-plataforma .descripcion, .poderes-patrulla .descripcion {
   font-size: 0.75rem;
   letter-spacing: -0.5px;
 }
