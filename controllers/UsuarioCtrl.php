@@ -4,7 +4,7 @@ class UsuarioCtrl extends RMRController {
 
     protected $mediaTypes = array('json');
     protected $properties = array('id', 'nombre', 'apellido', 'es_funcionario', 'es_jefe', 'puntos', 'partido_id',
-                                  'created_at', 'suspendido', 'advertencia');
+                                  'created_at', 'suspendido', 'advertencia', 'verified_at');
 
     public function queryModel() {
         return Usuario::query();
