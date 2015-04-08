@@ -12,39 +12,51 @@
 {# ----------------------------------------------------------- #}
 {% block administracion %}
 <div class="poderes-patrulla">
-    <form action="{{ urlFor('runModifPodPatrull',{'idPat': patrulla.id}) }}" method="POST">
-        {% for poder in poderes %}
-        <div class="row">
-            <div class="large-8 columns">
-                <h5>{{ poder.nombre }}</h5>
-                {{ poder.descripcion }}
+    <div class="row text-center">
+        <div class="large-12 columns">
+            <div class="titulo">
+                <h5><b>Patrulla re loca</b></h5>
             </div>
-            <div class="large-4 columns">
-                <div class="switch small round">
-                    <input id="checkbox" name="asociar" type="checkbox">
-                    <label for="checkbox"></label>
-                </div>
+            <div class="descripcion">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum obcaecati sed, hic soluta sunt. Praesentium quam, alias error vero, labore, doloremque quod facere, impedit molestiae libero sed expedita culpa in.
             </div>
         </div>
-        <hr>
-        {% endfor %}
-        {% if poderes|length > 0 %}
-        <div class="row text-center">
+    </div>
+    <hr>
+    {% for poder in poderes %}
+    <div class="row">
+        <div class="large-8 columns">
+            <h5>{{ poder.nombre }}</h5>
+            {{ poder.descripcion }}
+        </div>
+        <div class="large-4 columns text-center">
+            <div class="switch small round">
+                <input id="checkbox-{{ poder.id }}" type="checkbox">
+                <label for="checkbox-{{ poder.id }}"></label>
+            </div>
+        </div>
+    </div>
+    <hr>
+    {% endfor %}
+    {% if poderes|length > 0 %}
+    <div class="row text-center">
+        <form id="formPoderes" action="{{ urlFor('runModifPodPatrull',{'idPat': patrulla.id}) }}" method="POST">
+            <input name="poderes" type="text" style="display:none;">
             <button class="button success radius"><i class="fa fa-check fa-fw"></i> Aceptar los cambios</button>
-        </div>
-        {% else %}
-        <div class="row text-center">
-            <div class="large-12 columns">
-                <div class="titulo">
-                    <h5>No hay ajustes para configurar</h5>
-                </div>
-                <div class="descripcion">
-                    Consulte con un experto...
-                </div>
+        </form>
+    </div>
+    {% else %}
+    <div class="row text-center">
+        <div class="large-12 columns">
+            <div class="titulo">
+                <h5>No hay poderes para configurar</h5>
+            </div>
+            <div class="descripcion">
+                Consulte con un experto...
             </div>
         </div>
-        {% endif %}
-    </form>
+    </div>
+    {% endif %}
 </div>
 
 {% endblock %}
@@ -53,19 +65,34 @@
 {# ----------------------------------------------------------- #}
 {% block scripts_cont %}
 <script>
-
+    var poderes_patrulla = new Array();
     $(document).ready(function(){
-//        {% for ajuste in ajustes %}
-//        {% if ajuste.value_type == 'int' %}
-//        $('input[name="{{ ajuste.key }}"]').val({{ ajuste.value }});
-//         {% elseif ajuste.value_type == 'str' %}
-//         $('input[name="{{ ajuste.key }}"]').val({{ ajuste.value }});
-//          {% elseif ajuste.value_type == 'txt' %}
-//          $('textarea[name={{ ajuste.key }}]').sceditor('instance').val('{{ ajuste.value|bbCode }}', false);
-//           {% endif %}
-//           {% endfor %}
-           });
+        {% for poder in poderes %}
+        $("#checkbox-{{ poder.id }}").attr('checked', {{ patrulla.poderes[poder.id] ? 'true' : 'false' }});
+        {% endfor %}
+    });
 
+    $('#formPoderes').submit(function(e) {
+        poderes_patrulla = [];
+        $('input[type="checkbox"]').each(function () {
+            if($(this).attr('checked')){
+                var id_poder = $(this).attr('id').replace('checkbox-', '');
+                //                alert(id_poder);
+                poderes_patrulla.push(id_poder);
+            }
+        });
+        json_poderes = '[' + poderes_patrulla.join() + ']';
+        $('input[name="poderes"]').val(json_poderes);
+        //        alert($('input[name="poderes"]').val());
+    });
+
+    $('input[type="checkbox').click(function() {
+        if ($(this).attr('checked')) {
+            $(this).attr('checked', false);
+        } else {
+            $(this).attr('checked', true);
+        }
+    });
 </script>
 {% endblock %}
 {# ----------------------------------------------------------- #}
