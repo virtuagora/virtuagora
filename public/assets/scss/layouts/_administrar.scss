@@ -1,5 +1,14 @@
-.listar-organismos, .listar-funcionarios{
-    .tabla-org, .tabla-funcionarios{
+.listar-organismos, .listar-funcionarios, .listar-usuarios, .listar-patrullas{
+    .sub-nav{
+        margin-bottom: 5px;
+        dt, dd{
+            font-size: rem-calc(11);
+        }
+        dd:hover{
+            background-color: #fcf6d9;
+        }
+    }
+    .tabla-org, .tabla-funcionarios, .tabla-usuarios, .tabla-usuarios-verificar, .tabla-patrullas{
         width: 100%;
         thead tr th{
             font-size: rem-calc(13);
@@ -13,22 +22,24 @@
         tr:nth-of-type(even){
             background-color: #f5f5f5;
         }
+        tr:hover{
+            background-color: #fcf6d9;
+        }
         td{
+            img{
+                width: 20px;
+                height: 20px;
+            }
+            font-size: rem-calc(13);
+            letter-spacing: -0.3px;
             padding: 3px 10px;
             .button{
                 margin: 0;
             }
-            .modificar{
+            .modificar, .quitar, .agregar{
                 font-size: rem-calc(15);
                 padding: 2px 5px;
             }
-        }
-    }
-}
-.listar-organismos{
-    .tabla-org{
-        .titulo{
-            width: 53%;
         }
     }
 }
@@ -82,48 +93,47 @@
     hr{
         margin: 0 0 8px 0;
     }
-    .listar-usuarios{
-        .sub-nav{
-            margin-bottom: 5px;
-            dt, dd{
-                font-size: rem-calc(11);
-            }
-            dd:hover{
-                background-color: #fcf6d9;
-            }
+}
+
+.listar-patrullas{
+     .explicacion.panel{
+        letter-spacing: -0.5px;
+        font-size: rem-calc(14);
+        padding: 6px;
+    }
+    .etiqueta{
+        .nombre{
+            font-size: rem-calc(14);
+            font-weight: bold;
         }
-        .tabla-usuarios, .tabla-usuarios-verificar{
-            width: 100%;
-            thead tr th{
-                font-size: rem-calc(13);
-                font-weight: 400;
-                padding: 5px 10px;
-                background-color: #e3e3e3;
-                .titulo{
-                    width: 70%;
-                }
-            }
-            tr:nth-of-type(even){
-                background-color: #f5f5f5;
-            }
-            tr:hover{
-                background-color: #fcf6d9;
-            }
-            td{
-                img{
-                    width: 20px;
-                    height: 20px;
-                }
-                font-size: rem-calc(13);
-                padding: 3px 10px;
-                .button{
-                    margin: 0;
-                }
-                .quitar, .agregar{
-                    font-size: rem-calc(15);
-                    padding: 2px 5px;
-                }
-            }
+        .descripcion{
+            font-size: rem-calc(12);
+        }
+    }
+    .editable{
+        input, textarea{
+            margin-bottom: 0;
+            border: 0;
+            box-shadow: none;
+            color: #222222;
+        }
+        input[name='nombre']{
+            border-top: 1px solid #eaeaea;
+            border-right: 1px solid #eaeaea;
+            border-left: 1px solid #eaeaea;
+            font-weight: bold;
+            height: 25px;
+            padding: 0;
+            font-size: rem-calc(14);
+        }
+        textarea[name='descripcion']{
+            border-bottom: 1px solid #eaeaea;
+            border-right: 1px solid #eaeaea;
+            border-left: 1px solid #eaeaea;
+            resize: none;
+            min-height: 20px;
+            padding: 0;
+            font-size: rem-calc(12);
         }
     }
 }

@@ -1,0 +1,80 @@
+{# VARIBLES #}
+
+{% extends "admin/ver-administracion.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Administrar patrullas{% endblock %}
+{# ----------------------------------------------------------- #}
+{% set intro_titulo = 'Administrar patrullas' %}
+{# ----------------------------------------------------------- #}
+{% block administracion %}
+<div class="listar-patrullas">
+    <div class="large-12 columns">
+        <div class="row">
+            <div class="explicacion panel text-center">
+                A continuación verá la lista de patrullas de su plataforma. Organice a sus moderadores en grupos y habilite los permisos que crea conveniente a cada grupo. Mediante el uso del boton <i class="fa fa-pencil fa-fw"></i> podra editar tanto el nombre del grupo como la descripcion. Recuerde hacer clic sobre <i class="fa fa-check fa-fw"></i> para poder guardar sus cambios.
+                <br>
+                Haciendo clic sobre <i class="fa fa-wrench fa-fw"></i> podra administrar los permisos del grupo.
+            </div>
+        </div>
+        <div class="row">
+            <table class="tabla-patrullas">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 10%"><i class="fa fa-pencil-square-o fa-lg"></i></th>
+                        <th >Patrulla</th>
+                        <th class="text-center" style="width: 10%"><i class="fa fa-gear fa-lg"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for patrulla in patrullas %}
+                    <tr id="patrulla-{{ patrulla.id }}" class="patrulla">
+                        <td class="text-center">
+                            <div class="modificar button tiny radius secondary"><i class="fa fa-pencil fa-fw fa-lg"></i></div>
+                            <a href="javascript:enviarForm({{ patrulla.id }})" class="aceptar button tiny radius success" style="display:none;"><i class="fa fa-check fa-fw fa-lg"></i></a>
+                        </td>
+                        <td>
+                            <div class="etiqueta">
+                                <span class="nombre">{{ patrulla.nombre|capitalize }}</span>
+                                <br>
+                                <div class="descripcion">{{ patrulla.descripcion}}</div>
+                            </div>
+                            <div class="editable" style="display:none;">
+                                <form id="editar-{{ patrulla.id }}" action="{{ urlFor('runModifPatrull',{'idPat': patrulla.id}) }}" method="POST">
+                                    <input type="text" name='nombre' value="{{ patrulla.nombre }}">
+                                    <textarea type="text" name='descripcion' rows=1>{{ patrulla.descripcion }}</textarea>
+                                </form>
+                            </div>
+                        <td class="text-center"><a href="{{ urlFor('shwAdmFuncion', {'idOrg': org.id }) }}" class="modificar button tiny radius"><i class="fa fa-wrench fa-fw fa-lg"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts_cont %}
+<script>
+    $(document).ready(function(){
+
+    });
+    var enviarForm = function(idGrupo) {
+        $('#editar-'+idGrupo).submit();
+    }
+
+    $( ".modificar" ).click(function() {
+        $(this).hide();
+        $(this).next().show();
+        var tr_patrulla = $(this).closest('.patrulla');
+        tr_patrulla.find('.etiqueta').hide();
+        tr_patrulla.find('.editable').show();
+    });
+
+</script>
+{% endblock %}
+{# ----------------------------------------------------------- #}

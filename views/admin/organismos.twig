@@ -32,10 +32,10 @@
                         <a href="javascript:return(0)" class="modificar button tiny radius small warning"><i class="fa fa-trash-o fa-fw fa-lg"></i></a>
                         <a href="{{ urlFor('shwModifOrganis',{'idOrg': org.id}) }}" class="modificar button tiny radius secondary"><i class="fa fa-pencil fa-fw fa-lg"></i></a>
                     </td>
-                    <td id="d-nombre"><i class="fa fa-university fa-fw"></i> {{ org.nombre|capitalize }}</td>
+                    <td><i class="fa fa-university fa-fw"></i> {{ org.nombre|capitalize }}</td>
                     <td class="text-center">{{ org.funcionarios_count }}</td>
                     <td class="text-center">{{ org.cupo }}</td>
-                    <td><a href="{{ urlFor('shwAdmFuncion', {'idOrg': org.id }) }}" class="modificar button tiny radius"><i class="fa fa-list-alt fa-fw fa-lg"></i></a></td>
+                    <td class="text-center"><a href="{{ urlFor('shwAdmFuncion', {'idOrg': org.id }) }}" class="modificar button tiny radius"><i class="fa fa-wrench fa-fw fa-lg"></i></a></td>
                 </tr>
                 {% endfor %}
             </tbody>
