@@ -92,23 +92,27 @@
 {% block modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block scripts_cont %}
-<script src="{{ baseUrl() }}/assets/js/tablesorter/jquery.tablesorter.js"></script>
 <script>
     var usuarios_verificar = new Array();
 
     $(document).ready(function(){
-        $('.sub-nav').children('dd').hide();
-        enviarSolicitud();
+        var query = { where:'validado-eq-0' };
+        alert(jQuery.param(query));
+        enviarSolicitud('usuario', jQuery.param(query));
     });
 
-    $(function() {
-        // setTimeout() function will be fired after page is loaded
-        // it will wait for 5 sec. and then will fire
-        // $("#successMessage").hide() function
+    var timerRemove = function(selector) {
         setTimeout(function() {
-            $(".ultima-fila").remove();
+            $(selector).remove();
         }, 2000);
-    });
+    };
+
+    var timerShow = function(selector) {
+        setTimeout(function() {
+            $(selector).show();
+        }, 2000);
+    };
+
     var agregarUsuario = function(id, nombre, apellido, puntos, advertencia, suspendido) {
         td_id = $('<td>').addClass('text-center').hide().html( id );
         td_nombre = $('<td>').html( nombre );
@@ -145,24 +149,18 @@
         if( suspendido ){
             tr_usuario.addClass('suspendido');
         }
-
-
         $(".tabla-usuarios").find('tbody').append(tr_usuario);
     }
-    var agregarUltimaFila = function(mensaje) {
-        td_mensaje = $('<td>').addClass('text-center').attr('colspan',6).html( mensaje );
-        tr_ultima = $('<tr>').addClass('ultima-fila').append(td_mensaje);
-        $(".tabla-usuarios").find('tbody').append( tr_ultima );
-    }
+
     var agregarErrorFila = function(mensaje) {
         td_mensaje = $('<td>').addClass('text-center').attr('colspan',6).html( mensaje );
         tr_ultima = $('<tr>').append(td_mensaje);
         $(".tabla-usuarios").find('tbody').append( tr_ultima );
     }
 
-    var enviarSolicitud = function() {
+    var enviarSolicitud = function(recurso,query) {
         var request = $.ajax({
-            url: '{{ baseUrl() }}/usuario',
+            url: '{{ baseUrl() }}/' + recurso + '?' + query,
             cache: false,
             dataType: "json"
         });
@@ -177,16 +175,13 @@
                     resultados[i].advertencia,
                     resultados[i].suspendido);
             }
-            agregarUltimaFila('<i class="fa fa-check fa-fw"></i> Fin de la busqueda de los usuarios');
-            setTimeout(function() {
-                $('.sub-nav').children('dd').show();
-            }, 2000);
-            return true;
+            //agregarUltimaFila('<i class="fa fa-check fa-fw"></i>');
+            //timerRemove('.ultima-fila');
         });
         request.fail(function(jqXHR, textStatus) {
             $(".tabla-usuarios").find('tbody').empty();
-            alert("Request failed: " + textStatus);
             agregarErrorFila( '<i class="fa fa-unlink fa-fw"></i> Error en la busqueda de los usuarios!');
+            alert("Request failed: " + textStatus);
             return false;
         });
     }
@@ -212,7 +207,7 @@
             alert(id_num);
             usuarios_verificar.push(id_num);
         });
-        json_usuarios = JSON.stringify(usuarios_verificar);
+        json_usuarios = '[' + usuarios_verificar.join() + ']';
         $('input[name="entrantes"]').val(json_usuarios);
         alert($('input[name="entrantes"]').val());
     });
@@ -220,40 +215,35 @@
     var sortNombre = function() {
         $('.sub-nav.sort dd.active').removeClass('active');
         $('.sortNombre').addClass('active');
-        var sorting = [[0,1]];
-        $('.tabla-usuarios').tablesorter();
-        $('.tabla-usuarios').trigger("sorton",[sorting]);
+
     }
     var sortApellido = function() {
         $('.sub-nav.sort dd.active').removeClass('active');
         $('.sortApellido').addClass('active');
-        var sorting = [[0,0]];
-        $('.tabla-usuarios').tablesorter();
-        $('.tabla-usuarios').trigger("sorton",[sorting]);
+
     }
     var sortPuntos = function() {
         $('.sub-nav.sort dd.active').removeClass('active');
         $('.sortPuntos').addClass('active');
-        var sorting = [[2,0]];
-        $('.tabla-usuarios').tablesorter();
-        $('.tabla-usuarios').trigger("sorton",[sorting]);
+
     }
     var verTodo = function() {
         $('.sub-nav.ver dd.active').removeClass('active');
         $('.verTodo').addClass('active');
-        $('.usuarios tr.usuario').show();
+        var query = { where:'validado-eq-0' };
+        enviarSolicitud('usuario', jQuery.param(query));
     }
     var verAdvertidos = function() {
         $('.sub-nav.ver dd.active').removeClass('active');
         $('.verAdvertidos').addClass('active');
-        $('.usuarios tr.usuario').hide();
-        $('.usuarios tr.advertido').show();
+        var query = { where:'validado-eq-0', where_not_null:'advertencia' };
+        enviarSolicitud('usuario', jQuery.param(query));
     }
     var verSuspendidos = function() {
         $('.sub-nav.ver dd.active').removeClass('active');
         $('.verSuspendidos').addClass('active');
-        $('.usuarios tr.usuario').hide();
-        $('.usuarios tr.suspendido').show();
+        var query = {where:'validado-eq-0', where_not_null:'suspendido' };
+        enviarSolicitud('usuario', jQuery.param(query));
     }
 </script>
 {% endblock %}
