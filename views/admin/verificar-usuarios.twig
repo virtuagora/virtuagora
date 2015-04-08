@@ -20,12 +20,14 @@
             <div class="explicacion panel">
                 En la siguiente tabla tiene la lista de usuarios que no están verificados. Para agregar un usuario a la lista de "Usuarios a verificar" haga clic en el boton con el icono <i class="fa fa-plus fa-fw"></i>
             </div>
+<!--
             <dl class="sub-nav sort" role="menu" title="Filter Menu List">
                 <dt><i class="fa fa-list-ol fa-fw fa-lg"></i> Ordenar: </dt>
                 <dd class="sortNombre" role="menuitem" ><a href="javascript:sortNombre();"><i class="fa fa-sort-alpha-asc fa-fw"></i> Nombre</a></dd>
                 <dd class="sortApellido" role="menuitem"><a href="javascript:sortApellido();"><i class="fa fa-sort-alpha-asc fa-fw"></i> Apellido</a></dd>
                 <dd class="sortPuntos" role="menuitem"><a href="javascript:sortPuntos();"><i class="fa fa-sort-numeric-desc fa-fw"></i> Puntos</a></dd>
             </dl>
+-->
             <dl class="sub-nav ver" role="menu" title="Filter Menu List">
                 <dt><i class="fa fa-filter fa-fw fa-lg"></i> Filtrar: </dt>
                 <dd class="verTodo active" role="menuitem" ><a href="javascript:verTodo();"><i class="fa fa-eye fa-fw"></i> Todo</a></dd>
@@ -96,9 +98,7 @@
     var usuarios_verificar = new Array();
 
     $(document).ready(function(){
-        var query = { where:'validado-eq-0' };
-        alert(jQuery.param(query));
-        enviarSolicitud('usuario', jQuery.param(query));
+        verTodo();
     });
 
     var timerRemove = function(selector) {
@@ -212,37 +212,36 @@
         alert($('input[name="entrantes"]').val());
     });
 
-    var sortNombre = function() {
-        $('.sub-nav.sort dd.active').removeClass('active');
-        $('.sortNombre').addClass('active');
-
-    }
-    var sortApellido = function() {
-        $('.sub-nav.sort dd.active').removeClass('active');
-        $('.sortApellido').addClass('active');
-
-    }
-    var sortPuntos = function() {
-        $('.sub-nav.sort dd.active').removeClass('active');
-        $('.sortPuntos').addClass('active');
-
-    }
+//    var sortNombre = function() {
+//        $('.sub-nav.sort dd.active').removeClass('active');
+//        $('.sortNombre').addClass('active');
+//
+//    }
+//    var sortApellido = function() {
+//        $('.sub-nav.sort dd.active').removeClass('active');
+//        $('.sortApellido').addClass('active');
+//
+//    }
+//    var sortPuntos = function() {
+//        $('.sub-nav.sort dd.active').removeClass('active');
+//        $('.sortPuntos').addClass('active');
+//    }
     var verTodo = function() {
         $('.sub-nav.ver dd.active').removeClass('active');
         $('.verTodo').addClass('active');
-        var query = { where:'validado-eq-0' };
+        var query = { where_null:'verified_at' };
         enviarSolicitud('usuario', jQuery.param(query));
     }
     var verAdvertidos = function() {
         $('.sub-nav.ver dd.active').removeClass('active');
         $('.verAdvertidos').addClass('active');
-        var query = { where:'validado-eq-0', where_not_null:'advertencia' };
+        var query = { where_null:'verified_at' , where_not_null:'advertencia' };
         enviarSolicitud('usuario', jQuery.param(query));
     }
     var verSuspendidos = function() {
         $('.sub-nav.ver dd.active').removeClass('active');
         $('.verSuspendidos').addClass('active');
-        var query = {where:'validado-eq-0', where_not_null:'suspendido' };
+        var query = {where_null:'verified_at', where_not_null:'suspendido' };
         enviarSolicitud('usuario', jQuery.param(query));
     }
 </script>
