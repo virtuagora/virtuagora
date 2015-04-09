@@ -171,6 +171,7 @@ $app->group('/admin', function () use ($app) {
     $app->post('/ajustes', checkRole('mod'), 'AdminCtrl:adminAjustes')->name('runAdmAjuste');
     $app->get('/patrulla', checkRole('mod'), 'PatrullaCtrl:listar')->name('shwAdmPatrull');
     $app->post('/patrulla/:idPat/modificar', checkRole('mod'), 'PatrullaCtrl:modificar')->name('runModifPatrull');
+    $app->post('/patrulla/:idPat/eliminar', checkRole('mod'), 'PatrullaCtrl:eliminar')->name('runElimiPatrull');
     $app->get('/patrulla/:idPat/cambiar-poder', checkRole('mod'), 'PatrullaCtrl:verCambiarPoder')->name('shwModifPodPatrull');
     $app->post('/patrulla/:idPat/cambiar-poder', checkRole('mod'), 'PatrullaCtrl:cambiarPoder')->name('runModifPodPatrull');
 });

@@ -26,7 +26,7 @@ class Paginator {
     public function __construct($query, $url = '', $params = array()) {
         $vdt = $this->validate($params);
         $page = $vdt->getData('page') ?: 1;
-        $take = $vdt->getData('take') ?: 10;
+        $take = $vdt->getData('take') ?: 3;
         $endless = $vdt->getData('endless') ?: false;
         if ($endless) {
             $this->query = $query->skip(($page-1)*$take)->take($take+1);
