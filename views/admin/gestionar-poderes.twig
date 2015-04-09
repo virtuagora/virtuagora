@@ -15,10 +15,10 @@
     <div class="row text-center">
         <div class="large-12 columns">
             <div class="titulo">
-                <h5><b>Patrulla re loca</b></h5>
+                <h5><b>{{ patrulla.nombre }}</b></h5>
             </div>
             <div class="descripcion">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum obcaecati sed, hic soluta sunt. Praesentium quam, alias error vero, labore, doloremque quod facere, impedit molestiae libero sed expedita culpa in.
+                {{ patrulla.descripcion }}
             </div>
         </div>
     </div>
@@ -26,8 +26,12 @@
     {% for poder in poderes %}
     <div class="row">
         <div class="large-8 columns">
-            <h5>{{ poder.nombre }}</h5>
-            {{ poder.descripcion }}
+            <div class="titulo">
+                <h5>{{ poder.nombre }}</h5>
+            </div>
+            <div class="descripcion">
+                {{ poder.descripcion }}
+            </div>
         </div>
         <div class="large-4 columns text-center">
             <div class="switch small round">
