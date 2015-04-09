@@ -45,7 +45,7 @@ class PatrullaCtrl extends RMRController {
         $vdt->test($idPat, new Validate\Rule\NumNatural());
         $patrulla = Patrulla::findOrFail($idPat);
         $datosPat = $patrulla->toArray();
-        $datosPat['poderes'] = $patrulla->poderes()->lists('id');
+        $datosPat['poderes'] = $patrulla->poderes()->lists('poder_id');
         $poderes = Poder::all()->toArray();
         $this->render('admin/gestionar-poderes.twig', array('patrulla' => $datosPat,
                                                             'poderes' => $poderes));
