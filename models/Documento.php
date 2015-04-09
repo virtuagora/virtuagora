@@ -33,8 +33,8 @@ class Documento extends Eloquent {
                     VotoComentario::whereIn('comentario_id', $CommentIds)->delete();
                     $parrafo->comentarios()->delete();
                 }
+                $parrafo->delete();
             }
-            $documento->parrafos()->delete();
             $documento->versiones()->delete();
             $documento->contenido->delete();
             return true;

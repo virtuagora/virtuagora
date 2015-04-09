@@ -40,8 +40,8 @@ $app->error(function (Exception $e) use ($app) {
             $app->render('misc/error.twig', array('mensaje' => $e->getMessage()), $e->getCode());
         } else if ($e instanceof Illuminate\Database\Eloquent\ModelNotFoundException) {
             $app->notFound();
-        } else if ($e instanceof Illuminate\Database\QueryException && $e->getCode() == 23000) {
-            $app->render('misc/error.twig', array('mensaje' => 'La información ingresada es inconsistente.'), 400);
+        //} else if ($e instanceof Illuminate\Database\QueryException && $e->getCode() == 23000) {
+        //    $app->render('misc/error.twig', array('mensaje' => 'La información ingresada es inconsistente.'), 400);
         } else {
             $app->render('misc/fatal-error.twig', array('type' => get_class($e), 'exception' => $e));
         }
@@ -139,6 +139,7 @@ $app->get('/usuario/:idUsr', 'UsuarioCtrl:ver')->name('shwUsuario');
 $app->get('/usuario', 'UsuarioCtrl:listar')->name('shwListaUsuario');
 
 $app->post('/comentar/:tipoRaiz/:idRaiz', checkRole('usr'), 'ComentarioCtrl:comentar')->name('runComentar');
+$app->post('/comentario/:idCom/votar', checkRole('usr'), 'ComentarioCtrl:votar')->name('runVotarComentar');
 
 $app->group('/perfil', function () use ($app) {
     $app->get('/modificar', checkRole('usr'), 'UsuarioCtrl:verModificar')->name('shwModifUsuario');

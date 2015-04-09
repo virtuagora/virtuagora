@@ -124,7 +124,7 @@ class DocumentoCtrl extends Controller {
     public function eliminar($idDoc) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idDoc, new Validate\Rule\NumNatural());
-        $documento = Propuesta::with(array('contenido', 'comentarios.votos'))->findOrFail($idDoc);
+        $documento = Documento::with(array('contenido', 'parrafos'))->findOrFail($idDoc);
         $documento->delete();
         $this->flash('success', 'El documento ha sido eliminado exitosamente.');
         $this->redirectTo('shwIndex');
