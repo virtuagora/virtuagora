@@ -110,8 +110,10 @@ function checkUserAuth($action, $checkMod = false) {
 */
 
 $app->get('/test', function () use ($app) {
-    list($a,$b,$c) = array(1,2);
-    var_dump($a,$b);
+    $patrulla = Patrulla::findOrFail(1);
+    $podPat = $patrulla->poderes()->lists('poder_id');
+    $podAll = Poder::all()->toArray();
+    var_dump($podPat, $podAll[3]['id'], in_array($podAll[3]['id'], $podPat));
 
     //$c->load('contenidos');
     //var_dump($c->contenidos()->toArray());

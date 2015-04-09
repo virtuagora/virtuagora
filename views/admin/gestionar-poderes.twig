@@ -31,7 +31,11 @@
         </div>
         <div class="large-4 columns text-center">
             <div class="switch small round">
-                <input id="checkbox-{{ poder.id }}" type="checkbox">
+                {% if poder.id in patrulla.poderes %}
+                    <input id="checkbox-{{ poder.id }}" type="checkbox" class="podchk" checked>
+                {% else %}
+                    <input id="checkbox-{{ poder.id }}" type="checkbox" class="podchk">
+                {% endif %}
                 <label for="checkbox-{{ poder.id }}"></label>
             </div>
         </div>
@@ -65,33 +69,14 @@
 {# ----------------------------------------------------------- #}
 {% block scripts_cont %}
 <script>
-    var poderes_patrulla = new Array();
-    $(document).ready(function(){
-        {% for poder in poderes %}
-        $("#checkbox-{{ poder.id }}").attr('checked', {{ patrulla.poderes[poder.id] ? 'true' : 'false' }});
-        {% endfor %}
-    });
-
     $('#formPoderes').submit(function(e) {
-        poderes_patrulla = [];
-        $('input[type="checkbox"]').each(function () {
-            if($(this).attr('checked')){
-                var id_poder = $(this).attr('id').replace('checkbox-', '');
-                //                alert(id_poder);
-                poderes_patrulla.push(id_poder);
-            }
+        var poderes_patrulla = new Array();
+        $('.podchk:checked').each(function () {
+            var id_poder = $(this).attr('id').replace('checkbox-', '');
+            poderes_patrulla.push(id_poder);
         });
         json_poderes = '[' + poderes_patrulla.join() + ']';
         $('input[name="poderes"]').val(json_poderes);
-        //        alert($('input[name="poderes"]').val());
-    });
-
-    $('input[type="checkbox').click(function() {
-        if ($(this).attr('checked')) {
-            $(this).attr('checked', false);
-        } else {
-            $(this).attr('checked', true);
-        }
     });
 </script>
 {% endblock %}
