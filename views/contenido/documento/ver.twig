@@ -31,20 +31,20 @@
 <section class="doc-texto">
     <div class="text text-justify">
         {% for parrafo in version.parrafos %}
-        <p id="p{{ parrafo.id }}" class="parrafo">
+        <p id="p{{ parrafo.ubicacion }}" class="parrafo">
             {{ parrafo.cuerpo|bbCode }}
-            <i id="p{{ parrafo.id }}-bt-comentar" class="bt-comentar fa fa-plus-circle fa-fw fa-lg" style="display: none;"></i>
-            <i id="p{{ parrafo.id }}-bt-comentarios" class="bt-comentarios fa fa-comments-o fa-fw fa-lg" style="display: none;"></i>
+            <i id="p{{ parrafo.ubicacion }}-bt-comentar" class="bt-comentar fa fa-plus-circle fa-fw fa-lg" style="display: none;"></i>
+            <i id="p{{ parrafo.ubicacion }}-bt-comentarios" class="bt-comentarios fa fa-comments-o fa-fw fa-lg" style="display: none;"></i>
         </p>
         {% if parrafo.comentarios|length > 0 %}
-        <div id="p{{ parrafo.id }}-box-comentarios" class="box-comentarios" hidden>
+        <div id="p{{ parrafo.ubicacion }}-box-comentarios" class="box-comentarios" hidden>
             <div class="wrapper-comentarios">
                 {% for comentario in parrafo.comentarios %}
                 <div class="box-comentario small-11 small-centered columns">
                     <div class="info-user-row row">
                         <ul class="info">
                             <li><a href="#"><img src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 32) }}"></a></li>
-                            <li><i class="fa fa-comment fa-fw"></i> {{ comentario.autor.nombre }} {{ comentario.autor.apellido }} <i class="fa fa-caret-right fa-fw fa-lg"></i> {{ documento.autor.nombre ~ ' ' ~ documento.autor.apellido }} en Parrafo # {{ parrafo.id }} </li>
+                            <li><i class="fa fa-comment fa-fw"></i> {{ comentario.autor.nombre }} {{ comentario.autor.apellido }} <i class="fa fa-caret-right fa-fw fa-lg"></i> {{ documento.autor.nombre ~ ' ' ~ documento.autor.apellido }} en Parrafo # {{ parrafo.ubicacion }} </li>
                             <li><i class="fa fa-calendar fa-fw"></i> {{ comentario.updated_at|date("d/m/Y") }} {{ comentario.updated_at|date("H:i") }}</li>
                         </ul>
                     </div>
@@ -59,7 +59,7 @@
             </div>
         </div>
         {% else %}
-        <div id="p{{ parrafo.id }}-box-comentarios" class="box-comentarios" hidden>
+        <div id="p{{ parrafo.ubicacion }}-box-comentarios" class="box-comentarios" hidden>
             <div class="wrapper-comentarios">
                 <div class="nadie-comento-icono row text-center">
                     <span class="fa-stack fa-lg ">
@@ -78,12 +78,12 @@
         </div>
         {% endif %}
         {% if user is not empty %}
-        <div id="p{{ parrafo.id }}-box-comentar" class="box-comentar" hidden>
+        <div id="p{{ parrafo.ubicacion }}-box-comentar" class="box-comentar" hidden>
             <div class="small-12 small-centered columns">
                 <div class="info-user-row row">
                     <ul class="info">
                         <li><a href="#"><img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}"></a></li>
-                        <li><i class="fa fa-comment fa-fw"></i> {{ user.nombre }} {{ user.apellido }} <i class="fa fa-caret-right fa-fw fa-lg"></i> {{ documento.autor.nombre ~ ' ' ~ documento.autor.apellido }} en Parrafo # {{ parrafo.id }} </li>
+                        <li><i class="fa fa-comment fa-fw"></i> {{ user.nombre }} {{ user.apellido }} <i class="fa fa-caret-right fa-fw fa-lg"></i> {{ documento.autor.nombre ~ ' ' ~ documento.autor.apellido }} en Parrafo # {{ parrafo.ubicacion }} </li>
                         <li class="right"><i class="bt-cerrar-box fa fa-times fa-2x"></i></li>
                     </ul>
                 </div>
@@ -98,7 +98,7 @@
             </div>
         </div>
         {% endif %}
-        <div id="p{{ parrafo.id }}-tt-comentarios" class="bt-comentarios" hidden>
+        <div id="p{{ parrafo.ubicacion }}-tt-comentarios" class="bt-comentarios" hidden>
             <div class="tt-comentarios row">
                 <i class="fa fa-comments-o fa-fw fa-lg"></i>&nbsp;{{ parrafo.comentarios|length }}
             </div>
@@ -127,9 +127,10 @@
 {% block scripts_cont %}
 <script src="{{ baseUrl() }}/assets/js/slick/slick.min.js"></script>
 <script>
+
     var cantParrafos =  {{ cant_parrafos }};
     $(document).ready(function(){
-        for(i = 1; i <= cantParrafos; i++){
+        for(i = 0; i < cantParrafos; i++){
             $('#p'+i).data('powertiptarget', 'p'+i+'-tt-comentarios');
             $('#p'+i).powerTip({
                 placement: 'w',
