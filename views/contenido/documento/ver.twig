@@ -21,6 +21,15 @@
 <li><a href="{{ urlFor('shwNuVerDocumen', {'idDoc': documento.id}) }}" class="button oposite radius"><i class="fa fa-plus fa-fw"></i>&nbsp;Nueva Version</a></li>
 {% endblock %}
 {% block cuerpo_cont %}
+    <div class="row">
+        <div class="large-8 columns">
+            <select name="categoria" id="tooltip-categoria">
+                {% for categoria in categorias %}
+                <option value="{{categoria.id}}">{{categoria.nombre|capitalize}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
 <section class="doc-descripcion">
     <div class="row">
         <div class="small-8 small-centered columns panel text-center">

@@ -45,7 +45,11 @@
                                     <textarea type="text" name='descripcion' rows=1>{{ patrulla.descripcion }}</textarea>
                                 </form>
                             </div>
-                        <td class="text-center"><a href="{{ urlFor('shwModifPodPatrull', {'idPat': patrulla.id }) }}" class="button tiny radius"><i class="fa fa-wrench fa-fw fa-lg"></i></a></td>
+                        <td class="text-center">
+                        <a href="{{ urlFor('shwModifPodPatrull', {'idPat': patrulla.id }) }}" class="button tiny radius"><i class="fa fa-wrench fa-fw fa-lg"></i></a>
+                        <a href="javascript:return(0)" class="button tiny radius"><i class="fa fa-eye fa-fw fa-lg"></i></a>
+                        <a href="javascript:return(0)" class="button tiny alert radius"><i class="fa fa-trash fa-fw fa-lg"></i></a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>

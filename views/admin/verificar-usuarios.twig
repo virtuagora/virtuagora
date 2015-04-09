@@ -194,11 +194,7 @@
     });
 
     $(document).on('click', '.quitar', function() {
-        verTodo();
-        $(this).removeClass('quitar').addClass('agregar');
-        $(this).removeClass('alert');
-        $(this).children().removeClass('fa-minus').addClass('fa-plus');
-        $('.usuarios').append($(this).closest('.usuario'));
+        $(this).closest('.usuario').remove();
     });
 
     $('#verificar').submit(function() {

@@ -8,7 +8,7 @@
 {% set intro_titulo = 'Administrar organismos' %}
 {# ----------------------------------------------------------- #}
 {% block administracion %}
-<div class="listar-organismos">
+<div class="listar-organismos large-12 columns">
     <div class="row">
         <div class="panel">
             <h6>Administre los organismos publicos ya existentes o <b><a href="{{urlFor('shwCrearOrganis')}}">agregue uno nuevo</a></b></h6>
@@ -41,6 +41,28 @@
             </tbody>
         </table>
     </div>
+    {% if nav %}
+    <div class="row">
+        <div class="large-6 large-centered columns">
+            <div class="left">
+                {% if nav.first %}
+                <a href="{{ nav.first }}"><i class="fa fa-angle-double-left fa-fw fa-lg"></i></a>
+                {% endif %}
+                {% if nav.prev %}
+                <a href="{{ nav.prev }}"><i class="fa fa-angle-left fa-fw fa-lg"></i></a>
+                {% endif %}
+            </div>
+            <div class="right">
+                {% if nav.next %}
+                <a href="{{ nav.next }}"><i class="fa fa-angle-right fa-fw fa-lg"></i></a>
+                {% endif %}
+                {% if nav.last %}
+                <a href="{{ nav.last }}"><i class="fa fa-angle-double-right fa-fw fa-lg"></i></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
 
 {% endblock %}
