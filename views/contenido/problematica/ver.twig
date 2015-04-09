@@ -16,6 +16,7 @@
 {% set titulo_cont = problematica.titulo %}
 {% set fecha_cont = '' ~ problematica.created_at|date("d/m/Y") %}
 {# set url_modificar = urlFor('shwModifProblem', {'idPro': problematica.id}) #}
+
 {% set ver_comentarios = true %}
 {% set url_comentar = urlFor('runComentar', {'tipoRaiz': 'problematica' , 'idRaiz': problematica.id}) %}
 {% block cuerpo_cont %}
@@ -157,7 +158,7 @@
 </div>
 {% endblock %}
 {# ----------------------------------------------------------- #}
-{% block modals %}{% endblock %}
+{% block modals_cont %}{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block scripts_cont %}
 <script src="{{ baseUrl() }}/assets/js/underscore/underscore-min.js"></script>

@@ -16,6 +16,7 @@
 {% set fecha_cont = '' ~ documento.created_at|date("d/m/Y") %}
 {% set ver_comentarios = false %}
 {% set url_modificar = urlFor('shwModifDocumen', {'idDoc': documento.id}) %}
+{% set url_eliminar = urlFor('runElimiDocumen', {'idDoc': documento.id} ) %}
 {% block botones_cont %}
 <li><a href="{{ urlFor('shwNuVerDocumen', {'idDoc': documento.id}) }}" class="button oposite radius"><i class="fa fa-plus fa-fw"></i>&nbsp;Nueva Version</a></li>
 {% endblock %}
@@ -121,7 +122,7 @@
 
 {% endblock %}
 {# ----------------------------------------------------------- #}
-{% block modals %}{% endblock %}
+{% block modals_cont %}{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block scripts_cont %}
 <script src="{{ baseUrl() }}/assets/js/slick/slick.min.js"></script>
