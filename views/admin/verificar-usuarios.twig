@@ -20,13 +20,13 @@
             <div class="explicacion panel">
                 En la siguiente tabla tiene la lista de usuarios que no están verificados. Para agregar un usuario a la lista de "Usuarios a verificar" haga clic en el boton con el icono <i class="fa fa-plus fa-fw"></i>
             </div>
-<!--
-            <dl class="sub-nav sort" role="menu" title="Filter Menu List">
-                <dt><i class="fa fa-list-ol fa-fw fa-lg"></i> Ordenar: </dt>
-                <dd class="sortNombre" role="menuitem" ><a href="javascript:sortNombre();"><i class="fa fa-sort-alpha-asc fa-fw"></i> Nombre</a></dd>
-                <dd class="sortApellido" role="menuitem"><a href="javascript:sortApellido();"><i class="fa fa-sort-alpha-asc fa-fw"></i> Apellido</a></dd>
-                <dd class="sortPuntos" role="menuitem"><a href="javascript:sortPuntos();"><i class="fa fa-sort-numeric-desc fa-fw"></i> Puntos</a></dd>
-            </dl>
+            <!--
+<dl class="sub-nav sort" role="menu" title="Filter Menu List">
+<dt><i class="fa fa-list-ol fa-fw fa-lg"></i> Ordenar: </dt>
+<dd class="sortNombre" role="menuitem" ><a href="javascript:sortNombre();"><i class="fa fa-sort-alpha-asc fa-fw"></i> Nombre</a></dd>
+<dd class="sortApellido" role="menuitem"><a href="javascript:sortApellido();"><i class="fa fa-sort-alpha-asc fa-fw"></i> Apellido</a></dd>
+<dd class="sortPuntos" role="menuitem"><a href="javascript:sortPuntos();"><i class="fa fa-sort-numeric-desc fa-fw"></i> Puntos</a></dd>
+</dl>
 -->
             <dl class="sub-nav ver" role="menu" title="Filter Menu List">
                 <dt><i class="fa fa-filter fa-fw fa-lg"></i> Filtrar: </dt>
@@ -158,31 +158,31 @@
         $(".tabla-usuarios").find('tbody').append( tr_ultima );
     }
 
-    var enviarSolicitud = function(recurso,query) {
+    var enviarSolicitud = function(url_query) {
         var request = $.ajax({
-            url: '{{ baseUrl() }}/' + recurso + '?' + query,
+            url: url_query,
             cache: false,
-            dataType: "json"
-        });
-        request.done(function(resultados) {
-            $(".tabla-usuarios").find('tbody').empty();
-            for (var i=0; i<resultados.length; i++) {
-                agregarUsuario(
-                    resultados[i].id,
-                    resultados[i].nombre,
-                    resultados[i].apellido,
-                    resultados[i].puntos,
-                    resultados[i].advertencia,
-                    resultados[i].suspendido);
+            dataType: "json",
+            success: function(resultados, textStatus, request) {
+                alert(request.getResponseHeader('link'));
+                alert(request.getResponseHeader('link').split(', ')[1]);
+                $(".tabla-usuarios").find('tbody').empty();
+                for (var i=0; i<resultados.length; i++) {
+                    agregarUsuario(
+                        resultados[i].id,
+                        resultados[i].nombre,
+                        resultados[i].apellido,
+                        resultados[i].puntos,
+                        resultados[i].advertencia,
+                        resultados[i].suspendido);
+                }
+            },
+            error: function(jqXHR, textStatus) {
+                $(".tabla-usuarios").find('tbody').empty();
+                agregarErrorFila( '<i class="fa fa-unlink fa-fw"></i> Error en la busqueda de los usuarios!');
+                alert("Request failed: " + textStatus);
+                return false;
             }
-            //agregarUltimaFila('<i class="fa fa-check fa-fw"></i>');
-            //timerRemove('.ultima-fila');
-        });
-        request.fail(function(jqXHR, textStatus) {
-            $(".tabla-usuarios").find('tbody').empty();
-            agregarErrorFila( '<i class="fa fa-unlink fa-fw"></i> Error en la busqueda de los usuarios!');
-            alert("Request failed: " + textStatus);
-            return false;
         });
     }
 
@@ -208,37 +208,37 @@
         alert($('input[name="entrantes"]').val());
     });
 
-//    var sortNombre = function() {
-//        $('.sub-nav.sort dd.active').removeClass('active');
-//        $('.sortNombre').addClass('active');
-//
-//    }
-//    var sortApellido = function() {
-//        $('.sub-nav.sort dd.active').removeClass('active');
-//        $('.sortApellido').addClass('active');
-//
-//    }
-//    var sortPuntos = function() {
-//        $('.sub-nav.sort dd.active').removeClass('active');
-//        $('.sortPuntos').addClass('active');
-//    }
+    //    var sortNombre = function() {
+    //        $('.sub-nav.sort dd.active').removeClass('active');
+    //        $('.sortNombre').addClass('active');
+    //
+    //    }
+    //    var sortApellido = function() {
+    //        $('.sub-nav.sort dd.active').removeClass('active');
+    //        $('.sortApellido').addClass('active');
+    //
+    //    }
+    //    var sortPuntos = function() {
+    //        $('.sub-nav.sort dd.active').removeClass('active');
+    //        $('.sortPuntos').addClass('active');
+    //    }
     var verTodo = function() {
         $('.sub-nav.ver dd.active').removeClass('active');
         $('.verTodo').addClass('active');
         var query = { where_null:'verified_at' };
-        enviarSolicitud('usuario', jQuery.param(query));
+        enviarSolicitud('{{ baseUrl() }}/usuario?' + jQuery.param(query));
     }
     var verAdvertidos = function() {
         $('.sub-nav.ver dd.active').removeClass('active');
         $('.verAdvertidos').addClass('active');
         var query = { where_null:'verified_at' , where_not_null:'advertencia' };
-        enviarSolicitud('usuario', jQuery.param(query));
+        enviarSolicitud('{{ baseUrl() }}/usuario?' + jQuery.param(query));
     }
     var verSuspendidos = function() {
         $('.sub-nav.ver dd.active').removeClass('active');
         $('.verSuspendidos').addClass('active');
         var query = {where_null:'verified_at', where_not_null:'suspendido' };
-        enviarSolicitud('usuario', jQuery.param(query));
+        enviarSolicitud('{{ baseUrl() }}/usuario?' + jQuery.param(query));
     }
 </script>
 {% endblock %}
