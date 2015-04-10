@@ -53,6 +53,19 @@
                 </tbody>
             </table>
         </div>
+        <div class="large-12 columns control-tabla">
+            <div class="panel clearfix large-6 large-centered text-center columns">
+                <div class="left">
+                    <i class="first fa fa-angle-double-left fa-fw fa-lg"></i>&nbsp;&nbsp;
+                    <i class="prev fa fa-angle-left fa-fw fa-lg"></i>
+                </div>
+                <div class="right">
+                    <i class="next fa fa-angle-right fa-fw fa-lg"></i>&nbsp;&nbsp;
+                    <i class="last fa fa-angle-double-right fa-fw fa-lg"></i>
+                </div>
+                <i class="ejecutando fa fa-spinner fa-fw fa-lg fa-pulse"></i>
+            </div>
+        </div>
     </div>
     <div class="listar-usuarios row">
         <div class="large-12 columns">
@@ -94,24 +107,14 @@
 {% block modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block scripts_cont %}
+<script src="{{ baseUrl() }}/assets/js/underscore/underscore-min.js"></script>
 <script>
     var usuarios_verificar = new Array();
+    var links_tabla = new Array();
 
     $(document).ready(function(){
         verTodo();
     });
-
-    var timerRemove = function(selector) {
-        setTimeout(function() {
-            $(selector).remove();
-        }, 2000);
-    };
-
-    var timerShow = function(selector) {
-        setTimeout(function() {
-            $(selector).show();
-        }, 2000);
-    };
 
     var agregarUsuario = function(id, nombre, apellido, puntos, advertencia, suspendido) {
         td_id = $('<td>').addClass('text-center').hide().html( id );
@@ -162,35 +165,36 @@
         var request = $.ajax({
             url: url_query,
             cache: false,
-            dataType: "json",
-            success: function(resultados, textStatus, request) {
-                alert(request.getResponseHeader('link'));
-                alert(request.getResponseHeader('link').split(', ')[1]);
-                $(".tabla-usuarios").find('tbody').empty();
-                for (var i=0; i<resultados.length; i++) {
-                    agregarUsuario(
-                        resultados[i].id,
-                        resultados[i].nombre,
-                        resultados[i].apellido,
-                        resultados[i].puntos,
-                        resultados[i].advertencia,
-                        resultados[i].suspendido);
-                }
-            },
-            error: function(jqXHR, textStatus) {
-                $(".tabla-usuarios").find('tbody').empty();
-                agregarErrorFila( '<i class="fa fa-unlink fa-fw"></i> Error en la busqueda de los usuarios!');
-                alert("Request failed: " + textStatus);
-                return false;
+            dataType: "json"
+        }).done(function(resultados, textStatus, request) {
+            links_tabla = parse_link_header(request.getResponseHeader('link'));
+            $(".tabla-usuarios").find('tbody').empty();
+            for (var i=0; i<resultados.length; i++) {
+                agregarUsuario(
+                    resultados[i].id,
+                    resultados[i].nombre,
+                    resultados[i].apellido,
+                    resultados[i].puntos,
+                    resultados[i].advertencia,
+                    resultados[i].suspendido);
             }
+            $('.ejecutando').hide();
+        }).fail(function(jqXHR, textStatus) {
+            $(".tabla-usuarios").find('tbody').empty();
+            agregarErrorFila( '<i class="fa fa-unlink fa-fw"></i> Error en la busqueda de los usuarios!');
+            alert("Request failed: " + textStatus);
+            return false;
         });
     }
 
     $(document).on('click', '.agregar', function() {
-        $(this).removeClass('agregar').addClass('quitar');
-        $(this).addClass('alert');
-        $(this).children().removeClass('fa-plus').addClass('fa-minus');
-        $('.agregando').append($(this).closest('.usuario'));
+        var id = $(this).closest('.usuario').attr('id').replace('usuario-', '');
+        if( $(".agregando tr#usuario-"+ id).length == 0 ){
+            $(this).removeClass('agregar').addClass('quitar');
+            $(this).addClass('alert');
+            $(this).children().removeClass('fa-plus').addClass('fa-minus');
+            $('.agregando').append($(this).closest('.usuario'));
+        }
     });
 
     $(document).on('click', '.quitar', function() {
@@ -200,7 +204,6 @@
     $('#verificar').submit(function() {
         $('.agregando').children('tr').each(function () {
             var id_num = $(this).attr('id').replace('usuario-', '');
-            alert(id_num);
             usuarios_verificar.push(id_num);
         });
         json_usuarios = '[' + usuarios_verificar.join() + ']';
@@ -240,6 +243,34 @@
         var query = {where_null:'verified_at', where_not_null:'suspendido' };
         enviarSolicitud('{{ baseUrl() }}/usuario?' + jQuery.param(query));
     }
+
+    $( ".first" ).click(function() {
+        if(links_tabla['first']){
+            $('.ejecutando').show();
+            enviarSolicitud(links_tabla['first']);
+        }
+    });
+    $( ".prev" ).click(function() {
+        if(links_tabla['prev']){
+            $('.ejecutando').show();
+            enviarSolicitud(links_tabla['prev']);
+        }
+    });
+    $( ".next" ).click(function() {
+        if(links_tabla['next']){
+            $('.ejecutando').show();
+            enviarSolicitud(links_tabla['next']);
+        }
+    });
+    $( ".last" ).click(function() {
+        if(links_tabla['last']){
+            $('.ejecutando').show();
+            enviarSolicitud(links_tabla['last']);
+        }
+    });
+
+
+
 </script>
 {% endblock %}
 {# ----------------------------------------------------------- #}
