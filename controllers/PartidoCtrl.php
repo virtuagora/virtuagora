@@ -5,7 +5,7 @@ class PartidoCtrl extends RMRController {
     protected $mediaTypes = array('json', 'view');
     protected $properties = array('id', 'nombre', 'acronimo', 'fecha_fundacion', 'created_at');
 
-    public function queryModel() {
+    public function queryModel($meth, $repr) {
         return Partido::query();
     }
 

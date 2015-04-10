@@ -27,6 +27,7 @@ $app->api = false;
 // Prepare error handler
 $app->error(function (Exception $e) use ($app) {
     if ($app->api) {
+        // TODO setar codigo de error correcto.
         $msg = array('code' => $e->getCode(), 'message' => $e->getMessage());
         if ($e instanceof TurnbackException) {
             $msg['errors'] = $e->getErrors();
@@ -40,8 +41,8 @@ $app->error(function (Exception $e) use ($app) {
             $app->render('misc/error.twig', array('mensaje' => $e->getMessage()), $e->getCode());
         } else if ($e instanceof Illuminate\Database\Eloquent\ModelNotFoundException) {
             $app->notFound();
-        //} else if ($e instanceof Illuminate\Database\QueryException && $e->getCode() == 23000) {
-        //    $app->render('misc/error.twig', array('mensaje' => 'La información ingresada es inconsistente.'), 400);
+        } else if ($e instanceof Illuminate\Database\QueryException && $e->getCode() == 23000) {
+            $app->render('misc/error.twig', array('mensaje' => 'La información ingresada es inconsistente.'), 400);
         } else {
             $app->render('misc/fatal-error.twig', array('type' => get_class($e), 'exception' => $e));
         }
@@ -138,8 +139,13 @@ $app->get('/contenido', 'ContenidoCtrl:listar')->name('shwListaConteni');
 $app->get('/usuario/:idUsr', 'UsuarioCtrl:ver')->name('shwUsuario');
 $app->get('/usuario', 'UsuarioCtrl:listar')->name('shwListaUsuario');
 
-$app->post('/comentar/:tipoRaiz/:idRaiz', checkRole('usr'), 'ComentarioCtrl:comentar')->name('runComentar');
-$app->post('/comentario/:idCom/votar', checkRole('usr'), 'ComentarioCtrl:votar')->name('runVotarComentar');
+$app->group('/comentario', function () use ($app) {
+    $app->get('', 'ComentarioCtrl:listar')->name('shwListaComenta');
+    // TODO ver si cambia
+    $app->post('/comentar/:tipoRaiz/:idRaiz', checkRole('usr'), 'ComentarioCtrl:comentar')->name('runComentar');
+    $app->get('/:idCom', 'ComentarioCtrl:ver')->name('shwComenta');
+    $app->post('/:idCom/votar', checkRole('usr'), 'ComentarioCtrl:votar')->name('runVotarComenta');
+});
 
 $app->group('/perfil', function () use ($app) {
     $app->get('/modificar', checkRole('usr'), 'UsuarioCtrl:verModificar')->name('shwModifUsuario');
@@ -152,28 +158,27 @@ $app->group('/perfil', function () use ($app) {
 });
 
 $app->group('/admin', function () use ($app) {
-    $app->get('/organismo', checkRole('mod'), 'AdminCtrl:verOrganismos')->name('shwAdmOrganis');
-    $app->get('/organismo/crear', checkRole('mod'), 'AdminCtrl:verCrearOrganismo')->name('shwCrearOrganis');
+    $app->get('/organismo', checkRole('usr'), 'OrganismoCtrl:listarInterno')->name('shwAdmOrganis');
+    $app->get('/organismo/:idOrg/modificar', checkAdminAuth(3), 'OrganismoCtrl:verModificar')->name('shwModifOrganis');
+    $app->post('/organismo/:idOrg/modificar', checkAdminAuth(3), 'OrganismoCtrl:modificar')->name('runModifOrganis');
+    $app->post('/organismo/:idOrg/cambiar-imagen', checkAdminAuth(3), 'OrganismoCtrl:cambiarImagen')->name('runModifImgOrganis');
+    $app->post('/organismo/:idOrg/eliminar', checkAdminAuth(3), 'OrganismoCtrl:eliminar')->name('runElimiOrganis');
+    $app->get('/organismo/crear', checkAdminAuth(3), 'OrganismoCtrl:verCrear')->name('shwCrearOrganis');
+    $app->post('/organismo/crear', checkAdminAuth(3), 'OrganismoCtrl:crear')->name('runCrearOrganis');
+    $app->get('/organismo/:idOrg/funcionario', checkAdminAuth(4), 'AdminCtrl:verAdminFuncionarios')->name('shwAdmFuncion');
+    $app->post('/organismo/:idOrg/funcionario', checkAdminAuth(4), 'AdminCtrl:adminFuncionarios')->name('runAdmFuncion');
 
-    $app->get('/organismo/:idOrg/modificar', checkRole('mod'), 'AdminCtrl:verModificarOrganismo')->name('shwModifOrganis');
-    $app->post('/organismo/:idOrg/modificar', checkRole('mod'), 'AdminCtrl:modificarOrganismo')->name('runModifOrganis');
-    $app->post('/organismo/:idOrg/cambiar-imagen', checkRole('mod'), 'AdminCtrl:cambiarImgOrganismo')->name('runModifImgOrganis');
-    $app->post('/organismo/:idOrg/eliminar', checkRole('mod'), 'AdminCtrl:eliminarOrganismo')->name('runElimiOrganis');
+    $app->post('/sancionar/:idUsr', checkAdminAuth(1), 'AdminCtrl:sancUsuario')->name('runSanUsuario');
+    $app->get('/verificar', checkAdminAuth(7), 'AdminCtrl:verVerifCiudadano')->name('shwAdmVrfUsuario');
+    $app->post('/verificar', checkAdminAuth(7), 'AdminCtrl:verifCiudadano')->name('runAdmVrfUsuario');
+    $app->get('/ajustes', checkAdminAuth(2), 'AdminCtrl:verAdminAjustes')->name('shwAdmAjuste');
+    $app->post('/ajustes', checkAdminAuth(2), 'AdminCtrl:adminAjustes')->name('runAdmAjuste');
 
-    $app->post('/organismo/crear', checkRole('mod'), 'AdminCtrl:crearOrganismo')->name('runCrearOrganis');
-    $app->get('/organismo/:idOrg/funcionario', checkRole('mod'), 'AdminCtrl:verAdminFuncionarios')->name('shwAdmFuncion');
-    $app->post('/organismo/:idOrg/funcionario', checkRole('mod'), 'AdminCtrl:adminFuncionarios')->name('runAdmFuncion');
-    $app->post('/sancionar/:idUsr', checkRole('mod'), 'AdminCtrl:sancUsuario')->name('runSanUsuario');
-
-    $app->get('/verificar', checkRole('mod'), 'AdminCtrl:verVerifCiudadano')->name('shwAdmVrfUsuario');
-    $app->post('/verificar', checkRole('mod'), 'AdminCtrl:verifCiudadano')->name('runAdmVrfUsuario');
-    $app->get('/ajustes', checkRole('mod'), 'AdminCtrl:verAdminAjustes')->name('shwAdmAjuste');
-    $app->post('/ajustes', checkRole('mod'), 'AdminCtrl:adminAjustes')->name('runAdmAjuste');
-    $app->get('/patrulla', checkRole('mod'), 'PatrullaCtrl:listar')->name('shwAdmPatrull');
-    $app->post('/patrulla/:idPat/modificar', checkRole('mod'), 'PatrullaCtrl:modificar')->name('runModifPatrull');
-    $app->post('/patrulla/:idPat/eliminar', checkRole('mod'), 'PatrullaCtrl:eliminar')->name('runElimiPatrull');
-    $app->get('/patrulla/:idPat/cambiar-poder', checkRole('mod'), 'PatrullaCtrl:verCambiarPoder')->name('shwModifPodPatrull');
-    $app->post('/patrulla/:idPat/cambiar-poder', checkRole('mod'), 'PatrullaCtrl:cambiarPoder')->name('runModifPodPatrull');
+    $app->get('/patrulla', checkRole('usr'), 'PatrullaCtrl:listar')->name('shwAdmPatrull');
+    $app->post('/patrulla/:idPat/modificar', checkAdminAuth(5), 'PatrullaCtrl:modificar')->name('runModifPatrull');
+    $app->post('/patrulla/:idPat/eliminar', checkAdminAuth(5), 'PatrullaCtrl:eliminar')->name('runElimiPatrull');
+    $app->get('/patrulla/:idPat/cambiar-poder', checkAdminAuth(5), 'PatrullaCtrl:verCambiarPoder')->name('shwModifPodPatrull');
+    $app->post('/patrulla/:idPat/cambiar-poder', checkAdminAuth(5), 'PatrullaCtrl:cambiarPoder')->name('runModifPodPatrull');
 });
 
 $app->group('/propuesta', function () use ($app) {
@@ -220,6 +225,7 @@ $app->group('/partido', function () use ($app) {
     $app->get('/crear', checkRole('fnc'), 'PartidoCtrl:verCrear')->name('shwCrearPartido');
     $app->post('/crear', checkRole('fnc'), 'PartidoCtrl:crear')->name('runCrearPartido');
     $app->post('/dejar', checkRole('usr'), 'PartidoCtrl:dejar')->name('runDejarPartido');
+    $app->get('/:idPar', 'PartidoCtrl:ver')->name('shwPartido');
     $app->post('/:idPar/unirse', checkRole('usr'), 'PartidoCtrl:unirse')->name('runUnirsePartido');
     $app->get('/:idPar/modificar', checkModifyAuth('Partido'), 'PartidoCtrl:verModificar')->name('shwModifPartido');
     $app->post('/:idPar/modificar', checkModifyAuth('Partido'), 'PartidoCtrl:modificar')->name('runModifPartido');

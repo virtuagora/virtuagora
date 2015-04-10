@@ -6,7 +6,7 @@ class UsuarioCtrl extends RMRController {
     protected $properties = array('id', 'nombre', 'apellido', 'es_funcionario', 'es_jefe', 'puntos', 'partido_id',
                                   'created_at', 'suspendido', 'advertencia', 'verified_at');
 
-    public function queryModel() {
+    public function queryModel($meth, $repr) {
         return Usuario::query();
     }
 

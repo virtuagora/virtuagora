@@ -5,7 +5,7 @@ class UserlogCtrl extends RMRController {
     protected $mediaTypes = array('json');
     protected $properties = array('id');
 
-    public function queryModel() {
+    public function queryModel($meth, $repr) {
         return Userlog::query();
     }
 

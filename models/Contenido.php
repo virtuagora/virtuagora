@@ -6,7 +6,7 @@ class Contenido extends Eloquent {
     //$table = 'contenidos';
 
     protected $dates = ['deleted_at'];
-    protected $visible = array('id', 'titulo', 'contenible_id', 'contenible_type', 'impulsor_id', 'puntos', 'autor', 'created_at');
+    protected $visible = array('id', 'titulo', 'contenible_id', 'contenible_type', 'impulsor_id', 'puntos', 'autor', 'created_at', 'contenible');
     protected $with = array('autor', 'categoria');
 
     public function scopeModifiableBy($query, $id) {

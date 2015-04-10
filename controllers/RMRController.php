@@ -5,12 +5,12 @@ abstract class RMRController extends Controller {
     protected $mediaTypes = array();
     protected $properties = array();
 
-    abstract public function queryModel();
+    abstract public function queryModel($meth, $repr);
 
     public function listar() {
         $req = $this->request;
         $repr = $this->negotiateContent($req->headers->get('ACCEPT'));
-        $queryMaker = new QueryMaker($this->queryModel(), $req->get());
+        $queryMaker = new QueryMaker($this->queryModel(0, $repr->getName()), $req->get());
         $queryMaker->addFilters($this->properties);
         $queryMaker->addSorters($this->properties);
         $url = $req->getUrl().$req->getPath();
@@ -23,7 +23,7 @@ abstract class RMRController extends Controller {
         $repr = $this->negotiateContent($req->headers->get('ACCEPT'));
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($id, new Validate\Rule\NumNatural());
-        $resource = $this->queryModel()->findOrFail($id);
+        $resource = $this->queryModel(1, $repr->getName())->findOrFail($id);
         $repr->shwResource($this, $resource);
     }
 

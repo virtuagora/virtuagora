@@ -5,7 +5,7 @@ class PatrullaCtrl extends RMRController {
     protected $mediaTypes = array('json', 'view');
     protected $properties = array('id', 'nombre', 'descripcion');
 
-    public function queryModel() {
+    public function queryModel($meth, $repr) {
         return Patrulla::query();
     }
 
@@ -37,6 +37,18 @@ class PatrullaCtrl extends RMRController {
         $patrulla->descripcion = $vdt->getData('descripcion');
         $patrulla->save();
         $this->flash('success', 'Los datos del grupo de moderación fueron modificados exitosamente.');
+        $this->redirectTo('shwAdmPatrull');
+    }
+
+    public function eliminar($idPat) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idPat, new Validate\Rule\NumNatural());
+        $patrulla = Patrulla::with('moderadores')->findOrFail($idPat);
+        if (!$patrulla->moderadores->isEmpty()) {
+            throw new TurnbackException('Para eliminar una patrulla no debe haber moderadores dentro de esta.');
+        }
+        $patrulla->delete();
+        $this->flash('success', 'La patrulla ha sido eliminada exitosamente.');
         $this->redirectTo('shwAdmPatrull');
     }
 

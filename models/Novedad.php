@@ -5,7 +5,7 @@ class Novedad extends Eloquent {
 
     protected $table = 'novedades';
     protected $dates = ['deleted_at'];
-    protected $visible = array('id', 'cuerpo');
+    protected $visible = ['id', 'cuerpo'];
 
     public function contenido() {
         return $this->morphOne('Contenido', 'contenible');

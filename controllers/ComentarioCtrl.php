@@ -1,6 +1,13 @@
 <?php use Augusthur\Validation as Validate;
 
-class ComentarioCtrl extends Controller {
+class ComentarioCtrl extends RMRController {
+
+    protected $mediaTypes = ['json'];
+    protected $properties = ['id', 'comentable_type', 'comentable_id', 'votos', 'created_at', 'updated_at', 'autor_id'];
+
+    public function queryModel($meth, $repr) {
+        return Comentario::query();
+    }
 
     public function comentar($tipoRaiz, $idRaiz) {
         $vdt = new Validate\Validator();

@@ -4,9 +4,10 @@ class Comentario extends Eloquent {
     use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
     //protected $table = 'comentarios';
-    protected $dates = array('deleted_at');
-    protected $visible = array('id', 'cuerpo', 'comentable_type', 'votos', 'created_at', 'updated_at', 'autor', 'respuestas');
-    protected $with = array('autor', 'respuestas');
+    protected $dates = ['deleted_at'];
+    protected $visible = ['id', 'cuerpo', 'comentable_type', 'comentable_id', 'votos',
+                          'created_at', 'updated_at', 'autor', 'respuestas'];
+    protected $with = ['autor', 'respuestas'];
 
     public function comentable() {
         return $this->morphTo();
