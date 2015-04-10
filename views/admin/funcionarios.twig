@@ -234,6 +234,10 @@
                     (resultados[i].nombre+' '+resultados[i].apellido)
                 );
             }
+            toggleControlTabla('first');
+            toggleControlTabla('prev');
+            toggleControlTabla('next');
+            toggleControlTabla('last');
             $('.ejecutando').hide();
             return true;
         });
@@ -312,6 +316,14 @@
             enviarSolicitud(links_tabla['last']);
         }
     });
+
+    var toggleControlTabla = function(nombre){
+        if(links_tabla[nombre]){
+            $('.' + nombre).removeClass('transparente');
+        } else {
+            $('.' + nombre).addClass('transparente');
+        }
+    }
 
 </script>
 {% endblock %}

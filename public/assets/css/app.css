@@ -4773,6 +4773,11 @@ html, body {
   background: 0;
 }
 
+/* line 6, ../scss/global/_misc.scss */
+.transparente {
+  opacity: 0;
+}
+
 /* line 2, ../scss/_custom.scss */
 .button {
   color: #1d80d0;
