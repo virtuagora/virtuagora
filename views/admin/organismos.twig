@@ -27,9 +27,9 @@
             </thead>
             <tbody>
                 {% for org in organismos %}
-                <tr>
+                <tr id="organismo-{{ org.id }}" class="organismo">
                     <td class="text-center">
-                        <a href="javascript:return(0)" class="modificar button tiny radius small warning"><i class="fa fa-trash-o fa-fw fa-lg"></i></a>
+                        <a href="javascript:return(0)" class="eliminar button tiny radius small warning"><i class="fa fa-trash-o fa-fw fa-lg"></i></a>
                         <a href="{{ urlFor('shwModifOrganis',{'idOrg': org.id}) }}" class="modificar button tiny radius secondary"><i class="fa fa-pencil fa-fw fa-lg"></i></a>
                     </td>
                     <td><i class="fa fa-university fa-fw"></i> {{ org.nombre|capitalize }}</td>
@@ -67,12 +67,28 @@
 
 {% endblock %}
 {# ----------------------------------------------------------- #}
-{% block modals %}{% endblock %}
+{% block modals %}
+{% set mensaje_eliminar = 'Usted esta a punto de eliminar un organismo. ¿Está seguro de esta acción?' %}
+{% include 'admin/eliminarRecurso.twig'%}
+{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block scripts_cont %}
 <script>
     $(document).ready(function(){
 
+    });
+
+     $('a.eliminar').on('click', function() {
+        var id_organismo = $(this).closest('.organismo').attr('id').replace('organismo-','');
+        var url_eliminar = '{{ urlFor("runElimiOrganis") }}';
+        url_eliminar = url_eliminar.replace(':idOrg',id_organismo);
+        $('#formEliminarRecurso').removeAttr('action');
+        $('#formEliminarRecurso').attr('action',url_eliminar);
+        $('#eliminarRecurso').foundation('reveal','open');
+    });
+
+    $('.bt-cancelar-eliminar').on('click', function() {
+        $('.eliminar-modal').foundation('reveal', 'close');
     });
 
 </script>

@@ -19,7 +19,7 @@
                         <span class="contador-on" {{ user.notificaciones|length ?: 'hidden' }}>{{ user.notificaciones|length }}</span>
                     </div>
                 </li>
-                <li><i class="bt fa fa-bars fa-fw"></i></li>
+                <li><a href="{{ urlFor('shwModifUsuario') }}"><i class="bt fa fa-bars fa-fw fa-lg"></i></a></li>
                 <li>
                     <form id="form-salir"  action="{{ urlFor('runLogout') }}" method="POST">
                         <a href='#' class="bt-logout"><i class="bt fa fa-sign-out fa-fw fa-lg"></i></a>

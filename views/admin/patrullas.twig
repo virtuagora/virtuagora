@@ -21,15 +21,16 @@
             <table class="tabla-patrullas">
                 <thead>
                     <tr>
-                        <th class="text-center" style="width: 10%"><i class="fa fa-pencil-square-o fa-lg"></i></th>
+                        <th class="text-center" style="width: 18%"><i class="fa fa-pencil-square-o fa-lg"></i></th>
                         <th >Patrulla</th>
-                        <th class="text-center" style="width: 10%"><i class="fa fa-gear fa-lg"></i></th>
+                        <th class="text-center" style="width: 18%"><i class="fa fa-gear fa-lg"></i></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for patrulla in patrullas %}
                     <tr id="patrulla-{{ patrulla.id }}" class="patrulla">
                         <td class="text-center">
+                            <a href="javascript:return(0)" class="eliminar button tiny warning radius"><i class="fa fa-trash fa-fw fa-lg"></i></a>
                             <div class="modificar button tiny radius secondary"><i class="fa fa-pencil fa-fw fa-lg"></i></div>
                             <a href="javascript:enviarForm({{ patrulla.id }})" class="aceptar button tiny radius success" style="display:none;"><i class="fa fa-check fa-fw fa-lg"></i></a>
                         </td>
@@ -46,9 +47,8 @@
                                 </form>
                             </div>
                         <td class="text-center">
-                        <a href="{{ urlFor('shwModifPodPatrull', {'idPat': patrulla.id }) }}" class="button tiny radius"><i class="fa fa-wrench fa-fw fa-lg"></i></a>
-                        <a href="javascript:return(0)" class="button tiny radius"><i class="fa fa-eye fa-fw fa-lg"></i></a>
-                        <a href="javascript:return(0)" class="button tiny alert radius"><i class="fa fa-trash fa-fw fa-lg"></i></a>
+                            <a href="{{ urlFor('shwModifPodPatrull', {'idPat': patrulla.id }) }}" class="button tiny radius"><i class="fa fa-wrench fa-fw fa-lg"></i></a>
+                            <a href="javascript:return(0)" class="button tiny radius"><i class="fa fa-eye fa-fw fa-lg"></i></a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -60,13 +60,17 @@
 
 {% endblock %}
 {# ----------------------------------------------------------- #}
-{% block modals %}{% endblock %}
+{% block modals %}
+{% set mensaje_eliminar = 'Usted esta a punto de eliminar una patrulla. ¿Está seguro de esta acción?' %}
+{% include 'admin/eliminarRecurso.twig'%}
+{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block scripts_cont %}
 <script>
     $(document).ready(function(){
 
     });
+
     var enviarForm = function(idGrupo) {
         $('#editar-'+idGrupo).submit();
     }
@@ -79,6 +83,18 @@
         tr_patrulla.find('.editable').show();
     });
 
+    $('a.eliminar').on('click', function() {
+        var id_patrulla = $(this).closest('.patrulla').attr('id').replace('patrulla-','');
+        var url_eliminar = '{{ urlFor("runElimiPatrull") }}';
+        url_eliminar = url_eliminar.replace(':idPat',id_patrulla);
+        $('#formEliminarRecurso').removeAttr('action');
+        $('#formEliminarRecurso').attr('action',url_eliminar);
+        $('#eliminarRecurso').foundation('reveal','open');
+    });
+
+    $('.bt-cancelar-eliminar').on('click', function() {
+        $('.eliminar-modal').foundation('reveal', 'close');
+    });
 </script>
 {% endblock %}
 {# ----------------------------------------------------------- #}

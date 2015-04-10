@@ -1,0 +1,18 @@
+<div id="eliminarRecurso" class="eliminar-modal reveal-modal small" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog">
+    <div class="row panel titulo text-center">
+        <i class="fa fa-fw fa-warning"></i> Atención
+    </div>
+    <div class="row">
+        <div class="text-center">
+            <p><b>{{ mensaje_eliminar }}</b></p>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="large-7 large-centered columns">
+            <div class="bt-cancelar-eliminar button secondary radius left"><i class="fa fa-undo fa fw"></i> Cancelar</div>
+            <form id="formEliminarRecurso" action="{{ url_eliminar }}" method="POST">
+                <button class="button alert radius right"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
+            </form>
+        </div>
+    </div>
+</div>

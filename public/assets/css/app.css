@@ -4662,6 +4662,11 @@ html, body {
   background-color: #848484 !important;
 }
 
+/* line 8, ../scss/global/_colores.scss */
+.color-userconfig {
+  background-color: #3D486C !important;
+}
+
 /* line 2, ../scss/global/_barra-nav.scss */
 .barra-nav {
   background: none repeat scroll 0% 0% #FFF;
@@ -4730,6 +4735,37 @@ html, body {
 /* line 58, ../scss/global/_barra-nav.scss */
 .barra-nav ul.nav li i.bt {
   font-size: 1.75rem;
+}
+
+/* line 3, ../scss/global/_modal-eliminar.scss */
+.eliminar-modal p, .eliminar-modal ul li {
+  letter-spacing: -0.7px;
+  font-size: 0.9375rem;
+}
+/* line 7, ../scss/global/_modal-eliminar.scss */
+.eliminar-modal ul li {
+  line-height: normal;
+  margin: 10px;
+}
+/* line 11, ../scss/global/_modal-eliminar.scss */
+.eliminar-modal .fa-li {
+  top: 0.25rem;
+}
+/* line 14, ../scss/global/_modal-eliminar.scss */
+.eliminar-modal p {
+  margin-bottom: 10px;
+}
+/* line 17, ../scss/global/_modal-eliminar.scss */
+.eliminar-modal .panel.titulo {
+  font-size: 2.0625rem;
+  letter-spacing: -1.5px;
+  background-color: #FFFFFF;
+  border-radius: 7px;
+  color: #B61212;
+}
+/* line 24, ../scss/global/_modal-eliminar.scss */
+.eliminar-modal .bt-cancelar-eliminar {
+  margin-bottom: 15px;
 }
 
 /* line 2, ../scss/global/_misc.scss */
@@ -6350,37 +6386,6 @@ html, body {
   padding: 7px;
 }
 
-/* line 486, ../scss/layouts/_ver-contenido.scss */
-#eliminarContenido p, #eliminarContenido ul li {
-  letter-spacing: -0.7px;
-  font-size: 0.9375rem;
-}
-/* line 490, ../scss/layouts/_ver-contenido.scss */
-#eliminarContenido ul li {
-  line-height: normal;
-  margin: 10px;
-}
-/* line 494, ../scss/layouts/_ver-contenido.scss */
-#eliminarContenido .fa-li {
-  top: 0.25rem;
-}
-/* line 497, ../scss/layouts/_ver-contenido.scss */
-#eliminarContenido p {
-  margin-bottom: 10px;
-}
-/* line 500, ../scss/layouts/_ver-contenido.scss */
-#eliminarContenido .panel.titulo {
-  font-size: 2.0625rem;
-  letter-spacing: -1.5px;
-  background-color: #FFFFFF;
-  border-radius: 7px;
-  color: #B61212;
-}
-/* line 507, ../scss/layouts/_ver-contenido.scss */
-#eliminarContenido .bt-cancelar-eliminar {
-  margin-bottom: 15px;
-}
-
 /* line 4, ../scss/layouts/_propuesta.scss */
 .crear-contenido .problematicas-asoc {
   padding: 20px 0px 70px 0px;
@@ -7163,16 +7168,15 @@ html, body {
 }
 /* line 8, ../scss/layouts/_ver-panel.scss */
 .user-panel .panel-izq, .admin-panel .panel-izq, .jefe-panel .panel-izq {
-  background-color: #848484;
   padding-left: 0;
   padding-right: 10px;
   min-height: 650px;
 }
-/* line 13, ../scss/layouts/_ver-panel.scss */
+/* line 12, ../scss/layouts/_ver-panel.scss */
 .user-panel .panel-izq ul.opciones, .admin-panel .panel-izq ul.opciones, .jefe-panel .panel-izq ul.opciones {
   margin: 0;
 }
-/* line 15, ../scss/layouts/_ver-panel.scss */
+/* line 14, ../scss/layouts/_ver-panel.scss */
 .user-panel .panel-izq ul.opciones li, .admin-panel .panel-izq ul.opciones li, .jefe-panel .panel-izq ul.opciones li {
   font-family: "Source Sans Pro",sans-serif;
   padding: 15px;
@@ -7181,30 +7185,30 @@ html, body {
   list-style: none;
   border-bottom: 1px dashed #ffffff;
 }
-/* line 22, ../scss/layouts/_ver-panel.scss */
+/* line 21, ../scss/layouts/_ver-panel.scss */
 .user-panel .panel-izq ul.opciones li a, .user-panel .panel-izq ul.opciones li a:hover, .admin-panel .panel-izq ul.opciones li a, .admin-panel .panel-izq ul.opciones li a:hover, .jefe-panel .panel-izq ul.opciones li a, .jefe-panel .panel-izq ul.opciones li a:hover {
   color: #FFFFFF;
 }
-/* line 26, ../scss/layouts/_ver-panel.scss */
+/* line 25, ../scss/layouts/_ver-panel.scss */
 .user-panel .panel-izq ul.opciones li:last-child, .admin-panel .panel-izq ul.opciones li:last-child, .jefe-panel .panel-izq ul.opciones li:last-child {
   border-bottom: 0;
 }
-/* line 31, ../scss/layouts/_ver-panel.scss */
+/* line 30, ../scss/layouts/_ver-panel.scss */
 .user-panel .panel-der, .admin-panel .panel-der, .jefe-panel .panel-der {
   padding: 20px;
   background-color: #FFFFFF;
   min-height: 650px;
 }
-/* line 35, ../scss/layouts/_ver-panel.scss */
+/* line 34, ../scss/layouts/_ver-panel.scss */
 .user-panel .panel-der .intro-titulo, .admin-panel .panel-der .intro-titulo, .jefe-panel .panel-der .intro-titulo {
   border-bottom: 1px solid #bebebe;
   margin-bottom: 20px;
 }
-/* line 36, ../scss/layouts/_ver-panel.scss */
+/* line 35, ../scss/layouts/_ver-panel.scss */
 .user-panel .panel-der .intro-titulo h1, .admin-panel .panel-der .intro-titulo h1, .jefe-panel .panel-der .intro-titulo h1 {
   font-family: "Source Sans Pro",sans-serif;
 }
-/* line 44, ../scss/layouts/_ver-panel.scss */
+/* line 43, ../scss/layouts/_ver-panel.scss */
 .user-panel .wrapper-elementos, .admin-panel .wrapper-elementos, .jefe-panel .wrapper-elementos {
   border-style: solid;
   border-width: 1px;
@@ -7238,25 +7242,25 @@ html, body {
 .user-panel .wrapper-elementos h1.subheader, .user-panel .wrapper-elementos h2.subheader, .user-panel .wrapper-elementos h3.subheader, .user-panel .wrapper-elementos h4.subheader, .user-panel .wrapper-elementos h5.subheader, .user-panel .wrapper-elementos h6.subheader, .admin-panel .wrapper-elementos h1.subheader, .admin-panel .wrapper-elementos h2.subheader, .admin-panel .wrapper-elementos h3.subheader, .admin-panel .wrapper-elementos h4.subheader, .admin-panel .wrapper-elementos h5.subheader, .admin-panel .wrapper-elementos h6.subheader, .jefe-panel .wrapper-elementos h1.subheader, .jefe-panel .wrapper-elementos h2.subheader, .jefe-panel .wrapper-elementos h3.subheader, .jefe-panel .wrapper-elementos h4.subheader, .jefe-panel .wrapper-elementos h5.subheader, .jefe-panel .wrapper-elementos h6.subheader {
   line-height: 1.4;
 }
-/* line 49, ../scss/layouts/_ver-panel.scss */
+/* line 48, ../scss/layouts/_ver-panel.scss */
 .user-panel .wrapper-elementos .header, .admin-panel .wrapper-elementos .header, .jefe-panel .wrapper-elementos .header {
   font-size: 0.75rem;
   padding: 5px 10px;
   background-color: #EAEAEA;
   border-bottom: 1px solid #C3C3C3;
 }
-/* line 55, ../scss/layouts/_ver-panel.scss */
+/* line 54, ../scss/layouts/_ver-panel.scss */
 .user-panel .wrapper-elementos .fila, .user-panel .wrapper-elementos .ultima-fila, .admin-panel .wrapper-elementos .fila, .admin-panel .wrapper-elementos .ultima-fila, .jefe-panel .wrapper-elementos .fila, .jefe-panel .wrapper-elementos .ultima-fila {
   font-size: 0.75rem;
   padding: 5px 10px;
   background-color: #FFFFFF;
   border-bottom: 1px solid #C3C3C3;
 }
-/* line 60, ../scss/layouts/_ver-panel.scss */
+/* line 59, ../scss/layouts/_ver-panel.scss */
 .user-panel .wrapper-elementos .fila .titulo-fila, .user-panel .wrapper-elementos .ultima-fila .titulo-fila, .admin-panel .wrapper-elementos .fila .titulo-fila, .admin-panel .wrapper-elementos .ultima-fila .titulo-fila, .jefe-panel .wrapper-elementos .fila .titulo-fila, .jefe-panel .wrapper-elementos .ultima-fila .titulo-fila {
   margin: 5px;
 }
-/* line 63, ../scss/layouts/_ver-panel.scss */
+/* line 62, ../scss/layouts/_ver-panel.scss */
 .user-panel .wrapper-elementos .fila input, .user-panel .wrapper-elementos .ultima-fila input, .admin-panel .wrapper-elementos .fila input, .admin-panel .wrapper-elementos .ultima-fila input, .jefe-panel .wrapper-elementos .fila input, .jefe-panel .wrapper-elementos .ultima-fila input {
   border-radius: 5px;
   font-size: 0.8125rem;
@@ -7264,11 +7268,11 @@ html, body {
   height: 30px;
   margin-bottom: 10px;
 }
-/* line 71, ../scss/layouts/_ver-panel.scss */
+/* line 70, ../scss/layouts/_ver-panel.scss */
 .user-panel .wrapper-elementos .fila, .admin-panel .wrapper-elementos .fila, .jefe-panel .wrapper-elementos .fila {
   border-bottom: 1px solid #C3C3C3;
 }
-/* line 74, ../scss/layouts/_ver-panel.scss */
+/* line 73, ../scss/layouts/_ver-panel.scss */
 .user-panel .wrapper-elementos .ultima-fila, .admin-panel .wrapper-elementos .ultima-fila, .jefe-panel .wrapper-elementos .ultima-fila {
   border-bottom: 0 !important;
 }
@@ -7393,28 +7397,25 @@ html, body {
 /* line 36, ../scss/layouts/_administrar.scss */
 .listar-organismos .tabla-org td .button, .listar-organismos .tabla-funcionarios td .button, .listar-organismos .tabla-usuarios td .button, .listar-organismos .tabla-usuarios-verificar td .button, .listar-organismos .tabla-patrullas td .button, .listar-funcionarios .tabla-org td .button, .listar-funcionarios .tabla-funcionarios td .button, .listar-funcionarios .tabla-usuarios td .button, .listar-funcionarios .tabla-usuarios-verificar td .button, .listar-funcionarios .tabla-patrullas td .button, .listar-usuarios .tabla-org td .button, .listar-usuarios .tabla-funcionarios td .button, .listar-usuarios .tabla-usuarios td .button, .listar-usuarios .tabla-usuarios-verificar td .button, .listar-usuarios .tabla-patrullas td .button, .listar-patrullas .tabla-org td .button, .listar-patrullas .tabla-funcionarios td .button, .listar-patrullas .tabla-usuarios td .button, .listar-patrullas .tabla-usuarios-verificar td .button, .listar-patrullas .tabla-patrullas td .button {
   margin: 0;
-}
-/* line 39, ../scss/layouts/_administrar.scss */
-.listar-organismos .tabla-org td .modificar, .listar-organismos .tabla-org td .quitar, .listar-organismos .tabla-org td .agregar, .listar-organismos .tabla-funcionarios td .modificar, .listar-organismos .tabla-funcionarios td .quitar, .listar-organismos .tabla-funcionarios td .agregar, .listar-organismos .tabla-usuarios td .modificar, .listar-organismos .tabla-usuarios td .quitar, .listar-organismos .tabla-usuarios td .agregar, .listar-organismos .tabla-usuarios-verificar td .modificar, .listar-organismos .tabla-usuarios-verificar td .quitar, .listar-organismos .tabla-usuarios-verificar td .agregar, .listar-organismos .tabla-patrullas td .modificar, .listar-organismos .tabla-patrullas td .quitar, .listar-organismos .tabla-patrullas td .agregar, .listar-funcionarios .tabla-org td .modificar, .listar-funcionarios .tabla-org td .quitar, .listar-funcionarios .tabla-org td .agregar, .listar-funcionarios .tabla-funcionarios td .modificar, .listar-funcionarios .tabla-funcionarios td .quitar, .listar-funcionarios .tabla-funcionarios td .agregar, .listar-funcionarios .tabla-usuarios td .modificar, .listar-funcionarios .tabla-usuarios td .quitar, .listar-funcionarios .tabla-usuarios td .agregar, .listar-funcionarios .tabla-usuarios-verificar td .modificar, .listar-funcionarios .tabla-usuarios-verificar td .quitar, .listar-funcionarios .tabla-usuarios-verificar td .agregar, .listar-funcionarios .tabla-patrullas td .modificar, .listar-funcionarios .tabla-patrullas td .quitar, .listar-funcionarios .tabla-patrullas td .agregar, .listar-usuarios .tabla-org td .modificar, .listar-usuarios .tabla-org td .quitar, .listar-usuarios .tabla-org td .agregar, .listar-usuarios .tabla-funcionarios td .modificar, .listar-usuarios .tabla-funcionarios td .quitar, .listar-usuarios .tabla-funcionarios td .agregar, .listar-usuarios .tabla-usuarios td .modificar, .listar-usuarios .tabla-usuarios td .quitar, .listar-usuarios .tabla-usuarios td .agregar, .listar-usuarios .tabla-usuarios-verificar td .modificar, .listar-usuarios .tabla-usuarios-verificar td .quitar, .listar-usuarios .tabla-usuarios-verificar td .agregar, .listar-usuarios .tabla-patrullas td .modificar, .listar-usuarios .tabla-patrullas td .quitar, .listar-usuarios .tabla-patrullas td .agregar, .listar-patrullas .tabla-org td .modificar, .listar-patrullas .tabla-org td .quitar, .listar-patrullas .tabla-org td .agregar, .listar-patrullas .tabla-funcionarios td .modificar, .listar-patrullas .tabla-funcionarios td .quitar, .listar-patrullas .tabla-funcionarios td .agregar, .listar-patrullas .tabla-usuarios td .modificar, .listar-patrullas .tabla-usuarios td .quitar, .listar-patrullas .tabla-usuarios td .agregar, .listar-patrullas .tabla-usuarios-verificar td .modificar, .listar-patrullas .tabla-usuarios-verificar td .quitar, .listar-patrullas .tabla-usuarios-verificar td .agregar, .listar-patrullas .tabla-patrullas td .modificar, .listar-patrullas .tabla-patrullas td .quitar, .listar-patrullas .tabla-patrullas td .agregar {
   font-size: 0.9375rem;
   padding: 2px 5px;
 }
 
-/* line 48, ../scss/layouts/_administrar.scss */
+/* line 46, ../scss/layouts/_administrar.scss */
 .crear-organismo .cambiar-avatar {
   min-height: 180px;
 }
-/* line 50, ../scss/layouts/_administrar.scss */
+/* line 48, ../scss/layouts/_administrar.scss */
 .crear-organismo .cambiar-avatar img {
   margin: 10px 15px;
 }
-/* line 53, ../scss/layouts/_administrar.scss */
+/* line 51, ../scss/layouts/_administrar.scss */
 .crear-organismo .cambiar-avatar .fileUpload {
   margin: 30px 15px;
   position: relative;
   overflow: hidden;
 }
-/* line 58, ../scss/layouts/_administrar.scss */
+/* line 56, ../scss/layouts/_administrar.scss */
 .crear-organismo .cambiar-avatar .fileUpload input.upload {
   position: absolute;
   top: 0;
@@ -7427,55 +7428,55 @@ html, body {
   filter: alpha(opacity=0);
 }
 
-/* line 73, ../scss/layouts/_administrar.scss */
+/* line 71, ../scss/layouts/_administrar.scss */
 .ajustes-plataforma .titulo h5, .poderes-patrulla .titulo h5 {
   margin: 0;
   letter-spacing: -0.5px;
 }
-/* line 77, ../scss/layouts/_administrar.scss */
+/* line 75, ../scss/layouts/_administrar.scss */
 .ajustes-plataforma .descripcion, .poderes-patrulla .descripcion {
   font-size: 0.75rem;
   letter-spacing: -0.5px;
 }
 
-/* line 85, ../scss/layouts/_administrar.scss */
+/* line 83, ../scss/layouts/_administrar.scss */
 .verificar-usuarios .titulo h4 {
   letter-spacing: -0.5px;
 }
-/* line 88, ../scss/layouts/_administrar.scss */
+/* line 86, ../scss/layouts/_administrar.scss */
 .verificar-usuarios .explicacion.panel {
   letter-spacing: -0.5px;
   font-size: 0.875rem;
   padding: 6px;
 }
-/* line 93, ../scss/layouts/_administrar.scss */
+/* line 91, ../scss/layouts/_administrar.scss */
 .verificar-usuarios hr {
   margin: 0 0 8px 0;
 }
 
-/* line 99, ../scss/layouts/_administrar.scss */
+/* line 97, ../scss/layouts/_administrar.scss */
 .listar-patrullas .explicacion.panel {
   letter-spacing: -0.5px;
   font-size: 0.875rem;
   padding: 6px;
 }
-/* line 105, ../scss/layouts/_administrar.scss */
+/* line 103, ../scss/layouts/_administrar.scss */
 .listar-patrullas .etiqueta .nombre {
   font-size: 0.875rem;
   font-weight: bold;
 }
-/* line 109, ../scss/layouts/_administrar.scss */
+/* line 107, ../scss/layouts/_administrar.scss */
 .listar-patrullas .etiqueta .descripcion {
   font-size: 0.75rem;
 }
-/* line 114, ../scss/layouts/_administrar.scss */
+/* line 112, ../scss/layouts/_administrar.scss */
 .listar-patrullas .editable input, .listar-patrullas .editable textarea {
   margin-bottom: 0;
   border: 0;
   box-shadow: none;
   color: #222222;
 }
-/* line 120, ../scss/layouts/_administrar.scss */
+/* line 118, ../scss/layouts/_administrar.scss */
 .listar-patrullas .editable input[name='nombre'] {
   border-top: 1px solid #eaeaea;
   border-right: 1px solid #eaeaea;
@@ -7485,7 +7486,7 @@ html, body {
   padding: 0;
   font-size: 0.875rem;
 }
-/* line 129, ../scss/layouts/_administrar.scss */
+/* line 127, ../scss/layouts/_administrar.scss */
 .listar-patrullas .editable textarea[name='descripcion'] {
   border-bottom: 1px solid #eaeaea;
   border-right: 1px solid #eaeaea;
