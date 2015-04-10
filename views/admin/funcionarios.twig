@@ -93,6 +93,19 @@
                 </tbody>
             </table>
         </div>
+        <div class="large-9 columns large-centered control-tabla">
+            <div class="panel clearfix text-center columns">
+                <div class="left">
+                    <i class="first fa fa-angle-double-left fa-fw fa-lg"></i>&nbsp;&nbsp;
+                    <i class="prev fa fa-angle-left fa-fw fa-lg"></i>
+                </div>
+                <div class="right">
+                    <i class="next fa fa-angle-right fa-fw fa-lg"></i>&nbsp;&nbsp;
+                    <i class="last fa fa-angle-double-right fa-fw fa-lg"></i>
+                </div>
+                <i class="ejecutando fa fa-spinner fa-fw fa-lg fa-pulse"></i>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="large-4 large-centered columns">
@@ -108,6 +121,7 @@
     var cupos_tot = {{ organismo['cupo'] }};
     var cupos_ocu = {{ organismo['funcionarios_count'] }};
     var funcionarios = {{ funcionarios|json_encode|raw }};
+    var links_tabla = new Array();
 
     var func_act = new Array();
     var func_new = new Array();
@@ -160,7 +174,7 @@
             cambiando=-1;
         });
         $('#bt-cambiar').click(function() {
-            enviarSolicitud();
+            enviarSolicitud('{{ baseUrl() }}/usuario');
             $('#posiblesCandidatos').foundation('reveal', 'open');
         });
         $('#bt-vacante').click(function() {
@@ -202,13 +216,14 @@
         });
     });
 
-    function enviarSolicitud() {
+    function enviarSolicitud(url_query) {
         var request = $.ajax({
-            url: '{{ baseUrl() }}/usuario',
+            url: url_query,
             cache: false,
             dataType: "json"
         });
         request.done(function(resultados) {
+            links_tabla = parse_link_header(request.getResponseHeader('link'));
             $("#funcCandidatos").find('tbody').empty();
             for (var i=0; i<resultados.length; i++) {
                 var candidato = $("<li>");
@@ -219,6 +234,7 @@
                     (resultados[i].nombre+' '+resultados[i].apellido)
                 );
             }
+            $('.ejecutando').hide();
             return true;
         });
         request.fail(function(jqXHR, textStatus) {
@@ -271,6 +287,31 @@
         $('#entrantes').val('['+func_in.join()+']');
         $('#salientes').val('['+func_out.join()+']');
     }
+
+    $( ".first" ).click(function() {
+        if(links_tabla['first']){
+            $('.ejecutando').show();
+            enviarSolicitud(links_tabla['first']);
+        }
+    });
+    $( ".prev" ).click(function() {
+        if(links_tabla['prev']){
+            $('.ejecutando').show();
+            enviarSolicitud(links_tabla['prev']);
+        }
+    });
+    $( ".next" ).click(function() {
+        if(links_tabla['next']){
+            $('.ejecutando').show();
+            enviarSolicitud(links_tabla['next']);
+        }
+    });
+    $( ".last" ).click(function() {
+        if(links_tabla['last']){
+            $('.ejecutando').show();
+            enviarSolicitud(links_tabla['last']);
+        }
+    });
 
 </script>
 {% endblock %}
