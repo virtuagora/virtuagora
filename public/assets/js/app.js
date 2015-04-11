@@ -6,24 +6,28 @@ $( ".bt-logout" ).click(function() {
     $('#form-salir').submit();
 });
 
-function parse_link_header(header) {
-    if (header.length == 0) {
-        throw new Error("input must not be of zero length");
-    }
-
-    // Split parts by comma
-    var parts = header.split(', ');
+function parseLinkHeader(header) {
     var links = {};
-    // Parse each part into a named link
-    _.each(parts, function(p) {
-        var section = p.split(';');
-        if (section.length != 2) {
-            throw new Error("section could not be split on ';'");
+    if (header) {
+        var parts = header.split(', ');
+        for (var i=0; i<parts.length; i++) {
+            var section = parts[i].split('; ');
+            if (section.length == 2) {
+                var url = section[0].replace(/<(.*)>/, '$1').trim();
+                var name = section[1].replace(/rel="(.*)"/, '$1').trim();
+                links[name] = url;
+            }
         }
-        var url = section[0].replace(/<(.*)>/, '$1').trim();
-        var name = section[1].replace(/rel="(.*)"/, '$1').trim();
-        links[name] = url;
-    });
-
+    }
     return links;
+}
+
+function refreshPaginator(links) {
+    $('#nav-first').hide().off("click");
+    $('#nav-prev').hide().off("click");
+    $('#nav-next').hide().off("click");
+    $('#nav-last').hide().off("click");
+    for (var nav in links) {
+        $('#nav-'+nav).show().on("click", {url: links[nav]}, startGetRequest);
+    }
 }

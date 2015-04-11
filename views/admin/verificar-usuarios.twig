@@ -37,7 +37,7 @@
             <table class="tabla-usuarios">
                 <thead>
                     <tr style="//display:none;">
-                        <th class="text-center" style="display:none;">ID</th>
+                        <th class="text-center">ID</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th class="text-center"><i class="fa fa-trophy fa-fw"></i></th>
@@ -54,16 +54,18 @@
             </table>
         </div>
         <div class="large-12 columns control-tabla">
-            <div class="panel clearfix large-6 large-centered text-center columns">
-                <div class="left">
-                    <i class="first fa fa-angle-double-left fa-fw fa-lg"></i>&nbsp;&nbsp;
-                    <i class="prev fa fa-angle-left fa-fw fa-lg"></i>
+            <div class="panel clearfix large-6 large-centered columns">
+                <div class="small-4 columns text-left">
+                    <a id="nav-first"><i class="fa fa-angle-double-left fa-fw fa-lg"></i></a>&nbsp;&nbsp;
+                    <a id="nav-prev"><i class="fa fa-angle-left fa-fw fa-lg"></i></a>
                 </div>
-                <div class="right">
-                    <i class="next fa fa-angle-right fa-fw fa-lg"></i>&nbsp;&nbsp;
-                    <i class="last fa fa-angle-double-right fa-fw fa-lg"></i>
+                <div class="small-4 columns text-center">
+                    <i class="ejecutando fa fa-spinner fa-fw fa-lg fa-pulse"></i>
                 </div>
-                <i class="ejecutando fa fa-spinner fa-fw fa-lg fa-pulse"></i>
+                <div class="small-4 columns text-right">
+                    <a id="nav-next"><i class="fa fa-angle-right fa-fw fa-lg"></i></a>&nbsp;&nbsp;
+                    <a id="nav-last"><i class="fa fa-angle-double-right fa-fw fa-lg"></i></a>
+                </div>
             </div>
         </div>
     </div>
@@ -79,7 +81,7 @@
             <table class="tabla-usuarios-verificar">
                 <thead>
                     <tr style="//display:none;">
-                        <th class="text-center" style="display:none;">ID</th>
+                        <th class="text-center">ID</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th class="text-center"><i class="fa fa-trophy fa-fw"></i></th>
@@ -107,17 +109,16 @@
 {% block modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block scripts_cont %}
-<script src="{{ baseUrl() }}/assets/js/underscore/underscore-min.js"></script>
 <script>
     var usuarios_verificar = new Array();
-    var links_tabla = new Array();
+    var base_url = '{{ baseUrl() }}';
 
     $(document).ready(function(){
         verTodo();
     });
 
     var agregarUsuario = function(id, nombre, apellido, puntos, advertencia, suspendido) {
-        td_id = $('<td>').addClass('text-center').hide().html( id );
+        td_id = $('<td>').addClass('text-center').html( id );
         td_nombre = $('<td>').html( nombre );
         td_apellido = $('<td>').html( apellido );
         td_puntos = $('<td>').addClass('text-center').html( puntos );
@@ -125,12 +126,12 @@
         td_suspendido = $('<td>').addClass('text-center').html( 'null' );
         boton_agregar = $('<a>').attr('src','#').addClass('agregar button tiny radius').html('<i class="fa fa-plus fa-fw fa-lg"></i>')
         td_agregar = $('<td>').addClass('text-center').html( boton_agregar );
-        if( advertencia ){
+        if(advertencia){
             td_advertencia = td_advertencia.html( 'Si' );
         } else {
             td_advertencia = td_advertencia.html( 'No' );
         }
-        if( suspendido ){
+        if(suspendido == '1'){
             td_suspendido = td_suspendido.html( 'Si' );
         } else {
             td_suspendido = td_suspendido.html( 'No' );
@@ -161,13 +162,18 @@
         $(".tabla-usuarios").find('tbody').append( tr_ultima );
     }
 
-    var enviarSolicitud = function(url_query) {
+    function startGetRequest(event) {
+        enviarSolicitud(event.data.url);
+    }
+
+    function enviarSolicitud(url_query) {
+        $('.ejecutando').show();
         var request = $.ajax({
             url: url_query,
             cache: false,
             dataType: "json"
         }).done(function(resultados, textStatus, request) {
-            links_tabla = parse_link_header(request.getResponseHeader('link'));
+            refreshPaginator(parseLinkHeader(request.getResponseHeader('link')));
             $(".tabla-usuarios").find('tbody').empty();
             for (var i=0; i<resultados.length; i++) {
                 agregarUsuario(
@@ -178,10 +184,6 @@
                     resultados[i].advertencia,
                     resultados[i].suspendido);
             }
-            toggleControlTabla('first');
-            toggleControlTabla('prev');
-            toggleControlTabla('next');
-            toggleControlTabla('last');
             $('.ejecutando').hide();
         }).fail(function(jqXHR, textStatus) {
             $(".tabla-usuarios").find('tbody').empty();
@@ -212,7 +214,6 @@
         });
         json_usuarios = '[' + usuarios_verificar.join() + ']';
         $('input[name="entrantes"]').val(json_usuarios);
-        alert($('input[name="entrantes"]').val());
     });
 
     //    var sortNombre = function() {
@@ -229,59 +230,24 @@
     //        $('.sub-nav.sort dd.active').removeClass('active');
     //        $('.sortPuntos').addClass('active');
     //    }
-    var verTodo = function() {
+    function verTodo() {
         $('.sub-nav.ver dd.active').removeClass('active');
         $('.verTodo').addClass('active');
         var query = { where_null:'verified_at' };
-        enviarSolicitud('{{ baseUrl() }}/usuario?' + jQuery.param(query));
+        enviarSolicitud(base_url + '/usuario?' + jQuery.param(query));
     }
-    var verAdvertidos = function() {
+    function verAdvertidos() {
         $('.sub-nav.ver dd.active').removeClass('active');
         $('.verAdvertidos').addClass('active');
         var query = { where_null:'verified_at' , where_not_null:'advertencia' };
-        enviarSolicitud('{{ baseUrl() }}/usuario?' + jQuery.param(query));
+        enviarSolicitud(base_url + '/usuario?' + jQuery.param(query));
     }
-    var verSuspendidos = function() {
+    function verSuspendidos() {
         $('.sub-nav.ver dd.active').removeClass('active');
         $('.verSuspendidos').addClass('active');
-        var query = {where_null:'verified_at', where_not_null:'suspendido' };
-        enviarSolicitud('{{ baseUrl() }}/usuario?' + jQuery.param(query));
+        var query = {where_null:'verified_at', where:'suspendido-eq-1' };
+        enviarSolicitud(base_url + '/usuario?' + jQuery.param(query));
     }
-
-    $( ".first" ).click(function() {
-        if(links_tabla['first']){
-            $('.ejecutando').show();
-            enviarSolicitud(links_tabla['first']);
-        }
-    });
-    $( ".prev" ).click(function() {
-        if(links_tabla['prev']){
-            $('.ejecutando').show();
-            enviarSolicitud(links_tabla['prev']);
-        }
-    });
-    $( ".next" ).click(function() {
-        if(links_tabla['next']){
-            $('.ejecutando').show();
-            enviarSolicitud(links_tabla['next']);
-        }
-    });
-    $( ".last" ).click(function() {
-        if(links_tabla['last']){
-            $('.ejecutando').show();
-            enviarSolicitud(links_tabla['last']);
-        }
-    });
-
-    var toggleControlTabla = function(nombre){
-        if(links_tabla[nombre]){
-            $('.' + nombre).removeClass('transparente');
-        } else {
-            $('.' + nombre).addClass('transparente');
-        }
-    }
-
-
 </script>
 {% endblock %}
 {# ----------------------------------------------------------- #}
