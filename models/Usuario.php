@@ -6,8 +6,8 @@ class Usuario extends Eloquent {
     //$table = 'usuarios';
 
     protected $dates = ['deleted_at'];
-   // protected $visible = array('id', 'nombre', 'apellido', 'es_funcionario', 'es_jefe', 'partido_id', 'img_tipo', 'img_hash', 'puntos');
-    protected $hidden = array('password', 'emailed_token', 'updated_at', 'deleted_at');
+    //protected $visible = array('id', 'nombre', 'apellido', 'es_funcionario', 'es_jefe', 'partido_id', 'img_tipo', 'img_hash', 'puntos');
+    protected $hidden = ['password', 'emailed_token', 'updated_at', 'deleted_at'];
 
     public function partido() {
         return $this->belongsTo('Partido');
@@ -19,6 +19,10 @@ class Usuario extends Eloquent {
 
     public function contenidos() {
         return $this->hasMany('Contenido', 'autor_id');
+    }
+
+    public function notificaciones() {
+        return $this->hasMany('Notificacion');
     }
 
     public function getNombreCompletoAttribute() {

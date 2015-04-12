@@ -19,6 +19,10 @@ class Documento extends Eloquent {
         return $this->hasManyThrough('ParrafoDocumento', 'VersionDocumento', 'documento_id', 'version_id');
     }
 
+    public function getNombreAttribute() {
+        return $this->contenido->titulo;
+    }
+
     public static function boot() {
         parent::boot();
         static::deleting(function($documento) {

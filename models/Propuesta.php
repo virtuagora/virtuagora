@@ -19,6 +19,10 @@ class Propuesta extends Eloquent {
         return $this->hasMany('VotoPropuesta');
     }
 
+    public function getNombreAttribute() {
+        return $this->contenido->titulo;
+    }
+
     public static function boot() {
         parent::boot();
         static::deleting(function($propuesta) {

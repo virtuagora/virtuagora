@@ -15,6 +15,10 @@ class Novedad extends Eloquent {
         return $this->morphMany('Comentario', 'comentable');
     }
 
+    public function getNombreAttribute() {
+        return $this->contenido->titulo;
+    }
+
     public static function boot() {
         parent::boot();
         static::deleting(function($novedad) {

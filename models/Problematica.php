@@ -20,6 +20,10 @@ class Problematica extends Eloquent {
         return $this->hasMany('VotoProblematica');
     }
 
+    public function getNombreAttribute() {
+        return $this->contenido->titulo;
+    }
+
     public static function boot() {
         parent::boot();
         static::deleting(function($problematica) {

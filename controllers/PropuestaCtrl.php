@@ -136,10 +136,7 @@ class PropuestaCtrl extends Controller {
         $contenido->save();
         $log = UserlogCtrl::createLog('modPropues', $usuario, $propuesta);
         foreach ($propuesta->votos as $voto) {
-            $notif = new Notificacion();
-            $notif->usuario_id = $voto->usuario_id;
-            $notif->notificable()->associate($log);
-            $notif->save();
+            NotificacionCtrl::createNotif($voto->usuario_id, $log);
         }
         $this->flash('success', 'Los datos de la propuesta fueron modificados exitosamente.');
         $this->redirectTo('shwPropues', array('idPro' => $idPro));

@@ -111,10 +111,9 @@ function checkUserAuth($action, $checkMod = false) {
 */
 
 $app->get('/test', function () use ($app) {
-    $patrulla = Patrulla::findOrFail(1);
-    $podPat = $patrulla->poderes()->lists('poder_id');
-    $podAll = Poder::all()->toArray();
-    var_dump($podPat, $podAll[3]['id'], in_array($podAll[3]['id'], $podPat));
+
+
+    var_dump(UserlogCtrl::$messages);
 
     //$c->load('contenidos');
     //var_dump($c->contenidos()->toArray());
@@ -124,6 +123,11 @@ $app->get('/test', function () use ($app) {
     //$p = new Paginator(Comentario::query(), $req->getUrl().$req->getPath(), $req->get(), 2, 1);
     //var_dump($p->links, $p->query->get()->toJson());
 });
+
+$app->get('/userlog', 'UserlogCtrl:listar')->name('shwListaUserlog');
+
+$app->get('/notificacion', checkRole('usr'), 'NotificacionCtrl:listar')->name('shwListaNotific');
+$app->post('/notificacion/eliminar', checkRole('usr'), 'NotificacionCtrl:eliminar')->name('runElimiNotific');
 
 $app->get('/', 'PortalCtrl:verIndex')->name('shwIndex');
 $app->get('/login', 'checkNoSession', 'PortalCtrl:verLogin')->name('shwLogin');
@@ -137,6 +141,7 @@ $app->get('/contenido/:idCon', 'ContenidoCtrl:ver')->name('shwConteni');
 $app->get('/contenido', 'ContenidoCtrl:listar')->name('shwListaConteni');
 
 $app->get('/usuario/:idUsr', 'UsuarioCtrl:ver')->name('shwUsuario');
+$app->get('/usuario/:idUsr/imagen/:res', 'UsuarioCtrl:verImagen')->name('shwImgUsuario');
 $app->get('/usuario', 'UsuarioCtrl:listar')->name('shwListaUsuario');
 
 $app->group('/comentario', function () use ($app) {
