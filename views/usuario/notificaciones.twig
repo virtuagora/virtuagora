@@ -1,0 +1,63 @@
+{# VARIBLES #}
+
+{% extends "usuario/ver-administracion.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Notificaciones{% endblock %}
+{# ----------------------------------------------------------- #}
+{% set intro_titulo = 'Notificaciones' %}
+{# ----------------------------------------------------------- #}
+{% block configuracion %}
+<div class="row">
+    <div class="large-12 large-centered columns">
+        <table class="tabla-notificaciones">
+            <thead>
+                <th colspan="2">Todas las notificaciones</th>
+            </thead>
+            <tbody>
+                {% if notificaciones|length > 0 %}
+                {% for notificacion in notificaciones %}
+                <tr class="notif-msj">
+                    <td>{{ notificacion.updated_at|date("d/m/Y H:m") }}</td>
+                    <td>{{ notificacion.mensaje|raw }}</td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr class="sin-notificaciones" style="display:none">
+                    <td class="text-center"><i class="fa fa-check fa-fw"></i><br>No hay notificaciones!</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% if nav %}
+<div class="row">
+    <div class="large-6 panel clearfix large-centered columns">
+        <div class="left">
+            {% if nav.first %}
+            <a href="{{ nav.first }}"><i class="fa fa-angle-double-left fa-fw fa-lg"></i></a>
+            {% endif %}
+            {% if nav.prev %}
+            <a href="{{ nav.prev }}"><i class="fa fa-angle-left fa-fw fa-lg"></i></a>
+            {% endif %}
+        </div>
+        <div class="right">
+            {% if nav.next %}
+            <a href="{{ nav.next }}"><i class="fa fa-angle-right fa-fw fa-lg"></i></a>
+            {% endif %}
+            {% if nav.last %}
+            <a href="{{ nav.last }}"><i class="fa fa-angle-double-right fa-fw fa-lg"></i></a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts_cont %}
+{% endblock %}
+{# ----------------------------------------------------------- #}

@@ -1,6 +1,7 @@
 {# VARIBLES #}
 {% set footer = true %}
 {% set barraNav = true %}
+{% set notificaciones = true %}
 {% set html_class = '' %}
 {% set body_class = 'plantilla-cont' %}
 
@@ -8,7 +9,6 @@
 
 {# ----------------------------------------------------------- #}
 {% block linkhead %}
-<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/powertip/jquery.powertip.css"/>
 {% block linkheads_cont %}{% endblock linkheads_cont %}
 {% endblock %}
 {# ----------------------------------------------------------- #}
@@ -225,7 +225,6 @@
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block scripts %}
-<script src="{{ baseUrl() }}/assets/js/powertip/jquery.powertip.min.js"></script>
 <script src="{{ baseUrl() }}/assets/js/autosize/autosize.min.js"></script>
 {% block scripts_cont %}{% endblock scripts_cont %}
 <script>

@@ -1,6 +1,7 @@
 {# VARIBLES #}
 {% set footer = true %}
 {% set barraNav = true %}
+{% set notificaciones = true %}
 {% set html_class = '' %}
 {% set body_class = 'color-propuesta' %}
 
@@ -10,7 +11,6 @@
 {% block titulo %}Virtuagora - Crear una propuesta{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block linkhead %}
-<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/powertip/jquery.powertip.min.css"/>
 <link rel="stylesheet" href="{{ baseUrl() }}/assets/css/sceditor/sceditor-main.css">
 {% endblock %}
 {# ----------------------------------------------------------- #}
@@ -126,7 +126,6 @@
 {# ----------------------------------------------------------- #}
 {% block scripts %}
 <script src="{{ baseUrl() }}/assets/js/autosize/autosize.js"></script>
-<script src="{{ baseUrl() }}/assets/js/powertip/jquery.powertip.min.js"></script>
 <script src="{{ baseUrl() }}/assets/js/jquery/jquery.sceditor.bbcode.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){

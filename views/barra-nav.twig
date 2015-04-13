@@ -15,8 +15,8 @@
                 {% if user is not empty %}
                 <li>
                      <div class="notificaciones">
-                        <i class="bt fa fa-inbox fa-fw fa-lg"></i>
-                        <span class="contador-on" {{ user.notificaciones|length ?: 'hidden' }}>{{ user.notificaciones|length }}</span>
+                        <i class="bt bt-notificaciones fa fa-inbox fa-fw fa-lg"></i>
+                        <span class="contador-on" style="display:none"></span>
                     </div>
                 </li>
                 <li><a href="{{ urlFor('shwModifUsuario') }}"><i class="bt fa fa-bars fa-fw fa-lg"></i></a></li>

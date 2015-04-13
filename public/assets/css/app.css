@@ -4737,6 +4737,43 @@ html, body {
   font-size: 1.75rem;
 }
 
+/* line 1, ../scss/global/_tabla-notificaciones.scss */
+.tabla-notificaciones {
+  letter-spacing: -0.4px;
+  border: 0;
+  background: 0;
+  margin: 0;
+  width: 100%;
+}
+/* line 8, ../scss/global/_tabla-notificaciones.scss */
+.tabla-notificaciones tr.sin-notificaciones td {
+  border: 0;
+  font-style: italic;
+}
+/* line 13, ../scss/global/_tabla-notificaciones.scss */
+.tabla-notificaciones th {
+  font-size: 0.8125rem;
+  padding: 6px;
+}
+/* line 17, ../scss/global/_tabla-notificaciones.scss */
+.tabla-notificaciones thead, .tabla-notificaciones tbody, .tabla-notificaciones tr:nth-of-type(even) {
+  background: 0;
+}
+/* line 20, ../scss/global/_tabla-notificaciones.scss */
+.tabla-notificaciones tr.notif-msj td {
+  border-bottom: 1px dashed #C0C0C0;
+  padding: 6px;
+  font-size: 0.8125rem;
+}
+/* line 25, ../scss/global/_tabla-notificaciones.scss */
+.tabla-notificaciones tr.notif-msj:hover {
+  background-color: #fcf6d9;
+}
+/* line 29, ../scss/global/_tabla-notificaciones.scss */
+.tabla-notificaciones tr:last-child td {
+  border: 0;
+}
+
 /* line 3, ../scss/global/_modal-eliminar.scss */
 .eliminar-modal p, .eliminar-modal ul li {
   letter-spacing: -0.7px;

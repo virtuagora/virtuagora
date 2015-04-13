@@ -1,6 +1,7 @@
 {# VARIBLES #}
 {% set footer = true %}
 {% set barraNav = true %}
+{% set notificaciones = true %}
 {% set html_class = '' %}
 {% set body_class = 'portal-bg' %}
 
@@ -27,11 +28,8 @@
             {% if user %}
             <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 64) }}" alt="User avatar">
             <h2><b>Bienvenido, {{ user.nombre }} {{ user.apellido }}</b></h2>
-            {% if user.notificaciones|length > 0 %}
-            <p class="con-notificaciones"><i class="fa fa-exclamation-circle fa-fw fa-lg"></i>Usted tiene {{user.notificaciones|length}} nuevas notificaciones</p>
-            {% else %}
-            <p>Sin nuevas notificaciones&nbsp;&nbsp;&nbsp;<small>Bien!</small></p>
-            {% endif %}
+            <p class="portal-con-notificaciones" style="display:none"><i class="fa fa-exclamation-circle fa-fw fa-lg"></i>Usted tiene <span class="cant-notificaciones"></span> nuevas notificaciones</p>
+            <p class="portal-sin-notificaciones" style="display:none">Sin nuevas notificaciones&nbsp;&nbsp;&nbsp;<small>Bien!</small></p>
             {% else %}
             <img src="{{ baseUrl() }}/assets/img/anon64.jpg" alt="User avatar">
             <h2><b>Bienvenido a Virtuágora</b></h2>

@@ -5,7 +5,8 @@ class PortalCtrl extends Controller {
     public function verIndex() {
         if ($this->session->check()) {
             $contenidos = Contenido::all();
-            $this->render('usuario/portal.twig', array('contenidos' => $contenidos->toArray()));
+            $notificaciones = Notificacion::all();
+            $this->render('usuario/portal.twig', array('contenidos' => $contenidos->toArray(), 'notificaciones' => $notificaciones->toArray()));
         } else {
             $this->render('introduccion.twig');
             //echo 'holis';
