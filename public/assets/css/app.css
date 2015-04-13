@@ -4716,9 +4716,10 @@ html, body {
 }
 /* line 40, ../scss/global/_barra-nav.scss */
 .barra-nav ul.nav li .notificaciones i {
+  cursor: pointer;
   float: left;
 }
-/* line 43, ../scss/global/_barra-nav.scss */
+/* line 44, ../scss/global/_barra-nav.scss */
 .barra-nav ul.nav li .notificaciones .contador-on {
   position: absolute;
   width: 15px;
@@ -4732,7 +4733,7 @@ html, body {
   text-align: center;
   font-size: 0.625rem;
 }
-/* line 58, ../scss/global/_barra-nav.scss */
+/* line 59, ../scss/global/_barra-nav.scss */
 .barra-nav ul.nav li i.bt {
   font-size: 1.75rem;
 }
