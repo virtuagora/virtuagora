@@ -1,0 +1,40 @@
+<script src="{{ baseUrl() }}/assets/js/foundation/foundation.abide.js"></script>
+<script src="{{ baseUrl() }}/assets/js/foundation/foundation.slider.js"></script>
+<script>
+    var actionURLmodel = '{{ urlFor("runSanUsuario") }}';
+
+    var sancionar = function(idUsuario){
+        completarModalSancion(idUsuario);
+        $('.modal-sancionar').foundation('reveal', 'open')
+    }
+    $('#sanciones').on('toggled', function (event, tab) {
+        $(document).foundation('slider', 'reflow');
+    });
+
+    var completarModalSancion = function(idUsuario){
+        var request = $.ajax({
+            url: '{{ baseUrl() }}/usuario/'+idUsuario,
+            cache: false,
+            dataType: "json"
+        }).done(function(resultado) {
+            var actionURLform = actionURLmodel.replace(':idUsr',idUsuario);
+            $('.form-sancion').attr('action',actionURLform);
+            $('#sancionando-nombre').html(resultado.nombre);
+            $('#sancionando-apellido').html(resultado.apellido);
+            $('#sancionando-pts').html(resultado.puntos);
+            return true;
+        }).fail(function(jqXHR, textStatus) {
+            alert("Request failed: " + textStatus);
+            return false;
+        });
+    }
+
+
+//    $( ".form-sancion" ).submit(function( event ) {
+//        console.log( $( this ).serializeArray() );
+//    });
+    $( "#b-susp-indf" ).click(function() {
+        $('#dias-susp').val("0");
+        $( "#form-susp" ).submit();
+    });
+</script>

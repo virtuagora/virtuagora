@@ -6,7 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{{ baseUrl() }}/assets/css/app.css">
         <link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/powertip/jquery.powertip.css"/>
+        {% if notificaciones == true %}
         <link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/powertip/jquery.powertip-light.css"/>
+        {% endif %}
         {% block linkhead %}{% endblock %}
         <script src="{{ baseUrl() }}/assets/js/modernizr/modernizr.js"></script>
     </head>
@@ -49,22 +51,9 @@
             {% endif %}
             <!-- body -->
             {% block body %}{% endblock %}
-            <div id="notificaciones-contenido" hidden>
-                <table class="tabla-notificaciones">
-                    <thead>
-                        <th>Ultimas notificaciones</th>
-                    </thead>
-                    <tbody>
-
-                        <tr class="sin-notificaciones" style="display:none">
-                            <td class="text-center"><i class="fa fa-check fa-fw"></i><br>Sin notificaciones</td>
-                        </tr>
-                        <tr>
-                            <td class="text-right"><a href="{{ urlFor('shwListaNotific') }}">Ver todas</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            {% if notificaciones == true %}
+            {% include "common/notificaciones.twig" %}
+            {% endif %}
             {% if footer == true %}
             <div class="push"></div>
             {% endif %}
@@ -75,96 +64,19 @@
         {% endif %}
         <!-- modals -->
         {% block modals %}{% endblock %}
+        {% if user.es_moderador %}
+        {% include "common/modal-sancionar.twig" %}
+        {% endif %}
         <!-- Javascript/Jquery -->
         <script src="{{ baseUrl() }}/assets/js/jquery/jquery.min.js"></script>
         <script src="{{ baseUrl() }}/assets/js/foundation/foundation.min.js"></script>
         <script src="{{ baseUrl() }}/assets/js/foundation/foundation.alert.js"></script>
         <script src="{{ baseUrl() }}/assets/js/powertip/jquery.powertip.min.js"></script>
         {% if notificaciones == true %}
-        <script>
-            var enviarPost = false;
-            $(document).ready(function(){
-                buscarNotificaciones();
-            });
-            $('.bt-notificaciones').data('powertiptarget', 'notificaciones-contenido');
-            $('.bt-notificaciones').powerTip({
-                placement: 'se-alt',
-                manual: true,
-                popupId: 'powerTip-notif'
-            });
-            $('.bt-notificaciones').on('click', function() {
-                // hide any open tooltips
-                // this is optional, but recommended in case we optimize away the sanity
-                // checks in the API at some point.
-                //$.powerTip.hide();
-
-                // show the tooltip for the element that received the click event
-                if(enviarPost == true){
-                    marcarNotificacionesLeidas();
-                }
-                $.powerTip.show(this);
-            });
-
-            $(document).mouseup(function (e)
-                                {
-                var container = $("#powerTip-notif");
-                var container2 = $(".bt-notificaciones");
-
-                if ( (!container.is(e.target) // if the target of the click isn't the container...
-                      && container.has(e.target).length === 0) &&
-                    (!container2.is(e.target) // if the target of the click isn't the container...
-                     && container2.has(e.target).length === 0)
-                   )// ... nor a descendant of the container
-                {
-                    $.powerTip.hide();
-                }
-            });
-
-            var nuevaNotificacion = function(fecha, mensaje){
-                var td_mensaje = $('<td>').html( mensaje );
-                var tr_notif = $('<tr>').addClass( 'notif-msj' ).append( td_mensaje );
-                $('.tabla-notificaciones tbody').prepend( tr_notif );
-            }
-
-            var buscarNotificaciones = function(){
-                var request = $.ajax({
-                    url: "{{ urlFor('shwListaNotific') }}",
-                    cache: false,
-                    dataType: "json"
-                }).done(function(resultados, textStatus, request) {
-                    if(resultados.length > 0){
-                        $('.sin-notificaciones').hide();
-                        $('.contador-on').show().html(resultados.length);
-                        $('.cant-notificaciones').html(resultados.length);
-                        $('.portal-con-notificaciones').show();
-                        for (var i=0; i<resultados.length; i++) {
-                            nuevaNotificacion(
-                                resultados[i].update_at,
-                                resultados[i].mensaje);
-                        }
-                        enviarPost = true;
-                    } else {
-                        $('.sin-notificaciones').show();
-                        $('.portal-sin-notificaciones').show();
-                    }
-                }).fail(function(jqXHR, textStatus) {
-                    alert("Request failed: " + textStatus);
-                    return false;
-                });
-            }
-
-            var marcarNotificacionesLeidas = function(){
-                var request = $.ajax({
-                    url: "{{ urlFor('runElimiNotific') }}",
-                    type: 'POST',
-                    cache: false,
-                }).done(function(resultados, textStatus, request) {
-                    enviarPost = false;
-                }).fail(function(jqXHR, textStatus) {
-                    alert("Request failed: " + textStatus);
-                });
-            }
-        </script>
+        {% include "common/notificaciones.js.twig" %}
+        {% endif %}
+        {% if user.es_moderador %}
+        {% include "common/modal-sancionar.js.twig" %}
         {% endif %}
         {% block scripts %}{% endblock %}
         <script src="{{ baseUrl() }}/assets/js/app.js"></script>

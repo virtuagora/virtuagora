@@ -3562,6 +3562,114 @@ label.error {
   border-radius: 2rem;
 }
 
+/* line 129, ../../../bower_components/foundation/scss/foundation/components/_range-slider.scss */
+.range-slider {
+  position: relative;
+  border: 1px solid #DDDDDD;
+  margin: 1.25rem 0;
+  -ms-touch-action: none;
+  touch-action: none;
+  display: block;
+  width: 100%;
+  height: 1rem;
+  background: #FAFAFA;
+}
+/* line 132, ../../../bower_components/foundation/scss/foundation/components/_range-slider.scss */
+.range-slider.vertical-range {
+  position: relative;
+  border: 1px solid #DDDDDD;
+  margin: 1.25rem 0;
+  -ms-touch-action: none;
+  touch-action: none;
+  display: inline-block;
+  width: 1rem;
+  height: 12.5rem;
+}
+/* line 134, ../../../bower_components/foundation/scss/foundation/components/_range-slider.scss */
+.range-slider.vertical-range .range-slider-handle {
+  margin-top: 0;
+  margin-left: -0.5rem;
+  position: absolute;
+  bottom: -10.5rem;
+}
+/* line 140, ../../../bower_components/foundation/scss/foundation/components/_range-slider.scss */
+.range-slider.vertical-range .range-slider-active-segment {
+  width: 0.875rem;
+  height: auto;
+  bottom: 0;
+}
+/* line 146, ../../../bower_components/foundation/scss/foundation/components/_range-slider.scss */
+.range-slider.radius {
+  background: #FAFAFA;
+  border-radius: 3px;
+}
+/* line 148, ../../../bower_components/foundation/scss/foundation/components/_range-slider.scss */
+.range-slider.radius .range-slider-handle {
+  background: #008CBA;
+  border-radius: 3px;
+}
+/* line 117, ../../../bower_components/foundation/scss/foundation/components/_range-slider.scss */
+.range-slider.radius .range-slider-handle:hover {
+  background: #007ba4;
+}
+/* line 150, ../../../bower_components/foundation/scss/foundation/components/_range-slider.scss */
+.range-slider.round {
+  background: #FAFAFA;
+  border-radius: 1000px;
+}
+/* line 152, ../../../bower_components/foundation/scss/foundation/components/_range-slider.scss */
+.range-slider.round .range-slider-handle {
+  background: #008CBA;
+  border-radius: 1000px;
+}
+/* line 117, ../../../bower_components/foundation/scss/foundation/components/_range-slider.scss */
+.range-slider.round .range-slider-handle:hover {
+  background: #007ba4;
+}
+/* line 154, ../../../bower_components/foundation/scss/foundation/components/_range-slider.scss */
+.range-slider.disabled, .range-slider[disabled] {
+  background: #FAFAFA;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+/* line 156, ../../../bower_components/foundation/scss/foundation/components/_range-slider.scss */
+.range-slider.disabled .range-slider-handle, .range-slider[disabled] .range-slider-handle {
+  background: #008CBA;
+  cursor: default;
+  opacity: 0.7;
+}
+/* line 117, ../../../bower_components/foundation/scss/foundation/components/_range-slider.scss */
+.range-slider.disabled .range-slider-handle:hover, .range-slider[disabled] .range-slider-handle:hover {
+  background: #007ba4;
+}
+
+/* line 159, ../../../bower_components/foundation/scss/foundation/components/_range-slider.scss */
+.range-slider-active-segment {
+  display: inline-block;
+  position: absolute;
+  height: 0.875rem;
+  background: #e5e5e5;
+}
+
+/* line 165, ../../../bower_components/foundation/scss/foundation/components/_range-slider.scss */
+.range-slider-handle {
+  display: inline-block;
+  position: absolute;
+  z-index: 1;
+  top: -0.3125rem;
+  width: 2rem;
+  height: 1.375rem;
+  border: 1px solid none;
+  cursor: pointer;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  background: #008CBA;
+}
+/* line 117, ../../../bower_components/foundation/scss/foundation/components/_range-slider.scss */
+.range-slider-handle:hover {
+  background: #007ba4;
+}
+
 /* line 131, ../../../bower_components/foundation/scss/foundation/components/_tables.scss */
 table {
   background: #FFFFFF;
@@ -3621,6 +3729,134 @@ table tbody tr td,
 table tr td {
   display: table-cell;
   line-height: 1.125rem;
+}
+
+/* line 30, ../../../bower_components/foundation/scss/foundation/components/_tabs.scss */
+.tabs {
+  margin-bottom: 0 !important;
+  margin-left: 0;
+}
+/* line 172, ../../../bower_components/foundation/scss/foundation/components/_global.scss */
+.tabs:before, .tabs:after {
+  content: " ";
+  display: table;
+}
+/* line 173, ../../../bower_components/foundation/scss/foundation/components/_global.scss */
+.tabs:after {
+  clear: both;
+}
+/* line 34, ../../../bower_components/foundation/scss/foundation/components/_tabs.scss */
+.tabs dd, .tabs .tab-title {
+  position: relative;
+  margin-bottom: 0 !important;
+  list-style: none;
+  float: left;
+}
+/* line 39, ../../../bower_components/foundation/scss/foundation/components/_tabs.scss */
+.tabs dd > a, .tabs .tab-title > a {
+  display: block;
+  background-color: #EFEFEF;
+  color: #222222;
+  padding: 1rem 2rem;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  font-size: 1rem;
+}
+/* line 48, ../../../bower_components/foundation/scss/foundation/components/_tabs.scss */
+.tabs dd > a:hover, .tabs .tab-title > a:hover {
+  background-color: #e1e1e1;
+}
+/* line 53, ../../../bower_components/foundation/scss/foundation/components/_tabs.scss */
+.tabs dd > a:focus, .tabs .tab-title > a:focus {
+  outline: none;
+}
+/* line 57, ../../../bower_components/foundation/scss/foundation/components/_tabs.scss */
+.tabs dd.active a, .tabs .tab-title.active a {
+  background-color: #FFFFFF;
+  color: #222222;
+}
+/* line 66, ../../../bower_components/foundation/scss/foundation/components/_tabs.scss */
+.tabs.radius dd:first-child a, .tabs.radius .tab:first-child a {
+  -webkit-border-bottom-left-radius: 3px;
+  -webkit-border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+/* line 69, ../../../bower_components/foundation/scss/foundation/components/_tabs.scss */
+.tabs.radius dd:last-child a, .tabs.radius .tab:last-child a {
+  -webkit-border-bottom-right-radius: 3px;
+  -webkit-border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+/* line 73, ../../../bower_components/foundation/scss/foundation/components/_tabs.scss */
+.tabs.vertical dd, .tabs.vertical .tab-title {
+  position: inherit;
+  float: none;
+  display: block;
+  top: auto;
+}
+
+/* line 82, ../../../bower_components/foundation/scss/foundation/components/_tabs.scss */
+.tabs-content {
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+/* line 172, ../../../bower_components/foundation/scss/foundation/components/_global.scss */
+.tabs-content:before, .tabs-content:after {
+  content: " ";
+  display: table;
+}
+/* line 173, ../../../bower_components/foundation/scss/foundation/components/_global.scss */
+.tabs-content:after {
+  clear: both;
+}
+/* line 86, ../../../bower_components/foundation/scss/foundation/components/_tabs.scss */
+.tabs-content > .content {
+  display: none;
+  float: left;
+  padding: 0.9375rem 0;
+  width: 100%;
+}
+/* line 91, ../../../bower_components/foundation/scss/foundation/components/_tabs.scss */
+.tabs-content > .content.active {
+  display: block;
+  float: none;
+}
+/* line 92, ../../../bower_components/foundation/scss/foundation/components/_tabs.scss */
+.tabs-content > .content.contained {
+  padding: 0.9375rem;
+}
+/* line 94, ../../../bower_components/foundation/scss/foundation/components/_tabs.scss */
+.tabs-content.vertical {
+  display: block;
+}
+/* line 96, ../../../bower_components/foundation/scss/foundation/components/_tabs.scss */
+.tabs-content.vertical > .content {
+  padding: 0 0.9375rem;
+}
+
+@media only screen and (min-width: 40.063em) {
+  /* line 101, ../../../bower_components/foundation/scss/foundation/components/_tabs.scss */
+  .tabs.vertical {
+    width: 20%;
+    max-width: 20%;
+    float: left;
+    margin: 0 0 1.25rem;
+  }
+
+  /* line 109, ../../../bower_components/foundation/scss/foundation/components/_tabs.scss */
+  .tabs-content.vertical {
+    width: 80%;
+    max-width: 80%;
+    float: left;
+    margin-left: -1px;
+    padding-left: 1rem;
+  }
+}
+/* line 119, ../../../bower_components/foundation/scss/foundation/components/_tabs.scss */
+.no-js .tabs-content > .content {
+  display: block;
+  float: none;
 }
 
 /* line 155, ../../../bower_components/foundation/scss/foundation/components/_type.scss */
@@ -4804,6 +5040,36 @@ html, body {
 /* line 24, ../scss/global/_modal-eliminar.scss */
 .eliminar-modal .bt-cancelar-eliminar {
   margin-bottom: 15px;
+}
+
+/* line 1, ../scss/global/_modal-sancionar.scss */
+.modal-sancionar {
+  letter-spacing: -0.3px;
+}
+/* line 2, ../scss/global/_modal-sancionar.scss */
+.modal-sancionar .panel.titulo {
+  font-size: 2.0625rem;
+  letter-spacing: -1.5px;
+  background-color: #FFFFFF;
+  border-radius: 7px;
+  color: #B61212;
+}
+/* line 10, ../scss/global/_modal-sancionar.scss */
+.modal-sancionar .tabs {
+  width: 100%;
+  max-width: 100%;
+}
+/* line 13, ../scss/global/_modal-sancionar.scss */
+.modal-sancionar .tabs a {
+  padding: 10px 13px;
+}
+/* line 16, ../scss/global/_modal-sancionar.scss */
+.modal-sancionar .tabs dd.active a {
+  background: #f4cf7d;
+}
+/* line 21, ../scss/global/_modal-sancionar.scss */
+.modal-sancionar .tabs-content {
+  margin-bottom: 0;
 }
 
 /* line 2, ../scss/global/_misc.scss */
@@ -6289,7 +6555,7 @@ html, body {
   font-style: italic;
 }
 /* line 361, ../scss/layouts/_ver-contenido.scss */
-.comentarios-cont .comentario-cont .comentario-wrapper .comenta-usuario .voto, .comentarios-cont .comentario-cont .comentario-wrapper .comentario-confirmar .voto {
+.comentarios-cont .comentario-cont .comentario-wrapper .comenta-usuario .voto-up, .comentarios-cont .comentario-cont .comentario-wrapper .comenta-usuario .voto-down, .comentarios-cont .comentario-cont .comentario-wrapper .comentario-confirmar .voto-up, .comentarios-cont .comentario-cont .comentario-wrapper .comentario-confirmar .voto-down {
   margin-left: 5px;
 }
 /* line 364, ../scss/layouts/_ver-contenido.scss */
