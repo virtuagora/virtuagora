@@ -124,10 +124,7 @@ $app->get('/test', function () use ($app) {
     //var_dump($p->links, $p->query->get()->toJson());
 });
 
-$app->get('/userlog', 'UserlogCtrl:listar')->name('shwListaUserlog');
-
-$app->get('/notificacion', checkRole('usr'), 'NotificacionCtrl:listar')->name('shwListaNotific');
-$app->post('/notificacion/eliminar', checkRole('usr'), 'NotificacionCtrl:eliminar')->name('runElimiNotific');
+//$app->get('/userlog', 'UserlogCtrl:listar')->name('shwListaUserlog');
 
 $app->get('/', 'PortalCtrl:verIndex')->name('shwIndex');
 $app->get('/login', 'checkNoSession', 'PortalCtrl:verLogin')->name('shwLogin');
@@ -137,8 +134,14 @@ $app->get('/registro', 'checkNoSession', 'PortalCtrl:verRegistrar')->name('shwCr
 $app->post('/registro', 'checkNoSession', 'PortalCtrl:registrar')->name('runCrearUsuario');
 $app->get('/validar/:idUsr/:token', 'PortalCtrl:verificarEmail')->name('runValidUsuario');
 
+$app->get('/notificacion', checkRole('usr'), 'NotificacionCtrl:listar')->name('shwListaNotific');
+$app->post('/notificacion/eliminar', checkRole('usr'), 'NotificacionCtrl:eliminar')->name('runElimiNotific');
+
 $app->get('/contenido/:idCon', 'ContenidoCtrl:ver')->name('shwConteni');
 $app->get('/contenido', 'ContenidoCtrl:listar')->name('shwListaConteni');
+
+$app->get('/organismo', 'OrganismoCtrl:listar')->name('shwListaOrganis');
+$app->get('/organismo/:idPar', 'OrganismoCtrl:ver')->name('shwOrganis');
 
 $app->get('/usuario/:idUsr', 'UsuarioCtrl:ver')->name('shwUsuario');
 $app->get('/usuario/:idUsr/imagen/:res', 'UsuarioCtrl:verImagen')->name('shwImgUsuario');

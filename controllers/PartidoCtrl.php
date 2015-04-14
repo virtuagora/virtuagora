@@ -17,7 +17,18 @@ class PartidoCtrl extends RMRController {
     }
 
     public function executeGetCtrl($partido) {
-        $this->render('partido/ver.twig', array('partido' => $partido->toArray()));
+        $req = $this->request;
+        $url = $req->getUrl().$req->getPath();
+        $paginator = new Paginator($partido->contenidos(), $url, $req->get());
+        $contenidos = $paginator->rows->toArray();
+        $nav = $paginator->links;
+        $jefes = $partido->afiliados()->where('es_jefe', true)->get()->toArray();
+        $datos = $partido->toArray();
+        $datos['afiliados_count'] = $partido->afiliados()->count();
+        $this->render('partido/ver.twig', array('partido' => $datos,
+                                                'jefes' => $jefes,
+                                                'contenidos' => $contenidos,
+                                                'nav' => $nav));
     }
 
     public function verCrear() {
@@ -134,6 +145,7 @@ class PartidoCtrl extends RMRController {
             throw new BearableException('Un partido puede ser eliminado solamente por su creador.');
         }
         $partido->delete();
+        UserlogCtrl::createLog('delPartido', $this->session->getUser(), $partido);
         $this->session->update();
         $this->flash('success', 'El partido ha sido eliminado exitosamente.');
         $this->redirect($this->request->getReferrer());

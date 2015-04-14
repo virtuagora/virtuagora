@@ -26,9 +26,15 @@ class ComentarioCtrl extends RMRController {
         if ($vdt->getData('tipoRaiz') == 'Comentario') {
             if ($comentable->comentable_type == 'Comentario') {
                 throw new TurnbackException('No puede responderse una respuesta.');
+            } else if ($comentable->comentable_type == 'ParrafoDocumento') {
+                $objType = 'Parrafo';
+                $objId = $comentable->version->documento_id;
             }
             $objType = $comentable->comentable_type;
             $objId = $comentable->comentable_id;
+        } else if ($vdt->getData('tipoRaiz') == 'ParrafoDocumento') {
+            $objType = 'Parrafo';
+            $objId = $comentable->version->documento_id;
         } else {
             $objType = $vdt->getData('tipoRaiz');
             $objId = $vdt->getData('idRaiz');

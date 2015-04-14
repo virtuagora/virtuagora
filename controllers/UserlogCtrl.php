@@ -4,25 +4,21 @@ class UserlogCtrl extends RMRController {
 
     protected $mediaTypes = ['json'];
     protected $properties = ['id', 'accion_id', 'actor_name', 'objeto_name', 'objeto_link'];
-    public static $messages = ['es' => ['modPropues' => '%s modificó la propuesta <a href="%s">%s</a>',
-                                        'joiPartido' => '%s se afilió a <a href="%s">%s</a>']
+    public static $messages = ['es' => ['newPropues' => '%s creó la propuesta: <a href="%s">%s</a>.',
+                                        'modPropues' => '%s modificó la propuesta: <a href="%s">%s</a>.',
+                                        'votPropues' => '%s voto en la propuesta: <a href="%s">%s</a>.',
+                                        'newProblem' => '%s creó la problemática: <a href="%s">%s</a>.',
+                                        'votProblem' => '%s voto en la problemática: <a href="%s">%s</a>.',
+                                        'newDocumen' => '%s publicó el documento colaborativo: <a href="%s">%s</a>.',
+                                        'newNovedad' => '%s publicó la novedad: <a href="%s">%s</a>.',
+                                        'newComenta' => '%s comentó en: <a href="%s">%s</a>.',
+                                        'newPartido' => '%s creó el partido: <a href="%s">%s</a>.',
+                                        'delPartido' => '%s eliminó el partido: <a href="%s">%s</a>.',
+                                        'joiPartido' => '%s se afilió a <a href="%s">%s</a>.',
+                                        'lefPartido' => '%s abandonó a <a href="%s">%s</a>.',
+                                        'newJefPart' => '%s ahora es jefe del <a href="%s">%s</a>.',
+                                        'delJefPart' => '%s dejó de ser jefe del <a href="%s">%s</a>.']
                               ];
-
-/*
-newComenta
-newDocumen
-newNovedad
-newPartido
-joiPartido
-lefPartido
-newJefPart
-delJefPart
-votProblem
-newProblem
-votPropues
-newPropues
-modPropues
-*/
 
     public function queryModel($meth, $repr) {
         return Userlog::query();

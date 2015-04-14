@@ -2,12 +2,30 @@
 
 class UsuarioCtrl extends RMRController {
 
-    protected $mediaTypes = array('json');
+    protected $mediaTypes = array('json', 'view');
     protected $properties = array('id', 'nombre', 'apellido', 'es_funcionario', 'es_jefe', 'puntos', 'partido_id',
                                   'created_at', 'suspendido', 'advertencia', 'verified_at');
 
     public function queryModel($meth, $repr) {
         return Usuario::query();
+    }
+
+    public function executeListCtrl($paginator) {
+        $this->notFound();
+    }
+
+    public function executeGetCtrl($usuario) {
+        $req = $this->request;
+        $url = $req->getUrl().$req->getPath();
+        $paginator = new Paginator($usuario->acciones(), $url, $req->get());
+        $acciones = array();
+        $paginator->rows->each(function($log) {
+            $acciones[] = UserlogCtrl::getMessage($log, 'es');
+        });
+        $nav = $paginator->links;
+        $this->render('usuario/ver.twig', array('usuario' => $usuario->toArray(),
+                                                'acciones' => $acciones,
+                                                'nav' => $nav));
     }
 
     public function verCambiarClave() {

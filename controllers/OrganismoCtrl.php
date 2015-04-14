@@ -2,11 +2,29 @@
 
 class OrganismoCtrl extends RMRController {
 
-    protected $mediaTypes = ['json'];
+    protected $mediaTypes = ['json', 'view'];
     protected $properties = ['id', 'nombre', 'cupo', 'funcionarios_count'];
 
     public function queryModel($meth, $repr) {
         return Organismo::query();
+    }
+
+    public function executeListCtrl($paginator) {
+        $organismos = $paginator->rows->toArray();
+        $nav = $paginator->links;
+        $this->render('organismo/listar.twig', array('organismos' => $organismos,
+                                                     'nav' => $nav));
+    }
+
+    public function executeGetCtrl($organismo) {
+        $req = $this->request;
+        $url = $req->getUrl().$req->getPath();
+        $paginator = new Paginator($organismo->usuarios(), $url, $req->get());
+        $funcionarios = $paginator->rows->toArray();
+        $nav = $paginator->links;
+        $this->render('organismo/ver.twig', array('organismo' => $organismo->toArray(),
+                                                  'funcionarios' => $funcionarios,
+                                                  'nav' => $nav));
     }
 
     public function listarInterno() {

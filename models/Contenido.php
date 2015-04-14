@@ -6,8 +6,10 @@ class Contenido extends Eloquent {
     //$table = 'contenidos';
 
     protected $dates = ['deleted_at'];
-    protected $visible = array('id', 'titulo', 'contenible_id', 'contenible_type', 'impulsor_id', 'puntos', 'autor', 'created_at', 'contenible');
-    protected $with = array('autor', 'categoria');
+    protected $visible = ['id', 'titulo', 'contenible_id', 'contenible_type', 'impulsor_id', 'puntos', 'created_at',
+                          'categoria', 'autor', 'contenible'];
+    protected $appends = ['link'];
+    protected $with = ['autor', 'categoria'];
 
     public function scopeModifiableBy($query, $id) {
         return $query->where('autor_id', $id);
@@ -31,5 +33,11 @@ class Contenido extends Eloquent {
 
     public function tags() {
         return $this->belongsToMany('Tag');
+    }
+
+    public function getLinkAttribute() {
+        $name = 'shw' . substr($this->attributes['contenible_type'], 0, 7);
+        $attr = ['id' . substr($this->attributes['contenible_type'], 0, 3) => $this->attributes['contenible_id']];
+        return Slim\Slim::getInstance()->urlFor($name, $attr);
     }
 }
