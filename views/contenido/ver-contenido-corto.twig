@@ -24,7 +24,7 @@
                 <li><a href="#" data-reveal-id="eliminarContenido" class="button tiny alert radius"><i class="fa fa-times fa-fw"></i>&nbsp;Eliminar</a></li>
                 {% endif %}
                 {% if user.es_moderador %}
-                <li><a href="#" class="button tiny alert radius"><i class="fa fa-exclamation-circle fa-fw"></i></a></li>
+                <li><a href="javascript:sancionar({{autor_id}})" class="button tiny alert radius"><i class="fa fa-exclamation-circle fa-fw"></i></a></li>
                 {% endif%}
                 <li><a href="{{ urlFor('shwIndex') }}" class="button tiny oposite radius"><i class="fa fa-undo fa-fw"></i></a></li>
             </ul>

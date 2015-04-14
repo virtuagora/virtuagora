@@ -28,7 +28,7 @@
                 <li><a href="#" data-reveal-id="eliminarContenido" class="button alert radius"><i class="fa fa-times fa-fw"></i>&nbsp;Eliminar</a></li>
                 {% endif %}
                 {% if user.es_moderador %}
-                <li><a href="#" class="button alert radius"><i class="fa fa-exclamation-circle fa-fw"></i></a></li>
+                <li><a href="javascript:sancionar({{autor_id}})" class="button alert radius"><i class="fa fa-exclamation-circle fa-fw"></i></a></li>
                 {% endif%}
             </ul>
         </section>
