@@ -1,0 +1,34 @@
+<script>
+    $(document).ready(function(){
+        autosize($(".comentar-ta"));
+    });
+
+    $( ".bt-focus-comentar" ).click(function() {
+        $( ".bt-comentar-cont" ).hide();
+        $( ".row-comentar" ).slideDown(400, function(){
+            $( ".comentario-cuerpo" ).focus();
+        });
+    });
+    $( ".bt-comentar-cont" ).click(function() {
+        $(this).hide();
+        $( ".row-comentar" ).slideDown(400, function(){
+            $( ".comentario-cuerpo" ).focus();
+        });
+    });
+    $( ".bt-rta" ).click(function() {
+        $( this ).hide();
+        var c_div = $( this ).closest(".comentario-cont");
+        console.log(c_div);
+        var id = c_div.attr("id");
+        console.log(id);
+        id = id.slice(1);
+        console.log(id);
+        var r_div = $(".respuesta.vacia").clone();
+        var r_actionURL =  "{{ urlFor('runComentar', {'tipoRaiz': 'comentario', 'idRaiz': 'idRespondiendo'}) }}";
+        r_actionURL = r_actionURL.replace('idRespondiendo',id);
+        r_div.removeAttr("vacia");
+        r_div.find("form").attr("action",r_actionURL);
+        r_div.insertAfter($('#c'+id));
+        r_div.show();
+    });
+</script>
