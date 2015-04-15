@@ -25,6 +25,10 @@ class Usuario extends Eloquent {
         return $this->hasMany('Notificacion');
     }
 
+    public function acciones() {
+        return $this->hasMany('Userlog', 'actor_id');
+    }
+
     public function getNombreCompletoAttribute() {
         return $this->nombre.' '.$this->apellido;
     }
