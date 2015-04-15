@@ -247,61 +247,60 @@
                 }
             }
         }
-        .listado-contenidos{
-            .sub-nav{
-                padding-top: 0;
-            }
-            table{
-                width: 100%;
-                tr:nth-of-type(even){
-                    background: 0;
-                }
-                tr:hover{
-                    background-color: #fcf6d9;
-                }
-                tr.nuevo{
-                    .button{
-                        margin: 0;
-                    }
-                }
-                td{
-                    i.flaticon{
-                        &:before{
-                            margin: 0;
-                            position: relative;
-                            float: left;
-                            top: 10px;
-                            font-size: 25px;
-                        }
-                    }
-                    .puntaje-cont{
-                        position: relative;
-                        float: right;
-                        font-size: 20px;
-                        color: #DAD3D3;
-                    }
-                    .listar-cont{
-                        margin-left: 35px;
-                        h6{
-                            margin: 0;
-                            letter-spacing: -0.5px;
-                        }
-                        p{
-                            font-size: rem-calc(11);
-                            img{
-                                width: 15px;
-                                height: 15px;
-                            }
-                            margin: 0;
-                        }
-                    }
+    }
+}
 
-                }
+.listado-contenidos{
+    .sub-nav{
+        padding-top: 0;
+    }
+    table{
+        width: 100%;
+        tr:nth-of-type(even){
+            background: 0;
+        }
+        tr:hover{
+            background-color: #fcf6d9;
+        }
+        tr.nuevo{
+            .button{
+                margin: 0;
             }
         }
+        td{
+            i.flaticon{
+                &:before{
+                    margin: 0;
+                    position: relative;
+                    float: left;
+                    top: 10px;
+                    font-size: 25px;
+                }
+            }
+            .puntaje-cont{
+                position: relative;
+                float: right;
+                font-size: 20px;
+                color: #DAD3D3;
+            }
+            .listar-cont{
+                margin-left: 35px;
+                h6{
+                    margin: 0;
+                    letter-spacing: -0.5px;
+                }
+                p{
+                    font-size: rem-calc(11);
+                    img{
+                        width: 15px;
+                        height: 15px;
+                    }
+                    margin: 0;
+                }
+            }
+
+        }
     }
-
-
 }
 
 

@@ -4865,7 +4865,7 @@ html, body {
 
 /* line 1, ../scss/global/_colores.scss */
 .color-problematica {
-  background-color: #EC8B44 !important;
+  background-color: #DA7C37 !important;
 }
 
 /* line 2, ../scss/global/_colores.scss */
@@ -4894,11 +4894,16 @@ html, body {
 }
 
 /* line 7, ../scss/global/_colores.scss */
+.color-organismo {
+  background-color: #7E4F32 !important;
+}
+
+/* line 8, ../scss/global/_colores.scss */
 .color-config {
   background-color: #848484 !important;
 }
 
-/* line 8, ../scss/global/_colores.scss */
+/* line 9, ../scss/global/_colores.scss */
 .color-userconfig {
   background-color: #3D486C !important;
 }
@@ -5070,6 +5075,62 @@ html, body {
 /* line 21, ../scss/global/_modal-sancionar.scss */
 .modal-sancionar .tabs-content {
   margin-bottom: 0;
+}
+
+/* line 1, ../scss/global/_img-perfiles.scss */
+img.img-perfil {
+  padding: 1px;
+  border: 5px solid #FFFFFF;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+}
+/* line 6, ../scss/global/_img-perfiles.scss */
+img.img-perfil.verificado {
+  border-color: #EFCE18;
+}
+/* line 9, ../scss/global/_img-perfiles.scss */
+img.img-perfil.jefe {
+  border-color: #3E6DC3;
+}
+/* line 12, ../scss/global/_img-perfiles.scss */
+img.img-perfil.moderador {
+  border-color: #50b788;
+}
+/* line 15, ../scss/global/_img-perfiles.scss */
+img.img-perfil.partido {
+  border-color: #A9EA62;
+}
+/* line 18, ../scss/global/_img-perfiles.scss */
+img.img-perfil.organismo, img.img-perfil.funcionario {
+  border-color: #DA7C43;
+}
+/* line 21, ../scss/global/_img-perfiles.scss */
+img.img-perfil.small-border {
+  border-width: 2px;
+}
+/* line 24, ../scss/global/_img-perfiles.scss */
+img.img-perfil.no-border {
+  border: 0;
+}
+/* line 27, ../scss/global/_img-perfiles.scss */
+img.img-perfil.size-32 {
+  height: auto;
+  width: 32px;
+}
+/* line 31, ../scss/global/_img-perfiles.scss */
+img.img-perfil.size-64 {
+  height: auto;
+  width: 64px;
+}
+/* line 35, ../scss/global/_img-perfiles.scss */
+img.img-perfil.size-128 {
+  height: auto;
+  width: 128px;
+}
+/* line 39, ../scss/global/_img-perfiles.scss */
+img.img-perfil.size-160 {
+  height: auto;
+  width: 160px;
 }
 
 /* line 2, ../scss/global/_misc.scss */
@@ -5358,7 +5419,7 @@ html, body {
 }
 /* line 181, ../scss/layouts/_introduction.scss */
 #introduction .features .extra-3 {
-  background-color: #EC8B44;
+  background-color: #DA7C37;
 }
 /* line 184, ../scss/layouts/_introduction.scss */
 #introduction .features .extra-3 .icono i.flaticon::before {
@@ -5425,7 +5486,7 @@ html, body {
 }
 /* line 239, ../scss/layouts/_introduction.scss */
 #introduction .spotlight .herramienta-wrapper .herramienta-icono i.h-problematica.flaticon::before {
-  color: #EC8B44 !important;
+  color: #DA7C37 !important;
 }
 /* line 242, ../scss/layouts/_introduction.scss */
 #introduction .spotlight .herramienta-wrapper .herramienta-icono i.h-documento.flaticon::before {
@@ -5807,7 +5868,7 @@ html, body {
 }
 /* line 170, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button.problematicas {
-  color: #EC8B44;
+  color: #DA7C37;
   background-color: rgba(236, 139, 68, 0.2);
 }
 /* line 173, ../scss/layouts/_portal.scss */
@@ -5817,8 +5878,8 @@ html, body {
 }
 /* line 177, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button.problematicas .bt-mas {
-  color: #EC8B44;
-  border: 1px solid #EC8B44;
+  color: #DA7C37;
+  border: 1px solid #DA7C37;
   padding: 3px 6px;
   font-size: 0.75rem;
 }
@@ -5900,59 +5961,144 @@ html, body {
   color: #FFFFFF;
   background-color: #84a240;
 }
-/* line 251, ../scss/layouts/_portal.scss */
-.portal-usuario .contenidos .listado-contenidos .sub-nav {
+
+/* line 254, ../scss/layouts/_portal.scss */
+.listado-contenidos .sub-nav {
   padding-top: 0;
 }
-/* line 254, ../scss/layouts/_portal.scss */
-.portal-usuario .contenidos .listado-contenidos table {
+/* line 257, ../scss/layouts/_portal.scss */
+.listado-contenidos table {
   width: 100%;
 }
-/* line 256, ../scss/layouts/_portal.scss */
-.portal-usuario .contenidos .listado-contenidos table tr:nth-of-type(even) {
+/* line 259, ../scss/layouts/_portal.scss */
+.listado-contenidos table tr:nth-of-type(even) {
   background: 0;
 }
-/* line 259, ../scss/layouts/_portal.scss */
-.portal-usuario .contenidos .listado-contenidos table tr:hover {
+/* line 262, ../scss/layouts/_portal.scss */
+.listado-contenidos table tr:hover {
   background-color: #fcf6d9;
 }
-/* line 263, ../scss/layouts/_portal.scss */
-.portal-usuario .contenidos .listado-contenidos table tr.nuevo .button {
+/* line 266, ../scss/layouts/_portal.scss */
+.listado-contenidos table tr.nuevo .button {
   margin: 0;
 }
-/* line 269, ../scss/layouts/_portal.scss */
-.portal-usuario .contenidos .listado-contenidos table td i.flaticon:before {
+/* line 272, ../scss/layouts/_portal.scss */
+.listado-contenidos table td i.flaticon:before {
   margin: 0;
   position: relative;
   float: left;
   top: 10px;
   font-size: 25px;
 }
-/* line 277, ../scss/layouts/_portal.scss */
-.portal-usuario .contenidos .listado-contenidos table td .puntaje-cont {
+/* line 280, ../scss/layouts/_portal.scss */
+.listado-contenidos table td .puntaje-cont {
   position: relative;
   float: right;
   font-size: 20px;
   color: #DAD3D3;
 }
-/* line 283, ../scss/layouts/_portal.scss */
-.portal-usuario .contenidos .listado-contenidos table td .listar-cont {
+/* line 286, ../scss/layouts/_portal.scss */
+.listado-contenidos table td .listar-cont {
   margin-left: 35px;
 }
-/* line 285, ../scss/layouts/_portal.scss */
-.portal-usuario .contenidos .listado-contenidos table td .listar-cont h6 {
+/* line 288, ../scss/layouts/_portal.scss */
+.listado-contenidos table td .listar-cont h6 {
   margin: 0;
   letter-spacing: -0.5px;
 }
-/* line 289, ../scss/layouts/_portal.scss */
-.portal-usuario .contenidos .listado-contenidos table td .listar-cont p {
+/* line 292, ../scss/layouts/_portal.scss */
+.listado-contenidos table td .listar-cont p {
   font-size: 0.6875rem;
   margin: 0;
 }
-/* line 291, ../scss/layouts/_portal.scss */
-.portal-usuario .contenidos .listado-contenidos table td .listar-cont p img {
+/* line 294, ../scss/layouts/_portal.scss */
+.listado-contenidos table td .listar-cont p img {
   width: 15px;
   height: 15px;
+}
+
+/* line 1, ../scss/layouts/_perfiles.scss */
+.perfil {
+  letter-spacing: -0.5px;
+}
+/* line 3, ../scss/layouts/_perfiles.scss */
+.perfil .row.header {
+  color: #FFF;
+  padding: 50px 0;
+}
+/* line 6, ../scss/layouts/_perfiles.scss */
+.perfil .row.header h2.nombre {
+  margin-top: 20px;
+  color: #FFF;
+}
+/* line 10, ../scss/layouts/_perfiles.scss */
+.perfil .row.header hr {
+  width: 35%;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* line 15, ../scss/layouts/_perfiles.scss */
+.perfil .row.header ul.nav {
+  margin: 0px;
+}
+/* line 17, ../scss/layouts/_perfiles.scss */
+.perfil .row.header ul.nav li {
+  display: inline-block;
+  vertical-align: middle;
+  list-style-type: none;
+  margin: 0px 0px 0px 20px;
+}
+/* line 23, ../scss/layouts/_perfiles.scss */
+.perfil .row.header ul.nav li:first-child {
+  margin: 0;
+}
+/* line 27, ../scss/layouts/_perfiles.scss */
+.perfil .row.header .row.notificacion {
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+/* line 30, ../scss/layouts/_perfiles.scss */
+.perfil .row.header .row.notificacion .panel {
+  margin-bottom: 0;
+  background: 0;
+}
+/* line 33, ../scss/layouts/_perfiles.scss */
+.perfil .row.header .row.notificacion .panel.advertencia {
+  color: #FFA32A;
+  border: 2px dotted #FFA32A;
+}
+/* line 37, ../scss/layouts/_perfiles.scss */
+.perfil .row.header .row.notificacion .panel.sancionado {
+  color: #FFFFFF;
+  background-color: #ce1a1a;
+  border: 2px solid #ce1a1a;
+}
+/* line 48, ../scss/layouts/_perfiles.scss */
+.perfil .row.contenido dl.tabs dd.active a {
+  background-color: #F2C95F;
+}
+
+/* line 55, ../scss/layouts/_perfiles.scss */
+table.listado-funcionarios, table.info-general {
+  width: 100%;
+  border: 0;
+}
+/* line 58, ../scss/layouts/_perfiles.scss */
+table.listado-funcionarios thead, table.listado-funcionarios tbody, table.listado-funcionarios tr:nth-of-type(even), table.info-general thead, table.info-general tbody, table.info-general tr:nth-of-type(even) {
+  background: 0;
+}
+/* line 61, ../scss/layouts/_perfiles.scss */
+table.listado-funcionarios tr td, table.info-general tr td {
+  border-bottom: 1px dashed #C0C0C0;
+  padding: 6px;
+}
+/* line 68, ../scss/layouts/_perfiles.scss */
+table.listado-funcionarios tr:hover, table.info-general tr:hover {
+  background-color: #fcf6d9;
+}
+/* line 72, ../scss/layouts/_perfiles.scss */
+table.listado-funcionarios tr:last-child td, table.info-general tr:last-child td {
+  border: 0;
 }
 
 /* line 2, ../scss/layouts/_crear-contenido.scss */
@@ -6809,7 +6955,7 @@ html, body {
 .vista-cuerpo-cont .problematica-voto {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
-  background-color: #f1a873;
+  background-color: #e39d69;
 }
 /* line 25, ../scss/layouts/_problematica.scss */
 .vista-cuerpo-cont .problematica-voto h1, .vista-cuerpo-cont .problematica-voto h2, .vista-cuerpo-cont .problematica-voto h3, .vista-cuerpo-cont .problematica-voto h4, .vista-cuerpo-cont .problematica-voto h5, .vista-cuerpo-cont .problematica-voto h6 {
@@ -6888,7 +7034,7 @@ html, body {
 }
 /* line 93, ../scss/layouts/_problematica.scss */
 .vista-cuerpo-cont .resultados-problematica {
-  background-color: #fae2d0;
+  background-color: #f6decd;
 }
 
 /* line 4, ../scss/layouts/_documento.scss */
