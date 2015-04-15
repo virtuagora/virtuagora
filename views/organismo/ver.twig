@@ -1,0 +1,125 @@
+{# VARIBLES #}
+{% set footer = true %}
+{% set barraNav = true %}
+{% set notificaciones = true %}
+
+{% extends "master.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block titulo %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block body %}
+<div class="perfil color-organismo">
+    <div class="row header">
+        <div class="large-12 columns text-center">
+            <img class="img-perfil organismo" src="{{ baseUrl() }}/img/organis/{{ organismo.id }}/160.png" alt="Profile pic">
+            <h2 class="nombre">{{ organismo.nombre }}</h2>
+            <hr>
+            <ul class="nav">
+                <li><i class="fa fa-briefcase fa-fw fa-lg"></i> {{ funcionarios|length }} funcionarios activos</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="perfil">
+    <div class="row contenido">
+        <dl class="tabs" role=tablist data-tab>
+            <dd class="active"><a href="#datos">Informacion general</a></dd>
+            <dd><a href="#funcionarios">Funcionarios</a></dd>
+        </dl>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="large-12 columns">
+            <div class="tabs-content">
+                <div class="content active" id="datos">
+                    <table class="info-general">
+                        <thead>
+                            <tr style="display:none;">
+                                <th>Tipo</th>
+                                <th>Dato</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Descripcion</b></td>
+                                <td>{{ organismo.descripcion }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Cupos maximos</b></td>
+                                <td>{{ organismo.cupo }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Pagina Web</b></td>
+                                <td>{{ organismo.contacto.telefono }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Email de contacto</b></td>
+                                <td>{{ organismo.contacto.email }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Telefono de contacto</b></td>
+                                <td>{{ organismo.contacto.telefono }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="content text-center" id="funcionarios">
+                    <div class="row">
+                        <div class="large-6 large-centered columns">
+                            <table class="listado-funcionarios">
+                                <thead>
+                                    <tr style="display:none">
+                                        <th>Avatar</th>
+                                        <th>Jefe Partido</th>
+                                        <th>Url</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if funcionarios|length > 0 %}
+                                    {% for funcionario in funcionarios %}
+                                    <tr>
+                                        <td class="text-center">
+                                            <a href="{{ urlFor('shwUsuario', {'idUsr': funcionario.id}) }}">
+                                                <img class="img-perfil
+                                                            {% if funcionario.moderador %}
+                                                            moderador
+                                                            {% else %}
+                                                            {% if funcionario.es_jefe %}
+                                                            jefe
+                                                            {% else %}
+                                                            {% if funcionario.es_funcionario %}
+                                                            funcionario
+                                                            {% if funcionario.verified_at %}
+                                                            verificado
+                                                            {% endif %}
+                                                            {% endif %}
+                                                            {% endif %}
+                                                            {% endif %}
+                                                            small-border size-64" src="{{ avatarUrl(funcionario.img_tipo, funcionario.img_hash, 64) }}"></a></td>
+                                        <td class="text-center"><h4>{{ jefe.nombre }} {{ jefe.apellido }}</h4></td>
+                                        <td class="text-center"><h2><a href="{{ urlFor('shwUsuario', {'idUsr': funcionario.id}) }}"><i class="fa fa-caret-right fa-fw"></i></a></h2></td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="3" class="text-center"><i class="fa fa-check fa-fw"></i> No hay funcionarios!</td>
+                                    </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}{% endblock %}
+{# ----------------------------------------------------------- #}

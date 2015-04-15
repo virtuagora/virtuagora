@@ -9,7 +9,7 @@
 {# ----------------------------------------------------------- #}
 {% block administracion %}
 <div class="crear-organismo">
-    <div class="large-8 columns">
+    <div class="large-12 columns">
         <div class="cambiar-avatar">
             <div class="large-5 columns">
                 <div class="wrapper-elementos">
@@ -20,16 +20,16 @@
 
                 </div>
                 <form id="cambiar-imagen" action="{{ urlFor('runModifImgOrganis', {'idOrg': organismo.id}) }}" method="POST" enctype="multipart/form-data">
-                    <div class="fileUpload button large radius" style="margin-bottom:0;" onclick='$("#uploadBtn").click()'>
+                    <div class="fileUpload button large radius expand" style="margin-bottom:0;" onclick='$("#uploadBtn").click()'>
                         <input id="uploadBtn" name="imagen" form="cambiar-imagen" type="file" onchange="this.form.submit();" class="upload" />
-                        <i class="fa fa-photo fa-fw fa-lg"></i> Cargar imagen
+                        <i class="fa fa-photo fa-fw fa-lg"></i> Cargar
                     </div>
                 </form>
             </div>
             <div class="show-avatares large-7 columns">
-                <img src="{{ avatarUrl(organismo.img_tipo, organismo.img_hash, 32) }}">
-                <img src="{{ avatarUrl(organismo.img_tipo, organismo.img_hash, 64) }}">
-                <img src="{{ avatarUrl(organismo.img_tipo, organismo.img_hash, 160) }}">
+                <img src="{{ baseUrl() }}/img/organis/{{ organismo.id }}/32.png">
+                <img src="{{ baseUrl() }}/img/organis/{{ organismo.id }}/64.png">
+                <img src="{{ baseUrl() }}/img/organis/{{ organismo.id }}/160.png">
             </div>
         </div>
         <hr>
@@ -110,9 +110,9 @@
     $(document).ready(function(){
         $('input[name="nombre"]').val('{{ organismo.nombre }}');
         $('input[name="cupo"]').val('{{ organismo.cupo }}');
-        $('input[name="url"]').val('{{ organismo.url }}');
-        $('input[name="email"]').val('{{ organismo.email }}');
-        $('input[name="telefono"]').val('{{ organismo.telefono }}');
+        $('input[name="url"]').val('{{ organismo.contacto.url }}');
+        $('input[name="email"]').val('{{ organismo.contacto.email }}');
+        $('input[name="telefono"]').val('{{ organismo.contacto.telefono }}');
         autosize($('textarea[name="descripcion"]'));
     });
 
