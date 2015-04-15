@@ -3,7 +3,7 @@
 class Userlog extends Eloquent {
 
     //protected $table = 'userlogs';
-    protected $visible = array('id', 'accion_id', 'actor_name', 'objeto_name', 'objeto_link');
+    protected $visible = array('id', 'accion_id', 'created_at', 'actor_name', 'objeto_name', 'objeto_link');
     protected $appends = array('actor_name', 'objeto_name', 'objeto_link');
     protected $with = array('actor', 'objeto');
 
@@ -30,7 +30,7 @@ class Userlog extends Eloquent {
     }
 
     public function getActorNameAttribute() {
-        return $this->actor->nombre_completo;
+        return htmlspecialchars($this->actor->nombre_completo, ENT_QUOTES);
     }
 /*
     public function getUrlNombreAttribute() {

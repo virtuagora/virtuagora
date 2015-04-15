@@ -4,7 +4,7 @@ class Usuario extends Eloquent {
     use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
     //protected $table = 'usuarios';
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'fin_advertencia', 'fin_suspension'];
     //protected $visible = array('id', 'nombre', 'apellido', 'es_funcionario', 'es_jefe', 'partido_id', 'img_tipo', 'img_hash', 'puntos');
     protected $hidden = ['password', 'emailed_token', 'updated_at', 'deleted_at'];
 
@@ -18,6 +18,10 @@ class Usuario extends Eloquent {
 
     public function contenidos() {
         return $this->hasMany('Contenido', 'autor_id');
+    }
+
+    public function comentarios() {
+        return $this->hasMany('Comentario', 'autor_id');
     }
 
     public function notificaciones() {

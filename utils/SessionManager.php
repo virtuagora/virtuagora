@@ -6,6 +6,20 @@ class SessionManager {
         $success = false;
         $usuario = Usuario::where('email', $email)->first();
         if ($usuario && password_verify($password, $usuario->password) && $usuario->validado) {
+            if ($usuario->suspendido) {
+                if (is_null($usuario->fin_suspension) || Carbon\Carbon::now()->lt($usuario->fin_suspension)) {
+                    throw new TurnbackException('Su cuenta se encuentra suspendida.');
+                } else {
+                    $usuario->suspendido = false;
+                    $usuario->fin_suspension = null;
+                    $usuario->save();
+                }
+            }
+            if ($usuario->advertencia && Carbon\Carbon::now()->gt($usuario->fin_advertencia)) {
+                $usuario->advertencia = null;
+                $usuario->fin_advertencia = null;
+                $usuario->save();
+            }
             $success = true;
             $this->update($usuario);
         }

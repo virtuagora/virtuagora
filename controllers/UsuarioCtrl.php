@@ -7,7 +7,10 @@ class UsuarioCtrl extends RMRController {
                                   'created_at', 'suspendido', 'advertencia', 'verified_at');
 
     public function queryModel($meth, $repr) {
-        return Usuario::query();
+        switch ($meth) {
+            case 0: return Usuario::query();
+            case 1: return Usuario::with('partido');
+        }
     }
 
     public function executeListCtrl($paginator) {
@@ -19,11 +22,15 @@ class UsuarioCtrl extends RMRController {
         $url = $req->getUrl().$req->getPath();
         $paginator = new Paginator($usuario->acciones(), $url, $req->get());
         $acciones = array();
-        $paginator->rows->each(function($log) {
-            $acciones[] = UserlogCtrl::getMessage($log, 'es');
-        });
+        foreach ($paginator->rows as $log) {
+            $acciones[] = ['created_at' => $log->created_at,
+                           'mensaje' => UserlogCtrl::getMessage($log)];
+        }
         $nav = $paginator->links;
-        $this->render('usuario/ver.twig', array('usuario' => $usuario->toArray(),
+        $datos = $usuario->toArray();
+        $datos['contenidos_count'] = $usuario->contenidos()->count();
+        $datos['comentarios_count'] = $usuario->comentarios()->count();
+        $this->render('usuario/ver.twig', array('usuario' => $datos,
                                                 'acciones' => $acciones,
                                                 'nav' => $nav));
     }

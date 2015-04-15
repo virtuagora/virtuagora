@@ -37,8 +37,8 @@
                 {% if usuario.verified_at %}
                 <li style="color:#efce18"><i class="fa fa-check fa-fw fa-lg"></i> Verificado</li>
                 {% endif %}
-                {# <li><i class="fa fa-file-o fa-fw fa-lg"></i> aca va cantidad de contenidos aportado</li> #}
-                {# <li><i class="fa fa-comment-o fa-fw fa-lg"></i> aca va cantidad de comentarios aportado</li> #}
+                <li><i class="fa fa-file-o fa-fw fa-lg"></i> {{ usuario.contenidos_count }}</li>
+                <li><i class="fa fa-comment-o fa-fw fa-lg"></i> {{ usuario.comentarios_count }}</li>
             </ul>
             <ul class="nav" style="margin-top: 10px;">
                 {% if usuario.es_funcionario %}
@@ -51,7 +51,7 @@
                 <li><i class="fa fa-shield fa-fw fa-lg"></i> Moderador</li>
                 {% endif %}
                 {% if usuario.partido %}
-                <li><i class="fa fa-flag fa-fw fa-lg"></i> Partido de la red</li>
+                <li><i class="fa fa-flag fa-fw fa-lg"></i> {{ usuario.partido.nombre }}</li>
                 {% endif %}
             </ul>
             {% if usuario.advertencia %}
@@ -98,7 +98,7 @@
                             {% for accion in acciones %}
                             <tr class="notif-msj">
                                 <td>{{ accion.fecha|date("d/m/Y") }}</td>
-                                <td>{{ accion.descripcion }}Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam dolore, error earum officiis placeat consequuntur. Tempore id nihil consectetur, neque tempora minima culpa nisi perspiciatis expedita repellendus ratione error quo?</td>
+                                <td>{{ accion.mensaje|raw }}</td>
                             </tr>
                             {% endfor%}
                             {% else %}
