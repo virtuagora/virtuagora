@@ -22,7 +22,7 @@ class Organismo extends Eloquent {
     }
 
     public function getFuncionariosCountAttribute() {
-        return $this->funcionarios->count();
+        return $this->funcionarios()->count();
     }
 
 }
