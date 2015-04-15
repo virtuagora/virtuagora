@@ -17,7 +17,7 @@
     <div class="cuerpo-header-cont small-10 small-centered columns">
         <h1 class="titulo-cont">{{ titulo_cont }}</h1>
         <section class="datos-cont">
-            {{ fecha_cont }} <img src="{{ autor_avatar_32 }}"> {{ autor_nombre_apellido }} <span class="usuario-pts"><i class="fa fa-trophy fa-fw fa-lg"></i>&nbsp;{{ autor_puntos }}</span>
+            {{ fecha_cont }} <a href="{{ urlFor('shwUsuario',{'idUsr': autor_id}) }}"><img class="img-perfil radius no-border" src="{{ autor_avatar_32 }}"> {{ autor_nombre_apellido }}</a> <span class="usuario-pts"><i class="fa fa-trophy fa-fw fa-lg"></i>&nbsp;{{ autor_puntos }}</span>
             {% block datos_cont %}{% endblock datos_cont %}
         </section>
         <section class="opciones-cont">
@@ -71,11 +71,13 @@
         <section class="autor-info">
             <div class="row">
                 <section class="autor-cont small-9 small-centered columns">
-                    <img src="{{ autor_avatar }}" class="autor-avatar-cont" alt="{{ autor_nombre_apellido }}">
+                    <a href="{{ urlFor('shwUsuario',{'idUsr': autor_id}) }}">
+                        <img class="autor-avatar-cont img-perfil radius"
+                             src="{{ autor_avatar }}" class="autor-avatar-cont" alt="{{ autor_nombre_apellido }}">
+                    </a>
                     <span class="author-label">Autor</span>
-                    <h1><a href="#" class="autor-link-nombre">{{ autor_nombre_apellido }}</a></h1>
-                    <p><a href="#" class="autor-website"><i class="fa fa-trophy fa-fw fa-lg"></i>&nbsp;{{ autor_puntos }} puntos</a></p>
-                    <p>{{ autor_descripcion }}</p>
+                    <h1><a href="{{ urlFor('shwUsuario',{'idUsr': autor_id}) }}" class="autor-link-nombre">{{ autor_nombre_apellido }}</a></h1>
+                    <p><i class="fa fa-trophy fa-fw fa-lg"></i>&nbsp;{{ autor_puntos }} puntos</p>
                 </section>
             </div>
         </section>

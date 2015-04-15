@@ -50,7 +50,9 @@
                 {% if usuario.es_moderador %}
                 <li><i class="fa fa-shield fa-fw fa-lg"></i> Moderador</li>
                 {% endif %}
+                {% if usuario.partido %}
                 <li><i class="fa fa-flag fa-fw fa-lg"></i> Partido de la red</li>
+                {% endif %}
             </ul>
             {% if usuario.advertencia %}
             <div class="row notificacion">

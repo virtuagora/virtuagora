@@ -18,7 +18,7 @@
         <div class="small-12 small-centered columns">
             <section class="intro-listado text-center">
                 <div class="titulo-listado">
-                    <i class="fa fa-search fa-2x"></i>&nbsp;<i class="fa fa-flag fa-2x"></i><br />LISTAR PARTIDOS POLITICOS
+                    <i class="fa fa-flag fa-2x"></i>&nbsp;<i class="fa fa-search fa-2x"></i><br />LISTAR PARTIDOS POLITICOS
                 </div>
                 <div class="panel small-8 small-centered columns">
                     Aqui puede ver los partidos políticos que participan. Puede obtener mas información acerca de alguno haciendo clic sobre el icono <i class="fa fa-info fa-fw"></i> que lo redireccionará al perfil del partido.
@@ -40,7 +40,7 @@
             {% for p in partidos %}
             <div id="p{{ p.id }}" class="panel-partido">
                 <div class="img-partido">
-                    <img src="{{ baseUrl() }}/img/partido/{{ p.id }}/160.png">
+                    <img class="img-perfil no-border" src="{{ baseUrl() }}/img/partido/{{ p.id }}/160.png">
                 </div>
                 <div class="wrapper-botones">
                     <a href="javascript:return(0)" class="button small radius"><i class="fa fa-info-circle fa-fw"></i></a>

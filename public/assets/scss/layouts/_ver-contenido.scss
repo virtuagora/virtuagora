@@ -91,17 +91,10 @@
         font-size: rem-calc(18px);
         margin-top: 30px;
         img{
-            border-radius: 32px;
             margin: 0px 5px 0px 25px;
         }
         .usuario-pts{
             margin: 0px 0px 0px 25px;
-        }
-        a, a:active, a:focus, a:hover {
-            display: inline-block;
-            padding: 0 rem-calc(10);
-            border: rem-calc(3) solid #000;
-            text-decoration: none;
         }
     }
     .datos-cont.corto {
@@ -236,7 +229,6 @@
             }
         }
         .autor-avatar-cont {
-            border-radius: 50%;
             float: none;
             margin-right: 0;
             margin-bottom: rem-calc(20);
@@ -309,6 +301,7 @@
 }
 
 .comentarios-cont{
+    letter-spacing: -0.5px;
     .row{
         background-color: #FFFFFF !important;
     }
@@ -333,7 +326,7 @@
                 display: block;
                 position: relative;
                 z-index: 100;
-                background: none repeat scroll 0% 0% rgba(0, 39, 59, 0.2);
+                background: none;
                 img{
                     display: block;
                     width: 80px;

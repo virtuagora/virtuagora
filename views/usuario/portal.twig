@@ -26,7 +26,22 @@
     <div class="welcome row">
         <div class="wrapper-texto">
             {% if user %}
-            <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 64) }}" alt="User avatar">
+            <a href="{{ urlFor('shwUsuario',{'idUsr': user.id}) }}"><img class="img-perfil radius small-border size-64
+                {% if user.moderador %}
+                moderador
+                {% else %}
+                {% if user.es_jefe %}
+                jefe
+                {% else %}
+                {% if user.es_funcionario %}
+                funcionario
+                {% if user.verified_at %}
+                verificado
+                {% endif %}
+                {% endif %}
+                {% endif %}
+                {% endif %}"
+                                                                         src="{{ avatarUrl(user.img_tipo, user.img_hash, 64) }}" alt="User avatar"></a>
             <h2><b>Bienvenido, {{ user.nombre }} {{ user.apellido }}</b></h2>
             <p class="portal-con-notificaciones" style="display:none"><i class="fa fa-exclamation-circle fa-fw fa-lg"></i>Usted tiene <span class="cant-notificaciones"></span> nuevas notificaciones</p>
             <p class="portal-sin-notificaciones" style="display:none">Sin nuevas notificaciones&nbsp;&nbsp;&nbsp;<small>Bien!</small></p>
@@ -45,10 +60,27 @@
             {% for contenido in contenidos %}
             <div class="medium-6 large-4 columns">
                 <article class="article-card">
-                    <div class="card-type color-{{ contenido.contenible_type|lower}}"><p><a href="#">{{ contenido.contenible_type}} #{{ contenido.contenible_id }}</a></p></div>
+                    <div class="card-type color-{{ contenido.contenible_type|lower}}"><p><a href="{{ baseUrl() }}/{{ contenido.contenible_type|lower }}/{{ contenido.contenible_id }}">{{ contenido.contenible_type}} #{{ contenido.contenible_id }}</a></p></div>
                     <div class="card-content">
-                        <img class="post-icon" src="{{ avatarUrl(contenido.autor.img_tipo, contenido.autor.img_hash, 64) }}" alt="Avatar publicante">
-                        <p class="post-author">Por <a href="#">{{ contenido.autor.nombre}} {{ contenido.autor.apellido }}</a></p>
+                        <a href="{{ urlFor('shwUsuario',{'idUsr': contenido.autor.id}) }}">
+                            <img class="post-icon img-perfil radius small-border size-32
+                                        {% if contenido.autor.moderador %}
+                                        moderador
+                                        {% else %}
+                                        {% if contenido.autor.es_jefe %}
+                                        jefe
+                                        {% else %}
+                                        {% if contenido.autor.es_funcionario %}
+                                        funcionario
+                                        {% if contenido.autor.verified_at %}
+                                        verificado
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endif %}"
+                                 src="{{ avatarUrl(contenido.autor.img_tipo, contenido.autor.img_hash, 64) }}" alt="Avatar publicante">
+                        </a>
+                        <p class="post-author">Por <a href="{{ urlFor('shwUsuario',{'idUsr': contenido.autor.id}) }}">{{ contenido.autor.nombre}} {{ contenido.autor.apellido }}</a></p>
                         <h6>{{ contenido.titulo }}</h6>
                         <p>It's behind you Tyrone. Whenever you reverse, things come from behind you. Who took the jam outta your doughnut? Yes, London. You know: fish, chips, cup 'o tea, bad food, worse weather, Mary f-king Poppins... LONDON.</p>
                         <p>
@@ -169,7 +201,7 @@
                             </div>
                             <div class="listar-cont">
                                 <h6><a href="{{ baseUrl() }}/{{ contenido.contenible_type|lower }}/{{ contenido.contenible_id }}">{{ contenido.titulo }}</a></h6>
-                                <p><i class="fa fa-calendar fa-fw"></i> {{ contenido.created_at|date("m/d/Y") }} - Publicado por <a href="#"><img src="{{ avatarUrl(contenido.autor.img_tipo, contenido.autor.img_hash, 32) }}" alt=""> {{ contenido.autor.nombre }} {{ contenido.autor.apellido }}</a> - <i class="fa fa-trophy fa-fw"></i> {{ contenido.autor.puntos }} </p>
+                                <p><i class="fa fa-calendar fa-fw"></i> {{ contenido.created_at|date("m/d/Y") }} - Publicado por <a href="{{ urlFor('shwUsuario',{'idUsr': contenido.autor.id}) }}"><img class="img-perfil no-border radius" src="{{ avatarUrl(contenido.autor.img_tipo, contenido.autor.img_hash, 32) }}" alt=""> {{ contenido.autor.nombre }} {{ contenido.autor.apellido }}</a> - <i class="fa fa-trophy fa-fw"></i> {{ contenido.autor.puntos }} </p>
                             </div>
                         </td>
                         <td style="display:none;">
