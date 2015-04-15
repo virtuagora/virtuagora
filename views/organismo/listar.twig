@@ -1,0 +1,93 @@
+{# VARIBLES #}
+{% set footer = true %}
+{% set barraNav = true %}
+{% set html_class = '' %}
+{% set body_class = 'color-organismo' %}
+
+{% extends "master.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Listar organismos{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block body %}
+<div class="listar-partidos">
+    <div class="row">
+        <div class="small-12 small-centered columns">
+            <section class="intro-listado text-center">
+                <div class="titulo-listado">
+                    <i class="fa fa-university fa-2x"></i>&nbsp;<i class="fa fa-search fa-2x"></i><br />LISTAR ORGANISMOS PUBLICOS
+                </div>
+                <div class="panel small-8 small-centered columns">
+                    Aqui puede ver los organismos publicos anotados en la plataforma. Puede obtener mas información acerca de alguno haciendo clic sobre el icono <i class="fa fa-info fa-fw"></i> que lo redireccionará al perfil del organismo.
+                </div>
+                {% if user and (user.es_moderador == 1) %}
+                <a class="button oposite radius small" href="{{ urlFor('shwCrearOrganis') }}"><i class="fa fa-plus fa-fw fa-lg"></i>&nbsp;Crear un nuevo organismo</a>
+                <a class="button oposite radius small" href="{{ urlFor('shwAdmOrganis') }}"><i class="fa fa-edit fa-fw fa-lg"></i>&nbsp;Administrar organismos</a>
+                {% endif %}
+                <a class="button oposite radius small" href="{{ urlFor('shwIndex') }}"><i class="fa fa-undo fa-fw fa-lg"></i>&nbsp;Volver atrás</a>
+            </section>
+        </div>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="row-listado small-12 small-centered columns">
+            {% for organismo in organismos %}
+            <div id="o{{ organismo.id }}" class="panel-partido">
+                <div class="img-partido">
+                    <img class="img-perfil no-border" src="{{ baseUrl() }}/img/organis/{{ organismo.id }}/160.png">
+                </div>
+                <div class="wrapper-botones">
+                    <a href="{{ urlFor('shwOrganis',{'idOrg': organismo.id}) }}" class="button small radius"><i class="fa fa-info-circle fa-fw"></i></a>
+                    {% if user and (user.es_moderador == 1) %}
+                    <a href="{{ urlFor('shwModifOrganis',{'idOrg': organismo.id}) }}" class="button small secondary radius"><i class="fa fa-edit fa-fw"></i></a>
+                    <a href="{{ urlFor('shwAdmFuncion',{'idOrg': organismo.id}) }}" class="button small warning radius"><i class="fa fa-wrench fa-fw"></i></a>
+                    {% endif %}
+                </div>
+                <div id="o{{ organismo.id }}-descripcion" class="wrapper-descripcion">
+                    <div class="titulo"><h2><b><span class="p-nombre">{{ organismo.nombre|title }}</span></b></h2>
+                    </div>
+                    <hr class="salto">
+                    <div class="descripcion">{{ organismo.descripcion|capitalize }}</div>
+                    <hr class="salto">
+                    <ul class="listado-h datos-extras">
+                        <li><b><i class="fa fa-caret-right fw"></i> Cupos maximos:</b> {{ organismo.cupo }}</li>
+                        <li><b><i class="fa fa-caret-right fw"></i> Funcionarios activos:</b> {{ organismo.funcionarios_count }}</li>
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% if nav %}
+    <div class="row">
+        <div class="large-6 panel clearfix large-centered columns">
+            <div class="left">
+                {% if nav.first %}
+                <a href="{{ nav.first }}"><i class="fa fa-angle-double-left fa-fw fa-lg"></i></a>
+                {% endif %}
+                {% if nav.prev %}
+                <a href="{{ nav.prev }}"><i class="fa fa-angle-left fa-fw fa-lg"></i></a>
+                {% endif %}
+            </div>
+            <div class="right">
+                {% if nav.next %}
+                <a href="{{ nav.next }}"><i class="fa fa-angle-right fa-fw fa-lg"></i></a>
+                {% endif %}
+                {% if nav.last %}
+                <a href="{{ nav.last }}"><i class="fa fa-angle-double-right fa-fw fa-lg"></i></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}{% endblock %}
+{# ----------------------------------------------------------- #}
