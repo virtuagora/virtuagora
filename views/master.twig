@@ -51,7 +51,7 @@
             {% endif %}
             <!-- body -->
             {% block body %}{% endblock %}
-            {% if notificaciones == true %}
+            {% if notificaciones == true and user %}
             {% include "common/notificaciones.twig" %}
             {% endif %}
             {% if footer == true %}
@@ -72,7 +72,7 @@
         <script src="{{ baseUrl() }}/assets/js/foundation/foundation.min.js"></script>
         <script src="{{ baseUrl() }}/assets/js/foundation/foundation.alert.js"></script>
         <script src="{{ baseUrl() }}/assets/js/powertip/jquery.powertip.min.js"></script>
-        {% if notificaciones == true %}
+        {% if notificaciones == true and user %}
         {% include "common/notificaciones.js.twig" %}
         {% endif %}
         {% if user.es_moderador %}
