@@ -6,7 +6,7 @@ class Organismo extends Eloquent {
     //$table = 'organismos';
 
     protected $dates = ['deleted_at'];
-    protected $visible = array('id', 'nombre', 'cupo', 'funcionarios_count');
+    protected $visible = array('id', 'nombre', 'cupo', 'descripcion', 'funcionarios_count');
     protected $appends = array('funcionarios_count');
 
     public function funcionarios() {
