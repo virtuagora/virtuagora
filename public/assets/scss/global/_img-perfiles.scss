@@ -1,8 +1,10 @@
 img.img-perfil{
     padding:1px;
     border: 5px solid #FFFFFF;
-    border-radius: 50%;
     background-color:#FFFFFF;
+    &.radius{
+        border-radius: 50%;
+    }
     &.verificado{
         border-color: #EFCE18;
     }

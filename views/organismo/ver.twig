@@ -14,7 +14,7 @@
 <div class="perfil color-organismo">
     <div class="row header">
         <div class="large-12 columns text-center">
-            <img class="img-perfil organismo" src="{{ baseUrl() }}/img/organis/{{ organismo.id }}/160.png" alt="Profile pic">
+            <img class="img-perfil radius organismo" src="{{ baseUrl() }}/img/organis/{{ organismo.id }}/160.png" alt="Profile pic">
             <h2 class="nombre">{{ organismo.nombre }}</h2>
             <hr>
             <ul class="nav">
@@ -83,7 +83,7 @@
                                     <tr>
                                         <td class="text-center">
                                             <a href="{{ urlFor('shwUsuario', {'idUsr': funcionario.id}) }}">
-                                                <img class="img-perfil
+                                                <img class="img-perfil radius
                                                             {% if funcionario.moderador %}
                                                             moderador
                                                             {% else %}

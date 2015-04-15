@@ -22,7 +22,7 @@
 <div class="perfil color-partido">
     <div class="row header">
         <div class="large-12 columns text-center">
-            <img class="img-perfil partido" src="{{ baseUrl() }}/img/partido/{{ partido.id }}/160.png" alt="Profile pic">
+            <img class="img-perfil radius partido" src="{{ baseUrl() }}/img/partido/{{ partido.id }}/160.png" alt="Profile pic">
             <h2 class="nombre">{{ partido.nombre }}</h2>
             <hr>
             <ul class="nav">
@@ -177,7 +177,7 @@
                                     {% if jefes|length > 0 %}
                                     {% for jefe in jefes %}
                                     <tr>
-                                        <td class="text-center"><a href="{{ urlFor('shwUsuario', {'idUsr': jefe.id}) }}"><img class="img-perfil jefe small-border size-64" src="{{ avatarUrl(jefe.img_tipo, jefe.img_hash, 64) }}"></a></td>
+                                        <td class="text-center"><a href="{{ urlFor('shwUsuario', {'idUsr': jefe.id}) }}"><img class="img-perfil radius jefe small-border size-64" src="{{ avatarUrl(jefe.img_tipo, jefe.img_hash, 64) }}"></a></td>
                                         <td class="text-center"><h4>{{ jefe.nombre }} {{ jefe.apellido }}</h4></td>
                                         <td class="text-center"><h2><a href="{{ urlFor('shwUsuario', {'idUsr': jefe.id}) }}"><i class="fa fa-caret-right fa-fw"></i></a></h2></td>
                                     </tr>

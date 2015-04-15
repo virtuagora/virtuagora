@@ -63,7 +63,7 @@
         <div class="paneles row text-center">
             {% if user and (user.es_moderador == true) %}
             <div class="medium-3 columns"><div class="bt-menu contenidos"><a href="javascript:void(0)"><i class="fa fa-book fa-fw"></i> Contenidos</a></div></div>
-            <div class="medium-3 columns"><div class="bt-menu organizaciones"><a href="javascript:void(0)"><i class="fa fa-university fa-fw"></i> Organismos</a></div></div>
+            <div class="medium-3 columns"><div class="bt-menu organizaciones"><a href="{{ urlFor('shwListaOrganis') }}"><i class="fa fa-university fa-fw"></i> Organismos</a></div></div>
             <div class="medium-3 columns"><div class="bt-menu partidos"><a href="{{ urlFor('shwListaPartido') }}"><i class="fa fa-flag fa-fw"></i> Partidos</a></div></div>
             <div class="medium-3 columns"><div class="bt-menu administrar"><a href="{{ urlFor('shwAdmOrganis') }}"><i class="fa fa-cogs fa-fw"></i> Administrar</a></div></div>
             {% else %}
