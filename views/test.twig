@@ -1,70 +1,104 @@
 {# VARIBLES #}
-{% set footer = false %}
-{% if usuarioValido == true %}
-{% set html_class = 'verif-exito-bg' %}
-{% else %}
-{% set html_class = 'verif-fail-bg' %}
-{% endif %}
-{% set body_class = 'no-body-bg' %}
+{% set footer = true %}
+{% set barraNav = true %}
+{% set notificaciones = true %}
 
 {% extends "master.twig" %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}
-{% if usuarioValido == true %}
-Virtuágora - Verificación exitosa
-{% else %}
-Virtuágora - Verificación inválida
-{% endif %}
-{% endblock %}
+{% block titulo %}{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block linkhead %}{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block body %}
-<div id="login">
-    <div id="row-panel" class="row">
-        <div class="large-8 large-centered columns">
-            <div class="panel">
-                <div class="row">
-                    <div class="large-8 large-centered columns">
-                        <div id="row-arriba">
-                            <div id="logo" class="text-center">
-                                <b>Virtuágora</b>
-                            </div>
-                        </div>
+<div class="perfil color-userconfig">
+    <div class="row header">
+        <div class="large-12 columns text-center">
+            <img class="img-perfil verificado" src="http://lorempixel.com/164/164/" alt="Profile pic">
+            <h2 class="nombre">Guillermo Croppi</h2>
+            <hr>
+            <ul class="nav">
+                <li><i class="fa fa-trophy fa-fw fa-lg"></i> 50 </li>
+                <li style="color:#efce18"><i class="fa fa-check fa-fw fa-lg"></i> Verificado</li>
+                <li><i class="fa fa-file-o fa-fw fa-lg"></i> XX</li>
+                <li><i class="fa fa-comment-o fa-fw fa-lg"></i> XX</li>
+            </ul>
+            <ul class="nav" style="margin-top: 10px;">
+                <li><i class="fa fa-briefcase fa-fw fa-lg"></i> Funcionario</li>
+                <li><i class="fa fa-bullhorn fa-fw fa-lg"></i> Jefe</li>
+                <li><i class="fa fa-wrench fa-fw fa-lg"></i> Administrador</li>
+                <li><i class="fa fa-flag fa-fw fa-lg"></i> Partido de la red</li>
+            </ul>
+            <div class="row notificacion">
+                <div class="large-6 medium-6 large-centered medium-centered columns">
+                    <div class="panel advertencia">
+                        <i class="fa fa-warning fa-fw"></i> Se mando una cagada gigante
                     </div>
                 </div>
-                <div class="row">
-                    <div class="large-10 large-centered columns">
-                        <div id="row-abajo" class="text-center">
-                            {% if usuarioValido == true %}
-                            <div class="panel text-center" style="background-color: #EEFFEA; margin-bottom: 20px;">
-                                <i class="fa fa-check fa-4x fa-fw" style="color: #61bf26; margin-bottom: 10px;"></i>
-                                <h5>Su dirección de email ha sido verificada</h5>
-                            </div>
-                            <p style="font-size: 13px;">Ya puede comenzar a participar.</p>
-                            <a href="{{ urlFor('shwLogin') }}" class="button radius success large"><i class="fa fa-sign-in fa-fw fa-lg"></i>&nbsp;Iniciar sesión en Virtuágora</a>
-                            {% else %}
-                            <div class="panel text-center" style="background-color: #ffeaea; margin-bottom: 20px;">
-                                <i class="fa fa-envelope fa-4x fa-fw" style="color: #BF2626; margin-bottom: 10px;"></i>
-                                <h5>Link de validación incorrecto</h5>
-                            </div>
-                            <p style="font-size: 13px;">El link ingresado es incorrecto. Verifique que el link que hemos enviado a su dirección de correo electrónico es el mismo que ingresó en la barra de direcciones.</p>
-                            <p style="font-size: 13px;">Si sigue viendo este mensaje, comuníquese con un administrador.</p>
-                            <a href="{{ urlFor('shwIndex') }}" class="button radius">Ir al inicio</a>
-                            {% endif %}
-                        </div>
+            </div>
+               <div class="row notificacion">
+                <div class="large-6 medium-6 large-centered medium-centered columns">
+                    <div class="panel sancionado">
+                        <i class="fa fa-warning fa-fw"></i> CUENTA SUSPENDIDA
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="perfil">
+    <div class="row contenido">
+        <dl class="tabs" role=tablist data-tab>
+            <dd class="active"><a href="#acciones">Ultimas acciones</a></dd>
+            <dd><a href="#comentarios">Comentarios realizados</a></dd>
+        </dl>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="large-12 columns">
+            <div class="tabs-content">
+                <div class="content active" id="acciones">
+                    <table class="tabla-notificaciones">
+                        <thead>
+                            <th style="display:none">Hora</th>
+                            <th style="display:none">Accion</th>
+                        </thead>
+                        <tbody>
+                            <tr class="notif-msj">
+                                <td>25/12</td>
+                                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam dolore, error earum officiis placeat consequuntur. Tempore id nihil consectetur, neque tempora minima culpa nisi perspiciatis expedita repellendus ratione error quo?</td>
+                            </tr><tr class="notif-msj">
+                            <td>25/12</td>
+                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam dolore, error earum officiis placeat consequuntur. Tempore id nihil consectetur, neque tempora minima culpa nisi perspiciatis expedita repellendus ratione error quo?</td>
+                            </tr><tr class="notif-msj">
+                            <td>25/12</td>
+                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam dolore, error earum officiis placeat consequuntur. Tempore id nihil consectetur, neque tempora minima culpa nisi perspiciatis expedita repellendus ratione error quo?</td>
+                            </tr><tr class="notif-msj">
+                            <td>25/12</td>
+                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam dolore, error earum officiis placeat consequuntur. Tempore id nihil consectetur, neque tempora minima culpa nisi perspiciatis expedita repellendus ratione error quo?</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="content text-center" id="comentarios">
+                    <p><i class="fa fa-check fa-fw"></i>
+                        <br>* Proximamente *</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts %}{% endblock %}
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+
+    });
+
+</script>
+{% endblock %}
 {# ----------------------------------------------------------- #}
+
