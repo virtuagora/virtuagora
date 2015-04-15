@@ -141,7 +141,7 @@ $app->get('/contenido/:idCon', 'ContenidoCtrl:ver')->name('shwConteni');
 $app->get('/contenido', 'ContenidoCtrl:listar')->name('shwListaConteni');
 
 $app->get('/organismo', 'OrganismoCtrl:listar')->name('shwListaOrganis');
-$app->get('/organismo/:idPar', 'OrganismoCtrl:ver')->name('shwOrganis');
+$app->get('/organismo/:idOrg', 'OrganismoCtrl:ver')->name('shwOrganis');
 
 $app->get('/usuario/:idUsr', 'UsuarioCtrl:ver')->name('shwUsuario');
 $app->get('/usuario/:idUsr/imagen/:res', 'UsuarioCtrl:verImagen')->name('shwImgUsuario');

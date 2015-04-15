@@ -3,8 +3,7 @@
 class Usuario extends Eloquent {
     use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-    //$table = 'usuarios';
-
+    //protected $table = 'usuarios';
     protected $dates = ['deleted_at'];
     //protected $visible = array('id', 'nombre', 'apellido', 'es_funcionario', 'es_jefe', 'partido_id', 'img_tipo', 'img_hash', 'puntos');
     protected $hidden = ['password', 'emailed_token', 'updated_at', 'deleted_at'];
