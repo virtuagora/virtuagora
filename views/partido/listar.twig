@@ -40,10 +40,10 @@
             {% for p in partidos %}
             <div id="p{{ p.id }}" class="panel-partido">
                 <div class="img-partido">
-                    <img class="img-perfil no-border" src="{{ baseUrl() }}/img/partido/{{ p.id }}/160.png">
+                    <a href="{{ urlFor('shwPartido',{'idPar': p.id}) }}"><img class="img-perfil square" src="{{ baseUrl() }}/img/partido/{{ p.id }}/160.png"></a>
                 </div>
                 <div class="wrapper-botones">
-                    <a href="javascript:return(0)" class="button small radius"><i class="fa fa-info-circle fa-fw"></i></a>
+                    <a href="{{ urlFor('shwPartido',{'idPar': p.id}) }}" class="button small radius"><i class="fa fa-info-circle fa-fw"></i></a>
                     {% if user.partido_id is null %}
                     <div class="bt-asociarse button small success radius"><i class="fa fa-plus fa-fw"></i></div>
                     {% elseif user.partido_id == p.id %}

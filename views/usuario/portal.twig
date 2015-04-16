@@ -26,7 +26,7 @@
     <div class="welcome row">
         <div class="wrapper-texto">
             {% if user %}
-            <a href="{{ urlFor('shwUsuario',{'idUsr': user.id}) }}"><img class="img-perfil radius small-border size-64
+            <a href="{{ urlFor('shwUsuario',{'idUsr': user.id}) }}"><img class="img-perfil small-border size-64
                 {% if user.moderador %}
                 moderador
                 {% else %}
@@ -63,7 +63,7 @@
                     <div class="card-type color-{{ contenido.contenible_type|lower}}"><p><a href="{{ baseUrl() }}/{{ contenido.contenible_type|lower }}/{{ contenido.contenible_id }}">{{ contenido.contenible_type}} #{{ contenido.contenible_id }}</a></p></div>
                     <div class="card-content">
                         <a href="{{ urlFor('shwUsuario',{'idUsr': contenido.autor.id}) }}">
-                            <img class="post-icon img-perfil radius small-border size-32
+                            <img class="post-icon img-perfil small-border size-32
                                         {% if contenido.autor.moderador %}
                                         moderador
                                         {% else %}

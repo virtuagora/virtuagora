@@ -37,7 +37,7 @@
             {% for organismo in organismos %}
             <div id="o{{ organismo.id }}" class="panel-partido">
                 <div class="img-partido">
-                    <img class="img-perfil no-border" src="{{ baseUrl() }}/img/organis/{{ organismo.id }}/160.png">
+                    <img class="img-perfil square" src="{{ baseUrl() }}/img/organis/{{ organismo.id }}/160.png">
                 </div>
                 <div class="wrapper-botones">
                     <a href="{{ urlFor('shwOrganis',{'idOrg': organismo.id}) }}" class="button small radius"><i class="fa fa-info-circle fa-fw"></i></a>
