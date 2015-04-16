@@ -14,16 +14,16 @@
 <div class="perfil color-userconfig">
     <div class="row header">
         <div class="large-12 columns text-center">
-            <img class="img-perfil radius
-                        {% if funcionario.moderador %}
+            <img class="img-perfil radius big-border
+                        {% if usuario.moderador %}
                         moderador
                         {% else %}
-                        {% if funcionario.es_jefe %}
+                        {% if usuario.es_jefe %}
                         jefe
                         {% else %}
-                        {% if funcionario.es_funcionario %}
+                        {% if usuario.es_funcionario %}
                         funcionario
-                        {% if funcionario.verified_at %}
+                        {% if usuario.verified_at %}
                         verificado
                         {% endif %}
                         {% endif %}
@@ -42,9 +42,9 @@
             </ul>
             <ul class="nav" style="margin-top: 10px;">
                 {% if usuario.es_funcionario %}
-                <li><i class="fa fa-briefcase fa-fw fa-lg"></i> Funcionario</li>
+                <li><i style="color:#DA7C43" class="fa fa-briefcase fa-fw fa-lg"></i> Funcionario</li>
                 {% if usuario.es_jefe %}
-                <li><i class="fa fa-bullhorn fa-fw fa-lg"></i> Jefe</li>
+                <li><i style="color:#7DC82C" class="fa fa-bullhorn fa-fw fa-lg"></i> Jefe</li>
                 {% endif %}
                 {% endif %}
                 {% if usuario.es_moderador %}
