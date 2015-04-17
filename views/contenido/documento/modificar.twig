@@ -110,7 +110,7 @@
 
     $(document).ready(function(){
         $('[name="titulo"]').val('{{ documento.titulo }}');
-        $('[name="categoria"] select').val('{{ documento.categoria }}');
+        $('[name="categoria"] select').val('{{ documento.categoria.id }}');
         $('[name="descripcion"]').html("{{ documento.descripcion }}");
         autosize($("textarea[name='titulo']"));
         autosize($("textarea[name='descripcion']"));
