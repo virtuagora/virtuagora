@@ -31,6 +31,7 @@
                 <li><a href="javascript:sancionar({{autor_id}})" class="button alert radius"><i class="fa fa-exclamation-circle fa-fw"></i></a></li>
                 {% endif%}
             </ul>
+            {% block versiones_docu %}{% endblock %}
         </section>
         <a href="{{ urlFor('shwIndex') }}" class="bt-volver button oposite radius"><i class="fa fa-undo fa-fw"></i> Volver</a>
     </div>

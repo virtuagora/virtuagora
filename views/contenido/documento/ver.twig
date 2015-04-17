@@ -20,16 +20,38 @@
 {% block botones_cont %}
 <li><a href="{{ urlFor('shwNuVerDocumen', {'idDoc': documento.id}) }}" class="button oposite radius"><i class="fa fa-plus fa-fw"></i>&nbsp;Nueva Version</a></li>
 {% endblock %}
-{% block cuerpo_cont %}
-    <div class="row">
-        <div class="large-8 columns">
-            <select name="categoria" id="tooltip-categoria">
-                {% for categoria in categorias %}
-                <option value="{{categoria.id}}">{{categoria.nombre|capitalize}}</option>
-                {% endfor %}
-            </select>
+{% block versiones_docu %}
+{% if version.version == documento.ultima_version and documento.ultima_version > 1 %}
+<div class="destacados row">
+    <div class="small-10 medium-11 large-6 small-centered medium-centered large-centered columns">
+        <div class="text-center"><b>VERSIONES</b></div>
+        <hr>
+        <div class="selector-versiones">
+            {% for i in documento.ultima_version..1 %}
+            <div class="small-12 medium-4 large-4 columns">
+                <a href="{{ urlFor('shwVerDocumen', {'idDoc': documento.id, 'idVer': i}) }}">
+                    <span class="fa-stack fa-2x">
+                        <i class="fa fa-file-o fa-stack-2x"></i>
+                        <strong class="fa-stack-1x version-text">V{{i}}</strong>
+                    </span>
+                </a>
+                {% if i == documento.ultima_version %}
+                <div>
+                    Actual
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
         </div>
     </div>
+</div>
+{% elseif version.version != documento.ultima_version %}
+<div class="text-center"><i>Usted esta leyendo la version N° {{ version.version}}</i></div>
+<div class="text-center" style="margin-bottom:5px;"><i>La version mas reciente es la N° {{ documento.ultima_version }}</i></div>
+<div class="text-center"><a href="{{ urlFor('shwDocumen', {'idDoc': documento.id}) }}" class="button tiny radius oposite">Ir a la version actual</a></div>
+{% endif %}
+{% endblock %}
+{% block cuerpo_cont %}
 <section class="doc-descripcion">
     <div class="row">
         <div class="small-8 small-centered columns panel text-center">
@@ -42,7 +64,9 @@
         {% for parrafo in version.parrafos %}
         <p id="p{{ parrafo.ubicacion }}" class="parrafo">
             {{ parrafo.cuerpo|bbCode }}
+            {% if version.version == documento.ultima_version %}
             <i id="p{{ parrafo.ubicacion }}-bt-comentar" class="bt-comentar fa fa-plus-circle fa-fw fa-lg" style="display: none;"></i>
+            {% endif %}
             <i id="p{{ parrafo.ubicacion }}-bt-comentarios" class="bt-comentarios fa fa-comments-o fa-fw fa-lg" style="display: none;"></i>
         </p>
         {% if parrafo.comentarios|length > 0 %}
@@ -78,7 +102,12 @@
                 </div>
                 <div class="nadie-comento row text-center">
                     <h4><b>Este parrafo no tiene comentarios</b></h4>
+                    {% if version.version == documento.ultima_version %}
                     <p>Sea el primero en dejar un comentario</p>
+                    {% else %}
+                    <p>Usted no puede comentar en un parrafo de una versión anterior</p>
+                    {% endif %}
+
                 </div>
             </div>
             <div class="controles-row row text-center">
@@ -86,7 +115,7 @@
             </div>
         </div>
         {% endif %}
-        {% if user is not empty %}
+        {% if (user is not empty) and ( version.version == documento.ultima_version ) %}
         <div id="p{{ parrafo.ubicacion }}-box-comentar" class="box-comentar" hidden>
             <div class="small-12 small-centered columns">
                 <div class="info-user-row row">
@@ -136,7 +165,6 @@
 {% block scripts_cont %}
 <script src="{{ baseUrl() }}/assets/js/slick/slick.min.js"></script>
 <script>
-
     var cantParrafos =  {{ cant_parrafos }};
     $(document).ready(function(){
         for(i = 0; i < cantParrafos; i++){
@@ -147,6 +175,20 @@
                 offset: 15
             });
         }
+        $('.selector-versiones').slick({
+            dots: false,
+            slidesToShow: 3,
+            centerMode: true,
+            responsive: [
+                {
+                    breakpoint: 640,
+                    settings: {
+                        centerMode: true,
+                        slidesToShow: 1
+                    }
+                }
+            ]
+        });
         autosize($("textarea[name='cuerpo']"));
     });
 
@@ -156,6 +198,13 @@
     },function () {
         $(this).find(".bt-comentar").hide();
         $(this).find(".bt-comentarios").hide();
+    });
+
+    $('.doc-texto p').click(function () {
+        $('.box-comentar').hide();
+        $('.box-comentarios').hide();
+        var parrafoId = $(this).attr('id');
+        $('#'+parrafoId+'-box-comentarios').show();
     });
 
     $( ".bt-comentar" ).click(function() {
