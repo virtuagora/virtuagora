@@ -221,6 +221,24 @@
     }
 }
 
+.eliminar-partido{
+    .panel{
+        background-color: #ffe9d9;
+        h3{
+            margin:15px;
+            color: #FF0000;
+        }
+    }
+    .descripcion{
+        margin: 45px 0px;
+    }
+    .segundo-boton{
+        .bt-segunda-conf{
+            font-size: rem-calc(30);
+        }
+    }
+}
+
 .gestionar-roles{
     .titulo h4{
         letter-spacing: -0.5px;

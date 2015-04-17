@@ -5079,58 +5079,64 @@ html, body {
 
 /* line 1, ../scss/global/_img-perfiles.scss */
 img.img-perfil {
-  padding: 1px;
-  border: 5px solid #FFFFFF;
-  background-color: #FFFFFF;
-}
-/* line 5, ../scss/global/_img-perfiles.scss */
-img.img-perfil.radius {
   border-radius: 50%;
+  border-color: #6B8CCA;
 }
-/* line 8, ../scss/global/_img-perfiles.scss */
+/* line 4, ../scss/global/_img-perfiles.scss */
+img.img-perfil.square {
+  border-radius: 0;
+}
+/* line 7, ../scss/global/_img-perfiles.scss */
 img.img-perfil.verificado {
   border-color: #EFCE18;
 }
-/* line 11, ../scss/global/_img-perfiles.scss */
+/* line 10, ../scss/global/_img-perfiles.scss */
 img.img-perfil.jefe {
-  border-color: #3E6DC3;
+  border-color: #7DC82C;
 }
-/* line 14, ../scss/global/_img-perfiles.scss */
+/* line 13, ../scss/global/_img-perfiles.scss */
 img.img-perfil.moderador {
   border-color: #50b788;
 }
-/* line 17, ../scss/global/_img-perfiles.scss */
+/* line 16, ../scss/global/_img-perfiles.scss */
 img.img-perfil.partido {
   border-color: #A9EA62;
 }
-/* line 20, ../scss/global/_img-perfiles.scss */
+/* line 19, ../scss/global/_img-perfiles.scss */
 img.img-perfil.organismo, img.img-perfil.funcionario {
   border-color: #DA7C43;
 }
-/* line 23, ../scss/global/_img-perfiles.scss */
+/* line 22, ../scss/global/_img-perfiles.scss */
+img.img-perfil.big-border {
+  padding: 1px;
+  border-width: 5px;
+  border-style: solid;
+  background-color: #FFFFFF;
+}
+/* line 28, ../scss/global/_img-perfiles.scss */
 img.img-perfil.small-border {
   border-width: 2px;
 }
-/* line 26, ../scss/global/_img-perfiles.scss */
+/* line 31, ../scss/global/_img-perfiles.scss */
 img.img-perfil.no-border {
   border: 0;
 }
-/* line 29, ../scss/global/_img-perfiles.scss */
+/* line 34, ../scss/global/_img-perfiles.scss */
 img.img-perfil.size-32 {
   height: auto;
   width: 32px;
 }
-/* line 33, ../scss/global/_img-perfiles.scss */
+/* line 38, ../scss/global/_img-perfiles.scss */
 img.img-perfil.size-64 {
   height: auto;
   width: 64px;
 }
-/* line 37, ../scss/global/_img-perfiles.scss */
+/* line 42, ../scss/global/_img-perfiles.scss */
 img.img-perfil.size-128 {
   height: auto;
   width: 128px;
 }
-/* line 41, ../scss/global/_img-perfiles.scss */
+/* line 46, ../scss/global/_img-perfiles.scss */
 img.img-perfil.size-160 {
   height: auto;
   width: 160px;
@@ -5144,6 +5150,17 @@ img.img-perfil.size-160 {
 /* line 6, ../scss/global/_misc.scss */
 .transparente {
   opacity: 0;
+}
+
+/* line 10, ../scss/global/_misc.scss */
+.calendario-text {
+  margin-top: .3em;
+}
+
+/* line 11, ../scss/global/_misc.scss */
+.version-text {
+  margin-top: .3em;
+  font-size: 1rem;
 }
 
 /* line 2, ../scss/_custom.scss */
@@ -7085,7 +7102,17 @@ table.listado-funcionarios tr:last-child td, table.info-general tr:last-child td
   padding: 40px 0 10px 0;
 }
 
-/* line 62, ../scss/layouts/_documento.scss */
+/* line 57, ../scss/layouts/_documento.scss */
+.selector-versiones .slick-slide {
+  padding: 10px 0;
+}
+/* line 60, ../scss/layouts/_documento.scss */
+.selector-versiones .slick-active.slick-center {
+  background-color: #FFFFFF;
+  color: #5D46B9;
+}
+
+/* line 70, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-descripcion .panel {
   padding-left: 20px;
   padding-right: 20px;
@@ -7093,60 +7120,60 @@ table.listado-funcionarios tr:last-child td, table.info-general tr:last-child td
   font-size: 1.125rem;
   font-style: italic;
 }
-/* line 71, ../scss/layouts/_documento.scss */
+/* line 79, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto p {
   font-size: 1rem;
 }
-/* line 74, ../scss/layouts/_documento.scss */
+/* line 82, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .wrapper-comentarios {
   padding-top: 20px;
   margin-top: 10px;
   border-top: 1px dashed #adadad;
 }
-/* line 78, ../scss/layouts/_documento.scss */
+/* line 86, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .wrapper-comentarios .nadie-comento {
   font-family: 'Open Sans', sans-serif;
 }
-/* line 80, ../scss/layouts/_documento.scss */
+/* line 88, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .wrapper-comentarios .nadie-comento h4, .vista-cuerpo-cont .doc-texto .wrapper-comentarios .nadie-comento p {
   margin-bottom: 5px;
 }
-/* line 83, ../scss/layouts/_documento.scss */
+/* line 91, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .wrapper-comentarios .nadie-comento p {
   font-size: 0.875rem;
 }
-/* line 88, ../scss/layouts/_documento.scss */
+/* line 96, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentar, .vista-cuerpo-cont .doc-texto .box-comentario {
   font-family: "Source Sans Pro",sans-serif;
   background: #FFFFFF;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
-/* line 92, ../scss/layouts/_documento.scss */
+/* line 100, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentar .info-user-row, .vista-cuerpo-cont .doc-texto .box-comentario .info-user-row {
   height: 50px;
   background-color: #f2f2f2;
   border-bottom: 1px dashed #adadad;
 }
-/* line 96, ../scss/layouts/_documento.scss */
+/* line 104, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentar .info-user-row ul.info, .vista-cuerpo-cont .doc-texto .box-comentario .info-user-row ul.info {
   padding: 8px 8px 8px 0px;
   margin: 0px;
 }
-/* line 99, ../scss/layouts/_documento.scss */
+/* line 107, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentar .info-user-row ul.info li, .vista-cuerpo-cont .doc-texto .box-comentario .info-user-row ul.info li {
   display: inline-block;
   vertical-align: middle;
   list-style-type: none;
   margin: 0px 0px 0px 10px;
 }
-/* line 108, ../scss/layouts/_documento.scss */
+/* line 116, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentar {
   z-index: 10;
   position: absolute;
   float: left;
   width: 96.5%;
 }
-/* line 114, ../scss/layouts/_documento.scss */
+/* line 122, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentar .redactor-row textarea {
   margin: 0;
   border: 0;
@@ -7155,27 +7182,27 @@ table.listado-funcionarios tr:last-child td, table.info-general tr:last-child td
   font-size: 1rem;
   min-height: 150px;
 }
-/* line 123, ../scss/layouts/_documento.scss */
+/* line 131, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentar .confirmar-row {
   padding: 5px 5px 0px 0px;
 }
-/* line 127, ../scss/layouts/_documento.scss */
+/* line 135, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentario {
   margin-bottom: 10px;
 }
-/* line 129, ../scss/layouts/_documento.scss */
+/* line 137, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentario .comentario-row {
   font-size: 0.9375rem;
   padding: 7px;
 }
-/* line 134, ../scss/layouts/_documento.scss */
+/* line 142, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .controles-row {
   padding: 5px 0px 10px 0px;
   margin-bottom: 15px;
   border-bottom: 1px dashed #adadad;
 }
 
-/* line 142, ../scss/layouts/_documento.scss */
+/* line 150, ../scss/layouts/_documento.scss */
 #powerTip .tt-comentarios {
   font-size: 18px;
 }
@@ -7557,57 +7584,75 @@ table.listado-funcionarios tr:last-child td, table.info-general tr:last-child td
 }
 
 /* line 225, ../scss/layouts/_partido.scss */
+.eliminar-partido .panel {
+  background-color: #ffe9d9;
+}
+/* line 227, ../scss/layouts/_partido.scss */
+.eliminar-partido .panel h3 {
+  margin: 15px;
+  color: #FF0000;
+}
+/* line 232, ../scss/layouts/_partido.scss */
+.eliminar-partido .descripcion {
+  margin: 45px 0px;
+}
+/* line 236, ../scss/layouts/_partido.scss */
+.eliminar-partido .segundo-boton .bt-segunda-conf {
+  font-size: 1.875rem;
+}
+
+/* line 243, ../scss/layouts/_partido.scss */
 .gestionar-roles .titulo h4 {
   letter-spacing: -0.5px;
 }
-/* line 228, ../scss/layouts/_partido.scss */
+/* line 246, ../scss/layouts/_partido.scss */
 .gestionar-roles .explicacion.panel {
   letter-spacing: -0.5px;
   font-size: 0.875rem;
   padding: 6px;
 }
-/* line 233, ../scss/layouts/_partido.scss */
+/* line 251, ../scss/layouts/_partido.scss */
 .gestionar-roles hr {
   margin: 0 0 8px 0;
 }
-/* line 237, ../scss/layouts/_partido.scss */
+/* line 255, ../scss/layouts/_partido.scss */
 .gestionar-roles .listar-jefes .tabla-jefes, .gestionar-roles .listar-jefes .tabla-afiliados, .gestionar-roles .listar-afiliados .tabla-jefes, .gestionar-roles .listar-afiliados .tabla-afiliados {
   width: 100%;
 }
-/* line 239, ../scss/layouts/_partido.scss */
+/* line 257, ../scss/layouts/_partido.scss */
 .gestionar-roles .listar-jefes .tabla-jefes thead tr th, .gestionar-roles .listar-jefes .tabla-afiliados thead tr th, .gestionar-roles .listar-afiliados .tabla-jefes thead tr th, .gestionar-roles .listar-afiliados .tabla-afiliados thead tr th {
   font-size: 0.8125rem;
   font-weight: 400;
   padding: 5px 10px;
   background-color: #e3e3e3;
 }
-/* line 244, ../scss/layouts/_partido.scss */
+/* line 262, ../scss/layouts/_partido.scss */
 .gestionar-roles .listar-jefes .tabla-jefes thead tr th .titulo, .gestionar-roles .listar-jefes .tabla-afiliados thead tr th .titulo, .gestionar-roles .listar-afiliados .tabla-jefes thead tr th .titulo, .gestionar-roles .listar-afiliados .tabla-afiliados thead tr th .titulo {
   width: 70%;
 }
-/* line 248, ../scss/layouts/_partido.scss */
+/* line 266, ../scss/layouts/_partido.scss */
 .gestionar-roles .listar-jefes .tabla-jefes tr:nth-of-type(even), .gestionar-roles .listar-jefes .tabla-afiliados tr:nth-of-type(even), .gestionar-roles .listar-afiliados .tabla-jefes tr:nth-of-type(even), .gestionar-roles .listar-afiliados .tabla-afiliados tr:nth-of-type(even) {
   background-color: #f5f5f5;
 }
-/* line 251, ../scss/layouts/_partido.scss */
+/* line 269, ../scss/layouts/_partido.scss */
 .gestionar-roles .listar-jefes .tabla-jefes tr:hover, .gestionar-roles .listar-jefes .tabla-afiliados tr:hover, .gestionar-roles .listar-afiliados .tabla-jefes tr:hover, .gestionar-roles .listar-afiliados .tabla-afiliados tr:hover {
   background-color: #fcf6d9;
 }
-/* line 254, ../scss/layouts/_partido.scss */
+/* line 272, ../scss/layouts/_partido.scss */
 .gestionar-roles .listar-jefes .tabla-jefes td, .gestionar-roles .listar-jefes .tabla-afiliados td, .gestionar-roles .listar-afiliados .tabla-jefes td, .gestionar-roles .listar-afiliados .tabla-afiliados td {
   font-size: 0.8125rem;
   padding: 3px 10px;
 }
-/* line 255, ../scss/layouts/_partido.scss */
+/* line 273, ../scss/layouts/_partido.scss */
 .gestionar-roles .listar-jefes .tabla-jefes td img, .gestionar-roles .listar-jefes .tabla-afiliados td img, .gestionar-roles .listar-afiliados .tabla-jefes td img, .gestionar-roles .listar-afiliados .tabla-afiliados td img {
   width: 20px;
   height: 20px;
 }
-/* line 261, ../scss/layouts/_partido.scss */
+/* line 279, ../scss/layouts/_partido.scss */
 .gestionar-roles .listar-jefes .tabla-jefes td .button, .gestionar-roles .listar-jefes .tabla-afiliados td .button, .gestionar-roles .listar-afiliados .tabla-jefes td .button, .gestionar-roles .listar-afiliados .tabla-afiliados td .button {
   margin: 0;
 }
-/* line 264, ../scss/layouts/_partido.scss */
+/* line 282, ../scss/layouts/_partido.scss */
 .gestionar-roles .listar-jefes .tabla-jefes td .quitar, .gestionar-roles .listar-jefes .tabla-jefes td .agregar, .gestionar-roles .listar-jefes .tabla-afiliados td .quitar, .gestionar-roles .listar-jefes .tabla-afiliados td .agregar, .gestionar-roles .listar-afiliados .tabla-jefes td .quitar, .gestionar-roles .listar-afiliados .tabla-jefes td .agregar, .gestionar-roles .listar-afiliados .tabla-afiliados td .quitar, .gestionar-roles .listar-afiliados .tabla-afiliados td .agregar {
   font-size: 0.9375rem;
   padding: 2px 5px;

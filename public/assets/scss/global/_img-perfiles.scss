@@ -1,15 +1,14 @@
 img.img-perfil{
-    padding:1px;
-    border: 5px solid #FFFFFF;
-    background-color:#FFFFFF;
-    &.radius{
-        border-radius: 50%;
+    border-radius: 50%;
+    border-color: #6B8CCA;
+    &.square{
+        border-radius: 0;
     }
     &.verificado{
         border-color: #EFCE18;
     }
     &.jefe{
-        border-color: #3E6DC3;
+        border-color: #7DC82C;
     }
     &.moderador{
         border-color: #50b788;
@@ -19,6 +18,12 @@ img.img-perfil{
     }
     &.organismo, &.funcionario{
         border-color: #DA7C43;
+    }
+    &.big-border{
+        padding: 1px;
+        border-width: 5px;
+        border-style: solid;
+        background-color:#FFFFFF;
     }
     &.small-border{
         border-width: 2px;

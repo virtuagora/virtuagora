@@ -53,7 +53,15 @@
     }
 }
 
-
+.selector-versiones{
+        .slick-slide{
+            padding: 10px 0;
+        }
+        .slick-active.slick-center{
+            background-color: #FFFFFF;
+            color: $documento-color;
+        }
+    }
 
 // VER
 
