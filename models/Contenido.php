@@ -11,10 +11,6 @@ class Contenido extends Eloquent {
     protected $appends = ['link'];
     protected $with = ['autor', 'categoria'];
 
-    public function scopeModifiableBy($query, $id) {
-        return $query->where('autor_id', $id);
-    }
-
     public function contenible() {
         return $this->morphTo();
     }

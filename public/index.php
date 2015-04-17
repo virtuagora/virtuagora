@@ -195,9 +195,9 @@ $app->group('/propuesta', function () use ($app) {
     $app->get('/:idPro', 'PropuestaCtrl:ver')->name('shwPropues');
     $app->post('/:idPro/votar', checkRole('usr'), 'PropuestaCtrl:votar')->name('runVotarPropues');
     $app->post('/:idPro/cambiar-privacidad', checkRole('usr'), 'PropuestaCtrl:cambiarPrivacidad')->name('runModifPrvPropues');
-    $app->get('/:idPro/modificar', checkModifyAuth('Contenido'), 'PropuestaCtrl:verModificar')->name('shwModifPropues');
-    $app->post('/:idPro/modificar', checkModifyAuth('Contenido'), 'PropuestaCtrl:modificar')->name('runModifPropues');
-    $app->post('/:idPro/eliminar', checkModifyAuth('Contenido'), 'PropuestaCtrl:eliminar')->name('runElimiPropues');
+    $app->get('/:idPro/modificar', checkModifyAuth('Propuesta'), 'PropuestaCtrl:verModificar')->name('shwModifPropues');
+    $app->post('/:idPro/modificar', checkModifyAuth('Propuesta'), 'PropuestaCtrl:modificar')->name('runModifPropues');
+    $app->post('/:idPro/eliminar', checkModifyAuth('Propuesta'), 'PropuestaCtrl:eliminar')->name('runElimiPropues');
 });
 
 $app->group('/problematica', function () use ($app) {
@@ -212,20 +212,20 @@ $app->group('/documento', function () use ($app) {
     $app->post('/crear', checkRole('fnc'), 'DocumentoCtrl:crear')->name('runCrearDocumen');
     $app->get('/:idDoc', 'DocumentoCtrl:ver')->name('shwDocumen');
     $app->get('/:idDoc/v/:idVer', 'DocumentoCtrl:ver')->name('shwVerDocumen');
-    $app->get('/:idDoc/modificar', checkModifyAuth('Contenido'), 'DocumentoCtrl:verModificar')->name('shwModifDocumen');
-    $app->post('/:idDoc/modificar', checkModifyAuth('Contenido'), 'DocumentoCtrl:modificar')->name('runModifDocumen');
-    $app->get('/:idDoc/nueva-version', checkModifyAuth('Contenido', false), 'DocumentoCtrl:verNuevaVersion')->name('shwNuVerDocumen');
-    $app->post('/:idDoc/nueva-version', checkModifyAuth('Contenido', false), 'DocumentoCtrl:nuevaVersion')->name('runNuVerDocumen');
-    $app->post('/:idDoc/eliminar', checkModifyAuth('Contenido'), 'DocumentoCtrl:eliminar')->name('runElimiDocumen');
+    $app->get('/:idDoc/modificar', checkModifyAuth('Documento'), 'DocumentoCtrl:verModificar')->name('shwModifDocumen');
+    $app->post('/:idDoc/modificar', checkModifyAuth('Documento'), 'DocumentoCtrl:modificar')->name('runModifDocumen');
+    $app->get('/:idDoc/nueva-version', checkModifyAuth('Documento', false), 'DocumentoCtrl:verNuevaVersion')->name('shwNuVerDocumen');
+    $app->post('/:idDoc/nueva-version', checkModifyAuth('Documento', false), 'DocumentoCtrl:nuevaVersion')->name('runNuVerDocumen');
+    $app->post('/:idDoc/eliminar', checkModifyAuth('Documento'), 'DocumentoCtrl:eliminar')->name('runElimiDocumen');
 });
 
 $app->group('/novedad', function () use ($app) {
     $app->get('/crear', checkRole('fnc'), 'NovedadCtrl:verCrear')->name('shwCrearNovedad');
     $app->post('/crear', checkRole('fnc'), 'NovedadCtrl:crear')->name('runCrearNovedad');
     $app->get('/:idNov', 'NovedadCtrl:ver')->name('shwNovedad');
-    $app->get('/:idNov/modificar', checkModifyAuth('Contenido'), 'NovedadCtrl:verModificar')->name('shwModifNovedad');
-    $app->post('/:idNov/modificar', checkModifyAuth('Contenido'), 'NovedadCtrl:modificar')->name('runModifNovedad');
-    $app->post('/:idNov/eliminar', checkModifyAuth('Contenido'), 'NovedadCtrl:eliminar')->name('runElimiNovedad');
+    $app->get('/:idNov/modificar', checkModifyAuth('Novedad'), 'NovedadCtrl:verModificar')->name('shwModifNovedad');
+    $app->post('/:idNov/modificar', checkModifyAuth('Novedad'), 'NovedadCtrl:modificar')->name('runModifNovedad');
+    $app->post('/:idNov/eliminar', checkModifyAuth('Novedad'), 'NovedadCtrl:eliminar')->name('runElimiNovedad');
 });
 
 $app->group('/partido', function () use ($app) {

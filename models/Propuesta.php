@@ -7,6 +7,12 @@ class Propuesta extends Eloquent {
     protected $dates = ['deleted_at'];
     protected $visible = array('id', 'cuerpo', 'votos_favor', 'votos_contra', 'votos_neutro');
 
+    public function scopeModifiableBy($query, $id) {
+        return $query->whereHas('contenido', function($q) use ($id) {
+            $q->where('autor_id', $id);
+        });
+    }
+
     public function contenido() {
         return $this->morphOne('Contenido', 'contenible');
     }

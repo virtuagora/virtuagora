@@ -8,6 +8,12 @@ class Problematica extends Eloquent {
     protected $dates = ['deleted_at'];
     protected $visible = array('id', 'cuerpo', 'afectados_directos', 'afectados_indirectos', 'afectados_indiferentes');
 
+    public function scopeModifiableBy($query, $id) {
+        return $query->whereHas('contenido', function($q) use ($id) {
+            $q->where('autor_id', $id);
+        });
+    }
+
     public function contenido() {
         return $this->morphOne('Contenido', 'contenible');
     }
