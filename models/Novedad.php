@@ -7,6 +7,12 @@ class Novedad extends Eloquent {
     protected $dates = ['deleted_at'];
     protected $visible = ['id', 'cuerpo'];
 
+    public function scopeModifiableBy($query, $id) {
+        return $query->whereHas('contenido', function($q) use ($id) {
+            $q->where('autor_id', $id);
+        });
+    }
+
     public function contenido() {
         return $this->morphOne('Contenido', 'contenible');
     }
