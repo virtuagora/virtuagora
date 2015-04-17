@@ -48,8 +48,8 @@ $organismo = new Organismo;
 $organismo->nombre = 'Concejo deliberante';
 $organismo->descripcion = 'Honorable concejo deliberante de la ciudad.';
 $organismo->cupo = 1;
-ImageManager::crearImagen('organis', $organismo->id, $organismo->nombre, array(32, 64, 160));
 $organismo->save();
+ImageManager::crearImagen('organis', $organismo->id, $organismo->nombre, array(32, 64, 160));
 
 $funcionario = new Funcionario;
 $funcionario->usuario()->associate($usuario);
