@@ -42,10 +42,8 @@ class Usuario extends Eloquent {
             foreach ($usuario->contenidos as $contenido) {
                 $contenido->contenible->delete();
             }
-            $usuario->contacto->delete();
-            $partido = Partido::where('usuario_id', $usuario->id)->first();
-            if ($partido) {
-                $partido->delete();
+            if ($usuario->contacto) {
+                $usuario->contacto->delete();
             }
             return true;
         });
