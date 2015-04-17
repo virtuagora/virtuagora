@@ -119,7 +119,7 @@
     });
 
     $(document).ready(function(){
-
+        $("textarea[name='cuerpo']").sceditor('instance').val('{{ cuerpo|bbCode }}', false);
     });
 
 
