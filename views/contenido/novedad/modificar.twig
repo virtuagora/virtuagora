@@ -134,7 +134,7 @@
 
     $(document).ready(function(){
         $('[name="titulo"]').val('{{ novedad.titulo }}');
-        $('[name="categoria"] select').val('{{ novedad.categoria }}');
+        $('[name="categoria"] select').val('{{ novedad.categoria.id }}');
         $("textarea[name='cuerpo']").sceditor('instance').val('{{ novedad.cuerpo|bbCode }}', false);
         autosize($("textarea[name='titulo']"));
         if( partido_id != null){

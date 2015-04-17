@@ -134,7 +134,7 @@
 
     $(document).ready(function(){
         $('[name="titulo"]').val('{{ propuesta.titulo }}');
-		$('[name="categoria"] select').val('{{ propuesta.categoria }}');
+		$('[name="categoria"] select').val('{{ propuesta.categoria.id }}');
         $("textarea[name='cuerpo']").sceditor('instance').val('{{ propuesta.cuerpo|bbCode }}', false);
         autosize($("textarea[name='titulo']"));
     });
