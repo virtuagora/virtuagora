@@ -37,7 +37,7 @@
                                 </div>
                             </section>
                             <section class="datos-cont text-center">
-                                {{ documento.created_at|date("d/m/Y") }} - Ver. {{documento.id + 1}} <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}"> {{ documento.autor.nombre }} {{ documento.autor.apellido }} <span class="usuario-pts"><i class="fa fa-trophy fa-fw"></i>&nbsp;{{ user.puntos }}</span>
+                                {{ documento.created_at|date("d/m/Y") }} - Ver. {{documento.ultima_version + 1}} <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}"> {{ documento.autor.nombre }} {{ documento.autor.apellido }} <span class="usuario-pts"><i class="fa fa-trophy fa-fw"></i>&nbsp;{{ user.puntos }}</span>
                             </section>
                         </div>
                     </div>
@@ -119,19 +119,7 @@
     });
 
     $(document).ready(function(){
-        $('[name="titulo"]').val('{{ documento.titulo }}');
-        $('[name="categoria"] select').val('{{ documento.categoria }}');
-        $('[name="descripcion"]').html("{{ documento.descripcion }}");
-        autosize($("textarea[name='titulo']"));
-        autosize($("textarea[name='descripcion']"));
 
-    });
-    $("textarea[name='titulo']").keypress(function(event) {
-        // Check the keyCode and if the user pressed Enter (code = 13)
-        // disable it
-        if (event.keyCode == 13) {
-            event.preventDefault();
-        }
     });
 
 
