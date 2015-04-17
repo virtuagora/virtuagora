@@ -93,17 +93,19 @@
                 </tbody>
             </table>
         </div>
-        <div class="large-9 columns large-centered control-tabla">
-            <div class="panel clearfix text-center columns">
-                <div class="left">
-                    <i class="first fa fa-angle-double-left fa-fw fa-lg"></i>&nbsp;&nbsp;
-                    <i class="prev fa fa-angle-left fa-fw fa-lg"></i>
+        <div class="large-12 columns control-tabla">
+            <div class="panel clearfix large-9 large-centered columns">
+                <div class="small-4 columns text-left">
+                    <a id="nav-first"><i class="fa fa-angle-double-left fa-fw fa-lg"></i></a>&nbsp;&nbsp;
+                    <a id="nav-prev"><i class="fa fa-angle-left fa-fw fa-lg"></i></a>
                 </div>
-                <div class="right">
-                    <i class="next fa fa-angle-right fa-fw fa-lg"></i>&nbsp;&nbsp;
-                    <i class="last fa fa-angle-double-right fa-fw fa-lg"></i>
+                <div class="small-4 columns text-center">
+                    <i class="ejecutando fa fa-spinner fa-fw fa-lg fa-pulse"></i>
                 </div>
-                <i class="ejecutando fa fa-spinner fa-fw fa-lg fa-pulse"></i>
+                <div class="small-4 columns text-right">
+                    <a id="nav-next"><i class="fa fa-angle-right fa-fw fa-lg"></i></a>&nbsp;&nbsp;
+                    <a id="nav-last"><i class="fa fa-angle-double-right fa-fw fa-lg"></i></a>
+                </div>
             </div>
         </div>
     </div>
@@ -216,7 +218,12 @@
         });
     });
 
+    function startGetRequest(event) {
+        enviarSolicitud(event.data.url);
+    }
+
     function enviarSolicitud(url_query) {
+        $('.ejecutando').show();
         var request = $.ajax({
             url: url_query,
             cache: false,
@@ -234,10 +241,6 @@
                     (resultados[i].nombre+' '+resultados[i].apellido)
                 );
             }
-            toggleControlTabla('first');
-            toggleControlTabla('prev');
-            toggleControlTabla('next');
-            toggleControlTabla('last');
             $('.ejecutando').hide();
             return true;
         });
@@ -292,30 +295,6 @@
         $('#salientes').val('['+func_out.join()+']');
     }
 
-    $( ".first" ).click(function() {
-        if(links_tabla['first']){
-            $('.ejecutando').show();
-            enviarSolicitud(links_tabla['first']);
-        }
-    });
-    $( ".prev" ).click(function() {
-        if(links_tabla['prev']){
-            $('.ejecutando').show();
-            enviarSolicitud(links_tabla['prev']);
-        }
-    });
-    $( ".next" ).click(function() {
-        if(links_tabla['next']){
-            $('.ejecutando').show();
-            enviarSolicitud(links_tabla['next']);
-        }
-    });
-    $( ".last" ).click(function() {
-        if(links_tabla['last']){
-            $('.ejecutando').show();
-            enviarSolicitud(links_tabla['last']);
-        }
-    });
 
     var toggleControlTabla = function(nombre){
         if(links_tabla[nombre]){
