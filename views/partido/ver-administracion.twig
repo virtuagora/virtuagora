@@ -24,7 +24,7 @@
                 </li>
                 <li><a href="{{ urlFor('shwModifRolPartido', {'idPar': partido.id}) }}">Gestionar roles</a></li>
                 <li><a href="{{ urlFor('shwModifPartido', {'idPar': partido.id}) }}">Modificar datos</a></li>
-                <li><a href="#">Eliminar partido</a></li>
+                <li><a href="{{ urlFor('shwElimiPartido', {'idPar': partido.id}) }}">Eliminar partido</a></li>
                 <li><a href="{{ urlFor('shwIndex') }}" class="bt-volver button oposite radius expand"><i class="fa fa-undo fa-fw"></i> Volver al inicio</a></li>
             </ul>
         </div>
