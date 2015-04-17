@@ -240,6 +240,8 @@ $app->group('/partido', function () use ($app) {
     $app->post('/:idPar/cambiar-imagen', checkModifyAuth('Partido'), 'PartidoCtrl:cambiarImagen')->name('runModifImgPartido');
     $app->get('/:idPar/cambiar-rol', checkModifyAuth('Partido', false), 'PartidoCtrl:verCambiarRol')->name('shwModifRolPartido');
     $app->post('/:idPar/cambiar-rol', checkModifyAuth('Partido', false), 'PartidoCtrl:cambiarRol')->name('runModifRolPartido');
+    $app->get('/:idPar/eliminar', checkModifyAuth('Partido', false), 'PartidoCtrl:verEliminar')->name('shwElimiPartido');
+    $app->post('/:idPar/eliminar', checkModifyAuth('Partido', false), 'PartidoCtrl:eliminar')->name('runElimiPartido');
 });
 
 session_cache_limiter(false);

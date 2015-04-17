@@ -137,6 +137,13 @@ class PartidoCtrl extends RMRController {
         $this->redirect($this->request->getReferrer());
     }
 
+    public function verEliminar($idPar) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idPar, new Validate\Rule\NumNatural());
+        $partido = Partido::findOrFail($idPar);
+        $this->render('partido/eliminar.twig', array('partido' => $partido->toArray()));
+    }
+
     public function eliminar($idPar) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idPar, new Validate\Rule\NumNatural());
@@ -148,7 +155,7 @@ class PartidoCtrl extends RMRController {
         UserlogCtrl::createLog('delPartido', $this->session->getUser(), $partido);
         $this->session->update();
         $this->flash('success', 'El partido ha sido eliminado exitosamente.');
-        $this->redirect($this->request->getReferrer());
+        $this->redirectTo('shwIndex');
     }
 
     public function verCambiarRol($idPar) {
