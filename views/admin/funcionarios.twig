@@ -174,7 +174,7 @@
             cambiando=-1;
         });
         $('#bt-cambiar').click(function() {
-            enviarSolicitud('{{ baseUrl() }}/usuario');
+            enviarSolicitud('{{ baseUrl() }}/usuario?');
             $('#posiblesCandidatos').foundation('reveal', 'open');
         });
         $('#bt-vacante').click(function() {
@@ -223,7 +223,7 @@
             dataType: "json"
         });
         request.done(function(resultados) {
-            links_tabla = parse_link_header(request.getResponseHeader('link'));
+            refreshPaginator(parseLinkHeader(request.getResponseHeader('link')));
             $("#funcCandidatos").find('tbody').empty();
             for (var i=0; i<resultados.length; i++) {
                 var candidato = $("<li>");
