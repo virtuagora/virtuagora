@@ -8,7 +8,7 @@
 {% extends "master.twig" %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}Virtuagora - Nuevo evento{% endblock %}
+{% block titulo %}Virtuagora - Modificar evento{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block linkhead %}
 <link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/jquery-ui/jquery-ui.min.css"/>
@@ -21,7 +21,7 @@
         <div class="large-12 large-centered columns">
             <section class="intro-cont text-center">
                 <div class="row">
-                    <i class="fa fa-calendar fa-fw fa-2x"></i><br>NUEVO EVENTO<br>
+                    <i class="fa fa-calendar fa-fw fa-2x"></i><br>MODIFICAR EVENTO<br>
                 </div>
                 <div class="row">
                     <i class="ayuda fa fa-question-circle fa-fw"></i>
@@ -32,7 +32,7 @@
             </section>
         </div>
     </div>
-    <form action="{{ urlFor('runCrearEvento') }}" method="POST">
+    <form action="{{ urlFor('runCrearPropues') }}" method="POST">
         <div class="row">
             <div class="large-12 large-centered columns">
                 <div class="panel-crear-cont">
@@ -53,6 +53,7 @@
                             </section>
                         </div>
                     </div>
+
                     <div class="asociar-partido-row row" style="margin-top:0;">
                         <div class="large-6 large-centered columns">
                             <div class="asociar-partido switch small round">
@@ -64,6 +65,7 @@
                             </div>
                         </div>
                     </div>
+
                     <hr>
                     <div class="fecha-row row">
                         <div class="medium-4 large-4 columns text-center">
@@ -79,8 +81,7 @@
                                             <h2><i class="fa fa-calendar fa-fw"></i></h2>
                                         </div>
                                         <div class="small-11 medium-10 large-10 columns">
-                                            <div class="muestra-fecha">
-                                               <h2>
+                                            <div class="muestra-fecha"> <h2>
                                                 Seleccione una fecha
                                                 </h2>
                                             </div>
@@ -123,7 +124,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row collapse prefix-radius" style="margin: 10px auto 20px;">
                         <div class="large-9 large-centered columns">
                             <div class="large-1 columns">
@@ -140,7 +140,7 @@
         <div class="row">
             <div class="large-8 large-centered columns">
                 <section class="publicar-cont">
-                    <button type="submit" class="button oposite large expand radius"><i class="fa fa-send-o fa-fw fa-lg"></i>&nbsp;Publicar nuevo evento</button>
+                    <button type="submit" class="button oposite large expand radius"><i class="fa fa-check fa-fw fa-lg"></i>&nbsp;Aplicar los cambios</button>
                 </section>
             </div>
         </div>
@@ -162,6 +162,8 @@
 <script src="{{ baseUrl() }}/assets/js/jquery-ui/datepicker-es.js"></script>
 <script src="{{ baseUrl() }}/assets/js/timepicker/jquery.timepicker.min.js"></script>
 <script type="text/javascript">
+    var partido_id = {{ evento.impulsor_id ? evento.impulsor_id : 'null' }};
+
     $(document).ready(function(){
         autosize($('textarea[name="cuerpo"]'));
         $( "#datepicker" ).datepicker({
@@ -176,9 +178,25 @@
         });
         $('#timepicker').timepicker({
             'timeFormat': 'H:i',
-             'step': 15
+            'step': 15
         });
+
+        var tiempo = new Date('2015-04-28 21:53:37');
+        $( "#datepicker" ).datepicker( "setDate", tiempo );
+        $('.muestra-fecha h2').html($( "#datepicker" ).val());
+        $('#timepicker').timepicker('setTime', tiempo);
+
+        if( partido_id != null){
+            $("#checkbox").attr('checked', true);
+            completarDescripcion();
+        }
     });
+
+
+
+    $( "textarea[name='titulo']" ).focus(function() {
+        autosize($(this));
+    })
 
     $('form').submit(function(e){
         var fecha = $( "#guardarFecha" ).val()
@@ -204,11 +222,6 @@
     };
 
     $("#checkbox").click(cambiarEstado);
-
-    $( "textarea[name='titulo']" ).focus(function() {
-        autosize($(this));
-    })
-
 
 
     // Evito que agreguen un retorno de carro.
