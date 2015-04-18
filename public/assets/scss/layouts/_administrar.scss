@@ -8,7 +8,7 @@
             background-color: #fcf6d9;
         }
     }
-    .tabla-org, .tabla-funcionarios, .tabla-usuarios, .tabla-usuarios-verificar, .tabla-patrullas{
+    .tabla-org, .tabla-funcionarios, .tabla-usuarios, .tabla-usuarios-verificar, .tabla-patrullas, .tabla-usuarios-moderadores{
         width: 100%;
         thead tr th{
             font-size: rem-calc(13);
@@ -79,7 +79,7 @@
 
 }
 
-.verificar-usuarios{
+.verificar-usuarios, .nuevos-moderadores{
     .titulo h4{
         letter-spacing: -0.5px;
     }
@@ -94,7 +94,7 @@
 }
 
 .listar-patrullas{
-     .explicacion.panel{
+    .explicacion.panel{
         letter-spacing: -0.5px;
         font-size: rem-calc(14);
         padding: 6px;
@@ -132,6 +132,24 @@
             min-height: 20px;
             padding: 0;
             font-size: rem-calc(12);
+        }
+    }
+}
+
+select[name="patrulla"]{
+    margin: 0;
+    font-size: 0.8125rem;
+    letter-spacing: -0.3px;
+    padding: 2px 10px;
+    height: auto;
+}
+
+.tabla-usuarios-moderadores{
+    .agregando{
+        td.columna-patrulla{
+            select{
+                margin: 0;
+            }
         }
     }
 }
