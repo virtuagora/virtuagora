@@ -7243,46 +7243,64 @@ table.listado-funcionarios tr:last-child td, table.info-general tr:last-child td
   font-weight: 700;
 }
 
-/* line 5, ../scss/layouts/_evento.scss */
-.crear-contenido .panel-crear-cont .imagen-evento {
-  padding: 40px 90px;
-  background-color: #F2F2F2;
-  color: #8d8d8d;
-  border: 1px solid #8d8d8d;
-  position: relative;
-  float: left;
-  font-size: 5rem;
+@media only screen and (min-width: 64.063em) {
+  /* line 6, ../scss/layouts/_evento.scss */
+  .crear-contenido .panel-crear-cont .datos-evento {
+    margin-right: 10%;
+  }
 }
-/* line 25, ../scss/layouts/_evento.scss */
-.crear-contenido .panel-crear-cont .fecha-row {
-  margin-bottom: 50px;
+/* line 11, ../scss/layouts/_evento.scss */
+.crear-contenido .panel-crear-cont .cuerpo-cont textarea[name=cuerpo] {
+  min-height: 0;
+  resize: vertical;
 }
-/* line 28, ../scss/layouts/_evento.scss */
-.crear-contenido .panel-crear-cont .datos-evento {
-  margin-left: 300px;
+/* line 16, ../scss/layouts/_evento.scss */
+.crear-contenido .panel-crear-cont .wrapper-fecha {
+  border: 1px solid #C0C0C0;
+  border-radius: 4px;
+  padding: 15px;
+  margin: 10px auto 15px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
-/* line 31, ../scss/layouts/_evento.scss */
-.crear-contenido .panel-crear-cont #datepicker {
-  font-family: "Source Sans Pro",sans-serif;
+/* line 17, ../scss/layouts/_evento.scss */
+.crear-contenido .panel-crear-cont .wrapper-fecha h2 {
+  margin: 0;
+}
+/* line 26, ../scss/layouts/_evento.scss */
+.crear-contenido .panel-crear-cont .muestra-tiempo input {
+  margin: 0;
+  box-shadow: none;
+  border: 0;
+  text-align: center;
+  height: 40px;
+  font-size: 1.875rem;
+  padding: 0;
+}
+/* line 34, ../scss/layouts/_evento.scss */
+.crear-contenido .panel-crear-cont .muestra-tiempo input:focus {
+  background-color: #fcf6d9;
+}
+/* line 38, ../scss/layouts/_evento.scss */
+.crear-contenido .panel-crear-cont .ui-datepicker {
+  font-family: "Source Sans Pro",sans-serif !important;
   font-style: normal;
-  font-size: 2.1875rem;
+  display: inline-block !important;
+  font-size: 0.75rem !important;
   text-rendering: optimizelegibility;
   color: #383838;
   border: 0px solid #484848;
-  width: 100%;
-  min-height: 70px;
   box-shadow: 0px 0px 0px transparent;
   text-align: center;
   resize: none;
-  margin: 0;
+  margin: 0 !important;
 }
-/* line 43, ../scss/layouts/_evento.scss */
-.crear-contenido .panel-crear-cont #datepicker:focus {
+/* line 50, ../scss/layouts/_evento.scss */
+.crear-contenido .panel-crear-cont .ui-datepicker:focus {
   background-color: #fff4c4;
   outline: 0;
 }
 
-/* line 52, ../scss/layouts/_evento.scss */
+/* line 58, ../scss/layouts/_evento.scss */
 #ui-datepicker-div {
   font-size: 0.8125rem;
 }
@@ -7860,41 +7878,41 @@ table.listado-funcionarios tr:last-child td, table.info-general tr:last-child td
   background-color: #fcf6d9;
 }
 /* line 11, ../scss/layouts/_administrar.scss */
-.listar-organismos .tabla-org, .listar-organismos .tabla-funcionarios, .listar-organismos .tabla-usuarios, .listar-organismos .tabla-usuarios-verificar, .listar-organismos .tabla-patrullas, .listar-funcionarios .tabla-org, .listar-funcionarios .tabla-funcionarios, .listar-funcionarios .tabla-usuarios, .listar-funcionarios .tabla-usuarios-verificar, .listar-funcionarios .tabla-patrullas, .listar-usuarios .tabla-org, .listar-usuarios .tabla-funcionarios, .listar-usuarios .tabla-usuarios, .listar-usuarios .tabla-usuarios-verificar, .listar-usuarios .tabla-patrullas, .listar-patrullas .tabla-org, .listar-patrullas .tabla-funcionarios, .listar-patrullas .tabla-usuarios, .listar-patrullas .tabla-usuarios-verificar, .listar-patrullas .tabla-patrullas {
+.listar-organismos .tabla-org, .listar-organismos .tabla-funcionarios, .listar-organismos .tabla-usuarios, .listar-organismos .tabla-usuarios-verificar, .listar-organismos .tabla-patrullas, .listar-organismos .tabla-usuarios-moderadores, .listar-funcionarios .tabla-org, .listar-funcionarios .tabla-funcionarios, .listar-funcionarios .tabla-usuarios, .listar-funcionarios .tabla-usuarios-verificar, .listar-funcionarios .tabla-patrullas, .listar-funcionarios .tabla-usuarios-moderadores, .listar-usuarios .tabla-org, .listar-usuarios .tabla-funcionarios, .listar-usuarios .tabla-usuarios, .listar-usuarios .tabla-usuarios-verificar, .listar-usuarios .tabla-patrullas, .listar-usuarios .tabla-usuarios-moderadores, .listar-patrullas .tabla-org, .listar-patrullas .tabla-funcionarios, .listar-patrullas .tabla-usuarios, .listar-patrullas .tabla-usuarios-verificar, .listar-patrullas .tabla-patrullas, .listar-patrullas .tabla-usuarios-moderadores {
   width: 100%;
 }
 /* line 13, ../scss/layouts/_administrar.scss */
-.listar-organismos .tabla-org thead tr th, .listar-organismos .tabla-funcionarios thead tr th, .listar-organismos .tabla-usuarios thead tr th, .listar-organismos .tabla-usuarios-verificar thead tr th, .listar-organismos .tabla-patrullas thead tr th, .listar-funcionarios .tabla-org thead tr th, .listar-funcionarios .tabla-funcionarios thead tr th, .listar-funcionarios .tabla-usuarios thead tr th, .listar-funcionarios .tabla-usuarios-verificar thead tr th, .listar-funcionarios .tabla-patrullas thead tr th, .listar-usuarios .tabla-org thead tr th, .listar-usuarios .tabla-funcionarios thead tr th, .listar-usuarios .tabla-usuarios thead tr th, .listar-usuarios .tabla-usuarios-verificar thead tr th, .listar-usuarios .tabla-patrullas thead tr th, .listar-patrullas .tabla-org thead tr th, .listar-patrullas .tabla-funcionarios thead tr th, .listar-patrullas .tabla-usuarios thead tr th, .listar-patrullas .tabla-usuarios-verificar thead tr th, .listar-patrullas .tabla-patrullas thead tr th {
+.listar-organismos .tabla-org thead tr th, .listar-organismos .tabla-funcionarios thead tr th, .listar-organismos .tabla-usuarios thead tr th, .listar-organismos .tabla-usuarios-verificar thead tr th, .listar-organismos .tabla-patrullas thead tr th, .listar-organismos .tabla-usuarios-moderadores thead tr th, .listar-funcionarios .tabla-org thead tr th, .listar-funcionarios .tabla-funcionarios thead tr th, .listar-funcionarios .tabla-usuarios thead tr th, .listar-funcionarios .tabla-usuarios-verificar thead tr th, .listar-funcionarios .tabla-patrullas thead tr th, .listar-funcionarios .tabla-usuarios-moderadores thead tr th, .listar-usuarios .tabla-org thead tr th, .listar-usuarios .tabla-funcionarios thead tr th, .listar-usuarios .tabla-usuarios thead tr th, .listar-usuarios .tabla-usuarios-verificar thead tr th, .listar-usuarios .tabla-patrullas thead tr th, .listar-usuarios .tabla-usuarios-moderadores thead tr th, .listar-patrullas .tabla-org thead tr th, .listar-patrullas .tabla-funcionarios thead tr th, .listar-patrullas .tabla-usuarios thead tr th, .listar-patrullas .tabla-usuarios-verificar thead tr th, .listar-patrullas .tabla-patrullas thead tr th, .listar-patrullas .tabla-usuarios-moderadores thead tr th {
   font-size: 0.8125rem;
   font-weight: 400;
   padding: 5px 10px;
   background-color: #e3e3e3;
 }
 /* line 18, ../scss/layouts/_administrar.scss */
-.listar-organismos .tabla-org thead tr th .titulo, .listar-organismos .tabla-funcionarios thead tr th .titulo, .listar-organismos .tabla-usuarios thead tr th .titulo, .listar-organismos .tabla-usuarios-verificar thead tr th .titulo, .listar-organismos .tabla-patrullas thead tr th .titulo, .listar-funcionarios .tabla-org thead tr th .titulo, .listar-funcionarios .tabla-funcionarios thead tr th .titulo, .listar-funcionarios .tabla-usuarios thead tr th .titulo, .listar-funcionarios .tabla-usuarios-verificar thead tr th .titulo, .listar-funcionarios .tabla-patrullas thead tr th .titulo, .listar-usuarios .tabla-org thead tr th .titulo, .listar-usuarios .tabla-funcionarios thead tr th .titulo, .listar-usuarios .tabla-usuarios thead tr th .titulo, .listar-usuarios .tabla-usuarios-verificar thead tr th .titulo, .listar-usuarios .tabla-patrullas thead tr th .titulo, .listar-patrullas .tabla-org thead tr th .titulo, .listar-patrullas .tabla-funcionarios thead tr th .titulo, .listar-patrullas .tabla-usuarios thead tr th .titulo, .listar-patrullas .tabla-usuarios-verificar thead tr th .titulo, .listar-patrullas .tabla-patrullas thead tr th .titulo {
+.listar-organismos .tabla-org thead tr th .titulo, .listar-organismos .tabla-funcionarios thead tr th .titulo, .listar-organismos .tabla-usuarios thead tr th .titulo, .listar-organismos .tabla-usuarios-verificar thead tr th .titulo, .listar-organismos .tabla-patrullas thead tr th .titulo, .listar-organismos .tabla-usuarios-moderadores thead tr th .titulo, .listar-funcionarios .tabla-org thead tr th .titulo, .listar-funcionarios .tabla-funcionarios thead tr th .titulo, .listar-funcionarios .tabla-usuarios thead tr th .titulo, .listar-funcionarios .tabla-usuarios-verificar thead tr th .titulo, .listar-funcionarios .tabla-patrullas thead tr th .titulo, .listar-funcionarios .tabla-usuarios-moderadores thead tr th .titulo, .listar-usuarios .tabla-org thead tr th .titulo, .listar-usuarios .tabla-funcionarios thead tr th .titulo, .listar-usuarios .tabla-usuarios thead tr th .titulo, .listar-usuarios .tabla-usuarios-verificar thead tr th .titulo, .listar-usuarios .tabla-patrullas thead tr th .titulo, .listar-usuarios .tabla-usuarios-moderadores thead tr th .titulo, .listar-patrullas .tabla-org thead tr th .titulo, .listar-patrullas .tabla-funcionarios thead tr th .titulo, .listar-patrullas .tabla-usuarios thead tr th .titulo, .listar-patrullas .tabla-usuarios-verificar thead tr th .titulo, .listar-patrullas .tabla-patrullas thead tr th .titulo, .listar-patrullas .tabla-usuarios-moderadores thead tr th .titulo {
   width: 70%;
 }
 /* line 22, ../scss/layouts/_administrar.scss */
-.listar-organismos .tabla-org tr:nth-of-type(even), .listar-organismos .tabla-funcionarios tr:nth-of-type(even), .listar-organismos .tabla-usuarios tr:nth-of-type(even), .listar-organismos .tabla-usuarios-verificar tr:nth-of-type(even), .listar-organismos .tabla-patrullas tr:nth-of-type(even), .listar-funcionarios .tabla-org tr:nth-of-type(even), .listar-funcionarios .tabla-funcionarios tr:nth-of-type(even), .listar-funcionarios .tabla-usuarios tr:nth-of-type(even), .listar-funcionarios .tabla-usuarios-verificar tr:nth-of-type(even), .listar-funcionarios .tabla-patrullas tr:nth-of-type(even), .listar-usuarios .tabla-org tr:nth-of-type(even), .listar-usuarios .tabla-funcionarios tr:nth-of-type(even), .listar-usuarios .tabla-usuarios tr:nth-of-type(even), .listar-usuarios .tabla-usuarios-verificar tr:nth-of-type(even), .listar-usuarios .tabla-patrullas tr:nth-of-type(even), .listar-patrullas .tabla-org tr:nth-of-type(even), .listar-patrullas .tabla-funcionarios tr:nth-of-type(even), .listar-patrullas .tabla-usuarios tr:nth-of-type(even), .listar-patrullas .tabla-usuarios-verificar tr:nth-of-type(even), .listar-patrullas .tabla-patrullas tr:nth-of-type(even) {
+.listar-organismos .tabla-org tr:nth-of-type(even), .listar-organismos .tabla-funcionarios tr:nth-of-type(even), .listar-organismos .tabla-usuarios tr:nth-of-type(even), .listar-organismos .tabla-usuarios-verificar tr:nth-of-type(even), .listar-organismos .tabla-patrullas tr:nth-of-type(even), .listar-organismos .tabla-usuarios-moderadores tr:nth-of-type(even), .listar-funcionarios .tabla-org tr:nth-of-type(even), .listar-funcionarios .tabla-funcionarios tr:nth-of-type(even), .listar-funcionarios .tabla-usuarios tr:nth-of-type(even), .listar-funcionarios .tabla-usuarios-verificar tr:nth-of-type(even), .listar-funcionarios .tabla-patrullas tr:nth-of-type(even), .listar-funcionarios .tabla-usuarios-moderadores tr:nth-of-type(even), .listar-usuarios .tabla-org tr:nth-of-type(even), .listar-usuarios .tabla-funcionarios tr:nth-of-type(even), .listar-usuarios .tabla-usuarios tr:nth-of-type(even), .listar-usuarios .tabla-usuarios-verificar tr:nth-of-type(even), .listar-usuarios .tabla-patrullas tr:nth-of-type(even), .listar-usuarios .tabla-usuarios-moderadores tr:nth-of-type(even), .listar-patrullas .tabla-org tr:nth-of-type(even), .listar-patrullas .tabla-funcionarios tr:nth-of-type(even), .listar-patrullas .tabla-usuarios tr:nth-of-type(even), .listar-patrullas .tabla-usuarios-verificar tr:nth-of-type(even), .listar-patrullas .tabla-patrullas tr:nth-of-type(even), .listar-patrullas .tabla-usuarios-moderadores tr:nth-of-type(even) {
   background-color: #f5f5f5;
 }
 /* line 25, ../scss/layouts/_administrar.scss */
-.listar-organismos .tabla-org tr:hover, .listar-organismos .tabla-funcionarios tr:hover, .listar-organismos .tabla-usuarios tr:hover, .listar-organismos .tabla-usuarios-verificar tr:hover, .listar-organismos .tabla-patrullas tr:hover, .listar-funcionarios .tabla-org tr:hover, .listar-funcionarios .tabla-funcionarios tr:hover, .listar-funcionarios .tabla-usuarios tr:hover, .listar-funcionarios .tabla-usuarios-verificar tr:hover, .listar-funcionarios .tabla-patrullas tr:hover, .listar-usuarios .tabla-org tr:hover, .listar-usuarios .tabla-funcionarios tr:hover, .listar-usuarios .tabla-usuarios tr:hover, .listar-usuarios .tabla-usuarios-verificar tr:hover, .listar-usuarios .tabla-patrullas tr:hover, .listar-patrullas .tabla-org tr:hover, .listar-patrullas .tabla-funcionarios tr:hover, .listar-patrullas .tabla-usuarios tr:hover, .listar-patrullas .tabla-usuarios-verificar tr:hover, .listar-patrullas .tabla-patrullas tr:hover {
+.listar-organismos .tabla-org tr:hover, .listar-organismos .tabla-funcionarios tr:hover, .listar-organismos .tabla-usuarios tr:hover, .listar-organismos .tabla-usuarios-verificar tr:hover, .listar-organismos .tabla-patrullas tr:hover, .listar-organismos .tabla-usuarios-moderadores tr:hover, .listar-funcionarios .tabla-org tr:hover, .listar-funcionarios .tabla-funcionarios tr:hover, .listar-funcionarios .tabla-usuarios tr:hover, .listar-funcionarios .tabla-usuarios-verificar tr:hover, .listar-funcionarios .tabla-patrullas tr:hover, .listar-funcionarios .tabla-usuarios-moderadores tr:hover, .listar-usuarios .tabla-org tr:hover, .listar-usuarios .tabla-funcionarios tr:hover, .listar-usuarios .tabla-usuarios tr:hover, .listar-usuarios .tabla-usuarios-verificar tr:hover, .listar-usuarios .tabla-patrullas tr:hover, .listar-usuarios .tabla-usuarios-moderadores tr:hover, .listar-patrullas .tabla-org tr:hover, .listar-patrullas .tabla-funcionarios tr:hover, .listar-patrullas .tabla-usuarios tr:hover, .listar-patrullas .tabla-usuarios-verificar tr:hover, .listar-patrullas .tabla-patrullas tr:hover, .listar-patrullas .tabla-usuarios-moderadores tr:hover {
   background-color: #fcf6d9;
 }
 /* line 28, ../scss/layouts/_administrar.scss */
-.listar-organismos .tabla-org td, .listar-organismos .tabla-funcionarios td, .listar-organismos .tabla-usuarios td, .listar-organismos .tabla-usuarios-verificar td, .listar-organismos .tabla-patrullas td, .listar-funcionarios .tabla-org td, .listar-funcionarios .tabla-funcionarios td, .listar-funcionarios .tabla-usuarios td, .listar-funcionarios .tabla-usuarios-verificar td, .listar-funcionarios .tabla-patrullas td, .listar-usuarios .tabla-org td, .listar-usuarios .tabla-funcionarios td, .listar-usuarios .tabla-usuarios td, .listar-usuarios .tabla-usuarios-verificar td, .listar-usuarios .tabla-patrullas td, .listar-patrullas .tabla-org td, .listar-patrullas .tabla-funcionarios td, .listar-patrullas .tabla-usuarios td, .listar-patrullas .tabla-usuarios-verificar td, .listar-patrullas .tabla-patrullas td {
+.listar-organismos .tabla-org td, .listar-organismos .tabla-funcionarios td, .listar-organismos .tabla-usuarios td, .listar-organismos .tabla-usuarios-verificar td, .listar-organismos .tabla-patrullas td, .listar-organismos .tabla-usuarios-moderadores td, .listar-funcionarios .tabla-org td, .listar-funcionarios .tabla-funcionarios td, .listar-funcionarios .tabla-usuarios td, .listar-funcionarios .tabla-usuarios-verificar td, .listar-funcionarios .tabla-patrullas td, .listar-funcionarios .tabla-usuarios-moderadores td, .listar-usuarios .tabla-org td, .listar-usuarios .tabla-funcionarios td, .listar-usuarios .tabla-usuarios td, .listar-usuarios .tabla-usuarios-verificar td, .listar-usuarios .tabla-patrullas td, .listar-usuarios .tabla-usuarios-moderadores td, .listar-patrullas .tabla-org td, .listar-patrullas .tabla-funcionarios td, .listar-patrullas .tabla-usuarios td, .listar-patrullas .tabla-usuarios-verificar td, .listar-patrullas .tabla-patrullas td, .listar-patrullas .tabla-usuarios-moderadores td {
   font-size: 0.8125rem;
   letter-spacing: -0.3px;
   padding: 3px 10px;
 }
 /* line 29, ../scss/layouts/_administrar.scss */
-.listar-organismos .tabla-org td img, .listar-organismos .tabla-funcionarios td img, .listar-organismos .tabla-usuarios td img, .listar-organismos .tabla-usuarios-verificar td img, .listar-organismos .tabla-patrullas td img, .listar-funcionarios .tabla-org td img, .listar-funcionarios .tabla-funcionarios td img, .listar-funcionarios .tabla-usuarios td img, .listar-funcionarios .tabla-usuarios-verificar td img, .listar-funcionarios .tabla-patrullas td img, .listar-usuarios .tabla-org td img, .listar-usuarios .tabla-funcionarios td img, .listar-usuarios .tabla-usuarios td img, .listar-usuarios .tabla-usuarios-verificar td img, .listar-usuarios .tabla-patrullas td img, .listar-patrullas .tabla-org td img, .listar-patrullas .tabla-funcionarios td img, .listar-patrullas .tabla-usuarios td img, .listar-patrullas .tabla-usuarios-verificar td img, .listar-patrullas .tabla-patrullas td img {
+.listar-organismos .tabla-org td img, .listar-organismos .tabla-funcionarios td img, .listar-organismos .tabla-usuarios td img, .listar-organismos .tabla-usuarios-verificar td img, .listar-organismos .tabla-patrullas td img, .listar-organismos .tabla-usuarios-moderadores td img, .listar-funcionarios .tabla-org td img, .listar-funcionarios .tabla-funcionarios td img, .listar-funcionarios .tabla-usuarios td img, .listar-funcionarios .tabla-usuarios-verificar td img, .listar-funcionarios .tabla-patrullas td img, .listar-funcionarios .tabla-usuarios-moderadores td img, .listar-usuarios .tabla-org td img, .listar-usuarios .tabla-funcionarios td img, .listar-usuarios .tabla-usuarios td img, .listar-usuarios .tabla-usuarios-verificar td img, .listar-usuarios .tabla-patrullas td img, .listar-usuarios .tabla-usuarios-moderadores td img, .listar-patrullas .tabla-org td img, .listar-patrullas .tabla-funcionarios td img, .listar-patrullas .tabla-usuarios td img, .listar-patrullas .tabla-usuarios-verificar td img, .listar-patrullas .tabla-patrullas td img, .listar-patrullas .tabla-usuarios-moderadores td img {
   width: 20px;
   height: 20px;
 }
 /* line 36, ../scss/layouts/_administrar.scss */
-.listar-organismos .tabla-org td .button, .listar-organismos .tabla-funcionarios td .button, .listar-organismos .tabla-usuarios td .button, .listar-organismos .tabla-usuarios-verificar td .button, .listar-organismos .tabla-patrullas td .button, .listar-funcionarios .tabla-org td .button, .listar-funcionarios .tabla-funcionarios td .button, .listar-funcionarios .tabla-usuarios td .button, .listar-funcionarios .tabla-usuarios-verificar td .button, .listar-funcionarios .tabla-patrullas td .button, .listar-usuarios .tabla-org td .button, .listar-usuarios .tabla-funcionarios td .button, .listar-usuarios .tabla-usuarios td .button, .listar-usuarios .tabla-usuarios-verificar td .button, .listar-usuarios .tabla-patrullas td .button, .listar-patrullas .tabla-org td .button, .listar-patrullas .tabla-funcionarios td .button, .listar-patrullas .tabla-usuarios td .button, .listar-patrullas .tabla-usuarios-verificar td .button, .listar-patrullas .tabla-patrullas td .button {
+.listar-organismos .tabla-org td .button, .listar-organismos .tabla-funcionarios td .button, .listar-organismos .tabla-usuarios td .button, .listar-organismos .tabla-usuarios-verificar td .button, .listar-organismos .tabla-patrullas td .button, .listar-organismos .tabla-usuarios-moderadores td .button, .listar-funcionarios .tabla-org td .button, .listar-funcionarios .tabla-funcionarios td .button, .listar-funcionarios .tabla-usuarios td .button, .listar-funcionarios .tabla-usuarios-verificar td .button, .listar-funcionarios .tabla-patrullas td .button, .listar-funcionarios .tabla-usuarios-moderadores td .button, .listar-usuarios .tabla-org td .button, .listar-usuarios .tabla-funcionarios td .button, .listar-usuarios .tabla-usuarios td .button, .listar-usuarios .tabla-usuarios-verificar td .button, .listar-usuarios .tabla-patrullas td .button, .listar-usuarios .tabla-usuarios-moderadores td .button, .listar-patrullas .tabla-org td .button, .listar-patrullas .tabla-funcionarios td .button, .listar-patrullas .tabla-usuarios td .button, .listar-patrullas .tabla-usuarios-verificar td .button, .listar-patrullas .tabla-patrullas td .button, .listar-patrullas .tabla-usuarios-moderadores td .button {
   margin: 0;
   font-size: 0.9375rem;
   padding: 2px 5px;
@@ -7939,17 +7957,17 @@ table.listado-funcionarios tr:last-child td, table.info-general tr:last-child td
 }
 
 /* line 83, ../scss/layouts/_administrar.scss */
-.verificar-usuarios .titulo h4 {
+.verificar-usuarios .titulo h4, .nuevos-moderadores .titulo h4 {
   letter-spacing: -0.5px;
 }
 /* line 86, ../scss/layouts/_administrar.scss */
-.verificar-usuarios .explicacion.panel {
+.verificar-usuarios .explicacion.panel, .nuevos-moderadores .explicacion.panel {
   letter-spacing: -0.5px;
   font-size: 0.875rem;
   padding: 6px;
 }
 /* line 91, ../scss/layouts/_administrar.scss */
-.verificar-usuarios hr {
+.verificar-usuarios hr, .nuevos-moderadores hr {
   margin: 0 0 8px 0;
 }
 
@@ -7994,6 +8012,20 @@ table.listado-funcionarios tr:last-child td, table.info-general tr:last-child td
   min-height: 20px;
   padding: 0;
   font-size: 0.75rem;
+}
+
+/* line 139, ../scss/layouts/_administrar.scss */
+select[name="patrulla"] {
+  margin: 0;
+  font-size: 0.8125rem;
+  letter-spacing: -0.3px;
+  padding: 2px 10px;
+  height: auto;
+}
+
+/* line 150, ../scss/layouts/_administrar.scss */
+.tabla-usuarios-moderadores .agregando td.columna-patrulla select {
+  margin: 0;
 }
 
 /* line 1, ../scss/layouts/_misc.scss */
