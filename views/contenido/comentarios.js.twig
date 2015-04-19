@@ -31,4 +31,14 @@
         r_div.insertAfter($('#c'+id));
         r_div.show();
     });
+
+    var votarComentario = function(id, valor){
+        var action_no = $('#votarForm').attr('action');
+        $('#votarForm').find('input[name="valor"]').val(valor)
+        var action_yes = action_no.replace(':idCom',id);
+        $('#votarForm').removeAttr('action');
+        $('#votarForm').attr('action', action_yes);
+        $('#votarForm').submit();
+    }
+
 </script>

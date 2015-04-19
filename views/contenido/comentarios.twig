@@ -77,10 +77,10 @@
                             {{ comentario.updated_at|date("d/m/Y") }} a las {{ comentario.updated_at|date("H:i") }}
                         </span>
                         <span class="voto right">
-                            <a href='javascript:votar({{comentario.id}},-1)'><i class="fa fa-thumbs-down fa-fw fa-lg" style="color:#FF4040;"></i></a>
+                            <a href='javascript:votarComentario({{comentario.id}},-1)'><i class="fa fa-thumbs-down fa-fw fa-lg" style="color:#FF4040;"></i></a>
                         </span>
                         <span class="voto right">
-                            {{ comentario.votos }} <a href='javascript:votar({{comentario.id}},1)'>&nbsp;<i class="fa fa-thumbs-up fa-fw fa-lg" style="color:#33cc33;"></i></a>
+                            {{ comentario.votos }} <a href='javascript:votarComentario({{comentario.id}},1)'>&nbsp;<i class="fa fa-thumbs-up fa-fw fa-lg" style="color:#33cc33;"></i></a>
                         </span>
                     </div>
                     <div class="comentario-cuerpo">{{ comentario.cuerpo }}</div>
@@ -133,10 +133,10 @@
                             {{ respuesta.updated_at|date("d/m/Y") }} a las {{ respuesta.updated_at|date("H:i") }}
                         </span>
                         <span class="voto right">
-                            <a href='javascript:votar({{respuesta.id}},-1)'><i class="fa fa-thumbs-down fa-fw fa-lg" style="color:#FF4040;"></i></a>
+                            <a href='javascript:votarComentario({{respuesta.id}},-1)'><i class="fa fa-thumbs-down fa-fw fa-lg" style="color:#FF4040;"></i></a>
                         </span>
                         <span class="voto right">
-                            {{ respuesta.votos }}<a href='javascript:votar({{respuesta.id}},1)'>&nbsp;<i class="fa fa-thumbs-up fa-fw fa-lg" style="color:#33cc33;"></i></a>
+                            {{ respuesta.votos }}<a href='javascript:votarComentario({{respuesta.id}},1)'>&nbsp;<i class="fa fa-thumbs-up fa-fw fa-lg" style="color:#33cc33;"></i></a>
                         </span>
 
                     </div>
@@ -179,8 +179,8 @@
 
         </div>
     </div>
-    <form id="votarForm" action="{{ urlFor('runVotarComenta') }}" method="POST" style="display:none">
-        <input type="text" name="cantidad">
+    <form id="  votarForm" action="{{ urlFor('runVotarComenta') }}" method="POST" style="display:none">
+        <input type="text" name="valor">
     </form>
     {% else %}
     <div class="row-sin-comentarios row text-center">
