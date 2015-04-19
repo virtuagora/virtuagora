@@ -1,0 +1,43 @@
+<?php use Illuminate\Database\Eloquent\Model as Eloquent;
+
+class Evento extends Eloquent {
+    use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
+    //protected $table = 'eventos';
+    protected $dates = ['deleted_at'];
+    protected $visible = ['id', 'cuerpo', 'fecha'];
+
+    public function scopeModifiableBy($query, $id) {
+        return $query->whereHas('contenido', function($q) use ($id) {
+            $q->where('autor_id', $id);
+        });
+    }
+
+    public function contenido() {
+        return $this->morphOne('Contenido', 'contenible');
+    }
+
+    public function comentarios() {
+        return $this->morphMany('Comentario', 'comentable');
+    }
+
+    public function usuarios() {
+        return $this->belongsToMany('Usuario', 'evento_usuario')->withPivot('presente', 'publico');
+    }
+
+    public function getNombreAttribute() {
+        return $this->contenido->titulo;
+    }
+
+    public static function boot() {
+        parent::boot();
+        static::deleting(function($evento) {
+            foreach ($evento->comentarios as $comentario) {
+                $comentario->delete();
+            }
+            // TODO borrar participantes
+            $evento->contenido->delete();
+            return true;
+        });
+    }
+}

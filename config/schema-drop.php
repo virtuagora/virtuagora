@@ -31,7 +31,7 @@ Capsule::schema()->dropIfExists('comentario_votos');
 echo '0 ';
 Capsule::schema()->dropIfExists('comentarios');
 echo '1 ';
-Capsule::schema()->dropIfExists('evento_asistencias');
+Capsule::schema()->dropIfExists('evento_usuario');
 echo '1.1 ';
 Capsule::schema()->dropIfExists('eventos');
 echo '1.2 ';

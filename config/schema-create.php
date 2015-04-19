@@ -314,7 +314,7 @@ Capsule::schema()->create('eventos', function($table) {
     $table->softDeletes();
 });
 
-Capsule::schema()->create('evento_asistencias', function($table) {
+Capsule::schema()->create('evento_participes', function($table) {
     $table->engine = 'InnoDB';
     $table->increments('id');
     $table->boolean('presente');
