@@ -6,7 +6,10 @@ class PatrullaCtrl extends RMRController {
     protected $properties = array('id', 'nombre', 'descripcion');
 
     public function queryModel($meth, $repr) {
-        return Patrulla::query();
+        switch ($meth) {
+            case 0: return Patrulla::query();
+            case 1: return Patrulla::with('moderadores');
+        }
     }
 
     public function executeListCtrl($paginator) {
@@ -17,22 +20,50 @@ class PatrullaCtrl extends RMRController {
     }
 
     public function executeGetCtrl($patrulla) {
-        $this->notFound();
+        $this->render('admin/moderadores.twig', array('patrulla' => $patrulla->toArray(),
+                                                      'moderadores' => $patrulla->moderadores->toArray()));
     }
 
-    public function modificar($idPat) {
+    public function adminModeradores($idPat) {
         $vdt = new Validate\Validator();
         $vdt->addRule('idPat', new Validate\Rule\NumNatural())
-            ->addRule('nombre', new Validate\Rule\Alpha(array(' ')))
-            ->addRule('nombre', new Validate\Rule\MinLength(2))
-            ->addRule('nombre', new Validate\Rule\MaxLength(64))
-            ->addRule('descripcion', new Validate\Rule\MaxLength(512));
+            ->addRule('salientes', new Validate\Rule\Regex('/^\[\d*(?:,\d+)*\]$/'));
         $req = $this->request;
         $data = array_merge(array('idPat' => $idPat), $req->post());
         if (!$vdt->validate($data)) {
             throw new TurnbackException($vdt->getErrors());
         }
         $patrulla = Patrulla::findOrFail($idPat);
+        $salientes = json_decode($vdt->getData('salientes'));
+        $patrulla->moderadores()->whereIn('id', $salientes)->update(['patrulla_id' => null]);
+        $this->flash('success', 'Los moderadores han sido removidos de la patrulla exitosamente.');
+        $this->redirectTo('shwAdmModerad');
+    }
+
+    public function verCrear($idPat) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idPat, new Validate\Rule\NumNatural());
+        $patrulla = Patrulla::findOrFail($idPat)->toArray();
+        $this->render('admin/crear-patrulla.twig', array('patrulla' => $patrulla));
+    }
+
+    public function crear() {
+        $req = $this->request;
+        $vdt = $this->validarPatrulla($req->post());
+        $patrulla = new Patrulla;
+        $patrulla->nombre = $vdt->getData('nombre');
+        $patrulla->descripcion = $vdt->getData('descripcion');
+        $patrulla->save();
+        $this->flash('success', 'El grupo de moderación ha sido creado exitosamente.');
+        $this->redirectTo('shwAdmPatrull');
+    }
+
+    public function modificar($idPat) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idPat, new Validate\Rule\NumNatural());
+        $patrulla = Patrulla::findOrFail($idPat);
+        $req = $this->request;
+        $vdt = $this->validarPatrulla($req->post());
         $patrulla->nombre = $vdt->getData('nombre');
         $patrulla->descripcion = $vdt->getData('descripcion');
         $patrulla->save();
@@ -79,28 +110,16 @@ class PatrullaCtrl extends RMRController {
         $this->redirectTo('shwAdmPatrull');
     }
 
-    public function verAdminModeradores($idPat) {
-        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
-        $vdt->test($idPat, new Validate\Rule\NumNatural());
-        $patrulla = Patrulla::with('moderadores')->findOrFail($idPat);
-        $this->render('admin/moderadores.twig', array('patrulla' => $patrulla->toArray(),
-                                                      'moderadores' => $patrulla->moderadores->toArray()));
-    }
-
-    public function adminModeradores($idPat) {
+    private function validarPatrulla($data) {
         $vdt = new Validate\Validator();
-        $vdt->addRule('idPat', new Validate\Rule\NumNatural())
-            ->addRule('salientes', new Validate\Rule\Regex('/^\[\d*(?:,\d+)*\]$/'));
-        $req = $this->request;
-        $data = array_merge(array('idPat' => $idPat), $req->post());
+        $vdt->addRule('nombre', new Validate\Rule\Alpha(array(' ')))
+            ->addRule('nombre', new Validate\Rule\MinLength(2))
+            ->addRule('nombre', new Validate\Rule\MaxLength(64))
+            ->addRule('descripcion', new Validate\Rule\MaxLength(512));
         if (!$vdt->validate($data)) {
             throw new TurnbackException($vdt->getErrors());
         }
-        $patrulla = Patrulla::findOrFail($idPat);
-        $salientes = json_decode($vdt->getData('salientes'));
-        $patrulla->moderadores()->whereIn('id', $salientes)->update(['patrulla_id' => null]);
-        $this->flash('success', 'Los moderadores han sido removidos de la patrulla exitosamente.');
-        $this->redirectTo('shwAdmModerad');
+        return $vdt;
     }
 
 }

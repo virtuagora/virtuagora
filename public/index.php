@@ -173,11 +173,13 @@ $app->group('/admin', function () use ($app) {
     $app->post('/ajustes', checkAdminAuth(2), 'AdminCtrl:adminAjustes')->name('runAdmAjuste');
 
     $app->get('/patrulla', checkRole('usr'), 'PatrullaCtrl:listar')->name('shwAdmPatrull');
+    $app->get('/patrulla/crear', checkAdminAuth(5), 'PatrullaCtrl:verCrear')->name('shwCrearPatrull');
+    $app->post('/patrulla/crear', checkAdminAuth(5), 'PatrullaCtrl:crear')->name('runCrearPatrull');
     $app->post('/patrulla/:idPat/modificar', checkAdminAuth(5), 'PatrullaCtrl:modificar')->name('runModifPatrull');
     $app->post('/patrulla/:idPat/eliminar', checkAdminAuth(5), 'PatrullaCtrl:eliminar')->name('runElimiPatrull');
     $app->get('/patrulla/:idPat/cambiar-poder', checkAdminAuth(5), 'PatrullaCtrl:verCambiarPoder')->name('shwModifPodPatrull');
     $app->post('/patrulla/:idPat/cambiar-poder', checkAdminAuth(5), 'PatrullaCtrl:cambiarPoder')->name('runModifPodPatrull');
-    $app->get('/patrulla/:idPat/moderador', checkAdminAuth(6), 'PatrullaCtrl:verAdminModeradores')->name('shwAdmModerad');
+    $app->get('/patrulla/:idPat', checkAdminAuth(6), 'PatrullaCtrl:ver')->name('shwAdmModerad');
     $app->post('/patrulla/:idPat/moderador', checkAdminAuth(6), 'PatrullaCtrl:adminModeradores')->name('runAdmModerad');
 });
 
