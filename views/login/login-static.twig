@@ -29,17 +29,15 @@
                 <div class="row">
                     <div class="large-8 large-centered columns">
                         <div id="row-abajo">
-                            <form data-abide action="{{ urlFor('runLogin') }}" method="POST">
+                            <form action="{{ urlFor('runLogin') }}" method="POST">
                                 <div class="row collapse">
                                     <div class="large-12 columns">
                                         <input name="email" type="email" placeholder="Su dirección de email..." required pattern="email">
-                                        <small class="error text-center">Obligatorio. Debe ser una dirección bien formada</small>
                                     </div>
                                 </div>
                                 <div class="row collapse">
                                     <div class="large-12 columns">
                                         <input id="campo-password" name="password" type="password" required placeholder="Su contraseña...">
-                                        <small class="error text-center">Obligatorio</small>
                                     </div>
                                 </div>
                                 <div class="row collapse">
@@ -63,17 +61,5 @@
 {# ----------------------------------------------------------- #}
 {% block modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts %}
-<script src="{{ baseUrl() }}/assets/js/foundation/foundation.abide.js"></script>
-<script>
-    $(document).foundation({
-        abide : {
-            patterns: {
-                //Email Validation as per RFC2822 standards.
-                email: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-            }
-        }
-    });
-</script>
-{% endblock %}
+{% block scripts %}{% endblock %}
 {# ----------------------------------------------------------- #}
