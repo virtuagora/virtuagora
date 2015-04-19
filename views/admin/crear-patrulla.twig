@@ -1,0 +1,60 @@
+{# VARIBLES #}
+
+{% extends "admin/ver-administracion.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Crear nueva patrulla{% endblock %}
+{# ----------------------------------------------------------- #}
+{% set intro_titulo = 'Crear nueva patrulla' %}
+{# ----------------------------------------------------------- #}
+{% block administracion %}
+<div class="crear-patrulla">
+    <form action="{{ urlFor('runCrearPatrull') }}" method="POST">
+        <div class="wrapper-elementos">
+            <div class="header">
+                <i class="fa fa-question-circle fa-fw fa-lg"></i><i class="fa fa-pencil fa-fw fa-lg"></i> Datos de la patrulla
+            </div>
+            <div class="fila">
+                <div class="row">
+                    <div class="large-12 columns">
+                        <div class="titulo-fila">Nombre de la patrulla</div>
+                        <input class="campo-fila" type="text" name="nombre">
+                    </div>
+                </div>
+            </div>
+            <div class="fila">
+                <div class="row">
+                    <div class="large-12 columns">
+                        <div class="titulo-fila">Descripcion de la patrulla</div>
+                        <textarea rows=2 name="descripcion"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="ultima-fila">
+                <div class="row">
+                    <div class="large-12 columns text center">
+                        <b>NOTA:</b> Recuerde luego asignar nuevos moderadores a la patrulla una vez que haya sido creada.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button class="button success radius"><i class="fa fa-plus fa-fw fa-lg"></i><i class="fa fa-shield fa-fw fa-lg"></i> Crear patrulla</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts_cont %}
+<script src="{{ baseUrl() }}/assets/js/autosize/autosize.min.js"></script>
+<script>
+    $(document).ready(function(){
+        autosize($('textarea[name="descripcion"]'));
+    });
+
+</script>
+{% endblock %}
+{# ----------------------------------------------------------- #}
