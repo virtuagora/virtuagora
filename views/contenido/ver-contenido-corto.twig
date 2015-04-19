@@ -40,7 +40,11 @@
                 </div>
             </div>
         </section>
-        {% block opciones_cont %}{% endblock opciones_cont %}
+        <div class="row">
+            <div class="small-10 small-centered columns">
+            {% block opciones_cont %}{% endblock opciones_cont %}
+            </div>
+        </div>
         {% if ver_comentarios == true %}
         {% include 'contenido/comentarios.twig' %}
         {% endif %}
