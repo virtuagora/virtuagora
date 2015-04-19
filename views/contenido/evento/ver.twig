@@ -1,0 +1,57 @@
+{# VARIBLES #}
+
+{% extends "contenido/ver-contenido-corto.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Evento #{{ evento.id }} {% endblock %}
+{# ----------------------------------------------------------- #}
+{% set color_cont = 'color-evento' %}
+{% block linkheads_cont %}
+{% endblock linkheads_cont %}
+{# ----------------------------------------------------------- #}
+{% set titulo_cont = evento.titulo %}
+{% set fecha_cont = '' ~ evento.created_at|date("d/m/Y") %}
+{% set ver_comentarios = true %}
+{% set url_comentar = urlFor('runComentar', {'tipoRaiz': 'evento' , 'idRaiz': evento.id}) %}
+{% set url_modificar = urlFor('shwModifevento', {'idNov': evento.id } ) %}
+{% set url_eliminar = urlFor('runElimievento', {'idNov': evento.id } ) %}
+{% block botones_cont %}{% endblock %}
+{% block cuerpo_cont %}
+<div class="evento-texto">
+    <div class="text-center">
+        <section class="fecha-datos">
+            <span class="fa-stack fa-2x">
+                <i class="fa fa-calendar-o fa-stack-2x"></i>
+                <strong class="fa-stack-1x calendario-text">27</strong>
+            </span>&nbsp;&nbsp;<span class="fecha">/ Junio / 2015</span>
+            <br> <span class="fecha"><i class="fa fa-clock-o fa-fw"></i> 10:25</span>
+        </section>
+        <section class="datos-cont corto">
+            Invita <a href="{{ urlFor('shwUsuario',{'idUsr': autor_id}) }}"><img class="img-perfil small-border radius size-32" src="{{ autor_avatar_32 }}"> por {{ autor_nombre_apellido }}</a> <span class="usuario-pts"><i class="fa fa-trophy fa-fw"></i>&nbsp;{{ autor_puntos }}</span>
+        </section>
+    </div>
+    <hr>
+    {{ evento.cuerpo|bbCode }}
+</div>
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% set autor_id = evento.autor.id %}
+{% set autor_nombre_apellido = evento.autor.nombre ~ ' ' ~ evento.autor.apellido %}
+{% set autor_avatar_32 = avatarUrl(evento.autor.img_tipo, evento.autor.img_hash, 32) %}
+{# ----------------------------------------------------------- #}
+{% block opciones_cont %}
+<div class="panel-cont-corto">
+    Holis
+</div>
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals_cont %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts_cont %}
+<script>
+    $(document).ready(function(){
+
+    });
+</script>
+{% endblock %}
+{# ----------------------------------------------------------- #}
