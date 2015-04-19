@@ -5,15 +5,14 @@ class Usuario extends Eloquent {
 
     //protected $table = 'usuarios';
     protected $dates = ['deleted_at', 'fin_advertencia', 'fin_suspension'];
-    //protected $visible = array('id', 'nombre', 'apellido', 'es_funcionario', 'es_jefe', 'partido_id', 'img_tipo', 'img_hash', 'puntos');
     protected $hidden = ['password', 'emailed_token', 'updated_at', 'deleted_at'];
 
     public function partido() {
         return $this->belongsTo('Partido');
     }
 
-    public function moderador() {
-        return $this->hasOne('Moderador');
+    public function patrulla() {
+        return $this->belongsTo('Patrulla');
     }
 
     public function contenidos() {

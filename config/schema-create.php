@@ -34,22 +34,32 @@ Capsule::schema()->create('usuarios', function($table) {
     $table->string('password');
     $table->string('nombre');
     $table->string('apellido');
-    $table->string('emailed_token');
-    $table->boolean('validado');
     $table->integer('img_tipo')->unsigned();
     $table->string('img_hash');
     $table->integer('puntos');
+    $table->string('advertencia')->nullable();
     $table->boolean('suspendido');
     $table->boolean('es_funcionario');
     $table->boolean('es_jefe');
     $table->string('dni')->nullable();
-    $table->dateTime('verified_at')->nullable();
+    $table->timestamp('verified_at')->nullable();
+    $table->timestamp('fin_advertencia')->nullable();
+    $table->timestamp('fin_suspension')->nullable();
     $table->integer('partido_id')->unsigned()->nullable();
-    $table->string('advertencia')->nullable();
-    $table->dateTime('fin_advertencia')->nullable();
-    $table->dateTime('fin_suspension')->nullable();
+    $table->integer('patrulla_id')->unsigned()->nullable();
     $table->timestamps();
     $table->softDeletes();
+});
+
+Capsule::schema()->create('preusuarios', function($table) {
+    $table->engine = 'InnoDB';
+    $table->increments('id');
+    $table->string('email')->unique();
+    $table->string('password');
+    $table->string('nombre');
+    $table->string('apellido');
+    $table->string('emailed_token');
+    $table->timestamps();
 });
 
 Capsule::schema()->create('partidos', function($table) {
@@ -59,7 +69,7 @@ Capsule::schema()->create('partidos', function($table) {
     $table->string('acronimo');
     $table->string('fundador')->nullable();
     $table->text('descripcion');
-    $table->dateTime('fecha_fundacion')->nullable();
+    $table->date('fecha_fundacion')->nullable();
     $table->integer('creador_id')->unsigned();
     $table->timestamps();
     $table->softDeletes();
@@ -88,7 +98,7 @@ Capsule::schema()->create('funcionarios', function($table) {
 Capsule::schema()->create('usuario_datos', function($table) {
     $table->engine = 'InnoDB';
     $table->integer('id')->unsigned()->primary();
-    $table->dateTime('fecha_nacimiento')->nullable();
+    $table->date('fecha_nacimiento')->nullable();
     $table->string('lugar_nacimiento')->nullable();
     $table->string('lugar_recidencia')->nullable();
     $table->string('ocupacion')->nullable();
@@ -138,15 +148,6 @@ Capsule::schema()->create('patrullas', function($table) {
     $table->increments('id');
     $table->string('nombre');
     $table->text('descripcion');
-    $table->timestamps();
-});
-
-Capsule::schema()->create('moderadores', function($table) {
-    $table->engine = 'InnoDB';
-    $table->integer('id')->unsigned()->primary();
-    $table->integer('patrulla_id')->unsigned();
-    $table->foreign('id')->references('id')->on('usuarios')->onDelete('cascade');
-    $table->foreign('patrulla_id')->references('id')->on('patrullas')->onDelete('cascade');
     $table->timestamps();
 });
 
@@ -302,6 +303,26 @@ Capsule::schema()->create('novedades', function($table) {
     $table->text('cuerpo');
     $table->timestamps();
     $table->softDeletes();
+});
+
+Capsule::schema()->create('eventos', function($table) {
+    $table->engine = 'InnoDB';
+    $table->increments('id');
+    $table->text('cuerpo');
+    $table->timestamp('fecha');
+    $table->timestamps();
+    $table->softDeletes();
+});
+
+Capsule::schema()->create('evento_asistencias', function($table) {
+    $table->engine = 'InnoDB';
+    $table->increments('id');
+    $table->boolean('presente');
+    $table->boolean('publico');
+    $table->integer('evento_id')->unsigned();
+    $table->integer('usuario_id')->unsigned();
+    $table->foreign('evento_id')->references('id')->on('eventos')->onDelete('cascade');
+    $table->timestamps();
 });
 
 Capsule::schema()->create('comentarios', function($table) {

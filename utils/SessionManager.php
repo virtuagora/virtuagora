@@ -5,7 +5,7 @@ class SessionManager {
     public function login($email, $password) {
         $success = false;
         $usuario = Usuario::where('email', $email)->first();
-        if ($usuario && password_verify($password, $usuario->password) && $usuario->validado) {
+        if ($usuario && password_verify($password, $usuario->password)) {
             if ($usuario->suspendido) {
                 if (is_null($usuario->fin_suspension) || Carbon\Carbon::now()->lt($usuario->fin_suspension)) {
                     throw new TurnbackException('Su cuenta se encuentra suspendida.');
@@ -79,9 +79,9 @@ class SessionManager {
             case 'usr':
                 return true;
             case 'fnc':
-                return Usuario::where('id', $this->user('id'))->pluck('es_funcionario');
+                return $this->getUser()->es_funcionario;
             case 'mod':
-                return !is_null(Moderador::find($this->user('id')));
+                return !is_null($this->getUser()->patrulla_id);
             default:
                 return false;
         }
@@ -98,7 +98,7 @@ class SessionManager {
     }
 
     public function isAdminAllowedTo($action) {
-        $mod = Moderador::whereHas('patrulla.poderes', function($q) use ($action) {
+        $mod = Usuario::whereHas('patrulla.poderes', function($q) use ($action) {
             $q->where('poder_id', $action);
         })->find($this->user('id'));
         return isset($mod);

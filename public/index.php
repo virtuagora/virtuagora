@@ -111,17 +111,7 @@ function checkUserAuth($action, $checkMod = false) {
 */
 
 $app->get('/test', function () use ($app) {
-
-
-    var_dump(UserlogCtrl::$messages);
-
-    //$c->load('contenidos');
-    //var_dump($c->contenidos()->toArray());
-    //var_dump(Contenido::findOrFail(1)->nombre ?: Contenido::findOrFail(1)->titulo);
-    //var_dump($app->router()->getCurrentRoute());
-    //$req = $app->request;
-    //$p = new Paginator(Comentario::query(), $req->getUrl().$req->getPath(), $req->get(), 2, 1);
-    //var_dump($p->links, $p->query->get()->toJson());
+    echo __DIR__;
 });
 
 //$app->get('/userlog', 'UserlogCtrl:listar')->name('shwListaUserlog');
@@ -187,6 +177,8 @@ $app->group('/admin', function () use ($app) {
     $app->post('/patrulla/:idPat/eliminar', checkAdminAuth(5), 'PatrullaCtrl:eliminar')->name('runElimiPatrull');
     $app->get('/patrulla/:idPat/cambiar-poder', checkAdminAuth(5), 'PatrullaCtrl:verCambiarPoder')->name('shwModifPodPatrull');
     $app->post('/patrulla/:idPat/cambiar-poder', checkAdminAuth(5), 'PatrullaCtrl:cambiarPoder')->name('runModifPodPatrull');
+    $app->get('/patrulla/:idPat/moderador', checkAdminAuth(6), 'PatrullaCtrl:verAdminModeradores')->name('shwAdmModerad');
+    $app->post('/patrulla/:idPat/moderador', checkAdminAuth(6), 'PatrullaCtrl:adminModeradores')->name('runAdmModerad');
 });
 
 $app->group('/propuesta', function () use ($app) {

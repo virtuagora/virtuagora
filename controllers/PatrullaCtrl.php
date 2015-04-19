@@ -79,4 +79,28 @@ class PatrullaCtrl extends RMRController {
         $this->redirectTo('shwAdmPatrull');
     }
 
+    public function verAdminModeradores($idPat) {
+        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
+        $vdt->test($idPat, new Validate\Rule\NumNatural());
+        $patrulla = Patrulla::with('moderadores')->findOrFail($idPat);
+        $this->render('admin/moderadores.twig', array('patrulla' => $patrulla->toArray(),
+                                                      'moderadores' => $patrulla->moderadores->toArray()));
+    }
+
+    public function adminModeradores($idPat) {
+        $vdt = new Validate\Validator();
+        $vdt->addRule('idPat', new Validate\Rule\NumNatural())
+            ->addRule('salientes', new Validate\Rule\Regex('/^\[\d*(?:,\d+)*\]$/'));
+        $req = $this->request;
+        $data = array_merge(array('idPat' => $idPat), $req->post());
+        if (!$vdt->validate($data)) {
+            throw new TurnbackException($vdt->getErrors());
+        }
+        $patrulla = Patrulla::findOrFail($idPat);
+        $salientes = json_decode($vdt->getData('salientes'));
+        $patrulla->moderadores()->whereIn('id', $salientes)->update(['patrulla_id' => null]);
+        $this->flash('success', 'Los moderadores han sido removidos de la patrulla exitosamente.');
+        $this->redirectTo('shwAdmModerad');
+    }
+
 }

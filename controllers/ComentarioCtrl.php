@@ -52,7 +52,7 @@ class ComentarioCtrl extends RMRController {
     public function votar($idCom) {
         $vdt = new Validate\Validator();
         $vdt->addRule('idCom', new Validate\Rule\NumNatural())
-            ->addRule('cantidad', new Validate\Rule\InArray(array(-1, 1)));
+            ->addRule('valor', new Validate\Rule\InArray(array(-1, 1)));
         $req = $this->request;
         $data = array_merge(array('idCom' => $idCom), $req->post());
         if (!$vdt->validate($data)) {
@@ -63,9 +63,9 @@ class ComentarioCtrl extends RMRController {
         $voto = VotoComentario::firstOrNew(array('comentario_id' => $comentario->id,
                                                  'usuario_id' => $usuario->id));
         if (!$voto->exists) {
-            $voto->cantidad = $vdt->getData('cantidad');
+            $voto->valor = $vdt->getData('valor');
             $voto->save();
-            $comentario->increment('votos', $voto->cantidad);
+            $comentario->increment('votos', $voto->valor);
         } else {
             throw new TurnbackException('No puede votar dos veces el mismo comentario.');
         }

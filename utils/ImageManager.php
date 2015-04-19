@@ -3,7 +3,7 @@
 class ImageManager {
 
     public static function crearImagen($carpeta, $id, $nombre, $tamanos) {
-        $dir = 'img/' . $carpeta . '/' . $id;
+        $dir = __DIR__ . '/../public/img/' . $carpeta . '/' . $id;
         if (!is_dir($dir)) {
             mkdir($dir, 0777, true);
         }
@@ -20,7 +20,7 @@ class ImageManager {
     }
 
     public static function cambiarImagen($carpeta, $id, $tamanos) {
-        $dir = 'img/' . $carpeta .'/' . $id;
+        $dir = __DIR__ . '/../public/img/' . $carpeta .'/' . $id;
         if (!is_dir($dir)) {
             mkdir('$dir', 0777, true);
         }

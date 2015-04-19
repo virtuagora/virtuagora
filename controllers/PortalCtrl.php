@@ -42,64 +42,63 @@ class PortalCtrl extends Controller {
 
     public function registrar() {
         $vdt = new Validate\Validator();
-        $vdt->addRule('nombre', new Validate\Rule\NotEmpty())
-            ->addRule('nombre', new Validate\Rule\Alpha(array(' ')))
+        $vdt->addRule('nombre', new Validate\Rule\Alpha(array(' ')))
             ->addRule('nombre', new Validate\Rule\MinLength(1))
             ->addRule('nombre', new Validate\Rule\MaxLength(32))
-            ->addRule('apellido', new Validate\Rule\NotEmpty())
             ->addRule('apellido', new Validate\Rule\Alpha(array(' ')))
             ->addRule('apellido', new Validate\Rule\MinLength(1))
             ->addRule('apellido', new Validate\Rule\MaxLength(32))
-            ->addRule('email', new Validate\Rule\NotEmpty())
             ->addRule('email', new Validate\Rule\Email())
             ->addRule('email', new Validate\Rule\MaxLength(128))
             ->addRule('email', new Validate\Rule\Unique('usuarios'))
-            ->addRule('password', new Validate\Rule\NotEmpty())
+            ->addRule('email', new Validate\Rule\Unique('preusuarios'))
             ->addRule('password', new Validate\Rule\MinLength(8))
             ->addRule('password', new Validate\Rule\MaxLength(128))
-            ->addRule('password', new Validate\Rule\Matches('password2'));
+            ->addRule('password', new Validate\Rule\Matches('password2'))
+            ->addFilter('email', 'strtolower')
+            ->addFilter('email', 'trim');
         $req = $this->request;
         if (!$vdt->validate($req->post())) {
             throw new TurnbackException($vdt->getErrors());
         }
-        $usuario = new Usuario;
-        $usuario->email = $vdt->getData('email');
-        $usuario->password = password_hash($vdt->getData('password'), PASSWORD_DEFAULT);
-        $usuario->nombre = $vdt->getData('nombre');
-        $usuario->apellido = $vdt->getData('apellido');
-        $usuario->emailed_token = bin2hex(openssl_random_pseudo_bytes(16));
-        $usuario->validado = false;
-        $usuario->puntos = 0;
-        $usuario->suspendido = false;
-        $usuario->es_funcionario = false;
-        $usuario->es_jefe = false;
-        $usuario->img_tipo = 1;
-        $usuario->img_hash = md5(strtolower(trim($vdt->getData('email'))));
-        $usuario->save();
+        $preuser = new Preusuario;
+        $preuser->email = $vdt->getData('email');
+        $preuser->password = password_hash($vdt->getData('password'), PASSWORD_DEFAULT);
+        $preuser->nombre = $vdt->getData('nombre');
+        $preuser->apellido = $vdt->getData('apellido');
+        $preuser->emailed_token = bin2hex(openssl_random_pseudo_bytes(16));
+        $preuser->save();
 
-        $to = $usuario->email;
+        $to = $preuser->email;
         $subject = 'Confirma tu registro en Virtuagora';
         $message = 'Hola, te registraste en virtuagora. Entra a este link para confirmar tu email: ' .
-                   $this->urlFor('runValidUsuario', array('idUsr' => $usuario->id, 'token' => $usuario->emailed_token));
+                   $this->urlFor('runValidUsuario', array('idUsr' => $preuser->id, 'token' => $preuser->emailed_token));
         $header = 'From:noreply@'.$_SERVER['SERVER_NAME'].' \r\n';
         mail($to, $subject, $message, $header);
 
-        $this->render('registro/registro-exito.twig', array('email' => $usuario->email));
+        $this->render('registro/registro-exito.twig', array('email' => $preuser->email));
     }
 
-    public function verificarEmail($idUsr, $token) {
+    public function verificarEmail($idPre, $token) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
-        $vdt->test($idUsr, new Validate\Rule\NumNatural());
+        $vdt->test($idPre, new Validate\Rule\NumNatural());
         $vdt->test($token, new Validate\Rule\AlphaNumeric());
-        $vdt->test($token, new Validate\Rule\MinLength(8));
-        $usuario = Usuario::findOrFail($idUsr);
-        if ($usuario->validado) {
-            $this->flash('warning', 'Su cuenta ya cuenta con un email validado.');
-            $this->redirectTo('shwIndex');
-        }
-        if ($token == $usuario->emailed_token) {
-            $usuario->validado = true;
+        $vdt->test($token, new Validate\Rule\ExactLength(32));
+        $preuser = Preusuario::findOrFail($idPre);
+        if ($token == $preuser->emailed_token) {
+            $usuario = new Usuario;
+            $usuario->email = $preuser->email;
+            $usuario->password = $preuser->password;
+            $usuario->nombre = $preuser->nombre;
+            $usuario->apellido = $preuser->apellido;
+            $usuario->puntos = 0;
+            $usuario->suspendido = false;
+            $usuario->es_funcionario = false;
+            $usuario->es_jefe = false;
+            $usuario->img_tipo = 1;
+            $usuario->img_hash = md5($preuser->email);
             $usuario->save();
+            $preuser->delete();
             $this->render('registro/validar-correo.twig', array('usuarioValido' => true,
                                                                 'email' => $usuario->email));
         } else {

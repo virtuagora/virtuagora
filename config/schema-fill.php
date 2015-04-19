@@ -12,15 +12,12 @@ $usuario->email = 'admin@virtuago.ra';
 $usuario->password = password_hash('12345678', PASSWORD_DEFAULT);
 $usuario->nombre = 'Juan';
 $usuario->apellido = 'Concejal';
-$usuario->emailed_token = bin2hex(openssl_random_pseudo_bytes(16));
-$usuario->validado = true;
 $usuario->puntos = 0;
 $usuario->suspendido = false;
 $usuario->es_funcionario = false;
 $usuario->es_jefe = false;
 $usuario->img_tipo = 1;
 $usuario->img_hash = md5(strtolower(trim('admin@virtuago.ra')));
-$usuario->save();
 
 $patrulla = new Patrulla;
 $patrulla->nombre = 'moderadores';
@@ -36,13 +33,10 @@ $poderes = [
     ['nombre' => 'Administrar moderadores', 'descripcion' => 'Asignar los usuarios que serán moderadores.'],
     ['nombre' => 'Verificar ciudadanos', 'descripcion' => 'Registrar como verificados a usuarios que lo demuestren.'],
 ];
-$poder = Poder::insert($poderes);
+Poder::insert($poderes);
 $patrulla->poderes()->attach([1,2,3,4,5,6,7]);
-
-$moderador = new Moderador;
-$moderador->usuario()->associate($usuario);
-$moderador->patrulla()->associate($patrulla);
-$moderador->save();
+$usuario->patrulla()->associate($patrulla);
+$usuario->save();
 
 $organismo = new Organismo;
 $organismo->nombre = 'Concejo deliberante';
@@ -150,8 +144,6 @@ $usuario->email = 'matuz9@gmail.com';
 $usuario->password = password_hash('lalalala', PASSWORD_DEFAULT);
 $usuario->nombre = 'Augusto';
 $usuario->apellido = 'Mathurin';
-$usuario->emailed_token = bin2hex(openssl_random_pseudo_bytes(16));
-$usuario->validado = true;
 $usuario->puntos = 0;
 $usuario->suspendido = false;
 $usuario->es_funcionario = false;

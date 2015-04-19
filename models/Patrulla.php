@@ -6,7 +6,7 @@ class Patrulla extends Eloquent {
     protected $visible = array('id', 'nombre', 'descripcion');
 
     public function moderadores() {
-        return $this->hasMany('Moderador');
+        return $this->hasMany('Usuario');
     }
 
     public function poderes() {
