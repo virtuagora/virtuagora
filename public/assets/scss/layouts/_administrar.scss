@@ -8,7 +8,7 @@
             background-color: #fcf6d9;
         }
     }
-    .tabla-org, .tabla-funcionarios, .tabla-usuarios, .tabla-usuarios-verificar, .tabla-patrullas, .tabla-usuarios-moderadores{
+    .tabla-org, .tabla-funcionarios, .tabla-usuarios, .tabla-usuarios-verificar, .tabla-patrullas, .tabla-usuarios-moderadores, .tabla-moderadores-patrulla{
         width: 100%;
         thead tr th{
             font-size: rem-calc(13);
@@ -42,7 +42,7 @@
     }
 }
 
-.crear-organismo{
+.crear-organismo, .crear-patrulla{
     .cambiar-avatar{
         min-height: 180px;
         img{
@@ -79,7 +79,7 @@
 
 }
 
-.verificar-usuarios, .nuevos-moderadores{
+.verificar-usuarios, .nuevos-moderadores, .ver-moderadores{
     .titulo h4{
         letter-spacing: -0.5px;
     }
@@ -151,5 +151,11 @@ select[name="patrulla"]{
                 margin: 0;
             }
         }
+    }
+}
+
+.tabla-moderadores-patrulla{
+    tbody tr.seleccionado{
+        background-color: #f7c6c6 !important;
     }
 }
