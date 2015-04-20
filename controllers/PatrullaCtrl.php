@@ -35,6 +35,9 @@ class PatrullaCtrl extends RMRController {
         }
         $patrulla = Patrulla::findOrFail($idPat);
         $salientes = json_decode($vdt->getData('salientes'));
+        if (in_array($this->session->user('id'), $salientes)) {
+            throw new TurnbackException('No puede quitarse a sí mismo de una patrulla.');
+        }
         $patrulla->moderadores()->whereIn('id', $salientes)->update(['patrulla_id' => null]);
         $this->flash('success', 'Los moderadores han sido removidos de la patrulla exitosamente.');
         $this->redirectTo('shwAdmModerad');

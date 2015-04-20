@@ -13,7 +13,7 @@ class EventoCtrl extends Controller {
         $datosPart = $participe ? $participe->pivot->toArray() : null;
         $this->render('contenido/evento/ver.twig', array('evento' => $datosEven,
                                                          'comentarios' =>  $comentarios,
-                                                         'voto' => $datosPart));
+                                                         'participacion' => $datosPart));
     }
 
     public function participar($idEve) {
