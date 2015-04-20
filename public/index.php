@@ -222,6 +222,16 @@ $app->group('/novedad', function () use ($app) {
     $app->post('/:idNov/eliminar', checkModifyAuth('Novedad'), 'NovedadCtrl:eliminar')->name('runElimiNovedad');
 });
 
+$app->group('/evento', function () use ($app) {
+    $app->get('/crear', checkRole('fnc'), 'EventoCtrl:verCrear')->name('shwCrearEvento');
+    $app->post('/crear', checkRole('fnc'), 'EventoCtrl:crear')->name('runCrearEvento');
+    $app->get('/:idEve', 'EventoCtrl:ver')->name('shwEvento');
+    $app->post('/:idEve/participar', checkRole('usr'), 'EventoCtrl:participar')->name('runPartiEvento');
+    //$app->get('/:idEve/modificar', checkModifyAuth('Evento'), 'EventoCtrl:verModificar')->name('shwModifEvento');
+    //$app->post('/:idEve/modificar', checkModifyAuth('Evento'), 'EventoCtrl:modificar')->name('runModifEvento');
+    //$app->post('/:idEve/eliminar', checkModifyAuth('Evento'), 'EventoCtrl:eliminar')->name('runElimiEvento');
+});
+
 $app->group('/partido', function () use ($app) {
     $app->get('', 'PartidoCtrl:listar')->name('shwListaPartido');
     $app->get('/crear', checkRole('fnc'), 'PartidoCtrl:verCrear')->name('shwCrearPartido');

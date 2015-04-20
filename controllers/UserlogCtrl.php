@@ -11,6 +11,7 @@ class UserlogCtrl extends RMRController {
                                         'votProblem' => '%s voto en la problemática: <a href="%s">%s</a>.',
                                         'newDocumen' => '%s publicó el documento colaborativo: <a href="%s">%s</a>.',
                                         'newNovedad' => '%s publicó la novedad: <a href="%s">%s</a>.',
+                                        'newEventoo' => '%s anunció el evento: <a href="%s">%s</a>.',
                                         'newComenta' => '%s comentó en: <a href="%s">%s</a>.',
                                         'newPartido' => '%s creó el partido: <a href="%s">%s</a>.',
                                         'delPartido' => '%s eliminó el partido: <a href="%s">%s</a>.',
