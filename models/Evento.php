@@ -22,7 +22,7 @@ class Evento extends Eloquent {
     }
 
     public function usuarios() {
-        return $this->belongsToMany('Usuario', 'evento_usuario')->withPivot('presente', 'publico');
+        return $this->belongsToMany('Usuario', 'evento_usuario')->withPivot('presente', 'publico')->withTimestamps();
     }
 
     public function getNombreAttribute() {

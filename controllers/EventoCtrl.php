@@ -53,7 +53,8 @@ class EventoCtrl extends Controller {
         $autor = $this->session->getUser();
         $evento = new Evento;
         $evento->cuerpo = $vdt->getData('cuerpo');
-        $evento->fecha = Carbon::parse($vdt->getData('fecha'));
+        $evento->lugar = $vdt->getData('lugar');
+        $evento->fecha = Carbon\Carbon::parse($vdt->getData('fecha'));
         $evento->save();
         $log = UserlogCtrl::createLog('newEventoo', $autor, $evento);
         $contenido = new Contenido;
@@ -94,6 +95,8 @@ class EventoCtrl extends Controller {
         $req = $this->request;
         $vdt = $this->validarEvento($req->post());
         $evento->cuerpo = $vdt->getData('cuerpo');
+        $evento->lugar = $vdt->getData('lugar');
+        $evento->fecha = Carbon\Carbon::parse($vdt->getData('fecha'));
         $evento->save();
         $contenido->titulo = $vdt->getData('titulo');
         $contenido->categoria_id = $vdt->getData('categoria');
@@ -129,6 +132,8 @@ class EventoCtrl extends Controller {
             ->addRule('titulo', new Validate\Rule\MaxLength(128))
             ->addRule('categoria', new Validate\Rule\NumNatural())
             ->addRule('categoria', new Validate\Rule\Exists('categorias'))
+            ->addRule('lugar', new Validate\Rule\MinLength(4))
+            ->addRule('lugar', new Validate\Rule\MaxLength(128))
             // TODO verificar fecha
             ->addRule('cuerpo', new Validate\Rule\MinLength(8))
             ->addRule('cuerpo', new Validate\Rule\MaxLength(8192))

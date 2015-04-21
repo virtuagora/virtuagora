@@ -309,6 +309,7 @@ Capsule::schema()->create('eventos', function($table) {
     $table->engine = 'InnoDB';
     $table->increments('id');
     $table->text('cuerpo');
+    $table->string('lugar');
     $table->timestamp('fecha');
     $table->timestamps();
     $table->softDeletes();
