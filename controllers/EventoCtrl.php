@@ -53,7 +53,7 @@ class EventoCtrl extends Controller {
         $autor = $this->session->getUser();
         $evento = new Evento;
         $evento->cuerpo = $vdt->getData('cuerpo');
-        // TODO cargar fecha
+        $evento->fecha = Carbon::parse($vdt->getData('fecha'));
         $evento->save();
         $log = UserlogCtrl::createLog('newEventoo', $autor, $evento);
         $contenido = new Contenido;
@@ -73,7 +73,7 @@ class EventoCtrl extends Controller {
         $this->flash('success', 'Su evento fue creado exitosamente.');
         $this->redirectTo('shwEvento', array('idEve' => $evento->id));
     }
-/*
+
     public function verModificar($idEve) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idEve, new Validate\Rule\NumNatural());
@@ -85,27 +85,35 @@ class EventoCtrl extends Controller {
                                                                'categorias' => $categorias));
     }
 
-    public function modificar($idPro) {
+    public function modificar($idEve) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
-        $vdt->test($idPro, new Validate\Rule\NumNatural());
-        $propuesta = Propuesta::with(array('contenido', 'votos'))->findOrFail($idPro);
-        $contenido = $propuesta->contenido;
+        $vdt->test($idEve, new Validate\Rule\NumNatural());
+        $evento = Evento::with(['contenido', 'usuarios'])->findOrFail($idEve);
+        $contenido = $evento->contenido;
         $usuario = $this->session->getUser();
         $req = $this->request;
-        $vdt = $this->validarPropuesta($req->post());
-        $propuesta->cuerpo = $vdt->getData('cuerpo');
-        $propuesta->save();
+        $vdt = $this->validarEvento($req->post());
+        $evento->cuerpo = $vdt->getData('cuerpo');
+        $evento->save();
         $contenido->titulo = $vdt->getData('titulo');
         $contenido->categoria_id = $vdt->getData('categoria');
-        $contenido->save();
-        $log = UserlogCtrl::createLog('modPropues', $usuario, $propuesta);
-        foreach ($propuesta->votos as $voto) {
-            NotificacionCtrl::createNotif($voto->usuario_id, $log);
+        if ($contenido->impulsor xor $vdt->getData('asociar')) {
+            $partido = $usuario->partido;
+            if ($partido && $vdt->getData('asociar')) {
+                $contenido->impulsor()->associate($partido);
+            } else {
+                $contenido->impulsor()->dissociate();
+            }
         }
-        $this->flash('success', 'Los datos de la propuesta fueron modificados exitosamente.');
-        $this->redirectTo('shwPropues', array('idPro' => $idPro));
+        $contenido->save();
+        $log = UserlogCtrl::createLog('modEventoo', $usuario, $evento);
+        foreach ($evento->usuarios as $participe) {
+            NotificacionCtrl::createNotif($participe->id, $log);
+        }
+        $this->flash('success', 'Los datos del evento fueron modificados exitosamente.');
+        $this->redirectTo('shwEvento', array('idEve' => $idEve));
     }
-
+/*
     public function eliminar($idEve) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idEve, new Validate\Rule\NumNatural());
