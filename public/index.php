@@ -227,8 +227,8 @@ $app->group('/evento', function () use ($app) {
     $app->post('/crear', checkRole('fnc'), 'EventoCtrl:crear')->name('runCrearEvento');
     $app->get('/:idEve', 'EventoCtrl:ver')->name('shwEvento');
     $app->post('/:idEve/participar', checkRole('usr'), 'EventoCtrl:participar')->name('runPartiEvento');
-    //$app->get('/:idEve/modificar', checkModifyAuth('Evento'), 'EventoCtrl:verModificar')->name('shwModifEvento');
-    //$app->post('/:idEve/modificar', checkModifyAuth('Evento'), 'EventoCtrl:modificar')->name('runModifEvento');
+    $app->get('/:idEve/modificar', checkModifyAuth('Evento'), 'EventoCtrl:verModificar')->name('shwModifEvento');
+    $app->post('/:idEve/modificar', checkModifyAuth('Evento'), 'EventoCtrl:modificar')->name('runModifEvento');
     //$app->post('/:idEve/eliminar', checkModifyAuth('Evento'), 'EventoCtrl:eliminar')->name('runElimiEvento');
 });
 

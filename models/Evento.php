@@ -4,7 +4,7 @@ class Evento extends Eloquent {
     use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
     //protected $table = 'eventos';
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'fecha'];
     protected $visible = ['id', 'cuerpo', 'fecha'];
 
     public function scopeModifiableBy($query, $id) {
