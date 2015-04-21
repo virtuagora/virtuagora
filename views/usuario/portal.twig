@@ -144,7 +144,7 @@
                 <li>
                     <div class="button eventos"><i class="flaticon flaticon-month1"></i> &nbsp;Eventos
                         {% if user and (user.es_funcionario == true) %}
-                        <a href="#" class="bt-mas oposite button radius right"><i class="fa fa-plus"></i></a>
+                        <a href="{{ urlFor('shwCrearEvento') }}" class="bt-mas oposite button radius right"><i class="fa fa-plus"></i></a>
                         {% endif %}
                     </div>
                 </li>
