@@ -13,8 +13,8 @@
 {% set fecha_cont = '' ~ evento.created_at|date("d/m/Y") %}
 {% set ver_comentarios = true %}
 {% set url_comentar = urlFor('runComentar', {'tipoRaiz': 'evento' , 'idRaiz': evento.id}) %}
-{% set url_modificar = urlFor('shwModifevento', {'idNov': evento.id } ) %}
-{% set url_eliminar = urlFor('runElimievento', {'idNov': evento.id } ) %}
+{% set url_modificar = '#' %}
+{% set url_eliminar = '#' %}
 {% block botones_cont %}{% endblock %}
 {% block cuerpo_cont %}
 <div class="evento-texto">
@@ -27,21 +27,63 @@
             <br> <span class="fecha"><i class="fa fa-clock-o fa-fw"></i> 10:25</span>
         </section>
         <section class="datos-cont corto">
-            Invita <a href="{{ urlFor('shwUsuario',{'idUsr': autor_id}) }}"><img class="img-perfil small-border radius size-32" src="{{ autor_avatar_32 }}"> por {{ autor_nombre_apellido }}</a> <span class="usuario-pts"><i class="fa fa-trophy fa-fw"></i>&nbsp;{{ autor_puntos }}</span>
+            Invita <a href="{{ urlFor('shwUsuario',{'idUsr': autor_id}) }}"><img class="img-perfil small-border radius size-32" src="{{ autor_avatar_32 }}"> {{ autor_nombre_apellido }}</a> <span class="usuario-pts"><i class="fa fa-trophy fa-fw"></i>&nbsp;{{ autor_puntos }}</span>
         </section>
     </div>
     <hr>
-    {{ evento.cuerpo|bbCode }}
+    <div class="text-center">
+        {{ evento.cuerpo|bbCode }}
+    </div>
 </div>
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% set autor_id = evento.autor.id %}
+{% set autor_puntos = evento.autor.puntos %}
 {% set autor_nombre_apellido = evento.autor.nombre ~ ' ' ~ evento.autor.apellido %}
 {% set autor_avatar_32 = avatarUrl(evento.autor.img_tipo, evento.autor.img_hash, 32) %}
 {# ----------------------------------------------------------- #}
 {% block opciones_cont %}
-<div class="panel-cont-corto">
-    Holis
+<div class="panel-cont-corto" style="letter-spacing:-0.5px">
+    <div class="row">
+        <div class="small-12 columns text-center">
+            <h3 style="margin: 0">¿Cual será su participación?</h3>
+        </div>
+    </div>
+    <hr>
+    <div class="row collapse row-opciones">
+        <div class="medium-6 small-12 columns text-center">
+            <div class="bt-ire bt button negative radius expand" style="width: 98%;"><i class="fa fa-check fa-fw fa-3x"></i></div>
+        </div>
+        <div class="medium-6 small-12 columns text-center">
+            <div class="bt-noire bt button negative radius expand" style="width: 98%;"><i class="fa fa-times fa-fw fa-3x"></i></div>
+        </div>
+    </div>
+    <div class="row text-center row-confirmando" style="display:none">
+        <div class="medium-4 small-12 columns">
+            <div id="confirmando-icono"></div>
+            <div id="confirmando-descripcion"></div>
+        </div><div class="medium-4 small-12 columns">
+        <div class="switch small round" style="margin: 10px 0px 0px;">
+            <input id="checkbox" name="publico" type="checkbox">
+            <label for="checkbox"></label>
+            <p class="checkbox-texto" style="margin:0;"><b>NO</b> hacer este dato publico</p>
+        </div>
+        </div>
+        <div class="medium-4 small-12 columns">
+            <div style="margin-bottom: 5px;">
+                Si esto es correcto, confirme aquí:
+            </div>
+            <form id="formIre" action="{{ urlFor('runPartiEvento',{'idEve': evento.id}) }}" method="POST">
+                <input name="presente" type="text" style="display:none;">
+                <button class="button small negative radius">
+                    <i class="fa fa-send fa-fw"></i> Enviar
+                </button>
+                <div class="bt-cancelar button small negative radius">
+                    <i class=" fa fa-undo fa-fw"></i> Cancelar
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
 {# ----------------------------------------------------------- #}
@@ -52,6 +94,43 @@
     $(document).ready(function(){
 
     });
+
+    $('.bt').click(function(){
+        var mensaje = null;
+        var presente = null;
+        if( $(this).hasClass('bt-ire') ){
+            mensaje = 'Usted irá al evento';
+            presente = 1;
+        } else if( $(this).hasClass('bt-noire') ){
+            mensaje = 'Usted NO irá al evento';
+            presente = -1;
+        }
+        $('#confirmando-icono').empty().html( $(this).html() );
+        $('#confirmando-descripcion').empty().html(mensaje);
+        $('input[name="presente"]').val(presente);
+        $('.row-confirmando').show();
+        $('.row-opciones').hide();
+    });
+
+    $('.bt-cancelar').click(function(){
+        $('.row-confirmando').hide();
+        $('.row-opciones').show();
+    });
+
+    var completarCheckbox = function() {
+        if ($('#checkbox').is(':checked')) {
+            $(".checkbox-texto").html('Hacer este dato publico');
+            $("#checkbox").attr('checked', true);
+        } else {
+            $(".checkbox-texto").html('<b>NO</b> hacer este dato publico');
+            $("#checkbox").removeAttr("checked");
+            $("#checkbox").attr('checked', false);
+        }
+    }
+
+    $('#checkbox').click(completarCheckbox);
+
+
 </script>
 {% endblock %}
 {# ----------------------------------------------------------- #}

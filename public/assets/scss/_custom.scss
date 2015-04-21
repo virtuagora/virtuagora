@@ -48,6 +48,17 @@
             background-color:  rgb(255, 255, 255);
         }
     }
+    &.negative{
+        color: #4e4e4e;
+        border-color: #4e4e4e;
+        background-color:  rgba(255, 255, 255, 0);
+        &:hover{
+            color: #FFFFFF !important;
+            border-color: #4e4e4e;
+            background-color: #4e4e4e;
+        }
+    }
+
     /* &.secondary{
     color: #c93a3a;
     border-color: rgb(201, 58, 58);

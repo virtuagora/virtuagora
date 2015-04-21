@@ -5233,12 +5233,24 @@ img.img-perfil.size-160 {
   border-color: rgba(207, 110, 14, 0);
   background-color: white;
 }
+/* line 51, ../scss/_custom.scss */
+.button.negative {
+  color: #4e4e4e;
+  border-color: #4e4e4e;
+  background-color: rgba(255, 255, 255, 0);
+}
+/* line 55, ../scss/_custom.scss */
+.button.negative:hover {
+  color: #FFFFFF !important;
+  border-color: #4e4e4e;
+  background-color: #4e4e4e;
+}
 
-/* line 65, ../scss/_custom.scss */
+/* line 76, ../scss/_custom.scss */
 .alert-box {
   margin-bottom: 0;
 }
-/* line 67, ../scss/_custom.scss */
+/* line 78, ../scss/_custom.scss */
 .alert-box .close {
   padding: 0;
   color: #FFF;
