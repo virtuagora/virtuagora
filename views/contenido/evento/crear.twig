@@ -200,7 +200,7 @@
 
     $('form').submit(function(e){
         var fecha = $( "#guardarFecha" ).val()
-        fecha += ' ' + $('#timepicker').val() + ':';
+        fecha += ' ' + $('#timepicker').val() + ':00';
         $('#fecha-final').val(fecha);
     })
 
