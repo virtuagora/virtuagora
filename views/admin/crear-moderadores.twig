@@ -99,7 +99,7 @@
         </div>
     </div>
     <div class="row text-center">
-        <form id="verificar" action="{{ urlFor('runAdmVrfUsuario') }}" method="POST">
+        <form id="verificar" action="{{ urlFor('runCrearModerad') }}" method="POST">
             <input type="text" name="entrantes" style="display:none;">
             <button class="button radius success"><i class="fa fa-check fa-fw"></i> Agregar nuevos moderadores</button>
         </form>
@@ -108,15 +108,10 @@
 
 <div id="selector-patrulla" style="display:none">
     <select name="patrulla">
-        <option value="1">--Sin asignar--</option>
-        <option value="2">grupo1</option>
-        <option value="3">patru2</option>
-        <option value="4">patru3</option>
-        <!--
-{# for categoria in categorias #}
-<option value="{{categoria.id}}">{{categoria.nombre|capitalize}}</option>
-{# endfor #}
--->
+       <option value="0">--Sin asignar--</option>
+        {% for patrulla in patrullas %}
+        <option value="{{patrulla.id}}">{{patrulla.nombre|capitalize}}</option>
+        {% endfor %}
     </select>
 </div>
 {% endblock %}
@@ -125,7 +120,7 @@
 {# ----------------------------------------------------------- #}
 {% block scripts_cont %}
 <script>
-    var usuarios_verificar = new Array();
+    var moderadores_nuevos = new Array();
     var base_url = '{{ baseUrl() }}';
 
     $(document).ready(function(){
@@ -227,11 +222,13 @@
     });
 
     $('#verificar').submit(function() {
+        moderadores_nuevos.length = 0;
         $('.agregando').children('tr').each(function () {
-            var id_num = $(this).attr('id').replace('usuario-', '');
-            usuarios_verificar.push(id_num);
+            var id_usr = $(this).attr('id').replace('usuario-', '');
+            var patrulla_id = $(this).find(":selected").val();
+            moderadores_nuevos.push('{'+ '\"usr\":\"' + id_usr + '\",\"pat\":\"' + patrulla_id + '\"}');
         });
-        json_usuarios = '[' + usuarios_verificar.join() + ']';
+        json_usuarios = '[' + moderadores_nuevos.join() + ']';
         $('input[name="entrantes"]').val(json_usuarios);
     });
 
