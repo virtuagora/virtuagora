@@ -20,7 +20,7 @@ class PropuestaCtrl extends Controller {
         $vdt = new Validate\Validator();
         $vdt->addRule('postura', new Validate\Rule\InArray(array(-1, 0, 1)))
             ->addRule('idPro', new Validate\Rule\NumNatural())
-            ->addFilter('publico', FilterFactory::radioToBool());
+            ->addFilter('publico', FilterFactory::booleanFilter());
         $req = $this->request;
         $data = array_merge(array('idPro' => $idPro), $req->post());
         if (!$vdt->validate($data)) {

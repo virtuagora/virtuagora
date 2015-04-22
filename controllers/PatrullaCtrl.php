@@ -24,6 +24,28 @@ class PatrullaCtrl extends RMRController {
                                                       'moderadores' => $patrulla->moderadores->toArray()));
     }
 
+    public function verCrearModeradores() {
+        $this->render('admin/crear-moderadores.twig');
+    }
+
+    public function crearModeradores() {
+        $vdt = new Validate\Validator();
+        $vdt->addRule('entrantes', new Validate\Rule\Attributes(['usr' => 'ctype_digit', 'pat' => 'ctype_digit']))
+            ->addFilter('entrantes', FilterFactory::json_decode());
+        $req = $this->request;
+        if (!$vdt->validate($req->post())) {
+            throw new TurnbackException($vdt->getErrors());
+        }
+        foreach ($vdt->getData('entrantes') as $entrante) {
+            $usuario = Usuario::findOrFail($entrante['usr']);
+            $patrulla = Patrulla::findOrFail($entrante['pat']);
+            $usuario->patrulla()->associate($patrulla);
+            $usuario->save();
+        }
+        $this->flash('success', 'Los nuevos moderadores han sido agregados exitosamente.');
+        $this->redirectTo('shwCrearModerad');
+    }
+
     public function adminModeradores($idPat) {
         $vdt = new Validate\Validator();
         $vdt->addRule('idPat', new Validate\Rule\NumNatural())
@@ -43,11 +65,8 @@ class PatrullaCtrl extends RMRController {
         $this->redirectTo('shwAdmModerad');
     }
 
-    public function verCrear($idPat) {
-        $vdt = new Validate\QuickValidator(array($this, 'notFound'));
-        $vdt->test($idPat, new Validate\Rule\NumNatural());
-        $patrulla = Patrulla::findOrFail($idPat)->toArray();
-        $this->render('admin/crear-patrulla.twig', array('patrulla' => $patrulla));
+    public function verCrear() {
+        $this->render('admin/crear-patrulla.twig');
     }
 
     public function crear() {

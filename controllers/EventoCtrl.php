@@ -134,7 +134,7 @@ class EventoCtrl extends Controller {
             ->addRule('categoria', new Validate\Rule\Exists('categorias'))
             ->addRule('lugar', new Validate\Rule\MinLength(4))
             ->addRule('lugar', new Validate\Rule\MaxLength(128))
-            // TODO verificar fecha
+            ->addRule('fecha', new Validate\Rule\Date('Y-m-d H:i:s'))
             ->addRule('cuerpo', new Validate\Rule\MinLength(8))
             ->addRule('cuerpo', new Validate\Rule\MaxLength(8192))
             ->addFilter('cuerpo', FilterFactory::escapeHTML())

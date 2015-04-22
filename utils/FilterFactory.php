@@ -14,12 +14,6 @@ class FilterFactory {
         };
     }
 
-    public static function radioToBool() {
-        return function($v) {
-            return $v == 'on';
-        };
-    }
-
     public static function booleanFilter() {
         return function($v) {
             return filter_var($v, FILTER_VALIDATE_BOOLEAN);
@@ -29,6 +23,12 @@ class FilterFactory {
     public static function explode($a) {
         return function($v) use ($a) {
             return explode($a, $v);
+        };
+    }
+
+    public static function json_decode() {
+        return function($v) {
+            return json_decode($v, true);
         };
     }
 

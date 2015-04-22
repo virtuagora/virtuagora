@@ -171,6 +171,8 @@ $app->group('/admin', function () use ($app) {
     $app->post('/verificar', checkAdminAuth(7), 'AdminCtrl:verifCiudadano')->name('runAdmVrfUsuario');
     $app->get('/ajustes', checkAdminAuth(2), 'AdminCtrl:verAdminAjustes')->name('shwAdmAjuste');
     $app->post('/ajustes', checkAdminAuth(2), 'AdminCtrl:adminAjustes')->name('runAdmAjuste');
+    $app->get('/moderador/crear', checkAdminAuth(6), 'PatrullaCtrl:verCrearModeradores')->name('shwCrearModerad');
+    $app->post('/moderador/crear', checkAdminAuth(6), 'PatrullaCtrl:crearModeradores')->name('runCrearModerad');
 
     $app->get('/patrulla', checkRole('usr'), 'PatrullaCtrl:listar')->name('shwAdmPatrull');
     $app->get('/patrulla/crear', checkAdminAuth(5), 'PatrullaCtrl:verCrear')->name('shwCrearPatrull');
