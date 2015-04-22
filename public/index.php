@@ -231,7 +231,7 @@ $app->group('/evento', function () use ($app) {
     $app->post('/:idEve/participar', checkRole('usr'), 'EventoCtrl:participar')->name('runPartiEvento');
     $app->get('/:idEve/modificar', checkModifyAuth('Evento'), 'EventoCtrl:verModificar')->name('shwModifEvento');
     $app->post('/:idEve/modificar', checkModifyAuth('Evento'), 'EventoCtrl:modificar')->name('runModifEvento');
-    //$app->post('/:idEve/eliminar', checkModifyAuth('Evento'), 'EventoCtrl:eliminar')->name('runElimiEvento');
+    $app->post('/:idEve/eliminar', checkModifyAuth('Evento'), 'EventoCtrl:eliminar')->name('runElimiEvento');
 });
 
 $app->group('/partido', function () use ($app) {

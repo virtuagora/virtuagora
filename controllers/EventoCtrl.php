@@ -116,16 +116,17 @@ class EventoCtrl extends Controller {
         $this->flash('success', 'Los datos del evento fueron modificados exitosamente.');
         $this->redirectTo('shwEvento', array('idEve' => $idEve));
     }
-/*
+
     public function eliminar($idEve) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idEve, new Validate\Rule\NumNatural());
-        $propuesta = Propuesta::with(array('contenido', 'comentarios.votos'))->findOrFail($idEve);
-        $propuesta->delete();
-        $this->flash('success', 'La propuesta ha sido eliminada exitosamente.');
+        $evento = Evento::with('contenido')->findOrFail($idEve);
+        $evento->delete();
+        // TODO ver si se informa a los participantes
+        $this->flash('success', 'El evento ha sido eliminado exitosamente.');
         $this->redirectTo('shwIndex');
     }
-*/
+
     private function validarEvento($data) {
         $vdt = new Validate\Validator();
         $vdt->addRule('titulo', new Validate\Rule\MinLength(8))

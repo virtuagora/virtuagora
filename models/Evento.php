@@ -35,7 +35,7 @@ class Evento extends Eloquent {
             foreach ($evento->comentarios as $comentario) {
                 $comentario->delete();
             }
-            // TODO borrar participantes
+            $evento->usuarios()->detach();
             $evento->contenido->delete();
             return true;
         });
