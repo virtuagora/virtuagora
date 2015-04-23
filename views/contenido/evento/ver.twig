@@ -1,4 +1,13 @@
 {# VARIBLES #}
+{% set hayDatoPublico = false %}
+{% set cantOcultos = 0 %}
+{% for participante in participantes %}
+{% if participante.publico == 1 %}
+{% set hayDatoPublico = true %}
+{% else %}
+{% set cantOcultos = cantOcultos + 1 %}
+{% endif %}
+{% endfor %}
 
 {% extends "contenido/ver-contenido-corto.twig" %}
 
@@ -13,26 +22,42 @@
 {% set fecha_cont = '' ~ evento.created_at|date("d/m/Y") %}
 {% set ver_comentarios = true %}
 {% set url_comentar = urlFor('runComentar', {'tipoRaiz': 'evento' , 'idRaiz': evento.id}) %}
-{% set url_modificar = '#' %}
-{% set url_eliminar = '#' %}
+{% set url_modificar = urlFor('shwModifEvento', {'idEve': evento.id}) %}
+{% set url_eliminar = urlFor('runElimiEvento', {'idEve': evento.id}) %}
 {% block botones_cont %}{% endblock %}
 {% block cuerpo_cont %}
 <div class="evento-texto">
-    <div class="text-center">
-        <section class="fecha-datos">
-            <span class="fa-stack fa-2x">
-                <i class="fa fa-calendar-o fa-stack-2x"></i>
-                <strong class="fa-stack-1x calendario-text">27</strong>
-            </span>&nbsp;&nbsp;<span class="fecha">/ Junio / 2015</span>
-            <br> <span class="fecha"><i class="fa fa-clock-o fa-fw"></i> 10:25</span>
-        </section>
-        <section class="datos-cont corto">
-            Invita <a href="{{ urlFor('shwUsuario',{'idUsr': autor_id}) }}"><img class="img-perfil small-border radius size-32" src="{{ autor_avatar_32 }}"> {{ autor_nombre_apellido }}</a> <span class="usuario-pts"><i class="fa fa-trophy fa-fw"></i>&nbsp;{{ autor_puntos }}</span>
-        </section>
-    </div>
-    <hr>
-    <div class="text-center">
-        {{ evento.cuerpo|bbCode }}
+    <div class="row text-center">
+        <div class="small-12 columns">
+            <div class="small-12 medium-6 columns">
+                <div class="fecha-datos">
+                    <span class="fa-stack fa-2x">
+                        <i class="fa fa-calendar-o fa-stack-2x"></i>
+                        <strong class="fa-stack-1x calendario-text"><span class="dia">{{evento.fecha|date("d")}}</span></strong>
+                    </span>&nbsp;&nbsp;<span class="fecha">/<span class="mes">{{evento.fecha|date("m")}}</span> / <span class="año">{{evento.fecha|date("Y")}}</span></span>
+                </div>
+            </div>
+            <div class="small-12 medium-6 columns">
+                <div class="fecha-datos">
+                    <span class="fecha"><i class="fa fa-clock-o fa-fw"></i> {{evento.fecha|date("H:i")}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-12 columns">
+                    <h2><i class="fa fa-map-marker fa-fw fa-lg"></i> {{ evento.lugar }}</h2>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                {{ evento.cuerpo|bbCode }}
+            </div>
+            <hr>
+            <div class="small-12 columns">
+                <section class="datos-cont corto text-center" margin:bottom>
+                    Invita <a href="{{ urlFor('shwUsuario',{'idUsr': autor_id}) }}"><img class="img-perfil small-border radius size-32" src="{{ autor_avatar_32 }}"> {{ autor_nombre_apellido }}</a> <span class="usuario-pts"><i class="fa fa-trophy fa-fw"></i>&nbsp;{{ autor_puntos }}</span>
+                </section>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
@@ -46,10 +71,44 @@
 <div class="panel-cont-corto" style="letter-spacing:-0.5px">
     <div class="row">
         <div class="small-12 columns text-center">
+            {% if user and participacion %}
+            <h3 >Usted <i class="fa fa-fw fa-lg {{ participacion.presente == 1 ? 'fa-check' : 'fa-times'}}"></i><b>{{ participacion.presente == 1 ? 'asistirá' : 'no asistirá'}}</b> al evento</h3>
+            <h5 class="status" style="margin: 0">Ha dado este dato como <b>{{ participacion.publico == 1 ? 'publico' : 'no publico'}}</b>. </h5>
+            {% else %}
             <h3 style="margin: 0">¿Cual será su participación?</h3>
+            {% endif %}
         </div>
     </div>
     <hr>
+    {% if user and participacion %}
+    <div class="row text-center">
+        <form id="formCambiarParticipacion" action="{{ urlFor('runPartiEvento',{'idEve': evento.id}) }}" method="POST">
+            <div class="medium-4 small-12 columns">
+                <div class="switch small round" style="margin: 10px 0px 0px;">
+                    <input id="checkbox-cambiar-participacion" type="checkbox" data-value="{{ participacion.presente == 0 ? '1' : '0'}}">
+                    <label for="checkbox-cambiar-participacion"></label>
+                    <p class="checkbox-cambiar-participacion-texto" style="margin:0;">¿Desea cambiar a <b>{{ participacion.presente == 0 ? 'asistiré' : 'no asistiré'}}?</b></p>
+                    <p class="checkbox-cambiar-participacion-texto-si" style="margin:0;display:none;">Usted <i class="fa fa-fw {{ participacion.presente == 0 ? 'fa-check' : 'fa-times'}}"></i> <b>{{ participacion.presente == 0 ? 'asistirá' : 'no asistirá'}}</b></p>
+                </div>
+            </div>
+            <div class="medium-4 small-12 columns">
+                <div class="switch small round" style="margin: 10px 0px 0px;">
+                    <input id="checkbox-cambiar-privacidad" type="checkbox" data-value="{{ participacion.publico == 0 ? '1' : '0'}}">
+                    <label for="checkbox-cambiar-privacidad"></label>
+                    <p class="checkbox-cambiar-privacidad-texto" style="margin:0;">¿Desea cambiar a <b>{{ participacion.publico == 0 ? 'público' : 'no público'}}</b>?</p>
+                    <p class="checkbox-cambiar-privacidad-texto-si" style="margin:0;display:none;" >El dato será <b>{{ participacion.publico == 0 ? 'público' : 'no público'}}</b></p>
+                </div>
+            </div>
+            <div class="medium-4 small-12 columns">
+                <input name="presente" type="text" style="display:none;" value="{{ participacion.presente == 1 ? '1' : '0'}}">
+                <input name="publico" type="text" style="display:none;" value="{{ participacion.publico == 1 ? '1' : '0'}}">
+                <button class="bt-aplicar-cambios button small negative radius disabled" style="margin: 10px 0px 0px;">
+                    <i class="fa fa-send fa-fw fa-lg"></i><br>Aplicar cambios
+                </button>
+            </div>
+        </form>
+    </div>
+    {% else %}
     <div class="row collapse row-opciones">
         <div class="medium-6 small-12 columns text-center">
             <div class="bt-ire bt button negative radius expand" style="width: 98%;"><i class="fa fa-check fa-fw fa-3x"></i></div>
@@ -59,21 +118,23 @@
         </div>
     </div>
     <div class="row text-center row-confirmando" style="display:none">
-        <div class="medium-4 small-12 columns">
-            <div id="confirmando-icono"></div>
-            <div id="confirmando-descripcion"></div>
-        </div><div class="medium-4 small-12 columns">
-        <div class="switch small round" style="margin: 10px 0px 0px;">
-            <input id="checkbox" name="publico" type="checkbox">
-            <label for="checkbox"></label>
-            <p class="checkbox-texto" style="margin:0;"><b>NO</b> hacer este dato publico</p>
-        </div>
-        </div>
-        <div class="medium-4 small-12 columns">
-            <div style="margin-bottom: 5px;">
-                Si esto es correcto, confirme aquí:
+        {% if user %}
+        <form id="formIre" action="{{ urlFor('runPartiEvento',{'idEve': evento.id}) }}" method="POST">
+            <div class="medium-4 small-12 columns">
+                <div id="confirmando-icono"></div>
+                <div id="confirmando-descripcion"></div>
             </div>
-            <form id="formIre" action="{{ urlFor('runPartiEvento',{'idEve': evento.id}) }}" method="POST">
+            <div class="medium-4 small-12 columns">
+                <div class="switch small round" style="margin: 10px 0px 0px;">
+                    <input id="checkbox" name="publico" type="checkbox">
+                    <label for="checkbox"></label>
+                    <p class="checkbox-texto" style="margin:0;"><b>NO</b> hacer este dato público</p>
+                </div>
+            </div>
+            <div class="medium-4 small-12 columns">
+                <div style="margin-bottom: 5px;">
+                    Si esto es correcto, confirme aquí:
+                </div>
                 <input name="presente" type="text" style="display:none;">
                 <button class="button small negative radius">
                     <i class="fa fa-send fa-fw"></i> Enviar
@@ -81,18 +142,106 @@
                 <div class="bt-cancelar button small negative radius">
                     <i class=" fa fa-undo fa-fw"></i> Cancelar
                 </div>
-            </form>
+            </div>
+        </form>
+        {% else %}
+        <h5>Para participar, por favor <a href="{{ urlFor('shwCrearUsuario') }}"><i class="fa fa-fw fa-sign-in"></i> Inicie sesion</a> o <a href="{{ urlFor('shwLogin') }}"><i class="fa fa-fw fa-user-plus"></i> Registrese</a></h5>
+        {% endif%}
+    </div>
+    {% endif %}
+</div>
+
+<div class="panel-cont-corto" style="letter-spacing:-0.5px">
+    <div class="row">
+        <div class="small-12 columns text-center">
+            {% if participantes|length > 0 %}
+            <h4 style="margin: 0"><i class="fa fa-fw fa-check"></i> {{ participantes|length }} usuarios irán al evento</h4>
+            {% else %}
+            <h4 style="margin: 0"><i class="fa fa-fw fa-chain-broken"></i> Nadie ha confirmado su participación</h4>
+            {% endif %}
+        </div>
+    </div>
+    {% if participantes|length > 0 %}
+    <hr>
+    <div class="row collapse">
+        <div class="small-12 columns text-center">
+            <div class="row "style="margin-bottom:10px">Algunos participantes que asistirán al evento</div>
+            <div class="row" >
+                {% for participante in participantes|slice(0, 10) %}
+                <a href="{{ urlFor('shwUsuario', {'idUsr': participante.id}) }}"><img class="img-perfil small-border no-border square size-64" src="{{ avatarUrl(participante.img_tipo, participante.img_hash, 64) }}" style="padding:2px"></a>
+                {% endfor %}
+            </div>
+            <hr>
+            <a href="#" data-reveal-id="listaParticipantes"><i class="fa fa-list fa-fw"></i> Ver la lista completa</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals_cont %}
+<div id="listaParticipantes" class="lista-participantes-modal reveal-modal small" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog">
+    <div class="row text-center">
+        <div class="small-12 columns">
+            <h4>Participantes confirmados ({{ participantes|length }})</h4>
+        </div>
+        <hr>
+        <div class="small-12 columns">
+            <small>({{ cantOcultos }} participantes han ocultado su confirmación)</small>
+            <table class="listado-participantes">
+                <thead>
+                    <tr style="display:none">
+                        <th>Avatar</th>
+                        <th>Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if participantes|length > 0 %}
+                    {% for participante in participantes %}
+                    {% if participantes.publico == 1 %}
+                    <tr>
+                        <td class="text-center"><a href="{{ urlFor('shwUsuario', {'idUsr': participante.id}) }}"><img class="img-perfil no-border square size-32" src="{{ avatarUrl(participante.img_tipo, participante.img_hash, 32) }}" style="padding:2px"></a></td>
+                        <td class="text-center">{{ participante.nombre }} {{ participante.apellido }}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
 {% endblock %}
 {# ----------------------------------------------------------- #}
-{% block modals_cont %}{% endblock %}
-{# ----------------------------------------------------------- #}
 {% block scripts_cont %}
+<script src="{{ baseUrl() }}/assets/js/jquery-ui/jquery-ui.min.js"></script>
+<script src="{{ baseUrl() }}/assets/js/jquery-ui/datepicker-es.js"></script>
+<script src="{{ baseUrl() }}/assets/js/timepicker/jquery.timepicker.min.js"></script>
 <script>
     $(document).ready(function(){
-
+        $('.dia').html(
+            $.datepicker.parseDate( "dd", "{{ evento.fecha|date('Y-m-d') }}", {
+                monthNames: $.datepicker.regional[ "es" ].monthNames
+            })
+        );
+        $('.mes').html(
+            $.datepicker.parseDate( "MM", "{{ evento.fecha|date('Y-m-d') }}", {
+                monthNames: $.datepicker.regional[ "es" ].monthNames
+            })
+        );
+        $('.año').html(
+            $.datepicker.parseDate( "yy", "{{ evento.fecha|date('Y-m-d') }}", {
+                monthNames: $.datepicker.regional[ "es" ].monthNames
+            })
+        );
+        var tiempo = new Date( '{{ evento.fecha }}' );
+//        $.datepicker.parseDate( "DD, MM d, yy", date)
+//        $( "#datepicker" ).datepicker( "setDate", tiempo );
+//        $('.muestra-fecha h2').html($( "#datepicker" ).val());
+//        $('#timepicker').timepicker('setTime', tiempo);
     });
 
     $('.bt').click(function(){
@@ -128,7 +277,56 @@
         }
     }
 
+    var habilitarBoton = function() {
+        if( !$('#checkbox-cambiar-participacion').is(':checked') && !$('#checkbox-cambiar-privacidad').is(':checked')){
+            $('.bt-aplicar-cambios').addClass('disabled')
+        } else {
+            $('.bt-aplicar-cambios').removeClass('disabled')
+        }
+    }
+
+    var cambiarParticipacion = function() {
+        if ($('#checkbox-cambiar-participacion').is(':checked')) {
+            $(".checkbox-cambiar-participacion-texto").hide();
+            $(".checkbox-cambiar-participacion-texto-si").show();
+            $("#checkbox-cambiar-participacion").attr('checked', true);
+        } else {
+            $(".checkbox-cambiar-participacion-texto").show();
+            $(".checkbox-cambiar-participacion-texto-si").hide();
+            $("#checkbox-cambiar-participacion").removeAttr("checked");
+            $("#checkbox-cambiar-participacion").attr('checked', false);
+        }
+        habilitarBoton();
+    }
+    var cambiarPrivacidad = function() {
+        if ($('#checkbox-cambiar-privacidad').is(':checked')) {
+            $(".checkbox-cambiar-privacidad-texto").hide();
+            $(".checkbox-cambiar-privacidad-texto-si").show();
+            $("#checkbox-cambiar-privacidad").attr('checked', true);
+        } else {
+            $(".checkbox-cambiar-privacidad-texto").show();
+            $(".checkbox-cambiar-privacidad-texto-si").hide();
+            $("#checkbox-cambiar-privacidad").removeAttr("checked");
+            $("#checkbox-cambiar-privacidad").attr('checked', false);
+        }
+        habilitarBoton();
+    }
+
+    $('#formCambiarParticipacion').submit( function(e){
+        if( !$('#checkbox-cambiar-participacion').is(':checked') && !$('#checkbox-cambiar-privacidad').is(':checked')){
+            e.preventDefault();
+        } else {
+            if($('#checkbox-cambiar-participacion').is(':checked')){
+                $('input[name="presente"]').val($('#checkbox-cambiar-participacion').data('value'))
+            }if($('#checkbox-cambiar-privacidad').is(':checked')){
+                $('input[name="publico"]').val($('#checkbox-cambiar-privacidad').data('value'))
+            }
+        }
+    });
+
     $('#checkbox').click(completarCheckbox);
+    $('#checkbox-cambiar-participacion').click(cambiarParticipacion);
+    $('#checkbox-cambiar-privacidad').click(cambiarPrivacidad);
 
 
 </script>
