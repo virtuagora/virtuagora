@@ -56,7 +56,6 @@ class EventoCtrl extends Controller {
         $evento->lugar = $vdt->getData('lugar');
         $evento->fecha = Carbon\Carbon::parse($vdt->getData('fecha'));
         $evento->save();
-        $log = UserlogCtrl::createLog('newEventoo', $autor, $evento);
         $contenido = new Contenido;
         $contenido->titulo = $vdt->getData('titulo');
         $contenido->puntos = 0;
@@ -64,6 +63,7 @@ class EventoCtrl extends Controller {
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($evento);
         $partido = $autor->partido;
+        $log = UserlogCtrl::createLog('newEventoo', $autor, $evento);
         if (isset($partido) && $vdt->getData('asociar')) {
             $contenido->impulsor()->associate($partido);
             foreach ($partido->afiliados as $afiliado) {

@@ -12,7 +12,8 @@ class ComentarioCtrl extends RMRController {
     public function comentar($tipoRaiz, $idRaiz) {
         $vdt = new Validate\Validator();
         $vdt->addRule('idRaiz', new Validate\Rule\NumNatural())
-            ->addRule('tipoRaiz', new Validate\Rule\InArray(array('Propuesta', 'Problematica', 'Comentario', 'ParrafoDocumento', 'Novedad')))
+            ->addRule('tipoRaiz', new Validate\Rule\InArray(['Propuesta', 'Problematica', 'Comentario',
+                                                             'ParrafoDocumento', 'Novedad', 'Evento']))
             ->addRule('cuerpo', new Validate\Rule\MinLength(4))
             ->addRule('cuerpo', new Validate\Rule\MaxLength(2048))
             ->addFilter('tipoRaiz', 'ucfirst');
