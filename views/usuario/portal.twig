@@ -82,9 +82,9 @@
                         </a>
                         <p class="post-author">Por <a href="{{ urlFor('shwUsuario',{'idUsr': contenido.autor.id}) }}">{{ contenido.autor.nombre}} {{ contenido.autor.apellido }}</a></p>
                         <h6>{{ contenido.titulo }}</h6>
-                        <p>It's behind you Tyrone. Whenever you reverse, things come from behind you. Who took the jam outta your doughnut? Yes, London. You know: fish, chips, cup 'o tea, bad food, worse weather, Mary f-king Poppins... LONDON.</p>
-                        <p>
-                            <a href="{{ baseUrl() }}/{{ contenido.contenible_type|lower }}/{{ contenido.contenible_id }}">Seguir leyendo</a>
+<!--                        <p></p>-->
+                        <p style="display:none">
+                            <a href="{{ contenido.link }}">Ver mas</a>
                             <a href="javascript:void(0)" class="right"><i class="fa fa-share-alt"></i></a>
                         </p>
                     </div>
