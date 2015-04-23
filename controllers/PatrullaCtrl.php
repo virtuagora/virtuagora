@@ -63,7 +63,7 @@ class PatrullaCtrl extends RMRController {
         }
         $patrulla->moderadores()->whereIn('id', $salientes)->update(['patrulla_id' => null]);
         $this->flash('success', 'Los moderadores han sido removidos de la patrulla exitosamente.');
-        $this->redirectTo('shwAdmModerad');
+        $this->redirectTo('shwAdmModerad', ['idPat' => $idPat]);
     }
 
     public function verCrear() {
