@@ -7327,6 +7327,39 @@ table.listado-funcionarios tr:last-child td, table.info-general tr:last-child td
   vertical-align: -webkit-baseline-middle;
 }
 
+/* line 72, ../scss/layouts/_evento.scss */
+.lista-participantes-modal {
+  overflow-y: scroll;
+}
+@media only screen {
+  /* line 72, ../scss/layouts/_evento.scss */
+  .lista-participantes-modal {
+    max-height: 80%;
+  }
+}
+
+/* line 81, ../scss/layouts/_evento.scss */
+table.listado-participantes {
+  width: 100%;
+}
+/* line 83, ../scss/layouts/_evento.scss */
+table.listado-participantes thead, table.listado-participantes tbody, table.listado-participantes tr:nth-of-type(even) {
+  background: 0;
+}
+/* line 87, ../scss/layouts/_evento.scss */
+table.listado-participantes tr td {
+  border-bottom: 1px dashed #C0C0C0;
+  padding: 4px;
+}
+/* line 94, ../scss/layouts/_evento.scss */
+table.listado-participantes tr:hover {
+  background-color: #fcf6d9;
+}
+/* line 98, ../scss/layouts/_evento.scss */
+table.listado-participantes tr:last-child td {
+  border: 0;
+}
+
 /* line 3, ../scss/layouts/_partido.scss */
 .crear-partido .intro-partido {
   font-family: "Source Sans Pro",sans-serif;

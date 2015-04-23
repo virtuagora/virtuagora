@@ -68,3 +68,34 @@
         }
     }
 }
+
+.lista-participantes-modal{
+     @media only screen  {
+
+                max-height: 80%;
+
+        }
+    overflow-y: scroll;
+}
+
+table.listado-participantes{
+    width: 100%;
+    thead, tbody, tr:nth-of-type(even) {
+        background: 0;
+    }
+
+    tr td {
+        border-bottom: 1px dashed #C0C0C0;
+        padding: 4px;
+        img{
+
+        }
+    }
+    tr:hover{
+        background-color: #fcf6d9;
+    }
+
+    tr:last-child td{
+        border: 0;
+    }
+}
