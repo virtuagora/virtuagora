@@ -25,7 +25,8 @@ class PatrullaCtrl extends RMRController {
     }
 
     public function verCrearModeradores() {
-        $this->render('admin/crear-moderadores.twig');
+        $patrullas = Patrulla::all();
+        $this->render('admin/crear-moderadores.twig', array('patrullas' => $patrullas->toArray()));
     }
 
     public function crearModeradores() {

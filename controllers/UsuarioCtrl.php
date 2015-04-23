@@ -4,7 +4,7 @@ class UsuarioCtrl extends RMRController {
 
     protected $mediaTypes = array('json', 'view');
     protected $properties = array('id', 'nombre', 'apellido', 'es_funcionario', 'es_jefe', 'puntos', 'partido_id',
-                                  'created_at', 'suspendido', 'advertencia', 'verified_at');
+                                  'patrulla_id', 'created_at', 'suspendido', 'advertencia', 'verified_at');
 
     public function queryModel($meth, $repr) {
         switch ($meth) {
