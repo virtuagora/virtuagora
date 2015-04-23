@@ -169,7 +169,7 @@
     }
 
     var agregarErrorFila = function(mensaje) {
-        td_mensaje = $('<td>').addClass('text-center').attr('colspan',6).html( mensaje );
+        td_mensaje = $('<td>').addClass('text-center').attr('colspan',7).html( mensaje );
         tr_ultima = $('<tr>').append(td_mensaje);
         $(".tabla-usuarios").find('tbody').append( tr_ultima );
     }
@@ -249,19 +249,19 @@
     function verTodo() {
         $('.sub-nav.ver dd.active').removeClass('active');
         $('.verTodo').addClass('active');
-        var query = { where_null:'verified_at' };
+        var query = { where_null:'patrulla_id'};
         enviarSolicitud(base_url + '/usuario?' + jQuery.param(query));
     }
     function verAdvertidos() {
         $('.sub-nav.ver dd.active').removeClass('active');
         $('.verAdvertidos').addClass('active');
-        var query = { where_null:'verified_at' , where_not_null:'advertencia' };
+        var query = { where_null:'patrulla_id' , where_not_null:'advertencia' };
         enviarSolicitud(base_url + '/usuario?' + jQuery.param(query));
     }
     function verSuspendidos() {
         $('.sub-nav.ver dd.active').removeClass('active');
         $('.verSuspendidos').addClass('active');
-        var query = {where_null:'verified_at', where:'suspendido-eq-1' };
+        var query = { where_null:'patrulla_id' , where:'suspendido-eq-1' };
         enviarSolicitud(base_url + '/usuario?' + jQuery.param(query));
     }
 </script>
