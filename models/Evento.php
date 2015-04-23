@@ -5,7 +5,7 @@ class Evento extends Eloquent {
 
     //protected $table = 'eventos';
     protected $dates = ['deleted_at', 'fecha'];
-    protected $visible = ['id', 'cuerpo', 'fecha'];
+    protected $visible = ['id', 'cuerpo', 'fecha', 'lugar'];
 
     public function scopeModifiableBy($query, $id) {
         return $query->whereHas('contenido', function($q) use ($id) {
