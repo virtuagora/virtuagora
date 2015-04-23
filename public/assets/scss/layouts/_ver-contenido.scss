@@ -474,3 +474,90 @@
         padding: 7px;
     }
 }
+
+#social-sidebar {
+    a { text-decoration: none; }
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    left: 0;
+    margin-top: -75px; /* (li * a:width) / -2 */
+    position: fixed;
+    top: 50%;
+    z-index: 20;
+}
+
+#social-sidebar li:first-child a { border-radius: 0 5px 0 0; }
+#social-sidebar li:last-child a { border-radius: 0 0 5px 0; }
+
+#social-sidebar a {
+    background: #121212;
+    color: #fff;
+    display: block;
+    height: 50px;
+    font-size: 18px;
+    line-height: 50px;
+    position: relative;
+    text-align: center;
+    width: 50px;
+}
+
+#social-sidebar a:hover span {
+    left: 130%;
+    opacity: 1;
+}
+
+#social-sidebar a span {
+    border-radius: 3px;
+    line-height: 24px;
+    left: -100%;
+    margin-top: -16px;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    opacity: 0;
+    padding: 4px 8px;
+    position: absolute;
+    -webkit-transition: opacity .3s, left .4s;
+    -moz-transition: opacity .3s, left .4s;
+    -ms-transition: opacity .3s, left .4s;
+    -o-transition: opacity .3s, left .4s;
+    transition: opacity .3s, left .4s;
+    top: 50%;
+    white-space: nowrap;
+    z-index: -1;
+}
+
+#social-sidebar a span:before {
+    content: "";
+    display: block;
+    height: 8px;
+    left: -4px;
+    margin-top: -4px;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 8px;
+    z-index: -2;
+}
+
+#social-sidebar a[class*="twitter"]:hover,
+#social-sidebar a[class*="twitter"] span,
+#social-sidebar a[class*="twitter"] span:before { background: #00aced; }
+
+#social-sidebar a[class*="facebook"]:hover,
+#social-sidebar a[class*="facebook"] span,
+#social-sidebar a[class*="facebook"] span:before { background: #3b5998; }
+
+#social-sidebar a[class*="googleplus"]:hover,
+#social-sidebar a[class*="googleplus"] span,
+#social-sidebar a[class*="googleplus"] span:before { background: #dd4b39; }
+
+#social-sidebar a[class*="mail"]:hover,
+#social-sidebar a[class*="mail"] span,
+#social-sidebar a[class*="mail"] span:before { background: #808080; }
