@@ -8,7 +8,7 @@
 {% extends "master.twig" %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}Virtuagora - Modificar evento{% endblock %}
+{% block titulo %}Virtuagora - Modificar Evento #{{evento.id}} {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block linkhead %}
 <link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/jquery-ui/jquery-ui.min.css"/>
@@ -32,7 +32,7 @@
             </section>
         </div>
     </div>
-    <form action="{{ urlFor('runCrearPropues') }}" method="POST">
+    <form action="{{ urlFor('runModifEvento',{'idEve':evento.id}) }}" method="POST">
         <div class="row">
             <div class="large-12 large-centered columns">
                 <div class="panel-crear-cont">
@@ -46,14 +46,32 @@
                             </section>
                         </div>
                     </div>
+                     <div class="row">
+                        <div class="row collapse prefix-radius">
+                            <section class="categoria-cont">
+                                <div class="large-5 large-centered columns">
+                                    <div class="large-4 columns">
+                                        <span class="prefix">Categoria</span>
+                                    </div>
+                                    <div class="large-8 columns">
+                                        <select name="categoria" id="tooltip-categoria">
+                                            {% for categoria in categorias %}
+                                            <option value="{{categoria.id}}">{{categoria.nombre|capitalize}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="large-6 large-centered columns">
-                            <section class="cuerpo-cont">
+                            <section class="cuerpo-cont-evento">
                                 <textarea name="cuerpo" rows=4 placeholder="Describa de que se trata el evento"></textarea>
                             </section>
                         </div>
                     </div>
-
+                    {% if user.partido_id %}
                     <div class="asociar-partido-row row" style="margin-top:0;">
                         <div class="large-6 large-centered columns">
                             <div class="asociar-partido switch small round">
@@ -65,7 +83,7 @@
                             </div>
                         </div>
                     </div>
-
+                    {% endif %}
                     <hr>
                     <div class="fecha-row row">
                         <div class="medium-4 large-4 columns text-center">
@@ -81,7 +99,8 @@
                                             <h2><i class="fa fa-calendar fa-fw"></i></h2>
                                         </div>
                                         <div class="small-11 medium-10 large-10 columns">
-                                            <div class="muestra-fecha"> <h2>
+                                            <div class="muestra-fecha">
+                                               <h2>
                                                 Seleccione una fecha
                                                 </h2>
                                             </div>
@@ -106,7 +125,7 @@
                                             <span class="prefix">Lugar evento</span>
                                         </div>
                                         <div class="small-8 medium-9 large-9 columns">
-                                            <input name="tags" type="text" placeholder="Escriba el lugar con la direccion"/>
+                                            <input name="lugar" type="text" placeholder="Escriba el lugar con la direccion"/>
                                         </div>
                                     </div>
                                 </div>
@@ -124,6 +143,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row collapse prefix-radius" style="margin: 10px auto 20px;">
                         <div class="large-9 large-centered columns">
                             <div class="large-1 columns">
@@ -165,6 +185,10 @@
     var partido_id = {{ evento.impulsor_id ? evento.impulsor_id : 'null' }};
 
     $(document).ready(function(){
+        $('[name="titulo"]').val('{{ evento.titulo }}');
+        $('[name="categoria"] select').val('{{ evento.categoria.id }}');
+        $('[name="lugar"]').val('{{ evento.lugar }}');
+        $('[name="cuerpo"]').val('{{ evento.cuerpo }}');
         autosize($('textarea[name="cuerpo"]'));
         $( "#datepicker" ).datepicker({
             numberOfMonths: 1,
@@ -181,7 +205,7 @@
             'step': 15
         });
 
-        var tiempo = new Date('2015-04-28 21:53:37');
+        var tiempo = new Date( '{{ evento.fecha }}' );
         $( "#datepicker" ).datepicker( "setDate", tiempo );
         $('.muestra-fecha h2').html($( "#datepicker" ).val());
         $('#timepicker').timepicker('setTime', tiempo);
@@ -200,7 +224,7 @@
 
     $('form').submit(function(e){
         var fecha = $( "#guardarFecha" ).val()
-        fecha += ' ' + $('#timepicker').val() + ':';
+        fecha += ' ' + $('#timepicker').val() + ':00';
         $('#fecha-final').val(fecha);
     })
 
