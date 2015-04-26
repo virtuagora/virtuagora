@@ -15,6 +15,12 @@
 {% set url_comentar = urlFor('runComentar', {'tipoRaiz': 'novedad' , 'idRaiz': novedad.id}) %}
 {% set url_modificar = urlFor('shwModifNovedad', {'idNov': novedad.id } ) %}
 {% set url_eliminar = urlFor('runElimiNovedad', {'idNov': novedad.id } ) %}
+{# ----------------------------------------------------------- #}
+{% set share_link = novedad.link %}
+{% set twitter_txt = 'Me interesó esta ' ~ novedad.contenible_type  %}
+{% set email_subject = 'Queria compartir esta ' ~ novedad.contenible_type ~ ' con vos' %}
+{% set email_body = 'Me parecio interesante compartir con vos esta ' ~ novedad.contenible_type ~ '&crarr;' ~ novedad.link %}
+{# ----------------------------------------------------------- #}
 {% block botones_cont %}{% endblock %}
 {% block cuerpo_cont %}
 <div class="novedad-texto">

@@ -30,6 +30,11 @@
 {% set autor_puntos = propuesta.autor.puntos %}
 {% set autor_descripcion = 'Aca deberia haber una descripcion!' %}
 {# ----------------------------------------------------------- #}
+{% set share_link = propuesta.link %}
+{% set twitter_txt = 'Me interesó esta ' ~ propuesta.contenible_type|lower  %}
+{% set email_subject = 'Mire intereso compartir esta ' ~ evento.contenible_type|lower ~ ' con vos' %}
+{% set email_body = 'Me parecio interesante compartir con vos esta ' ~ propuesta.contenible_type|lower ~ '&crarr;' ~ propuesta.link %}
+{# ----------------------------------------------------------- #}
 {% block opciones_cont %}
 {% if user.id != propuesta.autor.id %}
 <section class="propuesta-voto">

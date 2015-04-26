@@ -17,8 +17,14 @@
 {% set ver_comentarios = false %}
 {% set url_modificar = urlFor('shwModifDocumen', {'idDoc': documento.id}) %}
 {% set url_eliminar = urlFor('runElimiDocumen', {'idDoc': documento.id} ) %}
+{# ----------------------------------------------------------- #}
+{% set share_link = documento.link %}
+{% set twitter_txt = 'Me intereso este ' ~ documento.contenible_type|lower  %}
+{% set email_subject = 'Mire intereso compartir este ' ~ documento.contenible_type|lower ~ ' con vos' %}
+{% set email_body = 'Me parecio interesante compartir con vos este ' ~ documento.contenible_type|lower ~ '&crarr;' ~ documento.link %}
+{# ----------------------------------------------------------- #}
 {% block botones_cont %}
-<li><a href="{{ urlFor('shwNuVerDocumen', {'idDoc': documento.id}) }}" class="button oposite radius"><i class="fa fa-plus fa-fw"></i>&nbsp;Nueva Version</a></li>
+<li><a href="{{ urlFor('shwNuVerDocumen', {'idDoc': documento.id}) }}" class="button oposite radius tiny"><i class="fa fa-plus fa-fw"></i>&nbsp;Nueva Version</a></li>
 {% endblock %}
 {% block versiones_docu %}
 {% if version.version == documento.ultima_version and documento.ultima_version > 1 %}

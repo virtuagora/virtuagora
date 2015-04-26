@@ -13,46 +13,25 @@
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block body %}
-<nav id="social-sidebar" class="show-for-medium-up">
-    <ul>
-        <li>
-            <a href="http://www.facebook.com/sharer.php?u=http://localhost/virtuagora/public/evento/1" class="facebook" target="_blank">
-                <i class="fa fa-facebook fa-fw fa-lg"></i><span>Facebook</span>
-            </a>
-        </li>
-        <li>
-            <a href="https://twitter.com/share?text=Me gusto esto en&url=http://localhost/virtuagora/public/evento/1&hashtags=virtuagora" class="twitter" target="_blank">
-                <i class="fa fa-twitter fa-fw fa-lg"></i><span>Twitter</span>
-            </a>
-        </li>
-        <li>
-            <a href="https://plus.google.com/share?url=http://abc.pxt.be/font-icons-to-use/" class="googleplus" target="_blank">
-                <i class="fa fa-google-plus fa-fw fa-lg"></i><span>Google+</span>
-            </a>
-        </li>
-           <li>
-            <a href="http://www.behance.net/augusthur" class="mail" target="_blank">
-                <i class="fa fa-envelope fa-fw fa-lg"></i><span>Mail</span>
-            </a>
-        </li>
-    </ul>
-</nav>
-<header class="vista-header-cont corto {{ color_cont }} ">
-    <div class="cuerpo-header-cont small-10 small-centered columns">
-        <h1 class="titulo-cont">{{ titulo_cont }}</h1>
-        <section class="opciones-cont cort">
-            <ul class="opciones">
-                {% if autor_id == user.id or user.es_moderador == true %}
-                {% block botones_cont %}{% endblock %}
-                <li><a href="{{ url_modificar }}" class="button tiny oposite radius"><i class="fa fa-pencil fa-fw"></i>&nbsp;Modificar</a></li>
-                <li><a href="#" data-reveal-id="eliminarContenido" class="button tiny alert radius"><i class="fa fa-times fa-fw"></i>&nbsp;Eliminar</a></li>
-                {% endif %}
-                {% if user.es_moderador %}
-                <li><a href="javascript:sancionar({{autor_id}})" class="button tiny alert radius"><i class="fa fa-exclamation-circle fa-fw"></i></a></li>
-                {% endif%}
-                <li><a href="{{ urlFor('shwIndex') }}" class="button tiny oposite radius"><i class="fa fa-undo fa-fw"></i></a></li>
-            </ul>
-        </section>
+{% include 'contenido/sharer-nav.twig'%}
+<header class="vista-header-cont {{ color_cont }} ">
+    <div class="row">
+        <div class="cuerpo-header-cont small-10 small-centered columns">
+            <h1 class="titulo-cont">{{ titulo_cont }}</h1>
+            <section class="opciones-cont cort">
+                <ul class="opciones">
+                    {% if autor_id == user.id or user.es_moderador == true %}
+                    {% block botones_cont %}{% endblock %}
+                    <li><a href="{{ url_modificar }}" class="button tiny oposite radius"><i class="fa fa-pencil fa-fw"></i>&nbsp;Modificar</a></li>
+                    <li><a href="#" data-reveal-id="eliminarContenido" class="button tiny alert radius"><i class="fa fa-times fa-fw"></i>&nbsp;Eliminar</a></li>
+                    {% endif %}
+                    {% if user.es_moderador and user.id != autor_id %}
+                    <li><a href="javascript:sancionar({{autor_id}})" class="button tiny alert radius"><i class="fa fa-exclamation-circle fa-fw"></i></a></li>
+                    {% endif%}
+                    <li><a href="{{ urlFor('shwIndex') }}" class="button tiny oposite radius"><i class="fa fa-undo fa-fw"></i> Volver</a></li>
+                </ul>
+            </section>
+        </div>
     </div>
 </header>
 <main class="vista-cuerpo-cont corto {{ color_cont }} " role="main">
@@ -64,9 +43,17 @@
                 </div>
             </div>
         </section>
+        <section class="row visible-for-small-only">
+
+            <div class="small-10 small-centered columns text-center">
+                <div class="panel-cont-corto">
+                    {% include 'contenido/sharer-inline.twig'%}
+                </div>
+            </div>
+        </section>
         <div class="row">
             <div class="small-10 small-centered columns">
-            {% block opciones_cont %}{% endblock opciones_cont %}
+                {% block opciones_cont %}{% endblock opciones_cont %}
             </div>
         </div>
         {% if ver_comentarios == true %}

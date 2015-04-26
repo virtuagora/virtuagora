@@ -24,6 +24,12 @@
 {% set url_comentar = urlFor('runComentar', {'tipoRaiz': 'evento' , 'idRaiz': evento.id}) %}
 {% set url_modificar = urlFor('shwModifEvento', {'idEve': evento.id}) %}
 {% set url_eliminar = urlFor('runElimiEvento', {'idEve': evento.id}) %}
+{# ----------------------------------------------------------- #}
+{% set share_link = evento.link %}
+{% set twitter_txt = 'Me intereso este ' ~ evento.contenible_type|lower  %}
+{% set email_subject = 'Mire intereso compartir este ' ~ evento.contenible_type|lower ~ ' con vos' %}
+{% set email_body = 'Me parecio interesante compartir con vos este ' ~ evento.contenible_type|lower ~ '&crarr;' ~ evento.link %}
+{# ----------------------------------------------------------- #}
 {% block botones_cont %}{% endblock %}
 {% block cuerpo_cont %}
 <div class="evento-texto">

@@ -13,51 +13,30 @@
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block body %}
-<nav id="social-sidebar" class="show-for-medium-up">
-    <ul>
-        <li>
-            <a href="https://twitter.com/augusthur" class="facebook" target="_blank">
-                <i class="fa fa-facebook fa-fw fa-lg"></i><span>Facebook</span>
-            </a>
-        </li>
-        <li>
-            <a href="http://dribbble.com/augusthur" class="twitter-share-button twitter" target="_blank">
-                <i class="fa fa-twitter fa-fw fa-lg"></i><span>Twitter</span>
-            </a>
-        </li>
-        <li>
-            <a href="http://www.behance.net/augusthur" class="googleplus" target="_blank">
-                <i class="fa fa-google-plus fa-fw fa-lg"></i><span>Google+</span>
-            </a>
-        </li>
-           <li>
-            <a href="http://www.behance.net/augusthur" class="mail" target="_blank">
-                <i class="fa fa-envelope fa-fw fa-lg"></i><span>Mail</span>
-            </a>
-        </li>
-    </ul>
-</nav>
-<header class="vista-header-cont {{ color_cont }} ">
-    <div class="cuerpo-header-cont small-10 small-centered columns">
-        <h1 class="titulo-cont">{{ titulo_cont }}</h1>
-        <section class="datos-cont">
-            {{ fecha_cont }} <a href="{{ urlFor('shwUsuario',{'idUsr': autor_id}) }}"><img class="img-perfil radius no-border" src="{{ autor_avatar_32 }}"> {{ autor_nombre_apellido }}</a> <span class="usuario-pts"><i class="fa fa-trophy fa-fw fa-lg"></i>&nbsp;{{ autor_puntos }}</span>
-            {% block datos_cont %}{% endblock datos_cont %}
-        </section>
-        <section class="opciones-cont">
-            <ul class="opciones">
-                {% if autor_id == user.id or user.es_moderador == true %}
-                {% block botones_cont %}{% endblock %}
-                <li><a href="{{ url_modificar }}" class="button oposite radius"><i class="fa fa-pencil fa-fw"></i>&nbsp;Modificar</a></li>
-                <li><a href="#" data-reveal-id="eliminarContenido" class="button alert radius"><i class="fa fa-times fa-fw"></i>&nbsp;Eliminar</a></li>
-                {% endif %}
-                {% if user.es_moderador %}
-                <li><a href="javascript:sancionar({{autor_id}})" class="button alert radius"><i class="fa fa-exclamation-circle fa-fw"></i></a></li>
-                {% endif%}
-            </ul>
-            {% block versiones_docu %}{% endblock %}
-        </section>
-        <a href="{{ urlFor('shwIndex') }}" class="bt-volver button oposite radius"><i class="fa fa-undo fa-fw"></i> Volver</a>
+{% include 'contenido/sharer-nav.twig'%}
+<header class="vista-header-cont {{ color_cont }}">
+    <div class="row">
+        <div class="cuerpo-header-cont small-12 small-centered columns">
+            <h1 class="titulo-cont">{{ titulo_cont }}</h1>
+            <section class="datos-cont">
+                {{ fecha_cont }} <a href="{{ urlFor('shwUsuario',{'idUsr': autor_id}) }}"><img class="img-perfil radius no-border" src="{{ autor_avatar_32 }}"> {{ autor_nombre_apellido }}</a> <span class="usuario-pts"><i class="fa fa-trophy fa-fw fa-lg"></i>&nbsp;{{ autor_puntos }}</span>
+                {% block datos_cont %}{% endblock datos_cont %}
+            </section>
+            <section class="opciones-cont">
+                <ul class="opciones">
+                    {% if autor_id == user.id or user.es_moderador == true %}
+                    {% block botones_cont %}{% endblock %}
+                    <li><a href="{{ url_modificar }}" class="button oposite radius tiny"><i class="fa fa-pencil fa-fw"></i>&nbsp;Modificar</a></li>
+                    <li><a href="#" data-reveal-id="eliminarContenido" class="button alert radius tiny"><i class="fa fa-times fa-fw"></i>&nbsp;Eliminar</a></li>
+                    {% endif %}
+                    {% if user.es_moderador and user.id != autor_id %}
+                    <li><a href="javascript:sancionar({{autor_id}})" class="button alert radius tiny"><i class="fa fa-exclamation-circle fa-fw"></i></a></li>
+                    {% endif%}
+                    <li><a href="{{ urlFor('shwIndex') }}" class="bt-volver button oposite radius tiny"><i class="fa fa-undo fa-fw"></i> Volver</a></li>
+                </ul>
+                {% block versiones_docu %}{% endblock %}
+            </section>
+        </div>
     </div>
 </header>
 
@@ -71,41 +50,16 @@
 
         <footer class="footer-cont row">
             <div class="small-10 small-centered columns">
-                <section class="tags-cont">
+                <!--
+<section class="tags-cont">
 
-                </section>
-
-                <section class="share">
-                    <h5>Compartí este post!</h5>
-                    <a class="icon-twitter" href="#"
-                       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
-                        <span class="hidden"><i class="fa fa-twitter-square"></i></span>
-                    </a>
-                    <a class="icon-facebook" href="#"
-                       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-                        <span class="hidden"><i class="fa fa-facebook-square"></i></span>
-                    </a>
-                    <a class="icon-google-plus" href="#"
-                       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
-                        <span class="hidden"><i class="fa fa-google-plus-square"></i></span>
-                    </a>
+</section>
+-->
+                <section class="share text-center visible-for-small-only">
+                    {% include 'contenido/sharer-inline.twig'%}
                 </section>
             </div>
         </footer>
-
-        <section class="autor-info">
-            <div class="row">
-                <section class="autor-cont small-9 small-centered columns">
-                    <a href="{{ urlFor('shwUsuario',{'idUsr': autor_id}) }}">
-                        <img class="autor-avatar-cont img-perfil radius"
-                             src="{{ autor_avatar }}" class="autor-avatar-cont" alt="{{ autor_nombre_apellido }}">
-                    </a>
-                    <span class="author-label">Autor</span>
-                    <h1><a href="{{ urlFor('shwUsuario',{'idUsr': autor_id}) }}" class="autor-link-nombre">{{ autor_nombre_apellido }}</a></h1>
-                    <p><i class="fa fa-trophy fa-fw fa-lg"></i>&nbsp;{{ autor_puntos }} puntos</p>
-                </section>
-            </div>
-        </section>
 
         {% block opciones_cont %}{% endblock opciones_cont %}
         {% if ver_comentarios == true %}

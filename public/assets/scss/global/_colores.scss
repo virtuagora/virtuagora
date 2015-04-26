@@ -7,3 +7,37 @@
 .color-organismo{background-color: $organismo-color !important;}
 .color-config{background-color: $config-color !important;}
 .color-userconfig{background-color: $userconfig-color !important;}
+
+.color-facebook{
+    &.text{
+        color: $facebook-color !important;
+    }
+    &.bg{
+         background-color: $facebook-color !important;
+    }
+}
+.color-twitter{
+    &.text{
+        color: $twitter-color !important;
+    }
+    &.bg{
+         background-color: $twitter-color !important;
+    }
+}
+.color-googleplus{
+    &.text{
+        color: $googleplus-color !important;
+    }
+    &.bg{
+         background-color: $googleplus-color !important;
+    }
+}
+.color-mail{
+    &.text{
+        color: $mail-color !important;
+    }
+    &.bg{
+        background-color: $mail-color !important;
+    }
+}
+

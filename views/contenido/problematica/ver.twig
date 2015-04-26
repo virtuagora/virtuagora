@@ -30,6 +30,11 @@
 {% set autor_puntos = problematica.autor.puntos %}
 {% set autor_descripcion = 'Aca deberia haber una descripcion!' %}
 {# ----------------------------------------------------------- #}
+{% set share_link = problematica.link %}
+{% set twitter_txt = 'Vean esta ' ~ problematica.contenible_type|lower  %}
+{% set email_subject = 'Queria compartir esta ' ~ problematica.contenible_type|lower ~ ' con vos' %}
+{% set email_body = 'Me parecio interesante compartir con vos esta ' ~ problematica.contenible_type|lower ~ '&crarr;' ~ problematica.link %}
+{# ----------------------------------------------------------- #}
 {% block opciones_cont %}
 {% if user.id != problematica.autor.id %}
 <section class="problematica-voto">
