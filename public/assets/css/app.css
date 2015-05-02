@@ -8009,92 +8009,75 @@ ul.social-inline li {
 .vista-cuerpo-cont .doc-texto p.parrafo {
   font-size: 1rem;
 }
-/* line 103, ../scss/layouts/_documento.scss */
+/* line 104, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto p.parrafo:hover {
   background-color: #fff4c4;
   cursor: pointer;
 }
-/* line 108, ../scss/layouts/_documento.scss */
-.vista-cuerpo-cont .doc-texto .wrapper-comentarios {
-  padding-top: 20px;
-  margin-top: 10px;
-  border-top: 1px dashed #adadad;
+/* line 109, ../scss/layouts/_documento.scss */
+.vista-cuerpo-cont .doc-texto .box-comentarios {
+  border: 1px solid #CACACA;
+  margin: 15px 30px;
 }
 /* line 112, ../scss/layouts/_documento.scss */
-.vista-cuerpo-cont .doc-texto .wrapper-comentarios .nadie-comento {
-  font-family: 'Open Sans', sans-serif;
+.vista-cuerpo-cont .doc-texto .box-comentarios table.listado-comentarios {
+  width: 100%;
+  border: 0;
+  margin-bottom: 0;
 }
-/* line 114, ../scss/layouts/_documento.scss */
-.vista-cuerpo-cont .doc-texto .wrapper-comentarios .nadie-comento h4, .vista-cuerpo-cont .doc-texto .wrapper-comentarios .nadie-comento p {
-  margin-bottom: 5px;
+/* line 116, ../scss/layouts/_documento.scss */
+.vista-cuerpo-cont .doc-texto .box-comentarios table.listado-comentarios thead, .vista-cuerpo-cont .doc-texto .box-comentarios table.listado-comentarios tbody, .vista-cuerpo-cont .doc-texto .box-comentarios table.listado-comentarios tr:nth-of-type(even) {
+  background: 0;
 }
-/* line 117, ../scss/layouts/_documento.scss */
-.vista-cuerpo-cont .doc-texto .wrapper-comentarios .nadie-comento p {
-  font-size: 0.875rem;
+/* line 119, ../scss/layouts/_documento.scss */
+.vista-cuerpo-cont .doc-texto .box-comentarios table.listado-comentarios tr td:first-child {
+  width: 40px;
 }
 /* line 122, ../scss/layouts/_documento.scss */
-.vista-cuerpo-cont .doc-texto .box-comentar, .vista-cuerpo-cont .doc-texto .box-comentario {
-  font-family: "Source Sans Pro",sans-serif;
-  background: #FFFFFF;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+.vista-cuerpo-cont .doc-texto .box-comentarios table.listado-comentarios tr td:last-child {
+  width: 80px;
 }
-/* line 126, ../scss/layouts/_documento.scss */
-.vista-cuerpo-cont .doc-texto .box-comentar .info-user-row, .vista-cuerpo-cont .doc-texto .box-comentario .info-user-row {
-  height: 50px;
-  background-color: #f2f2f2;
-  border-bottom: 1px dashed #adadad;
+/* line 125, ../scss/layouts/_documento.scss */
+.vista-cuerpo-cont .doc-texto .box-comentarios table.listado-comentarios tr td:nth-child(2) {
+  font-family: 'Open Sans',sans-serif;
+  font-size: 0.75rem;
 }
-/* line 130, ../scss/layouts/_documento.scss */
-.vista-cuerpo-cont .doc-texto .box-comentar .info-user-row ul.info, .vista-cuerpo-cont .doc-texto .box-comentario .info-user-row ul.info {
-  padding: 8px 8px 8px 0px;
-  margin: 0px;
+/* line 132, ../scss/layouts/_documento.scss */
+.vista-cuerpo-cont .doc-texto .box-comentarios table.listado-comentarios tr.sin-comentarios td p, .vista-cuerpo-cont .doc-texto .box-comentarios table.listado-comentarios tr.sin-comentarios td h5 {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
 }
-/* line 133, ../scss/layouts/_documento.scss */
-.vista-cuerpo-cont .doc-texto .box-comentar .info-user-row ul.info li, .vista-cuerpo-cont .doc-texto .box-comentario .info-user-row ul.info li {
-  display: inline-block;
-  vertical-align: middle;
-  list-style-type: none;
-  margin: 0px 0px 0px 10px;
+/* line 136, ../scss/layouts/_documento.scss */
+.vista-cuerpo-cont .doc-texto .box-comentarios table.listado-comentarios tr.sin-comentarios td p {
+  font-size: 0.75rem;
 }
 /* line 142, ../scss/layouts/_documento.scss */
-.vista-cuerpo-cont .doc-texto .box-comentar {
-  z-index: 10;
-  position: absolute;
-  float: left;
-  width: 96.5%;
+.vista-cuerpo-cont .doc-texto .box-comentarios table.listado-comentarios tr td {
+  border-bottom: 1px dashed #C0C0C0;
+  padding: 6px;
 }
-/* line 148, ../scss/layouts/_documento.scss */
-.vista-cuerpo-cont .doc-texto .box-comentar .redactor-row textarea {
+/* line 145, ../scss/layouts/_documento.scss */
+.vista-cuerpo-cont .doc-texto .box-comentarios table.listado-comentarios tr td textarea[name=cuerpo] {
   margin: 0;
-  border: 0;
-  border-bottom: 1px dashed #adadad;
   resize: none;
-  font-size: 1rem;
-  min-height: 150px;
+  font-family: 'Open Sans',sans-serif;
+  font-size: 0.75rem;
+  padding: 5px;
+  box-shadow: none;
+  min-height: 30px;
 }
-/* line 157, ../scss/layouts/_documento.scss */
-.vista-cuerpo-cont .doc-texto .box-comentar .confirmar-row {
-  padding: 5px 5px 0px 0px;
+/* line 155, ../scss/layouts/_documento.scss */
+.vista-cuerpo-cont .doc-texto .box-comentarios table.listado-comentarios tr:hover {
+  background-color: #fcf6d9;
 }
-/* line 161, ../scss/layouts/_documento.scss */
-.vista-cuerpo-cont .doc-texto .box-comentario {
-  margin-bottom: 10px;
-}
-/* line 163, ../scss/layouts/_documento.scss */
-.vista-cuerpo-cont .doc-texto .box-comentario .comentario-row {
-  font-size: 0.9375rem;
-  padding: 7px;
-}
-/* line 168, ../scss/layouts/_documento.scss */
-.vista-cuerpo-cont .doc-texto .controles-row {
-  padding: 5px 0px 10px 0px;
-  margin-bottom: 15px;
-  border-bottom: 1px dashed #adadad;
+/* line 158, ../scss/layouts/_documento.scss */
+.vista-cuerpo-cont .doc-texto .box-comentarios table.listado-comentarios tr:last-child td {
+  border: 0;
 }
 
-/* line 176, ../scss/layouts/_documento.scss */
+/* line 166, ../scss/layouts/_documento.scss */
 #powerTip .tt-comentarios {
-  font-size: 18px;
+  font-size: 1.125rem;
 }
 
 /* line 4, ../scss/layouts/_novedad.scss */
