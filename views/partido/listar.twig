@@ -71,6 +71,28 @@
 
         </div>
     </div>
+    {% if nav %}
+    <div class="row">
+        <div class="large-6 panel clearfix large-centered columns">
+            <div class="left">
+                {% if nav.first %}
+                <a href="{{ nav.first }}"><i class="fa fa-angle-double-left fa-fw fa-lg"></i></a>
+                {% endif %}
+                {% if nav.prev %}
+                <a href="{{ nav.prev }}"><i class="fa fa-angle-left fa-fw fa-lg"></i></a>
+                {% endif %}
+            </div>
+            <div class="right">
+                {% if nav.next %}
+                <a href="{{ nav.next }}"><i class="fa fa-angle-right fa-fw fa-lg"></i></a>
+                {% endif %}
+                {% if nav.last %}
+                <a href="{{ nav.last }}"><i class="fa fa-angle-double-right fa-fw fa-lg"></i></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
 
 <div class="wrapper-asociar vacio" hidden>
