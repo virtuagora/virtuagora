@@ -1,202 +1,177 @@
+{% extends "contenido/crear-contenido.twig" %}
+
 {# VARIBLES #}
-{% set footer = true %}
-{% set barraNav = true %}
-{% set notificaciones = true %}
-{% set html_class = '' %}
 {% set body_class = 'color-evento' %}
-
-{% extends "master.twig" %}
+{% set header_icono = 'fa-calendar-o' %}
+{% if modo is not defined %}
+{% set header_titulo = 'NUEVO EVENTO' %}
+{% set url_form = urlFor('runCrearEvento') %}
+{% endif %}
+{% set type_contenido = 'evento' %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}Virtuagora - Nuevo evento{% endblock %}
+{% block titulo %}Crear evento - Virtuágora{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block linkhead %}
+{% block linkheads_cont %}
 <link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/jquery-ui/jquery-ui.min.css"/>
 <link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/timepicker/jquery.timepicker.css"/>
-{% endblock %}
+{% endblock linkheads_cont %}
 {# ----------------------------------------------------------- #}
-{% block body %}
-<div class="crear-contenido">
-    <div class="row">
-        <div class="large-12 large-centered columns">
-            <section class="intro-cont text-center">
-                <div class="row">
-                    <i class="fa fa-calendar fa-fw fa-2x"></i><br>NUEVO EVENTO<br>
+{% block pre_cuerpo %}
+<div class="row">
+    <div class="large-12 columns">
+        <div class="panel">
+            <div class="row">
+                <div class="large-6 columns">
+                    <span class="enumerador fa-stack">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-star-o blanco fa-stack-1x"></i>
+                    </span>
+                    <div class="descripcion">
+                        <b>Seleccione la FECHA del evento.</b> Seleccione el dia con el siguiente calendario. Recuerde que no puede marcar fechas que esten anterior al dia actual.
+                    </div>
+                    <div class="text-center" style="margin:30px 0;">
+                        <h3><i class="fa fa-calendar-o fa-fw"></i> <span id="txt-fecha">Seleccione una fecha</span></h3>
+                    </div>
                 </div>
-                <div class="row">
-                    <i class="ayuda fa fa-question-circle fa-fw"></i>
+                <div class="large-6 columns text-center">
+                    <div id="datepicker"></div>
+                    <input id="guardarFecha" hidden>
+                    <input id="fecha-final" name="fecha" type="text" style="display:none;"/>
                 </div>
-                <div class="row">
-                    <a class="button oposite radius small" href="{{ urlFor('shwIndex') }}"><i class="fa fa-undo fa-fw fa-lg"></i>&nbsp;Volver atras</a>
-                </div>
-            </section>
+            </div>
         </div>
     </div>
-    <form action="{{ urlFor('runCrearEvento') }}" method="POST">
-        <div class="row">
-            <div class="large-12 large-centered columns">
-                <div class="panel-crear-cont">
-                    <div class="row">
-                        <div class="large-10 large-centered columns">
-                            <section class="titulo-cont">
-                                <textarea id="tooltip-titulo" type="text" name="titulo" id="tooltip-titulo" rows="1" placeholder="Escriba el nombre del evento"></textarea>
-                            </section>
-                            <section class="datos-cont text-center">
-                                Creado por <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}"> {{ user.nombre }} {{ user.apellido }} <i class="fa fa-trophy fa-fw"></i>&nbsp;{{ user.puntos }}
-                            </section>
-                        </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="panel">
+            <div class="row">
+                <div class="large-6 columns">
+                    <span class="enumerador fa-stack">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-star-o blanco fa-stack-1x"></i>
+                    </span>
+                    <div class="descripcion">
+                        <b>Seleccione la HORA del evento.</b> Puede escribir la hora, en formato de 24 hs (de 00:00 a 23:59). Una lista aparecera en caso que quiera seleccionar la hora. Puede modificar los numeros si espera un horario diferente o mas exacto.
                     </div>
-                     <div class="row">
-                        <div class="row collapse prefix-radius">
-                            <section class="categoria-cont">
-                                <div class="large-5 large-centered columns">
-                                    <div class="large-4 columns">
-                                        <span class="prefix">Categoria</span>
-                                    </div>
-                                    <div class="large-8 columns">
-                                        <select name="categoria" id="tooltip-categoria">
-                                            {% for categoria in categorias %}
-                                            <option value="{{categoria.id}}">{{categoria.nombre|capitalize}}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                            </section>
+                </div>
+                <div class="large-6 columns text-center">
+                    <div class="row wrapper-fecha collapse" style="margin: 30px 0;">
+                        <div class="small-6 columns text-right">
+                            <div class="hora-icono"><i class="fa fa-clock-o fa-fw"></i></div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="large-6 large-centered columns">
-                            <section class="cuerpo-cont-evento">
-                                <textarea name="cuerpo" rows=4 placeholder="Describa de que se trata el evento"></textarea>
-                            </section>
-                        </div>
-                    </div>
-                    {% if user.partido_id %}
-                    <div class="asociar-partido-row row" style="margin-top:0;">
-                        <div class="large-6 large-centered columns">
-                            <div class="asociar-partido switch small round">
-                                <input id="checkbox" name="asociar" type="checkbox">
-                                <label for="checkbox"></label>
-                            </div>
-                            <div class="descripcion text-center">
-                                <p><span class="no-asociar"><b>NO </b></span>Asociar el siguiente anuncio con mi partido afiliado</p>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                    <hr>
-                    <div class="fecha-row row">
-                        <div class="medium-4 large-4 columns text-center">
-                            <div id="datepicker"></div>
-                            <input id="guardarFecha" hidden>
-                            <input id="fecha-final" name="fecha" type="text" style="display:none;"/>
-                        </div>
-                        <div class="medium-8 large-8 columns text-center">
-                            <div class="datos-evento">
-                                <div class="row wrapper-fecha">
-                                    <div class="small-12 medium-12 large-12 columns">
-                                        <div class="small-1 medium-2 large-2 columns">
-                                            <h2><i class="fa fa-calendar fa-fw"></i></h2>
-                                        </div>
-                                        <div class="small-11 medium-10 large-10 columns">
-                                            <div class="muestra-fecha">
-                                               <h2>
-                                                Seleccione una fecha
-                                                </h2>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row wrapper-fecha">
-                                    <div class="small-12 medium-12 large-12 columns">
-                                        <div class="small-1 medium-2 large-2 columns">
-                                            <h2><i class="fa fa-clock-o fa-fw"></i></h2>
-                                        </div>
-                                        <div class="small-11 medium-10 large-10 columns">
-                                            <div class="muestra-tiempo">
-                                                <input id="timepicker" type="text" data-time-format="H:i:s" placeholder="Hora del evento"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row collapse prefix-radius">
-                                    <div class=" small-12 medium-12 large-12 columns">
-                                        <div class="small-4 medium-3 large-3 columns">
-                                            <span class="prefix">Lugar evento</span>
-                                        </div>
-                                        <div class="small-8 medium-9 large-9 columns">
-                                            <input name="lugar" type="text" placeholder="Escriba el lugar con la direccion"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row collapse prefix-radius" style="margin: 10px auto;">
-                        <div class="large-9 large-centered columns">
-                            <div class="large-3 columns">
-                                <span class="prefix">Subir imagen <i class="fa fa-photo fa-fw"></i></span>
-                            </div>
-                            <div class="large-9 columns">
-                                <input name="imagen" type="text" placeholder="Clic para subir una imagen" disabled/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row collapse prefix-radius" style="margin: 10px auto 20px;">
-                        <div class="large-9 large-centered columns">
-                            <div class="large-1 columns">
-                                <span class="prefix">Tags</span>
-                            </div>
-                            <div class="large-11 columns">
-                                <input name="tags" type="text" placeholder="Comience escribiendo Tags" disabled/>
+                        <div class="small-6 columns">
+                            <div class="muestra-tiempo">
+                                <input id="timepicker" type="text" data-time-format="H:i:s" placeholder="¿Hora?"/>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="large-8 large-centered columns">
-                <section class="publicar-cont">
-                    <button type="submit" class="button oposite large expand radius"><i class="fa fa-send-o fa-fw fa-lg"></i>&nbsp;Publicar nuevo evento</button>
-                </section>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="panel">
+            <div class="row">
+                <div class="large-4 columns">
+                    <span class="enumerador fa-stack">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-star-o blanco fa-stack-1x"></i>
+                    </span>
+                    <div class="descripcion">
+                        <b>Escriba la dirección donde se llevara a cabo el evento.</b>
+                    </div>
+                </div>
+                <div class="large-8 columns text-center">
+                    <div class="row collapse prefix-radius" style="margin: 10px 0;">
+                        <div class="small-2 columns">
+                            <span class="prefix">Lugar</span>
+                        </div>
+                        <div class="small-10 columns">
+                            <input name="lugar" type="text" placeholder="Escriba el lugar con la direccion" style="margin: 0;"/>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </form>
+    </div>
 </div>
-
-<div id="tooltip-titulo-data" class="text-left" hidden>
-    <i class="fa fa-lightbulb-o fa-fw fa-lg"></i>&nbsp;El título debe ser claro, atractivo, para que la gente se vea interesada.
+{% if user.partido_id %}
+<div class="row">
+    <div class="large-12 columns">
+        <div class="panel">
+            <div class="row">
+                <div class="large-6 columns">
+                    <span class="enumerador fa-stack">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-star-o blanco fa-stack-1x"></i>
+                    </span>
+                    <div class="descripcion">
+                        <b>Determine si desea asociarlo con su partido politico.</b> Esto permitirá que se pueda agrupar de mejor forma la informacion y que los afiliados puedan ser notificados por nuevos contenidos realizados y publicados por funcionarios pertenecientes al partido.
+                    </div>
+                </div>
+                <div class="large-6 columns text-center">
+                    <div class="switch round" style="margin-top: 15px;">
+                        <input id="checkbox" name="asociar" type="checkbox">
+                        <label for="checkbox">
+                            <span class="switch-on">ON</span>
+                            <span class="switch-off">OFF</span>
+                        </label>
+                    </div>
+                    <div class="descripcion-checkbox text-center">
+                        <p><span class="no-asociar"><b>NO </b></span>Asociar el siguiente evento con mi partido afiliado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-
+{% endif %}
 {% endblock %}
 {# ----------------------------------------------------------- #}
-{% block modals %}{% endblock %}
+{% block extension_form %}
+<div class="row">
+    <div class="large-12 columns">
+        <div class="panel">
+            <span class="enumerador fa-stack">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-star-o blanco fa-stack-1x"></i>
+            </span>
+            <div class="descripcion">
+                <b>Subir una o varias imagenes.</b> Utilice la herramienta si quiere publicar imagenes asociadas a su evento. (PROXIMAMENTE)
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts %}
-<script src="{{ baseUrl() }}/assets/js/autosize/autosize.js"></script>
+{% block modals_cont %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts_cont %}
 <script src="{{ baseUrl() }}/assets/js/jquery-ui/jquery-ui.min.js"></script>
 <script src="{{ baseUrl() }}/assets/js/jquery-ui/datepicker-es.js"></script>
 <script src="{{ baseUrl() }}/assets/js/timepicker/jquery.timepicker.min.js"></script>
-<script type="text/javascript">
+
+{% block scripts_modificar %}{% endblock scripts_modificar %}
+
+<script>
     $(document).ready(function(){
-        autosize($('textarea[name="cuerpo"]'));
         $( "#datepicker" ).datepicker({
             numberOfMonths: 1,
-            dateFormat: 'DD, d MM yy',
+            dateFormat: 'DD, dd MM yy',
             altField: "#guardarFecha",
             altFormat: "yy-mm-dd",
             minDate: 0,
             onSelect: function() {
-                $('.muestra-fecha h2').html(this.value);
+                $('#txt-fecha').html(this.value);
             }
         });
         $('#timepicker').timepicker({
             'timeFormat': 'H:i',
-             'step': 15
+            'step': 15
         });
     });
 
@@ -205,6 +180,14 @@
         fecha += ' ' + $('#timepicker').val() + ':00';
         $('#fecha-final').val(fecha);
     })
+
+
+    // Evito que agreguen un retorno de carro.
+    $("textarea[name='titulo']").keypress(function(event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+        }
+    });
 
     var completarDescripcion = function() {
         if ($('#checkbox').attr('checked')) {
@@ -224,30 +207,6 @@
     };
 
     $("#checkbox").click(cambiarEstado);
-
-    $( "textarea[name='titulo']" ).focus(function() {
-        autosize($(this));
-    })
-
-
-
-    // Evito que agreguen un retorno de carro.
-    $("textarea[name='titulo']").keypress(function(event) {
-        if (event.keyCode == 13) {
-            event.preventDefault();
-        }
-    });
-
-    $('#tooltip-categoria').data('powertiptarget', 'tooltip-categoria-data');
-    $('#tooltip-categoria').powerTip({
-        placement: 'e',
-        mouseOnToPopup: true
-    });
-    $('#tooltip-titulo').data('powertiptarget', 'tooltip-titulo-data');
-    $('#tooltip-titulo').powerTip({
-        placement: 'n',
-        mouseOnToPopup: true
-    });
 </script>
 {% endblock %}
 {# ----------------------------------------------------------- #}

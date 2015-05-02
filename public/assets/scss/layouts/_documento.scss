@@ -1,5 +1,27 @@
 // CREAR
 
+.crear-contenido-aux{
+    textarea[name=descripcion]{
+        font-family: "Lora", serif;
+        font-style: italic;
+        font-size: rem-calc(16);
+        line-height: inherit;
+        text-rendering: optimizelegibility;
+        color: #383838;
+        border-top: 1px solid #CACACA;
+        border-bottom: 1px solid #CACACA;
+        border-left:0;
+        border-right:0;
+        box-shadow: none;
+        resize: none;
+        &:focus{
+            background-color: #fff4c4;
+        }
+        margin: 0;
+    }
+}
+
+
 .crear-contenido{
     .descripcion-doc, {
         padding-top: 20px;
@@ -54,14 +76,14 @@
 }
 
 .selector-versiones{
-        .slick-slide{
-            padding: 10px 0;
-        }
-        .slick-active.slick-center{
-            background-color: #FFFFFF;
-            color: $documento-color;
-        }
+    .slick-slide{
+        padding: 10px 0;
     }
+    .slick-active.slick-center{
+        background-color: #FFFFFF;
+        color: $documento-color;
+    }
+}
 
 // VER
 

@@ -1,187 +1,28 @@
+{% extends "contenido/novedad/crear.twig" %}
+
 {# VARIBLES #}
-{% set footer = true %}
-{% set barraNav = true %}
-{% set notificaciones = true %}
-{% set html_class = '' %}
-{% set body_class = 'color-novedad' %}
-
-{% extends "master.twig" %}
+{% set modo = 'modificar' %}
+{% set header_titulo = 'MODIFICAR NOVEDAD' %}
+{% set url_form = urlFor('runModifNovedad', {'idNov': novedad.id} ) %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}Virtuagora - Modificar novedad{% endblock %}
+{% block titulo %}Modificar novedad - Virtuágora{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block linkhead %}
-<link rel="stylesheet" href="{{ baseUrl() }}/assets/css/sceditor/sceditor-main.css">
-{% endblock %}
-{# ----------------------------------------------------------- #}
-{% block body %}
-<div class="crear-contenido">
-    <div class="row">
-        <div class="large-12 large-centered columns">
-            <section class="intro-cont text-center">
-                <i class="fa fa-bullhorn fa-fw fa-2x"></i><br />MODIFICAR NOVEDAD<br />
-                <a class="button oposite radius small" href="{{ urlFor('shwNovedad', {'idNov': novedad.id}) }}"><i class="fa fa-undo fa-fw fa-lg"></i>&nbsp;Volver atras</a>
-            </section>
-        </div>
-    </div>
-    <form id="cacona" action="{{ urlFor('runModifNovedad', {'idNov': novedad.id} ) }}" method="POST">
-        <div class="row">
-            <div class="large-12 large-centered columns">
-                <div class="panel-crear-cont">
-                    <div class="row">
-                        <div class="large-10 large-centered columns">
-                            <section class="titulo-cont">
-                                <textarea id="tooltip-titulo" type="text" name="titulo" id="tooltip-titulo" rows="1" placeholder="Escriba aqui un título"></textarea>
-                            </section>
-                            <section class="datos-cont text-center">
-                                {{ "now"|date("d/m/Y") }} <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}"> {{ user.nombre }} {{ user.apellido }} <span class="usuario-pts"><i class="fa fa-trophy fa-fw"></i>&nbsp;{{ user.puntos }}</span>
-                            </section>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="row collapse prefix-radius">
-                            <section class="categoria-cont">
-                                <div class="large-5 large-centered columns">
-                                    <div class="large-4 columns">
-                                        <span class="prefix">Categoria</span>
-                                    </div>
-                                    <div class="large-8 columns">
-                                        <select name="categoria" id="tooltip-categoria">
-                                            {% for categoria in categorias %}
-                                            <option value="{{categoria.id}}">{{categoria.nombre|capitalize}}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-                    </div>
-                    {% if user.partido_id %}
-                    <div class="asociar-partido-row row">
-                        <div class="large-6 large-centered columns">
-                            <div class="asociar-partido switch small round">
-                                <input id="checkbox" name="asociar" type="checkbox">
-                                <label for="checkbox"></label>
-                            </div>
-                            <div class="descripcion text-center">
-                                <p><span class="no-asociar"><b>NO </b></span>Asociar el siguiente anuncio con mi partido afiliado</p>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                    <div class="row">
-                        <div class="large-10 large-centered columns">
-                            <section class="cuerpo-cont">
-                                <textarea name="cuerpo" placeholder="Describa de que se trata la propuesta"></textarea>
-                            </section>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="row collapse prefix-radius">
-                            <section class="tags-cont" style="padding-bottom: 70px">
-                                <div class="large-10 large-centered columns">
-                                    <div class="large-1 columns">
-                                        <span class="prefix">Tags</span>
-                                    </div>
-                                    <div class="large-11 columns">
-                                        <input name="tags" type="text" placeholder="Comience escribiendo Tags" disabled/>
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="large-8 large-centered columns">
-                <section class="publicar-cont">
-                    <button type="submit" class="button oposite large expand radius"><i class="fa fa-check fa-fw fa-lg"></i>&nbsp;Aplicar los cambios</button>
-                </section>
-            </div>
-        </div>
-    </form>
-</div>
-
-<div id="tooltip-categoria-data" class="text-left" hidden>
-    <i class="fa fa-lightbulb-o fa-fw fa-lg"></i>&nbsp;Elija una categoria, la cual
-    <br> vea que su problematica se ajusta.
-</div>
-<div id="tooltip-titulo-data" class="text-left" hidden>
-    <i class="fa fa-lightbulb-o fa-fw fa-lg"></i>&nbsp;El título debe ser claro, atractivo, para que la gente se vea interesada.
-</div>
-
-
-{% endblock %}
-{# ----------------------------------------------------------- #}
-{% block modals %}{% endblock %}
-{# ----------------------------------------------------------- #}
-{% block scripts %}
-<script src="{{ baseUrl() }}/assets/js/autosize/autosize.min.js"></script>
-<script src="{{ baseUrl() }}/assets/js/jquery/jquery.sceditor.bbcode.min.js"></script>
-<script type="text/javascript">
-    $(function() {
-        $("textarea[name='cuerpo']").sceditor({
-            plugins: "bbcode",
-            emoticonsEnabled: false,
-            width: 'auto',
-            style: "{{ baseUrl() }}/assets/css/sceditor/sceditor-panel.css",
-            autoexpand: true
-        });
-    });
-
+{% block scripts_modificar %}
+<script>
     var partido_id = {{ novedad.impulsor_id ? novedad.impulsor_id : 'null' }};
 
     $(document).ready(function(){
         $('[name="titulo"]').val('{{ novedad.titulo }}');
         $('[name="categoria"] select').val('{{ novedad.categoria.id }}');
         $("textarea[name='cuerpo']").sceditor('instance').val('{{ novedad.cuerpo|bbCode }}', false);
+        autosize($('textarea[name="cuerpo"]'));
         autosize($("textarea[name='titulo']"));
         if( partido_id != null){
             $("#checkbox").attr('checked', true);
             completarDescripcion();
         }
-
     });
-
-    $("textarea[name='titulo']").keypress(function(event) {
-        // Check the keyCode and if the user pressed Enter (code = 13)
-        // disable it
-        if (event.keyCode == 13) {
-            event.preventDefault();
-        }
-    });
-
-    var completarDescripcion = function() {
-         if ($('#checkbox').attr('checked')) {
-           $('.no-asociar').hide();
-        } else {
-            $('.no-asociar').show();
-        }
-    };
-
-    var cambiarEstado = function() {
-         if ($('#checkbox').attr('checked')) {
-           $("#checkbox").attr('checked', false);
-        } else {
-            $("#checkbox").attr('checked', true);
-        }
-        completarDescripcion();
-    };
-
-    $("#checkbox").click(cambiarEstado);
-
-    $('#tooltip-categoria').data('powertiptarget', 'tooltip-categoria-data');
-    $('#tooltip-categoria').powerTip({
-        placement: 'e',
-        mouseOnToPopup: true
-    });
-    $('#tooltip-titulo').data('powertiptarget', 'tooltip-titulo-data');
-    $('#tooltip-titulo').powerTip({
-        placement: 'n',
-        mouseOnToPopup: true
-    });
-
 </script>
 {% endblock %}
 {# ----------------------------------------------------------- #}

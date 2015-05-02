@@ -13,8 +13,8 @@ div.sceditor-grip{
 
 .sceditor-container{
 	position:relative;
-	background:#fff;
-	border:1px solid #CCC;
+	background: #fff;
+	border-bottom: 2px dashed #CCC;
 	color:#222;
 	line-height:1;
 	font-weight:bold;
@@ -25,11 +25,12 @@ div.sceditor-grip{
 
 .sceditor-container iframe,.sceditor-container textarea{
 	line-height:1;
-	border:0;
+	border-left:1px solid #CACACA;
+	border-right:1px solid #CACACA;
 	outline:0;
 	color:#111;
 	padding:0;
-	margin:5px;
+	margin: 10px 0px;
 	resize:none;
 	background:#fff;
 	display:block;
@@ -216,9 +217,10 @@ div.sceditor-toolbar{
 	overflow:hidden;
 	padding:3px;
 	background:#f7f7f7;
-	border-bottom:1px solid #c0c0c0;
+	border:1px solid #c0c0c0;
 	line-height:0;
 	text-align:left;
+    font-size: 20px;
 	-webkit-user-select:none;
 	-moz-user-select:none;
 	-ms-user-select:none;

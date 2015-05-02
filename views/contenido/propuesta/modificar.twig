@@ -1,173 +1,22 @@
+{% extends "contenido/propuesta/crear.twig" %}
+
 {# VARIBLES #}
-{% set footer = true %}
-{% set barraNav = true %}
-{% set notificaciones = true %}
-{% set html_class = '' %}
-{% set body_class = 'color-propuesta' %}
-
-{% extends "master.twig" %}
+{% set modo = 'modificar' %}
+{% set header_icono = 'fa-file-text-o' %}
+{% set header_titulo = 'MODIFICAR PROPUESTA' %}
+{% set url_form = urlFor('runModifPropues', {'idPro': propuesta.id}) %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}Virtuagora - Modificar propuesta N#{{propuesta.id}} {% endblock %}
+{% block titulo %}Modificar propuesta - Virtuágora{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block linkhead %}
-<link rel="stylesheet" href="{{ baseUrl() }}/assets/css/sceditor/sceditor-main.css">
-{% endblock %}
-{# ----------------------------------------------------------- #}
-{% block body %}
-<div class="crear-contenido">
-    <div class="row">
-        <div class="large-12 large-centered columns">
-            <section class="intro-cont text-center">
-                <i class="fa fa-file-text-o fa-fw fa-2x"></i><br />MODIFICAR PROPUESTA<br />
-                <a class="button oposite radius small" href="{{ urlFor('shwPropues', {'idPro': propuesta.id}) }}"><i class="fa fa-undo fa-fw fa-lg"></i>&nbsp;No, no quiero modificar</a>
-            </section>
-        </div>
-    </div>
-    <form action="{{ urlFor('runModifPropues', {'idPro': propuesta.id}) }}" method="POST">
-        <div class="row">
-            <div class="large-12 large-centered columns">
-                <div class="panel-crear-cont">
-                    <div class="row">
-                        <div class="large-10 large-centered columns">
-                            <section class="titulo-cont">
-                                <textarea id="tooltip-titulo" type="text" name="titulo" id="tooltip-titulo" placeholder="Escriba aqui un título"></textarea>
-                            </section>
-                            <section class="datos-cont text-center">
-                                {{ "now"|date("d/m/Y") }} <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}"> {{ user.nombre }} {{ user.apellido }} <span class="usuario-pts"><i class="fa fa-trophy fa-fw"></i>&nbsp;{{ user.puntos }}</span>
-                            </section>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="row collapse prefix-radius">
-                            <section class="categoria-cont">
-                                <div class="large-5 large-centered columns">
-                                    <div class="large-4 columns">
-                                        <span class="prefix">Categoria</span>
-                                    </div>
-                                    <div class="large-8 columns">
-                                        <select name="categoria" id="tooltip-categoria">
-                                            {% for categoria in categorias %}
-                                            <option value="{{categoria.id}}">{{categoria.nombre|capitalize}}</option>
-                                            {% endfor %}
-                                        </select>
-
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="large-10 large-centered columns">
-                            <section class="cuerpo-cont">
-                                <textarea name="cuerpo" placeholder="Describa de que se trata la propuesta"></textarea>
-                            </section>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="row collapse prefix-radius">
-                            <section class="tags-cont">
-                                <div class="large-10 large-centered columns">
-                                    <div class="large-1 columns">
-                                        <span class="prefix">Tags</span>
-                                    </div>
-                                    <div class="large-11 columns">
-                                        <input name="tags" type="text" placeholder="Comience escribiendo Tags" disabled/>
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="row collapse prefix-radius">
-                            <section class="problematicas-asoc">
-                                <div class="large-10 large-centered columns">
-                                    <div class="large-3 columns">
-                                        <span class="prefix">Problematica asociada</span>
-                                    </div>
-                                    <div class="large-9 columns">
-                                        <input name="problematicas" type="text" placeholder="Comience escribiendo el numero de una problematica" disabled/>
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="large-8 large-centered columns">
-                <section class="publicar-cont">
-                    <button type="submit" class="button oposite large expand radius"><i class="fa fa-send-o fa-fw fa-lg"></i>&nbsp;Confirmar los cambios</button>
-                </section>
-            </div>
-        </div>
-    </form>
-</div>
-
-<div id="tooltip-categoria-data" class="text-left" hidden>
-    <i class="fa fa-lightbulb-o fa-fw fa-lg"></i>&nbsp;Elija una categoria, la cual
-    <br> vea que su propuesta se ajusta.
-</div>
-<div id="tooltip-titulo-data" class="text-left" hidden>
-    <i class="fa fa-lightbulb-o fa-fw fa-lg"></i>&nbsp;El título debe ser claro, atractivo, para que la gente se vea interesada.
-</div>
-
-
-{% endblock %}
-{# ----------------------------------------------------------- #}
-{% block modals %}{% endblock %}
-{# ----------------------------------------------------------- #}
-{% block scripts %}
-<script src="{{ baseUrl() }}/assets/js/autosize/autosize.min.js"></script>
-<script src="{{ baseUrl() }}/assets/js/jquery/jquery.sceditor.bbcode.min.js"></script>
-<script type="text/javascript">
-    $(function() {
-        $("textarea[name='cuerpo']").sceditor({
-            plugins: "bbcode",
-            emoticonsEnabled: false,
-            width: 'auto',
-            style: "{{ baseUrl() }}/assets/css/sceditor/sceditor-panel.css",
-            autoexpand: true
-        });
-    });
-
+{% block scripts_modificar %}
+<script>
     $(document).ready(function(){
         $('[name="titulo"]').val('{{ propuesta.titulo }}');
-		$('[name="categoria"] select').val('{{ propuesta.categoria.id }}');
+        $('[name="categoria"] select').val('{{ propuesta.categoria.id }}');
         $("textarea[name='cuerpo']").sceditor('instance').val('{{ propuesta.cuerpo|bbCode }}', false);
+        autosize($('textarea[name="cuerpo"]'));
         autosize($("textarea[name='titulo']"));
-    });
-
-    // Evito que agreguen un retorno de carro.
-    $("textarea[name='titulo']").keypress(function(event) {
-        // Check the keyCode and if the user pressed Enter (code = 13)
-        // disable it
-        if (event.keyCode == 13) {
-            event.preventDefault();
-        }
-    });
-
-    // Si copian y pegan a un titulo un retorno de carro, y suben el form,
-    // con esto le quito el \n. Me quedo con la primera oracion.
-    /*$( "form" ).submit(function( event ) {
-        if($("textarea[name='titulo']").val().indexOf("\n") > -1){
-            $("textarea[name='titulo']").val( $("textarea[name='titulo']").val().split('\n')[0] );
-            return;
-        } else {
-            return;
-        }
-    });*/
-
-    $('#tooltip-categoria').data('powertiptarget', 'tooltip-categoria-data');
-    $('#tooltip-categoria').powerTip({
-        placement: 'e',
-        mouseOnToPopup: true
-    });
-    $('#tooltip-titulo').data('powertiptarget', 'tooltip-titulo-data');
-    $('#tooltip-titulo').powerTip({
-        placement: 'n',
-        mouseOnToPopup: true
     });
 </script>
 {% endblock %}

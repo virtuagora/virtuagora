@@ -1,195 +1,24 @@
+{% extends "contenido/evento/crear.twig" %}
+
 {# VARIBLES #}
-{% set footer = true %}
-{% set barraNav = true %}
-{% set notificaciones = true %}
-{% set html_class = '' %}
-{% set body_class = 'color-evento' %}
-
-{% extends "master.twig" %}
+{% set modo = 'modificar' %}
+{% set header_titulo = 'MODIFICAR EVENTO' %}
+{% set url_form = urlFor('runModifEvento',{'idEve':evento.id}) %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}Virtuagora - Modificar Evento #{{evento.id}} {% endblock %}
+{% block titulo %}Modificar evento - Virtuágora{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block linkhead %}
-<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/jquery-ui/jquery-ui.min.css"/>
-<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/timepicker/jquery.timepicker.css"/>
-{% endblock %}
-{# ----------------------------------------------------------- #}
-{% block body %}
-<div class="crear-contenido">
-    <div class="row">
-        <div class="large-12 large-centered columns">
-            <section class="intro-cont text-center">
-                <div class="row">
-                    <i class="fa fa-calendar fa-fw fa-2x"></i><br>MODIFICAR EVENTO<br>
-                </div>
-                <div class="row">
-                    <i class="ayuda fa fa-question-circle fa-fw"></i>
-                </div>
-                <div class="row">
-                    <a class="button oposite radius small" href="{{ urlFor('shwIndex') }}"><i class="fa fa-undo fa-fw fa-lg"></i>&nbsp;Volver atras</a>
-                </div>
-            </section>
-        </div>
-    </div>
-    <form action="{{ urlFor('runModifEvento',{'idEve':evento.id}) }}" method="POST">
-        <div class="row">
-            <div class="large-12 large-centered columns">
-                <div class="panel-crear-cont">
-                    <div class="row">
-                        <div class="large-10 large-centered columns">
-                            <section class="titulo-cont">
-                                <textarea id="tooltip-titulo" type="text" name="titulo" id="tooltip-titulo" rows="1" placeholder="Escriba el nombre del evento"></textarea>
-                            </section>
-                            <section class="datos-cont text-center">
-                                Creado por <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}"> {{ user.nombre }} {{ user.apellido }} <i class="fa fa-trophy fa-fw"></i>&nbsp;{{ user.puntos }}
-                            </section>
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="row collapse prefix-radius">
-                            <section class="categoria-cont">
-                                <div class="large-5 large-centered columns">
-                                    <div class="large-4 columns">
-                                        <span class="prefix">Categoria</span>
-                                    </div>
-                                    <div class="large-8 columns">
-                                        <select name="categoria" id="tooltip-categoria">
-                                            {% for categoria in categorias %}
-                                            <option value="{{categoria.id}}">{{categoria.nombre|capitalize}}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="large-6 large-centered columns">
-                            <section class="cuerpo-cont-evento">
-                                <textarea name="cuerpo" rows=4 placeholder="Describa de que se trata el evento"></textarea>
-                            </section>
-                        </div>
-                    </div>
-                    {% if user.partido_id %}
-                    <div class="asociar-partido-row row" style="margin-top:0;">
-                        <div class="large-6 large-centered columns">
-                            <div class="asociar-partido switch small round">
-                                <input id="checkbox" name="asociar" type="checkbox">
-                                <label for="checkbox"></label>
-                            </div>
-                            <div class="descripcion text-center">
-                                <p><span class="no-asociar"><b>NO </b></span>Asociar el siguiente anuncio con mi partido afiliado</p>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                    <hr>
-                    <div class="fecha-row row">
-                        <div class="medium-4 large-4 columns text-center">
-                            <div id="datepicker"></div>
-                            <input id="guardarFecha" hidden>
-                            <input id="fecha-final" name="fecha" type="text" style="display:none;"/>
-                        </div>
-                        <div class="medium-8 large-8 columns text-center">
-                            <div class="datos-evento">
-                                <div class="row wrapper-fecha">
-                                    <div class="small-12 medium-12 large-12 columns">
-                                        <div class="small-1 medium-2 large-2 columns">
-                                            <h2><i class="fa fa-calendar fa-fw"></i></h2>
-                                        </div>
-                                        <div class="small-11 medium-10 large-10 columns">
-                                            <div class="muestra-fecha">
-                                               <h2>
-                                                Seleccione una fecha
-                                                </h2>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row wrapper-fecha">
-                                    <div class="small-12 medium-12 large-12 columns">
-                                        <div class="small-1 medium-2 large-2 columns">
-                                            <h2><i class="fa fa-clock-o fa-fw"></i></h2>
-                                        </div>
-                                        <div class="small-11 medium-10 large-10 columns">
-                                            <div class="muestra-tiempo">
-                                                <input id="timepicker" type="text" data-time-format="H:i:s" placeholder="Hora del evento"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row collapse prefix-radius">
-                                    <div class=" small-12 medium-12 large-12 columns">
-                                        <div class="small-4 medium-3 large-3 columns">
-                                            <span class="prefix">Lugar evento</span>
-                                        </div>
-                                        <div class="small-8 medium-9 large-9 columns">
-                                            <input name="lugar" type="text" placeholder="Escriba el lugar con la direccion"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row collapse prefix-radius" style="margin: 10px auto;">
-                        <div class="large-9 large-centered columns">
-                            <div class="large-3 columns">
-                                <span class="prefix">Subir imagen <i class="fa fa-photo fa-fw"></i></span>
-                            </div>
-                            <div class="large-9 columns">
-                                <input name="imagen" type="text" placeholder="Clic para subir una imagen" disabled/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row collapse prefix-radius" style="margin: 10px auto 20px;">
-                        <div class="large-9 large-centered columns">
-                            <div class="large-1 columns">
-                                <span class="prefix">Tags</span>
-                            </div>
-                            <div class="large-11 columns">
-                                <input name="tags" type="text" placeholder="Comience escribiendo Tags" disabled/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="large-8 large-centered columns">
-                <section class="publicar-cont">
-                    <button type="submit" class="button oposite large expand radius"><i class="fa fa-check fa-fw fa-lg"></i>&nbsp;Aplicar los cambios</button>
-                </section>
-            </div>
-        </div>
-    </form>
-</div>
-
-<div id="tooltip-titulo-data" class="text-left" hidden>
-    <i class="fa fa-lightbulb-o fa-fw fa-lg"></i>&nbsp;El título debe ser claro, atractivo, para que la gente se vea interesada.
-</div>
-
-
-{% endblock %}
-{# ----------------------------------------------------------- #}
-{% block modals %}{% endblock %}
-{# ----------------------------------------------------------- #}
-{% block scripts %}
-<script src="{{ baseUrl() }}/assets/js/autosize/autosize.js"></script>
-<script src="{{ baseUrl() }}/assets/js/jquery-ui/jquery-ui.min.js"></script>
-<script src="{{ baseUrl() }}/assets/js/jquery-ui/datepicker-es.js"></script>
-<script src="{{ baseUrl() }}/assets/js/timepicker/jquery.timepicker.min.js"></script>
-<script type="text/javascript">
+{% block scripts_modificar %}
+<script>
     var partido_id = {{ evento.impulsor_id ? evento.impulsor_id : 'null' }};
 
     $(document).ready(function(){
         $('[name="titulo"]').val('{{ evento.titulo }}');
         $('[name="categoria"] select').val('{{ evento.categoria.id }}');
         $('[name="lugar"]').val('{{ evento.lugar }}');
-        $('[name="cuerpo"]').val('{{ evento.cuerpo }}');
+        $("[name='cuerpo']").sceditor('instance').val('{{ evento.cuerpo|bbCode }}', false);
         autosize($('textarea[name="cuerpo"]'));
+        autosize($("textarea[name='titulo']"));
         $( "#datepicker" ).datepicker({
             numberOfMonths: 1,
             dateFormat: 'DD, d MM yy',
@@ -197,7 +26,7 @@
             altFormat: "yy-mm-dd",
             minDate: 0,
             onSelect: function() {
-                $('.muestra-fecha h2').html(this.value);
+                $('#txt-fecha').html(this.value);
             }
         });
         $('#timepicker').timepicker({
@@ -207,7 +36,7 @@
 
         var tiempo = new Date( '{{ evento.fecha }}' );
         $( "#datepicker" ).datepicker( "setDate", tiempo );
-        $('.muestra-fecha h2').html($( "#datepicker" ).val());
+        $('#txt-fecha').html($( "#datepicker" ).val());
         $('#timepicker').timepicker('setTime', tiempo);
 
         if( partido_id != null){
@@ -216,55 +45,6 @@
         }
     });
 
-
-
-    $( "textarea[name='titulo']" ).focus(function() {
-        autosize($(this));
-    })
-
-    $('form').submit(function(e){
-        var fecha = $( "#guardarFecha" ).val()
-        fecha += ' ' + $('#timepicker').val() + ':00';
-        $('#fecha-final').val(fecha);
-    })
-
-    var completarDescripcion = function() {
-        if ($('#checkbox').attr('checked')) {
-            $('.no-asociar').hide();
-        } else {
-            $('.no-asociar').show();
-        }
-    };
-
-    var cambiarEstado = function() {
-        if ($('#checkbox').attr('checked')) {
-            $("#checkbox").attr('checked', false);
-        } else {
-            $("#checkbox").attr('checked', true);
-        }
-        completarDescripcion();
-    };
-
-    $("#checkbox").click(cambiarEstado);
-
-
-    // Evito que agreguen un retorno de carro.
-    $("textarea[name='titulo']").keypress(function(event) {
-        if (event.keyCode == 13) {
-            event.preventDefault();
-        }
-    });
-
-    $('#tooltip-categoria').data('powertiptarget', 'tooltip-categoria-data');
-    $('#tooltip-categoria').powerTip({
-        placement: 'e',
-        mouseOnToPopup: true
-    });
-    $('#tooltip-titulo').data('powertiptarget', 'tooltip-titulo-data');
-    $('#tooltip-titulo').powerTip({
-        placement: 'n',
-        mouseOnToPopup: true
-    });
 </script>
 {% endblock %}
 {# ----------------------------------------------------------- #}

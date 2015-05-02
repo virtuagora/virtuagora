@@ -1,0 +1,183 @@
+{% extends "master.twig" %}
+
+{# VARIBLES #}
+{% set footer = true %}
+{% set barraNav = true %}
+{% set notificaciones = true %}
+{% set html_class = '' %}
+
+{# ----------------------------------------------------------- #}
+{% block linkhead %}
+<link rel="stylesheet" href="{{ baseUrl() }}/assets/css/sceditor/sceditor-main.css">
+<link rel="stylesheet" href="{{ baseUrl() }}/assets/css/taghandler/jquery.taghandler.css">
+{% block linkheads_cont %}{% endblock linkheads_cont %}
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block body %}
+<div class="crear-contenido-aux {{ type_contenido }}">
+    <div class="row header">
+        <div class="medium-12 columns text-center">
+            <h1><i class="fa fa-fw {{ header_icono }} fa-lg"></i></h1>
+            <h1>{{ header_titulo }}</h1>
+        </div>
+        <div class="medium-12 columns text-center">
+            <div class="button oposite tiny radius"><i class="fa fa-undo fa-fw fa-lg"></i> Volver</div>
+        </div>
+    </div>
+    <form action="{{ url_form }}" method="POST">
+        <div class="row row-crear-titulo">
+            <div class="large-12 columns">
+                <div class="panel">
+                    <span class="enumerador fa-stack">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-star-o blanco fa-stack-1x"></i>
+                    </span>
+                    <div class="descripcion">
+                        <b>Escriba un titulo.</b> El mismo debe ser claro, atractivo, para que la gente se vea interesada. Le restan <b><span id="counter-titulo">255</span></b> caracteres.
+                    </div>
+                    <textarea name="titulo" onKeyPress="return taLimit(this)" onKeyUp="return taCount(this,'counter-titulo')" type="text" rows=1 placeholder="Escriba aqui un título"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row row-crear-categoria">
+            <div class="large-12 columns">
+                <div class="panel">
+                    <div class="row">
+                        <div class="large-6 columns">
+                            <span class="enumerador fa-stack">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-star-o blanco fa-stack-1x"></i>
+                            </span>
+                            <div class="descripcion">
+                                <b>Seleccione una categoria.</b> La misma servirá para vincularla a otros similares contenidos
+                            </div>
+                        </div>
+                        <div class="large-6 columns">
+                            <select name="categoria">
+                                {% for categoria in categorias %}
+                                <option value="{{categoria.id}}">{{categoria.nombre|capitalize}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% block pre_cuerpo %}{% endblock pre_cuerpo %}
+        <div class="row row-crear-cuerpo">
+            <div class="large-12 columns">
+                <div class="panel">
+                    <span class="enumerador fa-stack">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-star-o blanco fa-stack-1x"></i>
+                    </span>
+                    <div class="descripcion">
+                        <b>Escriba el cuerpo del contenido.</b> Puede darle distintos formatos. Recuerde ser claro: El mismo será público, en otras palabras, todos podran verlo.
+                    </div>
+                    <textarea name="cuerpo" placeholder="Describa de que se trata la propuesta"></textarea>
+                </div>
+            </div>
+        </div>
+        {% block extension_form %}{% endblock extension_form %}
+        <div class="row row-crear-tags">
+            <div class="large-12 columns">
+                <div class="panel">
+                    <span class="enumerador fa-stack">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-star-o blanco fa-stack-1x"></i>
+                    </span>
+                    <div class="descripcion">
+                        <b>Escriba tags relacionadas con el documento.</b> Tags son palabras que guardan relacion, en este caso, con el contenido. Agregue todas las <i>tags</i> que crea conveniente. <br> Comience escribiendo y separe las Tags con coma o presionando "ENTER" para ingresarla. En caso de quere eliminarla, simplemente borrela o haga clic sobre la Tag.
+                    </div>
+                    <ul id="tagger"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="medium-6 medium-centered columns">
+                <button class="button oposite expand radius large">
+                    {% if modo == 'modificar' %}
+                    <i class="fa fa-check fa-fw"></i> Aplicar cambios
+                    {% else %}
+                    <i class="fa fa-send fa-fw"></i> Publicar
+                    {% endif %}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock body %}
+{# ----------------------------------------------------------- #}
+{% block modals %}
+
+{% block modals_cont %}{% endblock modals_cont %}
+
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}
+<script src="{{ baseUrl() }}/assets/js/autosize/autosize.js"></script>
+<script src="{{ baseUrl() }}/assets/js/taghandler/jquery.taghandler.min.js"></script>
+<script src="{{ baseUrl() }}/assets/js/jquery/jquery.sceditor.bbcode.min.js"></script>
+<script>
+    autosize($( "textarea[name='titulo']" ));
+    $( "textarea[name='titulo']" ).focus(function() {
+        autosize($(this));
+    })
+    // Evito que agreguen un retorno de carro.
+    $("textarea[name='titulo']").keypress(function(event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+        }
+    });
+    $("#tagger").tagHandler({
+        assignedTags: {{ tag_list ?:'[]'}},
+                            });
+    $(function() {
+        $("textarea[name='cuerpo']").sceditor({
+            plugins: "bbcode",
+            emoticonsEnabled: false,
+            toolbarExclude: "font",
+            height: '300',
+            width: '98%',
+            id: 'editor',
+            style: "{{ baseUrl() }}/assets/css/sceditor/sceditor-panel.css",
+            resizeEnabled: false,
+            resizeHeight: true,
+            autoExpand: true
+        });
+    });
+</script>
+<script>
+    // DHTML textbox character counter script. Courtesy of SmartWebby.com (http://www.smartwebby.com/dhtml/)
+    //
+    maxL=255;
+    var bName = navigator.appName;
+    function taLimit(taObj) {
+        if (taObj.value.length==maxL) return false;
+        return true;
+    }
+
+    function taCount(taObj,Cnt) {
+        objCnt=createObject(Cnt);
+        objVal=taObj.value;
+        if (objVal.length>maxL) objVal=objVal.substring(0,maxL);
+        if (objCnt) {
+            if(bName == "Netscape"){
+                objCnt.textContent=maxL-objVal.length;}
+            else{objCnt.innerText=maxL-objVal.length;}
+        }
+        return true;
+    }
+    function createObject(objId) {
+        if (document.getElementById) return document.getElementById(objId);
+        else if (document.layers) return eval("document." + objId);
+        else if (document.all) return eval("document.all." + objId);
+        else return eval("document." + objId);
+    }
+</script>
+
+{% block scripts_cont %}{% endblock scripts_cont %}
+
+{% endblock scripts %}
+{# ----------------------------------------------------------- #}

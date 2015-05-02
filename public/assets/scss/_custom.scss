@@ -73,11 +73,56 @@
 
 // -------------------------------------------
 
-.alert-box{
-    margin-bottom: 0;
-    .close{
-        padding: 0;
-        color: #FFF;
-        opacity: 1;
+.crear-contenido-aux{
+    &.propuesta {
+        .tagHandler ul.tagHandlerContainer li.tagItem {
+            background-color: $propuesta-color;
+            &:hover{
+                background-color: shade($propuesta-color, 20%);
+            }
+        }
+    }
+    &.documento {
+        .tagHandler ul.tagHandlerContainer li.tagItem {
+            background-color: $documento-color;
+            &:hover{
+                background-color: shade($documento-color, 20%);
+            }
+        }
+    }
+    &.problematica {
+        .tagHandler ul.tagHandlerContainer li.tagItem {
+            background-color: $problematica-color;
+            &:hover{
+                background-color: shade($problematica-color, 20%);
+            }
+        }
+    }
+    &.novedad {
+        .tagHandler ul.tagHandlerContainer li.tagItem {
+            background-color: $novedad-color;
+            &:hover{
+                background-color: shade($novedad-color, 20%);
+            }
+        }
+    }
+    &.evento {
+        .tagHandler ul.tagHandlerContainer li.tagItem {
+            background-color: $evento-color;
+            &:hover{
+                background-color: shade($evento-color, 20%);
+            }
+        }
     }
 }
+
+    // --------------------------------------------
+
+    .alert-box{
+        margin-bottom: 0;
+        .close{
+            padding: 0;
+            color: #FFF;
+            opacity: 1;
+        }
+    }

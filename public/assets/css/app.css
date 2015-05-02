@@ -5866,6 +5866,24 @@ img.img-perfil.size-160 {
   font-size: 1rem;
 }
 
+/* line 13, ../scss/global/_misc.scss */
+.switch-on {
+  position: absolute;
+  left: -58px;
+  top: 8px;
+  color: white;
+  font-size: 12px;
+}
+
+/* line 21, ../scss/global/_misc.scss */
+.switch-off {
+  position: absolute;
+  left: -28px;
+  top: 8px;
+  color: white;
+  font-size: 12px;
+}
+
 /* line 2, ../scss/_custom.scss */
 .button {
   color: #1d80d0;
@@ -5949,11 +5967,52 @@ img.img-perfil.size-160 {
   background-color: #4e4e4e;
 }
 
-/* line 76, ../scss/_custom.scss */
+/* line 78, ../scss/_custom.scss */
+.crear-contenido-aux.propuesta .tagHandler ul.tagHandlerContainer li.tagItem {
+  background-color: #4688B9;
+}
+/* line 80, ../scss/_custom.scss */
+.crear-contenido-aux.propuesta .tagHandler ul.tagHandlerContainer li.tagItem:hover {
+  background-color: #386c94;
+}
+/* line 86, ../scss/_custom.scss */
+.crear-contenido-aux.documento .tagHandler ul.tagHandlerContainer li.tagItem {
+  background-color: #5D46B9;
+}
+/* line 88, ../scss/_custom.scss */
+.crear-contenido-aux.documento .tagHandler ul.tagHandlerContainer li.tagItem:hover {
+  background-color: #4a3894;
+}
+/* line 94, ../scss/_custom.scss */
+.crear-contenido-aux.problematica .tagHandler ul.tagHandlerContainer li.tagItem {
+  background-color: #DA7C37;
+}
+/* line 96, ../scss/_custom.scss */
+.crear-contenido-aux.problematica .tagHandler ul.tagHandlerContainer li.tagItem:hover {
+  background-color: #ae632c;
+}
+/* line 102, ../scss/_custom.scss */
+.crear-contenido-aux.novedad .tagHandler ul.tagHandlerContainer li.tagItem {
+  background-color: #B94646;
+}
+/* line 104, ../scss/_custom.scss */
+.crear-contenido-aux.novedad .tagHandler ul.tagHandlerContainer li.tagItem:hover {
+  background-color: #943838;
+}
+/* line 110, ../scss/_custom.scss */
+.crear-contenido-aux.evento .tagHandler ul.tagHandlerContainer li.tagItem {
+  background-color: #46B988;
+}
+/* line 112, ../scss/_custom.scss */
+.crear-contenido-aux.evento .tagHandler ul.tagHandlerContainer li.tagItem:hover {
+  background-color: #38946c;
+}
+
+/* line 121, ../scss/_custom.scss */
 .alert-box {
   margin-bottom: 0;
 }
-/* line 78, ../scss/_custom.scss */
+/* line 123, ../scss/_custom.scss */
 .alert-box .close {
   padding: 0;
   color: #FFF;
@@ -6974,6 +7033,67 @@ table.listado-funcionarios tr:last-child td, table.info-general tr:last-child td
   font-size: 0.75rem;
 }
 
+/* line 111, ../scss/layouts/_crear-contenido.scss */
+.crear-contenido-aux {
+  letter-spacing: -0.3px;
+  margin: 20px 0px;
+}
+/* line 114, ../scss/layouts/_crear-contenido.scss */
+.crear-contenido-aux .header {
+  margin: 25px auto;
+}
+/* line 116, ../scss/layouts/_crear-contenido.scss */
+.crear-contenido-aux .header h1 {
+  font-family: "Source Sans Pro",sans-serif;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+/* line 122, ../scss/layouts/_crear-contenido.scss */
+.crear-contenido-aux .panel {
+  background-color: #FFFFFF;
+  -webkit-box-shadow: 0px 0px 6px 0px rgba(50, 50, 50, 0.7);
+  -moz-box-shadow: 0px 0px 6px 0px rgba(50, 50, 50, 0.7);
+  box-shadow: 0px 0px 6px 0px rgba(50, 50, 50, 0.7);
+  margin-bottom: 20px;
+}
+/* line 128, ../scss/layouts/_crear-contenido.scss */
+.crear-contenido-aux .panel .descripcion {
+  font-size: 0.875rem;
+  margin-top: 5px;
+  margin-left: 40px;
+}
+/* line 133, ../scss/layouts/_crear-contenido.scss */
+.crear-contenido-aux .panel .enumerador {
+  float: left;
+  position: relative;
+}
+/* line 136, ../scss/layouts/_crear-contenido.scss */
+.crear-contenido-aux .panel .enumerador .blanco {
+  color: #FFFFFF;
+}
+/* line 141, ../scss/layouts/_crear-contenido.scss */
+.crear-contenido-aux textarea[name=titulo] {
+  font-family: "Source Sans Pro",sans-serif;
+  font-weight: bold;
+  font-size: 2.1875rem;
+  text-rendering: optimizelegibility;
+  color: #383838;
+  border: 0px solid #dedede;
+  box-shadow: 0px 0px 0px transparent;
+  text-align: center;
+  resize: none;
+  padding: 20px 0;
+  margin: 0;
+}
+/* line 152, ../scss/layouts/_crear-contenido.scss */
+.crear-contenido-aux textarea[name=titulo]:focus {
+  background-color: #fff4c4;
+}
+/* line 157, ../scss/layouts/_crear-contenido.scss */
+.crear-contenido-aux select[name=categoria], .crear-contenido-aux #editor {
+  margin: 10px auto;
+}
+
 /* line 1, ../scss/layouts/_ver-contenido.scss */
 .vista-header-cont {
   text-align: center;
@@ -7791,10 +7911,31 @@ ul.social-inline li {
 }
 
 /* line 4, ../scss/layouts/_documento.scss */
+.crear-contenido-aux textarea[name=descripcion] {
+  font-family: "Lora", serif;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: inherit;
+  text-rendering: optimizelegibility;
+  color: #383838;
+  border-top: 1px solid #CACACA;
+  border-bottom: 1px solid #CACACA;
+  border-left: 0;
+  border-right: 0;
+  box-shadow: none;
+  resize: none;
+  margin: 0;
+}
+/* line 17, ../scss/layouts/_documento.scss */
+.crear-contenido-aux textarea[name=descripcion]:focus {
+  background-color: #fff4c4;
+}
+
+/* line 26, ../scss/layouts/_documento.scss */
 .crear-contenido .descripcion-doc {
   padding-top: 20px;
 }
-/* line 7, ../scss/layouts/_documento.scss */
+/* line 29, ../scss/layouts/_documento.scss */
 .crear-contenido .descripcion-doc textarea[name=descripcion] {
   font-family: "Lora", serif;
   font-style: italic;
@@ -7810,19 +7951,19 @@ ul.social-inline li {
   resize: none;
   margin: 0;
 }
-/* line 20, ../scss/layouts/_documento.scss */
+/* line 42, ../scss/layouts/_documento.scss */
 .crear-contenido .descripcion-doc textarea[name=descripcion]:focus {
   background-color: #fff4c4;
 }
-/* line 26, ../scss/layouts/_documento.scss */
+/* line 48, ../scss/layouts/_documento.scss */
 .crear-contenido .asociar-ubic {
   padding: 20px 0px 70px 0px;
 }
-/* line 28, ../scss/layouts/_documento.scss */
+/* line 50, ../scss/layouts/_documento.scss */
 .crear-contenido .asociar-ubic input {
   font-size: 0.75rem;
 }
-/* line 34, ../scss/layouts/_documento.scss */
+/* line 56, ../scss/layouts/_documento.scss */
 .crear-contenido .panel-crear-cont .docu-titulo-fijo {
   font-family: "Source Sans Pro",sans-serif;
   font-weight: 700;
@@ -7831,7 +7972,7 @@ ul.social-inline li {
   text-rendering: optimizelegibility;
   color: #383838;
 }
-/* line 42, ../scss/layouts/_documento.scss */
+/* line 64, ../scss/layouts/_documento.scss */
 .crear-contenido .panel-crear-cont .docu-descripcion-fijo {
   font-family: "Lora", serif;
   font-style: italic;
@@ -7843,17 +7984,17 @@ ul.social-inline li {
   padding: 40px 0 10px 0;
 }
 
-/* line 57, ../scss/layouts/_documento.scss */
+/* line 79, ../scss/layouts/_documento.scss */
 .selector-versiones .slick-slide {
   padding: 10px 0;
 }
-/* line 60, ../scss/layouts/_documento.scss */
+/* line 82, ../scss/layouts/_documento.scss */
 .selector-versiones .slick-active.slick-center {
   background-color: #FFFFFF;
   color: #5D46B9;
 }
 
-/* line 70, ../scss/layouts/_documento.scss */
+/* line 92, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-descripcion .panel {
   padding-left: 20px;
   padding-right: 20px;
@@ -7861,60 +8002,60 @@ ul.social-inline li {
   font-size: 1.125rem;
   font-style: italic;
 }
-/* line 79, ../scss/layouts/_documento.scss */
+/* line 101, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto p {
   font-size: 1rem;
 }
-/* line 82, ../scss/layouts/_documento.scss */
+/* line 104, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .wrapper-comentarios {
   padding-top: 20px;
   margin-top: 10px;
   border-top: 1px dashed #adadad;
 }
-/* line 86, ../scss/layouts/_documento.scss */
+/* line 108, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .wrapper-comentarios .nadie-comento {
   font-family: 'Open Sans', sans-serif;
 }
-/* line 88, ../scss/layouts/_documento.scss */
+/* line 110, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .wrapper-comentarios .nadie-comento h4, .vista-cuerpo-cont .doc-texto .wrapper-comentarios .nadie-comento p {
   margin-bottom: 5px;
 }
-/* line 91, ../scss/layouts/_documento.scss */
+/* line 113, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .wrapper-comentarios .nadie-comento p {
   font-size: 0.875rem;
 }
-/* line 96, ../scss/layouts/_documento.scss */
+/* line 118, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentar, .vista-cuerpo-cont .doc-texto .box-comentario {
   font-family: "Source Sans Pro",sans-serif;
   background: #FFFFFF;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
-/* line 100, ../scss/layouts/_documento.scss */
+/* line 122, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentar .info-user-row, .vista-cuerpo-cont .doc-texto .box-comentario .info-user-row {
   height: 50px;
   background-color: #f2f2f2;
   border-bottom: 1px dashed #adadad;
 }
-/* line 104, ../scss/layouts/_documento.scss */
+/* line 126, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentar .info-user-row ul.info, .vista-cuerpo-cont .doc-texto .box-comentario .info-user-row ul.info {
   padding: 8px 8px 8px 0px;
   margin: 0px;
 }
-/* line 107, ../scss/layouts/_documento.scss */
+/* line 129, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentar .info-user-row ul.info li, .vista-cuerpo-cont .doc-texto .box-comentario .info-user-row ul.info li {
   display: inline-block;
   vertical-align: middle;
   list-style-type: none;
   margin: 0px 0px 0px 10px;
 }
-/* line 116, ../scss/layouts/_documento.scss */
+/* line 138, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentar {
   z-index: 10;
   position: absolute;
   float: left;
   width: 96.5%;
 }
-/* line 122, ../scss/layouts/_documento.scss */
+/* line 144, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentar .redactor-row textarea {
   margin: 0;
   border: 0;
@@ -7923,27 +8064,27 @@ ul.social-inline li {
   font-size: 1rem;
   min-height: 150px;
 }
-/* line 131, ../scss/layouts/_documento.scss */
+/* line 153, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentar .confirmar-row {
   padding: 5px 5px 0px 0px;
 }
-/* line 135, ../scss/layouts/_documento.scss */
+/* line 157, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentario {
   margin-bottom: 10px;
 }
-/* line 137, ../scss/layouts/_documento.scss */
+/* line 159, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentario .comentario-row {
   font-size: 0.9375rem;
   padding: 7px;
 }
-/* line 142, ../scss/layouts/_documento.scss */
+/* line 164, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .controles-row {
   padding: 5px 0px 10px 0px;
   margin-bottom: 15px;
   border-bottom: 1px dashed #adadad;
 }
 
-/* line 150, ../scss/layouts/_documento.scss */
+/* line 172, ../scss/layouts/_documento.scss */
 #powerTip .tt-comentarios {
   font-size: 18px;
 }
@@ -7984,18 +8125,50 @@ ul.social-inline li {
   font-weight: 700;
 }
 
+/* line 4, ../scss/layouts/_evento.scss */
+.crear-contenido-aux .ui-datepicker {
+  font-family: "Source Sans Pro",sans-serif !important;
+  font-style: normal;
+  display: inline-block !important;
+  font-size: 0.75rem !important;
+  text-rendering: optimizelegibility;
+  color: #383838;
+  border: 0px solid #484848;
+  box-shadow: 0px 0px 0px transparent;
+  text-align: center;
+  resize: none;
+  margin: 0 !important;
+}
+/* line 16, ../scss/layouts/_evento.scss */
+.crear-contenido-aux .ui-datepicker:focus {
+  background-color: #fff4c4;
+  outline: 0;
+}
+/* line 22, ../scss/layouts/_evento.scss */
+.crear-contenido-aux .wrapper-fecha .hora-icono {
+  font-size: 1.5625rem;
+  margin: 0;
+}
+/* line 26, ../scss/layouts/_evento.scss */
+.crear-contenido-aux .wrapper-fecha #timepicker {
+  margin: 0;
+  border: none;
+  box-shadow: none;
+  font-size: 22px;
+}
+
 @media only screen and (min-width: 64.063em) {
-  /* line 6, ../scss/layouts/_evento.scss */
+  /* line 38, ../scss/layouts/_evento.scss */
   .crear-contenido .panel-crear-cont .datos-evento {
     margin-right: 10%;
   }
 }
-/* line 11, ../scss/layouts/_evento.scss */
+/* line 43, ../scss/layouts/_evento.scss */
 .crear-contenido .panel-crear-cont .cuerpo-cont-evento textarea[name=cuerpo] {
   min-height: 0;
   resize: vertical;
 }
-/* line 16, ../scss/layouts/_evento.scss */
+/* line 48, ../scss/layouts/_evento.scss */
 .crear-contenido .panel-crear-cont .wrapper-fecha {
   border: 1px solid #C0C0C0;
   border-radius: 4px;
@@ -8003,11 +8176,11 @@ ul.social-inline li {
   margin: 10px auto 15px;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
-/* line 17, ../scss/layouts/_evento.scss */
+/* line 49, ../scss/layouts/_evento.scss */
 .crear-contenido .panel-crear-cont .wrapper-fecha h2 {
   margin: 0;
 }
-/* line 26, ../scss/layouts/_evento.scss */
+/* line 58, ../scss/layouts/_evento.scss */
 .crear-contenido .panel-crear-cont .muestra-tiempo input {
   margin: 0;
   box-shadow: none;
@@ -8017,11 +8190,11 @@ ul.social-inline li {
   font-size: 1.875rem;
   padding: 0;
 }
-/* line 34, ../scss/layouts/_evento.scss */
+/* line 66, ../scss/layouts/_evento.scss */
 .crear-contenido .panel-crear-cont .muestra-tiempo input:focus {
   background-color: #fcf6d9;
 }
-/* line 38, ../scss/layouts/_evento.scss */
+/* line 70, ../scss/layouts/_evento.scss */
 .crear-contenido .panel-crear-cont .ui-datepicker {
   font-family: "Source Sans Pro",sans-serif !important;
   font-style: normal;
@@ -8035,56 +8208,56 @@ ul.social-inline li {
   resize: none;
   margin: 0 !important;
 }
-/* line 50, ../scss/layouts/_evento.scss */
+/* line 82, ../scss/layouts/_evento.scss */
 .crear-contenido .panel-crear-cont .ui-datepicker:focus {
   background-color: #fff4c4;
   outline: 0;
 }
 
-/* line 58, ../scss/layouts/_evento.scss */
+/* line 90, ../scss/layouts/_evento.scss */
 #ui-datepicker-div {
   font-size: 0.8125rem;
 }
 
-/* line 63, ../scss/layouts/_evento.scss */
+/* line 95, ../scss/layouts/_evento.scss */
 .evento-texto .fecha-datos {
   margin: 15px 0;
 }
-/* line 65, ../scss/layouts/_evento.scss */
+/* line 97, ../scss/layouts/_evento.scss */
 .evento-texto .fecha-datos span.fecha {
   font-size: 2.8125rem;
   vertical-align: -webkit-baseline-middle;
 }
 
-/* line 72, ../scss/layouts/_evento.scss */
+/* line 104, ../scss/layouts/_evento.scss */
 .lista-participantes-modal {
   overflow-y: scroll;
 }
 @media only screen {
-  /* line 72, ../scss/layouts/_evento.scss */
+  /* line 104, ../scss/layouts/_evento.scss */
   .lista-participantes-modal {
     max-height: 80%;
   }
 }
 
-/* line 81, ../scss/layouts/_evento.scss */
+/* line 113, ../scss/layouts/_evento.scss */
 table.listado-participantes {
   width: 100%;
 }
-/* line 83, ../scss/layouts/_evento.scss */
+/* line 115, ../scss/layouts/_evento.scss */
 table.listado-participantes thead, table.listado-participantes tbody, table.listado-participantes tr:nth-of-type(even) {
   background: 0;
 }
-/* line 87, ../scss/layouts/_evento.scss */
+/* line 119, ../scss/layouts/_evento.scss */
 table.listado-participantes tr td {
   border-bottom: 1px dashed #C0C0C0;
   padding: 4px;
 }
-/* line 94, ../scss/layouts/_evento.scss */
+/* line 126, ../scss/layouts/_evento.scss */
 table.listado-participantes tr:hover {
   background-color: #fcf6d9;
 }
-/* line 98, ../scss/layouts/_evento.scss */
+/* line 130, ../scss/layouts/_evento.scss */
 table.listado-participantes tr:last-child td {
   border: 0;
 }

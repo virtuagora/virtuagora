@@ -1,5 +1,37 @@
 // CREAR
 
+.crear-contenido-aux{
+    .ui-datepicker{
+        font-family: "Source Sans Pro",sans-serif !important;
+        font-style: normal;
+        display: inline-block !important;
+        font-size: rem-calc(12) !important;
+        text-rendering: optimizelegibility;
+        color: #383838;
+        border: 0px solid #484848;
+        box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+        text-align: center;
+        resize: none;
+        margin: 0 !important;
+        &:focus{
+            background-color: #fff4c4;
+            outline: 0;
+        }
+    }
+    .wrapper-fecha{
+        .hora-icono{
+            font-size: rem-calc(25);
+            margin: 0;
+        }
+    #timepicker{
+        margin: 0;
+        border: none;
+        box-shadow: none;
+        font-size: 22px;
+    }
+    }
+}
+
 .crear-contenido{
     .panel-crear-cont{
         @media only screen and (min-width: 64.063em) {
@@ -28,7 +60,7 @@
             box-shadow: none;
             border: 0;
             text-align: center;
-              height: 40px;
+            height: 40px;
             font-size: rem-calc(30);
             padding: 0;
             &:focus{
@@ -70,11 +102,11 @@
 }
 
 .lista-participantes-modal{
-     @media only screen  {
+    @media only screen  {
 
-                max-height: 80%;
+        max-height: 80%;
 
-        }
+    }
     overflow-y: scroll;
 }
 
