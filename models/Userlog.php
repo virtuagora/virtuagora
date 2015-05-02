@@ -23,7 +23,8 @@ class Userlog extends Eloquent {
         if ($this->attributes['objeto_id']) {
             $name = 'shw' . substr($this->attributes['objeto_type'], 0, 7);
             $attr = ['id' . substr($this->attributes['objeto_type'], 0, 3) => $this->attributes['objeto_id']];
-            return Slim\Slim::getInstance()->urlFor($name, $attr);
+            $app = Slim\Slim::getInstance();
+            return $app->request->getUrl() . $app->urlFor($name, $attr);
         } else {
             return '';
         }
