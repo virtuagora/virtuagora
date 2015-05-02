@@ -1,11 +1,12 @@
 {# VARIBLES #}
-{% set hayDatoPublico = false %}
-{% set cantOcultos = 0 %}
+{% set totalRespuestas = evento.presentes_count + evento.ausentes_count %}
+{% set presente_y_publico = 0 %}
+{% set ausente_y_publico = 0 %}
 {% for participante in participantes %}
-{% if participante.publico == 1 %}
-{% set hayDatoPublico = true %}
+{% if participante.pivot.presente == 1 %}
+{% set presente_y_publico = presente_y_publico + 1 %}
 {% else %}
-{% set cantOcultos = cantOcultos + 1 %}
+{% set ausente_y_publico = ausente_y_publico + 1 %}
 {% endif %}
 {% endfor %}
 
@@ -37,10 +38,7 @@
         <div class="small-12 columns">
             <div class="small-12 medium-6 columns">
                 <div class="fecha-datos">
-                    <span class="fa-stack fa-2x">
-                        <i class="fa fa-calendar-o fa-stack-2x"></i>
-                        <strong class="fa-stack-1x calendario-text"><span class="dia">{{evento.fecha|date("d")}}</span></strong>
-                    </span>&nbsp;&nbsp;<span class="fecha">/<span class="mes">{{evento.fecha|date("m")}}</span> / <span class="año">{{evento.fecha|date("Y")}}</span></span>
+                    <span class="fecha"><i class="fa fa-calendar-o fa-fw"></i> {{ evento.fecha|date("d/m/Y") }}</span>
                 </div>
             </div>
             <div class="small-12 medium-6 columns">
@@ -50,7 +48,7 @@
             </div>
             <div class="row">
                 <div class="small-12 columns">
-                    <h2><i class="fa fa-map-marker fa-fw fa-lg"></i> {{ evento.lugar }}</h2>
+                    <h4><i class="fa fa-map-marker fa-fw fa-lg"></i> {{ evento.lugar }}</h4>
                 </div>
             </div>
             <hr>
@@ -156,29 +154,37 @@
     </div>
     {% endif %}
 </div>
-
 <div class="panel-cont-corto" style="letter-spacing:-0.5px">
     <div class="row">
         <div class="small-12 columns text-center">
-            {% if participantes|length > 0 %}
-            <h4 style="margin: 0"><i class="fa fa-fw fa-check"></i> {{ participantes|length }} usuarios irán al evento</h4>
+            {% if (evento.presentes_count + evento.ausentes_count) > 0 %}
+            <h4 style="margin: 0"><i class="fa fa-fw fa-check"></i> {{ totalRespuestas }} usuario{{ totalRespuestas > 1 ? 's' }} respondi{{ totalRespuestas > 1 ? 'eron' : 'ó' }} y {{ evento.presentes_count }} irán al evento</h4>
             {% else %}
             <h4 style="margin: 0"><i class="fa fa-fw fa-chain-broken"></i> Nadie ha confirmado su participación</h4>
             {% endif %}
         </div>
     </div>
-    {% if participantes|length > 0 %}
+    {% if presente_y_publico == 1 %}
     <hr>
     <div class="row collapse">
         <div class="small-12 columns text-center">
-            <div class="row "style="margin-bottom:10px">Algunos participantes que asistirán al evento</div>
+            <div class="row "style="margin-bottom:10px">Algunos participantes que votaron al evento</div>
             <div class="row" >
-                {% for participante in participantes|slice(0, 10) %}
-                <a href="{{ urlFor('shwUsuario', {'idUsr': participante.id}) }}"><img class="img-perfil small-border no-border square size-64" src="{{ avatarUrl(participante.img_tipo, participante.img_hash, 64) }}" style="padding:2px"></a>
+                {% for participante in participantes %}
+                {% if participante.pivot.presente == 1 %}
+                <a href="{{ urlFor('shwUsuario', {'idUsr': participante.id}) }}"><img class="img-perfil small-border square {% if participante.moderador %}moderador{% else %}{% if participante.es_jefe %}jefe{% else %}{% if participante.es_funcionario %}funcionario{% else %}{% if participante.verified_at %}verificado{% endif %}{% endif %}{% endif %}{% endif %} size-64" src="{{ avatarUrl(participante.img_tipo, participante.img_hash, 64) }}" style="padding:2px"></a>
+                {% endif %}
                 {% endfor %}
             </div>
-            <hr>
-            <a href="#" data-reveal-id="listaParticipantes"><i class="fa fa-list fa-fw"></i> Ver la lista completa</a>
+        </div>
+    </div>
+    {% endif %}
+    {% if participantes|length > 0 %}
+    <hr>
+    <div class="row">
+        <div class="small-12 columns text-center">
+            <a href="#" data-reveal-id="listaAsisten"><i class="fa fa-list fa-fw"></i> Ver lista de quienes asisten</a>
+            <a href="#" data-reveal-id="listaNoAsisten"><i class="fa fa-list fa-fw"></i> Ver lista de quienes no asisten</a>
         </div>
     </div>
     {% endif %}
@@ -188,14 +194,14 @@
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block modals_cont %}
-<div id="listaParticipantes" class="lista-participantes-modal reveal-modal small" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog">
+<div id="listaAsisten" class="lista-participantes-modal reveal-modal small" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog">
     <div class="row text-center">
         <div class="small-12 columns">
-            <h4>Participantes confirmados ({{ participantes|length }})</h4>
+            <h4>Participantes que ASISTEN ({{ participantes|length }})</h4>
         </div>
         <hr>
         <div class="small-12 columns">
-            <small>({{ cantOcultos }} participantes han ocultado su confirmación)</small>
+            <i>({{ evento.presentes_count - presente_y_publico }} participantes han ocultado su confirmación)</i>
             <table class="listado-participantes">
                 <thead>
                     <tr style="display:none">
@@ -206,20 +212,57 @@
                 <tbody>
                     {% if participantes|length > 0 %}
                     {% for participante in participantes %}
-                    {% if participantes.publico == 1 %}
+                    {% if participante.pivot.presente == 1 %}
                     <tr>
-                        <td class="text-center"><a href="{{ urlFor('shwUsuario', {'idUsr': participante.id}) }}"><img class="img-perfil no-border square size-32" src="{{ avatarUrl(participante.img_tipo, participante.img_hash, 32) }}" style="padding:2px"></a></td>
+                        <td class="text-center"><a href="{{ urlFor('shwUsuario', {'idUsr': participante.id}) }}"><img class="img-perfil small-border square {% if participante.moderador %}moderador{% else %}{% if participante.es_jefe %}jefe{% else %}{% if participante.es_funcionario %}funcionario{% else %}{% if participante.verified_at %}verificado{% endif %}{% endif %}{% endif %}{% endif %} size-32" src="{{ avatarUrl(participante.img_tipo, participante.img_hash, 32) }}" style="padding:2px"></a></td>
                         <td class="text-center">{{ participante.nombre }} {{ participante.apellido }}</td>
                     </tr>
                     {% endif %}
                     {% endfor %}
                     {% endif %}
+                    <tr>
+                        <td class="text-center" colspan="2"><i>- Fin de lista -</i></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 
+<div id="listaNoAsisten" class="lista-participantes-modal reveal-modal small" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog">
+    <div class="row text-center">
+        <div class="small-12 columns">
+            <h4>Participantes que NO ASÍSTEN ({{ participantes|length }})</h4>
+        </div>
+        <hr>
+        <div class="small-12 columns">
+            <i>({{ evento.ausentes_count - ausente_y_publico }} participantes han ocultado su confirmación)</i>
+            <table class="listado-participantes">
+                <thead>
+                    <tr style="display:none">
+                        <th>Avatar</th>
+                        <th>Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if participantes|length > 0 %}
+                    {% for participante in participantes %}
+                    {% if participante.pivot.presente != 1 %}
+                    <tr>
+                        <td class="text-center"><a href="{{ urlFor('shwUsuario', {'idUsr': participante.id}) }}"><img class="img-perfil small-border square {% if participante.moderador %}moderador{% else %}{% if participante.es_jefe %}jefe{% else %}{% if participante.es_funcionario %}funcionario{% else %}{% if participante.verified_at %}verificado{% endif %}{% endif %}{% endif %}{% endif %} size-32" src="{{ avatarUrl(participante.img_tipo, participante.img_hash, 32) }}" style="padding:2px"></a></td>
+                        <td class="text-center">{{ participante.nombre }} {{ participante.apellido }}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                    <tr>
+                        <td class="text-center" colspan="2"><i>- Fin de lista -</i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block scripts_cont %}
@@ -244,10 +287,10 @@
             })
         );
         var tiempo = new Date( '{{ evento.fecha }}' );
-//        $.datepicker.parseDate( "DD, MM d, yy", date)
-//        $( "#datepicker" ).datepicker( "setDate", tiempo );
-//        $('.muestra-fecha h2').html($( "#datepicker" ).val());
-//        $('#timepicker').timepicker('setTime', tiempo);
+        //        $.datepicker.parseDate( "DD, MM d, yy", date)
+        //        $( "#datepicker" ).datepicker( "setDate", tiempo );
+        //        $('.muestra-fecha h2').html($( "#datepicker" ).val());
+        //        $('#timepicker').timepicker('setTime', tiempo);
     });
 
     $('.bt').click(function(){
