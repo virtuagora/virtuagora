@@ -5120,7 +5120,7 @@ th.hide-for-touch {
 }
 @font-face {
   font-family: "Flaticon";
-  src: url('../fonts/flaticon.woff?1427229551') format("woff");
+  src: url('../fonts/flaticon.woff?1427377551') format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -5302,7 +5302,7 @@ th.hide-for-touch {
 /* Icons */
 @font-face {
   font-family: "slick";
-  src: url('../fonts/slick.woff?1422751998') format("woff");
+  src: url('../fonts/slick.woff?1427377551') format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -5818,28 +5818,31 @@ img.img-perfil.big-border {
 }
 /* line 28, ../scss/global/_img-perfiles.scss */
 img.img-perfil.small-border {
-  border-width: 2px;
+  padding: 1px;
+  border-width: 1px;
+  border-style: solid;
+  background-color: #FFFFFF;
 }
-/* line 31, ../scss/global/_img-perfiles.scss */
+/* line 34, ../scss/global/_img-perfiles.scss */
 img.img-perfil.no-border {
   border: 0;
 }
-/* line 34, ../scss/global/_img-perfiles.scss */
+/* line 37, ../scss/global/_img-perfiles.scss */
 img.img-perfil.size-32 {
   height: auto;
   width: 32px;
 }
-/* line 38, ../scss/global/_img-perfiles.scss */
+/* line 41, ../scss/global/_img-perfiles.scss */
 img.img-perfil.size-64 {
   height: auto;
   width: 64px;
 }
-/* line 42, ../scss/global/_img-perfiles.scss */
+/* line 45, ../scss/global/_img-perfiles.scss */
 img.img-perfil.size-128 {
   height: auto;
   width: 128px;
 }
-/* line 46, ../scss/global/_img-perfiles.scss */
+/* line 49, ../scss/global/_img-perfiles.scss */
 img.img-perfil.size-160 {
   height: auto;
   width: 160px;
@@ -6021,7 +6024,7 @@ img.img-perfil.size-160 {
 
 /* line 2, ../scss/layouts/_introduction.scss */
 #introduction #header {
-  background: url('../img/bg.jpg?1427215118') no-repeat center bottom;
+  background: url('../img/bg.jpg?1427377551') no-repeat center bottom;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -6063,7 +6066,7 @@ img.img-perfil.size-160 {
 /* line 38, ../scss/layouts/_introduction.scss */
 #introduction .pre-registro {
   padding: 2.5rem 0;
-  background: url('../img/pre-registro-bg.jpg?1427252403') no-repeat center bottom;
+  background: url('../img/pre-registro-bg.jpg?1427377551') no-repeat center bottom;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -6309,7 +6312,7 @@ img.img-perfil.size-160 {
 #introduction .final {
   margin-bottom: 1px;
   padding: 200px 0px;
-  background: url('../img/pre-registro-bg.jpg?1427252403') no-repeat center bottom;
+  background: url('../img/pre-registro-bg.jpg?1427377551') no-repeat center bottom;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -8003,59 +8006,64 @@ ul.social-inline li {
   font-style: italic;
 }
 /* line 101, ../scss/layouts/_documento.scss */
-.vista-cuerpo-cont .doc-texto p {
+.vista-cuerpo-cont .doc-texto p.parrafo {
   font-size: 1rem;
 }
-/* line 104, ../scss/layouts/_documento.scss */
+/* line 103, ../scss/layouts/_documento.scss */
+.vista-cuerpo-cont .doc-texto p.parrafo:hover {
+  background-color: #fff4c4;
+  cursor: pointer;
+}
+/* line 108, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .wrapper-comentarios {
   padding-top: 20px;
   margin-top: 10px;
   border-top: 1px dashed #adadad;
 }
-/* line 108, ../scss/layouts/_documento.scss */
+/* line 112, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .wrapper-comentarios .nadie-comento {
   font-family: 'Open Sans', sans-serif;
 }
-/* line 110, ../scss/layouts/_documento.scss */
+/* line 114, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .wrapper-comentarios .nadie-comento h4, .vista-cuerpo-cont .doc-texto .wrapper-comentarios .nadie-comento p {
   margin-bottom: 5px;
 }
-/* line 113, ../scss/layouts/_documento.scss */
+/* line 117, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .wrapper-comentarios .nadie-comento p {
   font-size: 0.875rem;
 }
-/* line 118, ../scss/layouts/_documento.scss */
+/* line 122, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentar, .vista-cuerpo-cont .doc-texto .box-comentario {
   font-family: "Source Sans Pro",sans-serif;
   background: #FFFFFF;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
-/* line 122, ../scss/layouts/_documento.scss */
+/* line 126, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentar .info-user-row, .vista-cuerpo-cont .doc-texto .box-comentario .info-user-row {
   height: 50px;
   background-color: #f2f2f2;
   border-bottom: 1px dashed #adadad;
 }
-/* line 126, ../scss/layouts/_documento.scss */
+/* line 130, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentar .info-user-row ul.info, .vista-cuerpo-cont .doc-texto .box-comentario .info-user-row ul.info {
   padding: 8px 8px 8px 0px;
   margin: 0px;
 }
-/* line 129, ../scss/layouts/_documento.scss */
+/* line 133, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentar .info-user-row ul.info li, .vista-cuerpo-cont .doc-texto .box-comentario .info-user-row ul.info li {
   display: inline-block;
   vertical-align: middle;
   list-style-type: none;
   margin: 0px 0px 0px 10px;
 }
-/* line 138, ../scss/layouts/_documento.scss */
+/* line 142, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentar {
   z-index: 10;
   position: absolute;
   float: left;
   width: 96.5%;
 }
-/* line 144, ../scss/layouts/_documento.scss */
+/* line 148, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentar .redactor-row textarea {
   margin: 0;
   border: 0;
@@ -8064,27 +8072,27 @@ ul.social-inline li {
   font-size: 1rem;
   min-height: 150px;
 }
-/* line 153, ../scss/layouts/_documento.scss */
+/* line 157, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentar .confirmar-row {
   padding: 5px 5px 0px 0px;
 }
-/* line 157, ../scss/layouts/_documento.scss */
+/* line 161, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentario {
   margin-bottom: 10px;
 }
-/* line 159, ../scss/layouts/_documento.scss */
+/* line 163, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .box-comentario .comentario-row {
   font-size: 0.9375rem;
   padding: 7px;
 }
-/* line 164, ../scss/layouts/_documento.scss */
+/* line 168, ../scss/layouts/_documento.scss */
 .vista-cuerpo-cont .doc-texto .controles-row {
   padding: 5px 0px 10px 0px;
   margin-bottom: 15px;
   border-bottom: 1px dashed #adadad;
 }
 
-/* line 172, ../scss/layouts/_documento.scss */
+/* line 176, ../scss/layouts/_documento.scss */
 #powerTip .tt-comentarios {
   font-size: 18px;
 }

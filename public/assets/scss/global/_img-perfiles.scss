@@ -26,7 +26,10 @@ img.img-perfil{
         background-color:#FFFFFF;
     }
     &.small-border{
-        border-width: 2px;
+        padding: 1px;
+        border-width: 1px;
+        border-style: solid;
+        background-color:#FFFFFF;
     }
     &.no-border{
         border: 0;

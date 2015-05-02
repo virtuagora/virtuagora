@@ -98,8 +98,12 @@
         }
     }
     .doc-texto{
-        p{
+        p.parrafo{
             font-size: rem-calc(16);
+            &:hover{
+                background-color: #fff4c4;
+                cursor: pointer;
+            }
         }
         .wrapper-comentarios{
             padding-top: 20px;
