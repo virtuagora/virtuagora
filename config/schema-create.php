@@ -172,8 +172,9 @@ Capsule::schema()->create('adminlogs', function($table) {
     $table->increments('id');
     $table->string('descripcion');
     $table->morphs('objeto');
+    $table->integer('poder_id')->unsigned();
     $table->integer('actor_id')->unsigned();
-    $table->integer('accion_id')->unsigned();
+    $table->foreign('actor_id')->references('id')->on('usuarios')->onDelete('cascade');
     $table->timestamps();
 });
 

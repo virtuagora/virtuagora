@@ -8,12 +8,14 @@ class EventoCtrl extends Controller {
         $evento = Evento::with(array('contenido', 'comentarios'))->findOrFail($idEve);
         $contenido = $evento->contenido;
         $participe = $evento->usuarios()->where('usuario_id', $this->session->user('id'))->first();
+        $participantes = $evento->usuarios()->where('publico', '1')->get()->toArray();
         $comentarios = $evento->comentarios->toArray();
         $datosEven = array_merge($contenido->toArray(), $evento->toArray());
         $datosPart = $participe ? $participe->pivot->toArray() : null;
-        $this->render('contenido/evento/ver.twig', array('evento' => $datosEven,
-                                                         'comentarios' =>  $comentarios,
-                                                         'participacion' => $datosPart));
+        $this->render('contenido/evento/ver.twig', ['evento' => $datosEven,
+                                                    'comentarios' =>  $comentarios,
+                                                    'participacion' => $datosPart,
+                                                    'participantes' => $participantes]);
     }
 
     public function participar($idEve) {
@@ -28,11 +30,14 @@ class EventoCtrl extends Controller {
         }
         $usuario = $this->session->getUser();
         $evento = Evento::findOrFail($idEve);
+        $hoy = Carbon\Carbon::now();
+        if ($hoy->gt($evento->fecha)) {
+            throw new TurnbackException('El evento ya ha ocurrido.');
+        }
         $participe = $evento->usuarios()->where('usuario_id', $usuario->id)->first();
         if (is_null($participe)) {
             $evento->usuarios()->attach($usuario->id, ['presente' => $vdt->getData('presente'),
                                                        'publico' => $vdt->getData('publico')]);
-            // TODO ver si creo log
         } else {
             $participe->pivot->presente = $vdt->getData('presente');
             $participe->pivot->publico = $vdt->getData('publico');

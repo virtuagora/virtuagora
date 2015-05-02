@@ -34,6 +34,7 @@ class Contenido extends Eloquent {
     public function getLinkAttribute() {
         $name = 'shw' . substr($this->attributes['contenible_type'], 0, 7);
         $attr = ['id' . substr($this->attributes['contenible_type'], 0, 3) => $this->attributes['contenible_id']];
-        return Slim\Slim::getInstance()->urlFor($name, $attr);
+        $app = Slim\Slim::getInstance();
+        return $app->request->getUrl() . $app->urlFor($name, $attr);
     }
 }
