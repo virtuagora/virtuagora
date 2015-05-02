@@ -13,7 +13,23 @@
                 <div class="avatar text-center">
                     <span class="user">
                         <a href="{{ urlFor('shwUsuario',{'idUsr': user.id}) }}">
-                        <img class="img-perfil small-border radius" src="{{ avatarUrl(user.img_tipo, user.img_hash, 160) }}">
+                        <img class="img-perfil small-border radius
+                        {% if user.moderador %}
+                        moderador
+                        {% else %}
+                        {% if user.es_jefe %}
+                        jefe
+                        {% else %}
+                        {% if user.es_funcionario %}
+                        funcionario
+                        {% else %}
+                        {% if user.verified_at %}
+                        verificado
+                        {% endif %}
+                        {% endif %}
+                        {% endif %}
+                        {% endif %}
+                        " src="{{ avatarUrl(user.img_tipo, user.img_hash, 160) }}">
                         </a>
                     </span>
                     <span class="puntos">
@@ -52,13 +68,14 @@
                                     {% else %}
                                     {% if comentario.autor.es_funcionario %}
                                     funcionario
+                                    {% else %}
                                     {% if comentario.autor.verified_at %}
                                     verificado
                                     {% endif %}
                                     {% endif %}
                                     {% endif %}
                                     {% endif %}"
-                             src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 160) }}">
+                             src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 64) }}">
                         </a>
                     </span>
                 </div>
@@ -108,13 +125,14 @@
                                     {% else %}
                                     {% if respuesta.autor.es_funcionario %}
                                     funcionario
+                                    {% else %}
                                     {% if respuesta.autor.verified_at %}
                                     verificado
                                     {% endif %}
                                     {% endif %}
                                     {% endif %}
                                     {% endif %}"
-                             src="{{ avatarUrl(respuesta.autor.img_tipo, respuesta.autor.img_hash, 160) }}">
+                             src="{{ avatarUrl(respuesta.autor.img_tipo, respuesta.autor.img_hash, 64) }}">
                         </a>
                     </span>
                 </div>
@@ -156,7 +174,22 @@
             <div class="comentario-cont respuesta vacia row" hidden>
                 <div class="avatar text-center">
                     <span class="user">
-                        <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 160) }}">
+                        <img class="img-perfil radius small-border
+                                    {% if user.moderador %}
+                                    moderador
+                                    {% else %}
+                                    {% if user.es_jefe %}
+                                    jefe
+                                    {% else %}
+                                    {% if user.es_funcionario %}
+                                    funcionario
+                                    {% else %}
+                                    {% if user.verified_at %}
+                                    verificado
+                                    {% endif %}
+                                    {% endif %}
+                                    {% endif %}
+                                    {% endif %}" src="{{ avatarUrl(user.img_tipo, user.img_hash, 160) }}">
                     </span>
                 </div>
                 <div class="comentario-wrapper">

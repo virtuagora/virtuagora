@@ -35,6 +35,7 @@
                 {% else %}
                 {% if user.es_funcionario %}
                 funcionario
+                {% else %}
                 {% if user.verified_at %}
                 verificado
                 {% endif %}
@@ -72,6 +73,7 @@
                                         {% else %}
                                         {% if contenido.autor.es_funcionario %}
                                         funcionario
+                                        {% else %}
                                         {% if contenido.autor.verified_at %}
                                         verificado
                                         {% endif %}

@@ -23,6 +23,7 @@
                         {% else %}
                         {% if usuario.es_funcionario %}
                         funcionario
+                        {% else %}
                         {% if usuario.verified_at %}
                         verificado
                         {% endif %}
