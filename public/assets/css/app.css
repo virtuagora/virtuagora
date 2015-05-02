@@ -7717,26 +7717,26 @@ ul.social-inline li {
   list-style-type: none;
 }
 
-/* line 4, ../scss/layouts/_propuesta.scss */
-.crear-contenido .problematicas-asoc {
-  padding: 20px 0px 70px 0px;
-}
-/* line 6, ../scss/layouts/_propuesta.scss */
-.crear-contenido .problematicas-asoc input[name=problematicas] {
-  font-size: 0.75rem;
+/* line 5, ../scss/layouts/_propuesta.scss */
+.crear-contenido-aux.propuesta .row-problematicas-referidas input {
+  margin-bottom: 0;
+  font-size: 1.125rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 5px;
 }
 
-/* line 16, ../scss/layouts/_propuesta.scss */
+/* line 19, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
   background-color: #74a6cb;
 }
-/* line 21, ../scss/layouts/_propuesta.scss */
+/* line 24, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto h1, .vista-cuerpo-cont .propuesta-voto h2, .vista-cuerpo-cont .propuesta-voto h3, .vista-cuerpo-cont .propuesta-voto h4, .vista-cuerpo-cont .propuesta-voto h5, .vista-cuerpo-cont .propuesta-voto h6 {
   color: #FFF;
 }
-/* line 25, ../scss/layouts/_propuesta.scss */
+/* line 28, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .votando-propuesta h1 {
   margin: 0px 0px 20px 0px;
   padding: 0;
@@ -7744,68 +7744,68 @@ ul.social-inline li {
   font-weight: 700;
   font-size: 2.25rem;
 }
-/* line 32, ../scss/layouts/_propuesta.scss */
+/* line 35, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .votando-propuesta ul {
   margin: 0px;
 }
-/* line 34, ../scss/layouts/_propuesta.scss */
+/* line 37, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .votando-propuesta ul li {
   display: inline-block;
   vertical-align: middle;
   list-style-type: none;
   margin: 0px 0px 0px 10px;
 }
-/* line 42, ../scss/layouts/_propuesta.scss */
+/* line 45, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .votando-propuesta .panel h6 {
   color: #000;
   margin-bottom: 0;
   line-height: normal;
 }
-/* line 48, ../scss/layouts/_propuesta.scss */
+/* line 51, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .votando-propuesta .icono-posicion-votada i {
   font-size: 4.0625rem;
   color: #FFF;
 }
-/* line 54, ../scss/layouts/_propuesta.scss */
+/* line 57, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .confirmar-voto .icono-voto-seleccionado {
   font-size: 8.75rem;
   margin-right: 0.9375rem;
   color: #FFF;
 }
-/* line 59, ../scss/layouts/_propuesta.scss */
+/* line 62, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .confirmar-voto .panel {
   margin-top: 1.25rem;
 }
-/* line 61, ../scss/layouts/_propuesta.scss */
+/* line 64, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .confirmar-voto .panel h6 {
   color: #000;
   margin-bottom: 0;
 }
-/* line 66, ../scss/layouts/_propuesta.scss */
+/* line 69, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .confirmar-voto h6, .vista-cuerpo-cont .propuesta-voto .confirmar-voto p {
   color: #FFF;
   margin-bottom: 0.3125rem;
 }
-/* line 70, ../scss/layouts/_propuesta.scss */
+/* line 73, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .confirmar-voto p {
   font-size: 0.75rem;
 }
-/* line 73, ../scss/layouts/_propuesta.scss */
+/* line 76, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .confirmar-voto .opcion-voto-publico {
   margin: 0.625rem 0;
 }
-/* line 76, ../scss/layouts/_propuesta.scss */
+/* line 79, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .confirmar-voto ul {
   margin: 0px;
 }
-/* line 78, ../scss/layouts/_propuesta.scss */
+/* line 81, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .confirmar-voto ul li {
   display: inline-block;
   vertical-align: middle;
   list-style-type: none;
   margin: 0px 0px 0px 10px;
 }
-/* line 87, ../scss/layouts/_propuesta.scss */
+/* line 90, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .resultados-propuesta {
   background-color: #d1e1ee;
 }

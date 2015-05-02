@@ -130,9 +130,7 @@
             event.preventDefault();
         }
     });
-    $("#tagger").tagHandler({
-        assignedTags: {{ tag_list ?:'[]'}},
-                            });
+    $("#tagger").tagHandler({});
     $(function() {
         $("textarea[name='cuerpo']").sceditor({
             plugins: "bbcode",

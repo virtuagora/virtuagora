@@ -15,16 +15,33 @@
 {% block pre_cuerpo %}{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block extension_form %}
-<div class="row">
+<div class="row row-problematicas-referidas">
     <div class="large-12 columns">
         <div class="panel">
-            <span class="enumerador fa-stack">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-star-o blanco fa-stack-1x"></i>
-            </span>
-            <div class="descripcion">
-                <b>Asocie su propuesta con alguna problematica.</b> Si la propuesta esta relacionado o es la solución asociada a una (o varias) de las problematicas publicadas en esta plataforma, asóciela realizando una busqueda en la siguiente barra: (PROXIMAMENTE)
+            <div class="row">
+                <div class="large-6 columns">
+                    <span class="enumerador fa-stack">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-star-o blanco fa-stack-1x"></i>
+                    </span>
+                    <div class="descripcion">
+                        <b>OPCIONAL: Asocie su propuesta con alguna problematica.</b> Si la propuesta esta relacionado o es la solución asociada a una (o varias) de las problematicas publicadas en esta plataforma, asóciela colocando el ID de la problematica
+                    </div>
+                </div>
+                <div class="large-6 columns text-center">
+                    <div class="row">
+                        <div class="large-10 columns"><input type="text" id="id-referido" placeholder="Escriba el ID"></div>
+                        <div class="large-2 columns"><a href="javascript:buscarReferencia()" class="button radius small expand"><i class="fa fa-fw fa-search fa-lg"></i></a></div>
+                    </div>
+                    <div class="row ejecutando text-center" style="display:none">
+                        <i class="fa fa-spinner fa-fw fa-lg fa-pulse"></i>
+                    </div>
+                    <div class="row resultado text-center">
+                        <h5 class="referencia-titulo"></h5>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -35,7 +52,32 @@
 {% block scripts_cont %}
 
 {% block scripts_modificar %}{% endblock scripts_modificar %}
+<script>
+    var base_url = '{{ baseUrl() }}';
 
+    function buscarReferencia() {
+        var idBuscar = $('#id-referido').val();
+        var query = [{name:"where",value:"contenible_type-eq-Problematica"},
+                     {name:"where",value:'id-eq-'+idBuscar}];
+        enviarSolicitud(base_url + '/contenido?' + jQuery.param(query) );
+    }
+    function enviarSolicitud(url_query) {
+        $('.ejecutando').show();
+        var request = $.ajax({
+            url: url_query,
+            cache: false,
+            dataType: "json"
+        }).done(function(resultados, textStatus, request) {
+            $('.referencia-titulo').html(resultados[0].titulo)
+            $('.ejecutando').hide();
+        }).fail(function(jqXHR, textStatus) {
+            alert("Request failed: " + textStatus);
+            $('.ejecutando').hide();
+            return false;
+        });
+    }
+
+</script>
 {% endblock %}
 {# ----------------------------------------------------------- #}
 

@@ -1,10 +1,13 @@
 // CREAR
 
-.crear-contenido{
-    .problematicas-asoc {
-        padding: 20px 0px 70px 0px;
-        input[name=problematicas]{
-            font-size: rem-calc(12px);
+.crear-contenido-aux.propuesta{
+    .row-problematicas-referidas {
+        input{
+            margin-bottom: 0;
+            font-size: rem-calc(18);
+            font-weight: bold;
+            text-align: center;
+            padding: 5px;
         }
     }
 }
