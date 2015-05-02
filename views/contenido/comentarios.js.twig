@@ -33,10 +33,9 @@
     });
 
     var votarComentario = function(id, valor){
-        var action_no = $('#votarForm').attr('action');
+        var action_no = "{{ urlFor('runVotarComenta') }}";
         $('#votarForm').find('input[name="valor"]').val(valor)
         var action_yes = action_no.replace(':idCom',id);
-        $('#votarForm').removeAttr('action');
         $('#votarForm').attr('action', action_yes);
         $('#votarForm').submit();
     }
