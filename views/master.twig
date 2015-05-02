@@ -23,7 +23,10 @@
             {% if flash['success'] is defined %}
             <div data-alert class="alert-box success text-center">
                 <div class="row">
-                    <i class="fa fa-check fa-fw fa-lg"></i>&nbsp;{{ flash.success|capitalize }}
+                    <span class="fa-stack">
+                        <i class="fa fa-circle-thin fa-stack-2x"></i>
+                        <i class="fa fa-check fa-stack-1x"></i>
+                    </span>&nbsp;{{ flash.success|capitalize }}
                     <a href="#" class="close"><i class="fa fa-times fa-fw fa-lg"></i></a>
                 </div>
             </div>
@@ -34,7 +37,10 @@
             {% for error in flash['errors'] %}
             <div data-alert class="alert-box alert text-center">
                 <div class="row">
-                    <i class="fa fa-minus-circle fa-fw fa-lg"></i>&nbsp;{{ error|capitalize }}
+                    <span class="fa-stack">
+                        <i class="fa fa-circle-thin fa-stack-2x"></i>
+                        <i class="fa fa-minus fa-stack-1x"></i>
+                    </span>&nbsp;{{ error|capitalize }}
                     <a href="#" class="close"><i class="fa fa-times fa-fw fa-lg"></i></a>
                 </div>
             </div>
@@ -44,7 +50,10 @@
             {% if flash['warning'] is defined %}
             <div data-alert class="alert-box warning text-center">
                 <div class="row">
-                    <i class="fa fa-warning fa-fw fa-lg"></i>&nbsp;{{ flash.warning|capitalize }}
+                    <span class="fa-stack">
+                        <i class="fa fa-circle-thin fa-stack-2x"></i>
+                        <i class="fa fa-warning fa-stack-1x"></i>
+                    </span></i>&nbsp;{{ flash.warning|capitalize }}
                     <a href="#" class="close"><i class="fa fa-times fa-fw fa-lg"></i></a>
                 </div>
             </div>
