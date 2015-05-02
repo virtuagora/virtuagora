@@ -11,6 +11,8 @@ class EventoCtrl extends Controller {
         $participantes = $evento->usuarios()->where('publico', '1')->get()->toArray();
         $comentarios = $evento->comentarios->toArray();
         $datosEven = array_merge($contenido->toArray(), $evento->toArray());
+        $datosEven['presentes_count'] = $evento->usuarios()->where('presente', '1')->count();
+        $datosEven['ausentes_count'] = $evento->usuarios()->where('presente', '0')->count();
         $datosPart = $participe ? $participe->pivot->toArray() : null;
         $this->render('contenido/evento/ver.twig', ['evento' => $datosEven,
                                                     'comentarios' =>  $comentarios,
