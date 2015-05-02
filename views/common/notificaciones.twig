@@ -7,6 +7,11 @@
             <tr class="sin-notificaciones" style="display:none">
                 <td class="text-center"><i class="fa fa-check fa-fw"></i><br>Sin notificaciones</td>
             </tr>
+            {% if nav %}
+            <tr>
+                <td class="text-center"><a href="{{ urlFor('shwListaNotific') }}">Ver resto de las notificaciones</a></td>
+            </tr>
+            {% endif %}
             <tr>
                 <td class="text-right"><a href="{{ urlFor('shwListaNotific') }}">Ver todas</a></td>
             </tr>
