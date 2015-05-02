@@ -18,6 +18,7 @@
         // show the tooltip for the element that received the click event
         if(enviarPost == true){
             marcarNotificacionesLeidas();
+            $('.notificaciones .contador-on').hide();
         }
         $.powerTip.show(this);
     });
