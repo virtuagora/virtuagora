@@ -19,7 +19,7 @@
     <div class="large-12 columns">
         <div class="panel">
             <div class="row">
-                <div class="large-6 columns">
+                <div class="large-7 columns">
                     <span class="enumerador fa-stack">
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-star-o blanco fa-stack-1x"></i>
@@ -28,20 +28,24 @@
                         <b>OPCIONAL: Asocie su propuesta con alguna problematica.</b> Si la propuesta esta relacionado o es la solución asociada a una (o varias) de las problematicas publicadas en esta plataforma, asóciela colocando el ID de la problematica
                     </div>
                 </div>
-                <div class="large-6 columns text-center">
-                    <div class="row">
-                        <div class="large-10 columns"><input type="text" id="id-referido" placeholder="Escriba el ID"></div>
-                        <div class="large-2 columns"><a href="javascript:buscarReferencia()" class="button radius small expand"><i class="fa fa-fw fa-search fa-lg"></i></a></div>
-                    </div>
-                    <div class="row ejecutando text-center" style="display:none">
-                        <i class="fa fa-spinner fa-fw fa-lg fa-pulse"></i>
+                <div class="large-5 columns text-center">
+                    <div class="row busqueda" style="margin-top: 5px;">
+                        <div class="large-12 columns">
+                            <div class="row collapse">
+                                <div class="large-10 columns">
+                                <input type="text" id="buscar-referido" placeholder="Escriba el ID">
+                                <input type="text" id="referido" style="display:none;">
+                                </div>
+                                <div class="large-2 columns"><a href="javascript:buscarReferencia()" class="button radius secondary small postfix"><i class="fa fa-fw fa-search fa-lg"></i></a></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="row resultado text-center">
-                        <h5 class="referencia-titulo"></h5>
+                        <span id="ejecutando" style="display:none"><i class="fa fa-spinner fa-fw fa-lg fa-pulse"></i></span>
+                        <span id="etiqueta-resultado">Realice una busqueda presionando en <i class="fa fa-fw fa-search"></i></span>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -53,30 +57,55 @@
 
 {% block scripts_modificar %}{% endblock scripts_modificar %}
 <script>
+    $(document).ready(function() {
+        if (window.location.hash) {
+            var array = window.location.hash.substring(1).split('&');
+            $('#buscar-referido').val(array[0]);
+            buscarReferencia();
+        }
+    });
+
     var base_url = '{{ baseUrl() }}';
+    var icon_borrar = $('<i class="quitar fa fa-fw fa-times fa-lg"></i>' );
+    var icon_doc = $('<i class="fa fa-fw fa-file fa-lg"></i>' );
+    var icon_error = $('<i class="fa fa-fw fa-exclamation-circle fa-lg"></i>' );
+
+    $(document).on('click', '.quitar', function() {
+        $('#etiqueta-resultado').empty().html('Realice una busqueda presionando en <i class="fa fa-fw fa-search"></i>');
+        $('#buscar-referido').val('');
+        $('#referido').val('');
+    });
 
     function buscarReferencia() {
-        var idBuscar = $('#id-referido').val();
+        var idBuscar = $('#buscar-referido').val();
         var query = [{name:"where",value:"contenible_type-eq-Problematica"},
                      {name:"where",value:'id-eq-'+idBuscar}];
         enviarSolicitud(base_url + '/contenido?' + jQuery.param(query) );
     }
     function enviarSolicitud(url_query) {
-        $('.ejecutando').show();
+        $('#etiqueta-resultado').empty();
+        $('#ejecutando').show();
         var request = $.ajax({
             url: url_query,
             cache: false,
             dataType: "json"
         }).done(function(resultados, textStatus, request) {
-            $('.referencia-titulo').html(resultados[0].titulo)
-            $('.ejecutando').hide();
+            if(resultados.length > 0){
+                $('#ejecutando').hide();
+                $('#etiqueta-resultado').append(icon_borrar).append(icon_doc).append(resultados[0].titulo + ' - ' + resultados[0].autor.nombre + ' ' + resultados[0].autor.apellido);
+                $('#referido').val(resultados[0].id);
+            } else {
+                $('#ejecutando').hide();
+                $('#etiqueta-resultado').append(icon_error).append(' No existe la problematica');
+                $('#referido').val('');
+            }
         }).fail(function(jqXHR, textStatus) {
-            alert("Request failed: " + textStatus);
-            $('.ejecutando').hide();
+            $('#ejecutando').hide();
+            $('#etiqueta-resultado').append(icon_error).append(' ERROR')
+            $('#referido').val('');
             return false;
         });
     }
-
 </script>
 {% endblock %}
 {# ----------------------------------------------------------- #}

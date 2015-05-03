@@ -17,6 +17,28 @@
 
 
 .vista-cuerpo-cont{
+    .referido-propuesta-info{
+        background-color: lighten($propuesta-color, 45%);
+        border: 1px dashed $propuesta-color;
+        border-radius: 5px;
+        font-family: 'Open Sans', sans-serif;
+        span.icono{
+            i.large:before{
+                font-size: rem-calc(80);
+            }
+        }
+        span.icono{
+            i.small:before{
+                font-size: rem-calc(40);
+            }
+        }
+        p{
+            font-size: rem-calc(13);
+            line-height: normal;
+            text-align: justify;
+            margin-bottom: 0;
+        }
+    }
     .problematica-voto{
         padding-top: rem-calc(40);
         padding-bottom: rem-calc(40);

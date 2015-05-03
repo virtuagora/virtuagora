@@ -5120,7 +5120,7 @@ th.hide-for-touch {
 }
 @font-face {
   font-family: "Flaticon";
-  src: url('../fonts/flaticon.woff?1427377551') format("woff");
+  src: url('../fonts/flaticon.woff?1427229551') format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -5130,170 +5130,169 @@ th.hide-for-touch {
   font-family: Flaticon;
   font-size: 20px;
   font-style: normal;
-  margin-left: 20px;
 }
 
-/* line 13, ../scss/flaticon/_flaticon.scss */
+/* line 12, ../scss/flaticon/_flaticon.scss */
 .flaticon-alert9:before {
   content: "\e000";
 }
 
-/* line 16, ../scss/flaticon/_flaticon.scss */
+/* line 15, ../scss/flaticon/_flaticon.scss */
 .flaticon-applicattion:before {
   content: "\e001";
 }
 
-/* line 19, ../scss/flaticon/_flaticon.scss */
+/* line 18, ../scss/flaticon/_flaticon.scss */
 .flaticon-bookmark50:before {
   content: "\e002";
 }
 
-/* line 22, ../scss/flaticon/_flaticon.scss */
+/* line 21, ../scss/flaticon/_flaticon.scss */
 .flaticon-clouds11:before {
   content: "\e003";
 }
 
-/* line 25, ../scss/flaticon/_flaticon.scss */
+/* line 24, ../scss/flaticon/_flaticon.scss */
 .flaticon-connected22:before {
   content: "\e004";
 }
 
-/* line 28, ../scss/flaticon/_flaticon.scss */
+/* line 27, ../scss/flaticon/_flaticon.scss */
 .flaticon-connection27:before {
   content: "\e005";
 }
 
-/* line 31, ../scss/flaticon/_flaticon.scss */
+/* line 30, ../scss/flaticon/_flaticon.scss */
 .flaticon-contract11:before {
   content: "\e006";
 }
 
-/* line 34, ../scss/flaticon/_flaticon.scss */
+/* line 33, ../scss/flaticon/_flaticon.scss */
 .flaticon-data2:before {
   content: "\e007";
 }
 
-/* line 37, ../scss/flaticon/_flaticon.scss */
+/* line 36, ../scss/flaticon/_flaticon.scss */
 .flaticon-earth213:before {
   content: "\e008";
 }
 
-/* line 40, ../scss/flaticon/_flaticon.scss */
+/* line 39, ../scss/flaticon/_flaticon.scss */
 .flaticon-handshake1:before {
   content: "\e009";
 }
 
-/* line 43, ../scss/flaticon/_flaticon.scss */
+/* line 42, ../scss/flaticon/_flaticon.scss */
 .flaticon-head21:before {
   content: "\e00a";
 }
 
-/* line 46, ../scss/flaticon/_flaticon.scss */
+/* line 45, ../scss/flaticon/_flaticon.scss */
 .flaticon-help21:before {
   content: "\e00b";
 }
 
-/* line 49, ../scss/flaticon/_flaticon.scss */
+/* line 48, ../scss/flaticon/_flaticon.scss */
 .flaticon-idea14:before {
   content: "\e00c";
 }
 
-/* line 52, ../scss/flaticon/_flaticon.scss */
+/* line 51, ../scss/flaticon/_flaticon.scss */
 .flaticon-information3:before {
   content: "\e00d";
 }
 
-/* line 55, ../scss/flaticon/_flaticon.scss */
+/* line 54, ../scss/flaticon/_flaticon.scss */
 .flaticon-inspiration:before {
   content: "\e00e";
 }
 
-/* line 58, ../scss/flaticon/_flaticon.scss */
+/* line 57, ../scss/flaticon/_flaticon.scss */
 .flaticon-leader:before {
   content: "\e00f";
 }
 
-/* line 61, ../scss/flaticon/_flaticon.scss */
+/* line 60, ../scss/flaticon/_flaticon.scss */
 .flaticon-list4:before {
   content: "\e010";
 }
 
-/* line 64, ../scss/flaticon/_flaticon.scss */
+/* line 63, ../scss/flaticon/_flaticon.scss */
 .flaticon-list61:before {
   content: "\e011";
 }
 
-/* line 67, ../scss/flaticon/_flaticon.scss */
+/* line 66, ../scss/flaticon/_flaticon.scss */
 .flaticon-man282:before {
   content: "\e012";
 }
 
-/* line 70, ../scss/flaticon/_flaticon.scss */
+/* line 69, ../scss/flaticon/_flaticon.scss */
 .flaticon-marketing8:before {
   content: "\e013";
 }
 
-/* line 73, ../scss/flaticon/_flaticon.scss */
+/* line 72, ../scss/flaticon/_flaticon.scss */
 .flaticon-month1:before {
   content: "\e014";
 }
 
-/* line 76, ../scss/flaticon/_flaticon.scss */
+/* line 75, ../scss/flaticon/_flaticon.scss */
 .flaticon-multiple25:before {
   content: "\e015";
 }
 
-/* line 79, ../scss/flaticon/_flaticon.scss */
+/* line 78, ../scss/flaticon/_flaticon.scss */
 .flaticon-news29:before {
   content: "\e016";
 }
 
-/* line 82, ../scss/flaticon/_flaticon.scss */
+/* line 81, ../scss/flaticon/_flaticon.scss */
 .flaticon-profile8:before {
   content: "\e017";
 }
 
-/* line 85, ../scss/flaticon/_flaticon.scss */
+/* line 84, ../scss/flaticon/_flaticon.scss */
 .flaticon-protest:before {
   content: "\e018";
 }
 
-/* line 88, ../scss/flaticon/_flaticon.scss */
+/* line 87, ../scss/flaticon/_flaticon.scss */
 .flaticon-speechbubble6:before {
   content: "\e019";
 }
 
-/* line 91, ../scss/flaticon/_flaticon.scss */
+/* line 90, ../scss/flaticon/_flaticon.scss */
 .flaticon-speech55:before {
   content: "\e01a";
 }
 
-/* line 94, ../scss/flaticon/_flaticon.scss */
+/* line 93, ../scss/flaticon/_flaticon.scss */
 .flaticon-staff1:before {
   content: "\e01b";
 }
 
-/* line 97, ../scss/flaticon/_flaticon.scss */
+/* line 96, ../scss/flaticon/_flaticon.scss */
 .flaticon-three115:before {
   content: "\e01c";
 }
 
-/* line 100, ../scss/flaticon/_flaticon.scss */
+/* line 99, ../scss/flaticon/_flaticon.scss */
 .flaticon-users6:before {
   content: "\e01d";
 }
 
-/* line 103, ../scss/flaticon/_flaticon.scss */
+/* line 102, ../scss/flaticon/_flaticon.scss */
 .flaticon-website17:before {
   content: "\e01e";
 }
 
-/* line 106, ../scss/flaticon/_flaticon.scss */
+/* line 105, ../scss/flaticon/_flaticon.scss */
 .flaticon-windows50:before {
   content: "\e01f";
 }
 
-/* line 109, ../scss/flaticon/_flaticon.scss */
+/* line 108, ../scss/flaticon/_flaticon.scss */
 .flaticon-working-out:before {
   content: "\e020";
 }
@@ -5302,7 +5301,7 @@ th.hide-for-touch {
 /* Icons */
 @font-face {
   font-family: "slick";
-  src: url('../fonts/slick.woff?1427377551') format("woff");
+  src: url('../fonts/slick.woff?1422751998') format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -6024,7 +6023,7 @@ img.img-perfil.size-160 {
 
 /* line 2, ../scss/layouts/_introduction.scss */
 #introduction #header {
-  background: url('../img/bg.jpg?1427377551') no-repeat center bottom;
+  background: url('../img/bg.jpg?1427215118') no-repeat center bottom;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -6066,7 +6065,7 @@ img.img-perfil.size-160 {
 /* line 38, ../scss/layouts/_introduction.scss */
 #introduction .pre-registro {
   padding: 2.5rem 0;
-  background: url('../img/pre-registro-bg.jpg?1427377551') no-repeat center bottom;
+  background: url('../img/pre-registro-bg.jpg?1427252403') no-repeat center bottom;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -6312,7 +6311,7 @@ img.img-perfil.size-160 {
 #introduction .final {
   margin-bottom: 1px;
   padding: 200px 0px;
-  background: url('../img/pre-registro-bg.jpg?1427377551') no-repeat center bottom;
+  background: url('../img/pre-registro-bg.jpg?1427252403') no-repeat center bottom;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -7718,6 +7717,29 @@ ul.social-inline li {
 }
 
 /* line 5, ../scss/layouts/_propuesta.scss */
+.crear-contenido-aux.propuesta .row-problematicas-referidas .resultado {
+  background-color: #fbf2ec;
+  border: 1px dashed #DA7C37;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 10px 0;
+  font-size: 0.8125rem;
+}
+/* line 13, ../scss/layouts/_propuesta.scss */
+.crear-contenido-aux.propuesta .row-problematicas-referidas .resultado #etiqueta-resultado i.fa-file {
+  color: #DA7C37;
+}
+/* line 16, ../scss/layouts/_propuesta.scss */
+.crear-contenido-aux.propuesta .row-problematicas-referidas .resultado #etiqueta-resultado i.quitar {
+  cursor: pointer;
+}
+/* line 21, ../scss/layouts/_propuesta.scss */
+.crear-contenido-aux.propuesta .row-problematicas-referidas .postfix.button {
+  border-right: 1px solid #cccccc;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+}
+/* line 26, ../scss/layouts/_propuesta.scss */
 .crear-contenido-aux.propuesta .row-problematicas-referidas input {
   margin-bottom: 0;
   font-size: 1.125rem;
@@ -7726,17 +7748,35 @@ ul.social-inline li {
   padding: 5px;
 }
 
-/* line 19, ../scss/layouts/_propuesta.scss */
+/* line 40, ../scss/layouts/_propuesta.scss */
+.vista-cuerpo-cont .referido-problematica-info {
+  background-color: #fbf2ec;
+  border: 1px dashed #DA7C37;
+  border-radius: 5px;
+  font-family: 'Open Sans', sans-serif;
+}
+/* line 46, ../scss/layouts/_propuesta.scss */
+.vista-cuerpo-cont .referido-problematica-info span.icono i.small:before {
+  font-size: 2.5rem;
+}
+/* line 50, ../scss/layouts/_propuesta.scss */
+.vista-cuerpo-cont .referido-problematica-info p {
+  font-size: 0.8125rem;
+  line-height: normal;
+  text-align: justify;
+  margin-bottom: 0;
+}
+/* line 57, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
   background-color: #74a6cb;
 }
-/* line 24, ../scss/layouts/_propuesta.scss */
+/* line 62, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto h1, .vista-cuerpo-cont .propuesta-voto h2, .vista-cuerpo-cont .propuesta-voto h3, .vista-cuerpo-cont .propuesta-voto h4, .vista-cuerpo-cont .propuesta-voto h5, .vista-cuerpo-cont .propuesta-voto h6 {
   color: #FFF;
 }
-/* line 28, ../scss/layouts/_propuesta.scss */
+/* line 66, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .votando-propuesta h1 {
   margin: 0px 0px 20px 0px;
   padding: 0;
@@ -7744,68 +7784,68 @@ ul.social-inline li {
   font-weight: 700;
   font-size: 2.25rem;
 }
-/* line 35, ../scss/layouts/_propuesta.scss */
+/* line 73, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .votando-propuesta ul {
   margin: 0px;
 }
-/* line 37, ../scss/layouts/_propuesta.scss */
+/* line 75, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .votando-propuesta ul li {
   display: inline-block;
   vertical-align: middle;
   list-style-type: none;
   margin: 0px 0px 0px 10px;
 }
-/* line 45, ../scss/layouts/_propuesta.scss */
+/* line 83, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .votando-propuesta .panel h6 {
   color: #000;
   margin-bottom: 0;
   line-height: normal;
 }
-/* line 51, ../scss/layouts/_propuesta.scss */
+/* line 89, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .votando-propuesta .icono-posicion-votada i {
   font-size: 4.0625rem;
   color: #FFF;
 }
-/* line 57, ../scss/layouts/_propuesta.scss */
+/* line 95, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .confirmar-voto .icono-voto-seleccionado {
   font-size: 8.75rem;
   margin-right: 0.9375rem;
   color: #FFF;
 }
-/* line 62, ../scss/layouts/_propuesta.scss */
+/* line 100, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .confirmar-voto .panel {
   margin-top: 1.25rem;
 }
-/* line 64, ../scss/layouts/_propuesta.scss */
+/* line 102, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .confirmar-voto .panel h6 {
   color: #000;
   margin-bottom: 0;
 }
-/* line 69, ../scss/layouts/_propuesta.scss */
+/* line 107, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .confirmar-voto h6, .vista-cuerpo-cont .propuesta-voto .confirmar-voto p {
   color: #FFF;
   margin-bottom: 0.3125rem;
 }
-/* line 73, ../scss/layouts/_propuesta.scss */
+/* line 111, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .confirmar-voto p {
   font-size: 0.75rem;
 }
-/* line 76, ../scss/layouts/_propuesta.scss */
+/* line 114, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .confirmar-voto .opcion-voto-publico {
   margin: 0.625rem 0;
 }
-/* line 79, ../scss/layouts/_propuesta.scss */
+/* line 117, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .confirmar-voto ul {
   margin: 0px;
 }
-/* line 81, ../scss/layouts/_propuesta.scss */
+/* line 119, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .propuesta-voto .confirmar-voto ul li {
   display: inline-block;
   vertical-align: middle;
   list-style-type: none;
   margin: 0px 0px 0px 10px;
 }
-/* line 90, ../scss/layouts/_propuesta.scss */
+/* line 128, ../scss/layouts/_propuesta.scss */
 .vista-cuerpo-cont .resultados-propuesta {
   background-color: #d1e1ee;
 }
@@ -7828,16 +7868,38 @@ ul.social-inline li {
 }
 
 /* line 20, ../scss/layouts/_problematica.scss */
+.vista-cuerpo-cont .referido-propuesta-info {
+  background-color: #ecf3f8;
+  border: 1px dashed #4688B9;
+  border-radius: 5px;
+  font-family: 'Open Sans', sans-serif;
+}
+/* line 26, ../scss/layouts/_problematica.scss */
+.vista-cuerpo-cont .referido-propuesta-info span.icono i.large:before {
+  font-size: 5rem;
+}
+/* line 31, ../scss/layouts/_problematica.scss */
+.vista-cuerpo-cont .referido-propuesta-info span.icono i.small:before {
+  font-size: 2.5rem;
+}
+/* line 35, ../scss/layouts/_problematica.scss */
+.vista-cuerpo-cont .referido-propuesta-info p {
+  font-size: 0.8125rem;
+  line-height: normal;
+  text-align: justify;
+  margin-bottom: 0;
+}
+/* line 42, ../scss/layouts/_problematica.scss */
 .vista-cuerpo-cont .problematica-voto {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
   background-color: #e39d69;
 }
-/* line 25, ../scss/layouts/_problematica.scss */
+/* line 47, ../scss/layouts/_problematica.scss */
 .vista-cuerpo-cont .problematica-voto h1, .vista-cuerpo-cont .problematica-voto h2, .vista-cuerpo-cont .problematica-voto h3, .vista-cuerpo-cont .problematica-voto h4, .vista-cuerpo-cont .problematica-voto h5, .vista-cuerpo-cont .problematica-voto h6 {
   color: #FFF;
 }
-/* line 29, ../scss/layouts/_problematica.scss */
+/* line 51, ../scss/layouts/_problematica.scss */
 .vista-cuerpo-cont .problematica-voto .votando-problematica h1 {
   margin: 0px 0px 20px 0px;
   padding: 0;
@@ -7845,70 +7907,70 @@ ul.social-inline li {
   font-weight: 700;
   font-size: 2.25rem;
 }
-/* line 36, ../scss/layouts/_problematica.scss */
+/* line 58, ../scss/layouts/_problematica.scss */
 .vista-cuerpo-cont .problematica-voto .votando-problematica ul {
   margin: 0px;
 }
-/* line 38, ../scss/layouts/_problematica.scss */
+/* line 60, ../scss/layouts/_problematica.scss */
 .vista-cuerpo-cont .problematica-voto .votando-problematica ul li {
   display: inline-block;
   vertical-align: middle;
   list-style-type: none;
   margin: 0px 0px 0px 10px;
 }
-/* line 46, ../scss/layouts/_problematica.scss */
+/* line 68, ../scss/layouts/_problematica.scss */
 .vista-cuerpo-cont .problematica-voto .votando-problematica .panel h6 {
   color: #000;
   margin-bottom: 0;
   line-height: normal;
 }
-/* line 52, ../scss/layouts/_problematica.scss */
+/* line 74, ../scss/layouts/_problematica.scss */
 .vista-cuerpo-cont .problematica-voto .votando-problematica .icono-posicion-votada i {
   font-size: 4.0625rem;
   color: #FFF;
 }
-/* line 58, ../scss/layouts/_problematica.scss */
+/* line 80, ../scss/layouts/_problematica.scss */
 .vista-cuerpo-cont .problematica-voto .confirmar-voto .icono-voto-seleccionado {
   font-size: 8.75rem;
   margin-right: 0.9375rem;
   line-height: normal;
   color: #FFF;
 }
-/* line 64, ../scss/layouts/_problematica.scss */
+/* line 86, ../scss/layouts/_problematica.scss */
 .vista-cuerpo-cont .problematica-voto .confirmar-voto .panel {
   margin-top: 1.875rem;
 }
-/* line 66, ../scss/layouts/_problematica.scss */
+/* line 88, ../scss/layouts/_problematica.scss */
 .vista-cuerpo-cont .problematica-voto .confirmar-voto .panel h6 {
   color: #000;
   margin-bottom: 0;
   line-height: normal;
 }
-/* line 72, ../scss/layouts/_problematica.scss */
+/* line 94, ../scss/layouts/_problematica.scss */
 .vista-cuerpo-cont .problematica-voto .confirmar-voto h6, .vista-cuerpo-cont .problematica-voto .confirmar-voto p {
   color: #FFF;
   margin-bottom: 0.3125rem;
 }
-/* line 76, ../scss/layouts/_problematica.scss */
+/* line 98, ../scss/layouts/_problematica.scss */
 .vista-cuerpo-cont .problematica-voto .confirmar-voto p {
   font-size: 0.75rem;
 }
-/* line 79, ../scss/layouts/_problematica.scss */
+/* line 101, ../scss/layouts/_problematica.scss */
 .vista-cuerpo-cont .problematica-voto .confirmar-voto .opcion-voto-publico {
   margin: 0.625rem 0;
 }
-/* line 82, ../scss/layouts/_problematica.scss */
+/* line 104, ../scss/layouts/_problematica.scss */
 .vista-cuerpo-cont .problematica-voto .confirmar-voto ul {
   margin: 0px;
 }
-/* line 84, ../scss/layouts/_problematica.scss */
+/* line 106, ../scss/layouts/_problematica.scss */
 .vista-cuerpo-cont .problematica-voto .confirmar-voto ul li {
   display: inline-block;
   vertical-align: middle;
   list-style-type: none;
   margin: 0px 0px 0px 10px;
 }
-/* line 93, ../scss/layouts/_problematica.scss */
+/* line 115, ../scss/layouts/_problematica.scss */
 .vista-cuerpo-cont .resultados-problematica {
   background-color: #f6decd;
 }

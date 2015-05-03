@@ -15,12 +15,29 @@
 {# ----------------------------------------------------------- #}
 {% set titulo_cont = propuesta.titulo %}
 {% set fecha_cont = '' ~ propuesta.created_at|date("d/m/Y") %}
-{% set url_modificar = urlFor('shwModifPropues', {'idPro': propuesta.id}) %}
+{% if referido is defined %}
+{% set url_modificar = urlFor('shwModifPropues', {'idPro': propuesta.id}) ~ '#' ~ referido.id %}
+{% else %}
+{% set url_modificar = urlFor('shwModifPropues', {'idPro': propuesta.id}) ~ '#' ~ '3' %}
+{% endif %}
 {% set url_eliminar = urlFor('runElimiPropues', {'idPro': propuesta.id } ) %}
 {% set ver_comentarios = true %}
 {% set url_comentar = urlFor('runComentar', {'tipoRaiz': 'propuesta' , 'idRaiz': propuesta.id}) %}
 {% block cuerpo_cont %}
 {{ propuesta.cuerpo|bbCode }}
+{% if referido is defined %}
+<div class="row">
+    <div class="panel referido-problematica-info">
+        <div class="row">
+            <div class="medium-2 columns text-center"><span class="icono"><i class="flaticon small flaticon-man282"></i></span></div>
+            <div class="medium-10 columns">
+                <h4><b>Problemática asociada</b></h4>
+                <p><a href="{{ urlFor('shwProblem',{'idPro': referido.id}) }}"><i class="flaticon flaticon-man282"></i> Problemática #{{ referido.id }} - {{ referido.titulo }}</a> - Por {{ referido.autor.nombre }} {{ referido.autor.apellido }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% set autor_id = propuesta.autor.id %}
