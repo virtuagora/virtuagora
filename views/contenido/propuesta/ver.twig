@@ -18,7 +18,7 @@
 {% if referido is defined %}
 {% set url_modificar = urlFor('shwModifPropues', {'idPro': propuesta.id}) ~ '#' ~ referido.id %}
 {% else %}
-{% set url_modificar = urlFor('shwModifPropues', {'idPro': propuesta.id}) ~ '#' ~ '3' %}
+{% set url_modificar = urlFor('shwModifPropues', {'idPro': propuesta.id}) %}
 {% endif %}
 {% set url_eliminar = urlFor('runElimiPropues', {'idPro': propuesta.id } ) %}
 {% set ver_comentarios = true %}
