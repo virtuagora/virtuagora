@@ -79,7 +79,7 @@
     function buscarReferencia() {
         var idBuscar = $('#buscar-referido').val();
         var query = [{name:"where",value:"contenible_type-eq-Problematica"},
-                     {name:"where",value:'id-eq-'+idBuscar}];
+                     {name:"where",value:'contenible_id-eq-'+idBuscar}];
         enviarSolicitud(base_url + '/contenido?' + jQuery.param(query) );
     }
     function enviarSolicitud(url_query) {
@@ -93,7 +93,7 @@
             if(resultados.length > 0){
                 $('#ejecutando').hide();
                 $('#etiqueta-resultado').append(icon_borrar).append(icon_doc).append(resultados[0].titulo + ' - ' + resultados[0].autor.nombre + ' ' + resultados[0].autor.apellido);
-                $('#referido').val(resultados[0].id);
+                $('#referido').val(resultados[0].contenible_id);
             } else {
                 $('#ejecutando').hide();
                 $('#etiqueta-resultado').append(icon_error).append(' No existe la problematica');
