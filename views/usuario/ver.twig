@@ -14,23 +14,7 @@
 <div class="perfil color-userconfig">
     <div class="row header">
         <div class="large-12 columns text-center">
-            <img class="img-perfil radius big-border
-                        {% if usuario.moderador %}
-                        moderador
-                        {% else %}
-                        {% if usuario.es_jefe %}
-                        jefe
-                        {% else %}
-                        {% if usuario.es_funcionario %}
-                        funcionario
-                        {% else %}
-                        {% if usuario.verified_at %}
-                        verificado
-                        {% endif %}
-                        {% endif %}
-                        {% endif %}
-                        {% endif %}
-                        " src="{{ avatarUrl(usuario.img_tipo, usuario.img_hash, 160) }}" alt="Profile pic">
+            <img class="img-perfil radius big-border {% if usuario.moderador %}moderador{% else %}{% if usuario.es_jefe %}jefe{% else %}{% if usuario.es_funcionario %}funcionario{% else %}{% if usuario.verified_at %}verificado{% endif %}{% endif %}{% endif %}{% endif %}" src="{{ avatarUrl(usuario.img_tipo, usuario.img_hash, 160) }}" alt="Profile pic">
             <h2 class="nombre">{{ usuario.nombre }} {{ usuario.apellido }}</h2>
             <hr>
             <ul class="nav">
