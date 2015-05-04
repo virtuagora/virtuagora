@@ -6474,63 +6474,238 @@ img.img-perfil.size-160 {
   height: 2.8125rem;
 }
 
-/* line 6, ../scss/layouts/_portal.scss */
+/* line 1, ../scss/layouts/_portal.scss */
+.portal-usuario-aux {
+  letter-spacing: -0.5px;
+}
+/* line 3, ../scss/layouts/_portal.scss */
+.portal-usuario-aux .welcome {
+  padding: 20px 0;
+}
+/* line 5, ../scss/layouts/_portal.scss */
+.portal-usuario-aux .welcome img {
+  position: relative;
+  float: left;
+  top: 10px;
+  margin: 0 20px 0 10px;
+}
+/* line 12, ../scss/layouts/_portal.scss */
+.portal-usuario-aux .welcome .wrapper-texto h2 {
+  margin: 0;
+}
+/* line 16, ../scss/layouts/_portal.scss */
+.portal-usuario-aux .welcome p {
+  margin: 0;
+}
+/* line 19, ../scss/layouts/_portal.scss */
+.portal-usuario-aux .welcome p.con-notificaciones {
+  color: #ce1a1a;
+}
+/* line 23, ../scss/layouts/_portal.scss */
+.portal-usuario-aux .menu {
+  border-top: 1px solid #CACACA;
+  border-bottom: 1px solid #CACACA;
+}
+/* line 26, ../scss/layouts/_portal.scss */
+.portal-usuario-aux .menu .bt-menu {
+  color: #222222;
+  padding: 15px 0px;
+}
+/* line 29, ../scss/layouts/_portal.scss */
+.portal-usuario-aux .menu .bt-menu.organismos:hover {
+  background-color: #c98830;
+  color: #FFF;
+}
+/* line 33, ../scss/layouts/_portal.scss */
+.portal-usuario-aux .menu .bt-menu.partidos:hover {
+  background-color: #84a240;
+  color: #FFF;
+}
+/* line 40, ../scss/layouts/_portal.scss */
+.portal-usuario-aux .nav-contenidos .contenidos {
+  margin-top: 15px;
+  background-color: #2f6dc1;
+  padding: 20px 0px;
+  border-bottom: 3px solid #FFF;
+}
+/* line 45, ../scss/layouts/_portal.scss */
+.portal-usuario-aux .nav-contenidos .contenidos h3 {
+  color: #FFF;
+  margin: 0;
+}
+/* line 50, ../scss/layouts/_portal.scss */
+.portal-usuario-aux .nav-contenidos .contenidos-end {
+  margin: 0;
+  background-color: #222222;
+  padding: 10px 0px;
+  border-top: 2px solid #FFF;
+}
+/* line 55, ../scss/layouts/_portal.scss */
+.portal-usuario-aux .nav-contenidos .contenidos-end .button {
+  margin: 0;
+}
+/* line 59, ../scss/layouts/_portal.scss */
+.portal-usuario-aux .nav-contenidos .contenido {
+  padding: 8px 0;
+  color: #FFF;
+  border-bottom: 1px solid #FFF;
+}
+/* line 63, ../scss/layouts/_portal.scss */
+.portal-usuario-aux .nav-contenidos .contenido ul.list {
+  margin: 0px;
+}
+/* line 65, ../scss/layouts/_portal.scss */
+.portal-usuario-aux .nav-contenidos .contenido ul.list li {
+  display: inline-block;
+  vertical-align: middle;
+  list-style-type: none;
+  margin: 0px 5px 0px 5px;
+  font-size: 0.8125rem;
+}
+/* line 71, ../scss/layouts/_portal.scss */
+.portal-usuario-aux .nav-contenidos .contenido ul.list li .button {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin: 0;
+}
+/* line 76, ../scss/layouts/_portal.scss */
+.portal-usuario-aux .nav-contenidos .contenido ul.list li a {
+  color: #FFF;
+}
+/* line 82, ../scss/layouts/_portal.scss */
+.portal-usuario-aux .nav-contenidos .bt-menu {
+  color: #222222;
+  padding: 5px 0px;
+}
+/* line 85, ../scss/layouts/_portal.scss */
+.portal-usuario-aux .nav-contenidos .bt-menu.organismos:hover {
+  background-color: #c98830;
+  color: #FFF;
+}
+/* line 89, ../scss/layouts/_portal.scss */
+.portal-usuario-aux .nav-contenidos .bt-menu.partidos:hover {
+  background-color: #84a240;
+  color: #FFF;
+}
+/* line 95, ../scss/layouts/_portal.scss */
+.portal-usuario-aux #masonryContainer {
+  margin: 20px auto;
+}
+/* line 97, ../scss/layouts/_portal.scss */
+.portal-usuario-aux #masonryContainer .masonry-brick {
+  width: 325px;
+  margin: 2px;
+  float: left;
+}
+/* line 102, ../scss/layouts/_portal.scss */
+.portal-usuario-aux #masonryContainer .masonry-brick ul.list {
+  margin: 0px;
+}
+/* line 104, ../scss/layouts/_portal.scss */
+.portal-usuario-aux #masonryContainer .masonry-brick ul.list li {
+  display: inline-block;
+  vertical-align: middle;
+  list-style-type: none;
+  margin: 0px 5px 0px 5px;
+}
+/* line 111, ../scss/layouts/_portal.scss */
+.portal-usuario-aux #masonryContainer .masonry-brick .datos {
+  padding: 1px 0;
+  border-bottom: 1px solid #FFF;
+}
+/* line 115, ../scss/layouts/_portal.scss */
+.portal-usuario-aux #masonryContainer .masonry-brick .datos ul.list li {
+  font-size: 0.75rem;
+  color: #FFF;
+}
+/* line 118, ../scss/layouts/_portal.scss */
+.portal-usuario-aux #masonryContainer .masonry-brick .datos ul.list li img {
+  height: 20px;
+  width: 20px;
+}
+/* line 125, ../scss/layouts/_portal.scss */
+.portal-usuario-aux #masonryContainer .masonry-brick .titulo {
+  padding: 30px 10px;
+}
+/* line 127, ../scss/layouts/_portal.scss */
+.portal-usuario-aux #masonryContainer .masonry-brick .titulo h3 {
+  font-family: 'Source Sans Pro', sans-serif;
+  line-height: 1.2;
+  color: #FFFFFF;
+  letter-spacing: -0.8px;
+}
+/* line 129, ../scss/layouts/_portal.scss */
+.portal-usuario-aux #masonryContainer .masonry-brick .titulo ul.list li {
+  font-size: 0.8125rem;
+  color: #FFF;
+}
+/* line 132, ../scss/layouts/_portal.scss */
+.portal-usuario-aux #masonryContainer .masonry-brick .titulo ul.list li img {
+  height: 20px;
+  width: 20px;
+}
+/* line 136, ../scss/layouts/_portal.scss */
+.portal-usuario-aux #masonryContainer .masonry-brick .titulo ul.list li icono.i:before {
+  font-size: 0.8125rem;
+}
+
+/* line 147, ../scss/layouts/_portal.scss */
 .portal-usuario .welcome {
   padding: 50px 0;
   height: 200px;
   border-bottom: 5px solid #000000;
   letter-spacing: -0.6px;
 }
-/* line 11, ../scss/layouts/_portal.scss */
+/* line 152, ../scss/layouts/_portal.scss */
 .portal-usuario .welcome img {
   position: relative;
   float: left;
   top: 10px;
   margin: 0 20px 0 10px;
 }
-/* line 18, ../scss/layouts/_portal.scss */
+/* line 159, ../scss/layouts/_portal.scss */
 .portal-usuario .welcome .wrapper-texto h2 {
   margin: 0;
 }
-/* line 22, ../scss/layouts/_portal.scss */
+/* line 163, ../scss/layouts/_portal.scss */
 .portal-usuario .welcome p.con-notificaciones {
   color: #ce1a1a;
 }
-/* line 25, ../scss/layouts/_portal.scss */
+/* line 166, ../scss/layouts/_portal.scss */
 .portal-usuario .welcome .wrapper-botones {
   position: relative;
   float: right;
   top: 15px;
   right: 15px;
 }
-/* line 30, ../scss/layouts/_portal.scss */
+/* line 171, ../scss/layouts/_portal.scss */
 .portal-usuario .welcome .wrapper-botones ul {
   margin: 0px;
 }
-/* line 32, ../scss/layouts/_portal.scss */
+/* line 173, ../scss/layouts/_portal.scss */
 .portal-usuario .welcome .wrapper-botones ul li {
   display: inline-block;
   vertical-align: middle;
   list-style-type: none;
   margin: 0px 0px 0px 10px;
 }
-/* line 33, ../scss/layouts/_portal.scss */
+/* line 174, ../scss/layouts/_portal.scss */
 .portal-usuario .welcome .wrapper-botones ul li i {
   font-size: 1.75rem;
 }
-/* line 36, ../scss/layouts/_portal.scss */
+/* line 177, ../scss/layouts/_portal.scss */
 .portal-usuario .welcome .wrapper-botones ul li .bt-logout {
   color: #ce1a1a;
 }
-/* line 39, ../scss/layouts/_portal.scss */
+/* line 180, ../scss/layouts/_portal.scss */
 .portal-usuario .welcome .wrapper-botones ul li .notificaciones {
   position: relative;
 }
-/* line 41, ../scss/layouts/_portal.scss */
+/* line 182, ../scss/layouts/_portal.scss */
 .portal-usuario .welcome .wrapper-botones ul li .notificaciones i {
   float: left;
 }
-/* line 44, ../scss/layouts/_portal.scss */
+/* line 185, ../scss/layouts/_portal.scss */
 .portal-usuario .welcome .wrapper-botones ul li .notificaciones .contador-on {
   position: absolute;
   width: 15px;
@@ -6544,55 +6719,55 @@ img.img-perfil.size-160 {
   text-align: center;
   font-size: 0.625rem;
 }
-/* line 68, ../scss/layouts/_portal.scss */
+/* line 209, ../scss/layouts/_portal.scss */
 .portal-usuario .destacados {
   padding: 20px 0;
 }
-/* line 70, ../scss/layouts/_portal.scss */
+/* line 211, ../scss/layouts/_portal.scss */
 .portal-usuario .destacados .texto-top {
   margin-bottom: 20px;
   letter-spacing: -0.8px;
 }
-/* line 75, ../scss/layouts/_portal.scss */
+/* line 216, ../scss/layouts/_portal.scss */
 .portal-usuario .destacados .slick-clase .slick-prev:before, .portal-usuario .destacados .slick-clase .slick-next:before {
   color: #272727;
 }
-/* line 79, ../scss/layouts/_portal.scss */
+/* line 220, ../scss/layouts/_portal.scss */
 .portal-usuario .destacados .article-card {
   border: 1px solid #d7d7d7;
   margin-bottom: 1.5rem;
 }
-/* line 83, ../scss/layouts/_portal.scss */
+/* line 224, ../scss/layouts/_portal.scss */
 .portal-usuario .destacados .article-card .card-type {
   height: 50px;
   padding: 12.5px 10px;
   text-align: right;
 }
-/* line 88, ../scss/layouts/_portal.scss */
+/* line 229, ../scss/layouts/_portal.scss */
 .portal-usuario .destacados .article-card .card-type p a {
   color: #FFFFFF;
 }
-/* line 93, ../scss/layouts/_portal.scss */
+/* line 234, ../scss/layouts/_portal.scss */
 .portal-usuario .destacados .article-card .card-content {
   background: #fff;
   margin: 1.25rem;
 }
-/* line 96, ../scss/layouts/_portal.scss */
+/* line 237, ../scss/layouts/_portal.scss */
 .portal-usuario .destacados .article-card .card-content .post-author {
   text-align: center;
 }
-/* line 99, ../scss/layouts/_portal.scss */
+/* line 240, ../scss/layouts/_portal.scss */
 .portal-usuario .destacados .article-card .card-content h6 {
   color: #CF000F;
 }
-/* line 102, ../scss/layouts/_portal.scss */
+/* line 243, ../scss/layouts/_portal.scss */
 .portal-usuario .destacados .article-card .card-content p {
   font-size: 0.75rem;
   letter-spacing: -0.4px;
   color: #757D75;
   text-align: justify;
 }
-/* line 108, ../scss/layouts/_portal.scss */
+/* line 249, ../scss/layouts/_portal.scss */
 .portal-usuario .destacados .article-card .card-content a i {
   font-weight: 300;
   color: #757D75;
@@ -6601,182 +6776,182 @@ img.img-perfil.size-160 {
   border: 1px solid #757D75;
   border-radius: 50%;
 }
-/* line 116, ../scss/layouts/_portal.scss */
+/* line 257, ../scss/layouts/_portal.scss */
 .portal-usuario .destacados .article-card .card-content img.post-icon {
   position: absolute;
   width: 3rem;
   margin-top: -3rem;
 }
-/* line 124, ../scss/layouts/_portal.scss */
+/* line 265, ../scss/layouts/_portal.scss */
 .portal-usuario .destacados .paneles .bt-menu {
   padding: 10px 15px;
 }
-/* line 126, ../scss/layouts/_portal.scss */
+/* line 267, ../scss/layouts/_portal.scss */
 .portal-usuario .destacados .paneles .bt-menu:hover a {
   color: #FFFFFF;
 }
-/* line 129, ../scss/layouts/_portal.scss */
+/* line 270, ../scss/layouts/_portal.scss */
 .portal-usuario .destacados .paneles .bt-menu.contenidos:hover {
   background-color: #2f6dc1;
 }
-/* line 132, ../scss/layouts/_portal.scss */
+/* line 273, ../scss/layouts/_portal.scss */
 .portal-usuario .destacados .paneles .bt-menu.organizaciones:hover {
   background-color: #c98830;
 }
-/* line 135, ../scss/layouts/_portal.scss */
+/* line 276, ../scss/layouts/_portal.scss */
 .portal-usuario .destacados .paneles .bt-menu.partidos:hover {
   background-color: #84a240;
 }
-/* line 138, ../scss/layouts/_portal.scss */
+/* line 279, ../scss/layouts/_portal.scss */
 .portal-usuario .destacados .paneles .bt-menu.administrar:hover {
   background-color: #4a4a4a;
 }
-/* line 144, ../scss/layouts/_portal.scss */
+/* line 285, ../scss/layouts/_portal.scss */
 .portal-usuario .destacados .linea-selectora {
   border-width: 3px;
   border-color: #000000;
   margin: 0;
 }
-/* line 152, ../scss/layouts/_portal.scss */
+/* line 293, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control {
   margin-bottom: 30px;
 }
-/* line 154, ../scss/layouts/_portal.scss */
+/* line 295, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button {
   text-align: left;
   font-size: 0.9375rem;
 }
-/* line 155, ../scss/layouts/_portal.scss */
+/* line 296, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button i.flaticon:before {
   margin: 0;
 }
-/* line 160, ../scss/layouts/_portal.scss */
+/* line 301, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button.todo {
   color: #3b3b3b;
   background-color: rgba(59, 59, 59, 0.1);
 }
-/* line 163, ../scss/layouts/_portal.scss */
+/* line 304, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button.todo:hover {
   color: #FFFFFF;
   background-color: #3b3b3b;
 }
-/* line 168, ../scss/layouts/_portal.scss */
+/* line 309, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button.problematicas {
   color: #DA7C37;
   background-color: rgba(236, 139, 68, 0.2);
 }
-/* line 171, ../scss/layouts/_portal.scss */
+/* line 312, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button.problematicas:hover {
   color: #FFFFFF;
   background-color: #ec8b44;
 }
-/* line 175, ../scss/layouts/_portal.scss */
+/* line 316, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button.problematicas .bt-mas {
   color: #DA7C37;
   border: 1px solid #DA7C37;
   padding: 3px 6px;
   font-size: 0.75rem;
 }
-/* line 182, ../scss/layouts/_portal.scss */
+/* line 323, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button.propuestas {
   color: #4688B9;
   background-color: rgba(70, 136, 185, 0.2);
 }
-/* line 185, ../scss/layouts/_portal.scss */
+/* line 326, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button.propuestas:hover {
   color: #FFFFFF;
   background-color: #4688b9;
 }
-/* line 189, ../scss/layouts/_portal.scss */
+/* line 330, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button.propuestas .bt-mas {
   color: #4688B9;
   border: 1px solid #4688B9;
   padding: 3px 6px;
   font-size: 0.75rem;
 }
-/* line 196, ../scss/layouts/_portal.scss */
+/* line 337, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button.documentos {
   color: #5D46B9;
   background-color: rgba(93, 70, 185, 0.2);
 }
-/* line 199, ../scss/layouts/_portal.scss */
+/* line 340, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button.documentos:hover {
   color: #FFFFFF;
   background-color: #5d46b9;
 }
-/* line 203, ../scss/layouts/_portal.scss */
+/* line 344, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button.documentos .bt-mas {
   color: #5D46B9;
   border: 1px solid #5D46B9;
   padding: 3px 6px;
   font-size: 0.75rem;
 }
-/* line 210, ../scss/layouts/_portal.scss */
+/* line 351, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button.eventos {
   color: #46B988;
   background-color: rgba(70, 185, 136, 0.3);
 }
-/* line 213, ../scss/layouts/_portal.scss */
+/* line 354, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button.eventos:hover {
   color: #FFFFFF;
   background-color: #46b988;
 }
-/* line 217, ../scss/layouts/_portal.scss */
+/* line 358, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button.eventos .bt-mas {
   color: #46B988;
   border: 1px solid #46B988;
   padding: 3px 6px;
   font-size: 0.75rem;
 }
-/* line 224, ../scss/layouts/_portal.scss */
+/* line 365, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button.novedades {
   color: #B94646;
   background-color: rgba(185, 70, 70, 0.2);
 }
-/* line 227, ../scss/layouts/_portal.scss */
+/* line 368, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button.novedades:hover {
   color: #FFFFFF;
   background-color: #b94646;
 }
-/* line 231, ../scss/layouts/_portal.scss */
+/* line 372, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button.novedades .bt-mas {
   color: #B94646;
   border: 1px solid #B94646;
   padding: 3px 6px;
   font-size: 0.75rem;
 }
-/* line 238, ../scss/layouts/_portal.scss */
+/* line 379, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button.impulsados {
   color: #84a240;
   background-color: rgba(132, 162, 64, 0.2);
 }
-/* line 241, ../scss/layouts/_portal.scss */
+/* line 382, ../scss/layouts/_portal.scss */
 .portal-usuario .contenidos .panel-control .button-group .button.impulsados:hover {
   color: #FFFFFF;
   background-color: #84a240;
 }
 
-/* line 252, ../scss/layouts/_portal.scss */
+/* line 393, ../scss/layouts/_portal.scss */
 .listado-contenidos .sub-nav {
   padding-top: 0;
 }
-/* line 255, ../scss/layouts/_portal.scss */
+/* line 396, ../scss/layouts/_portal.scss */
 .listado-contenidos table {
   width: 100%;
 }
-/* line 257, ../scss/layouts/_portal.scss */
+/* line 398, ../scss/layouts/_portal.scss */
 .listado-contenidos table tr:nth-of-type(even) {
   background: 0;
 }
-/* line 260, ../scss/layouts/_portal.scss */
+/* line 401, ../scss/layouts/_portal.scss */
 .listado-contenidos table tr:hover {
   background-color: #fcf6d9;
 }
-/* line 264, ../scss/layouts/_portal.scss */
+/* line 405, ../scss/layouts/_portal.scss */
 .listado-contenidos table tr.nuevo .button {
   margin: 0;
 }
-/* line 270, ../scss/layouts/_portal.scss */
+/* line 411, ../scss/layouts/_portal.scss */
 .listado-contenidos table td i.flaticon:before {
   margin: 0;
   position: relative;
@@ -6784,28 +6959,28 @@ img.img-perfil.size-160 {
   top: 10px;
   font-size: 25px;
 }
-/* line 278, ../scss/layouts/_portal.scss */
+/* line 419, ../scss/layouts/_portal.scss */
 .listado-contenidos table td .puntaje-cont {
   position: relative;
   float: right;
   font-size: 20px;
   color: #DAD3D3;
 }
-/* line 284, ../scss/layouts/_portal.scss */
+/* line 425, ../scss/layouts/_portal.scss */
 .listado-contenidos table td .listar-cont {
   margin-left: 35px;
 }
-/* line 286, ../scss/layouts/_portal.scss */
+/* line 427, ../scss/layouts/_portal.scss */
 .listado-contenidos table td .listar-cont h6 {
   margin: 0;
   letter-spacing: -0.5px;
 }
-/* line 290, ../scss/layouts/_portal.scss */
+/* line 431, ../scss/layouts/_portal.scss */
 .listado-contenidos table td .listar-cont p {
   font-size: 0.6875rem;
   margin: 0;
 }
-/* line 292, ../scss/layouts/_portal.scss */
+/* line 433, ../scss/layouts/_portal.scss */
 .listado-contenidos table td .listar-cont p img {
   width: 15px;
   height: 15px;

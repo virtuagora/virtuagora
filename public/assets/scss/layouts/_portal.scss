@@ -1,5 +1,146 @@
-.portal-bg{
-
+.portal-usuario-aux{
+    letter-spacing: -0.5px;
+    .welcome{
+        padding: 20px 0;
+        img{
+            position: relative;
+            float: left;
+            top: 10px;
+            margin: 0 20px 0 10px;
+        }
+        .wrapper-texto{
+            h2{
+                margin: 0;
+            }
+        }
+        p{
+            margin: 0;
+        }
+        p.con-notificaciones{
+            color: $sancionar-color;
+        }
+    }
+    .menu{
+        border-top: 1px solid #CACACA;
+        border-bottom: 1px solid #CACACA;
+        .bt-menu{
+            color: #222222;
+            padding: 15px 0px;
+            &.organismos:hover{
+                background-color: #c98830;
+                color: #FFF;
+            }
+            &.partidos:hover{
+                background-color: $partido-color;
+                color: #FFF;
+            }
+        }
+    }
+    .nav-contenidos{
+        .contenidos{
+            margin-top: 15px;
+            background-color: #2f6dc1;
+            padding: 20px 0px;
+            border-bottom: 3px solid #FFF;
+            h3{
+                color: #FFF;
+                margin: 0;
+            }
+        }
+        .contenidos-end{
+            margin: 0;
+            background-color: #222222;
+            padding: 10px 0px;
+            border-top: 2px solid #FFF;
+            .button{
+                margin: 0;
+            }
+        }
+        .contenido{
+            padding: 8px 0;
+            color: #FFF;
+            border-bottom: 1px solid #FFF;
+            ul.list {
+                margin: 0px;
+                li {
+                    display: inline-block;
+                    vertical-align: middle;
+                    list-style-type: none;
+                    margin: 0px 5px 0px 5px;
+                    font-size: rem-calc(13);
+                    .button{
+                        padding-top: 3px;
+                        padding-bottom: 3px;
+                        margin:0;
+                    }
+                    a{
+                        color: #FFF;
+                    }
+                }
+            }
+        }
+        .bt-menu{
+            color: #222222;
+            padding: 5px 0px;
+            &.organismos:hover{
+                background-color: #c98830;
+                color: #FFF;
+            }
+            &.partidos:hover{
+                background-color: $partido-color;
+                color: #FFF;
+            }
+        }
+    }
+    #masonryContainer {
+        margin: 20px auto;
+        .masonry-brick {
+            //          width: 245px;
+            width: 325px;
+            margin: 2px;
+            float: left;
+            ul.list {
+                margin: 0px;
+                li {
+                    display: inline-block;
+                    vertical-align: middle;
+                    list-style-type: none;
+                    margin: 0px 5px 0px 5px;
+                }
+            }
+            .datos{
+                padding: 1px 0;
+                border-bottom: 1px solid #FFF;
+                ul.list{
+                    li {
+                        font-size: rem-calc(12);
+                        color: #FFF;
+                        img{
+                            height: 20px;
+                            width: 20px;
+                        }
+                    }
+                }
+            }
+            .titulo{
+                padding: 30px 10px;
+                h3{font-family: 'Source Sans Pro', sans-serif; line-height: 1.2; color: #FFFFFF; letter-spacing: -0.8px;}
+                ul.list{
+                    li {
+                        font-size: rem-calc(13);
+                        color: #FFF;
+                        img{
+                            height: 20px;
+                            width: 20px;
+                        }
+                        icono.i:before{
+                            font-size: rem-calc(13);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 .portal-usuario{
