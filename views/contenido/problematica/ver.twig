@@ -22,13 +22,15 @@
 {% block cuerpo_cont %}
 {{ problematica.cuerpo|bbCode }}
 <div class="row">
-    <div class="panel referido-info">
+    <div class="panel referido-propuesta-info">
         <div class="row">
             <div class="medium-2 columns text-center"><span class="icono"><i class="flaticon {{ referido is defined ? 'small' : 'large' }} flaticon-inspiration"></i></span></div>
             <div class="medium-10 columns">
-                {% if referido is defined %}
+                {% if referentes is defined %}
                 <h4><b>Propuestas asociada</b></h4>
+                {% for referido in referentes %}
                 <p><a href="{{ urlFor('shwPropues',{'idPro': referido.id}) }}"><i class="flaticon flaticon-inspiration"></i> Propuesta #{{ referido.id }} - {{ referido.titulo }}</a> - Por {{ referido.autor.nombre }} {{ referido.autor.apellido }}</p>
+                {% endfor %}
                 {% else %}
                 {% if user.es_funcionario == 1 %}
                 <h4><b>La siguiente problemática no cuenta con ninguna propuesta.</b></h4>
@@ -41,7 +43,7 @@
                 <h4><b>La siguiente problemática no cuenta con ninguna propuesta.</b></h4>
                 <p><b>Pero usted puede ayudar con su participación</b> Si usted encuentra que la problemática le afecta directamente o le preocupa (le afecta indirectamente) entonces participe dejando su postura. Esto permitirá que los funcionarios esten mas atentos a que problemáticas afectan en mayour cantidad a los ciudadanos y puedan actuar proponiendo nuevas propuestas de solución.
                 </p>
-                {% endif%}
+                {% endif %}
                 {% endif %}
             </div>
         </div>

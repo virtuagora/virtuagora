@@ -78,8 +78,7 @@
 
     function buscarReferencia() {
         var idBuscar = $('#buscar-referido').val();
-        var query = [{name:"where",value:"contenible_type-eq-Problematica"},
-                     {name:"where",value:'contenible_id-eq-'+idBuscar}];
+        var query = {where: "contenible_type-eq-Problematica,contenible_id-eq-"+idBuscar };
         enviarSolicitud(base_url + '/contenido?' + jQuery.param(query) );
     }
     function enviarSolicitud(url_query) {
