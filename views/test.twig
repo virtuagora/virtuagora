@@ -1,0 +1,299 @@
+{# VARIBLES #}
+{% set footer = true %}
+{% set barraNav = true %}
+{% set notificaciones = true %}
+{% set html_class = '' %}
+{% set body_class = 'portal-bg' %}
+
+{% set icono_problematica = '<i class="flaticon flaticon-man282"></i>' %}
+{% set icono_propuesta = '<i class="flaticon flaticon-inspiration"></i>' %}
+{% set icono_documento = '<i class="flaticon flaticon-contract11"></i>' %}
+{% set icono_evento = '<i class="flaticon flaticon-month1"></i>' %}
+{% set icono_novedad = '<i class="flaticon flaticon-news29"></i>' %}
+
+{% extends "master.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block titulo %}Virtuagora - Inicio{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}
+<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/slick/slick-theme.css"/>
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block body %}
+<div class="portal-usuario">
+    <div class="welcome row">
+        <div class="wrapper-texto">
+            {% if user %}
+            <a href="{{ urlFor('shwUsuario',{'idUsr': user.id}) }}"><img class="img-perfil small-border size-64
+                {% if user.moderador %}
+                moderador
+                {% else %}
+                {% if user.es_jefe %}
+                jefe
+                {% else %}
+                {% if user.es_funcionario %}
+                funcionario
+                {% else %}
+                {% if user.verified_at %}
+                verificado
+                {% endif %}
+                {% endif %}
+                {% endif %}
+                {% endif %}"
+                                                                         src="{{ avatarUrl(user.img_tipo, user.img_hash, 64) }}" alt="User avatar"></a>
+            <h2><b>Bienvenido, {{ user.nombre }} {{ user.apellido }}</b></h2>
+            <p class="portal-con-notificaciones" style="display:none"><i class="fa fa-exclamation-circle fa-fw fa-lg"></i>Usted tiene <span class="cant-notificaciones"></span> nuevas notificaciones</p>
+            <p class="portal-sin-notificaciones" style="display:none">Sin nuevas notificaciones&nbsp;&nbsp;&nbsp;<small>Bien!</small></p>
+            {% else %}
+            <img src="{{ baseUrl() }}/assets/img/anon64.jpg" alt="User avatar">
+            <h2><b>Bienvenido a Virtuágora</b></h2>
+            <p>Si desea participar, considere <a href="{{ urlFor('shwCrearUsuario') }}">registrarse</a> en nuestra plataforma</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="destacados row">
+        <div class="texto-top text-center">
+            <h3><b>Contenidos mas recientes</b></h3>
+        </div>
+        <div class="slick-clase">
+            {% for contenido in contenidos %}
+            <div class="medium-6 large-4 columns">
+                <article class="article-card">
+                    <div class="card-type color-{{ contenido.contenible_type|lower}}"><p><a href="{{ baseUrl() }}/{{ contenido.contenible_type|lower }}/{{ contenido.contenible_id }}">{{ contenido.contenible_type}} #{{ contenido.contenible_id }}</a></p></div>
+                    <div class="card-content">
+                        <a href="{{ urlFor('shwUsuario',{'idUsr': contenido.autor.id}) }}">
+                            <img class="post-icon img-perfil small-border size-32
+                                        {% if contenido.autor.moderador %}
+                                        moderador
+                                        {% else %}
+                                        {% if contenido.autor.es_jefe %}
+                                        jefe
+                                        {% else %}
+                                        {% if contenido.autor.es_funcionario %}
+                                        funcionario
+                                        {% else %}
+                                        {% if contenido.autor.verified_at %}
+                                        verificado
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endif %}"
+                                 src="{{ avatarUrl(contenido.autor.img_tipo, contenido.autor.img_hash, 64) }}" alt="Avatar publicante">
+                        </a>
+                        <p class="post-author">Por <a href="{{ urlFor('shwUsuario',{'idUsr': contenido.autor.id}) }}">{{ contenido.autor.nombre}} {{ contenido.autor.apellido }}</a></p>
+                        <h6>{{ contenido.titulo }}</h6>
+<!--                        <p></p>-->
+                        <p style="display:none">
+                            <a href="{{ contenido.link }}">Ver mas</a>
+                            <a href="javascript:void(0)" class="right"><i class="fa fa-share-alt"></i></a>
+                        </p>
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="paneles row text-center">
+            {% if user and (user.es_moderador == true) %}
+            <div class="medium-3 columns"><div class="bt-menu contenidos"><a href="javascript:void(0)"><i class="fa fa-book fa-fw"></i> Contenidos</a></div></div>
+            <div class="medium-3 columns"><div class="bt-menu organizaciones"><a href="{{ urlFor('shwListaOrganis') }}"><i class="fa fa-university fa-fw"></i> Organismos</a></div></div>
+            <div class="medium-3 columns"><div class="bt-menu partidos"><a href="{{ urlFor('shwListaPartido') }}"><i class="fa fa-flag fa-fw"></i> Partidos</a></div></div>
+            <div class="medium-3 columns"><div class="bt-menu administrar"><a href="{{ urlFor('shwAdmOrganis') }}"><i class="fa fa-cogs fa-fw"></i> Administrar</a></div></div>
+            {% else %}
+            <div class="medium-4 columns"><div class="bt-menu contenidos"><a href="javascript:void(0)"><i class="fa fa-book fa-fw"></i> Contenidos</a></div></div>
+            <div class="medium-4 columns"><div class="bt-menu organizaciones"><a href="javascript:void(0)"><i class="fa fa-university fa-fw"></i> Organizaciones</a></div></div>
+            <div class="medium-4 columns"><div class="bt-menu partidos"><a href="{{ urlFor('shwListaPartido') }}"><i class="fa fa-cogs fa-fw"></i> Partidos</a></div></div>
+            {% endif %}
+        </div>
+        <hr class="linea-selectora">
+    </div>
+
+    <div class="contenidos row">
+        <div class="panel-control medium-3 columns" >
+            <div class="text-center">Filtro por contenido</div>
+            <hr>
+            <ul class="stack radius button-group">
+                <li>
+                    <div class="button todo">
+                        <i class="fa fa-eye fa-fw" ></i> &nbsp;Ver todo
+                    </div>
+                </li>
+                <li>
+                    <div class="button problematicas">
+                        <i class="flaticon flaticon-man282"></i> &nbsp;Problematicas
+                        {% if user %}
+                        <a href="{{ urlFor('shwCrearProblem') }}" class="bt-mas oposite button radius right"><i class="fa fa-plus"></i></a>
+                        {% endif %}
+                    </div>
+                </li>
+                <li>
+                    <div class="button propuestas">
+                        <i class="flaticon flaticon-inspiration"></i> &nbsp;Propuestas
+                        {% if user and (user.es_funcionario == true) %}
+                        <a href="{{ urlFor('shwCrearPropues') }}" class="bt-mas oposite button radius right"><i class="fa fa-plus"></i></a>
+                        {% endif %}
+                    </div>
+                </li>
+                <li>
+                    <div class="button documentos">
+                        <i class="flaticon flaticon-contract11"></i> &nbsp;Documentos
+                        {% if user and (user.es_funcionario == true) %}
+                        <a href="{{ urlFor('shwCrearDocumen') }}" class="bt-mas oposite button radius right"><i class="fa fa-plus"></i></a>
+                        {% endif %}
+                    </div>
+                </li>
+                <li>
+                    <div class="button eventos"><i class="flaticon flaticon-month1"></i> &nbsp;Eventos
+                        {% if user and (user.es_funcionario == true) %}
+                        <a href="{{ urlFor('shwCrearEvento') }}" class="bt-mas oposite button radius right"><i class="fa fa-plus"></i></a>
+                        {% endif %}
+                    </div>
+                </li>
+                <li>
+                    <div class="button novedades"><i class="flaticon flaticon-news29"></i> &nbsp;Novedades
+                        {% if user and (user.es_funcionario == true) %}
+                        <a href="{{ urlFor('shwCrearNovedad') }}" class="bt-mas oposite button radius right"><i class="fa fa-plus"></i></a>
+                        {% endif %}
+                    </div>
+                </li>
+                {% if user and (user.partido_id != null) %}
+                <li>
+                    <div class="button impulsados"><i class="fa fa-flag fa-fw"></i> &nbsp;De mi partido
+                    </div>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="listado-contenidos medium-9 columns">
+            <dl class="sub-nav" role="menu" title="Filter Menu List">
+                <dt>Ver:</dt>
+                <dd class="sortRecientes active" role="menuitem" ><a href="javascript:sortRecientes();"><i class="fa fa-plus fa-fw"></i> Recientes</a></dd>
+                <dd class="sortPtsCont" role="menuitem"><a href="javascript:sortPtsCont();"><i class="fa fa-plus fa-fw"></i> valorados</a></dd>
+                <dd class="sortPtsAutor" role="menuitem"><a href="javascript:sortPtsAutor();">Usuario <i class="fa fa-plus fa-fw"></i> rankeado</a></dd>
+            </dl>
+            <hr>
+            <table id="tabla-contenidos">
+                <thead>
+                    <tr style="display:none;">
+                        <th>Contenido</th>
+                        <th>Fecha contenido</th>
+                        <th>Puntos contenido</th>
+                        <th>Puntos autor</th>
+                        <th>ID Partido Impulsador</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contenido in contenidos %}
+                    <tr id="cont-{{contenido.id}}" class="contenido {{ contenido.contenible_type|lower }} {{ contenido.impulsor_id ? 'impulsado impulsor-' ~ contenido.impulsor_id }}">
+                        <td>
+                            {% if contenido.contenible_type == 'Problematica' %}
+                            {{ icono_problematica|raw }}
+                            {% elseif contenido.contenible_type == 'Propuesta' %}
+                            {{ icono_propuesta|raw }}
+                            {% elseif contenido.contenible_type == 'Documento' %}
+                            {{ icono_documento|raw }}
+                            {% elseif contenido.contenible_type == 'Evento' %}
+                            {{ icono_evento|raw }}
+                            {% elseif contenido.contenible_type == 'Novedad' %}
+                            {{ icono_novedad|raw }}
+                            {% endif %}
+                            <div class="puntaje-cont">
+                                <i class="fa fa-line-chart fa-fw"></i> {{ contenido.puntos }}
+                            </div>
+                            <div class="listar-cont">
+                                <h6><a href="{{ baseUrl() }}/{{ contenido.contenible_type|lower }}/{{ contenido.contenible_id }}">{{ contenido.titulo }}</a></h6>
+                                <p><i class="fa fa-calendar fa-fw"></i> {{ contenido.created_at|date("m/d/Y") }} - Publicado por <a href="{{ urlFor('shwUsuario',{'idUsr': contenido.autor.id}) }}"><img class="img-perfil no-border radius" src="{{ avatarUrl(contenido.autor.img_tipo, contenido.autor.img_hash, 32) }}" alt=""> {{ contenido.autor.nombre }} {{ contenido.autor.apellido }}</a> - <i class="fa fa-trophy fa-fw"></i> {{ contenido.autor.puntos }} </p>
+                            </div>
+                        </td>
+                        <td style="display:none;">
+                            {{ contenido.created_at }}
+                        </td>
+                        <td style="display:none;">
+                            {{ contenido.puntos }}
+                        </td>
+                        <td style="display:none;">
+                            {{ contenido.autor.puntos }}
+                        </td>
+                        <td style="display:none;">
+                            {{ contenido.impulsor_id }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}
+<script src="{{ baseUrl() }}/assets/js/slick/slick.min.js"></script>
+<script src="{{ baseUrl() }}/assets/js/tablesorter/jquery.tablesorter.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.slick-clase').slick({
+            dots: true,
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            adaptiveHeight: true
+        });
+        $('#tabla-contenidos').tablesorter({
+            sortList: [[1,1]]
+        });
+    });
+
+    var sortRecientes = function() {
+        $('.sub-nav dd.active').removeClass('active');
+        $('.sortRecientes').addClass('active');
+        var sorting = [[1,1]];
+        $('#tabla-contenidos').trigger("sorton",[sorting]);
+    }
+    var sortPtsCont = function() {
+        $('.sub-nav dd.active').removeClass('active');
+        $('.sortPtsCont').addClass('active');
+        $(this).closest('dd').addClass('active');
+        var sorting = [[2,1]];
+        $('#tabla-contenidos').trigger("sorton",[sorting]);
+    }
+    var sortPtsAutor = function() {
+        $('.sub-nav dd.active').removeClass('active');
+        $('.sortPtsAutor').addClass('active');
+        var sorting = [[3,1]];
+        $('#tabla-contenidos').trigger("sorton",[sorting]);
+    }
+
+    $( ".button.todo" ).click(function() {
+        $('.contenido').show();
+    });
+    $( ".button.problematicas" ).click(function() {
+        $('.contenido').hide();
+        $('.contenido.problematica').show();
+    });
+    $( ".button.propuestas" ).click(function() {
+        $('.contenido').hide();
+        $('.contenido.propuesta').show();
+    });
+    $( ".button.documentos" ).click(function() {
+        $('.contenido').hide();
+        $('.contenido.documento').show();
+    });
+    $( ".button.eventos" ).click(function() {
+        $('.contenido').hide();
+        $('.contenido.evento').show();
+    });
+    $( ".button.novedades" ).click(function() {
+        $('.contenido').hide();
+        $('.contenido.novedad').show();
+    });
+    $( ".button.impulsados" ).click(function() {
+        $('.contenido').hide();
+        $('.contenido.impulsado.impulsor-{{ user.partido_id ?: '' }}').show();
+    });
+
+</script>
+{% endblock %}
+{# ----------------------------------------------------------- #}
+
