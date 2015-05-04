@@ -9,9 +9,10 @@ class ProblematicaCtrl extends Controller {
         $contenido = $problematica->contenido;
         $voto = $problematica->votos()->where('usuario_id', $this->session->user('id'))->first();
         $comentarios = $problematica->comentarios->toArray();
-        $datosProblematica = array_merge($contenido->toArray(), $problematica->toArray());
+        $datosProb = array_merge($contenido->toArray(), $problematica->toArray());
+        $datosProb['referentes'] = $contenido->referentes->toArray();
         $datosVoto = $voto ? $voto->toArray() : null;
-        $this->render('contenido/problematica/ver.twig', array('problematica' => $datosProblematica,
+        $this->render('contenido/problematica/ver.twig', array('problematica' => $datosProb,
                                                                'comentarios' => $comentarios,
                                                                'voto' => $datosVoto));
     }

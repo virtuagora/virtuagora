@@ -195,6 +195,7 @@ Capsule::schema()->create('contenidos', function($table) {
     $table->integer('impulsor_id')->unsigned();
     $table->integer('autor_id')->unsigned();
     $table->integer('categoria_id')->unsigned();
+    $table->integer('referido_id')->unsigned()->nullable();
     $table->foreign('autor_id')->references('id')->on('usuarios')->onDelete('cascade');
     $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('restrict');
     $table->timestamps();

@@ -31,6 +31,14 @@ class Contenido extends Eloquent {
         return $this->belongsToMany('Tag');
     }
 
+    public function referido() {
+        return $this->belongsTo('Contenido', 'referido_id');
+    }
+
+    public function referentes() {
+        return $this->hasMany('Contenido', 'referido_id');
+    }
+
     public function getLinkAttribute() {
         $name = 'shw' . substr($this->attributes['contenible_type'], 0, 7);
         $attr = ['id' . substr($this->attributes['contenible_type'], 0, 3) => $this->attributes['contenible_id']];

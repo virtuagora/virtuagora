@@ -7,9 +7,11 @@ class PropuestaCtrl extends Controller {
         $vdt->test($idPro, new Validate\Rule\NumNatural());
         $propuesta = Propuesta::with(array('contenido', 'comentarios'))->findOrFail($idPro);
         $contenido = $propuesta->contenido;
+        $referido = $contenido->referido;
         $voto = $propuesta->votos()->where('usuario_id', $this->session->user('id'))->first();
         $comentarios = $propuesta->comentarios->toArray();
         $datosPropuesta = array_merge($contenido->toArray(), $propuesta->toArray());
+        $datosPropuesta['referido'] = $referido ? $referido->toArray() : null;
         $datosVoto = $voto ? $voto->toArray() : null;
         $this->render('contenido/propuesta/ver.twig', array('propuesta' => $datosPropuesta,
                                                             'comentarios' =>  $comentarios,
@@ -91,6 +93,12 @@ class PropuestaCtrl extends Controller {
     public function crear() {
         $req = $this->request;
         $vdt = $this->validarPropuesta($req->post());
+        if($vdt->getData('referido')) {
+            $referido = Contenido::find(getData('referido'));
+            if (is_null($referido) || $referido->contenible_typle != 'Propuesta') {
+                throw new TurnbackException('La problematica asociada no existe.');
+            }
+        }
         $autor = $this->session->getUser();
         $propuesta = new Propuesta;
         $propuesta->cuerpo = $vdt->getData('cuerpo');
@@ -102,6 +110,7 @@ class PropuestaCtrl extends Controller {
         $contenido->titulo = $vdt->getData('titulo');
         $contenido->puntos = 0;
         $contenido->categoria_id = $vdt->getData('categoria');
+        $contenido->referido_id = $vdt->getData('referido');
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($propuesta);
         $contenido->save();
@@ -126,13 +135,21 @@ class PropuestaCtrl extends Controller {
         $vdt->test($idPro, new Validate\Rule\NumNatural());
         $propuesta = Propuesta::with(array('contenido', 'votos'))->findOrFail($idPro);
         $contenido = $propuesta->contenido;
+        if ($vdt->getData('referido')) {
+            $referido = Contenido::find(getData('referido'));
+            if (is_null($referido) || $referido->contenible_typle != 'Propuesta') {
+                throw new TurnbackException('La problematica asociada no existe.');
+            }
+        }
         $usuario = $this->session->getUser();
         $req = $this->request;
         $vdt = $this->validarPropuesta($req->post());
         $propuesta->cuerpo = $vdt->getData('cuerpo');
+        $propuesta->problematica_id = $vdt->getData('problematica');
         $propuesta->save();
         $contenido->titulo = $vdt->getData('titulo');
         $contenido->categoria_id = $vdt->getData('categoria');
+        $contenido->referido_id = $vdt->getData('referido');
         $contenido->save();
         $log = UserlogCtrl::createLog('modPropues', $usuario, $propuesta);
         foreach ($propuesta->votos as $voto) {
@@ -157,9 +174,12 @@ class PropuestaCtrl extends Controller {
             ->addRule('titulo', new Validate\Rule\MaxLength(128))
             ->addRule('categoria', new Validate\Rule\NumNatural())
             ->addRule('categoria', new Validate\Rule\Exists('categorias'))
+            ->addRule('referido', new Validate\Rule\NumNatural())
             ->addRule('cuerpo', new Validate\Rule\MinLength(8))
             ->addRule('cuerpo', new Validate\Rule\MaxLength(8192))
-            ->addFilter('cuerpo', FilterFactory::escapeHTML());
+            ->addFilter('cuerpo', FilterFactory::escapeHTML())
+            ->addFilter('referido', FilterFactory::emptyToNull())
+            ->addOptional('referido');
         if (!$vdt->validate($data)) {
             throw new TurnbackException($vdt->getErrors());
         }
