@@ -127,9 +127,12 @@ class EventoCtrl extends Controller {
     public function eliminar($idEve) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idEve, new Validate\Rule\NumNatural());
-        $evento = Evento::with('contenido')->findOrFail($idEve);
+        $evento = Evento::with(['contenido', 'usuarios'])->findOrFail($idEve);
         $evento->delete();
-        // TODO ver si se informa a los participantes
+        $log = UserlogCtrl::createLog('delEventoo', $this->session->getUser(), $evento);
+        foreach ($evento->usuarios as $participe) {
+            NotificacionCtrl::createNotif($participe->id, $log);
+        }
         $this->flash('success', 'El evento ha sido eliminado exitosamente.');
         $this->redirectTo('shwIndex');
     }

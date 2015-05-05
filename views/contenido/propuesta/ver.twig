@@ -25,14 +25,14 @@
 {% set url_comentar = urlFor('runComentar', {'tipoRaiz': 'propuesta' , 'idRaiz': propuesta.id}) %}
 {% block cuerpo_cont %}
 {{ propuesta.cuerpo|bbCode }}
-{% if referido is defined %}
+{% if propuesta.referido is defined %}
 <div class="row">
     <div class="panel referido-problematica-info">
         <div class="row">
             <div class="medium-2 columns text-center"><span class="icono"><i class="flaticon small flaticon-man282"></i></span></div>
             <div class="medium-10 columns">
                 <h4><b>Problemática asociada</b></h4>
-                <p><a href="{{ urlFor('shwProblem',{'idPro': referido.id}) }}"><i class="flaticon flaticon-man282"></i> Problemática #{{ referido.id }} - {{ referido.titulo }}</a> - Por {{ referido.autor.nombre }} {{ referido.autor.apellido }}</p>
+                <p><a href="{{ urlFor('shwProblem',{'idPro': propuesta.referido.contenible_id}) }}"><i class="flaticon flaticon-man282"></i> Problemática #{{ propuesta.referido.id }} - {{ propuesta.referido.titulo }}</a> - Por {{ propuesta.referido.autor.nombre }} {{ propuesta.referido.autor.apellido }}</p>
             </div>
         </div>
     </div>

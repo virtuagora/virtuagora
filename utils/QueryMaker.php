@@ -11,7 +11,7 @@ class QueryMaker {
         $this->query = $query;
     }
 
-    public function addFilters($filtrables = array()) {
+    public function addFilters($filtrables = array(), $searchable = false) {
         if (isset($this->params['where'])) {
             $filtros = explode(',', $this->params['where']);
             foreach ($filtros as $filtro) {
@@ -48,6 +48,10 @@ class QueryMaker {
                 }
                 $this->query = $this->query->whereNotNull($filtro);
             }
+        }
+        if (isset($this->params['q']) && $searchable) {
+            $filtro = FilterFactory::calcHuella($this->params['q']);
+            $this->query = $this->query->where('huella', 'LIKE', "%$filtro%");
         }
     }
 

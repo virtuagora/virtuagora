@@ -32,7 +32,7 @@ class ProblematicaCtrl extends Controller {
                                                    'usuario_id' => $usuario->id));
         $postura = $vdt->getData('postura');
         if (!$voto->exists) {
-            $usuario->increment('puntos');
+            $usuario->increment('puntos', 3);
             UserlogCtrl::createLog('votProblem', $usuario, $problematica);
         } else if ($voto->postura == $postura) {
             throw new TurnbackException('No puede votar dos veces la misma postura.');
@@ -42,7 +42,6 @@ class ProblematicaCtrl extends Controller {
             if ($fecha->lt($voto->updated_at)) {
                 throw new TurnbackException('No puede cambiar su voto tan pronto.');
             }
-            $usuario->decrement('puntos', 5);
             switch ($voto->postura) {
                 case 0: $problematica->decrement('afectados_indiferentes'); break;
                 case 1: $problematica->decrement('afectados_indirectos'); break;
@@ -94,6 +93,7 @@ class ProblematicaCtrl extends Controller {
         $contenido->contenible()->associate($problematica);
         $contenido->save();
         UserlogCtrl::createLog('newProblem', $autor, $problematica);
+        $autor->increment('puntos', 15);
         $this->flash('success', 'Su problemática se creó exitosamente.');
         $this->redirectTo('shwProblem', array('idPro' => $problematica->id));
     }

@@ -4,6 +4,7 @@ abstract class RMRController extends Controller {
 
     protected $mediaTypes = array();
     protected $properties = array();
+    protected $searchable = false;
 
     abstract public function queryModel($meth, $repr);
 
@@ -11,7 +12,7 @@ abstract class RMRController extends Controller {
         $req = $this->request;
         $repr = $this->negotiateContent($req->headers->get('ACCEPT'));
         $queryMaker = new QueryMaker($this->queryModel(0, $repr->getName()), $req->get());
-        $queryMaker->addFilters($this->properties);
+        $queryMaker->addFilters($this->properties, $this->searchable);
         $queryMaker->addSorters($this->properties);
         $url = $req->getUrl().$req->getPath();
         $paginator = new Paginator($queryMaker->query, $url, $queryMaker->params);

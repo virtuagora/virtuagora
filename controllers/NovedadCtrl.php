@@ -82,6 +82,7 @@ class NovedadCtrl extends Controller {
         $vdt->test($idNov, new Validate\Rule\NumNatural());
         $novedad = Novedad::with(array('contenido', 'comentarios.votos'))->findOrFail($idNov);
         $novedad->delete();
+        UserlogCtrl::createLog('delNovedad', $this->session->getUser(), $novedad);
         $this->flash('success', 'La novedad ha sido eliminada exitosamente.');
         $this->redirectTo('shwIndex');
     }

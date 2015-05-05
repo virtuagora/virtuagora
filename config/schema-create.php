@@ -191,6 +191,7 @@ Capsule::schema()->create('contenidos', function($table) {
     $table->increments('id');
     $table->morphs('contenible');
     $table->string('titulo');
+    $table->string('huella');
     $table->integer('puntos')->unsigned();
     $table->integer('impulsor_id')->unsigned();
     $table->integer('autor_id')->unsigned();

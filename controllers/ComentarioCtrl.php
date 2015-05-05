@@ -46,6 +46,7 @@ class ComentarioCtrl extends RMRController {
         $comentario->comentable()->associate($comentable);
         $comentario->save();
         UserlogCtrl::createLog('newComenta', $autor, $objId, $objType);
+        $autor->increment('puntos');
         $this->flash('success', 'Su comentario fue enviado exitosamente.');
         $this->redirect($req->getReferrer());
     }

@@ -5,15 +5,13 @@ class PropuestaCtrl extends Controller {
     public function ver($idPro) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idPro, new Validate\Rule\NumNatural());
-        $propuesta = Propuesta::with(array('contenido', 'comentarios'))->findOrFail($idPro);
+        $propuesta = Propuesta::with(array('contenido.referido', 'comentarios'))->findOrFail($idPro);
         $contenido = $propuesta->contenido;
-        $referido = $contenido->referido;
         $voto = $propuesta->votos()->where('usuario_id', $this->session->user('id'))->first();
         $comentarios = $propuesta->comentarios->toArray();
-        $datosPropuesta = array_merge($contenido->toArray(), $propuesta->toArray());
-        $datosPropuesta['referido'] = $referido ? $referido->toArray() : null;
+        $datosProp = array_merge($contenido->toArray(), $propuesta->toArray());
         $datosVoto = $voto ? $voto->toArray() : null;
-        $this->render('contenido/propuesta/ver.twig', array('propuesta' => $datosPropuesta,
+        $this->render('contenido/propuesta/ver.twig', array('propuesta' => $datosProp,
                                                             'comentarios' =>  $comentarios,
                                                             'voto' => $datosVoto));
     }
@@ -35,7 +33,7 @@ class PropuestaCtrl extends Controller {
         $postura = $vdt->getData('postura');
         if (!$voto->exists) {
             $voto->publico = $vdt->getData('publico');
-            $usuario->increment('puntos');
+            $usuario->increment('puntos', 3);
             UserlogCtrl::createLog('votPropues', $usuario, $propuesta);
         } else if ($voto->postura == $postura) {
             throw new TurnbackException('No puede votar dos veces la misma postura.');
@@ -93,9 +91,9 @@ class PropuestaCtrl extends Controller {
     public function crear() {
         $req = $this->request;
         $vdt = $this->validarPropuesta($req->post());
-        if($vdt->getData('referido')) {
-            $referido = Contenido::find(getData('referido'));
-            if (is_null($referido) || $referido->contenible_typle != 'Propuesta') {
+        if ($vdt->getData('referido')) {
+            $referido = Contenido::find($vdt->getData('referido'));
+            if (is_null($referido) || $referido->contenible_type != 'Problematica') {
                 throw new TurnbackException('La problematica asociada no existe.');
             }
         }
@@ -115,6 +113,7 @@ class PropuestaCtrl extends Controller {
         $contenido->contenible()->associate($propuesta);
         $contenido->save();
         UserlogCtrl::createLog('newPropues', $autor, $propuesta);
+        $autor->increment('puntos', 15);
         $this->flash('success', 'Su propuesta fue creada exitosamente.');
         $this->redirectTo('shwPropues', array('idPro' => $propuesta->id));
     }
@@ -136,8 +135,8 @@ class PropuestaCtrl extends Controller {
         $propuesta = Propuesta::with(array('contenido', 'votos'))->findOrFail($idPro);
         $contenido = $propuesta->contenido;
         if ($vdt->getData('referido')) {
-            $referido = Contenido::find(getData('referido'));
-            if (is_null($referido) || $referido->contenible_typle != 'Propuesta') {
+            $referido = Contenido::find($vdt->getData('referido'));
+            if (is_null($referido) || $referido->contenible_type != 'Problematica') {
                 throw new TurnbackException('La problematica asociada no existe.');
             }
         }
@@ -164,6 +163,7 @@ class PropuestaCtrl extends Controller {
         $vdt->test($idPro, new Validate\Rule\NumNatural());
         $propuesta = Propuesta::with(array('contenido', 'comentarios.votos'))->findOrFail($idPro);
         $propuesta->delete();
+        UserlogCtrl::createLog('delPropues', $this->session->getUser(), $propuesta);
         $this->flash('success', 'La propuesta ha sido eliminada exitosamente.');
         $this->redirectTo('shwIndex');
     }

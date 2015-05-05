@@ -29,26 +29,19 @@
                     </div>
                 </div>
                 <div class="large-5 columns text-center">
-                    <div class="row busqueda" style="margin-top: 5px;">
-                        <div class="large-12 columns">
-                            <div class="row collapse">
-                                <div class="large-10 columns">
-                                <input type="text" id="buscar-referido" placeholder="Escriba el ID">
-                                <input type="text" id="referido" style="display:none;">
-                                </div>
-                                <div class="large-2 columns"><a href="javascript:buscarReferencia()" class="button radius secondary small postfix"><i class="fa fa-fw fa-search fa-lg"></i></a></div>
-                            </div>
-                        </div>
+                    <div class="row busqueda" style="margin-top: 5px;" id="typehead">
+                        <input class="typeahead" type="text" placeholder="Buscar propuestas">
+                        <input type="text" id="referido" name="referido" style="display:none;">
                     </div>
                     <div class="row resultado text-center">
-                        <span id="ejecutando" style="display:none"><i class="fa fa-spinner fa-fw fa-lg fa-pulse"></i></span>
-                        <span id="etiqueta-resultado">Realice una busqueda presionando en <i class="fa fa-fw fa-search"></i></span>
+                        <span id="etiqueta-resultado">Realice una busqueda en el campo superior.</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block modals_cont %}{% endblock %}
@@ -56,53 +49,73 @@
 {% block scripts_cont %}
 
 {% block scripts_modificar %}{% endblock scripts_modificar %}
+<script src="http://twitter.github.com/typeahead.js/releases/latest/typeahead.bundle.min.js"></script>
 <script>
-    $(document).ready(function() {
-        if (window.location.hash) {
-            var array = window.location.hash.substring(1).split('&');
-            $('#buscar-referido').val(array[0]);
-            buscarReferencia();
-        }
-    });
-
     var base_url = '{{ baseUrl() }}';
     var icon_borrar = $('<i class="quitar fa fa-fw fa-times fa-lg"></i>' );
     var icon_doc = $('<i class="fa fa-fw fa-file fa-lg"></i>' );
     var icon_error = $('<i class="fa fa-fw fa-exclamation-circle fa-lg"></i>' );
 
+    var propuestas = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('titulo'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        identify: function(obj) { return obj.id; },
+        remote: {
+            url: base_url + '/contenido?where=contenible_type-eq-Problematica&q=%QUERY',
+            wildcard: '%QUERY'
+        }
+    });
+
+    $('#typehead .typeahead').typeahead({minLength: 4}, {
+        name: 'propuestas',
+        display: 'titulo',
+        source: propuestas,
+        templates: {
+            empty: '<div class="panel">No se encontraron propuestas.</div>',
+            suggestion: function(data) {
+                return '<div class="panel">'+data.titulo+' - '+data.autor.nombre+' '+data.autor.apellido+'</div>';
+            }
+        }
+    });
+
+    $(document).ready(function() {
+        if (window.location.hash) {
+            var array = window.location.hash.substring(1).split('&');
+            var query = {where: "contenible_type-eq-Problematica,id-eq-"+array[0]};
+            enviarSolicitud(base_url + '/contenido?' + jQuery.param(query));
+        }
+    });
+
     $(document).on('click', '.quitar', function() {
         $('#etiqueta-resultado').empty().html('Realice una busqueda presionando en <i class="fa fa-fw fa-search"></i>');
-        $('#buscar-referido').val('');
         $('#referido').val('');
     });
 
-    function buscarReferencia() {
-        var idBuscar = $('#buscar-referido').val();
-        var query = {where: "contenible_type-eq-Problematica,contenible_id-eq-"+idBuscar };
-        enviarSolicitud(base_url + '/contenido?' + jQuery.param(query) );
-    }
-    function enviarSolicitud(url_query) {
+    $('.typeahead').bind('typeahead:select', function(ev, data) {
+        agregarReferencia(data.id, data.titulo, data.autor.nombre + ' ' + data.autor.apellido);
+    });
+
+    function agregarReferencia(id, titulo, autor) {
         $('#etiqueta-resultado').empty();
-        $('#ejecutando').show();
+        $('#etiqueta-resultado').append(icon_borrar).append(icon_doc).append(titulo + ' - ' + autor);
+        $('#referido').val(id);
+    }
+
+    function enviarSolicitud(url_query) {
         var request = $.ajax({
             url: url_query,
             cache: false,
             dataType: "json"
         }).done(function(resultados, textStatus, request) {
             if(resultados.length > 0){
-                $('#ejecutando').hide();
-                $('#etiqueta-resultado').append(icon_borrar).append(icon_doc).append(resultados[0].titulo + ' - ' + resultados[0].autor.nombre + ' ' + resultados[0].autor.apellido);
-                $('#referido').val(resultados[0].contenible_id);
+                agregarReferencia(resultados[0].id, resultados[0].titulo, resultados[0].autor.nombre + ' ' + resultados[0].autor.apellido);
             } else {
-                $('#ejecutando').hide();
                 $('#etiqueta-resultado').append(icon_error).append(' No existe la problematica');
                 $('#referido').val('');
             }
         }).fail(function(jqXHR, textStatus) {
-            $('#ejecutando').hide();
             $('#etiqueta-resultado').append(icon_error).append(' ERROR')
             $('#referido').val('');
-            return false;
         });
     }
 </script>

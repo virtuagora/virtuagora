@@ -16,7 +16,7 @@ class Userlog extends Eloquent {
     }
 
     public function objeto() {
-        return $this->morphTo();
+        return $this->morphTo()->withTrashed();
     }
 
     public function getObjetoLinkAttribute() {
@@ -33,15 +33,7 @@ class Userlog extends Eloquent {
     public function getActorNameAttribute() {
         return htmlspecialchars($this->actor->nombre_completo, ENT_QUOTES);
     }
-/*
-    public function getUrlNombreAttribute() {
-        return 'shw' . substr($this->objeto_type, 0, 7);
-    }
 
-    public function getUrlParamsAttribute() {
-        return array('id' . substr($this->objeto_type, 0, 3) => $this->objeto_id);
-    }
-*/
     public function getObjetoNameAttribute() {
         return $this->objeto->nombre;
     }

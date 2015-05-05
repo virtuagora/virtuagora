@@ -69,7 +69,10 @@ class AdminCtrl extends Controller {
             $funcionario->usuario_id = $entrante;
             $funcionario->organismo_id = $id;
             $funcionario->save();
+            $log = UserlogCtrl::createLog('newFuncion', $entrante, $organismo);
+            NotificacionCtrl::createNotif($entrante, $log);
         }
+        Usuario::whereIn('id', $entrante)->increment('puntos', 30);
         $this->flash('success', 'Se han modificado los funcionarios del organismo exitosamente.');
         $this->redirectTo('shwAdmOrganis');
     }
@@ -126,7 +129,7 @@ class AdminCtrl extends Controller {
         }
         $entrantes = json_decode($vdt->getData('entrantes'));
         Usuario::whereIn('id', $entrantes)->whereNull('verified_at')
-            ->increment('puntos', 25, array('verified_at' => Carbon\Carbon::now()));
+            ->increment('puntos', 100, array('verified_at' => Carbon\Carbon::now()));
         // TODO definir cuantos puntos se dan
         // TODO crear accion de verificacion de ciudadano
         $this->flash('success', 'Se han verificado los ciudadanos seleccionados exitosamente.');

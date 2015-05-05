@@ -7,7 +7,7 @@ class Contenido extends Eloquent {
 
     protected $dates = ['deleted_at'];
     protected $visible = ['id', 'titulo', 'contenible_id', 'contenible_type', 'impulsor_id', 'puntos', 'created_at',
-                          'link', 'categoria', 'autor', 'contenible'];
+                          'link', 'categoria', 'autor', 'contenible', 'referido'];
     protected $appends = ['link'];
     protected $with = ['autor', 'categoria'];
 
@@ -44,5 +44,10 @@ class Contenido extends Eloquent {
         $attr = ['id' . substr($this->attributes['contenible_type'], 0, 3) => $this->attributes['contenible_id']];
         $app = Slim\Slim::getInstance();
         return $app->request->getUrl() . $app->urlFor($name, $attr);
+    }
+
+    public function setTituloAttribute($value) {
+        $this->attributes['titulo'] = $value;
+        $this->attributes['huella'] = FilterFactory::calcHuella($value);
     }
 }

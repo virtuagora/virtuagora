@@ -2,6 +2,13 @@
 
 class FilterFactory {
 
+    public static function calcHuella($exec = false) {
+        $f = function($v) {
+            return preg_replace('/[^[:alnum:]]/ui', '', $v);
+        };
+        return ($exec === false) ? $f : call_user_func($f, $exec);
+    }
+
     public static function emptyToNull() {
         return function($v) {
             return ($v==='') ? null : $v;

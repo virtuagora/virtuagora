@@ -14,7 +14,7 @@ class Propuesta extends Eloquent {
     }
 
     public function contenido() {
-        return $this->morphOne('Contenido', 'contenible');
+        return $this->morphOne('Contenido', 'contenible')->withTrashed();
     }
 
     public function comentarios() {
