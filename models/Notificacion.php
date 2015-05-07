@@ -18,7 +18,7 @@ class Notificacion extends Eloquent {
     }
 
     public function getMensajeAttribute() {
-        return UserlogCtrl::getMessage($this->notificable);
+        return $this->notificable->mensaje;
     }
 
 }

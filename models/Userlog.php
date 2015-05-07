@@ -3,7 +3,7 @@
 class Userlog extends Eloquent {
 
     //protected $table = 'userlogs';
-    protected $visible = array('id', 'accion_id', 'created_at', 'actor_name', 'objeto_name', 'objeto_link');
+    protected $visible = array('id', 'accion_id', 'created_at', 'mensaje');
     protected $appends = array('actor_name', 'objeto_name', 'objeto_link');
     protected $with = array('actor', 'objeto');
 
@@ -17,6 +17,13 @@ class Userlog extends Eloquent {
 
     public function objeto() {
         return $this->morphTo()->withTrashed();
+    }
+
+    public function getMensajeAttribute() {
+        $app = Slim\Slim::getInstance();
+        return $app->translator->trans('log.'.$this->accion_id, ['%act%' => $this->actor_name,
+                                                                 '%url%' => $this->objeto_link,
+                                                                 '%obj%' => $this->objeto_name]);
     }
 
     public function getObjetoLinkAttribute() {

@@ -21,11 +21,7 @@ class UsuarioCtrl extends RMRController {
         $req = $this->request;
         $url = $req->getUrl().$req->getPath();
         $paginator = new Paginator($usuario->acciones(), $url, $req->get());
-        $acciones = array();
-        foreach ($paginator->rows as $log) {
-            $acciones[] = ['created_at' => $log->created_at,
-                           'mensaje' => UserlogCtrl::getMessage($log)];
-        }
+        $acciones = $paginator->rows;
         $nav = $paginator->links;
         $datos = $usuario->toArray();
         $datos['contenidos_count'] = $usuario->contenidos()->count();

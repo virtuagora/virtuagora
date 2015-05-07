@@ -22,6 +22,14 @@ $app->container->singleton('session', function () {
     return new SessionManager();
 });
 
+$app->container->singleton('translator', function () {
+    $trans = new Symfony\Component\Translation\Translator('es');
+    $trans->setFallbackLocale('es');
+    $trans->addLoader('php', new Symfony\Component\Translation\Loader\PhpFileLoader());
+    $trans->addResource('php', __DIR__.'/../locales/es.php', 'es');
+    return $trans;
+});
+
 $app->api = false;
 
 // Prepare error handler
@@ -111,7 +119,7 @@ function checkUserAuth($action, $checkMod = false) {
 */
 
 $app->get('/test', function () use ($app) {
-    echo __DIR__;
+    var_dump(json_decode('asf'));
 });
 
 //$app->get('/userlog', 'UserlogCtrl:listar')->name('shwListaUserlog');

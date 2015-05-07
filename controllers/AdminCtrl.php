@@ -112,6 +112,9 @@ class AdminCtrl extends Controller {
                 $mensaje = "Se le han quitado los puntos al usuario.";
                 break;
         }
+        $subclase = strtolower(substr($vdt->getData('tipo'), 0, 3));
+        $log = AdminlogCtrl::createLog($vdt->getData('mensaje'), 1, $subclase, $this->session->user('id'), $usuario);
+        NotificacionCtrl::createNotif($usuario->id, $log);
         $this->flash('success', $mensaje);
         $this->redirect($req->getReferrer());
     }

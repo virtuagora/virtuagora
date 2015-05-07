@@ -95,7 +95,7 @@ Capsule::schema()->create('funcionarios', function($table) {
     $table->softDeletes();
 });
 
-Capsule::schema()->create('usuario_datos', function($table) {
+/*Capsule::schema()->create('usuario_datos', function($table) {
     $table->engine = 'InnoDB';
     $table->integer('id')->unsigned()->primary();
     $table->date('fecha_nacimiento')->nullable();
@@ -105,7 +105,7 @@ Capsule::schema()->create('usuario_datos', function($table) {
     $table->text('descripcion')->nullable();
     $table->foreign('id')->references('id')->on('usuarios')->onDelete('cascade');
     $table->timestamps();
-});
+});*/
 
 Capsule::schema()->create('contactos', function($table) {
     $table->engine = 'InnoDB';
@@ -171,6 +171,7 @@ Capsule::schema()->create('adminlogs', function($table) {
     $table->engine = 'InnoDB';
     $table->increments('id');
     $table->string('descripcion');
+    $table->string('subclase');
     $table->morphs('objeto');
     $table->integer('poder_id')->unsigned();
     $table->integer('actor_id')->unsigned();
@@ -207,18 +208,19 @@ Capsule::schema()->create('tags', function($table) {
     $table->engine = 'InnoDB';
     $table->increments('id');
     $table->string('nombre');
+    $table->string('huella');
+    $table->integer('menciones')->unsigned()->default(0);
 });
 
-Capsule::schema()->create('contenido_tag', function($table) {
+Capsule::schema()->create('taggables', function($table) {
     $table->engine = 'InnoDB';
     $table->increments('id');
-    $table->integer('contenido_id')->unsigned();
+    $table->morphs('taggable');
     $table->integer('tag_id')->unsigned();
-    $table->foreign('contenido_id')->references('id')->on('contenidos')->onDelete('cascade');
     $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
 });
 
-Capsule::schema()->create('imagenes', function($table) {
+/*Capsule::schema()->create('imagenes', function($table) {
     $table->engine = 'InnoDB';
     $table->increments('id');
     $table->morphs('imagenable');
@@ -227,7 +229,7 @@ Capsule::schema()->create('imagenes', function($table) {
     $table->integer('autor_id')->unsigned();
     $table->foreign('autor_id')->references('id')->on('usuarios')->onDelete('cascade');
     $table->timestamps();
-});
+});*/
 
 Capsule::schema()->create('propuestas', function($table) {
     $table->engine = 'InnoDB';
