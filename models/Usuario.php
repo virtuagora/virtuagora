@@ -31,8 +31,8 @@ class Usuario extends Eloquent {
         return $this->hasMany('Userlog', 'actor_id');
     }
 
-    public function getNombreCompletoAttribute() {
-        return $this->nombre.' '.$this->apellido;
+    public function getIdentidadAttribute() {
+        return $this->attributes['nombre'].' '.$this->attributes['apellido'];
     }
 
     public static function boot() {
@@ -40,6 +40,9 @@ class Usuario extends Eloquent {
         static::deleting(function($usuario) {
             foreach ($usuario->contenidos as $contenido) {
                 $contenido->contenible->delete();
+            }
+            foreach ($usuario->comentarios as $comentario) {
+                $comentario->delete();
             }
             if ($usuario->contacto) {
                 $usuario->contacto->delete();

@@ -36,7 +36,7 @@ class NovedadCtrl extends Controller {
             $contenido->impulsor()->associate($partido);
         }
         $contenido->save();
-        UserlogCtrl::createLog('newNovedad', $autor, $novedad);
+        UserlogCtrl::createLog('newNovedad', $autor->id, $novedad);
         $this->flash('success', 'Su novedad fue creada exitosamente.');
         $this->redirectTo('shwNovedad', array('idNov' => $novedad->id));
     }
@@ -82,7 +82,7 @@ class NovedadCtrl extends Controller {
         $vdt->test($idNov, new Validate\Rule\NumNatural());
         $novedad = Novedad::with(array('contenido', 'comentarios.votos'))->findOrFail($idNov);
         $novedad->delete();
-        UserlogCtrl::createLog('delNovedad', $this->session->getUser(), $novedad);
+        UserlogCtrl::createLog('delNovedad', $this->session->user('id'), $novedad);
         $this->flash('success', 'La novedad ha sido eliminada exitosamente.');
         $this->redirectTo('shwIndex');
     }

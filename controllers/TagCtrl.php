@@ -10,7 +10,10 @@ class TagCtrl extends RMRController {
         return Tag::query();
     }
 
-    public static function getTagIds(array $tags) {
+    public static function getTagIds($tags) {
+        if (!is_array($tags)) {
+            throw new TurnbackException('Tags incorrectas.');
+        }
         $vdt = new Validate\Validator();
         $vdt->addRule('tags', new Validate\Rule\Alphanum([' ']))
             ->addRule('tags', new Validate\Rule\MinLength(2))
@@ -31,9 +34,14 @@ class TagCtrl extends RMRController {
         $oldTags = $taggable->tags()->lists('id');
         $tagsIn = array_diff($newTags, $oldTags);
         $tagsOut = array_diff($oldTags, $newTags);
-        Tag::whereIn('id', $tagsIn)->increment('menciones');
-        Tag::whereIn('id', $tagsOut)->decrement('menciones');
-        $taggable->tags()->sync($tagsIn);
+        if (!empty($tagsIn)) {
+            Tag::whereIn('id', $tagsIn)->increment('menciones');
+            $taggable->tags()->attach($tagsIn);
+        }
+        if (!empty($tagsOut)) {
+            Tag::whereIn('id', $tagsOut)->decrement('menciones');
+            $taggable->tags()->detach($tagsOut);
+        }
     }
 
 }

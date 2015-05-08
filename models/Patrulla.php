@@ -13,4 +13,8 @@ class Patrulla extends Eloquent {
         return $this->belongsToMany('Poder');
     }
 
+    public function getIdentidadAttribute() {
+        return $this->attributes['nombre'];
+    }
+
 }

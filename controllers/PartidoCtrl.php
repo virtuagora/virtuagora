@@ -57,7 +57,7 @@ class PartidoCtrl extends RMRController {
         $contacto->telefono = $vdt->getData('telefono');
         $contacto->contactable()->associate($partido);
         $contacto->save();
-        UserlogCtrl::createLog('newPartido', $usuario, $partido);
+        UserlogCtrl::createLog('newPartido', $usuario->id, $partido);
         ImageManager::crearImagen('partido', $partido->id, $partido->nombre, array(32, 64, 160));
         $this->session->update();
         $this->flash('success', 'El partido '.$partido->nombre.' fue creado exitosamente.');
@@ -74,7 +74,7 @@ class PartidoCtrl extends RMRController {
         }
         $usuario->partido()->associate($partido);
         $usuario->save();
-        UserlogCtrl::createLog('joiPartido', $usuario, $partido);
+        UserlogCtrl::createLog('joiPartido', $usuario->id, $partido);
         $this->session->update($usuario);
         $this->flash('success', 'Se ha unido al partido '.$partido->nombre.'.');
         $this->redirectTo('shwListaPartido');
@@ -91,7 +91,7 @@ class PartidoCtrl extends RMRController {
         $usuario->partido()->dissociate();
         $usuario->es_jefe = false;
         $usuario->save();
-        UserlogCtrl::createLog('lefPartido', $usuario, $partido);
+        UserlogCtrl::createLog('lefPartido', $usuario->id, $partido);
         $this->session->update($usuario);
         $this->flash('success', 'Ha dejado el partido '.$partido->nombre.'.');
         $this->redirectTo('shwListaPartido');
@@ -152,7 +152,7 @@ class PartidoCtrl extends RMRController {
             throw new BearableException('Un partido puede ser eliminado solamente por su creador.');
         }
         $partido->delete();
-        UserlogCtrl::createLog('delPartido', $this->session->getUser(), $partido);
+        UserlogCtrl::createLog('delPartido', $this->session->user('id'), $partido);
         $this->session->update();
         $this->flash('success', 'El partido ha sido eliminado exitosamente.');
         $this->redirectTo('shwIndex');
@@ -172,7 +172,7 @@ class PartidoCtrl extends RMRController {
     public function cambiarRol($idPar) {
         $vdt = new Validate\Validator();
         $vdt->addRule('idPar', new Validate\Rule\NumNatural())
-            ->addRule('idUsr', new Validate\Rule\NumNatural())
+            ->addRule('idUsu', new Validate\Rule\NumNatural())
             ->addRule('jefe', new Validate\Rule\InArray(array(1, 0)));
         $req = $this->request;
         $data = array_merge(array('idPar' => $idPar), $req->post());
@@ -180,20 +180,20 @@ class PartidoCtrl extends RMRController {
             throw new TurnbackException($vdt->getErrors());
         }
         $partido = Partido::findOrFail($vdt->getData('idPar'));
-        $usuario = Usuario::where(array('id' => $vdt->getData('idUsr'),
+        $usuario = Usuario::where(array('id' => $vdt->getData('idUsu'),
                                         'partido_id' => $vdt->getData('idPar')))->first();
         if ($usuario->id == $partido->creador_id) {
             throw new TurnbackException('No se puede cambiar el rol del creador del partido.');
         } else if (is_null($usuario)) {
-            throw new TurnbackException($usuario->nombre_completo.' no pertenece al partido.');
+            throw new TurnbackException($usuario->identidad.' no pertenece al partido.');
         } else if (!($usuario->es_jefe xor $vdt->getData('jefe'))) {
             throw new TurnbackException('Configuración inválida.');
         }
         $usuario->es_jefe = $vdt->getData('jefe');
         $usuario->save();
-        UserlogCtrl::createLog($usuario->es_jefe?'newJefPart':'delJefPart', $usuario, $partido);
+        UserlogCtrl::createLog($usuario->es_jefe?'newJefPart':'delJefPart', $usuario->id, $partido);
         $msg = $usuario->es_jefe ? ' comenzó a ' : ' dejó de ';
-        $this->flash('success', $usuario->nombre_completo.$msg.'ser jefe del partido.');
+        $this->flash('success', $usuario->identidad.$msg.'ser jefe del partido.');
         $this->redirectTo('shwModifRolPartido', array('idPar' => $idPar));
     }
 

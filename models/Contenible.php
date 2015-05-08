@@ -21,7 +21,7 @@ abstract class Contenible extends Eloquent {
         return $this->morphToMany('Tag', 'taggable');
     }
 
-    public function getNombreAttribute() {
+    public function getIdentidadAttribute() {
         return $this->contenido->titulo;
     }
 }

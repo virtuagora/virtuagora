@@ -30,9 +30,9 @@ class NotificacionCtrl extends RMRController {
         $this->redirect($this->request->getReferrer());
     }
 
-    public static function createNotif($idUsr, $log) {
+    public static function createNotif($idUsu, $log) {
         $notif = new Notificacion();
-        $notif->usuario_id = $idUsr;
+        $notif->usuario_id = $idUsu;
         $notif->notificable()->associate($log);
         $notif->save();
         return $notif;

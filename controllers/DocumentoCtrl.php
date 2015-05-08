@@ -49,7 +49,7 @@ class DocumentoCtrl extends Controller {
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($documento);
         $contenido->save();
-        UserlogCtrl::createLog('newDocumen', $autor, $documento);
+        UserlogCtrl::createLog('newDocumen', $autor->id, $documento);
         $autor->increment('puntos', 15);
         $this->flash('success', 'Su documento abierto se creó exitosamente.');
         $this->redirectTo('shwDocumen', array('idDoc' => $documento->id));
@@ -93,7 +93,7 @@ class DocumentoCtrl extends Controller {
             $docParrafo->version()->associate($docVersion);
             $docParrafo->save();
         }
-        UserlogCtrl::createLog('modDocumen', $this->session->getUser(), $documento);
+        UserlogCtrl::createLog('modDocumen', $this->session->user('id'), $documento);
         $this->flash('success', 'Se ha creado exitosamente una nueva versión del documento.');
         $this->redirectTo('shwDocumen', array('idDoc' => $documento->id));
     }
@@ -128,7 +128,7 @@ class DocumentoCtrl extends Controller {
         $vdt->test($idDoc, new Validate\Rule\NumNatural());
         $documento = Documento::with(array('contenido', 'parrafos'))->findOrFail($idDoc);
         $documento->delete();
-        UserlogCtrl::createLog('delDocumen', $this->session->getUser(), $documento);
+        UserlogCtrl::createLog('delDocumen', $this->session->user('id'), $documento);
         $this->flash('success', 'El documento ha sido eliminado exitosamente.');
         $this->redirectTo('shwIndex');
     }

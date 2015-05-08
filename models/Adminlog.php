@@ -40,11 +40,11 @@ class Adminlog extends Eloquent {
     }
 
     public function getActorNameAttribute() {
-        return htmlspecialchars($this->actor->nombre_completo, ENT_QUOTES);
+        return htmlspecialchars($this->actor->identidad, ENT_QUOTES);
     }
 
     public function getObjetoNameAttribute() {
-        return $this->objeto->nombre;
+        return $this->objeto->identidad;
     }
 
 }

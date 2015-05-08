@@ -21,6 +21,10 @@ class Organismo extends Eloquent {
         return $this->morphOne('Contacto', 'contactable');
     }
 
+    public function getIdentidadAttribute() {
+        return $this->attributes['nombre'];
+    }
+
     public function getFuncionariosCountAttribute() {
         return $this->funcionarios()->count();
     }

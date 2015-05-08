@@ -77,19 +77,19 @@ class AdminCtrl extends Controller {
         $this->redirectTo('shwAdmOrganis');
     }
 
-    public function sancUsuario($idUsr) {
+    public function sancUsuario($idUsu) {
         $vdt = new Validate\Validator();
-        $vdt->addRule('idUsr', new Validate\Rule\NumNatural())
+        $vdt->addRule('idUsu', new Validate\Rule\NumNatural())
             ->addRule('tipo', new Validate\Rule\InArray(array('Suspension', 'Advertencia', 'Quita')))
             ->addRule('mensaje', new Validate\Rule\MinLength(4))
             ->addRule('mensaje', new Validate\Rule\MaxLength(128))
             ->addRule('cantidad', new Validate\Rule\NumNatural());
         $req = $this->request;
-        $data = array_merge(array('idUsr' => $idUsr), $req->post());
+        $data = array_merge(array('idUsu' => $idUsu), $req->post());
         if (!$vdt->validate($data)) {
             throw new TurnbackException($vdt->getErrors());
         }
-        $usuario = Usuario::findOrFail($vdt->getData('idUsr'));
+        $usuario = Usuario::findOrFail($vdt->getData('idUsu'));
         switch ($vdt->getData('tipo')) {
             case 'Suspension':
                 $usuario->suspendido = true;

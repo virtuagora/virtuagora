@@ -70,7 +70,7 @@ class EventoCtrl extends Controller {
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($evento);
         $partido = $autor->partido;
-        $log = UserlogCtrl::createLog('newEventoo', $autor, $evento);
+        $log = UserlogCtrl::createLog('newEventoo', $autor->id, $evento);
         if (isset($partido) && $vdt->getData('asociar')) {
             $contenido->impulsor()->associate($partido);
             foreach ($partido->afiliados as $afiliado) {
@@ -117,7 +117,7 @@ class EventoCtrl extends Controller {
             }
         }
         $contenido->save();
-        $log = UserlogCtrl::createLog('modEventoo', $usuario, $evento);
+        $log = UserlogCtrl::createLog('modEventoo', $usuario->id, $evento);
         foreach ($evento->usuarios as $participe) {
             NotificacionCtrl::createNotif($participe->id, $log);
         }
@@ -130,7 +130,7 @@ class EventoCtrl extends Controller {
         $vdt->test($idEve, new Validate\Rule\NumNatural());
         $evento = Evento::with(['contenido', 'usuarios'])->findOrFail($idEve);
         $evento->delete();
-        $log = UserlogCtrl::createLog('delEventoo', $this->session->getUser(), $evento);
+        $log = UserlogCtrl::createLog('delEventoo', $this->session->user('id'), $evento);
         foreach ($evento->usuarios as $participe) {
             NotificacionCtrl::createNotif($participe->id, $log);
         }

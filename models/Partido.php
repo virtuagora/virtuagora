@@ -28,6 +28,10 @@ class Partido extends Eloquent {
         return $this->hasMany('Contenido', 'impulsor_id');
     }
 
+    public function getIdentidadAttribute() {
+        return $this->attributes['nombre'];
+    }
+
     public static function boot() {
         parent::boot();
         static::created(function($partido) {
