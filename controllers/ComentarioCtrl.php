@@ -18,35 +18,25 @@ class ComentarioCtrl extends RMRController {
             ->addRule('cuerpo', new Validate\Rule\MaxLength(2048))
             ->addFilter('tipoRaiz', 'ucfirst');
         $req = $this->request;
-        $data = array_merge(array('idRaiz' => $idRaiz, 'tipoRaiz' => $tipoRaiz), $req->post());
+        $data = array_merge($req->post(), ['idRaiz' => $idRaiz, 'tipoRaiz' => $tipoRaiz]);
         if (!$vdt->validate($data)) {
             throw new TurnbackException($vdt->getErrors());
         }
-        $autor = $this->session->getUser();
         $comentable = call_user_func($vdt->getData('tipoRaiz').'::findOrFail', $vdt->getData('idRaiz'));
-        if ($vdt->getData('tipoRaiz') == 'Comentario') {
-            if ($comentable->comentable_type == 'Comentario') {
-                throw new TurnbackException('No puede responderse una respuesta.');
-            } else if ($comentable->comentable_type == 'ParrafoDocumento') {
-                $objType = 'Parrafo';
-                $objId = $comentable->version->documento_id;
-            }
-            $objType = $comentable->comentable_type;
-            $objId = $comentable->comentable_id;
-        } else if ($vdt->getData('tipoRaiz') == 'ParrafoDocumento') {
-            $objType = 'Parrafo';
-            $objId = $comentable->version->documento_id;
-        } else {
-            $objType = $vdt->getData('tipoRaiz');
-            $objId = $vdt->getData('idRaiz');
+        if ($vdt->getData('tipoRaiz') == 'Comentario' && $comentable->comentable_type == 'Comentario') {
+            throw new TurnbackException('No puede responderse una respuesta.');
         }
+        $autor = $this->session->getUser();
         $comentario = new Comentario;
         $comentario->cuerpo = $vdt->getData('cuerpo');
         $comentario->autor()->associate($autor);
         $comentario->comentable()->associate($comentable);
         $comentario->save();
-        UserlogCtrl::createLog('newComenta', $autor->id, $objId, $objType);
-        $autor->increment('puntos');
+        $raiz = $comentable->raiz;
+        $raiz->increment('puntos', 3);
+        $autor->increment('puntos', 5);
+        $log = UserlogCtrl::createLog('newComenta', $autor->id, $raiz);
+        NotificacionCtrl::createNotif($raiz->autor_id, $log);
         $this->flash('success', 'Su comentario fue enviado exitosamente.');
         $this->redirect($req->getReferrer());
     }
@@ -68,6 +58,7 @@ class ComentarioCtrl extends RMRController {
             $voto->valor = $vdt->getData('valor');
             $voto->save();
             $comentario->increment('votos', $voto->valor);
+            $comentario->autor()->increment('puntos', $voto->valor);
         } else {
             throw new TurnbackException('No puede votar dos veces el mismo comentario.');
         }

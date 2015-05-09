@@ -50,7 +50,7 @@ class DocumentoCtrl extends Controller {
         $contenido->contenible()->associate($documento);
         $contenido->save();
         UserlogCtrl::createLog('newDocumen', $autor->id, $documento);
-        $autor->increment('puntos', 15);
+        $autor->increment('puntos', 25);
         $this->flash('success', 'Su documento abierto se creó exitosamente.');
         $this->redirectTo('shwDocumen', array('idDoc' => $documento->id));
     }

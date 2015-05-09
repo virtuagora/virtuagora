@@ -36,7 +36,10 @@ class NovedadCtrl extends Controller {
             $contenido->impulsor()->associate($partido);
         }
         $contenido->save();
-        UserlogCtrl::createLog('newNovedad', $autor->id, $novedad);
+        $log = UserlogCtrl::createLog('newNovedad', $autor->id, $novedad);
+        if ($contenido->impulsor) {
+            NotificacionCtrl::createNotif($partido->afiliados()->lists('id'), $log);
+        }
         $this->flash('success', 'Su novedad fue creada exitosamente.');
         $this->redirectTo('shwNovedad', array('idNov' => $novedad->id));
     }

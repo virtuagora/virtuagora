@@ -27,13 +27,18 @@ class ProblematicaCtrl extends Controller {
             throw new TurnbackException($vdt->getErrors());
         }
         $usuario = $this->session->getUser();
-        $problematica = Problematica::findOrFail($idPro);
-        $voto = VotoProblematica::firstOrNew(array('problematica_id' => $problematica->id,
+        $problemat = Problematica::with('contenido')->findOrFail($idPro);
+        $voto = VotoProblematica::firstOrNew(array('problematica_id' => $problemat->id,
                                                    'usuario_id' => $usuario->id));
+        $cfgPtsAutr = [0, 1, 2];
+        $cfgPtsPost = [1, 2, 3];
+        $cfgCount = ['afectados_indiferentes', 'afectados_indirectos', 'afectados_directos'];
         $postura = $vdt->getData('postura');
+        $sumaAutr = $cfgPtsAutr[$postura];
+        $sumaPost = $cfgPtsPost[$postura];
         if (!$voto->exists) {
             $usuario->increment('puntos', 3);
-            UserlogCtrl::createLog('votProblem', $usuario->id, $problematica);
+            UserlogCtrl::createLog('votProblem', $usuario->id, $problemat);
         } else if ($voto->postura == $postura) {
             throw new TurnbackException('No puede votar dos veces la misma postura.');
         } else {
@@ -42,22 +47,21 @@ class ProblematicaCtrl extends Controller {
             if ($fecha->lt($voto->updated_at)) {
                 throw new TurnbackException('No puede cambiar su voto tan pronto.');
             }
-            switch ($voto->postura) {
-                case 0: $problematica->decrement('afectados_indiferentes'); break;
-                case 1: $problematica->decrement('afectados_indirectos'); break;
-                case 2: $problematica->decrement('afectados_directos'); break;
-            }
+            $problemat->decrement($cfgCount[$voto->postura]);
+            $sumaAutr -= $cfgPtsAutr[$voto->postura];
+            $sumaPost -= $cfgPtsPost[$voto->postura];
         }
         $voto->postura = $postura;
-        switch ($postura) {
-            case 0: $problematica->increment('afectados_indiferentes'); break;
-            case 1: $problematica->increment('afectados_indirectos'); break;
-            case 2: $problematica->increment('afectados_directos'); break;
-        }
         $voto->save();
-        $usuario->save();
+        $problemat->increment($cfgCount[$postura]);
+        if ($sumaPost != 0) {
+            $problemat->contenido->increment('puntos', $sumaPost);
+        }
+        if ($sumaAutr != 0) {
+            $problemat->contenido->autor()->increment('puntos', $sumaPost);
+        }
         $this->flash('success', 'Su voto fue registrado exitosamente.');
-        $this->redirectTo('shwProblem', array('idPro' => $problematica->id));
+        $this->redirectTo('shwProblem', array('idPro' => $problemat->id));
     }
 
     public function verCrear() {
@@ -83,7 +87,7 @@ class ProblematicaCtrl extends Controller {
         $contenido->contenible()->associate($problematica);
         $contenido->save();
         UserlogCtrl::createLog('newProblem', $autor->id, $problematica);
-        $autor->increment('puntos', 15);
+        $autor->increment('puntos', 25);
         $this->flash('success', 'Su problemática se creó exitosamente.');
         $this->redirectTo('shwProblem', array('idPro' => $problematica->id));
     }
@@ -104,7 +108,6 @@ class ProblematicaCtrl extends Controller {
         $vdt->test($idPro, new Validate\Rule\NumNatural());
         $problemat = Problematica::with(array('contenido', 'votos'))->findOrFail($idPro);
         $contenido = $problemat->contenido;
-        $usuario = $this->session->getUser();
         $req = $this->request;
         $vdt = $this->validarPropuesta($req->post());
         $problemat->cuerpo = $vdt->getData('cuerpo');
@@ -112,7 +115,6 @@ class ProblematicaCtrl extends Controller {
         $contenido->titulo = $vdt->getData('titulo');
         $contenido->categoria_id = $vdt->getData('categoria');
         $contenido->save();
-        UserlogCtrl::createLog('modProblem', $usuario->id, $problemat);
         $this->flash('success', 'Los datos de la problemática fueron modificados exitosamente.');
         $this->redirectTo('shwProblem', array('idPro' => $idPro));
     }
@@ -120,9 +122,11 @@ class ProblematicaCtrl extends Controller {
     public function eliminar($idPro) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idPro, new Validate\Rule\NumNatural());
-        $problematica = Problematica::with(array('contenido', 'comentarios.votos'))->findOrFail($idPro);
-        $problematica->delete();
-        UserlogCtrl::createLog('delProblem', $this->session->user('id'), $problematica);
+        $problemat = Problematica::with(['contenido', 'comentarios.votos'])->findOrFail($idPro);
+        $votantes = $problemat->votos()->lists('usuario_id');
+        $problemat->delete();
+        $log = UserlogCtrl::createLog('delProblem', $this->session->user('id'), $problemat);
+        NotificacionCtrl::createNotif($votantes, $log);
         $this->flash('success', 'La problematica ha sido eliminada exitosamente.');
         $this->redirectTo('shwIndex');
     }

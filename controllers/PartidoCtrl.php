@@ -74,7 +74,9 @@ class PartidoCtrl extends RMRController {
         }
         $usuario->partido()->associate($partido);
         $usuario->save();
-        UserlogCtrl::createLog('joiPartido', $usuario->id, $partido);
+        $notificados = $partido->afiliados()->where('es_jefe', 1)->lists('id');
+        $log = UserlogCtrl::createLog('joiPartido', $usuario->id, $partido);
+        NotificacionCtrl::createNotif($notificados, $log);
         $this->session->update($usuario);
         $this->flash('success', 'Se ha unido al partido '.$partido->nombre.'.');
         $this->redirectTo('shwListaPartido');
@@ -91,7 +93,9 @@ class PartidoCtrl extends RMRController {
         $usuario->partido()->dissociate();
         $usuario->es_jefe = false;
         $usuario->save();
-        UserlogCtrl::createLog('lefPartido', $usuario->id, $partido);
+        $notificados = $partido->afiliados()->where('es_jefe', 1)->lists('id');
+        $log = UserlogCtrl::createLog('lefPartido', $usuario->id, $partido);
+        NotificacionCtrl::createNotif($notificados, $log);
         $this->session->update($usuario);
         $this->flash('success', 'Ha dejado el partido '.$partido->nombre.'.');
         $this->redirectTo('shwListaPartido');
@@ -151,8 +155,10 @@ class PartidoCtrl extends RMRController {
         if (!$this->session->check($partido->creador_id)) {
             throw new BearableException('Un partido puede ser eliminado solamente por su creador.');
         }
+        $notificados = $partido->afiliados()->lists('id');
         $partido->delete();
-        UserlogCtrl::createLog('delPartido', $this->session->user('id'), $partido);
+        $log = UserlogCtrl::createLog('delPartido', $this->session->user('id'), $partido);
+        NotificacionCtrl::createNotif($notificados, $log);
         $this->session->update();
         $this->flash('success', 'El partido ha sido eliminado exitosamente.');
         $this->redirectTo('shwIndex');
@@ -191,8 +197,10 @@ class PartidoCtrl extends RMRController {
         }
         $usuario->es_jefe = $vdt->getData('jefe');
         $usuario->save();
-        UserlogCtrl::createLog($usuario->es_jefe?'newJefPart':'delJefPart', $usuario->id, $partido);
-        $msg = $usuario->es_jefe ? ' comenzó a ' : ' dejó de ';
+        $notificados = $partido->afiliados()->lists('id');
+        $log = UserlogCtrl::createLog($usuario->es_jefe? 'newJefPart': 'delJefPart', $usuario->id, $partido);
+        NotificacionCtrl::createNotif($notificados, $log);
+        $msg = $usuario->es_jefe? ' comenzó a ': ' dejó de ';
         $this->flash('success', $usuario->identidad.$msg.'ser jefe del partido.');
         $this->redirectTo('shwModifRolPartido', array('idPar' => $idPar));
     }

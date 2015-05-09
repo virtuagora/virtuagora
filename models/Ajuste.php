@@ -14,4 +14,8 @@ class Ajuste extends Eloquent {
         $this->attributes[$this->value_type.'_value'] = $value;
     }
 
+    public function getIdentidadAttribute() {
+        return $this->attributes['key'];
+    }
+
 }

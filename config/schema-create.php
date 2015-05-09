@@ -139,7 +139,6 @@ Capsule::schema()->create('notificaciones', function($table) {
     $table->morphs('notificable');
     $table->integer('usuario_id')->unsigned();
     $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
-    $table->timestamps();
     $table->softDeletes();
 });
 

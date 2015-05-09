@@ -24,4 +24,8 @@ abstract class Contenible extends Eloquent {
     public function getIdentidadAttribute() {
         return $this->contenido->titulo;
     }
+
+    public function getRaizAttribute() {
+        return $this->contenido;
+    }
 }

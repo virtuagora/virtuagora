@@ -119,7 +119,8 @@ function checkUserAuth($action, $checkMod = false) {
 */
 
 $app->get('/test', function () use ($app) {
-    var_dump(json_decode('asf'));
+    $cont = Contenido::all();
+    var_dump($cont->lists('contenible_type'));
 });
 
 //$app->get('/userlog', 'UserlogCtrl:listar')->name('shwListaUserlog');
@@ -147,7 +148,6 @@ $app->get('/usuario', 'UsuarioCtrl:listar')->name('shwListaUsuario');
 
 $app->group('/comentario', function () use ($app) {
     $app->get('', 'ComentarioCtrl:listar')->name('shwListaComenta');
-    // TODO ver si cambia
     $app->post('/comentar/:tipoRaiz/:idRaiz', checkRole('usr'), 'ComentarioCtrl:comentar')->name('runComentar');
     $app->get('/:idCom', 'ComentarioCtrl:ver')->name('shwComenta');
     $app->post('/:idCom/votar', checkRole('usr'), 'ComentarioCtrl:votar')->name('runVotarComenta');

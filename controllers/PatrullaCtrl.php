@@ -42,6 +42,9 @@ class PatrullaCtrl extends RMRController {
             $patrulla = Patrulla::findOrFail($entrante['pat']);
             $usuario->patrulla()->associate($patrulla);
             $usuario->save();
+            $identidad = $usuario->identidad.' ('.$usuario->id.')';
+            $log = AdminlogCtrl::createLog($identidad, 6, 'new', $this->session->user('id'), $patrulla);
+            NotificacionCtrl::createNotif($usuario->id, $log);
         }
         $this->flash('success', 'Los nuevos moderadores han sido agregados exitosamente.');
         $this->redirectTo('shwCrearModerad');
@@ -62,6 +65,8 @@ class PatrullaCtrl extends RMRController {
             throw new TurnbackException('No puede quitarse a sí mismo de una patrulla.');
         }
         $patrulla->moderadores()->whereIn('id', $salientes)->update(['patrulla_id' => null]);
+        $log = AdminlogCtrl::createLog(implode(',', $salientes), 6, 'del', $this->session->user('id'), $patrulla);
+        NotificacionCtrl::createNotif($salientes, $log);
         $this->flash('success', 'Los moderadores han sido removidos de la patrulla exitosamente.');
         $this->redirectTo('shwAdmModerad', ['idPat' => $idPat]);
     }
@@ -77,6 +82,7 @@ class PatrullaCtrl extends RMRController {
         $patrulla->nombre = $vdt->getData('nombre');
         $patrulla->descripcion = $vdt->getData('descripcion');
         $patrulla->save();
+        AdminlogCtrl::createLog('', 5, 'new', $this->session->user('id'), $patrulla);
         $this->flash('success', 'El grupo de moderación ha sido creado exitosamente.');
         $this->redirectTo('shwAdmPatrull');
     }
@@ -90,6 +96,7 @@ class PatrullaCtrl extends RMRController {
         $patrulla->nombre = $vdt->getData('nombre');
         $patrulla->descripcion = $vdt->getData('descripcion');
         $patrulla->save();
+        AdminlogCtrl::createLog('', 5, 'mod', $this->session->user('id'), $patrulla);
         $this->flash('success', 'Los datos del grupo de moderación fueron modificados exitosamente.');
         $this->redirectTo('shwAdmPatrull');
     }
@@ -102,6 +109,7 @@ class PatrullaCtrl extends RMRController {
             throw new TurnbackException('Para eliminar una patrulla no debe haber moderadores dentro de esta.');
         }
         $patrulla->delete();
+        AdminlogCtrl::createLog('', 5, 'del', $this->session->user('id'), $patrulla);
         $this->flash('success', 'La patrulla ha sido eliminada exitosamente.');
         $this->redirectTo('shwAdmPatrull');
     }
@@ -129,6 +137,7 @@ class PatrullaCtrl extends RMRController {
         $patrulla = Patrulla::findOrFail($idPat);
         $poderes = json_decode($vdt->getData('poderes'));
         $patrulla->poderes()->sync($poderes);
+        AdminlogCtrl::createLog(implode(',', $poderes), 5, 'pod', $this->session->user('id'), $patrulla);
         $this->flash('success', 'Los permisos del grupo de moderación fueron modificados exitosamente.');
         $this->redirectTo('shwAdmPatrull');
     }

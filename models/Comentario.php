@@ -25,6 +25,10 @@ class Comentario extends Eloquent {
         return $this->hasMany('VotoComentario');
     }
 
+    public function getRaizAttribute() {
+        return $this->comentable->raiz;
+    }
+
     public static function boot() {
         parent::boot();
         static::deleting(function($comentario) {

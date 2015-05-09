@@ -25,9 +25,25 @@ return ['log' => [
     'delJefPart' => '%act% dejó de ser jefe del <a href="%url%">%obj%</a>.',
     'newFuncion' => '%act% ahora es funcionario del organismo: <a href="%url%">%obj%</a>.',
     'delFuncion' => '%act% dejó de ser funcionario del organismo: <a href="%url%">%obj%</a>.',
-    'vrfUsuario' => '%act% verificó su cuenta.',
     'admin1' => [
         'sus' => '%act% suspendió a <a href="%url%">%obj%</a>. Razón: %des%',
         'adv' => '%act% le asignó a <a href="%url%">%obj%</a> la advertencia: %des%',
-        'qui' => '%act% le quitó puntos a <a href="%url%">%obj%</a>. Razón: %des%']]
-];
+        'qui' => '%act% le quitó puntos a <a href="%url%">%obj%</a>. Razón: %des%'],
+    'admin2.mod' => '%act% modificó el ajuste "%obj%".',
+    'admin3' => [
+        'new' => '%act% creó el organismo: <a href="%url%">%obj%</a>.',
+        'mod' => '%act% modificó datos del organismo: <a href="%url%">%obj%</a>.',
+        'del' => '%act% eliminó el organismo: <a href="%url%">%obj%</a>.'],
+    'admin4' => [
+        'new' => '%act% agregó funcionarios (%des%) al organismo: <a href="%url%">%obj%</a>.',
+        'del' => '%act% quitó funcionarios (%des%) del organismo: <a href="%url%">%obj%</a>.'],
+    'admin5' => [
+        'new' => '%act% creó la patrulla: <a href="%url%">%obj%</a>.',
+        'mod' => '%act% modificó datos de la patrulla: <a href="%url%">%obj%</a>.',
+        'pod' => '%act% actualizó los poderes (%des%) de la patrulla: <a href="%url%">%obj%</a>.',
+        'del' => '%act% eliminó la patrulla: <a href="%url%">%obj%</a>.'],
+    'admin6' => [
+        'new' => '%act% agregó moderadores (%des%) a la patrulla: <a href="%url%">%obj%</a>.',
+        'del' => '%act% quitó moderadores (%des%) de la patrulla: <a href="%url%">%obj%</a>.'],
+    'admin7.new' => '%act% verificó la cuenta de <a href="%url%">%obj%</a>.',
+]];

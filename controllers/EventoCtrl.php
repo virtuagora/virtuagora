@@ -5,7 +5,7 @@ class EventoCtrl extends Controller {
     public function ver($idEve) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idEve, new Validate\Rule\NumNatural());
-        $evento = Evento::with(array('contenido', 'comentarios'))->findOrFail($idEve);
+        $evento = Evento::with(['contenido.tags', 'comentarios'])->findOrFail($idEve);
         $contenido = $evento->contenido;
         $participe = $evento->usuarios()->where('usuario_id', $this->session->user('id'))->first();
         $participantes = $evento->usuarios()->where('publico', '1')->get()->toArray();
@@ -36,6 +36,7 @@ class EventoCtrl extends Controller {
         if ($hoy->gt($evento->fecha)) {
             throw new TurnbackException('El evento ya ha ocurrido.');
         }
+        $sumaPost = $vdt->getData('presente')? 3: 1;
         $participe = $evento->usuarios()->where('usuario_id', $usuario->id)->first();
         if (is_null($participe)) {
             $evento->usuarios()->attach($usuario->id, ['presente' => $vdt->getData('presente'),
@@ -44,6 +45,10 @@ class EventoCtrl extends Controller {
             $participe->pivot->presente = $vdt->getData('presente');
             $participe->pivot->publico = $vdt->getData('publico');
             $participe->pivot->save();
+            $sumaPost -= $participe->pivot->presente? 3: 1;
+        }
+        if ($sumaPost != 0) {
+            $evento->contenido()->increment('puntos', $sumaPost);
         }
         $this->flash('success', 'Su participación fue registrada exitosamente.');
         $this->redirectTo('shwEvento', array('idEve' => $evento->id));
@@ -70,15 +75,15 @@ class EventoCtrl extends Controller {
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($evento);
         $partido = $autor->partido;
-        $log = UserlogCtrl::createLog('newEventoo', $autor->id, $evento);
         if (isset($partido) && $vdt->getData('asociar')) {
             $contenido->impulsor()->associate($partido);
-            foreach ($partido->afiliados as $afiliado) {
-                NotificacionCtrl::createNotif($afiliado->id, $log);
-            }
         }
         $contenido->save();
         TagCtrl::updateTags($evento, TagCtrl::getTagIds($vdt->getData('tags')));
+        $log = UserlogCtrl::createLog('newEventoo', $autor->id, $evento);
+        if ($contenido->impulsor) {
+            NotificacionCtrl::createNotif($partido->afiliados()->lists('id'), $log);
+        }
         $this->flash('success', 'Su evento fue creado exitosamente.');
         $this->redirectTo('shwEvento', array('idEve' => $evento->id));
     }
@@ -87,7 +92,7 @@ class EventoCtrl extends Controller {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idEve, new Validate\Rule\NumNatural());
         $categorias = Categoria::all()->toArray();
-        $evento = Evento::with('contenido')->findOrFail($idEve);
+        $evento = Evento::with('contenido.tags')->findOrFail($idEve);
         $contenido = $evento->contenido;
         $datos = array_merge($contenido->toArray(), $evento->toArray());
         $this->render('contenido/evento/modificar.twig', array('evento' => $datos,
@@ -97,7 +102,7 @@ class EventoCtrl extends Controller {
     public function modificar($idEve) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idEve, new Validate\Rule\NumNatural());
-        $evento = Evento::with(['contenido', 'usuarios'])->findOrFail($idEve);
+        $evento = Evento::with('contenido')->findOrFail($idEve);
         $contenido = $evento->contenido;
         $usuario = $this->session->getUser();
         $req = $this->request;
@@ -117,10 +122,9 @@ class EventoCtrl extends Controller {
             }
         }
         $contenido->save();
+        TagCtrl::updateTags($evento, TagCtrl::getTagIds($vdt->getData('tags')));
         $log = UserlogCtrl::createLog('modEventoo', $usuario->id, $evento);
-        foreach ($evento->usuarios as $participe) {
-            NotificacionCtrl::createNotif($participe->id, $log);
-        }
+        NotificacionCtrl::createNotif($evento->usuarios()->lists('id'), $log);
         $this->flash('success', 'Los datos del evento fueron modificados exitosamente.');
         $this->redirectTo('shwEvento', array('idEve' => $idEve));
     }
@@ -128,12 +132,11 @@ class EventoCtrl extends Controller {
     public function eliminar($idEve) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idEve, new Validate\Rule\NumNatural());
-        $evento = Evento::with(['contenido', 'usuarios'])->findOrFail($idEve);
+        $evento = Evento::with(['contenido', 'comentarios.votos'])->findOrFail($idEve);
+        $usuarios = $evento->usuarios()->lists('usuario_id');
         $evento->delete();
         $log = UserlogCtrl::createLog('delEventoo', $this->session->user('id'), $evento);
-        foreach ($evento->usuarios as $participe) {
-            NotificacionCtrl::createNotif($participe->id, $log);
-        }
+        NotificacionCtrl::createNotif($usuarios, $log);
         $this->flash('success', 'El evento ha sido eliminado exitosamente.');
         $this->redirectTo('shwIndex');
     }

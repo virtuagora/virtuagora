@@ -50,6 +50,7 @@ class OrganismoCtrl extends RMRController {
         $organismo->cupo = $vdt->getData('cupo');
         $organismo->save();
         ImageManager::crearImagen('organis', $organismo->id, $organismo->nombre, array(32, 64, 160));
+        AdminlogCtrl::createLog('', 3, 'new', $this->session->user('id'), $organismo);
         $this->flash('success', 'Se ha credo el organismo existosamente.');
         $this->redirectTo('shwAdmOrganis');
     }
@@ -82,6 +83,7 @@ class OrganismoCtrl extends RMRController {
         $contacto->web = $vdt->getData('url');
         $contacto->telefono = $vdt->getData('telefono');
         $contacto->save();
+        AdminlogCtrl::createLog('', 3, 'mod', $this->session->user('id'), $organismo);
         $this->flash('success', 'Los datos del organismo fueron modificados exitosamente.');
         $this->redirect($this->request->getReferrer());
     }
@@ -100,6 +102,7 @@ class OrganismoCtrl extends RMRController {
             throw new TurnbackException('Para eliminar un organismo no debe haber funcionarios dentro de este.');
         }
         $organismo->delete();
+        AdminlogCtrl::createLog('', 3, 'del', $this->session->user('id'), $organismo);
         $this->flash('success', 'El organismo fue eliminado exitosamente.');
         $this->redirectTo('shwAdmOrganis');
     }
