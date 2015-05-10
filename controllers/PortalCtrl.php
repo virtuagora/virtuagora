@@ -20,7 +20,7 @@ class PortalCtrl extends Controller {
 
     public function verTos() {
         $tos = Ajuste::where('key', 'tos')->firstOrFail();
-        $this->render('portal/tos.twig', ['tos' = $tos->toArray()]);
+        $this->render('portal/tos.twig', ['tos' => $tos->toArray()]);
     }
 
     public function login() {
