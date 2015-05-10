@@ -25,7 +25,7 @@
 {% set url_comentar = urlFor('runComentar', {'tipoRaiz': 'propuesta' , 'idRaiz': propuesta.id}) %}
 {% block cuerpo_cont %}
 {{ propuesta.cuerpo|bbCode }}
-{% if propuesta.referido is empty %}
+{% if propuesta.referido is not empty %}
 <div class="row">
     <div class="panel referido-problematica-info">
         <div class="row">
