@@ -1,21 +1,9 @@
-<?php use Illuminate\Database\Eloquent\Model as Eloquent;
+<?php
 
-class Documento extends Eloquent {
-    use Illuminate\Database\Eloquent\SoftDeletingTrait;
-
+class Documento extends Contenible {
     //protected $table = 'documento';
     protected $dates = ['deleted_at'];
     protected $visible = array('id', 'descripcion', 'ultima_version');
-
-    public function scopeModifiableBy($query, $id) {
-        return $query->whereHas('contenido', function($q) use ($id) {
-            $q->where('autor_id', $id);
-        });
-    }
-
-    public function contenido() {
-        return $this->morphOne('Contenido', 'contenible')->withTrashed();
-    }
 
     public function versiones() {
         return $this->hasMany('VersionDocumento');
@@ -23,10 +11,6 @@ class Documento extends Eloquent {
 
     public function parrafos() {
         return $this->hasManyThrough('ParrafoDocumento', 'VersionDocumento', 'documento_id', 'version_id');
-    }
-
-    public function getNombreAttribute() {
-        return $this->contenido->titulo;
     }
 
     public static function boot() {
@@ -50,5 +34,4 @@ class Documento extends Eloquent {
             return true;
         });
     }
-
 }

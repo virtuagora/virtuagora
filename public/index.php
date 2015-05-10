@@ -22,6 +22,14 @@ $app->container->singleton('session', function () {
     return new SessionManager();
 });
 
+$app->container->singleton('translator', function () {
+    $trans = new Symfony\Component\Translation\Translator('es');
+    $trans->setFallbackLocale('es');
+    $trans->addLoader('php', new Symfony\Component\Translation\Loader\PhpFileLoader());
+    $trans->addResource('php', __DIR__.'/../locales/es.php', 'es');
+    return $trans;
+});
+
 $app->api = false;
 
 // Prepare error handler
@@ -111,7 +119,8 @@ function checkUserAuth($action, $checkMod = false) {
 */
 
 $app->get('/test', function () use ($app) {
-    echo __DIR__;
+    $cont = Contenido::all();
+    var_dump($cont->lists('contenible_type'));
 });
 
 //$app->get('/userlog', 'UserlogCtrl:listar')->name('shwListaUserlog');
@@ -122,7 +131,7 @@ $app->post('/login', 'checkNoSession', 'PortalCtrl:login')->name('runLogin');
 $app->post('/logout', 'PortalCtrl:logout')->name('runLogout');
 $app->get('/registro', 'checkNoSession', 'PortalCtrl:verRegistrar')->name('shwCrearUsuario');
 $app->post('/registro', 'checkNoSession', 'PortalCtrl:registrar')->name('runCrearUsuario');
-$app->get('/validar/:idUsr/:token', 'PortalCtrl:verificarEmail')->name('runValidUsuario');
+$app->get('/validar/:idUsu/:token', 'PortalCtrl:verificarEmail')->name('runValidUsuario');
 
 $app->get('/notificacion', checkRole('usr'), 'NotificacionCtrl:listar')->name('shwListaNotific');
 $app->post('/notificacion/eliminar', checkRole('usr'), 'NotificacionCtrl:eliminar')->name('runElimiNotific');
@@ -133,13 +142,12 @@ $app->get('/contenido', 'ContenidoCtrl:listar')->name('shwListaConteni');
 $app->get('/organismo', 'OrganismoCtrl:listar')->name('shwListaOrganis');
 $app->get('/organismo/:idOrg', 'OrganismoCtrl:ver')->name('shwOrganis');
 
-$app->get('/usuario/:idUsr', 'UsuarioCtrl:ver')->name('shwUsuario');
-$app->get('/usuario/:idUsr/imagen/:res', 'UsuarioCtrl:verImagen')->name('shwImgUsuario');
+$app->get('/usuario/:idUsu', 'UsuarioCtrl:ver')->name('shwUsuario');
+$app->get('/usuario/:idUsu/imagen/:res', 'UsuarioCtrl:verImagen')->name('shwImgUsuario');
 $app->get('/usuario', 'UsuarioCtrl:listar')->name('shwListaUsuario');
 
 $app->group('/comentario', function () use ($app) {
     $app->get('', 'ComentarioCtrl:listar')->name('shwListaComenta');
-    // TODO ver si cambia
     $app->post('/comentar/:tipoRaiz/:idRaiz', checkRole('usr'), 'ComentarioCtrl:comentar')->name('runComentar');
     $app->get('/:idCom', 'ComentarioCtrl:ver')->name('shwComenta');
     $app->post('/:idCom/votar', checkRole('usr'), 'ComentarioCtrl:votar')->name('runVotarComenta');
@@ -166,7 +174,7 @@ $app->group('/admin', function () use ($app) {
     $app->get('/organismo/:idOrg/funcionario', checkAdminAuth(4), 'AdminCtrl:verAdminFuncionarios')->name('shwAdmFuncion');
     $app->post('/organismo/:idOrg/funcionario', checkAdminAuth(4), 'AdminCtrl:adminFuncionarios')->name('runAdmFuncion');
 
-    $app->post('/sancionar/:idUsr', checkAdminAuth(1), 'AdminCtrl:sancUsuario')->name('runSanUsuario');
+    $app->post('/sancionar/:idUsu', checkAdminAuth(1), 'AdminCtrl:sancUsuario')->name('runSanUsuario');
     $app->get('/verificar', checkAdminAuth(7), 'AdminCtrl:verVerifCiudadano')->name('shwAdmVrfUsuario');
     $app->post('/verificar', checkAdminAuth(7), 'AdminCtrl:verifCiudadano')->name('runAdmVrfUsuario');
     $app->get('/ajustes', checkAdminAuth(2), 'AdminCtrl:verAdminAjustes')->name('shwAdmAjuste');
@@ -201,6 +209,9 @@ $app->group('/problematica', function () use ($app) {
     $app->post('/crear', checkRole('usr'), 'ProblematicaCtrl:crear')->name('runCrearProblem');
     $app->get('/:idPro', 'ProblematicaCtrl:ver')->name('shwProblem');
     $app->post('/:idPro/votar', checkRole('usr'), 'ProblematicaCtrl:votar')->name('runVotarProblem');
+    $app->get('/:idPro/modificar', checkModifyAuth('Problematica'), 'ProblematicaCtrl:verModificar')->name('shwModifProblem');
+    $app->post('/:idPro/modificar', checkModifyAuth('Problematica'), 'ProblematicaCtrl:modificar')->name('runModifProblem');
+    $app->post('/:idPro/eliminar', checkModifyAuth('Problematica'), 'ProblematicaCtrl:eliminar')->name('runElimiProblem');
 });
 
 $app->group('/documento', function () use ($app) {

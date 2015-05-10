@@ -5,8 +5,8 @@ class Notificacion extends Eloquent {
 
     protected $table = 'notificaciones';
     protected $dates = array('deleted_at');
-    protected $visible = array('id', 'usuario_id', 'updated_at', 'mensaje');
-    protected $appends = array('mensaje');
+    protected $visible = array('id', 'usuario_id', 'fecha', 'mensaje');
+    protected $appends = array('mensaje', 'fecha');
     protected $with = array('notificable');
 
     public function notificable() {
@@ -17,8 +17,12 @@ class Notificacion extends Eloquent {
         return $this->belongsTo('Usuario');
     }
 
+    public function getFechaAttribute() {
+        return $this->notificable->updated_at;
+    }
+
     public function getMensajeAttribute() {
-        return UserlogCtrl::getMessage($this->notificable);
+        return $this->notificable->mensaje;
     }
 
 }

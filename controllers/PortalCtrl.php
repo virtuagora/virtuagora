@@ -72,7 +72,7 @@ class PortalCtrl extends Controller {
         $to = $preuser->email;
         $subject = 'Confirma tu registro en Virtuagora';
         $message = 'Hola, te registraste en virtuagora. Entra a este link para confirmar tu email: ' .
-                   $this->urlFor('runValidUsuario', array('idUsr' => $preuser->id, 'token' => $preuser->emailed_token));
+                   $this->urlFor('runValidUsuario', array('idUsu' => $preuser->id, 'token' => $preuser->emailed_token));
         $header = 'From:noreply@'.$_SERVER['SERVER_NAME'].' \r\n';
         mail($to, $subject, $message, $header);
 

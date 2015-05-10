@@ -7,7 +7,7 @@ class Contenido extends Eloquent {
 
     protected $dates = ['deleted_at'];
     protected $visible = ['id', 'titulo', 'contenible_id', 'contenible_type', 'impulsor_id', 'puntos', 'created_at',
-                          'link', 'categoria', 'autor', 'contenible', 'referido'];
+                          'link', 'categoria', 'autor', 'contenible', 'tags', 'referido'];
     protected $appends = ['link'];
     protected $with = ['autor', 'categoria'];
 

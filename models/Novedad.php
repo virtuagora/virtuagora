@@ -1,29 +1,9 @@
-<?php use Illuminate\Database\Eloquent\Model as Eloquent;
+<?php
 
-class Novedad extends Eloquent {
-    use Illuminate\Database\Eloquent\SoftDeletingTrait;
-
+class Novedad extends Contenible {
     protected $table = 'novedades';
     protected $dates = ['deleted_at'];
     protected $visible = ['id', 'cuerpo'];
-
-    public function scopeModifiableBy($query, $id) {
-        return $query->whereHas('contenido', function($q) use ($id) {
-            $q->where('autor_id', $id);
-        });
-    }
-
-    public function contenido() {
-        return $this->morphOne('Contenido', 'contenible')->withTrashed();
-    }
-
-    public function comentarios() {
-        return $this->morphMany('Comentario', 'comentable');
-    }
-
-    public function getNombreAttribute() {
-        return $this->contenido->titulo;
-    }
 
     public static function boot() {
         parent::boot();
@@ -35,5 +15,4 @@ class Novedad extends Eloquent {
             return true;
         });
     }
-
 }

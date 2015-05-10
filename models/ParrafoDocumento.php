@@ -16,4 +16,8 @@ class ParrafoDocumento extends Eloquent {
         return $this->morphMany('Comentario', 'comentable');
     }
 
+    public function getRaizAttribute() {
+        return $this->version->documento->contenido;
+    }
+
 }

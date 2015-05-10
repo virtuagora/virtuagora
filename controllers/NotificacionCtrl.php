@@ -30,12 +30,20 @@ class NotificacionCtrl extends RMRController {
         $this->redirect($this->request->getReferrer());
     }
 
-    public static function createNotif($idUsr, $log) {
-        $notif = new Notificacion();
-        $notif->usuario_id = $idUsr;
-        $notif->notificable()->associate($log);
-        $notif->save();
-        return $notif;
+    public static function createNotif($idUsu, $log) {
+        if (is_array($idUsu)) {
+            $data = array();
+            foreach ($idUsu as $usr) {
+                $data[] = ['usuario_id' => $usr, 'notificable_id' => $log->getKey(),
+                           'notificable_type' => $log->getMorphClass()];
+            }
+            Notificacion::insert($data);
+        } else {
+            $notif = new Notificacion();
+            $notif->usuario_id = $idUsu;
+            $notif->notificable()->associate($log);
+            $notif->save();
+        }
     }
 
 }

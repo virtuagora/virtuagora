@@ -3,10 +3,16 @@
 class Tag extends Eloquent {
 
     //protected $table = 'tags';
-    protected $visible = array('id', 'nombre');
+    protected $visible = array('id', 'nombre', 'menciones');
+    protected $fillable = array('nombre');
 
     public function contenidos() {
-        return $this->belongsToMany('Contenido');
+        return $this->morphedByMany('Contenido', 'taggable');
+    }
+
+    public function setNombreAttribute($value) {
+        $this->attributes['nombre'] = $value;
+        $this->attributes['huella'] = FilterFactory::calcHuella($value);
     }
 
 }

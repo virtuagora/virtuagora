@@ -22,8 +22,10 @@ class AdminCtrl extends Controller {
             if (isset($newValue)) {
                 $ajuste->value = $newValue;
                 $ajuste->save();
+                AdminlogCtrl::createLog('', 1, 'mod', $this->session->user('id'), $ajuste);
             }
         }
+
         $this->flash('success', 'Los ajustes se han modificado exitosamente.');
         $this->redirectTo('shwAdmAjuste');
     }
@@ -63,33 +65,41 @@ class AdminCtrl extends Controller {
         if ($salientes) {
             Funcionario::whereIn('usuario_id', $salientes)->delete();
             Usuario::whereIn('id', $salientes)->update(array('es_funcionario' => false));
+            AdminlogCtrl::createLog(implode(',', $salientes), 4, 'del', $this->session->user('id'), $organismo);
+            foreach ($salientes as $saliente) {
+                $log = UserlogCtrl::createLog('delFuncion', $saliente, $organismo);
+                NotificacionCtrl::createNotif($saliente, $log);
+            }
         }
-        foreach ($entrantes as $entrante) {
-            $funcionario = new Funcionario;
-            $funcionario->usuario_id = $entrante;
-            $funcionario->organismo_id = $id;
-            $funcionario->save();
-            $log = UserlogCtrl::createLog('newFuncion', $entrante, $organismo);
-            NotificacionCtrl::createNotif($entrante, $log);
+        if ($entrantes) {
+            Usuario::whereIn('id', $entrantes)->increment('puntos', 30);
+            AdminlogCtrl::createLog(implode(',', $entrantes), 4, 'new', $this->session->user('id'), $organismo);
+            foreach ($entrantes as $entrante) {
+                $funcionario = new Funcionario;
+                $funcionario->usuario_id = $entrante;
+                $funcionario->organismo_id = $id;
+                $funcionario->save();
+                $log = UserlogCtrl::createLog('newFuncion', $entrante, $organismo);
+                NotificacionCtrl::createNotif($entrante, $log);
+            }
         }
-        Usuario::whereIn('id', $entrante)->increment('puntos', 30);
         $this->flash('success', 'Se han modificado los funcionarios del organismo exitosamente.');
         $this->redirectTo('shwAdmOrganis');
     }
 
-    public function sancUsuario($idUsr) {
+    public function sancUsuario($idUsu) {
         $vdt = new Validate\Validator();
-        $vdt->addRule('idUsr', new Validate\Rule\NumNatural())
+        $vdt->addRule('idUsu', new Validate\Rule\NumNatural())
             ->addRule('tipo', new Validate\Rule\InArray(array('Suspension', 'Advertencia', 'Quita')))
             ->addRule('mensaje', new Validate\Rule\MinLength(4))
             ->addRule('mensaje', new Validate\Rule\MaxLength(128))
             ->addRule('cantidad', new Validate\Rule\NumNatural());
         $req = $this->request;
-        $data = array_merge(array('idUsr' => $idUsr), $req->post());
+        $data = array_merge(array('idUsu' => $idUsu), $req->post());
         if (!$vdt->validate($data)) {
             throw new TurnbackException($vdt->getErrors());
         }
-        $usuario = Usuario::findOrFail($vdt->getData('idUsr'));
+        $usuario = Usuario::findOrFail($vdt->getData('idUsu'));
         switch ($vdt->getData('tipo')) {
             case 'Suspension':
                 $usuario->suspendido = true;
@@ -112,6 +122,9 @@ class AdminCtrl extends Controller {
                 $mensaje = "Se le han quitado los puntos al usuario.";
                 break;
         }
+        $subclase = strtolower(substr($vdt->getData('tipo'), 0, 3));
+        $log = AdminlogCtrl::createLog($vdt->getData('mensaje'), 1, $subclase, $this->session->user('id'), $usuario);
+        NotificacionCtrl::createNotif($usuario->id, $log);
         $this->flash('success', $mensaje);
         $this->redirect($req->getReferrer());
     }
@@ -130,8 +143,10 @@ class AdminCtrl extends Controller {
         $entrantes = json_decode($vdt->getData('entrantes'));
         Usuario::whereIn('id', $entrantes)->whereNull('verified_at')
             ->increment('puntos', 100, array('verified_at' => Carbon\Carbon::now()));
-        // TODO definir cuantos puntos se dan
-        // TODO crear accion de verificacion de ciudadano
+        foreach ($entrantes as $entrante) {
+            $log = AdminlogCtrl::createLog('', 7, 'new', $this->session->user('id'), $entrante, 'Usuario');
+            NotificacionCtrl::createNotif($entrante, $log);
+        }
         $this->flash('success', 'Se han verificado los ciudadanos seleccionados exitosamente.');
         $this->redirectTo('shwAdmVrfUsuario');
     }

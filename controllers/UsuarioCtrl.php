@@ -21,11 +21,7 @@ class UsuarioCtrl extends RMRController {
         $req = $this->request;
         $url = $req->getUrl().$req->getPath();
         $paginator = new Paginator($usuario->acciones(), $url, $req->get());
-        $acciones = array();
-        foreach ($paginator->rows as $log) {
-            $acciones[] = ['created_at' => $log->created_at,
-                           'mensaje' => UserlogCtrl::getMessage($log)];
-        }
+        $acciones = $paginator->rows;
         $nav = $paginator->links;
         $datos = $usuario->toArray();
         $datos['contenidos_count'] = $usuario->contenidos()->count();
@@ -97,11 +93,11 @@ class UsuarioCtrl extends RMRController {
         $this->redirect($this->request->getReferrer());
     }
 
-    public function verImagen($idUsr, $res) {
+    public function verImagen($idUsu, $res) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
-        $vdt->test($idUsr, new Validate\Rule\NumNatural());
+        $vdt->test($idUsu, new Validate\Rule\NumNatural());
         $vdt->test($res, new Validate\Rule\InArray([32, 64, 160]));
-        $usuario = Usuario::findOrFail($idUsr);
+        $usuario = Usuario::findOrFail($idUsu);
         $this->redirect(call_user_func($this->view->getInstance()->getFunction('avatarUrl')->getCallable(),
                                        $usuario->img_tipo, $usuario->img_hash, 32));
     }

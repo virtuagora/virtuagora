@@ -9,6 +9,12 @@ class FilterFactory {
         return ($exec === false) ? $f : call_user_func($f, $exec);
     }
 
+    public static function normalizeWhitespace() {
+        return function($v) {
+            return trim(preg_replace('/[[:blank:]]+/', ' ', $v));
+        };
+    }
+
     public static function emptyToNull() {
         return function($v) {
             return ($v==='') ? null : $v;
