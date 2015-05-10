@@ -89,7 +89,7 @@
                     <div class="descripcion">
                         <b>Escriba tags relacionadas con el documento.</b> Tags son palabras que guardan relacion, en este caso, con el contenido. Agregue todas las <i>tags</i> que crea conveniente. <br> Comience escribiendo y separe las Tags con coma o presionando "ENTER" para ingresarla. En caso de quere eliminarla, simplemente borrela o haga clic sobre la Tag.
                     </div>
-                    <ul id="tagger"></ul>
+                    <input type="text" name="tags">
                 </div>
             </div>
         </div>
@@ -119,6 +119,7 @@
 <script src="{{ baseUrl() }}/assets/js/autosize/autosize.js"></script>
 <script src="{{ baseUrl() }}/assets/js/taghandler/jquery.taghandler.min.js"></script>
 <script src="{{ baseUrl() }}/assets/js/jquery/jquery.sceditor.bbcode.min.js"></script>
+
 <script>
     autosize($( "textarea[name='titulo']" ));
     $( "textarea[name='titulo']" ).focus(function() {
