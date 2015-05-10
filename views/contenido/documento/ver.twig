@@ -81,7 +81,7 @@
                 <tbody>
                     {% if version.version == documento.ultima_version %}
                     <tr>
-                        <td><a href="{{ urlFor('shwUsuario',{'idUsr': user.id}) }}"><img class="img-perfil small-border square {% if user.moderador %}moderador{% else %}{% if user.es_jefe %}jefe{% else %}{% if user.es_funcionario %}funcionario{% else %}{% if user.verified_at %}verificado{% endif %}{% endif %}{% endif %}{% endif %}" src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}"></a></td>
+                        <td><a href="{{ urlFor('shwUsuario',{'IdUsu': user.id}) }}"><img class="img-perfil small-border square {% if user.moderador %}moderador{% else %}{% if user.es_jefe %}jefe{% else %}{% if user.es_funcionario %}funcionario{% else %}{% if user.verified_at %}verificado{% endif %}{% endif %}{% endif %}{% endif %}" src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}"></a></td>
                         <form action="{{ urlFor('runComentar', {'tipoRaiz': 'ParrafoDocumento' , 'idRaiz': parrafo.id}) }}" method="POST">
                             <td><textarea name="cuerpo" rows=1 placeholder="Escriba su comentario con respecto al párrafo"></textarea></td>
                             <td><button class="button success expand radius tiny"><i class="fa fa-send fa-fw"></i> Enviar</button></td>
@@ -92,9 +92,9 @@
                     {% for comentario in parrafo.comentarios %}
                     <tr>
                         <td>
-                            <a href="{{ urlFor('shwUsuario',{'idUsr': comentario.autor.id}) }}"><img class="img-perfil small-border square {% if comentario.autor.moderador %}moderador{% else %}{% if comentario.autor.es_jefe %}jefe{% else %}{% if comentario.autor.es_funcionario %}funcionario{% else %}{% if comentario.autor.verified_at %}verificado{% endif %}{% endif %}{% endif %}{% endif %}" src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 32) }}"></a>
+                            <a href="{{ urlFor('shwUsuario',{'IdUsu': comentario.autor.id}) }}"><img class="img-perfil small-border square {% if comentario.autor.moderador %}moderador{% else %}{% if comentario.autor.es_jefe %}jefe{% else %}{% if comentario.autor.es_funcionario %}funcionario{% else %}{% if comentario.autor.verified_at %}verificado{% endif %}{% endif %}{% endif %}{% endif %}" src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 32) }}"></a>
                         </td>
-                        <td colspan="2">{{ comentario.cuerpo|capitalize }} - <a href="{{ urlFor('shwUsuario',{'idUsr': comentario.autor.id}) }}">{{ comentario.autor.nombre }} {{ comentario.autor.apellido }}</a> <i class="fa fa-fw fa-trophy"></i> {{ comentario.autor.puntos }}</td>
+                        <td colspan="2">{{ comentario.cuerpo|capitalize }} - <a href="{{ urlFor('shwUsuario',{'IdUsu': comentario.autor.id}) }}">{{ comentario.autor.nombre }} {{ comentario.autor.apellido }}</a> <i class="fa fa-fw fa-trophy"></i> {{ comentario.autor.puntos }}</td>
                     </tr>
                     {% endfor %}
                     {% else %}

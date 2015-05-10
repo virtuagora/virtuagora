@@ -17,31 +17,32 @@ html, body {
 }
 
 #footer, .push {
-    height: rem-calc(143px);
+    min-height: rem-calc(143px);
 }
 
 #footer{
     background-color: #333333;
-    .row{
-        max-width: 95%
-    }
     .footer-links{
+        background-color: #333333;
+        padding-left: 10px;
         li a {
-            font-size: rem-calc(15px);
+            font-size: rem-calc(13px);
             color: #CCC;
         }
     }
     .credits{
+        background-color: #333333;
         p {
             font-size: rem-calc(12);
             color: #666666;
-            margin: 0;
         }
         a {
             color: #FFFFFF;
         }
     }
     .footer-share{
+        background-color: #333333;
+        padding-right: 10px;
         p {
             padding-left: 50%
         }

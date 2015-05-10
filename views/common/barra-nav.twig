@@ -1,0 +1,38 @@
+<div class="barra-nav">
+    <div class="row collapse">
+        <div class="small-6 columns text-left">
+            <ul class="list">
+                <li><a href="{{ urlFor('shwIndex') }}"><i class="bt fa fa-home"></i></a></li>
+                {% if user is not empty %}
+                <li><a href="{{ urlFor('shwUsuario',{'IdUsu': user.id}) }}">{{ user.nombre }}</a></li>
+                {% else %}
+                <li>Bienvenido!</li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="small-6 columns text-right">
+            <ul class="list">
+                {% if user is not empty %}
+                <li>
+                    <div class="notificaciones">
+                        <i class="bt bt-notificaciones fa fa-inbox fa-fw fa-lg"></i>
+                        <span class="contador-on" style="display:none"></span>
+                    </div>
+                </li>
+                <li><a href="{{ urlFor('shwModifUsuario') }}"><i class="bt fa fa-bars fa-fw fa-lg"></i></a></li>
+                {% if user and (user.es_moderador == true) %}
+                <li><a href="{{ urlFor('shwAdmOrganis') }}"><i class="bt fa fa-cog fa-fw fa-lg"></i></a></li>
+                {% endif %}
+                <li>
+                    <form id="form-salir"  action="{{ urlFor('runLogout') }}" method="POST">
+                        <a href='#' class="bt-logout"><i class="bt fa fa-sign-out fa-fw fa-lg"></i></a>
+                    </form>
+                </li>
+                {% else %}
+                <li><a href="{{ urlFor('shwLogin') }}" class="hide-for-small-only">¿Tienes cuenta? Iniciar sesión <i class="fa fa-caret-down"></i></a></li>
+                <li><a href="{{ urlFor('shwLogin') }}"><i class="bt fa fa-sign-in"></i></a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>

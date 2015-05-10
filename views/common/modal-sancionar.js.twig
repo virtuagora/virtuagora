@@ -17,7 +17,7 @@
             cache: false,
             dataType: "json"
         }).done(function(resultado) {
-            var actionURLform = actionURLmodel.replace(':idUsr',idUsuario);
+            var actionURLform = actionURLmodel.replace(':IdUsu',idUsuario);
             $('.form-sancion').attr('action',actionURLform);
             $('#sancionando-nombre').html(resultado.nombre);
             $('#sancionando-apellido').html(resultado.apellido);

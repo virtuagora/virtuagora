@@ -1,0 +1,235 @@
+{# VARIBLES #}
+{% set footer = true %}
+{% set barraNav = false %}
+{% set notificaciones = false %}
+
+{% extends "master.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block titulo %}Introducción a Virtuágora{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block body %}
+<div id="introduction">
+    <div id="header">
+        <section class="row">
+            <article class="small-12 columns">
+                <img src="assets/img/virtuagora_logo_start.png">
+                <div class="text-center">
+                    <a href="{{urlFor('shwLogin')}}" class="button radius large"><i class="fa fa-sign-in fa-fw fa-lg"></i>&nbsp;Iniciar sesión</a>
+                    <a href="{{urlFor('shwCrearUsuario')}}" class="button radius large"><i class="fa fa-user-plus fa-fw fa-lg"></i>&nbsp;Registrarse</a>
+                </div>
+                <p class="text-center">
+                    <em class="sunheader">- Encontranos -</em><br>
+                    <a href="https://www.facebook.com/virtuagora"><i class="fa fa-facebook-square"></i></a>
+                    <a href="https://twitter.com/virtuagora"><i class="fa fa-twitter-square"></i></a>
+                </p>
+            </article>
+        </section>
+    </div>
+    <div class="pre-registro">
+        <div class="row">
+            <div class="large-10 large-centered columns">
+                <div class="descripcion large-6 columns">
+                    <h1><b>¡Bienvenidos a Virtuágora!</b></h1>
+                    <p><b>Una nueva propuesta para la participación ciudadana</b></p>
+                    <p>¡Registresé ya mismo!</p>
+                </div>
+                <div class="large-6 columns">
+                    <form class="form-pre-registro" method="POST">
+                        <div class="row">
+                            <input type="text" name="nombre" placeholder="Su nombre..">
+                            <input type="text" name="apellido" placeholder="Su apellido..">
+                            <input type="text" name="email" placeholder="Su email..">
+                        </div>
+                        <div class="row text-center">
+                            <button class="button radius success expand"><i class="fa fa-check fa-lg fa-fw"></i>&nbsp;Registrarse</button>
+                            <p>Usted sera redirigido luego a una pagina aparte para seguir completando con su informacion de registro</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="features">
+        <section class="fila que-es">
+            <div class="izquierdo row">
+                <div class="small-10 small-centered columns">
+                    <div class="icono">
+                        <i class="flaticon flaticon-protest"></i>
+                    </div>
+                    <div class="contenido">
+                        <h1><b>¿Qué es Virtuágora?</b></h1>
+                        <p>Virtuágora es una plataforma web pensada para cualquier ámbito democrático, en la que los ciudadanos puedan expresar su opinión y participar frente a los anuncios y actividades de funcionarios públicos.</p>
+                        <p>Además, se funda dentro de las buenas prácticas del concepto de Gobierno Abierto y aporta el potencial de las TICs para mejorar la comunicación entre representantes y representados. Buscando así, generar un círculo virtuoso de intercambio de opiniones para construir una mejor sociedad.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="spotlight">
+        <div class="titulo row text-center">
+            <h1>¿Cómo se participa?</h1>
+        </div>
+        <div class="row espaciado-abajo">
+            <div class="herramienta-wrapper small-6 small-centered columns text-center">
+                <div class="herramienta-icono">
+                    <i class="h-propuesta flaticon flaticon-inspiration"></i>
+                </div>
+                <div class="herramienta-titulo">
+                    <h3>Proponer propuesta</h3>
+                </div>
+                <div class="herramienta-descripcion">
+                    Funcionarios públicos podrán exponer sus propuestas para que sean sometidas a votación. Así se podrá aproximar su aceptación en la sociedad en caso de implementarse.
+                </div>
+            </div>
+        </div>
+        <div class="row espaciado-abajo">
+            <div class="herramienta-wrapper small-6 columns text-center">
+                <div class="herramienta-icono">
+                    <i class="h-problematica flaticon flaticon-man282"></i>
+                </div>
+                <div class="herramienta-titulo">
+                    <h3>Reportar problemática</h3>
+                </div>
+                <div class="herramienta-descripcion">
+                    Un ciudadano podrá reportar problemáticas que encuentre en su entorno, luego los demás podrán sumarse a la causa expresando si dicho problema también los afecta.
+                </div>
+            </div>
+            <div class="herramienta-wrapper small-6 columns text-center">
+                <div class="herramienta-icono">
+                    <i class="h-documento flaticon flaticon-contract11"></i>
+                </div>
+                <div class="herramienta-titulo">
+                    <h3>Aportar en documentos colaborativos</h3>
+                </div>
+                <div class="herramienta-descripcion">
+                    Un funcionario podrá publicar documentos para que sean revisados públicamente. Ideal para conocer la opinión de la gente sobre cada sección de un anteproyecto.
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="herramienta-wrapper small-6 columns text-center">
+                <div class="herramienta-icono">
+                    <i class="h-evento flaticon flaticon-month1"></i>
+                </div>
+                <div class="herramienta-titulo">
+                    <h3>Programar eventos</h3>
+                </div>
+                <div class="herramienta-descripcion">
+                    Organismos públicos y partidos políticos podrán dar a conocer los eventos que organicen, mientras que los ciudadanos podrán confirmar su asistencia a estos.
+                </div>
+            </div>
+            <div class="herramienta-wrapper small-6 columns text-center">
+                <div class="herramienta-icono">
+                    <i class="h-anuncio flaticon flaticon-news29"></i>
+                </div>
+                <div class="herramienta-titulo">
+                    <h3>Comunicar anuncios</h3>
+                </div>
+                <div class="herramienta-descripcion">
+                    Organismos públicos y partidos políticos realizar cualquier tipo de anuncio que consideren relevante para la sociedad.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="features">
+        <section class="fila extra-1">
+            <div class="izquierdo row">
+                <div class="small-10 small-centered columns">
+                    <div class="icono">
+                        <i class="flaticon flaticon-list4"></i>
+                    </div>
+                    <div class="contenido">
+                        <h1><b>Directorio de organismos publicos</b></h1>
+                        <p>Los organismos públicos conviven, juntas, dentro de la plataforma, con sus respectivos funcionarios, y aportan a los ciudadanos un directorio actualizado e interactivo de los organismos participantes del sistema democratico.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="fila extra-2">
+            <div class="derecho row">
+                <div class="small-10 small-centered columns">
+                    <div class="icono">
+                        <i class="flaticon flaticon-list61"></i>
+                    </div>
+                    <div class="contenido">
+                        <h1><b>Participación de partidos políticos y sus integrantes</b></h1>
+                        <p>Los organismos públicos conviven, juntas, dentro de la plataforma, listando a los respectivos funcionarios en funcion, aportando a los ciudadanos un directorio actualizado de los organismos activos y sus conformantes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="fila extra-3">
+            <div class="izquierdo row">
+                <div class="small-10 small-centered columns">
+                    <div class="icono">
+                        <i class="flaticon flaticon-staff1"></i>
+                    </div>
+                    <div class="contenido">
+                        <h1><b>Moderación de contenido y administración</b></h1>
+                        <p>Virtuágora permite moderar la actividad de los usuarios, como tambien los contenidos, ya sea, modificando o eliminando contenido, sancionando usuarios, etc. Además, permite una fácil administración de la plataforma y su configuración</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="fila extra-4">
+            <div class="derecho row">
+                <div class="small-10 small-centered columns">
+                    <div class="icono">
+                        <i class="fa fa-heart-o fa-fw"></i>
+                    </div>
+                    <div class="contenido">
+                        <h1><b>API abierta y disponible</b></h1>
+                        <p>Nuestra plataforma cuenta con una API abierta para proveer de servicios a otras aplicaciones y/o sistemas, interactuando en colaboración con ellas. </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="fila extra-5">
+            <div class="izquierdo row">
+                <div class="small-10 small-centered columns">
+                    <div class="icono">
+                        <i class="flaticon flaticon-list61"></i>
+                    </div>
+                    <div class="contenido">
+                        <h1><b>Libre, abierto y gratuito</b></h1>
+                        <p>Virtuágora se fundó bajo las bases y principios que promueve el Gobierno Abierto, que basa su idea de gobierno "de fuente libre", que brinde la posibilidad a los ciudadanos de involucrarse directamente en el proceso legislativo</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="final">
+        <div class="row text-center">
+            <a href="{{ urlFor('shwCrearUsuario') }}" class="boton-final button oposite radius large"><i class="fa fa-heart-o fa-fw"></i> Comenzar a participar!</a>
+        </div>
+        <div class="row github-final text-center">
+            <a href="https://github.com/augusthur/virtuagora" class="git-final"><i class="fa fa-github-alt fa-fw fa-lg"></i> Tambien estamos en GitHub!</a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+
+    });
+
+    $('.form-pre-registro').submit(function(){
+        window.location.href = "{{urlFor('shwCrearUsuario')}}#"
+            + $('input[name="nombre"]').val() + '&'
+            + $('input[name="apellido"]').val() + '&'
+            + $('input[name="email"]').val();
+        return false;
+    });
+
+</script>
+{% endblock %}
+{# ----------------------------------------------------------- #}
