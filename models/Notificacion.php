@@ -3,11 +3,12 @@
 class Notificacion extends Eloquent {
     use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
+    public $timestamps = false;
     protected $table = 'notificaciones';
-    protected $dates = array('deleted_at');
-    protected $visible = array('id', 'usuario_id', 'fecha', 'mensaje');
-    protected $appends = array('mensaje', 'fecha');
-    protected $with = array('notificable');
+    protected $dates = ['deleted_at'];
+    protected $visible = ['id', 'usuario_id', 'fecha', 'mensaje'];
+    protected $appends = ['mensaje', 'fecha'];
+    protected $with = ['notificable'];
 
     public function notificable() {
         return $this->morphTo();

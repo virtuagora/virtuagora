@@ -33,10 +33,10 @@ class ComentarioCtrl extends RMRController {
         $comentario->comentable()->associate($comentable);
         $comentario->save();
         $raiz = $comentable->raiz;
-        $raiz->increment('puntos', 3);
+        $raiz->contenido()->increment('puntos', 3);
         $autor->increment('puntos', 5);
         $log = UserlogCtrl::createLog('newComenta', $autor->id, $raiz);
-        NotificacionCtrl::createNotif($raiz->autor_id, $log);
+        NotificacionCtrl::createNotif($raiz->contenido->autor_id, $log);
         $this->flash('success', 'Su comentario fue enviado exitosamente.');
         $this->redirect($req->getReferrer());
     }

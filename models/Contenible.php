@@ -26,6 +26,6 @@ abstract class Contenible extends Eloquent {
     }
 
     public function getRaizAttribute() {
-        return $this->contenido;
+        return $this;
     }
 }

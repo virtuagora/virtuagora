@@ -50,4 +50,8 @@ class Contenido extends Eloquent {
         $this->attributes['titulo'] = $value;
         $this->attributes['huella'] = FilterFactory::calcHuella($value);
     }
+
+    public function getIdentidadAttribute() {
+        return $this->attributes['titulo'];
+    }
 }

@@ -1,7 +1,6 @@
 <?php
-use Illuminate\Database\Capsule\Manager as Capsule;
 
-$capsule = new Capsule;
+$capsule = new Illuminate\Database\Capsule\Manager;
 $capsule->addConnection(array(
     'driver' => 'mysql',
     'host' => 'localhost',
@@ -12,10 +11,7 @@ $capsule->addConnection(array(
     'collation' => 'utf8_general_ci',
     'prefix' => ''
 ));
-use Illuminate\Events\Dispatcher;
-use Illuminate\Container\Container;
-$capsule->setEventDispatcher(new Dispatcher(new Container));
+$capsule->setEventDispatcher(new Illuminate\Events\Dispatcher());
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
-// set timezone for timestamps etc
 date_default_timezone_set('America/Argentina/Buenos_Aires');

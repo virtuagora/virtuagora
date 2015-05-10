@@ -17,7 +17,7 @@ class ParrafoDocumento extends Eloquent {
     }
 
     public function getRaizAttribute() {
-        return $this->version->documento->contenido;
+        return $this->version->documento;
     }
 
 }

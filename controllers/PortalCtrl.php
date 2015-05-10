@@ -4,17 +4,23 @@ class PortalCtrl extends Controller {
 
     public function verIndex() {
         if ($this->session->check()) {
-            $contenidos = Contenido::all();
-            $notificaciones = Notificacion::all();
-            $this->render('usuario/portal.twig', array('contenidos' => $contenidos->toArray(), 'notificaciones' => $notificaciones->toArray()));
+            $this->render('portal/inicio.twig');
         } else {
-            $this->render('introduccion.twig');
-            //echo 'holis';
+            $this->render('portal/introduccion.twig');
         }
+    }
+
+    public function verPortal() {
+        $this->render('portal/contenidos.twig');
     }
 
     public function verLogin() {
         $this->render('login/login-static.twig');
+    }
+
+    public function verTos() {
+        $tos = Ajuste::where('key', 'tos')->firstOrFail();
+        $this->render('portal/tos.twig', ['tos' = $tos->toArray()]);
     }
 
     public function login() {

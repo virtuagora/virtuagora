@@ -43,7 +43,7 @@ return ['log' => [
         'pod' => '%act% actualizó los poderes (%des%) de la patrulla: <a href="%url%">%obj%</a>.',
         'del' => '%act% eliminó la patrulla: <a href="%url%">%obj%</a>.'],
     'admin6' => [
-        'new' => '%act% agregó moderadores (%des%) a la patrulla: <a href="%url%">%obj%</a>.',
+        'new' => '%act% agregó a %des% a la patrulla: <a href="%url%">%obj%</a>.',
         'del' => '%act% quitó moderadores (%des%) de la patrulla: <a href="%url%">%obj%</a>.'],
     'admin7.new' => '%act% verificó la cuenta de <a href="%url%">%obj%</a>.',
 ]];
