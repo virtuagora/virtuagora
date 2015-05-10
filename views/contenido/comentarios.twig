@@ -12,7 +12,7 @@
             <div class="comentario-cont row">
                 <div class="avatar text-center">
                     <span class="user">
-                        <a href="{{ urlFor('shwUsuario',{'idUsr': user.id}) }}">
+                        <a href="{{ urlFor('shwUsuario',{'IdUsu': user.id}) }}">
                         <img class="img-perfil small-border radius
                         {% if user.moderador %}
                         moderador
@@ -58,7 +58,7 @@
             <div id="c{{ comentario.id }}" class="comentario-cont row">
                 <div class="avatar text-center">
                     <span class="user">
-                       <a href="{{ urlFor('shwUsuario',{'idUsr': comentario.autor.id}) }}">
+                       <a href="{{ urlFor('shwUsuario',{'IdUsu': comentario.autor.id}) }}">
                         <img class="img-perfil radius small-border
                                     {% if comentario.autor.moderador %}
                                     moderador
@@ -86,7 +86,7 @@
                             <a href='javascript:sancionar({{comentario.autor.id}})' class="bt-sancionar" ><i class="fa fa-exclamation-circle fa-fw fa-lg"></i></a>
                         </span>
                         {% endif %}
-                        <a href="{{ urlFor('shwUsuario',{'idUsr': comentario.autor.id}) }}"><i class="fa fa-user fa-fw fa-lg"></i>&nbsp;{{ comentario.autor.nombre }} {{ comentario.autor.apellido }} &nbsp;-&nbsp;</a>
+                        <a href="{{ urlFor('shwUsuario',{'IdUsu': comentario.autor.id}) }}"><i class="fa fa-user fa-fw fa-lg"></i>&nbsp;{{ comentario.autor.nombre }} {{ comentario.autor.apellido }} &nbsp;-&nbsp;</a>
                         <span>
                             <i class="fa fa-trophy fa-fw fa-lg"></i>&nbsp;{{ comentario.autor.puntos }}&nbsp;-&nbsp;
                         </span>
@@ -115,7 +115,7 @@
             <div id="r{{ respuesta.id }}" class="comentario-cont respuesta row">
                 <div class="avatar text-center">
                     <span class="user">
-                       <a href="{{ urlFor('shwUsuario',{'idUsr': respuesta.autor.id}) }}">
+                       <a href="{{ urlFor('shwUsuario',{'IdUsu': respuesta.autor.id}) }}">
                         <img class="img-perfil radius small-border
                                     {% if respuesta.autor.moderador %}
                                     moderador
@@ -143,7 +143,7 @@
                             <a href='javascript:sancionar({{respuesta.autor.id}})' class="bt-sancionar" ><i class="fa fa-exclamation-circle fa-fw fa-lg"></i></a>
                         </span>
                         {% endif %}
-                        <a href="{{ urlFor('shwUsuario',{'idUsr': respuesta.autor.id}) }}"><i class="fa fa-user fa-fw fa-lg"></i>&nbsp;{{ respuesta.autor.nombre }} {{ respuesta.autor.apellido }} &nbsp;-&nbsp;</a>
+                        <a href="{{ urlFor('shwUsuario',{'IdUsu': respuesta.autor.id}) }}"><i class="fa fa-user fa-fw fa-lg"></i>&nbsp;{{ respuesta.autor.nombre }} {{ respuesta.autor.apellido }} &nbsp;-&nbsp;</a>
                         <span>
                             <i class="fa fa-trophy fa-fw fa-lg"></i>&nbsp;{{ respuesta.autor.puntos }}&nbsp;-&nbsp;
                         </span>
