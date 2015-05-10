@@ -53,6 +53,23 @@ class QueryMaker {
             $filtro = FilterFactory::calcHuella($this->params['q']);
             $this->query = $this->query->where('huella', 'LIKE', "%$filtro%");
         }
+        if (isset($this->params['tags'])) {
+            $tags = array_map(FilterFactory::calcHuella(), explode(',', $this->params['tags']));
+            if (count($tags) > 4) {
+                throw new BearableException('No puede buscar más de 4 tags a la vez.');
+            }
+            $this->query = $this->query->whereHas('tags', function($q) use ($tags) {
+                $first = true;
+                foreach ($tags as $tag) {
+                    if ($first) {
+                        $q->where('huella', $tag);
+                        $first = false;
+                    } else {
+                        $q->orWhere('huella', $tag);
+                    }
+                }
+            });
+        }
     }
 
     public function addSorters($ordenables = array()) {

@@ -3,7 +3,8 @@
 class ContenidoCtrl extends RMRController {
 
     protected $mediaTypes = array('json');
-    protected $properties = array('id', 'puntos', 'created_at', 'impulsor_id' ,'contenible_type', 'contenible_id');
+    protected $properties = array('id', 'puntos', 'created_at', 'updated_at', 'categoria_id',
+                                  'impulsor_id' ,'contenible_type', 'contenible_id');
     protected $searchable = true;
 
     public function queryModel($meth, $repr) {
