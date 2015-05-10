@@ -3,7 +3,7 @@
     color: #1d80d0;
     border-color: rgba(58, 137, 201, 1);
     background-color: rgba(58, 137, 201, 0.1);
-    &:hover{
+    &:hover, &:focus{
         color: #FFFFFF;
         border-color: rgba(58, 137, 201, 0.0);
         background-color: rgba(58, 137, 201, 1);
@@ -12,7 +12,7 @@
         color: #ce1a1a;
         border-color: rgb(201, 58, 58);
         background-color:  rgba(201, 58, 58, 0.1);
-        &:hover{
+        &:hover, &:focus{
             color: #FFFFFF;
             border-color: rgba(201, 58, 58, 0);
             background-color:  rgba(201, 58, 58, 1);
@@ -22,7 +22,7 @@
         color: #14a248;
         border-color: rgb(67, 172, 106);
         background-color:  rgba(67, 172, 106, 0.1);
-        &:hover{
+        &:hover, &:focus{
             color: #FFFFFF;
             border-color: rgba(67, 172, 106,0);
             background-color:  rgba(67, 172, 106, 1);
@@ -32,7 +32,7 @@
         color: #c76300;
         border-color: rgba(207, 110, 14, 1);
         background-color:  rgba(207, 110, 14, 0.1);
-        &:hover{
+        &:hover, &:focus{
             color: #FFFFFF;
             border-color: rgba(207, 110, 14, 0);
             background-color:  rgba(207, 110, 14, 1);
@@ -42,7 +42,7 @@
         color: #FFFFFF;
         border-color: rgb(255, 255, 255);
         background-color:  rgba(255, 255, 255, 0);
-        &:hover{
+        &:hover, &:focus{
             color: #4e4e4e !important;
             border-color: rgba(207, 110, 14, 0);
             background-color:  rgb(255, 255, 255);
@@ -52,7 +52,7 @@
         color: #4e4e4e;
         border-color: #4e4e4e;
         background-color:  rgba(255, 255, 255, 0);
-        &:hover{
+        &:hover, &:focus{
             color: #FFFFFF !important;
             border-color: #4e4e4e;
             background-color: #4e4e4e;

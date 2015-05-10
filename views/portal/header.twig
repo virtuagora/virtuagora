@@ -1,0 +1,86 @@
+<div class="welcome">
+        <div class="row">
+            <div class="logo-virtuagora medium-8 columns small-only-text-center">
+                <img src="{{ baseUrl() }}/assets/img/virtuagora_logo_small.png" alt="Logo-Small">
+            </div>
+            <div class="datos-usuario medium-4 columns hide-for-small-only text-right">
+                <div class="pushing">
+                    {% if user %}
+                    <a href="{{ urlFor('shwUsuario',{'idUsr': user.id}) }}"><img class="img-perfil small-border square size-32 {% if usuario.moderador %}moderador{% else %}{% if usuario.es_jefe %}jefe{% else %}{% if usuario.es_funcionario %}funcionario{% else %}{% if usuario.verified_at %}verificado{% endif %}{% endif %}{% endif %}{% endif %} right" src="{{ avatarUrl(user.img_tipo, user.img_hash, 64) }}" alt="User avatar"></a>
+                    <div>
+                        <b>Bienvenido, {{ user.nombre }}</b>
+                    </div>
+                    <p class="portal-con-notificaciones" style="display:none"><i class="fa fa-exclamation-circle fa-fw fa-lg"></i><i class="fa fa-inbox fa-fw"></i> <span class="cant-notificaciones"></span> nuevas notificaciones</p>
+                    <p class="portal-sin-notificaciones" style="display:none"><i class="fa fa-inbox fa-fw"></i> Sin notificaciones</p>
+                    {% else %}
+                    <img img class="img-perfil small-border square size-32" src="{{ baseUrl() }}/assets/img/anon64.jpg" alt="User avatar">
+                    <div>
+                        <b>Bienvenido, Anónimo</b>
+                    </div>
+                    <a href="{{ urlFor('shwCrearUsuario') }}"><i class="fa fa-sign-in fa-fw"></i> Entrar</a> o <a href="{{ urlFor('shwCrearUsuario') }}"><i class="fa fa-user-plus fa-fw"></i> Registrar</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="datos-usuario medium-4 columns show-for-small-only text-center">
+                <ul class="list">
+                    {% if user %}
+                    <li>
+                        <a href="{{ urlFor('shwUsuario',{'idUsr': user.id}) }}"><img class="img-perfil small-border square size-32 {% if usuario.moderador %}moderador{% else %}{% if usuario.es_jefe %}jefe{% else %}{% if usuario.es_funcionario %}funcionario{% else %}{% if usuario.verified_at %}verificado{% endif %}{% endif %}{% endif %}{% endif %} right" src="{{ avatarUrl(user.img_tipo, user.img_hash, 64) }}" alt="User avatar"></a>
+                    </li>
+                    <li>
+                        <b>Bienvenido, {{ user.nombre }}</b>
+                    </li>
+                    <li>
+                        <p class="portal-con-notificaciones" style="display:none"><b>Bienvenido, {{ user.nombre }}</b> <i class="fa fa-exclamation-circle fa-fw fa-lg"></i><i class="fa fa-inbox fa-fw"></i> <span class="cant-notificaciones"></span> nuevas notificaciones</p>
+                        <p class="portal-sin-notificaciones" style="display:none"><b>Bienvenido, {{ user.nombre }}</b> <i class="fa fa-inbox fa-fw"></i> Sin notificaciones</p>
+                    </li>
+                    {% else %}
+                    <li><img img class="img-perfil small-border square size-32" src="{{ baseUrl() }}/assets/img/anon32.jpg" alt="User avatar"></li>
+                    <li><b>Bienvenido, Anónimo</b></li>
+                    <li><a href="{{ urlFor('shwCrearUsuario') }}"><i class="fa fa-sign-in fa-fw"></i> Entrar</a> o <a href="{{ urlFor('shwCrearUsuario') }}"><i class="fa fa-user-plus fa-fw"></i> Registrar</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="nav-portal">
+        <div class="row collapse">
+            <a href="#">
+                <div class="bt contenidos small-6 medium-1 columns text-center">
+                    <div><i class="fa fa-home fa-2x"></i></div>
+                    <div class="texto">INICIO</div>
+                </div>
+            </a>
+            <a href="#">
+                <div class="bt contenidos small-6 medium-2 columns text-center">
+                    <div><i class="fa fa-book fa-2x"></i></div>
+                    <div class="texto">CONTENIDOS</div>
+                </div>
+            </a>
+            <a href="#">
+                <div class="bt small-6 medium-2 columns text-center">
+                    <div><i class="fa fa-university fa-2x"></i></div>
+                    <div class="texto">ORGANIZACIONES</div>
+                </div>
+            </a>
+            <a href="#">
+                <div class="bt small-6 medium-2 large-2 columns text-center">
+                    <div><i class="fa fa-users fa-2x"></i></div>
+                    <div class="texto">GRUPOS POLÍTICOS</div>
+                </div>
+            </a>
+            <a href="#">
+                <div class="bt small-6 medium-3 large-2 columns text-center">
+                    <div><i class="fa fa-info-circle fa-2x"></i></div>
+                    <div class="texto">¿QUE ES PARTICIPACIÓN CIUDADANA?</div>
+                </div>
+            </a>
+            <a href="#">
+                <div class="bt small-6 medium-2 columns text-center">
+                    <div><i class="fa fa-envelope-o fa-2x"></i></div>
+                    <div class="texto">CONTACTO</div>
+                </div>
+            </a>
+            <div class="large-1 columns show-for-large-up text-center"></div>
+        </div>
+    </div>

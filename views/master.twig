@@ -16,9 +16,8 @@
         <div class="wrapper">
             <!-- bar-nav -->
             {% if barraNav == true %}
-            {% include "barra-nav.twig" %}
+            {% include "common/barra-nav.twig" %}
             {% endif %}
-
             <!--alerta-->
             {% if flash['success'] is defined %}
             <div data-alert class="alert-box success text-center">
@@ -69,7 +68,7 @@
         </div>
         <!-- footer -->
         {% if footer == true %}
-        {% include "footer.twig" %}
+        {% include "common/footer.twig" %}
         {% endif %}
         <!-- modals -->
         {% block modals %}{% endblock %}

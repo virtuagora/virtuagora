@@ -1,0 +1,275 @@
+{# VARIBLES #}
+{% set footer = true %}
+{% set barraNav = true %}
+{% set notificaciones = true %}
+{% set html_class = '' %}
+{% set body_class = 'portal-bg' %}
+
+{% extends "master.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block titulo %}Bienvenido - Virtuágora{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block body %}
+<div class="portal-usuario-aux">
+    {% include 'portal/header.twig' %}
+    <div class="inicio">
+        <div class="intro row">
+            <div class="titulo small-12 medium-8 medium-centered columns text-center">
+                <span class="fa-stack fa-4x">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-asterisk fa-inverse fa-stack-1x"></i>
+                </span>
+                <h1>Comience a participar</h1>
+            </div>
+        </div>
+        <div class="acciones row">
+            <div class="small-12 medium-11 columns medium-centered">
+                <div class="medium-1 columns hide-for-small-only">&nbsp;</div>
+                <div class="accion small-6 medium-2 columns problematica text-center">
+                    <div class="icono">
+                        <span class="fa-stack fa-3x">
+                            <i class="colorear fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-bullhorn fa-inverse fa-stack-1x"></i>
+                        </span>
+                    </div>
+                    <div class="txt"><b>PROBLEMATICAS</b></div>
+                    <div>
+                        <ul class="list">
+                            <li><a href="#"><div><i class="fa fa-plus fa-fw fa-lg"></i></div><div class="txt">Crear</div></a></li>
+                            <li><a href="#"><div><i class="fa fa-search fa-fw fa-lg"></i></div><div class="txt">Ver</div></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accion small-6 medium-2 columns propuesta text-center">
+                    <div class="icono">
+                        <span class="fa-stack fa-3x">
+                            <i class="colorear fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-exclamation fa-inverse fa-stack-1x"></i>
+                        </span>
+                    </div>
+                    <div class="txt"><b>PROPUESTA</b></div>
+                    <div>
+                        <ul class="list">
+                            <li><a href="#"><div><i class="fa fa-plus fa-fw fa-lg"></i></div><div class="txt">Crear</div></a></li>
+                            <li><a href="#"><div><i class="fa fa-search fa-fw fa-lg"></i></div><div class="txt">Ver</div></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accion small-6 medium-2 columns documento text-center">
+                    <div class="icono">
+                        <span class="fa-stack fa-3x">
+                            <i class="colorear fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-file-text-o fa-inverse fa-stack-1x"></i>
+                        </span>
+                    </div>
+                    <div class="txt"><b>DOCUMENTOS</b></div>
+                    <div>
+                        <ul class="list">
+                            <li><a href="#"><div><i class="fa fa-plus fa-fw fa-lg"></i></div><div class="txt">Crear</div></a></li>
+                            <li><a href="#"><div><i class="fa fa-search fa-fw fa-lg"></i></div><div class="txt">Ver</div></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accion small-6 medium-2 columns evento text-center">
+                    <div class="icono">
+                        <span class="fa-stack fa-3x">
+                            <i class="colorear fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-calendar fa-inverse fa-stack-1x"></i>
+                        </span>
+                    </div>
+                    <div class="txt"><b>EVENTOS</b></div>
+                    <div>
+                        <ul class="list">
+                            <li><a href="#"><div><i class="fa fa-plus fa-fw fa-lg"></i></div><div class="txt">Crear</div></a></li>
+                            <li><a href="#"><div><i class="fa fa-search fa-fw fa-lg"></i></div><div class="txt">Ver</div></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accion small-12 medium-2 columns novedad text-center">
+                    <div class="icono">
+                        <span class="fa-stack fa-3x">
+                            <i class="colorear fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-newspaper-o fa-inverse fa-stack-1x"></i>
+                        </span>
+                    </div>
+                    <div class="txt"><b>NOVEDAD</b></div>
+                    <div>
+                        <ul class="list">
+                            <li><a href="#"><div><i class="fa fa-plus fa-fw fa-lg"></i></div><div class="txt">Crear</div></a></li>
+                            <li><a href="#"><div><i class="fa fa-search fa-fw fa-lg"></i></div><div class="txt">Ver</div></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="medium-1 columns hide-for-small-only">&nbsp;</div>
+            </div>
+        </div>
+        <div class="intro row">
+            <div class="titulo small-12 medium-centered columns text-center">
+                <ul class="list">
+                    <li><h6 class="subheader"><a href="#ComoParticipar">Ultimos contenidos</a></h6></li>
+                    <li><h6 class="subheader"><a href="#SobreContenidos">¿Que son y que tipos de contenidos hay?</a></h6></li>
+                    <li><h6 class="subheader"><a href="#ComoParticipar">¿Como participar?</a></h6></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <div id="SobreContenidos" class="intro row">
+            <div class="titulo small-12 medium-8 medium-centered columns text-center">
+                <span class="fa-stack fa-4x">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-question fa-inverse fa-stack-1x"></i>
+                </span>
+                <h1>¿Que son los contenidos?</h1>
+            </div>
+            <div class="descripcion small-12 medium-8 medium-centered columns text-center">
+                El portal te permite crear contenidos como tambien participar de otros.
+                Haz click en los enlaces dispuestos abajo y descubre sobre qué trata cada uno. ¡Infórmate y participa!
+            </div>
+        </div>
+        <div class="contenido-explain row">
+            <div class="small-12 medium-10 medium-centered columns">
+                <div class="panel problematica">
+                    <div class="icono">
+                        <span class="fa-stack fa-3x">
+                            <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
+                            <i class="colorear fa fa-bullhorn fa-stack-1x"></i>
+                        </span>
+                    </div>
+                    <h3><b>PROBLEMATICAS</b></h3>
+                    <div class="txt">Las problematicas informan acerca de necesidades o preocupaciones que tienen los ciudadanos, luego, los demás ciudadanos podrán sumarse a la causa expresando si dicho problema también los afecta tanto directamente como indirectamente.</div>
+                    <div class="link text-center">
+                        <a href="#">
+                            {% if user %}
+                            <div><i class="fa fa-plus fa-fw fa-lg"></i></div>
+                            <div class="txt">Crear</div>
+                            {% endif %}
+                            <div><i class="fa fa-search fa-fw fa-lg"></i></div>
+                            <div class="txt">Ver</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contenido-explain row">
+            <div class="small-12 medium-10 medium-centered columns">
+                <div class="panel propuesta">
+                    <div class="icono">
+                        <span class="fa-stack fa-3x">
+                            <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
+                            <i class="colorear fa fa-exclamation fa-stack-1x"></i>
+                        </span>
+                    </div>
+                    <h3><b>PROPUESTAS</b></h3>
+                    <div class="txt">Funcionarios públicos podrán exponerle propuestas para que estas sean sometidas a votación. Así se podrá tener un mayor censo con respecto a la aceptación que esta tendrá si ha de implementarse.</div>
+                    <div class="link text-center">
+                        {% if user.es_funcionario %}
+                        <a href="#">
+                            <div><i class="fa fa-plus fa-fw fa-lg"></i></div>
+                            <div class="txt">Crear</div>
+                        </a>
+                        {% endif %}
+                        <a href="#">
+                            <div><i class="fa fa-search fa-fw fa-lg"></i></div>
+                            <div class="txt">Ver</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contenido-explain row">
+            <div class="small-12 medium-10 medium-centered columns">
+                <div class="panel documento">
+                    <div class="icono">
+                        <span class="fa-stack fa-3x">
+                            <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
+                            <i class="colorear fa fa-file-text-o fa-stack-1x"></i>
+                        </span>
+                    </div>
+                    <h3><b>DOCUMENTOS ABIERTOS</b></h3>
+                    <div class="txt">Funcionarios podrán publicar documentos para que estos revisados públicamente. Un mecanismo ideal para conocer la opinión detallada de la gente sobre cada sección de un anteproyecto.</div>
+                    <div class="link text-center">
+                        {% if user.es_funcionario %}
+                        <a href="#">
+                            <div><i class="fa fa-plus fa-fw fa-lg"></i></div>
+                            <div class="txt">Crear</div>
+                        </a>
+                        {% endif %}
+                        <a href="#">
+                            <div><i class="fa fa-search fa-fw fa-lg"></i></div>
+                            <div class="txt">Ver</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contenido-explain row">
+            <div class="small-12 medium-10 medium-centered columns">
+                <div class="panel evento">
+                    <div class="icono">
+                        <span class="fa-stack fa-3x">
+                            <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
+                            <i class="colorear fa fa-calendar fa-stack-1x"></i>
+                        </span>
+                    </div>
+                    <h3><b>EVENTOS</b></h3>
+                    <div class="txt">Organismos públicos y grupos políticos podrán dar a conocer eventos que organicen, mientras que los ciudadanos podrán dar confirmacion de su asistencia a estos.</div>
+                    <div class="link text-center">
+                        {% if user.es_funcionario %}
+                        <a href="#">
+                            <div><i class="fa fa-plus fa-fw fa-lg"></i></div>
+                            <div class="txt">Crear</div>
+                        </a>
+                        {% endif %}
+                        <a href="#">
+                            <div><i class="fa fa-search fa-fw fa-lg"></i></div>
+                            <div class="txt">Ver</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contenido-explain row">
+            <div class="small-12 medium-10 medium-centered columns">
+                <div class="panel novedad">
+                    <div class="icono">
+                        <span class="fa-stack fa-3x">
+                            <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
+                            <i class="colorear fa fa-newspaper-o fa-stack-1x"></i>
+                        </span>
+                    </div>
+                    <h3><b>NOVEDADES</b></h3>
+                    <div class="txt">Funcionaros podran publicar cualquier tipo de anuncio que consideren relevante para la sociedad.</div>
+                    <div class="link text-center">
+                        {% if user.es_funcionario %}
+                        <a href="#">
+                            <div><i class="fa fa-plus fa-fw fa-lg"></i></div>
+                            <div class="txt">Crear</div>
+                        </a>
+                        {% endif %}
+                        <a href="#">
+                            <div><i class="fa fa-search fa-fw fa-lg"></i></div>
+                            <div class="txt">Ver</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}
+<script>
+    $(document).ready(function(){
+
+    });
+</script>
+{% endblock %}
+{# ----------------------------------------------------------- #}
