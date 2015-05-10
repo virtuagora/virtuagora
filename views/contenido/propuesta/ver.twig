@@ -25,7 +25,7 @@
 {% set url_comentar = urlFor('runComentar', {'tipoRaiz': 'propuesta' , 'idRaiz': propuesta.id}) %}
 {% block cuerpo_cont %}
 {{ propuesta.cuerpo|bbCode }}
-{% if propuesta.referido is defined %}
+{% if propuesta.referido is empty %}
 <div class="row">
     <div class="panel referido-problematica-info">
         <div class="row">
@@ -53,7 +53,6 @@
 {% set email_body = 'Me parecio interesante compartir con vos esta ' ~ propuesta.contenible_type|lower ~ '&crarr;' ~ propuesta.link %}
 {# ----------------------------------------------------------- #}
 {% block opciones_cont %}
-{% if user.id != propuesta.autor.id %}
 <section class="propuesta-voto">
     <div class="row">
         <section id="votando-posicion" class="votando-propuesta small-10 small-centered columns text-center">
@@ -128,7 +127,6 @@
         </section>
     </div>
 </section>
-{% endif %}
 <section class="resultados resultados-propuesta">
     {% if total_votos > 0 %}
     <div class="vista-resultados row text-ceter">
