@@ -16,31 +16,33 @@
 {# ----------------------------------------------------------- #}
 {% block extension_form %}
 <div class="row row-problematicas-referidas">
-    <div class="large-12 columns">
-        <div class="panel">
-            <div class="row">
-                <div class="large-7 columns">
-                    <span class="enumerador fa-stack">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-star-o blanco fa-stack-1x"></i>
-                    </span>
-                    <div class="descripcion">
-                        <b>OPCIONAL: Asocie su propuesta con alguna problematica.</b> Si la propuesta esta relacionado o es la solución asociada a una (o varias) de las problematicas publicadas en esta plataforma, asóciela colocando el ID de la problematica
-                    </div>
-                </div>
-                <div class="large-5 columns text-center">
-                    <div class="row busqueda" style="margin-top: 5px;">
-                        <i class="icono-buscador fa fa-search"></i>
-                        <input id="typeahead" type="text" placeholder="Buscar propuestas">
-                        <input type="text" id="referido" name="referido" style="display:none;">
-                    </div>
-                    <div class="row resultado text-center">
-                        <span id="etiqueta-resultado">Realice una busqueda en el campo superior.</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="large-12 columns">
+		<div class="panel">
+			<div class="row">
+				<div class="large-6 columns">
+					<span class="enumerador fa-stack">
+						<i class="fa fa-circle fa-stack-2x"></i>
+						<i class="fa fa-star-o blanco fa-stack-1x"></i>
+					</span>
+					<div class="descripcion">
+						<b>OPCIONAL: Asocie su propuesta con alguna problematica.</b> Si la propuesta esta relacionado o es la solución asociada a una (o varias) de las problematicas publicadas en esta plataforma, asóciela colocando el ID de la problematica
+					</div>
+				</div>
+				<div class="large-6 columns text-center">
+					<div class="buscador" style="margin-top: 5px;">
+						<i class="icono fa fa-search"></i>
+						<div>
+							<input id="typeahead" type="text" placeholder="Buscar propuestas">
+							<input type="text" id="referido" name="referido" style="display:none;">
+						</div>
+					</div>
+					<div class="resultado text-center">
+						<span id="etiqueta-resultado">Realice una busqueda en el campo superior</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 {% endblock %}
@@ -52,79 +54,76 @@
 {% block scripts_modificar %}{% endblock scripts_modificar %}
 <script src="{{ baseUrl() }}/assets/js/typeahead/typeahead.bundle.min.js"></script>
 <script>
-    var base_url = '{{ baseUrl() }}';
-    var icon_borrar = $('<i class="quitar fa fa-fw fa-times fa-lg"></i>' );
-    var icon_doc = $('<i class="fa fa-fw fa-file fa-lg"></i>' );
-    var icon_error = $('<i class="fa fa-fw fa-exclamation-circle fa-lg"></i>' );
+	var base_url = '{{ baseUrl() }}';
+	var icon_borrar = $('<i class="quitar fa fa-fw fa-times fa-lg"></i>' );
+	var icon_doc = $('<i class="fa fa-fw fa-file fa-lg"></i>' );
+	var icon_error = $('<i class="fa fa-fw fa-exclamation-circle fa-lg"></i>' );
 
-    var propuestas = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('titulo'),
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        identify: function(obj) { return obj.id; },
-        remote: {
-            url: base_url + '/contenido?where=contenible_type-eq-Problematica&q=%QUERY',
-            wildcard: '%QUERY'
-        }
-    });
+	$(document).ready(function() {
+		if (window.location.hash) {
+			var array = window.location.hash.substring(1).split('&');
+			var query = {where: "contenible_type-eq-Problematica,id-eq-"+array[0]};
+			enviarSolicitud(base_url + '/contenido?' + jQuery.param(query));
+		}
+	});
 
-    $('#typeahead').typeahead({
-        minLength: 4,
-        classNames: {
-            input: 'buscador',
-            hint: 'buscador hint',
-        }
-    }, {
-        name: 'propuestas',
-        display: 'titulo',
-        source: propuestas,
-        templates: {
-            empty: '<div class="panel">No se encontraron propuestas.</div>',
-            suggestion: function(data) {
-                return '<div class="panel">'+data.titulo+' - '+data.autor.nombre+' '+data.autor.apellido+'</div>';
-            }
-        }
-    });
+	var propuestas = new Bloodhound({
+		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('titulo'),
+		queryTokenizer: Bloodhound.tokenizers.whitespace,
+		identify: function(obj) { return obj.id; },
+		remote: {
+			url: base_url + '/contenido?where=contenible_type-eq-Problematica&q=%QUERY',
+			wildcard: '%QUERY'
+		}
+	});
 
-    $(document).ready(function() {
-        if (window.location.hash) {
-            var array = window.location.hash.substring(1).split('&');
-            var query = {where: "contenible_type-eq-Problematica,id-eq-"+array[0]};
-            enviarSolicitud(base_url + '/contenido?' + jQuery.param(query));
-        }
-    });
+	$('#typeahead').typeahead({
+		minLength: 4,
+	}, {
+		name: 'propuestas',
+		display: 'titulo',
+		source: propuestas,
+		templates: {
+			empty: '<div>No se encontraron propuestas.</div>',
+			suggestion: function(data) {
+				return '<div><i class="fa fa-bullhorn fa-fw"></i> '+data.titulo+' - '+data.autor.nombre+' '+data.autor.apellido+'</div>';
+			}
+		}
+	});
 
-    $(document).on('click', '.quitar', function() {
-        $('#etiqueta-resultado').empty().html('Realice una busqueda presionando en <i class="fa fa-fw fa-search"></i>');
-        $('#referido').val('');
-    });
+	function enviarSolicitud(url_query) {
+		var request = $.ajax({
+			url: url_query,
+			cache: false,
+			dataType: "json"
+		}).done(function(resultados, textStatus, request) {
+			if(resultados.length > 0){
+				agregarReferencia(resultados[0].id, resultados[0].titulo, resultados[0].autor.nombre + ' ' + resultados[0].autor.apellido);
+			} else {
+				$('#etiqueta-resultado').append(icon_error).append(' No existe la problematica');
+				$('#referido').val('');
+			}
+		}).fail(function(jqXHR, textStatus) {
+			$('#etiqueta-resultado').append(icon_error).append(' ERROR')
+			$('#referido').val('');
+		});
+	}
 
-    $('.typeahead').bind('typeahead:select', function(ev, data) {
-        agregarReferencia(data.id, data.titulo, data.autor.nombre + ' ' + data.autor.apellido);
-    });
+	$(document).on('click', '.quitar', function() {
+		$('#etiqueta-resultado').empty().html('Realice una busqueda en el campo superior');
+		$('#referido').val('');
+	});
 
-    function agregarReferencia(id, titulo, autor) {
-        $('#etiqueta-resultado').empty();
-        $('#etiqueta-resultado').append(icon_borrar).append(icon_doc).append(titulo + ' - ' + autor);
-        $('#referido').val(id);
-    }
+	$('#typeahead').bind('typeahead:select', function(ev, data) {
+		agregarReferencia(data.id, data.titulo, data.autor.nombre + ' ' + data.autor.apellido);
+	});
 
-    function enviarSolicitud(url_query) {
-        var request = $.ajax({
-            url: url_query,
-            cache: false,
-            dataType: "json"
-        }).done(function(resultados, textStatus, request) {
-            if(resultados.length > 0){
-                agregarReferencia(resultados[0].id, resultados[0].titulo, resultados[0].autor.nombre + ' ' + resultados[0].autor.apellido);
-            } else {
-                $('#etiqueta-resultado').append(icon_error).append(' No existe la problematica');
-                $('#referido').val('');
-            }
-        }).fail(function(jqXHR, textStatus) {
-            $('#etiqueta-resultado').append(icon_error).append(' ERROR')
-            $('#referido').val('');
-        });
-    }
+	function agregarReferencia(id, titulo, autor) {
+		$('#etiqueta-resultado').empty();
+		$('#etiqueta-resultado').append(icon_borrar).append(icon_doc).append(titulo + ' - ' + autor);
+		$('#referido').val(id);
+	}
+
 </script>
 {% endblock %}
 {# ----------------------------------------------------------- #}
