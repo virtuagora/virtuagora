@@ -58,7 +58,7 @@
             <hr>
             <div class="small-12 columns">
                 <section class="datos-cont corto text-center" margin:bottom>
-                    Invita <a href="{{ urlFor('shwUsuario',{'idUsu: autor_id}) }}"><img class="img-perfil small-border radius size-32" src="{{ autor_avatar_32 }}"> {{ autor_nombre_apellido }}</a> <span class="usuario-pts"><i class="fa fa-trophy fa-fw"></i>&nbsp;{{ autor_puntos }}</span>
+                    Invita <a href="{{ urlFor('shwUsuario',{'idUsu': autor_id}) }}"><img class="img-perfil small-border radius size-32" src="{{ autor_avatar_32 }}"> {{ autor_nombre_apellido }}</a> <span class="usuario-pts"><i class="fa fa-trophy fa-fw"></i>&nbsp;{{ autor_puntos }}</span>
                 </section>
             </div>
         </div>
@@ -172,7 +172,7 @@
             <div class="row" >
                 {% for participante in participantes %}
                 {% if participante.pivot.presente == 1 %}
-                <a href="{{ urlFor('shwUsuario', {'idUsu: participante.id}) }}"><img class="img-perfil small-border square {% if participante.moderador %}moderador{% else %}{% if participante.es_jefe %}jefe{% else %}{% if participante.es_funcionario %}funcionario{% else %}{% if participante.verified_at %}verificado{% endif %}{% endif %}{% endif %}{% endif %} size-64" src="{{ avatarUrl(participante.img_tipo, participante.img_hash, 64) }}" style="padding:2px"></a>
+                <a href="{{ urlFor('shwUsuario', {'idUsu': participante.id}) }}"><img class="img-perfil small-border square {% if participante.moderador %}moderador{% else %}{% if participante.es_jefe %}jefe{% else %}{% if participante.es_funcionario %}funcionario{% else %}{% if participante.verified_at %}verificado{% endif %}{% endif %}{% endif %}{% endif %} size-64" src="{{ avatarUrl(participante.img_tipo, participante.img_hash, 64) }}" style="padding:2px"></a>
                 {% endif %}
                 {% endfor %}
             </div>
@@ -214,7 +214,7 @@
                     {% for participante in participantes %}
                     {% if participante.pivot.presente == 1 %}
                     <tr>
-                        <td class="text-center"><a href="{{ urlFor('shwUsuario', {'idUsu: participante.id}) }}"><img class="img-perfil small-border square {% if participante.moderador %}moderador{% else %}{% if participante.es_jefe %}jefe{% else %}{% if participante.es_funcionario %}funcionario{% else %}{% if participante.verified_at %}verificado{% endif %}{% endif %}{% endif %}{% endif %} size-32" src="{{ avatarUrl(participante.img_tipo, participante.img_hash, 32) }}" style="padding:2px"></a></td>
+                        <td class="text-center"><a href="{{ urlFor('shwUsuario', {'idUsu': participante.id}) }}"><img class="img-perfil small-border square {% if participante.moderador %}moderador{% else %}{% if participante.es_jefe %}jefe{% else %}{% if participante.es_funcionario %}funcionario{% else %}{% if participante.verified_at %}verificado{% endif %}{% endif %}{% endif %}{% endif %} size-32" src="{{ avatarUrl(participante.img_tipo, participante.img_hash, 32) }}" style="padding:2px"></a></td>
                         <td class="text-center">{{ participante.nombre }} {{ participante.apellido }}</td>
                     </tr>
                     {% endif %}
@@ -249,7 +249,7 @@
                     {% for participante in participantes %}
                     {% if participante.pivot.presente != 1 %}
                     <tr>
-                        <td class="text-center"><a href="{{ urlFor('shwUsuario', {'idUsu: participante.id}) }}"><img class="img-perfil small-border square {% if participante.moderador %}moderador{% else %}{% if participante.es_jefe %}jefe{% else %}{% if participante.es_funcionario %}funcionario{% else %}{% if participante.verified_at %}verificado{% endif %}{% endif %}{% endif %}{% endif %} size-32" src="{{ avatarUrl(participante.img_tipo, participante.img_hash, 32) }}" style="padding:2px"></a></td>
+                        <td class="text-center"><a href="{{ urlFor('shwUsuario', {'idUsu': participante.id}) }}"><img class="img-perfil small-border square {% if participante.moderador %}moderador{% else %}{% if participante.es_jefe %}jefe{% else %}{% if participante.es_funcionario %}funcionario{% else %}{% if participante.verified_at %}verificado{% endif %}{% endif %}{% endif %}{% endif %} size-32" src="{{ avatarUrl(participante.img_tipo, participante.img_hash, 32) }}" style="padding:2px"></a></td>
                         <td class="text-center">{{ participante.nombre }} {{ participante.apellido }}</td>
                     </tr>
                     {% endif %}

@@ -6,7 +6,7 @@
             <div class="datos-usuario medium-4 columns hide-for-small-only text-right">
                 <div class="pushing">
                     {% if user %}
-                    <a href="{{ urlFor('shwUsuario',{'idUsu: user.id}) }}"><img class="img-perfil small-border square size-32 {% if usuario.moderador %}moderador{% else %}{% if usuario.es_jefe %}jefe{% else %}{% if usuario.es_funcionario %}funcionario{% else %}{% if usuario.verified_at %}verificado{% endif %}{% endif %}{% endif %}{% endif %}" src="{{ avatarUrl(user.img_tipo, user.img_hash, 64) }}" alt="User avatar"></a>
+                    <a href="{{ urlFor('shwUsuario',{'idUsu': user.id}) }}"><img class="img-perfil small-border square size-32 {% if usuario.moderador %}moderador{% else %}{% if usuario.es_jefe %}jefe{% else %}{% if usuario.es_funcionario %}funcionario{% else %}{% if usuario.verified_at %}verificado{% endif %}{% endif %}{% endif %}{% endif %}" src="{{ avatarUrl(user.img_tipo, user.img_hash, 64) }}" alt="User avatar"></a>
                     <div>
                         <b>Bienvenido, {{ user.nombre }}</b>
                     </div>
@@ -25,7 +25,7 @@
                 <ul class="list">
                     {% if user %}
                     <li>
-                        <a href="{{ urlFor('shwUsuario',{'idUsu: user.id}) }}"><img class="img-perfil small-border square size-32 {% if usuario.moderador %}moderador{% else %}{% if usuario.es_jefe %}jefe{% else %}{% if usuario.es_funcionario %}funcionario{% else %}{% if usuario.verified_at %}verificado{% endif %}{% endif %}{% endif %}{% endif %} right" src="{{ avatarUrl(user.img_tipo, user.img_hash, 64) }}" alt="User avatar"></a>
+                        <a href="{{ urlFor('shwUsuario',{'idUsu': user.id}) }}"><img class="img-perfil small-border square size-32 {% if usuario.moderador %}moderador{% else %}{% if usuario.es_jefe %}jefe{% else %}{% if usuario.es_funcionario %}funcionario{% else %}{% if usuario.verified_at %}verificado{% endif %}{% endif %}{% endif %}{% endif %} right" src="{{ avatarUrl(user.img_tipo, user.img_hash, 64) }}" alt="User avatar"></a>
                     </li>
                     <li>
                         <b>Bienvenido, {{ user.nombre }}</b>

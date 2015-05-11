@@ -26,7 +26,7 @@
 <div class="novedad-texto">
     <div class="text-center">
         <section class="datos-cont corto">
-            Publicado el {{ fecha_cont }}  <a href="{{ urlFor('shwUsuario',{'idUsu: autor_id}) }}"><img class="img-perfil small-border radius size-32" src="{{ autor_avatar_32 }}"> por {{ autor_nombre_apellido }}</a> <span class="usuario-pts"><i class="fa fa-trophy fa-fw"></i>&nbsp;{{ autor_puntos }}</span>
+            Publicado el {{ fecha_cont }}  <a href="{{ urlFor('shwUsuario',{'idUsu': autor_id}) }}"><img class="img-perfil small-border radius size-32" src="{{ autor_avatar_32 }}"> por {{ autor_nombre_apellido }}</a> <span class="usuario-pts"><i class="fa fa-trophy fa-fw"></i>&nbsp;{{ autor_puntos }}</span>
         </section>
     </div>
     {{ novedad.cuerpo|bbCode }}
