@@ -9,10 +9,11 @@ class FilterFactory {
         return ($exec === false) ? $f : call_user_func($f, $exec);
     }
 
-    public static function normalizeWhitespace() {
-        return function($v) {
+    public static function normalizeWhitespace($exec = false) {
+        $f = function($v) {
             return trim(preg_replace('/[[:blank:]]+/', ' ', $v));
         };
+        return ($exec === false) ? $f : call_user_func($f, $exec);
     }
 
     public static function emptyToNull() {

@@ -79,7 +79,7 @@ class EventoCtrl extends Controller {
             $contenido->impulsor()->associate($partido);
         }
         $contenido->save();
-        TagCtrl::updateTags($evento, TagCtrl::getTagIds($vdt->getData('tags')));
+        TagCtrl::updateTags($contenido, TagCtrl::getTagIds($vdt->getData('tags')));
         $log = UserlogCtrl::createLog('newEventoo', $autor->id, $evento);
         if ($contenido->impulsor) {
             NotificacionCtrl::createNotif($partido->afiliados()->lists('id'), $log);
@@ -122,9 +122,9 @@ class EventoCtrl extends Controller {
             }
         }
         $contenido->save();
-        TagCtrl::updateTags($evento, TagCtrl::getTagIds($vdt->getData('tags')));
+        TagCtrl::updateTags($contenido, TagCtrl::getTagIds($vdt->getData('tags')));
         $log = UserlogCtrl::createLog('modEventoo', $usuario->id, $evento);
-        NotificacionCtrl::createNotif($evento->usuarios()->lists('id'), $log);
+        NotificacionCtrl::createNotif($evento->usuarios()->lists('usuario_id'), $log);
         $this->flash('success', 'Los datos del evento fueron modificados exitosamente.');
         $this->redirectTo('shwEvento', array('idEve' => $idEve));
     }

@@ -40,11 +40,12 @@ try {
             $table->string('apellido');
             $table->integer('img_tipo')->unsigned();
             $table->string('img_hash');
-            $table->integer('puntos');
+            $table->string('huella')->nullable();
+            $table->integer('puntos')->default(0);
             $table->string('advertencia')->nullable();
-            $table->boolean('suspendido');
-            $table->boolean('es_funcionario');
-            $table->boolean('es_jefe');
+            $table->boolean('suspendido')->default(0);
+            $table->boolean('es_funcionario')->default(0);
+            $table->boolean('es_jefe')->default(0);
             $table->string('dni')->nullable();
             $table->timestamp('verified_at')->nullable();
             $table->timestamp('fin_advertencia')->nullable();
@@ -169,14 +170,13 @@ try {
             $table->increments('id');
             $table->morphs('contenible');
             $table->string('titulo');
-            $table->string('huella');
-            $table->integer('puntos')->unsigned();
-            $table->integer('impulsor_id')->unsigned();
-            $table->integer('autor_id')->unsigned();
-            $table->integer('categoria_id')->unsigned();
+            $table->string('huella')->nullable();
+            $table->integer('puntos')->unsigned()->default(0);
+            $table->integer('impulsor_id')->unsigned()->nullable();
             $table->integer('referido_id')->unsigned()->nullable();
+            $table->integer('categoria_id')->unsigned();
+            $table->integer('autor_id')->unsigned();
             $table->foreign('autor_id')->references('id')->on('usuarios')->onDelete('cascade');
-            $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('restrict');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -184,8 +184,9 @@ try {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('nombre');
-            $table->string('huella');
+            $table->string('huella')->nullable();
             $table->integer('menciones')->unsigned()->default(0);
+            $table->timestamps();
         });
         Capsule::schema()->create('taggables', function($table) {
             $table->engine = 'InnoDB';
@@ -198,9 +199,9 @@ try {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->text('cuerpo');
-            $table->integer('votos_favor')->unsigned();
-            $table->integer('votos_contra')->unsigned();
-            $table->integer('votos_neutro')->unsigned();
+            $table->integer('votos_favor')->unsigned()->default(0);
+            $table->integer('votos_contra')->unsigned()->default(0);
+            $table->integer('votos_neutro')->unsigned()->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -209,8 +210,8 @@ try {
             $table->increments('id');
             $table->integer('postura');
             $table->boolean('publico');
-            $table->integer('propuesta_id')->unsigned();
             $table->integer('usuario_id')->unsigned();
+            $table->integer('propuesta_id')->unsigned();
             $table->foreign('propuesta_id')->references('id')->on('propuestas')->onDelete('cascade');
             $table->timestamps();
         });
@@ -218,9 +219,9 @@ try {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->text('cuerpo');
-            $table->integer('afectados_directos')->unsigned();
-            $table->integer('afectados_indirectos')->unsigned();
-            $table->integer('afectados_indiferentes')->unsigned();
+            $table->integer('afectados_directos')->unsigned()->default(0);
+            $table->integer('afectados_indirectos')->unsigned()->default(0);
+            $table->integer('afectados_indiferentes')->unsigned()->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -228,8 +229,8 @@ try {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('postura')->unsigned();
-            $table->integer('problematica_id')->unsigned();
             $table->integer('usuario_id')->unsigned();
+            $table->integer('problematica_id')->unsigned();
             $table->foreign('problematica_id')->references('id')->on('problematicas')->onDelete('cascade');
             $table->timestamps();
         });
@@ -279,8 +280,8 @@ try {
             $table->increments('id');
             $table->boolean('presente');
             $table->boolean('publico');
-            $table->integer('evento_id')->unsigned();
             $table->integer('usuario_id')->unsigned();
+            $table->integer('evento_id')->unsigned();
             $table->foreign('evento_id')->references('id')->on('eventos')->onDelete('cascade');
             $table->timestamps();
         });
@@ -289,7 +290,7 @@ try {
             $table->increments('id');
             $table->morphs('comentable');
             $table->text('cuerpo');
-            $table->integer('votos');
+            $table->integer('votos')->default(0);
             $table->integer('autor_id')->unsigned();
             $table->foreign('autor_id')->references('id')->on('usuarios')->onDelete('cascade');
             $table->timestamps();
@@ -318,10 +319,6 @@ try {
         $usuario->password = password_hash($_POST['usr_password'], PASSWORD_DEFAULT);
         $usuario->nombre = $_POST['usr_nombre'];
         $usuario->apellido = $_POST['usr_apellido'];
-        $usuario->puntos = 0;
-        $usuario->suspendido = false;
-        $usuario->es_funcionario = false;
-        $usuario->es_jefe = false;
         $usuario->img_tipo = 1;
         $usuario->img_hash = md5(strtolower(trim($usuario->email)));
         $patrulla = new Patrulla;
@@ -368,7 +365,7 @@ try {
         <label for="subject">Email: <input name="usr_email" type="text"></label>
         <label for="subject">Nombre: <input name="usr_nombre" type="text"></label>
         <label for="subject">Apellido: <input name="usr_apellido" type="text"></label>
-        <label for="subject">Contraseña: <input name="usr_password" type="text"></label>
+        <label for="subject">Contraseña: <input name="usr_password" type="password"></label>
     </div></div>
     <div class="row"><div class="small-6 small-centered columns panel callout radius">
         <input class="button expand" type="submit" name="submit" value="Instalar">

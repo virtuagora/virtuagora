@@ -2,6 +2,7 @@
 
 class Poder extends Eloquent {
 
+    public $timestamps = false;
     protected $table = 'poderes';
     protected $visible = array('id', 'nombre', 'descripcion');
     protected $fillable = array('nombre', 'descripcion');

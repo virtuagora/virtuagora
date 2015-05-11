@@ -10,7 +10,7 @@ class ContenidoCtrl extends RMRController {
     public function queryModel($meth, $repr) {
         switch ($meth) {
             case 0: return Contenido::query();
-            case 1: return Contenido::with('contenible');
+            case 1: return Contenido::with(['contenible', 'tags']);
         }
     }
 

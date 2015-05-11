@@ -28,7 +28,7 @@ class Contenido extends Eloquent {
     }
 
     public function tags() {
-        return $this->belongsToMany('Tag');
+        return $this->morphToMany('Tag', 'taggable');
     }
 
     public function referido() {

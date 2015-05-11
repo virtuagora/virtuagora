@@ -1,4 +1,4 @@
-<?php
+<?php use Augusthur\Validation as Validate;
 
 class TagCtrl extends RMRController {
 
@@ -15,7 +15,7 @@ class TagCtrl extends RMRController {
             throw new TurnbackException('Tags incorrectas.');
         }
         $vdt = new Validate\Validator();
-        $vdt->addRule('tags', new Validate\Rule\Alphanum([' ']))
+        $vdt->addRule('tags', new Validate\Rule\AlphaNumeric([' ']))
             ->addRule('tags', new Validate\Rule\MinLength(2))
             ->addRule('tags', new Validate\Rule\MaxLength(32));
         if (!$vdt->validate(['tags' => $tags])) {
@@ -24,14 +24,14 @@ class TagCtrl extends RMRController {
             throw new TurnbackException('No pueden asignarse más de 8 tags.');
         }
         $tagIds = array();
-        foreach ($tags as $tagname) {
-            $tagIds[] = Tag::firstOrCreate(['nombre' => FilterFactory::normalizeWhitespace($tagname)])->id;
+        foreach ($tags as $tag) {
+            $tagIds[] = Tag::firstOrCreate(['nombre' => FilterFactory::normalizeWhitespace($tag)])->id;
         }
-        return $tags;
+        return $tagIds;
     }
 
     public static function updateTags($taggable, $newTags) {
-        $oldTags = $taggable->tags()->lists('id');
+        $oldTags = $taggable->tags()->lists('tag_id');
         $tagsIn = array_diff($newTags, $oldTags);
         $tagsOut = array_diff($oldTags, $newTags);
         if (!empty($tagsIn)) {

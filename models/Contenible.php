@@ -17,10 +17,6 @@ abstract class Contenible extends Eloquent {
         return $this->morphMany('Comentario', 'comentable');
     }
 
-    public function tags() {
-        return $this->morphToMany('Tag', 'taggable');
-    }
-
     public function getIdentidadAttribute() {
         return $this->contenido->titulo;
     }
