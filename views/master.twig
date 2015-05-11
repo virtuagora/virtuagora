@@ -1,90 +1,93 @@
 <!DOCTYPE html>
 <html {% if html_class is defined %}class='{{ html_class }}'{% endif %}>
-    <head>
-        <title>{% block titulo %}Virtuágora{% endblock %}</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{ baseUrl() }}/assets/css/app.css">
-        <link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/powertip/jquery.powertip.css"/>
-        {% if notificaciones == true %}
-        <link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/powertip/jquery.powertip-light.css"/>
-        {% endif %}
-        {% block linkhead %}{% endblock %}
-        <script src="{{ baseUrl() }}/assets/js/modernizr/modernizr.js"></script>
-    </head>
-    <body {% if body_class is defined %}class='{{ body_class }}'{% endif %}>
-        <div class="wrapper">
-            <!-- bar-nav -->
+	<head>
+		<title>{% block titulo %}Virtuágora{% endblock %}</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		{% block metatags %}{% endblock %}
+		<link rel="stylesheet" href="{{ baseUrl() }}/assets/css/app.css">
+		<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/powertip/jquery.powertip.css"/>
+		{% if notificaciones == true %}
+		<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/powertip/jquery.powertip-light.css"/>
+		{% endif %}
+		{% block linkhead %}{% endblock %}
+		<script src="{{ baseUrl() }}/assets/js/modernizr/modernizr.js"></script>
+	</head>
+	<body {% if body_class is defined %}class='{{ body_class }}'{% endif %}>
+		<div class="wrapper">
+			<!-- bar-nav -->
+			{% if barraNav == true %}
+			{% include "common/barra-nav.twig" %}
+			{% endif %}
+			<!--alerta-->
+			{% if flash['success'] is defined %}
+			<div data-alert class="alert-box success text-center">
+				<div class="row">
+					<span class="fa-stack">
+						<i class="fa fa-circle-thin fa-stack-2x"></i>
+						<i class="fa fa-check fa-stack-1x"></i>
+					</span>&nbsp;{{ flash.success|capitalize }}
+					<a href="#" class="close"><i class="fa fa-times fa-fw fa-lg"></i></a>
+				</div>
+			</div>
+			{% endif %}
 
-            <!--alerta-->
-            {% if flash['success'] is defined %}
-            <div data-alert class="alert-box success text-center">
-                <div class="row">
-                    <span class="fa-stack">
-                        <i class="fa fa-circle-thin fa-stack-2x"></i>
-                        <i class="fa fa-check fa-stack-1x"></i>
-                    </span>&nbsp;{{ flash.success|capitalize }}
-                    <a href="#" class="close"><i class="fa fa-times fa-fw fa-lg"></i></a>
-                </div>
-            </div>
-            {% endif %}
 
+			{% if flash['errors'] is defined %}
+			{% for error in flash['errors'] %}
+			<div data-alert class="alert-box alert text-center">
+				<div class="row">
+					<span class="fa-stack">
+						<i class="fa fa-circle-thin fa-stack-2x"></i>
+						<i class="fa fa-minus fa-stack-1x"></i>
+					</span>&nbsp;{{ error|capitalize }}
+					<a href="#" class="close"><i class="fa fa-times fa-fw fa-lg"></i></a>
+				</div>
+			</div>
+			{% endfor %}
+			{% endif %}
 
-            {% if flash['errors'] is defined %}
-            {% for error in flash['errors'] %}
-            <div data-alert class="alert-box alert text-center">
-                <div class="row">
-                    <span class="fa-stack">
-                        <i class="fa fa-circle-thin fa-stack-2x"></i>
-                        <i class="fa fa-minus fa-stack-1x"></i>
-                    </span>&nbsp;{{ error|capitalize }}
-                    <a href="#" class="close"><i class="fa fa-times fa-fw fa-lg"></i></a>
-                </div>
-            </div>
-            {% endfor %}
-            {% endif %}
-
-            {% if flash['warning'] is defined %}
-            <div data-alert class="alert-box warning text-center">
-                <div class="row">
-                    <span class="fa-stack">
-                        <i class="fa fa-circle-thin fa-stack-2x"></i>
-                        <i class="fa fa-warning fa-stack-1x"></i>
-                    </span></i>&nbsp;{{ flash.warning|capitalize }}
-                    <a href="#" class="close"><i class="fa fa-times fa-fw fa-lg"></i></a>
-                </div>
-            </div>
-            {% endif %}
-            <!-- body -->
-            {% block body %}{% endblock %}
-            {% if notificaciones == true and user %}
-            {% include "common/notificaciones.twig" %}
-            {% endif %}
-            {% if footer == true %}
-            <div class="push"></div>
-            {% endif %}
-        </div>
-        <!-- footer -->
-        {% if footer == true %}
-        {% include "common/footer.twig" %}
-        {% endif %}
-        <!-- modals -->
-        {% block modals %}{% endblock %}
-        {% if user.es_moderador %}
-        {% include "common/modal-sancionar.twig" %}
-        {% endif %}
-        <!-- Javascript/Jquery -->
-        <script src="{{ baseUrl() }}/assets/js/jquery/jquery.min.js"></script>
-        <script src="{{ baseUrl() }}/assets/js/foundation/foundation.min.js"></script>
-        <script src="{{ baseUrl() }}/assets/js/foundation/foundation.alert.js"></script>
-        <script src="{{ baseUrl() }}/assets/js/powertip/jquery.powertip.min.js"></script>
-        {% if notificaciones == true and user %}
-        {% include "common/notificaciones.js.twig" %}
-        {% endif %}
-        {% if user.es_moderador %}
-        {% include "common/modal-sancionar.js.twig" %}
-        {% endif %}
-        {% block scripts %}{% endblock %}
-        <script src="{{ baseUrl() }}/assets/js/app.js"></script>
-    </body>
+			{% if flash['warning'] is defined %}
+			<div data-alert class="alert-box warning text-center">
+				<div class="row">
+					<span class="fa-stack">
+						<i class="fa fa-circle-thin fa-stack-2x"></i>
+						<i class="fa fa-warning fa-stack-1x"></i>
+					</span></i>&nbsp;{{ flash.warning|capitalize }}
+				<a href="#" class="close"><i class="fa fa-times fa-fw fa-lg"></i></a>
+			</div>
+		</div>
+		{% endif %}
+		<!-- body -->
+		{% block body %}{% endblock %}
+		{% if notificaciones == true and user %}
+		{% include "common/notificaciones.twig" %}
+		{% endif %}
+		{% if footer == true %}
+		<div class="push"></div>
+		{% endif %}
+		</div>
+	<!-- footer -->
+	{% if footer == true %}
+	{% include "common/footer.twig" %}
+	{% endif %}
+	<!-- modals -->
+	{% block modals %}{% endblock %}
+	{% if user.es_moderador %}
+	{% include "common/modal-sancionar.twig" %}
+	{% endif %}
+	<!-- Javascript/Jquery -->
+	<script src="{{ baseUrl() }}/assets/js/jquery/jquery.min.js"></script>
+	<script src="{{ baseUrl() }}/assets/js/foundation/foundation.min.js"></script>
+	<script src="{{ baseUrl() }}/assets/js/foundation/foundation.alert.js"></script>
+	<script src="{{ baseUrl() }}/assets/js/powertip/jquery.powertip.min.js"></script>
+	{% if notificaciones == true and user %}
+	{% include "common/notificaciones.js.twig" %}
+	{% endif %}
+	{% if user.es_moderador %}
+	{% include "common/modal-sancionar.js.twig" %}
+	{% endif %}
+	{% block scripts %}{% endblock %}
+	<script src="{{ baseUrl() }}/assets/js/app.js"></script>
+	</body>
 </html>
