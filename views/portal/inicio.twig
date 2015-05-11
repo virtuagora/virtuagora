@@ -38,7 +38,7 @@
                     <div class="txt"><b>PROBLEMATICAS</b></div>
                     <div>
                         <ul class="list">
-                            <li><a href="{{ urlFor('shwCrearProblem') }}"><div><i class="fa fa-plus fa-fw fa-lg"></i></div><div class="txt">Crear</div></a></li>
+                            {% if user %}<li><a href="{{ urlFor('shwCrearProblem') }}"><div><i class="fa fa-plus fa-fw fa-lg"></i></div><div class="txt">Crear</div></a></li>{% endif %}
                             <li><a href="{{ urlFor('shwPortal') }}"><div><i class="fa fa-search fa-fw fa-lg"></i></div><div class="txt">Ver</div></a></li>
                         </ul>
                     </div>
@@ -53,7 +53,7 @@
                     <div class="txt"><b>PROPUESTA</b></div>
                     <div>
                         <ul class="list">
-                            <li><a href="{{ urlFor('shwCrearPropues') }}"><div><i class="fa fa-plus fa-fw fa-lg"></i></div><div class="txt">Crear</div></a></li>
+                            {% if user.es_funcionario %}<li><a href="{{ urlFor('shwCrearPropues') }}"><div><i class="fa fa-plus fa-fw fa-lg"></i></div><div class="txt">Crear</div></a></li>{% endif %}
                             <li><a href="{{ urlFor('shwPortal') }}"><div><i class="fa fa-search fa-fw fa-lg"></i></div><div class="txt">Ver</div></a></li>
                         </ul>
                     </div>
@@ -68,7 +68,7 @@
                     <div class="txt"><b>DOCUMENTOS</b></div>
                     <div>
                         <ul class="list">
-                            <li><a href="{{ urlFor('shwCrearDocumen') }}"><div><i class="fa fa-plus fa-fw fa-lg"></i></div><div class="txt">Crear</div></a></li>
+                            {% if user.es_funcionario %}<li><a href="{{ urlFor('shwCrearDocumen') }}"><div><i class="fa fa-plus fa-fw fa-lg"></i></div><div class="txt">Crear</div></a></li>{% endif %}
                             <li><a href="{{ urlFor('shwPortal') }}"><div><i class="fa fa-search fa-fw fa-lg"></i></div><div class="txt">Ver</div></a></li>
                         </ul>
                     </div>
@@ -83,7 +83,7 @@
                     <div class="txt"><b>EVENTOS</b></div>
                     <div>
                         <ul class="list">
-                            <li><a href="{{ urlFor('shwCrearEvento') }}"><div><i class="fa fa-plus fa-fw fa-lg"></i></div><div class="txt">Crear</div></a></li>
+                            {% if user.es_funcionario %}<li><a href="{{ urlFor('shwCrearEvento') }}"><div><i class="fa fa-plus fa-fw fa-lg"></i></div><div class="txt">Crear</div></a></li>{% endif %}
                             <li><a href="{{ urlFor('shwEvento') }}"><div><i class="fa fa-search fa-fw fa-lg"></i></div><div class="txt">Ver</div></a></li>
                         </ul>
                     </div>
@@ -98,7 +98,7 @@
                     <div class="txt"><b>NOVEDAD</b></div>
                     <div>
                         <ul class="list">
-                            <li><a href="{{ urlFor('shwCrearNovedad') }}"><div><i class="fa fa-plus fa-fw fa-lg"></i></div><div class="txt">Crear</div></a></li>
+                            {% if user.es_funcionario %}<li><a href="{{ urlFor('shwCrearNovedad') }}"><div><i class="fa fa-plus fa-fw fa-lg"></i></div><div class="txt">Crear</div></a></li>{% endif %}
                             <li><a href="{{ urlFor('shwPortal') }}"><div><i class="fa fa-search fa-fw fa-lg"></i></div><div class="txt">Ver</div></a></li>
                         </ul>
                     </div>
@@ -167,7 +167,7 @@
                     <h3><b>PROPUESTAS</b></h3>
                     <div class="txt">Funcionarios públicos podrán exponerle propuestas para que estas sean sometidas a votación. Así se podrá tener un mayor censo con respecto a la aceptación que esta tendrá si ha de implementarse.</div>
                     <div class="link text-center">
-                        {% if user.es_funcionario %}
+                        {% if user.es_funcionario == 1 %}
                         <a href="{{ urlFor('shwCrearPropues') }}">
                             <div><i class="fa fa-plus fa-fw fa-lg"></i></div>
                             <div class="txt">Crear</div>
@@ -219,7 +219,7 @@
                     <h3><b>EVENTOS</b></h3>
                     <div class="txt">Organismos públicos y grupos políticos podrán dar a conocer eventos que organicen, mientras que los ciudadanos podrán dar confirmacion de su asistencia a estos.</div>
                     <div class="link text-center">
-                        {% if user.es_funcionario %}
+                        {% if user.es_funcionario == 1 %}
                         <a href="{{ urlFor('shwCrearEvento') }}">
                             <div><i class="fa fa-plus fa-fw fa-lg"></i></div>
                             <div class="txt">Crear</div>
@@ -245,7 +245,7 @@
                     <h3><b>NOVEDADES</b></h3>
                     <div class="txt">Funcionaros podran publicar cualquier tipo de anuncio que consideren relevante para la sociedad.</div>
                     <div class="link text-center">
-                        {% if user.es_funcionario %}
+                        {% if user.es_funcionario == 1 %}
                         <a href="{{ urlFor('shwCrearNovedad') }}">
                             <div><i class="fa fa-plus fa-fw fa-lg"></i></div>
                             <div class="txt">Crear</div>
