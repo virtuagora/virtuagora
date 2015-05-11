@@ -35,6 +35,18 @@ class Usuario extends Eloquent {
         return $this->attributes['nombre'].' '.$this->attributes['apellido'];
     }
 
+    public function setNombreAttribute($value) {
+        $this->attributes['nombre'] = $value;
+        $apellido = isset($this->attributes['apellido'])? ' '.$this->attributes['apellido']: '';
+        $this->attributes['huella'] = FilterFactory::calcHuella($value.$apellido);
+    }
+
+    public function setApellidoAttribute($value) {
+        $this->attributes['apellido'] = $value;
+        $nombre = isset($this->attributes['nombre'])? $this->attributes['nombre'].' ': '';
+        $this->attributes['huella'] = FilterFactory::calcHuella($nombre.$value);
+    }
+
     public static function boot() {
         parent::boot();
         static::deleting(function($usuario) {

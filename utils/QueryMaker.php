@@ -59,15 +59,7 @@ class QueryMaker {
                 throw new BearableException('No puede buscar más de 4 tags a la vez.');
             }
             $this->query = $this->query->whereHas('tags', function($q) use ($tags) {
-                $first = true;
-                foreach ($tags as $tag) {
-                    if ($first) {
-                        $q->where('huella', $tag);
-                        $first = false;
-                    } else {
-                        $q->orWhere('huella', $tag);
-                    }
-                }
+                $q->whereIn('huella', $tags);
             });
         }
     }

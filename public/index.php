@@ -49,8 +49,8 @@ $app->error(function (Exception $e) use ($app) {
             $app->render('misc/error.twig', array('mensaje' => $e->getMessage()), $e->getCode());
         } else if ($e instanceof Illuminate\Database\Eloquent\ModelNotFoundException) {
             $app->notFound();
-        } else if ($e instanceof Illuminate\Database\QueryException && $e->getCode() == 23000) {
-            $app->render('misc/error.twig', array('mensaje' => 'La información ingresada es inconsistente.'), 400);
+        //} else if ($e instanceof Illuminate\Database\QueryException && $e->getCode() == 23000) {
+        //    $app->render('misc/error.twig', array('mensaje' => 'La información ingresada es inconsistente.'), 400);
         } else {
             $app->render('misc/fatal-error.twig', array('type' => get_class($e), 'exception' => $e));
         }
@@ -137,6 +137,8 @@ $app->get('/validar/:idUsu/:token', 'PortalCtrl:verificarEmail')->name('runValid
 
 $app->get('/notificacion', checkRole('usr'), 'NotificacionCtrl:listar')->name('shwListaNotific');
 $app->post('/notificacion/eliminar', checkRole('usr'), 'NotificacionCtrl:eliminar')->name('runElimiNotific');
+
+$app->get('/tag', 'TagCtrl:listar')->name('shwTag');
 
 $app->get('/contenido/:idCon', 'ContenidoCtrl:ver')->name('shwConteni');
 $app->get('/contenido', 'ContenidoCtrl:listar')->name('shwListaConteni');
