@@ -4,7 +4,7 @@
             <ul class="list">
                 <li><a href="{{ urlFor('shwIndex') }}"><i class="bt fa fa-home"></i></a></li>
                 {% if user is not empty %}
-                <li><a href="{{ urlFor('shwUsuario',{'IdUsu': user.id}) }}">{{ user.nombre }}</a></li>
+                <li><a href="{{ urlFor('shwUsuario',{'idUsu: user.id}) }}">{{ user.nombre }}</a></li>
                 {% else %}
                 <li>Bienvenido!</li>
                 {% endif %}

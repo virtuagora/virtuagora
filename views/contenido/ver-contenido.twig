@@ -19,7 +19,7 @@
         <div class="cuerpo-header-cont small-12 small-centered columns">
             <h1 class="titulo-cont">{{ titulo_cont }}</h1>
             <section class="datos-cont">
-                {{ fecha_cont }} <a href="{{ urlFor('shwUsuario',{'IdUsu': autor_id}) }}"><img class="img-perfil radius no-border" src="{{ autor_avatar_32 }}"> {{ autor_nombre_apellido }}</a> <span class="usuario-pts"><i class="fa fa-trophy fa-fw fa-lg"></i>&nbsp;{{ autor_puntos }}</span>
+                {{ fecha_cont }} <a href="{{ urlFor('shwUsuario',{'idUsu: autor_id}) }}"><img class="img-perfil radius no-border" src="{{ autor_avatar_32 }}"> {{ autor_nombre_apellido }}</a> <span class="usuario-pts"><i class="fa fa-trophy fa-fw fa-lg"></i>&nbsp;{{ autor_puntos }}</span>
                 {% block datos_cont %}{% endblock datos_cont %}
             </section>
             <section class="opciones-cont">

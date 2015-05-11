@@ -177,9 +177,9 @@
                                     {% if jefes|length > 0 %}
                                     {% for jefe in jefes %}
                                     <tr>
-                                        <td class="text-center"><a href="{{ urlFor('shwUsuario', {'IdUsu': jefe.id}) }}"><img class="img-perfil radius jefe small-border size-64" src="{{ avatarUrl(jefe.img_tipo, jefe.img_hash, 64) }}"></a></td>
+                                        <td class="text-center"><a href="{{ urlFor('shwUsuario', {'idUsu: jefe.id}) }}"><img class="img-perfil radius jefe small-border size-64" src="{{ avatarUrl(jefe.img_tipo, jefe.img_hash, 64) }}"></a></td>
                                         <td class="text-center"><h4>{{ jefe.nombre }} {{ jefe.apellido }}</h4></td>
-                                        <td class="text-center"><h2><a href="{{ urlFor('shwUsuario', {'IdUsu': jefe.id}) }}"><i class="fa fa-caret-right fa-fw"></i></a></h2></td>
+                                        <td class="text-center"><h2><a href="{{ urlFor('shwUsuario', {'idUsu: jefe.id}) }}"><i class="fa fa-caret-right fa-fw"></i></a></h2></td>
                                     </tr>
                                     {% endfor %}
                                     {% else %}

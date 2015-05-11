@@ -4,6 +4,7 @@
         <title>{% block titulo %}Virtuágora{% endblock %}</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block metatags %}{% endblock %}
         <link rel="stylesheet" href="{{ baseUrl() }}/assets/css/app.css">
         <link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/powertip/jquery.powertip.css"/>
         {% if notificaciones == true %}

@@ -14,185 +14,185 @@
 {# ----------------------------------------------------------- #}
 {% block body %}
 <div class="portal-usuario-aux">
-    {% include 'portal/header.twig' %}
-    <div class="intro-listado-contenido">
-        <div class="row">
-            <div class="medium-5 columns text-center"><h3><b>¿Que son los contenidos?</b></h3></div>
-            <div class="txt medium-7 columns text-justify">
-                Los contenidos son la forma de participación que propone la plataforma. Los mismos son creados tanto por los ciudadanos como por sus representantes. El siguiente listado es un directorio de todas las propuestas de la plataforma. Haz click sobre los contenido para descubrir sobre qué trata cada uno. ¡Infórmate y participa!
-                <div class="text-center large-text-right" style="margin-top: 15px;">
-                    <a href="" class="button radius small"><i class="fa fa-plus fa-fw"></i> Quiero participar</a>
-                    <a href="" class="button radius small"><i class="fa fa-question fa-fw"></i> ¿Que es la participación ciudadana?</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="listado-contenidos">
-        <div class="row">
-            <div class="medium-3 columns">
-                <div class="filtros panel">
-                    <div class="row">
-                        <div class="small-6 columns">
-                            <a href="javascript:verBloques()" class="button negative tiny expand"><i class="fa fa-th-large fa-fw"></i> Bloques</a>
-                        </div>
-                        <div class="small-6 columns">
-                            <a href="javascript:verLista()" class="button negative tiny expand"><i class="fa fa-list-ul fa-fw"></i> Lista</a>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="title-opciones medium-12 columns text-center">
-                            Ver / Ocultar
-                        </div>
-                        <div class="small-1 columns show-for-small-only">&nbsp;</div>
-                        <a href="javascript:toggle('propuesta')" class="js-a">
-                            <div class="bt-filtro propuesta active small-2 medium-4 columns text-center">
-                                <div><i class="fa fa-exclamation-circle fa-fw fa-2x"></i></div>
-                            </div>
-                        </a>
-                        <a href="javascript:toggle('problematica')" class="js-a">
-                            <div class="bt-filtro problematica active small-2 medium-4 columns text-center">
-                                <div><i class="fa fa-bullhorn fa-fw fa-2x"></i></div>
-                            </div>
-                        </a>
-                        <a href="javascript:toggle('documento')" class="js-a">
-                            <div class="bt-filtro documento active small-2 medium-4 columns text-center">
-                                <div><i class="fa fa-file-text-o fa-fw fa-2x"></i></div>
-                            </div>
-                        </a>
-                        <a href="javascript:toggle('evento')" class="js-a">
-                            <div class="bt-filtro evento active small-2 medium-6 columns text-center">
-                                <div><i class="fa fa-calendar fa-fw fa-2x"></i></div>
-                            </div>
-                        </a>
-                        <a href="javascript:toggle('novedad')" class="js-a">
-                            <div class="bt-filtro novedad active small-2 medium-6 columns text-center">
-                                <div><i class="fa fa-newspaper-o fa-fw fa-2x"></i></div>
-                            </div>
-                        </a>
-                        <div class="small-1 columns show-for-small-only">&nbsp;</div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="title-opciones small-6 medium-12 columns text-center">
-                            Ordenar por fecha
-                            <a href="javascript:toggleFecha(1)" class="js-a">
-                                <div class="bt-filtro orden fecha asc large-6 columns text-center">
-                                    <i class="fa fa-calendar fa-lg"></i><i class="fa fa-long-arrow-up fa-fw fa-lg"></i> ASC
-                                </div>
-                            </a>
-                            <a href="javascript:toggleFecha(-1)" class="js-a">
-                                <div class="bt-filtro orden fecha desc active large-6 columns text-center">
-                                    <i class="fa fa-calendar fa-lg"></i><i class="fa fa-long-arrow-down fa-fw fa-lg"></i> DESC
-                                </div>
-                            </a>
-                        </div>
-                        <hr class="hide-for-small-only">
-                        <div class="title-opciones small-6 medium-12 columns text-center">
-                            Ordenar por puntos
-                            <div class="row">
-                                <a href="javascript:togglePuntos(1)" class="js-a">
-                                    <div class="bt-filtro orden puntos asc large-4 columns text-center">
-                                        <i class="fa fa-star-o fa-lg fa-fw"></i><i class="fa fa-long-arrow-up fa-fw fa-lg"></i><br>ASC
-                                    </div>
-                                </a>
-                                <a href="javascript:togglePuntos(-1)" class="js-a">
-                                    <div class="bt-filtro orden puntos desc large-4 columns text-center">
-                                        <i class="fa fa-star-o fa-lg fa-fw"></i><i class="fa fa-long-arrow-down fa-fw fa-lg"></i><br>DESC
-                                    </div>
-                                </a>
-                                <a href="javascript:togglePuntos(0)" class="js-a">
-                                    <div class="bt-filtro orden puntos off active large-4 columns text-center">
-                                        <i class="fa fa-power-off fa-fw fa-lg"></i><br>OFF
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <hr class="hide-for-small-only">
-                        <div class="title-opciones small-6 medium-12 columns text-center">
-                            Filtrar por Categoria
-                            <select id="categoria">
-                                <option value="0" selected>Todas</option>
-                                <option value="1">General</option>
-                            </select>
-                        </div>
-                        {% if user.partido_id is not defined %}
-                        <hr class="hide-for-small-only">
-                        <div class="title-opciones small-6 medium-12 columns text-center">
-                            Mostrar solo de mi grupo
-                            <a href="javascript:togglePartido(1)">
-                                <div class="bt-filtro partido large-12 columns text-center">
-                                    <i class="fa fa-flag-o fa-lg fa-fw"></i> <span class="txt">OFF</span>
-                                </div>
-                            </a>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            <div class="medium-9 columns">
-                <div class="buscador row">
-                   <i class="fa fa-search fa-fw"></i>
-                    <input type="text" placeholder="Escriba aqui el titulo del contenido que este buscando..">
-                </div>
-                <div class="bloques row">
-                    <div id="masonryContainer">
+	{% include 'portal/header.twig' %}
+	<div class="intro-listado-contenido">
+		<div class="row">
+			<div class="medium-5 columns text-center"><h3><b>¿Que son los contenidos?</b></h3></div>
+			<div class="txt medium-7 columns text-justify">
+				Los contenidos son la forma de participación que propone la plataforma. Los mismos son creados tanto por los ciudadanos como por sus representantes. El siguiente listado es un directorio de todas las propuestas de la plataforma. Haz click sobre los contenido para descubrir sobre qué trata cada uno. ¡Infórmate y participa!
+				<div class="text-center large-text-right" style="margin-top: 15px;">
+					<a href="{{ urlFor('shwIndex') }}" class="button radius small"><i class="fa fa-plus fa-fw"></i> Quiero participar</a>
+					<a href="#" class="button radius small"><i class="fa fa-question fa-fw"></i> ¿Que es la participación ciudadana?</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="listado-contenidos">
+		<div class="row">
+			<div class="medium-3 columns">
+				<div class="filtros panel">
+					<div class="row">
+						<div class="small-6 columns">
+							<a href="javascript:verBloques()" class="js-a button negative tiny expand"><i class="fa fa-th-large fa-fw"></i> Bloques</a>
+						</div>
+						<div class="small-6 columns">
+							<a href="javascript:verLista()" class="js-a button negative tiny expand"><i class="fa fa-list-ul fa-fw"></i> Lista</a>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="title-opciones medium-12 columns text-center">
+							Ver / Ocultar
+						</div>
+						<div class="small-1 columns show-for-small-only">&nbsp;</div>
+						<a href="javascript:toggle('propuesta')" class="js-a">
+							<div class="bt-filtro propuesta active small-2 medium-4 columns text-center">
+								<div><i class="fa fa-exclamation-circle fa-fw fa-2x"></i></div>
+							</div>
+						</a>
+						<a href="javascript:toggle('problematica')" class="js-a">
+							<div class="bt-filtro problematica active small-2 medium-4 columns text-center">
+								<div><i class="fa fa-bullhorn fa-fw fa-2x"></i></div>
+							</div>
+						</a>
+						<a href="javascript:toggle('documento')" class="js-a">
+							<div class="bt-filtro documento active small-2 medium-4 columns text-center">
+								<div><i class="fa fa-file-text-o fa-fw fa-2x"></i></div>
+							</div>
+						</a>
+						<a href="javascript:toggle('evento')" class="js-a">
+							<div class="bt-filtro evento active small-2 medium-6 columns text-center">
+								<div><i class="fa fa-calendar fa-fw fa-2x"></i></div>
+							</div>
+						</a>
+						<a href="javascript:toggle('novedad')" class="js-a">
+							<div class="bt-filtro novedad active small-2 medium-6 columns text-center">
+								<div><i class="fa fa-newspaper-o fa-fw fa-2x"></i></div>
+							</div>
+						</a>
+						<div class="small-1 columns show-for-small-only">&nbsp;</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="title-opciones small-6 medium-12 columns text-center">
+							Ordenar por fecha
+							<a href="javascript:toggleFecha(1)" class="js-a">
+								<div class="bt-filtro orden fecha asc large-6 columns text-center">
+									<i class="fa fa-calendar fa-lg"></i><i class="fa fa-long-arrow-up fa-fw fa-lg"></i> ASC
+								</div>
+							</a>
+							<a href="javascript:toggleFecha(-1)" class="js-a">
+								<div class="bt-filtro orden fecha desc active large-6 columns text-center">
+									<i class="fa fa-calendar fa-lg"></i><i class="fa fa-long-arrow-down fa-fw fa-lg"></i> DESC
+								</div>
+							</a>
+						</div>
+						<hr class="hide-for-small-only">
+						<div class="title-opciones small-6 medium-12 columns text-center">
+							Ordenar por relevancia
+							<div class="row">
+								<a href="javascript:togglePuntos(1)" class="js-a">
+									<div class="bt-filtro orden puntos asc large-4 columns text-center">
+										<i class="fa fa-star-o fa-lg fa-fw"></i><i class="fa fa-long-arrow-up fa-fw fa-lg"></i><br>ASC
+									</div>
+								</a>
+								<a href="javascript:togglePuntos(-1)" class="js-a">
+									<div class="bt-filtro orden puntos desc large-4 columns text-center">
+										<i class="fa fa-star-o fa-lg fa-fw"></i><i class="fa fa-long-arrow-down fa-fw fa-lg"></i><br>DESC
+									</div>
+								</a>
+								<a href="javascript:togglePuntos(0)" class="js-a">
+									<div class="bt-filtro orden puntos off active large-4 columns text-center">
+										<i class="fa fa-power-off fa-fw fa-lg"></i><br>OFF
+									</div>
+								</a>
+							</div>
+						</div>
+						<hr class="hide-for-small-only">
+						<div class="title-opciones small-6 medium-12 columns text-center">
+							Filtrar por Categoria
+							<select id="categoria">
+								<option value="0" selected>Todas</option>
+								<option value="1">General</option>
+							</select>
+						</div>
+						{% if user.partido_id is not defined %}
+						<hr class="hide-for-small-only">
+						<div class="title-opciones small-6 medium-12 columns text-center">
+							Mostrar solo de mi grupo
+							<a href="javascript:togglePartido(1)">
+								<div class="bt-filtro partido large-12 columns text-center">
+									<i class="fa fa-flag-o fa-lg fa-fw"></i> <span class="txt">OFF</span>
+								</div>
+							</a>
+						</div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+			<div class="medium-9 columns">
+				<div class="buscador row">
+					<i class="fa fa-search fa-fw"></i>
+					<input type="text" placeholder="Escriba aqui el titulo del contenido que este buscando..">
+				</div>
+				<div class="bloques row">
+					<div id="masonryContainer">
 
-                    </div>
-                    <div class="mensajes row">
-                        <div class="cargar-mas large-6 large-centered columns text-center" style="display:none;padding: 20px 0; margin: 0 auto; ">
-                            <a href="javascript:buscarMasContenido()" class="button negative radius expand">
-                                <i class="fa fa-plus-circle fa-fw"></i> Cargar mas contenido
-                            </a>
-                        </div>
-                        <div class="fin-contenidos large-12 columns text-center" style="display:none;padding: 20px 0; margin: 0 auto; ">
-                            <i class="fa fa-check fa-fw "></i> Fin de los contenidos
-                        </div>
-                        <div class="ejecutando large-12 columns text-center" style="display:none;padding: 20px 0; margin: 0 auto;">
-                            <i class="fa fa-circle-o-notch fa-fw fa-spin"></i> Cargando
-                        </div>
-                        <div class="vacio large-12 columns text-center" style="display:none;padding: 20px 0; margin: 0 auto; ">
-                            <i class="fa fa-times fa-fw"></i> No existen contenidos
-                        </div>
-                        <div class="error large-12 columns text-center" style="display:none;padding: 20px 0; margin: 0 auto; ">
-                            <i class="fa fa-warning fa-fw"></i> Error
-                        </div>
-                    </div>
-                </div>
-                <div class="listado row" style="display:none">
-                    <table>
-                        <tbody id="lista-contenidos">
+					</div>
+					<div class="mensajes row">
+						<div class="cargar-mas large-6 large-centered columns text-center" style="display:none;padding: 20px 0; margin: 0 auto; ">
+							<a href="javascript:buscarMasContenido()" class="button negative radius expand">
+								<i class="fa fa-plus-circle fa-fw"></i> Cargar mas contenido
+							</a>
+						</div>
+						<div class="fin-contenidos large-12 columns text-center" style="display:none;padding: 20px 0; margin: 0 auto; ">
+							<i class="fa fa-check fa-fw "></i> Fin de los contenidos
+						</div>
+						<div class="ejecutando large-12 columns text-center" style="display:none;padding: 20px 0; margin: 0 auto;">
+							<i class="fa fa-circle-o-notch fa-fw fa-spin"></i> Cargando
+						</div>
+						<div class="vacio large-12 columns text-center" style="display:none;padding: 20px 0; margin: 0 auto; ">
+							<i class="fa fa-times fa-fw"></i> No existen contenidos
+						</div>
+						<div class="error large-12 columns text-center" style="display:none;padding: 20px 0; margin: 0 auto; ">
+							<i class="fa fa-warning fa-fw"></i> Error
+						</div>
+					</div>
+				</div>
+				<div class="listado row" style="display:none">
+					<table>
+						<tbody id="lista-contenidos">
 
-                        </tbody>
-                    </table>
-                    <div class="panel large-9 large-centered clearfix columns">
-                        <div class="control-paginas" style="display:none">
-                            <div class="small-6 columns text-left">
-                                <a id="nav-first" href="javascript:listaCall('first')" style="display:none"><i class="fa fa-fast-backward fa-fw fa-lg"></i></a>&nbsp;&nbsp;
-                                <a id="nav-prev" href="javascript:listaCall('prev')" style="display:none"><i class="fa fa-chevron-left fa-fw fa-lg"></i> Anterior</a>
-                            </div>
-                            <div class="small-6 columns text-right">
-                                <a id="nav-next" href="javascript:listaCall('next')" style="display:none">Proximo <i class="fa fa-chevron-right fa-fw fa-lg"></i></a>&nbsp;&nbsp;
-                                <a id="nav-last" href="javascript:listaCall('last')" style="display:none"><i class="fa fa-fast-forward fa-fw fa-lg"></i></a>
-                            </div>
-                        </div>
-                        <div class="fin-contenidos large-12 columns text-center" style="display:none">
-                            <i class="fa fa-check fa-fw "></i> Fin de los contenidos
-                        </div>
-                        <div class="ejecutando large-12 columns text-center" style="display:none">
-                            <i class="fa fa-circle-o-notch fa-fw fa-spin"></i> Cargando
-                        </div>
-                        <div class="vacio large-12 columns text-center" style="display:none">
-                            <i class="fa fa-times fa-fw"></i> No existen contenidos
-                        </div>
-                        <div class="error large-12 columns text-center" style="display:none">
-                            <i class="fa fa-warning fa-fw"></i> Error
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+						</tbody>
+					</table>
+					<div class="panel large-9 large-centered clearfix columns">
+						<div class="control-paginas" style="display:none">
+							<div class="small-6 columns text-left">
+								<a id="nav-first" href="javascript:listaCall('first')" style="display:none"><i class="fa fa-fast-backward fa-fw fa-lg"></i></a>&nbsp;&nbsp;
+								<a id="nav-prev" href="javascript:listaCall('prev')" style="display:none"><i class="fa fa-chevron-left fa-fw fa-lg"></i> Anterior</a>
+							</div>
+							<div class="small-6 columns text-right">
+								<a id="nav-next" href="javascript:listaCall('next')" style="display:none">Proximo <i class="fa fa-chevron-right fa-fw fa-lg"></i></a>&nbsp;&nbsp;
+								<a id="nav-last" href="javascript:listaCall('last')" style="display:none"><i class="fa fa-fast-forward fa-fw fa-lg"></i></a>
+							</div>
+						</div>
+						<div class="fin-contenidos large-12 columns text-center" style="display:none">
+							<i class="fa fa-check fa-fw "></i> Fin de los contenidos
+						</div>
+						<div class="ejecutando large-12 columns text-center" style="display:none">
+							<i class="fa fa-circle-o-notch fa-fw fa-spin"></i> Cargando
+						</div>
+						<div class="vacio large-12 columns text-center" style="display:none">
+							<i class="fa fa-times fa-fw"></i> No existen contenidos
+						</div>
+						<div class="error large-12 columns text-center" style="display:none">
+							<i class="fa fa-warning fa-fw"></i> Error
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 {% endblock %}
 {# ----------------------------------------------------------- #}
@@ -205,341 +205,348 @@
                             <div class="masonry-brick color-##ContenidoTipo##">
                                 <div class="type text-center">
                                     ##ContenidoIcono## ##ContenidoTipo2## - <i class="fa fa-star-o fa-fw"></i> ##ContenidoPuntos##
-    </div>
+	</div>
                                 <div class="titulo text-center">
                                     <h5>##ContenidoTitulo##</h5>
-    </div>
+	</div>
                                 <div class="information text-center">
                                     <ul class="list">
                                         <li>##AutorNombre## ##AutorApellido##</li>
-    </ul>
-    </div>
+	</ul>
+	</div>
                                 <div class="datos user text-center">
                                     <div class="overlay">
                                         Clic para leer
-    </div>
-    </div>
-    </div>
-    </a>
+	</div>
+	</div>
+	</div>
+	</a>
 </script>
 <script id="fila-vacio" type = "text/template">
 <tr>
                                 <td>
                             <div class="etiqueta ##ContenidoTipo##"></div>
                                     <a href="##ContenidoLink##"><h6>##ContenidoTitulo##</h6></a>
-                                    <div class="info-cont">##ContenidoIcono## ##ContenidoTipo2## - <img class="img-perfil" src="{{ urlFor('shwImgUsuario',{'IdUsu':'##IDUsuario##','res':'32'}) }}"> ##AutorNombre## ##AutorApellido##</div>
+                                    <div class="info-cont">##ContenidoIcono## ##ContenidoTipo2## - <img class="img-perfil" src="{{ urlFor('shwImgUsuario',{'idUsu:'##IDUsuario##','res':'32'}) }}"> ##AutorNombre## ##AutorApellido##</div>
                                     <div class="puntos"><i class="fa fa-star-o fa-fw"></i> ##ContenidoPuntos##</div>
-    </td>
-    </tr>
+	</td>
+	</tr>
 </script>
 
 <script>
-    var base_url = '{{ baseUrl() }}';
-    var icono_problematica = '<i class="fa fa-bullhorn fa-fw "></i>';
-    var icono_propuesta = '<i class="fa fa-exclamation-circle fa-fw"></i>';
-    var icono_documento = '<i class="fa fa-file-text-o fa-fw"></i>';
-    var icono_evento = '<i class="fa fa-calendar fa-fw"></i>';
-    var icono_novedad = '<i class="fa fa-newspaper-o fa-fw"></i>';
+	var base_url = '{{ baseUrl() }}';
+	var icono_problematica = '<i class="fa fa-bullhorn fa-fw "></i>';
+	var icono_propuesta = '<i class="fa fa-exclamation-circle fa-fw"></i>';
+	var icono_documento = '<i class="fa fa-file-text-o fa-fw"></i>';
+	var icono_evento = '<i class="fa fa-calendar fa-fw"></i>';
+	var icono_novedad = '<i class="fa fa-newspaper-o fa-fw"></i>';
 
-    var check_propues = true;
-    var check_problem = true;
-    var check_documen = true;
-    var check_evento = true;
-    var check_novedad = true;
-    var orden_fecha = -1;
-    var orden_puntos = 0;
-    var filtrar_partido = false;
-    var id_partido = 0;
-    var modo = 'bloques';
+	var check_propues = true;
+	var check_problem = true;
+	var check_documen = true;
+	var check_evento = true;
+	var check_novedad = true;
+	var orden_fecha = -1;
+	var orden_puntos = 0;
+	var filtrar_partido = false;
+	var id_partido = 0;
+	var modo = 'bloques';
 
-    var link = null;
+	var link = null;
 
-    $(document).ready(function(){
-        $('#masonryContainer').masonry({
-            itemSelector: '.masonry-brick',
-            isFitWidth: true,
-        });
-        iniciar();
-    });
+	$(document).ready(function(){
+		$('#masonryContainer').masonry({
+			itemSelector: '.masonry-brick',
+			isFitWidth: true,
+		});
+		iniciar();
+	});
 
-    function iniciar() {
-        if(modo == 'bloques'){
-            verBloques();
-        } else {
-            verLista();
-        }
-    }
+	function iniciar() {
+		if(modo == 'bloques'){
+			verBloques();
+		} else {
+			verLista();
+		}
+	}
 
-    function verBloques(){
-        modo = 'bloques';
-        $('.listado').hide();
-        $('.bloques').show();
-        makeQuery();
-    }
-    function verLista(){
-        modo = 'listado';
-        $('.bloques').hide();
-        $('.listado').show();
-        makeQuery();
-    }
+	function verBloques(){
+		$('.js-a').addClass('block');
+		modo = 'bloques';
+		$('.listado').hide();
+		$('.bloques').show();
+		makeQuery();
+	}
+	function verLista(){
+		$('.js-a').addClass('block');
+		modo = 'listado';
+		$('.bloques').hide();
+		$('.listado').show();
+		makeQuery();
+	}
 
-    function toggleBoton(elemento){
-        if($('.bt-filtro.'+elemento).hasClass('active')){
-            $('.bt-filtro.'+elemento).removeClass('active');
-        }
-        else{
-            $('.bt-filtro.'+elemento).addClass('active');
-        };
-    }
+	function toggleBoton(elemento){
+		if($('.bt-filtro.'+elemento).hasClass('active')){
+			$('.bt-filtro.'+elemento).removeClass('active');
+		}
+		else{
+			$('.bt-filtro.'+elemento).addClass('active');
+		};
+	}
 
-    function toggle(elemento){
-        $('.js-a').addClass('block');
-        switch(elemento) {
-            case 'propuesta':
-                check_propues = check_propues ? false : true;
-                toggleBoton('propuesta');
-                break;
-            case 'problematica':
-                check_problem = check_problem ? false : true;
-                toggleBoton('problematica');
-                break;
-            case 'documento':
-                check_documen = check_documen ? false : true;
-                toggleBoton('documento');
-                break;
-            case 'evento':
-                check_evento = check_evento ? false : true;
-                toggleBoton('evento');
-                break;
-            case 'novedad':
-                check_novedad = check_novedad ? false : true;
-                toggleBoton('novedad');
-                break;
-            default:
-        }
-        makeQuery();
-    }
+	function toggle(elemento){
+		$('.js-a').addClass('block');
+		switch(elemento) {
+			case 'propuesta':
+				check_propues = check_propues ? false : true;
+				toggleBoton('propuesta');
+				break;
+			case 'problematica':
+				check_problem = check_problem ? false : true;
+				toggleBoton('problematica');
+				break;
+			case 'documento':
+				check_documen = check_documen ? false : true;
+				toggleBoton('documento');
+				break;
+			case 'evento':
+				check_evento = check_evento ? false : true;
+				toggleBoton('evento');
+				break;
+			case 'novedad':
+				check_novedad = check_novedad ? false : true;
+				toggleBoton('novedad');
+				break;
+			default:
+		}
+		makeQuery();
+	}
 
-    function togglePartido(id){
-        $('.js-a').addClass('block');
-        filtrar_partido = filtrar_partido ? false : true;
-        if(filtrar_partido == true){$('.partido span.txt').html('ON')}
-        else{$('.partido span.txt').html('OFF')}
-        toggleBoton('partido');
-        id_partido = id;
-        makeQuery();
-    }
-    function toggleFecha(sentido){
-        $('.js-a').addClass('block');
-        orden_fecha = sentido;
-        $('.orden.fecha').removeClass('active');
-        if(orden_fecha == 1){
-            $('.orden.fecha.asc').addClass('active');
-        } else{
-            $('.orden.fecha.desc').addClass('active');
-        }
-        makeQuery();
-    }
-    function togglePuntos(sentido){
-        $('.js-a').addClass('block');
-        orden_puntos = sentido;
-        $('.orden.puntos').removeClass('active');
-        if(orden_puntos == 1){
-            $('.orden.puntos.asc').addClass('active');
-        } else if(orden_puntos == -1){
-            $('.orden.puntos.desc').addClass('active');
-        } else if(orden_puntos == 0){
-            $('.orden.puntos.off').addClass('active');
-        }
-        makeQuery();
-    }
+	function togglePartido(id){
+		$('.js-a').addClass('block');
+		filtrar_partido = filtrar_partido ? false : true;
+		if(filtrar_partido == true){$('.partido span.txt').html('ON')}
+		else{$('.partido span.txt').html('OFF')}
+		toggleBoton('partido');
+		id_partido = id;
+		makeQuery();
+	}
+	function toggleFecha(sentido){
+		$('.js-a').addClass('block');
+		orden_fecha = sentido;
+		$('.orden.fecha').removeClass('active');
+		if(orden_fecha == 1){
+			$('.orden.fecha.asc').addClass('active');
+		} else{
+			$('.orden.fecha.desc').addClass('active');
+		}
+		makeQuery();
+	}
+	function togglePuntos(sentido){
+		$('.js-a').addClass('block');
+		orden_puntos = sentido;
+		$('.orden.puntos').removeClass('active');
+		if(orden_puntos == 1){
+			$('.orden.puntos.asc').addClass('active');
+		} else if(orden_puntos == -1){
+			$('.orden.puntos.desc').addClass('active');
+		} else if(orden_puntos == 0){
+			$('.orden.puntos.off').addClass('active');
+		}
+		makeQuery();
+	}
 
-    function listaCall(key){
-        $("#lista-contenidos").empty();
-        enviarSolicitud( link[key] );
-    }
+	$( "#categoria" ).change(function() {
+		$('.js-a').addClass('block');
+		makeQuery();
+	});
 
-    function makeQuery(){
-        var query = new Array();
-        var where_value = new Array();
-        if(check_propues == false){
-            where_value.push('contenible_type-ne-Propuesta')
-        }
-        if(check_problem == false){
-            where_value.push('contenible_type-ne-Problematica')
-        }
-        if(check_documen == false){
-            where_value.push('contenible_type-ne-Documento')
-        }
-        if(check_evento == false){
-            where_value.push('contenible_type-ne-Evento')
-        }
-        if(check_novedad == false){
-            where_value.push('contenible_type-ne-Novedad')
-        }
-        if(filtrar_partido == true){
-            where_value.push('impulsor_id-eq-'+id_partido);
-        }
-        if(orden_fecha == -1){
-            query.push({name:'sort', value:'-updated_at'});
-        } else {
-            query.push({name:'sort', value:'updated_at'});
-        }
-        if(orden_puntos == 1){
-            query.push({name:'sort', value:'puntos'});
-        } else if(orden_puntos == -1){
-            query.push({name:'sort', value:'-puntos'});
-        }
-        if($('#categoria').val() != 0){
-            where_value.push('categoria_id-eq-'+$('#categoria').val());
-        }
-        query.push({name:'take', value:'10'});
-        if(where_value.length > 0){
-            query.push({name:'where', value: where_value.join()})
-        }
-        $("#masonryContainer").empty();
-        $("#lista-contenidos").empty();
-        $('#masonryContainer').masonry( 'reloadItems' );
-        $('#masonryContainer').masonry( 'layout' );
-        enviarSolicitud(base_url + '/contenido?' + jQuery.param(query) );
-    }
+	function listaCall(key){
+		$("#lista-contenidos").empty();
+		enviarSolicitud( link[key] );
+	}
 
-    function crearBrick(contenido){
-        var $brick = $('#brick-vacio').html();
-        $brick = $brick.replace("##ContenidoLink##", contenido.link)
-            .replace("##ContenidoTipo##", contenido.contenible_type.toLowerCase())
-            .replace("##IDUsuario##", contenido.autor.id)
-            .replace("##AutorNombre##", contenido.autor.nombre)
-            .replace("##AutorApellido##", contenido.autor.apellido)
-            .replace("##ContenidoTitulo##", contenido.titulo)
-            .replace("##ContenidoTipo2##", contenido.contenible_type)
-            .replace("##ContenidoPuntos##", contenido.puntos)
-        switch(contenido.contenible_type.toLowerCase()) {
-            case 'problematica':
-                $brick = $brick.replace("##ContenidoIcono##",icono_problematica);
-                break;
-            case 'propuesta':
-                $brick = $brick.replace("##ContenidoIcono##",icono_propuesta);
-                break;
-            case 'documento':
-                $brick = $brick.replace("##ContenidoIcono##",icono_documento);
-                break
-                case 'evento':
-                $brick = $brick.replace("##ContenidoIcono##",icono_evento);
-                break;
-            case 'novedad':
-                $brick = $brick.replace("##ContenidoIcono##",icono_novedad);
-                break;
-            default:
-        }
-        $("#masonryContainer").append($brick);
-    }
-    function crearFila(contenido){
-        var $fila = $('#fila-vacio').html();
-        $fila = $fila.replace("##ContenidoLink##", contenido.link)
-            .replace("##ContenidoTipo##", contenido.contenible_type.toLowerCase())
-            .replace("##IDUsuario##", contenido.autor.id)
-            .replace("##AutorNombre##", contenido.autor.nombre)
-            .replace("##AutorApellido##", contenido.autor.apellido)
-            .replace("##ContenidoTitulo##", contenido.titulo)
-            .replace("##ContenidoTipo2##", contenido.contenible_type)
-            .replace("##ContenidoPuntos##", contenido.puntos);
-        switch(contenido.contenible_type.toLowerCase()) {
-            case 'problematica':
-                $fila = $fila.replace("##ContenidoIcono##",icono_problematica);
-                break;
-            case 'propuesta':
-                $fila = $fila.replace("##ContenidoIcono##",icono_propuesta);
-                break;
-            case 'documento':
-                $fila = $fila.replace("##ContenidoIcono##",icono_documento);
-                break;
-            case 'evento':
-                $fila = $fila.replace("##ContenidoIcono##",icono_evento);
-                break;
-            case 'novedad':
-                $fila = $fila.replace("##ContenidoIcono##",icono_novedad);
-                break;
-            default:
-        }
-        $("#lista-contenidos").append($fila);
-    }
+	function makeQuery(){
+		var query = new Array();
+		var where_value = new Array();
+		if(check_propues == false){
+			where_value.push('contenible_type-ne-Propuesta')
+		}
+		if(check_problem == false){
+			where_value.push('contenible_type-ne-Problematica')
+		}
+		if(check_documen == false){
+			where_value.push('contenible_type-ne-Documento')
+		}
+		if(check_evento == false){
+			where_value.push('contenible_type-ne-Evento')
+		}
+		if(check_novedad == false){
+			where_value.push('contenible_type-ne-Novedad')
+		}
+		if(filtrar_partido == true){
+			where_value.push('impulsor_id-eq-'+id_partido);
+		}
+		if(orden_fecha == -1){
+			query.push({name:'sort', value:'-updated_at'});
+		} else {
+			query.push({name:'sort', value:'updated_at'});
+		}
+		if(orden_puntos == 1){
+			query.push({name:'sort', value:'puntos'});
+		} else if(orden_puntos == -1){
+			query.push({name:'sort', value:'-puntos'});
+		}
+		if($('#categoria').val() != 0){
+			where_value.push('categoria_id-eq-'+$('#categoria').val());
+		}
+		query.push({name:'take', value:'10'});
+		if(where_value.length > 0){
+			query.push({name:'where', value: where_value.join()})
+		}
+		$("#masonryContainer").empty();
+		$("#lista-contenidos").empty();
+		$('#masonryContainer').masonry( 'reloadItems' );
+		$('#masonryContainer').masonry( 'layout' );
+		enviarSolicitud(base_url + '/contenido?' + jQuery.param(query) );
+	}
 
-    function revisarMasBloques() {
-        if( link['next'] != undefined ){
-            $('.bloques .cargar-mas').show();
-        } else {
-            $('.bloques .fin-contenidos').show();
-        }
-    }
+	function crearBrick(contenido){
+		var $brick = $('#brick-vacio').html();
+		$brick = $brick.replace("##ContenidoLink##", contenido.link)
+			.replace("##ContenidoTipo##", contenido.contenible_type.toLowerCase())
+			.replace("##IDUsuario##", contenido.autor.id)
+			.replace("##AutorNombre##", contenido.autor.nombre)
+			.replace("##AutorApellido##", contenido.autor.apellido)
+			.replace("##ContenidoTitulo##", contenido.titulo)
+			.replace("##ContenidoTipo2##", contenido.contenible_type)
+			.replace("##ContenidoPuntos##", contenido.puntos)
+		switch(contenido.contenible_type.toLowerCase()) {
+			case 'problematica':
+				$brick = $brick.replace("##ContenidoIcono##",icono_problematica);
+				break;
+			case 'propuesta':
+				$brick = $brick.replace("##ContenidoIcono##",icono_propuesta);
+				break;
+			case 'documento':
+				$brick = $brick.replace("##ContenidoIcono##",icono_documento);
+				break
+				case 'evento':
+				$brick = $brick.replace("##ContenidoIcono##",icono_evento);
+				break;
+			case 'novedad':
+				$brick = $brick.replace("##ContenidoIcono##",icono_novedad);
+				break;
+			default:
+		}
+		$("#masonryContainer").append($brick);
+	}
+	function crearFila(contenido){
+		var $fila = $('#fila-vacio').html();
+		$fila = $fila.replace("##ContenidoLink##", contenido.link)
+			.replace("##ContenidoTipo##", contenido.contenible_type.toLowerCase())
+			.replace("##IDUsuario##", contenido.autor.id)
+			.replace("##AutorNombre##", contenido.autor.nombre)
+			.replace("##AutorApellido##", contenido.autor.apellido)
+			.replace("##ContenidoTitulo##", contenido.titulo)
+			.replace("##ContenidoTipo2##", contenido.contenible_type)
+			.replace("##ContenidoPuntos##", contenido.puntos);
+		switch(contenido.contenible_type.toLowerCase()) {
+			case 'problematica':
+				$fila = $fila.replace("##ContenidoIcono##",icono_problematica);
+				break;
+			case 'propuesta':
+				$fila = $fila.replace("##ContenidoIcono##",icono_propuesta);
+				break;
+			case 'documento':
+				$fila = $fila.replace("##ContenidoIcono##",icono_documento);
+				break;
+			case 'evento':
+				$fila = $fila.replace("##ContenidoIcono##",icono_evento);
+				break;
+			case 'novedad':
+				$fila = $fila.replace("##ContenidoIcono##",icono_novedad);
+				break;
+			default:
+		}
+		$("#lista-contenidos").append($fila);
+	}
 
-    function revisarMasFilas(key) {
-        if( link[key] != undefined ){
-            $('#nav-'+key).show();
-        } else {
-            $('#nav-'+key).hide();
-            //            if(key == 'next');
-        }
-    }
+	function revisarMasBloques() {
+		if( link['next'] != undefined ){
+			$('.bloques .cargar-mas').show();
+		} else {
+			$('.bloques .fin-contenidos').show();
+		}
+	}
 
-    function buscarMasContenido() {
-        $('.bloques .cargar-mas').hide();
-        enviarSolicitud( link['next'] );
-    }
+	function revisarMasFilas(key) {
+		if( link[key] != undefined ){
+			$('#nav-'+key).show();
+		} else {
+			$('#nav-'+key).hide();
+			//            if(key == 'next');
+		}
+	}
 
-    function startGetRequest(event) {
-        enviarSolicitud(event.data.url);
-    }
+	function buscarMasContenido() {
+		$('.bloques .cargar-mas').hide();
+		enviarSolicitud( link['next'] );
+	}
 
-    function enviarSolicitud(url_query) {
-        $('.ejecutando').show();
-        $('.cargar-mas').hide();
-        $('.control-paginas').hide();
-        $('.vacio').hide();
-        $('.fin-contenidos').hide();
-        $('.error').hide();
-        var request = $.ajax({
-            url: url_query,
-            pageSize: 10,
-            cache: false,
-            dataType: "json"
-        }).done(function(resultados, textStatus, request) {
-            link = parseLinkHeader(request.getResponseHeader('link'));
-            $('.ejecutando').hide();
-            if(resultados.length > 0){
-                if(modo=='bloques'){
-                    for (i = 0; i < resultados.length; i++) {
-                        crearBrick(resultados[i]);
-                    }
-                    $('#masonryContainer').masonry( 'reloadItems' );
-                    $('#masonryContainer').masonry( 'layout' );
-                    revisarMasBloques();
-                } else if (modo == 'listado'){
-                    for (i = 0; i < resultados.length; i++) {
-                        crearFila(resultados[i]);
-                    }
-                    if(link['first'] == undefined && link['last'] == undefined){
-                        $('.fin-contenidos').show();
-                    } else{
-                        revisarMasFilas('next');
-                        revisarMasFilas('last');
-                        revisarMasFilas('first');
-                        revisarMasFilas('prev');
-                        $('.control-paginas').show();
-                    }
-                }
-            } else {
-                $('.ejecutando').hide();
-                $('.vacio').show();
-            }
-        }).fail(function(jqXHR, textStatus) {
-            $('.ejecutando').hide();
-            $('.error').show();
-        });
-        setTimeout(function(){
-            $('.js-a').removeClass('block');
-        }, 2000);
-    }
+	function startGetRequest(event) {
+		enviarSolicitud(event.data.url);
+	}
+
+	function enviarSolicitud(url_query) {
+		$('.ejecutando').show();
+		$('.cargar-mas').hide();
+		$('.control-paginas').hide();
+		$('.vacio').hide();
+		$('.fin-contenidos').hide();
+		$('.error').hide();
+		var request = $.ajax({
+			url: url_query,
+			pageSize: 10,
+			cache: false,
+			dataType: "json"
+		}).done(function(resultados, textStatus, request) {
+			link = parseLinkHeader(request.getResponseHeader('link'));
+			$('.ejecutando').hide();
+			if(resultados.length > 0){
+				if(modo=='bloques'){
+					for (i = 0; i < resultados.length; i++) {
+						crearBrick(resultados[i]);
+					}
+					$('#masonryContainer').masonry( 'reloadItems' );
+					$('#masonryContainer').masonry( 'layout' );
+					revisarMasBloques();
+				} else if (modo == 'listado'){
+					for (i = 0; i < resultados.length; i++) {
+						crearFila(resultados[i]);
+					}
+					if(link['first'] == undefined && link['last'] == undefined){
+						$('.fin-contenidos').show();
+					} else{
+						revisarMasFilas('next');
+						revisarMasFilas('last');
+						revisarMasFilas('first');
+						revisarMasFilas('prev');
+						$('.control-paginas').show();
+					}
+				}
+			} else {
+				$('.ejecutando').hide();
+				$('.vacio').show();
+			}
+		}).fail(function(jqXHR, textStatus) {
+			$('.ejecutando').hide();
+			$('.error').show();
+		});
+		setTimeout(function(){
+			$('.js-a').removeClass('block');
+		}, 2000);
+	}
 
 
 </script>
