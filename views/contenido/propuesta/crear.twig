@@ -29,8 +29,9 @@
                     </div>
                 </div>
                 <div class="large-5 columns text-center">
-                    <div class="row busqueda" style="margin-top: 5px;" id="typehead">
-                        <input class="typeahead" type="text" placeholder="Buscar propuestas">
+                    <div class="row busqueda" style="margin-top: 5px;">
+                        <i class="icono-buscador fa fa-search"></i>
+                        <input id="typeahead" type="text" placeholder="Buscar propuestas">
                         <input type="text" id="referido" name="referido" style="display:none;">
                     </div>
                     <div class="row resultado text-center">
@@ -49,7 +50,7 @@
 {% block scripts_cont %}
 
 {% block scripts_modificar %}{% endblock scripts_modificar %}
-<script src="http://twitter.github.com/typeahead.js/releases/latest/typeahead.bundle.min.js"></script>
+<script src="{{ baseUrl() }}/assets/js/typeahead/typeahead.bundle.min.js"></script>
 <script>
     var base_url = '{{ baseUrl() }}';
     var icon_borrar = $('<i class="quitar fa fa-fw fa-times fa-lg"></i>' );
@@ -66,7 +67,13 @@
         }
     });
 
-    $('#typehead .typeahead').typeahead({minLength: 4}, {
+    $('#typeahead').typeahead({
+        minLength: 4,
+        classNames: {
+            input: 'buscador',
+            hint: 'buscador hint',
+        }
+    }, {
         name: 'propuestas',
         display: 'titulo',
         source: propuestas,

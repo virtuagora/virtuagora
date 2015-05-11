@@ -23,12 +23,22 @@
             border-top: 1px solid #cccccc;
             border-bottom: 1px solid #cccccc;
         }
-        input{
+        .twitter-typeahead {
+            width: 96%;
+        }
+        .icono-buscador{
+            position: absolute;
+            z-index: 2;
+            top: 13px;
+            left: 25px;
+        }
+        input.buscador{
             margin-bottom: 0;
-            font-size: rem-calc(18);
-            font-weight: bold;
-            text-align: center;
-            padding: 5px;
+            font-size: rem-calc(13);
+            height: 30px;
+            padding: 5px 5px 5px 6%;
+            color: #000;
+            &.hint{color: #CACACA}
         }
     }
 }
