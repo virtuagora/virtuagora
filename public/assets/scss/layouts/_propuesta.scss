@@ -23,26 +23,6 @@
             border-top: 1px solid #cccccc;
             border-bottom: 1px solid #cccccc;
         }
-        .twitter-typeahead {
-            width: 100%;
-        }
-		.buscador{
-			.icono{
-				position: absolute;
-				z-index: 2;
-				top: 12px;
-				left: 22px;
-			}
-			input.buscador{
-				margin-bottom: 0;
-				font-size: rem-calc(13);
-				border-radius: 20px;
-				height: 30px;
-				padding: 5px 5px 5px 35px;
-				color: #000;
-				&.hint{color: #CACACA}
-			}
-		}
     }
 }
 

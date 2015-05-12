@@ -1,0 +1,145 @@
+//
+// Bootstrap TagManager
+// --------------------------------------------------
+
+// Tag Variables
+// --------------------------------------------------
+
+// Colors
+// -------------------------
+
+$white:                 #ffffff;
+$black:                 #000000;
+$gray:                  #555555;
+$grayDark:              #333333;
+
+$textColor:             $grayDark;
+
+$tagText:               #FFF;
+$tagBackground:         #CACACA;
+$tagBorder:             #bbb;
+
+$tagWarningText:        #945203;
+$tagWarningBackground:  #f2c889;
+$tagWarningBorder:      #f0a12f;
+
+$tagErrorText:          #84212e;
+$tagErrorBackground:    #e69ca6;
+$tagErrorBorder:        #d24a5d;
+
+$tagSuccessText:        #638421;
+$tagSuccessBackground:  #cde69c;
+$tagSuccessBorder:      #a5d24a;
+
+$tagInfoText:           #4594b5;
+$tagInfoBackground:     #c5eefa;
+$tagInfoBorder:         #5dc8f7;
+
+$tagInverseText:        #ccc;
+$tagInverseBackground:  $gray;
+$tagInverseBorder:      $grayDark;
+
+$tagDisabledText:       #aaa;
+$tagDisabledBackground: #e6e6e6;
+$tagDisabledBorder:     #ccc;
+
+// Sizing
+// -------------------------
+
+$tagFontSize:           13px;
+$tagFontSizeLarge:      $tagFontSize * 1.25; // ~16px
+$tagFontSizeSmall:      $tagFontSize * 0.85; // ~11px
+$tagFontSizeMini:       $tagFontSize * 0.75; // ~10px
+
+$tagPadding:            4px;
+$tagMargin:             5px;
+
+$borderRadiusSmall:     3px;
+$baseBorderRadius:      4px;
+
+$baseLineHeight:        20px;
+
+// Tag Classes
+// --------------------------------------------------
+
+// Fonts
+// --------------------------------------------------
+
+
+// Base tag class
+// -------------------------
+
+.tm-tag {
+	letter-spacing: 0;
+	color: #FFF;
+	background-color: #457BF2;
+	display: inline-block;
+	font-size: rem-calc(13);
+	margin: 0 5px 5px 0;
+	padding: 3px 10px;
+	text-decoration: none;
+	vertical-align: middle;
+
+	// Remove button
+	// -------------------------
+
+	.tm-tag-remove {
+		color: #FFF;
+		font-weight: bold;
+		margin-left: 5px;
+		opacity: 0.4;
+		&:hover	{
+			color: #FFF;
+			text-decoration: none;
+			opacity: 0.8;
+		}
+	}
+
+	// Sizes
+	// -------------------------
+
+	&.tm-tag-large {
+		font-size: $tagFontSizeLarge;
+		border-radius: $baseBorderRadius;
+		padding: 11px 7px;
+	}
+	&.tm-tag-small {
+		font-size: $tagFontSizeSmall;
+		border-radius: $borderRadiusSmall;
+		padding: 2px 4px;
+	}
+	&.tm-tag-mini {
+		font-size: $tagFontSizeMini;
+		border-radius: 2px;
+		padding: 0px 2px;
+	}
+
+	// Miscellaneous Styles
+	// -------------------------
+
+	&.tm-tag-plain {
+		color: $textColor;
+		box-shadow: none;
+		background: none;
+		border: none;
+	}
+	&.tm-tag-disabled {
+		color: $tagDisabledText;
+		background-color: $tagDisabledBackground;
+		border-color: $tagDisabledBorder;
+		box-shadow: none;
+		.tm-tag-remove {
+			display: none;
+		}
+	}
+}
+
+// Forms
+// --------------------------------------------------
+
+// Input style (Recommended)
+// -------------------------
+
+input[type="text"].tm-input {
+	margin-bottom: $tagMargin;
+}

@@ -29,7 +29,7 @@
 					</div>
 				</div>
 				<div class="large-6 columns text-center">
-					<div class="buscador" style="margin-top: 5px;">
+					<div class="buscador">
 						<i class="icono fa fa-search"></i>
 						<div>
 							<input id="typeahead" type="text" placeholder="Buscar propuestas">
@@ -52,7 +52,6 @@
 {% block scripts_cont %}
 
 {% block scripts_modificar %}{% endblock scripts_modificar %}
-<script src="{{ baseUrl() }}/assets/js/typeahead/typeahead.bundle.min.js"></script>
 <script>
 	var base_url = '{{ baseUrl() }}';
 	var icon_borrar = $('<i class="quitar fa fa-fw fa-times fa-lg"></i>' );
@@ -84,7 +83,7 @@
 		display: 'titulo',
 		source: propuestas,
 		templates: {
-			empty: '<div>No se encontraron propuestas.</div>',
+			empty: '<div class="tt-empty">No se encontraron propuestas.</div>',
 			suggestion: function(data) {
 				return '<div><i class="fa fa-bullhorn fa-fw"></i> '+data.titulo+' - '+data.autor.nombre+' '+data.autor.apellido+'</div>';
 			}
