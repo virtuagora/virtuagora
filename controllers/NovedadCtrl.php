@@ -36,6 +36,7 @@ class NovedadCtrl extends Controller {
             $contenido->impulsor()->associate($partido);
         }
         $contenido->save();
+        TagCtrl::updateTags($contenido, TagCtrl::getTagIds($vdt->getData('tags')));
         $log = UserlogCtrl::createLog('newNovedad', $autor->id, $novedad);
         if ($contenido->impulsor) {
             NotificacionCtrl::createNotif($partido->afiliados()->lists('id'), $log);
@@ -76,6 +77,7 @@ class NovedadCtrl extends Controller {
             }
         }
         $contenido->save();
+        TagCtrl::updateTags($contenido, TagCtrl::getTagIds($vdt->getData('tags')));
         $this->flash('success', 'Los datos de la novedad fueron modificados exitosamente.');
         $this->redirectTo('shwNovedad', array('idNov' => $idNov));
     }
@@ -99,7 +101,8 @@ class NovedadCtrl extends Controller {
             ->addRule('cuerpo', new Validate\Rule\MinLength(8))
             ->addRule('cuerpo', new Validate\Rule\MaxLength(8192))
             ->addFilter('cuerpo', FilterFactory::escapeHTML())
-            ->addFilter('asociar', FilterFactory::booleanFilter());
+            ->addFilter('asociar', FilterFactory::booleanFilter())
+            ->addFilter('tags', FilterFactory::explode(','));
         if (!$vdt->validate($data)) {
             throw new TurnbackException($vdt->getErrors());
         }

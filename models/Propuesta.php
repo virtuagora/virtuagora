@@ -12,6 +12,7 @@ class Propuesta extends Contenible {
     public static function boot() {
         parent::boot();
         static::deleting(function($propuesta) {
+            TagCtrl::updateTags($evento->contenido, array());
             foreach ($propuesta->comentarios as $comentario) {
                 $comentario->delete();
             }

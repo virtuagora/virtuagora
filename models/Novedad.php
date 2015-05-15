@@ -8,6 +8,7 @@ class Novedad extends Contenible {
     public static function boot() {
         parent::boot();
         static::deleting(function($novedad) {
+            TagCtrl::updateTags($evento->contenido, array());
             foreach ($novedad->comentarios as $comentario) {
                 $comentario->delete();
             }

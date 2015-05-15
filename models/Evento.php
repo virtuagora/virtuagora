@@ -12,6 +12,7 @@ class Evento extends Contenible {
     public static function boot() {
         parent::boot();
         static::deleting(function($evento) {
+            TagCtrl::updateTags($evento->contenido, array());
             foreach ($evento->comentarios as $comentario) {
                 $comentario->delete();
             }

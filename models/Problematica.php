@@ -12,6 +12,7 @@ class Problematica extends Contenible {
     public static function boot() {
         parent::boot();
         static::deleting(function($problematica) {
+            TagCtrl::updateTags($evento->contenido, array());
             foreach ($problematica->comentarios as $comentario) {
                 $comentario->delete();
             }

@@ -49,6 +49,7 @@ class DocumentoCtrl extends Controller {
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($documento);
         $contenido->save();
+        TagCtrl::updateTags($contenido, TagCtrl::getTagIds($vdt->getData('tags')));
         UserlogCtrl::createLog('newDocumen', $autor->id, $documento);
         $autor->increment('puntos', 25);
         $this->flash('success', 'Su documento abierto se creó exitosamente.');
@@ -119,6 +120,7 @@ class DocumentoCtrl extends Controller {
         $contenido->titulo = $vdt->getData('titulo');
         $contenido->categoria_id = $vdt->getData('categoria');
         $contenido->save();
+        TagCtrl::updateTags($contenido, TagCtrl::getTagIds($vdt->getData('tags')));
         $this->flash('success', 'Los datos del documento fueron modificados exitosamente.');
         $this->redirect($this->request->getReferrer());
     }
@@ -140,7 +142,8 @@ class DocumentoCtrl extends Controller {
             ->addRule('descripcion', new Validate\Rule\MinLength(8))
             ->addRule('descripcion', new Validate\Rule\MaxLength(1024))
             ->addRule('categoria', new Validate\Rule\NumNatural())
-            ->addRule('categoria', new Validate\Rule\Exists('categorias'));
+            ->addRule('categoria', new Validate\Rule\Exists('categorias'))
+            ->addFilter('tags', FilterFactory::explode(','));
         if ($cuerpo) {
             $vdt->addRule('cuerpo', new Validate\Rule\MinLength(8))
                 ->addRule('cuerpo', new Validate\Rule\MaxLength(8192))

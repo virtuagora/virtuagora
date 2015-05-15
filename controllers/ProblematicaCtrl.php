@@ -86,6 +86,7 @@ class ProblematicaCtrl extends Controller {
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($problematica);
         $contenido->save();
+        TagCtrl::updateTags($contenido, TagCtrl::getTagIds($vdt->getData('tags')));
         UserlogCtrl::createLog('newProblem', $autor->id, $problematica);
         $autor->increment('puntos', 25);
         $this->flash('success', 'Su problemática se creó exitosamente.');
@@ -115,6 +116,7 @@ class ProblematicaCtrl extends Controller {
         $contenido->titulo = $vdt->getData('titulo');
         $contenido->categoria_id = $vdt->getData('categoria');
         $contenido->save();
+        TagCtrl::updateTags($contenido, TagCtrl::getTagIds($vdt->getData('tags')));
         $this->flash('success', 'Los datos de la problemática fueron modificados exitosamente.');
         $this->redirectTo('shwProblem', array('idPro' => $idPro));
     }
@@ -139,7 +141,8 @@ class ProblematicaCtrl extends Controller {
             ->addRule('categoria', new Validate\Rule\Exists('categorias'))
             ->addRule('cuerpo', new Validate\Rule\MinLength(8))
             ->addRule('cuerpo', new Validate\Rule\MaxLength(8192))
-            ->addFilter('cuerpo', FilterFactory::escapeHTML());
+            ->addFilter('cuerpo', FilterFactory::escapeHTML())
+            ->addFilter('tags', FilterFactory::explode(','));
         if (!$vdt->validate($data)) {
             throw new TurnbackException($vdt->getErrors());
         }

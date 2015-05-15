@@ -116,6 +116,7 @@ class PropuestaCtrl extends Controller {
         $contenido->autor()->associate($autor);
         $contenido->contenible()->associate($propuesta);
         $contenido->save();
+        TagCtrl::updateTags($contenido, TagCtrl::getTagIds($vdt->getData('tags')));
         UserlogCtrl::createLog('newPropues', $autor->id, $propuesta);
         $autor->increment('puntos', 25);
         $this->flash('success', 'Su propuesta fue creada exitosamente.');
@@ -153,6 +154,7 @@ class PropuestaCtrl extends Controller {
         $contenido->categoria_id = $vdt->getData('categoria');
         $contenido->referido_id = $vdt->getData('referido');
         $contenido->save();
+        TagCtrl::updateTags($contenido, TagCtrl::getTagIds($vdt->getData('tags')));
         $log = UserlogCtrl::createLog('modPropues', $usuario->id, $propuesta);
         NotificacionCtrl::createNotif($propuesta->votos->lists('usuario_id'), $log);
         $this->flash('success', 'Los datos de la propuesta fueron modificados exitosamente.');
@@ -182,6 +184,7 @@ class PropuestaCtrl extends Controller {
             ->addRule('cuerpo', new Validate\Rule\MaxLength(8192))
             ->addFilter('cuerpo', FilterFactory::escapeHTML())
             ->addFilter('referido', FilterFactory::emptyToNull())
+            ->addFilter('tags', FilterFactory::explode(','))
             ->addOptional('referido');
         if (!$vdt->validate($data)) {
             throw new TurnbackException($vdt->getErrors());

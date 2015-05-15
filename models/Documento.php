@@ -16,6 +16,7 @@ class Documento extends Contenible {
     public static function boot() {
         parent::boot();
         static::deleting(function($documento) {
+            TagCtrl::updateTags($evento->contenido, array());
             foreach ($documento->parrafos as $parrafo) {
                 $CommentIds = $parrafo->comentarios()->lists('id');
                 if ($CommentIds) {
