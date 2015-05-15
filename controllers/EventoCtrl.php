@@ -155,7 +155,7 @@ class EventoCtrl extends Controller {
             ->addRule('cuerpo', new Validate\Rule\MaxLength(8192))
             ->addFilter('cuerpo', FilterFactory::escapeHTML())
             ->addFilter('asociar', FilterFactory::booleanFilter())
-            ->addFilter('tags', FilterFactory::json_decode());
+            ->addFilter('tags', FilterFactory::explode(','));
         if (!$vdt->validate($data)) {
             throw new TurnbackException($vdt->getErrors());
         }

@@ -88,14 +88,13 @@
 								<i class="fa fa-star-o blanco fa-stack-1x"></i>
 							</span>
 							<div class="descripcion">
-								<b>Escriba tags relacionadas con el documento.</b> Tags son palabras que guardan relacion, en este caso, con el contenido. Agregue todas las <i>tags</i> que crea conveniente. <br> Comience escribiendo y separe las Tags con coma o presionando "ENTER" para ingresarla. En caso de quere eliminarla, simplemente borrela o haga clic sobre la Tag.
+								<b>Escriba tags relacionadas con el documento.</b> Tags son palabras clave que guardan relacion, en este caso, con el contenido.<br> Comience escribiendo y separe las Tags con coma o presionando "ENTER" para ingresarla. En caso de quere eliminarla, simplemente borrela o haga clic sobre la Tag.
 							</div>
 						</div>
 						<div class="large-5 columns">
 							<div class="agregar-tags buscador">
 								<i class="icono fa fa-tag"></i>
 								<input type="text" class="tm-input" placeholder="Escriba una tag"/>
-								<input type="text" name="tags" style="display:none;"/>
 							</div>
 							<div class="container-tags">
 
@@ -155,7 +154,14 @@
 		}
 	});
 
-	$('.tm-input').typeahead({
+    var tagApi = $(".tm-input").tagsManager({
+		maxTags: 8,
+		tagClass: 'color-{{ type_contenido }}',
+        hiddenTagListName: 'tags',
+		tagsContainer: '.container-tags'
+	});
+
+	var typeHead = $('.tm-input').typeahead({
 		minLength: 3,
 	}, {
 		name: 'tags',
@@ -167,24 +173,10 @@
 				return '<div><i class="fa fa-tag fa-fw"></i> '+data.nombre +'</div>';
 			}
 		}
-	});
-
-	$(".tm-input").tagsManager({
-		maxTags: 8,
-		tagClass: 'color-{{ type_contenido }}',
-		hiddenTagListName: 'tags',
-		tagsContainer: '.container-tags'
-	});
-
-	$('.tm-input').bind('typeahead:select', function(ev, data) {
-		$(".tm-input").tagsManager('pushTag',data.nombre);
-	});
-	$(".tm-input").on('tm:hide', function(e, taglist) {
-		$('.buscador-tags').hide()
-	});
-	$(".tm-input").on('tm:show', function(e, taglist) {
-		$('.buscador-tags').show()
-	});
+	}).bind('typeahead:select', function (ev, su) {
+        tagApi.tagsManager("pushTag", su.nombre);
+        typeHead.typeahead('val', '');
+    });
 
 	$(function() {
 		$("textarea[name='cuerpo']").sceditor({
