@@ -5,7 +5,7 @@ class ProblematicaCtrl extends Controller {
     public function ver($idPro) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idPro, new Validate\Rule\NumNatural());
-        $problematica = Problematica::with(array('contenido', 'comentarios'))->findOrFail($idPro);
+        $problematica = Problematica::with(['contenido.tags', 'comentarios'])->findOrFail($idPro);
         $contenido = $problematica->contenido;
         $voto = $problematica->votos()->where('usuario_id', $this->session->user('id'))->first();
         $comentarios = $problematica->comentarios->toArray();
@@ -97,7 +97,7 @@ class ProblematicaCtrl extends Controller {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idPro, new Validate\Rule\NumNatural());
         $categorias = Categoria::all()->toArray();
-        $problemat = Problematica::with('contenido')->findOrFail($idPro);
+        $problemat = Problematica::with('contenido.tags')->findOrFail($idPro);
         $contenido = $problemat->contenido;
         $datosProp = array_merge($contenido->toArray(), $problemat->toArray());
         $this->render('contenido/problematica/modificar.twig', array('problematica' => $datosProp,

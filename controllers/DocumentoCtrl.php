@@ -6,7 +6,7 @@ class DocumentoCtrl extends Controller {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idDoc, new Validate\Rule\NumNatural());
         //$vdt->test($idVer, new Validate\Rule\NumNatural()); //TODO Arreglar parametro auxiliar
-        $documento = Documento::with('contenido')->findOrFail($idDoc);
+        $documento = Documento::with('contenido.tags')->findOrFail($idDoc);
         $contenido = $documento->contenido;
         if ($idVer == 0) {
             $idVer = $documento->ultima_version;
@@ -103,7 +103,7 @@ class DocumentoCtrl extends Controller {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idDoc, new Validate\Rule\NumNatural());
         $categorias = Categoria::all()->toArray();
-        $documento = Documento::with('contenido')->findOrFail($idDoc);
+        $documento = Documento::with('contenido.tags')->findOrFail($idDoc);
         $contenido = $documento->contenido;
         $datosDocumento = array_merge($contenido->toArray(), $documento->toArray());
         $this->render('contenido/documento/modificar.twig', array('documento' => $datosDocumento,

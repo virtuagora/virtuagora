@@ -5,7 +5,7 @@ class PropuestaCtrl extends Controller {
     public function ver($idPro) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idPro, new Validate\Rule\NumNatural());
-        $propuesta = Propuesta::with(array('contenido.referido', 'comentarios'))->findOrFail($idPro);
+        $propuesta = Propuesta::with(['contenido.referido', 'contenido.tags', 'comentarios'])->findOrFail($idPro);
         $contenido = $propuesta->contenido;
         $voto = $propuesta->votos()->where('usuario_id', $this->session->user('id'))->first();
         $comentarios = $propuesta->comentarios->toArray();
@@ -127,7 +127,7 @@ class PropuestaCtrl extends Controller {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idPro, new Validate\Rule\NumNatural());
         $categorias = Categoria::all()->toArray();
-        $propuesta = Propuesta::with('contenido')->findOrFail($idPro);
+        $propuesta = Propuesta::with('contenido.tags')->findOrFail($idPro);
         $contenido = $propuesta->contenido;
         $datosPropuesta = array_merge($contenido->toArray(), $propuesta->toArray());
         $this->render('contenido/propuesta/modificar.twig', array('propuesta' => $datosPropuesta,

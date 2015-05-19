@@ -5,7 +5,7 @@ class NovedadCtrl extends Controller {
     public function ver($idNov) {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idNov, new Validate\Rule\NumNatural());
-        $novedad = Novedad::with(array('contenido', 'comentarios'))->findOrFail($idNov);
+        $novedad = Novedad::with(['contenido.tags', 'comentarios'])->findOrFail($idNov);
         $contenido = $novedad->contenido;
         $comentarios = $novedad->comentarios->toArray();
         $datos = array_merge($contenido->toArray(), $novedad->toArray());
@@ -49,7 +49,7 @@ class NovedadCtrl extends Controller {
         $vdt = new Validate\QuickValidator(array($this, 'notFound'));
         $vdt->test($idNov, new Validate\Rule\NumNatural());
         $categorias = Categoria::all()->toArray();
-        $novedad = Novedad::with('contenido')->findOrFail($idNov);
+        $novedad = Novedad::with('contenido.tags')->findOrFail($idNov);
         $contenido = $novedad->contenido;
         $datos = array_merge($contenido->toArray(), $novedad->toArray());
         $this->render('contenido/novedad/modificar.twig', array('novedad' => $datos,

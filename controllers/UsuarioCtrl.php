@@ -100,7 +100,7 @@ class UsuarioCtrl extends RMRController {
         $vdt->test($res, new Validate\Rule\InArray([32, 64, 160]));
         $usuario = Usuario::findOrFail($idUsu);
         $this->redirect(call_user_func($this->view->getInstance()->getFunction('avatarUrl')->getCallable(),
-                                       $usuario->img_tipo, $usuario->img_hash, 32));
+                                       $usuario->img_tipo, $usuario->img_hash, $res));
     }
 
     public function cambiarImagen() {
