@@ -22,7 +22,7 @@ class ImageManager {
     public static function cambiarImagen($carpeta, $id, $tamanos) {
         $dir = __DIR__ . '/../public/img/' . $carpeta .'/' . $id;
         if (!is_dir($dir)) {
-            mkdir('$dir', 0777, true);
+            mkdir($dir, 0777, true);
         }
         $storage = new \Upload\Storage\FileSystem($dir, true);
         $file = new \Upload\File('imagen', $storage);

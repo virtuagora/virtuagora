@@ -37,23 +37,24 @@ class PropuestaCtrl extends Controller {
         $sumaAutr = $cfgPtsAutr[$postura];
         $sumaPost = $cfgPtsPost[$postura];
         if (!$voto->exists) {
-            $voto->publico = $vdt->getData('publico');
             $usuario->increment('puntos', 3);
             UserlogCtrl::createLog('votPropues', $usuario->id, $propuesta);
-        } else if ($voto->postura == $postura) {
-            throw new TurnbackException('No puede votar dos veces la misma postura.');
-        } else {
-            $fecha = Carbon\Carbon::now();
-            $fecha->subDays(3);
-            if ($fecha->lt($voto->updated_at)) {
+        } else if ($voto->postura != $postura) {
+            $hoy = Carbon\Carbon::now();
+            if ($hoy->lt($voto->updated_at->addDays(3))) {
                 throw new TurnbackException('No puede cambiar su voto tan pronto.');
             }
             $usuario->decrement('puntos', 3);
             $propuesta->decrement($cfgCount[$voto->postura]);
             $sumaAutr -= $cfgPtsAutr[$voto->postura];
             $sumaPost -= $cfgPtsPost[$voto->postura];
+        } else if ($voto->publico != $vdt->getData('publico')) {
+            $voto->timestamps = false;
+        } else {
+            throw new TurnbackException('No puede votar dos veces la misma postura.');
         }
         $voto->postura = $postura;
+        $voto->publico = $vdt->getData('publico');
         $voto->save();
         $propuesta->increment($cfgCount[$postura]);
         if ($sumaPost != 0) {
@@ -64,27 +65,6 @@ class PropuestaCtrl extends Controller {
         }
         $this->flash('success', 'Su voto fue registrado exitosamente.');
         $this->redirectTo('shwPropues', array('idPro' => $propuesta->id));
-    }
-
-    public function cambiarPrivacidad($idPro) {
-        $vdt = new Validate\Validator();
-        $vdt->addRule('idPro', new Validate\Rule\NumNatural())
-            ->addRule('publico', new Validate\Rule\InArray(array(1, 0)));
-        $req = $this->request;
-        $data = array_merge(array('idPro' => $idPro), $req->post());
-        if (!$vdt->validate($data)) {
-            throw new TurnbackException($vdt->getErrors());
-        }
-        $voto = VotoPropuesta::where(array('propuesta_id' => $idPro,
-                                           'usuario_id' => $this->session->user('id')))->first();
-        if (is_null($voto)) {
-            throw new \Illuminate\Database\Eloquent\ModelNotFoundException;
-        }
-        $voto->publico = $vdt->getData('publico');
-        $voto->save();
-        $msg = $voto->publico ? '' : 'no ';
-        $this->flash('success', 'Ahora los demás usuarios '.$msg.'podrán ver su postura sobre esta propuesta.');
-        $this->redirectTo('shwPropues', array('idPro' => $idPro));
     }
 
     public function verCrear() {

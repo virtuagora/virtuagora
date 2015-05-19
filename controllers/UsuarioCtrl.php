@@ -109,7 +109,7 @@ class UsuarioCtrl extends RMRController {
         $usuario->img_hash = $usuario->id;
         $usuario->save();
         ImageManager::cambiarImagen('usuario', $usuario->id, array(32, 64, 160));
-        $this->session->setUser($usuario);
+        $this->session->update($usuario);
         $this->flash('success', 'Imagen cargada exitosamente.');
         $this->redirect($this->request->getReferrer());
     }
