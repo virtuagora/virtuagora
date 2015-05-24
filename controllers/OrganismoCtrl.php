@@ -4,6 +4,7 @@ class OrganismoCtrl extends RMRController {
 
     protected $mediaTypes = ['json', 'view'];
     protected $properties = ['id', 'nombre', 'cupo', 'funcionarios_count'];
+    protected $searchable = true;
 
     public function queryModel($meth, $repr) {
         return Organismo::query();

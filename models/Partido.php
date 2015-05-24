@@ -32,6 +32,18 @@ class Partido extends Eloquent {
         return $this->attributes['nombre'];
     }
 
+    public function setNombreAttribute($value) {
+        $this->attributes['nombre'] = $value;
+        $acro = isset($this->attributes['acronimo'])? ' '.$this->attributes['acronimo']: '';
+        $this->attributes['huella'] = FilterFactory::calcHuella($value.$acro);
+    }
+
+    public function setAcronimoAttribute($value) {
+        $this->attributes['acronimo'] = $value;
+        $nomb = isset($this->attributes['nombre'])? $this->attributes['nombre'].' ': '';
+        $this->attributes['huella'] = FilterFactory::calcHuella($nomb.$value);
+    }
+
     public static function boot() {
         parent::boot();
         static::created(function($partido) {

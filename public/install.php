@@ -70,8 +70,9 @@ try {
             $table->increments('id');
             $table->string('nombre')->unique();
             $table->string('acronimo');
-            $table->string('fundador')->nullable();
             $table->text('descripcion');
+            $table->string('huella')->nullable();
+            $table->string('fundador')->nullable();
             $table->date('fecha_fundacion')->nullable();
             $table->integer('creador_id')->unsigned();
             $table->timestamps();
@@ -83,6 +84,7 @@ try {
             $table->string('nombre');
             $table->text('descripcion');
             $table->integer('cupo')->unsigned();
+            $table->string('huella')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

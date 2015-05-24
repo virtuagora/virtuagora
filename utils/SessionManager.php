@@ -58,11 +58,10 @@ class SessionManager {
 
     public function update($user = null) {
         if (is_null($user)) {
-            $_SESSION['user'] = $this->getUser()->toArray();
-        } else {
-            $_SESSION['user'] = $user->toArray();
+            $user = $this->getUser();
         }
-        $_SESSION['user']['es_moderador'] = $this->hasRole('mod');
+        $_SESSION['user'] = $user->toArray();
+        $_SESSION['user']['partido'] = $user->partido? $user->partido->toArray(): null;
     }
 
     public function getUser() {

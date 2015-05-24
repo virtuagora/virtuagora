@@ -29,4 +29,9 @@ class Organismo extends Eloquent {
         return $this->funcionarios()->count();
     }
 
+    public function setNombreAttribute($value) {
+        $this->attributes['nombre'] = $value;
+        $this->attributes['huella'] = FilterFactory::calcHuella($value);
+    }
+
 }
