@@ -9,11 +9,13 @@ class PropuestaCtrl extends Controller {
         $contenido = $propuesta->contenido;
         $voto = $propuesta->votos()->where('usuario_id', $this->session->user('id'))->first();
         $comentarios = $propuesta->comentarios->toArray();
+        $votos = $propuesta->votos()->with('usuario')->where('publico', '1')->get()->toArray();
         $datosProp = array_merge($contenido->toArray(), $propuesta->toArray());
         $datosVoto = $voto ? $voto->toArray() : null;
-        $this->render('contenido/propuesta/ver.twig', array('propuesta' => $datosProp,
-                                                            'comentarios' =>  $comentarios,
-                                                            'voto' => $datosVoto));
+        $this->render('contenido/propuesta/ver.twig', ['propuesta' => $datosProp,
+                                                       'comentarios' =>  $comentarios,
+                                                       'voto' => $datosVoto,
+                                                       'votos' => $votos]);
     }
 
     public function votar($idPro) {
