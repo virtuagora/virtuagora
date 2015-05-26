@@ -170,10 +170,15 @@ class PartidoCtrl extends RMRController {
         $vdt->test($idPar, new Validate\Rule\NumNatural());
         $partido = Partido::findOrFail($idPar);
         $jefes = $partido->afiliados()->where('es_jefe', 1)->get();
-        $afiliados = $partido->afiliados()->where('es_jefe', 0)->get();
-        $this->render('partido/gestionar-roles.twig', array('partido' => $partido->toArray(),
-                                                            'jefes' => $jefes->toArray(),
-                                                            'afiliados' => $afiliados->toArray()));
+        $req = $this->request;
+        $url = $req->getUrl().$req->getPath();
+        $paginator = new Paginator($partido->afiliados()->where('es_jefe', 0), $url, $req->get());
+        $afiliados = $paginator->rows;
+        $nav = $paginator->links;
+        $this->render('partido/gestionar-roles.twig', ['partido' => $partido->toArray(),
+                                                       'jefes' => $jefes->toArray(),
+                                                       'afiliados' => $afiliados->toArray(),
+                                                       'nav' => $nav]);
     }
 
     public function cambiarRol($idPar) {
