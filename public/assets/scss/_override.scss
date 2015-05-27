@@ -1,0 +1,138 @@
+// RE-MADE OF .button FROM ZURB FOUNDATION
+.button{
+	color: #1d80d0;
+	border-color: rgba(58, 137, 201, 1);
+	background-color: rgba(58, 137, 201, 0.1);
+	&:hover, &:focus{
+		color: #FFFFFF;
+		border-color: rgba(58, 137, 201, 0.0);
+		background-color: rgba(58, 137, 201, 1);
+	}
+	&.disabled{
+		color: #5f7b91;
+		border-color: rgb(86, 126, 159);
+		background-color: rgba(95, 128, 155, 0.1);
+		&:hover, &:focus{
+			color: #5f7b91;
+			border-color: rgb(86, 126, 159);
+			background-color: rgba(95, 128, 155, 0.1);
+		}
+	}
+	&.alert{
+		color: #ce1a1a;
+		border-color: rgb(201, 58, 58);
+		background-color:  rgba(201, 58, 58, 0.1);
+		&:hover, &:focus{
+			color: #FFFFFF;
+			border-color: rgba(201, 58, 58, 0);
+			background-color:  rgba(201, 58, 58, 1);
+		}
+	}
+	&.success{
+		color: #14a248;
+		border-color: rgb(67, 172, 106);
+		background-color:  rgba(67, 172, 106, 0.1);
+		&:hover, &:focus{
+			color: #FFFFFF;
+			border-color: rgba(67, 172, 106,0);
+			background-color:  rgba(67, 172, 106, 1);
+		}
+	}
+	&.warning{
+		color: #c76300;
+		border-color: rgba(207, 110, 14, 1);
+		background-color:  rgba(207, 110, 14, 0.1);
+		&:hover, &:focus{
+			color: #FFFFFF;
+			border-color: rgba(207, 110, 14, 0);
+			background-color:  rgba(207, 110, 14, 1);
+		}
+	}
+	&.oposite{
+		color: #FFFFFF;
+		border-color: rgb(255, 255, 255);
+		background-color:  rgba(255, 255, 255, 0);
+		&:hover, &:focus{
+			color: #4e4e4e !important;
+			border-color: rgba(207, 110, 14, 0);
+			background-color:  rgb(255, 255, 255);
+		}
+	}
+	&.negative{
+		color: #4e4e4e;
+		border-color: #4e4e4e;
+		background-color:  rgba(255, 255, 255, 0);
+		&:hover, &:focus{
+			color: #FFFFFF !important;
+			border-color: #4e4e4e;
+			background-color: #4e4e4e;
+		}
+	}
+
+	/* &.secondary{
+	color: #c93a3a;
+	border-color: rgb(201, 58, 58);
+	background-color:  rgba(201, 58, 58, 0);
+	&:hover{
+	color: #FFFFFF;
+	border-color: rgba(201, 58, 58, 0);
+	background-color:  rgba(201, 58, 58, 1);
+}
+}*/
+}
+
+// -------------------------------------------
+
+.crear-contenido-aux{
+	&.propuesta {
+		.tagHandler ul.tagHandlerContainer li.tagItem {
+			background-color: $propuesta-color;
+			&:hover{
+				background-color: shade($propuesta-color, 20%);
+			}
+		}
+	}
+	&.documento {
+		.tagHandler ul.tagHandlerContainer li.tagItem {
+			background-color: $documento-color;
+			&:hover{
+				background-color: shade($documento-color, 20%);
+			}
+		}
+	}
+	&.problematica {
+		.tagHandler ul.tagHandlerContainer li.tagItem {
+			background-color: $problematica-color;
+			&:hover{
+				background-color: shade($problematica-color, 20%);
+			}
+		}
+	}
+	&.novedad {
+		.tagHandler ul.tagHandlerContainer li.tagItem {
+			background-color: $novedad-color;
+			&:hover{
+				background-color: shade($novedad-color, 20%);
+			}
+		}
+	}
+	&.evento {
+		.tagHandler ul.tagHandlerContainer li.tagItem {
+			background-color: $evento-color;
+			&:hover{
+				background-color: shade($evento-color, 20%);
+			}
+		}
+	}
+}
+
+// --------------------------------------------
+
+.alert-box{
+	margin-bottom: 0;
+	.close{
+		padding: 0;
+		color: #FFF;
+		opacity: 1;
+	}
+}

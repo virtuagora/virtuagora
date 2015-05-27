@@ -1,0 +1,19 @@
+{% extends "portal/gestion.twig" %}
+
+{% set opciones = {
+0:{'link': urlFor('shwAdmVrfUsuario'), 'nombre': 'Verificar usuarios' },
+1:{'link': urlFor('shwAdmOrganis'), 'nombre': 'Administrar organismos' },
+2:{'link': urlFor('shwCrearModerad'), 'nombre': 'Agregar moderadores' },
+3:{'link': urlFor('shwAdmPatrull'), 'nombre': 'Administrar patrullas' },
+4:{'link': urlFor('shwAdmAjuste'), 'nombre': 'Ajustes plataforma' }}
+%}
+
+{% set titulo = '<i class="fa fa-dashboard fa-fw"></i> Configurar plataforma' %}
+
+{# ----------------------------------------------------------- #}
+{% block opciones %}
+{% for opcion in opciones %}
+<li class='{{ loop.index0 == opcion_activa ? "active" }}'><a href="{{ opcion.link }}">{{ opcion.nombre }}</a></li>
+{% endfor %}
+{% endblock %}
+{# ----------------------------------------------------------- #}

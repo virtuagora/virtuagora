@@ -1,92 +1,76 @@
 {# VARIBLES #}
 
-{% extends "admin/ver-administracion.twig" %}
+{% set opcion_activa = 1 %}
+{% extends "admin/gestion.twig" %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}Virtuagora - Crear nuevo organismo{% endblock %}
+{% block titulo %}Crear organismo{% endblock %}
 {# ----------------------------------------------------------- #}
-{% set intro_titulo = 'Crear nuevo organismo' %}
-{# ----------------------------------------------------------- #}
-{% block administracion %}
-<div class="crear-organismo">
-    <form action="{{ urlFor('runCrearOrganis') }}" method="POST">
-        <div class="wrapper-elementos">
-            <div class="header">
-                <i class="fa fa-question-circle fa-fw fa-lg"></i><i class="fa fa-pencil fa-fw fa-lg"></i> Datos del organismo publico
-            </div>
-            <div class="fila">
-                <div class="row">
-                    <div class="large-12 columns">
-                        <div class="large-9 columns">
-                            <div class="titulo-fila">Nombre del organismo</div>
-                            <input class="campo-fila" type="text" name="nombre">
-                        </div>
-                        <div class="large-3 columns">
-                            <div class="titulo-fila">Cant. de cupos</div>
-                            <input type="number" name="cupo" placeholder="Numero?">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="fila">
-                <div class="row">
-                    <div class="large-12 columns">
-                        <div class="large-12 columns">
-                            <div class="titulo-fila">Descripcion del organismo</div>
-                            <textarea rows=4 name="descripcion"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="fila">
-                <div class="row">
-                    <div class="large-12 columns">
-                        <div class="large-8 columns">
-                            <div class="titulo-fila">URL</div>
-                            <input type="text" name="utl" placeholder="Ej: http://www.google.com">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="fila">
-                <div class="row">
-                    <div class="large-12 columns">
-                        <div class="large-8 columns">
-                            <div class="titulo-fila">Email</div>
-                            <input class="campo-fila" type="email" name="email" placeholder="Ej: ejemplo@servidor.com" >
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="ultima-fila">
-                <div class="row">
-                    <div class="large-12 columns">
-                        <div class="large-8 columns">
-                            <div class="titulo-fila">Telefono</div>
-                            <input class="campo-fila" type="text" name="telefono" placeholder="Ej: (0342) 452-XXXX">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="text-center">
-            <button class="button success radius"><i class="fa fa-plus fa-fw fa-lg"></i><i class="fa fa-university fa-fw fa-lg"></i> Crear organismo</button>
-        </div>
-    </form>
+{% block gestion %}
+<h4>Administrar organismo</h4>
+<h6 class="subheader">Crear organismo</h6>
+<div class="descripcion">
+	Formulario para la modificación de los datos de un organismo público.
 </div>
-
+<hr>
+<div class="row collapse">
+	<div class="medium-6 columns small-only-text-center">
+		<h6 class="subheader">Cargar imagen de perfil</h6>
+		<div class="descripcion">Nota: Usted podra subir una imagen de perfil luego de haber creado el organismo.</div>
+		<div class="button disabled tiny radius"><i class="fa fa-upload fa-fw fa-lg"></i> Subir imagen</div>
+	</div>
+	<div class="medium-6 columns text-center">
+		<img src="{{ baseUrl() }}/assets/img/anonOrganismo.png" alt="Aux img" class="img-perfil size-160">
+	</div>
+</div>
+<hr>
+<form action="{{ urlFor('runCrearOrganis') }}" method="POST">
+	<h6 class="subheader">Nombre del organismo</h6>
+	<input type="text" name="nombre">
+	<hr>
+	<div class="row collapse">
+		<div class="medium-6 columns">
+			<h6 class="subheader">Cupos disponibles</h6>
+		</div>
+		<div class="medium-6 columns"><input type="number" name="cupo" placeholder="Numero"></div>
+	</div>
+	<hr>
+	<h6 class="subheader">Descripcion del organismo</h6>
+	<textarea rows=2 name="descripcion"></textarea>
+	<hr>
+	<div class="row collapse">
+		<div class="medium-6 columns">
+			<h6 class="subheader">URL</h6>
+		</div>
+		<div class="medium-6 columns"><input type="text" name="url" placeholder="Ej: http://www.google.com"></div>
+	</div>
+	<hr>
+	<div class="row collapse">
+		<div class="medium-6 columns">
+			<h6 class="subheader">Email</h6>
+		</div>
+		<div class="medium-6 columns"><input type="email" name="email"></div>
+	</div>
+	<hr>
+	<div class="row collapse">
+		<div class="medium-6 columns">
+			<h6 class="subheader">Telefono</h6>
+		</div>
+		<div class="medium-6 columns"><input type="text" name="telefono"></div>
+	</div>
+	<hr>
+	<div class="small-text-center medium-text-right">
+		<button class="button success small radius"><i class="fa fa-plus fa-fw fa-lg"></i><i class="fa fa-check fa-fw fa-lg"></i> Crear nuevo organismo</button>
+	</div>
+</form>
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts_cont %}
+{% block scripts_gestion %}
 <script src="{{ baseUrl() }}/assets/js/autosize/autosize.min.js"></script>
 <script>
-    $(document).ready(function(){
-
-        autosize($('textarea[name="descripcion"]'));
-    });
-
+	autosize($('textarea[name="descripcion"]'));
 </script>
 {% endblock %}
 {# ----------------------------------------------------------- #}

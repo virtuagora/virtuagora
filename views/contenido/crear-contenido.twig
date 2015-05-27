@@ -3,7 +3,7 @@
 {# VARIBLES #}
 {% set footer = true %}
 {% set barraNav = true %}
-{% set notificaciones = true %}
+{% set ver_notificaciones = true %}
 {% set html_class = '' %}
 
 {# ----------------------------------------------------------- #}
@@ -13,14 +13,14 @@
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block body %}
-<div class="crear-contenido-aux {{ type_contenido }}">
+<div class="crear-contenido {{ type_contenido }}">
 	<div class="row header">
 		<div class="medium-12 columns text-center">
 			<h1><i class="fa fa-fw {{ header_icono }} fa-lg"></i></h1>
 			<h1>{{ header_titulo }}</h1>
 		</div>
 		<div class="medium-12 columns text-center">
-			<div class="button oposite tiny radius"><i class="fa fa-undo fa-fw fa-lg"></i> Volver</div>
+			<a href="{{ modo == 'modificar' ? url_volver : url_redirigir }}" class="button oposite tiny radius"><i class="fa fa-undo fa-fw fa-lg"></i> Volver</a>
 		</div>
 	</div>
 	<form action="{{ url_form }}" method="POST">
@@ -31,10 +31,10 @@
 						<i class="fa fa-circle fa-stack-2x"></i>
 						<i class="fa fa-star-o blanco fa-stack-1x"></i>
 					</span>
-					<div class="descripcion">
+					<div class="descripcion text-justify">
 						<b>Escriba un titulo.</b> El mismo debe ser claro, atractivo, para que la gente se vea interesada. Le restan <b><span id="counter-titulo">255</span></b> caracteres.
 					</div>
-					<textarea name="titulo" onKeyPress="return taLimit(this)" onKeyUp="return taCount(this,'counter-titulo')" type="text" rows=1 placeholder="Escriba aqui un título"></textarea>
+					<textarea name="titulo" onKeyPress="return taLimit(this)" onKeyUp="return taCount(this,'counter-titulo')" rows=1 type="text" placeholder="Escriba aqui un título"></textarea>
 				</div>
 			</div>
 		</div>
@@ -47,7 +47,7 @@
 								<i class="fa fa-circle fa-stack-2x"></i>
 								<i class="fa fa-star-o blanco fa-stack-1x"></i>
 							</span>
-							<div class="descripcion">
+							<div class="descripcion text-justify">
 								<b>Seleccione una categoria.</b> La misma servirá para vincularla a otros similares contenidos
 							</div>
 						</div>
@@ -70,7 +70,7 @@
 						<i class="fa fa-circle fa-stack-2x"></i>
 						<i class="fa fa-star-o blanco fa-stack-1x"></i>
 					</span>
-					<div class="descripcion">
+					<div class="descripcion text-justify">
 						<b>Escriba el cuerpo del contenido.</b> Puede darle distintos formatos. Recuerde ser claro: El mismo será público, en otras palabras, todos podran verlo.
 					</div>
 					<textarea name="cuerpo" placeholder="Describa de que se trata la propuesta"></textarea>
@@ -87,17 +87,16 @@
 								<i class="fa fa-circle fa-stack-2x"></i>
 								<i class="fa fa-star-o blanco fa-stack-1x"></i>
 							</span>
-							<div class="descripcion">
+							<div class="descripcion text-justify">
 								<b>Escriba tags relacionadas con el documento.</b> Tags son palabras clave que guardan relacion, en este caso, con el contenido.<br> Comience escribiendo y separe las Tags con coma o presionando "ENTER" para ingresarla. En caso de quere eliminarla, simplemente borrela o haga clic sobre la Tag.
 							</div>
 						</div>
 						<div class="large-5 columns">
+							<div class="container-tags">
+							</div>
 							<div class="agregar-tags buscador">
 								<i class="icono fa fa-tag"></i>
 								<input type="text" class="tm-input" placeholder="Escriba una tag"/>
-							</div>
-							<div class="container-tags">
-
 							</div>
 						</div>
 					</div>
@@ -122,18 +121,20 @@
 {# ----------------------------------------------------------- #}
 {% block modals %}
 
-{% block modals_cont %}{% endblock modals_cont %}
+{% block content_modals %}{% endblock content_modals %}
 
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block scripts %}
-<script src="{{ baseUrl() }}/assets/js/autosize/autosize.js"></script>
+<script src="{{ baseUrl() }}/assets/js/autosize/autosize.min.js"></script>
 <script src="{{ baseUrl() }}/assets/js/tagmanager/tagmanager.js"></script>
 <script src="{{ baseUrl() }}/assets/js/jquery/jquery.sceditor.bbcode.min.js"></script>
 <script src="{{ baseUrl() }}/assets/js/typeahead/typeahead.bundle.min.js"></script>
 <script>
 	var base_url = '{{ baseUrl() }}';
+	$( document ).ready(function() {
 	autosize($( "textarea[name='titulo']" ));
+	});
 	$( "textarea[name='titulo']" ).focus(function() {
 		autosize($(this));
 	})
@@ -154,11 +155,12 @@
 		}
 	});
 
-    var tagApi = $(".tm-input").tagsManager({
+	var tagApi = $(".tm-input").tagsManager({
 		maxTags: 8,
 		tagClass: 'color-{{ type_contenido }}',
-        hiddenTagListName: 'tags',
-		tagsContainer: '.container-tags'
+		hiddenTagListName: 'tags',
+		tagsContainer: '.container-tags',
+		prefilled: {{ tags_mod is defined ? tags_mod|raw : 'null' }}
 	});
 
 	var typeHead = $('.tm-input').typeahead({
@@ -168,16 +170,21 @@
 		display: 'nombre',
 		source: tags,
 		templates: {
-			empty: '<div>No se encontraron tags.</div>',
+			empty: '<div class="tt-empty"><i class="fa fa-asterisk fa-fw"></i> No se encontraron tags</div>',
 			suggestion: function(data) {
 				return '<div><i class="fa fa-tag fa-fw"></i> '+data.nombre +'</div>';
 			}
 		}
 	}).bind('typeahead:select', function (ev, su) {
-        tagApi.tagsManager("pushTag", su.nombre);
-        typeHead.typeahead('val', '');
-    });
-
+		tagApi.tagsManager("pushTag", su.nombre);
+		typeHead.typeahead('val', '');
+	});
+	$(".tm-input").on('tm:hide', function(e, taglist) {
+		$('.buscador').hide()
+	});
+	$(".tm-input").on('tm:show', function(e, taglist) {
+		$('.buscador').show()
+	});
 	$(function() {
 		$("textarea[name='cuerpo']").sceditor({
 			plugins: "bbcode",
@@ -222,7 +229,7 @@
 	}
 </script>
 
-{% block scripts_cont %}{% endblock scripts_cont %}
+{% block content_scripts %}{% endblock content_scripts %}
 
 {% endblock scripts %}
 {# ----------------------------------------------------------- #}

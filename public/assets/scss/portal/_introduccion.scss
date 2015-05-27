@@ -1,0 +1,176 @@
+#introduction{
+	#header {
+		padding: 40px 10px;
+		background-color: #5b80b3;
+		border-bottom: 1px solid #FFF;
+		p {
+			color: #FFFFFF;
+			margin-top: rem-calc(15px);
+			margin-bottom: 0;
+			i {
+				color: #FFFFFF;
+				font-size: rem-calc(40px);
+				padding: rem-calc(15px);
+			}
+		}
+		img{
+			margin-bottom: 25px;
+			@media only screen and (max-width: 40em) {
+			margin-bottom: 10px;
+		}
+
+		}
+		@media only screen and (max-width: 40em) {
+			padding: 20px 5px 10px;
+		}
+	}
+	.pre-registro {
+		padding: rem-calc(40px) 0;
+		background: image-url("pre-registro-bg.jpg") no-repeat center bottom;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+		color: #FFFFFF !important;
+		border-bottom: 1px solid #FFF;
+		.titulo h1{
+			font-size: rem-calc(60);
+		}
+		.descripcion{
+			h1{
+				color: #FFFFFF;
+				font-size: rem-calc(55);
+				line-height: rem-calc(65);
+				margin-bottom: 15px;
+				@media only screen and (max-width: 40em) {
+					font-size: rem-calc(45);
+					line-height: rem-calc(55);
+				}
+			}
+			p:first-of-type{
+				font-size: rem-calc(22);
+				line-height: rem-calc(30);
+				margin-bottom: 10px;
+				@media only screen and (max-width: 40em) {
+					font-size: rem-calc(18);
+					line-height: rem-calc(24);
+				}
+			}
+		}
+		form {
+			padding: 20px 50px 0 50px;
+			input{
+				margin: 0;
+				padding: 10px;
+				font-size: rem-calc(16);
+				@media only screen and (max-width: 40em) {
+					font-size: rem-calc(13);
+				}
+				text-align: center
+			}
+			input[name=nombre]{
+				border-top-left-radius: 8px;
+				border-top-right-radius: 8px;
+			}
+			input[name=apellido]{
+				border-top: 0;
+				border-bottom: 0;
+			}
+			input[name=email]{
+				border-bottom-left-radius: 8px;
+				border-bottom-right-radius: 8px;
+			}
+			button{
+				margin: 15px 0;
+				color: #FFFFFF;
+				background-color: rgba(67, 172, 106, 0.5);
+			}
+			p{
+				font-size: rem-calc(12);
+				color: #aaaaaa;
+			}
+		}
+	}
+	.feature.que-es{background-color: shade(#5b80b3,55%)}
+	.feature:nth-child(5){background-color: shade(#5b80b3,0%)}
+	.feature:nth-child(6){background-color: shade(#5b80b3,15%)}
+	.feature:nth-child(7){background-color: shade(#5b80b3,30%)}
+	.feature:nth-child(8){background-color: shade(#5b80b3,45%)}
+	.feature:nth-child(9){background-color: shade(#5b80b3,55%)}
+
+	.feature{
+		padding: 20px 0;
+		border-bottom: 1px solid #FFF;
+		color: #FFF;
+		h2{color: #FFF; margin: 0;}
+		p{font-size: rem-calc(13); color: #FFF;}
+		p:last-child{margin: 0;}
+		img{
+			margin-top: 10px;
+			@media only screen and (max-width: 40em) {
+				width: 100px; height: auto;
+				margin-bottom: 10px;
+			}
+			@media only screen and (min-width: 40.063em) and (max-width: 64em) {
+				width: 150px; height: auto;
+			}
+			@media only screen and (min-width: 64.063em) {
+				width: 150px; height: auto;
+			}
+		}
+	}
+
+	.spotlight{
+		padding: 40px 0px;
+		.titulo{
+			h1{
+				margin-bottom: 50px;
+			}
+		}
+		.espaciado-abajo{
+			margin-bottom: 45px;
+		}
+		.herramienta-wrapper{
+			margin-bottom: 20px;
+			.herramienta-icono{
+				margin-bottom: 20px;
+			}
+			.herramienta-descripcion{
+				padding: 0 30px;
+				font-size: rem-calc(13);
+				color: #848484;
+			}
+		}
+		.herramienta-icono.propuesta{color: $propuesta-color}
+		.herramienta-icono.problematica{color: $problematica-color}
+		.herramienta-icono.documento{color: $documento-color}
+		.herramienta-icono.evento{color: $evento-color}
+		.herramienta-icono.novedad{color: $novedad-color}
+	}
+
+	.final{
+		margin-bottom: 1px;
+		padding: 150px 0px;
+		@media only screen and (max-width: 40em) {
+			padding: 75px 0px;
+		}
+		background: image-url("pre-registro-bg.jpg") no-repeat center bottom;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+		.boton-final{
+			font-size: rem-calc(30);
+			padding: 15px 80px;
+			@media only screen and (max-width: 40em) {
+				font-size: rem-calc(20);
+				padding: 15px;
+			}
+		}
+		.git-final{
+			margin-top: 15px;
+			font-size: rem-calc(14);
+			a{color: #FFFFFF;}
+		}
+	}
+}

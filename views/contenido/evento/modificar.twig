@@ -3,47 +3,59 @@
 {# VARIBLES #}
 {% set modo = 'modificar' %}
 {% set header_titulo = 'MODIFICAR EVENTO' %}
-{% set url_form = urlFor('runModifEvento',{'idEve':evento.id}) %}
+{% set url_form = urlFor('runModifEvento',{'idEve': evento.id}) %}
+{% set url_volver = urlFor('shwEvento',{'idEve': evento.id}) %}
+
+{% if evento.tags is not null %}
+{% set tags_mod = '[' %}
+{% for tag in evento.tags %}
+{% set tags_mod = tags_mod ~ '"' ~ tag.nombre ~ '"' %}
+{% if loop.last == false %}
+{% set tags_mod = tags_mod ~ ',' %}
+{% endif %}
+{% endfor %}
+{% set tags_mod = tags_mod ~ ']' %}
+{% endif%}
+
 
 {# ----------------------------------------------------------- #}
 {% block titulo %}Modificar evento - Virtuágora{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block scripts_modificar %}
 <script>
-    var partido_id = {{ evento.impulsor_id ? evento.impulsor_id : 'null' }};
+	var partido_id = {{ evento.impulsor_id ? evento.impulsor_id : 'null' }};
 
-    $(document).ready(function(){
-        $('[name="titulo"]').val('{{ evento.titulo }}');
-        $('[name="categoria"] select').val('{{ evento.categoria.id }}');
-        $('[name="lugar"]').val('{{ evento.lugar }}');
-        $("[name='cuerpo']").sceditor('instance').val('{{ evento.cuerpo|bbCode }}', false);
-        autosize($('textarea[name="cuerpo"]'));
-        autosize($("textarea[name='titulo']"));
-        $( "#datepicker" ).datepicker({
-            numberOfMonths: 1,
-            dateFormat: 'DD, d MM yy',
-            altField: "#guardarFecha",
-            altFormat: "yy-mm-dd",
-            minDate: 0,
-            onSelect: function() {
-                $('#txt-fecha').html(this.value);
-            }
-        });
-        $('#timepicker').timepicker({
-            'timeFormat': 'H:i',
-            'step': 15
-        });
+	$(document).ready(function(){
+		$('[name="titulo"]').val('{{ evento.titulo|raw }}');
+		$('[name="categoria"] select').val('{{ evento.categoria.id }}');
+		$('[name="lugar"]').val('{{ evento.lugar }}');
+		$("[name='cuerpo']").sceditor('instance').val('{{ evento.cuerpo|bbCode }}', false);
+		$( "#datepicker" ).datepicker({
+			numberOfMonths: 1,
+			dateFormat: 'DD, d MM yy',
+			altField: "#guardarFecha",
+			altFormat: "yy-mm-dd",
+			minDate: 0,
+			onSelect: function() {
+				$('#txt-fecha').html(this.value);
+			}
+		});
+		$('#timepicker').timepicker({
+			'timeFormat': 'H:i',
+			'step': 15
+		});
 
-        var tiempo = new Date( '{{ evento.fecha }}' );
-        $( "#datepicker" ).datepicker( "setDate", tiempo );
-        $('#txt-fecha').html($( "#datepicker" ).val());
-        $('#timepicker').timepicker('setTime', tiempo);
+		var tiempo = new Date( '{{ evento.fecha }}' );
+		$( "#datepicker" ).datepicker( "setDate", tiempo );
+		$('#txt-fecha').html($( "#datepicker" ).val());
+		$('#timepicker').timepicker('setTime', tiempo);
 
-        if( partido_id != null){
-            $("#checkbox").attr('checked', true);
-            completarDescripcion();
-        }
-    });
+		if( partido_id != null){
+			$("#checkbox").attr('checked', true);
+			completarDescripcion();
+		}
+
+	});
 
 </script>
 {% endblock %}

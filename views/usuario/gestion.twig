@@ -1,0 +1,17 @@
+{% extends "portal/gestion.twig" %}
+
+{% set opciones = {
+0:{'link': urlFor('shwListaNotific'), 'nombre': 'Ver notificaciones' },
+1:{'link': urlFor('shwModifUsuario'), 'nombre': 'Modificar datos' },
+2:{'link': urlFor('shwModifClvUsuario'), 'nombre': 'Modificar contraseña' },
+3:{'link': urlFor('shwElimiUsuario'), 'nombre': 'Eliminar cuenta' }}
+%}
+{% set titulo = '<i class="fa fa-pencil fa-fw"></i> Editar perfil' %}
+
+{# ----------------------------------------------------------- #}
+{% block opciones %}
+{% for opcion in opciones %}
+<li class='{{ loop.index0 == opcion_activa ? "active" }}'><a href="{{ opcion.link }}">{{ opcion.nombre }}</a></li>
+{% endfor %}
+{% endblock %}
+{# ----------------------------------------------------------- #}

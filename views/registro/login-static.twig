@@ -1,0 +1,49 @@
+{# VARIBLES #}
+{% set footer = false %}
+{% set barraNav = false %}
+{% set notificaciones = false %}
+{% set html_class = 'login-bg' %}
+{% set body_class = 'no-body-bg' %}
+
+{% extends "master.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block titulo %}Entrar{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block body %}
+
+<div class="registro login row">
+	<div class="medium-8 medium-centered columns no-padding-small-only">
+		<div class="panel text-center">
+			<div class="row">
+				<div class="small-12 columns">
+					<h1 class="seccion"><b>Entrar</b></h1>
+					<hr>
+				</div>
+			</div>
+			<div class="row">
+				<div class="small-11 medium-10 large-8 small-centered columns">
+					<form action="{{ urlFor('runLogin') }}" method="POST">
+						<input name="email" type="email" placeholder="Su dirección de email..." required>
+						<input name="password" type="password" placeholder="Su contraseña..." required>
+						<button class="button radius large expand"><i class="fa fa-sign-in fa-fw"></i>&nbsp;Iniciar sesión</button>
+						<div style="margin-top: 15px;">
+						<a href="{{urlFor('shwCrearUsuario')}}" class="button negative radius small"><i class="fa fa-user-plus fa-fw"></i>&nbsp;Registrarse</a>
+						<a href="{{urlFor('shwPortal')}}" class="button negative radius small"><i class="fa fa-home fa-lg fa-fw"></i>&nbsp;Volver</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}{% endblock %}
+{# ----------------------------------------------------------- #}

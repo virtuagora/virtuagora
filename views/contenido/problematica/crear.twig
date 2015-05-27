@@ -2,12 +2,13 @@
 
 {# VARIBLES #}
 {% set body_class = 'color-problematica' %}
-{% set header_icono = 'fa-file-text-o' %}
+{% set header_icono = 'fa-bullhorn' %}
 {% if modo is not defined %}
 {% set header_titulo = 'NUEVA PROBLEMATICA' %}
 {% set url_form = urlFor('runCrearProblem') %}
 {% endif %}
 {% set type_contenido = 'problematica' %}
+{% set url_redirigir = urlFor('shwPortal') %}
 
 {# ----------------------------------------------------------- #}
 {% block titulo %}Crear problemática - Virtuágora{% endblock %}
@@ -22,7 +23,7 @@
                 <i class="fa fa-circle fa-stack-2x"></i>
                 <i class="fa fa-star-o blanco fa-stack-1x"></i>
             </span>
-            <div class="descripcion">
+            <div class="descripcion text-justify">
                 <b>Subir una o varias imagenes.</b> Utilice la herramienta si quiere publicar imagenes asociadas a su problemática. (PROXIMAMENTE)
             </div>
         </div>
@@ -35,7 +36,7 @@
                 <i class="fa fa-circle fa-stack-2x"></i>
                 <i class="fa fa-star-o blanco fa-stack-1x"></i>
             </span>
-            <div class="descripcion">
+            <div class="descripcion text-justify">
                 <b>Asociar una ubicacion geográfica.</b> Si quiere dar una ubicacion específica asociada con su problematica, por favor, utilice el siguiente mapa y marque la ubicación. (PROXIMAMENTE)
             </div>
         </div>
@@ -43,9 +44,9 @@
 </div>
 {% endblock %}
 {# ----------------------------------------------------------- #}
-{% block modals_cont %}{% endblock %}
+{% block content_modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts_cont %}
+{% block content_scripts %}
 
 {% block scripts_modificar %}{% endblock scripts_modificar %}
 

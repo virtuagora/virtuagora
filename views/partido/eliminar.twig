@@ -1,33 +1,28 @@
 {# VARIBLES #}
 
-{% extends "partido/ver-administracion.twig" %}
+{% set opcion_activa = 2 %}
+{% extends "partido/gestion.twig" %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}Virtuagora - Eliminar partido{% endblock %}
+{% block titulo %}Eliminar grupo político{% endblock %}
 {# ----------------------------------------------------------- #}
-{% set intro_titulo = 'Eliminar partido' %}
-{% set partido_nombre = partido.nombre %}
-{% set partido_id = partido.id %}
-{# ----------------------------------------------------------- #}
-{% block configuracion %}
-<div class="eliminar-partido">
-    <div class="row">
-        <div class="panel large-8 large-centered columns text-center">
-            <h3><i class="fa fa-warning fa-fw"></i> <b>ATENCIÓN</b></h3>
-            Sea consciente de lo que está a punto de hacer...
-        </div>
-        <div class="descripcion large-12 columns text-center">
-            Usted esta a punto de eliminar el partido
-            <div><i>{{ partido.nombre}}</i></div>
-            <br>
-            <h4><b>¿Está seguro de lo que desea hacer?</b></h4>
-        </div>
-        <div class="large-12 columns text-center">
-            <form action="{{ urlFor('runElimiPartido',{'idPar': partido.id}) }}" method="POST">
-                <button class="bt-segunda-conf button large alert radius"><i class="fa fa-trash-o fa-fw fa-lg"></i> Si, confirmo la eliminación</button>
-            </form>
-        </div>
-    </div>
+{% block gestion %}
+<h4>Grupo {{ partido.nombre }}</h4>
+<h6 class="subheader">Eliminación del grupo politico</h6>
+<hr>
+<div class="panel text-center" style="background-color:#9d2727; border: 0;">
+	<h4 style="color:#FFF"><i class="fa fa-warning fa-fw"></i> ATENCIÓN</h4>
+	<div class="descripcion" style="color:#FFF">
+		Sea consciente de su acción<br>
+		Usted esta a punto de eliminar su cuenta<br>
+		¿Está seguro de lo que desea hacer?
+	</div>
+</div>
+<hr>
+<div class="text-center">
+	<form action="{{ urlFor('runElimiPartido',{'idPar': partido.id}) }}" method="POST">
+		<button class="button small alert radius"><i class="fa fa-trash-o fa-fw fa-lg"></i>Eliminar grupo político</button>
+	</form>
 </div>
 
 {% endblock %}

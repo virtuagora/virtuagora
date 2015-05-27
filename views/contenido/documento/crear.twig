@@ -14,24 +14,24 @@
 {# ----------------------------------------------------------- #}
 {% block pre_cuerpo %}
 <div class="row row-crear-descripcion">
-    <div class="large-12 columns">
-        <div class="panel">
-            <div class="row">
-                <div class="large-6 columns">
-                    <span class="enumerador fa-stack">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-star-o blanco fa-stack-1x"></i>
-                    </span>
-                    <div class="descripcion">
-                        <b>Redacte una descripción del documento.</b> La misma tiene que dar una pequeña introduccion del documento a desarrollar. Por favor, sea breve. Le restan <b><span id='counter-descripcion'>255</span></b> caracteres para su descripcion
-                    </div>
-                </div>
-                <div class="large-6 columns">
-                    <textarea name="descripcion" onKeyPress="return taLimit(this)" onKeyUp="return taCount(this,'counter-descripcion')" placeholder="Desarrolle en pocas palabras una descripción de lo que tratará el documento a publicar" type="text"></textarea>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="large-12 columns">
+		<div class="panel">
+			<div class="row">
+				<div class="large-6 columns">
+					<span class="enumerador fa-stack">
+						<i class="fa fa-circle fa-stack-2x"></i>
+						<i class="fa fa-star-o blanco fa-stack-1x"></i>
+					</span>
+					<div class="descripcion text-justify">
+						<b>Redacte una descripción del documento.</b> La misma tiene que dar una pequeña introduccion del documento a desarrollar. Por favor, sea breve. Le restan <b><span id='counter-descripcion'>255</span></b> caracteres para su descripcion
+					</div>
+				</div>
+				<div class="large-6 columns">
+					<textarea name="descripcion" onKeyPress="return taLimit(this)" onKeyUp="return taCount(this,'counter-descripcion')" placeholder="Desarrolle en pocas palabras una descripción de lo que tratará el documento a publicar" type="text"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 {% endblock %}
 {# ----------------------------------------------------------- #}
@@ -40,19 +40,22 @@
 
 {% endblock %}
 {# ----------------------------------------------------------- #}
-{% block modals_cont %}{% endblock %}
+{% block content_modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts_cont %}
+{% block content_scripts %}
+
+<script>
+	$( document ).ready(function() {
+		autosize($( "textarea[name='descripcion']" ));
+		$("textarea[name='descripcion']").keypress(function(event) {
+			if (event.keyCode == 13) {
+				event.preventDefault();
+			}
+		});
+	});
+</script>
 
 {% block scripts_modificar %}{% endblock scripts_modificar %}
 
-<script>
-    autosize($( "textarea[name='descripcion']" ));
-    $("textarea[name='descripcion']").keypress(function(event) {
-        if (event.keyCode == 13) {
-            event.preventDefault();
-        }
-    });
-</script>
 {% endblock %}
 {# ----------------------------------------------------------- #}

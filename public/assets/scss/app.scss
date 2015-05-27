@@ -1,5 +1,4 @@
 @import url("http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700");
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700);
 @import url(http://fonts.googleapis.com/css?family=Lora:400,400italic);
 
 @import "settings";
@@ -12,10 +11,10 @@
    "foundation/components/alert-boxes",
 //   "foundation/components/block-grid",
 //   "foundation/components/breadcrumbs",
-   "foundation/components/button-groups",
+//   "foundation/components/button-groups",
    "foundation/components/buttons",
 //   "foundation/components/clearing",
-//   "foundation/components/dropdown",
+   "foundation/components/dropdown",
 //   "foundation/components/dropdown-buttons",
 //   "foundation/components/flex-video",
      "foundation/components/forms",
@@ -33,7 +32,7 @@
    "foundation/components/reveal",
 //   "foundation/components/side-nav",
 //   "foundation/components/split-buttons",
-   "foundation/components/sub-nav",
+//   "foundation/components/sub-nav",
    "foundation/components/switches",
      "foundation/components/range-slider",
    "foundation/components/tables",
@@ -45,16 +44,8 @@
 //   "foundation/components/offcanvas",
    "foundation/components/visibility"
 ;
-@import "../css/font-awesome.css";
+@import "../css/font-awesome/font-awesome.css";
 
-@import "../scss/flaticon/flaticon.scss";
-
-@import "./slick/slick-theme.scss";
-
-@import "./powertip/jquery.powertip.css";
-
-@import "global";
-
-@import "custom";
+@import "override";
 
 @import "layouts";

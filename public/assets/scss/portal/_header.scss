@@ -1,0 +1,60 @@
+// portal/header.twig
+.portal-usuario .nav-portal{
+	background-color: #f5f6f7;
+	border-bottom: 1px solid #CACACA;
+	border-top: 1px solid #FFF;
+	ul {
+		margin: 0px;
+		@media only screen and (min-width: 40.063em) {
+			li{
+				display: inline-block;
+				vertical-align: middle;
+				list-style-type: none;
+				padding: 8px 0;
+				font-size: rem-calc(13);
+			}
+			li.link a{
+				color:#222;
+				padding: 10px;
+				&:hover{
+					color:#FFF;
+					background-color:#2f6dc1;
+				}
+			}
+			li.separador{
+				color: #CACACA;
+			}
+		}
+		@media only screen and (max-width: 40.063em) {
+			li{
+				border-bottom: 1px solid #CACACA;
+				padding: 4px 0;
+				font-size: rem-calc(12);
+				a{color:#222;}
+				&:hover{
+					a{color:#FFF;}
+					background-color:#2f6dc1;
+				}
+			}
+			li:last-child{
+				border-bottom: 0;
+			}
+		}
+	}
+
+	.columns{
+		font-size: rem-calc(12);
+		min-height: 76px;
+		padding: 8px;
+		color: #222;
+		.texto{line-height: 15px;margin-top: 4px;}
+		border-left: 1px solid #CACACA;
+		&.last{
+			border-right: 1px solid #CACACA;
+		}
+		&.bt:hover{
+			background-color:#2f6dc1;
+			color: #FFF;
+		}
+	}
+}

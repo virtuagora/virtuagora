@@ -1,269 +1,193 @@
 {# VARIBLES #}
 
-{% extends "admin/ver-administracion.twig" %}
+{% set opcion_activa = 2 %}
+{% extends "admin/gestion.twig" %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}Virtuagora - Nuevos moderadores{% endblock %}
+{% block titulo %}Nuevos moderadores{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block linkheads_cont %}{% endblock %}
-{# ----------------------------------------------------------- #}
-{% set intro_titulo = 'Agregar moderadores' %}
-{# ----------------------------------------------------------- #}
-{% block administracion %}
-<div class="nuevos-moderadores">
-    <div class="listar-usuarios row">
-        <div class="large-12 columns">
-            <div class="titulo">
-                <h4>Usuarios no moderadores</h4>
-            </div>
-            <hr>
-            <div class="explicacion panel">
-                En la siguiente tabla tiene la lista de usuarios que no son moderadores. Para agregar un nuevo moderador seleccione uno mediante el boton <i class="fa fa-plus fa-fw"></i>
-            </div>
-            <!--
-<dl class="sub-nav sort" role="menu" title="Filter Menu List">
-<dt><i class="fa fa-list-ol fa-fw fa-lg"></i> Ordenar: </dt>
-<dd class="sortNombre" role="menuitem" ><a href="javascript:sortNombre();"><i class="fa fa-sort-alpha-asc fa-fw"></i> Nombre</a></dd>
-<dd class="sortApellido" role="menuitem"><a href="javascript:sortApellido();"><i class="fa fa-sort-alpha-asc fa-fw"></i> Apellido</a></dd>
-<dd class="sortPuntos" role="menuitem"><a href="javascript:sortPuntos();"><i class="fa fa-sort-numeric-desc fa-fw"></i> Puntos</a></dd>
-</dl>
--->
-            <dl class="sub-nav ver" role="menu" title="Filter Menu List">
-                <dt><i class="fa fa-filter fa-fw fa-lg"></i> Filtrar: </dt>
-                <dd class="verTodo active" role="menuitem" ><a href="javascript:verTodo();"><i class="fa fa-eye fa-fw"></i> Todo</a></dd>
-                <dd class="verAdvertidos" role="menuitem"><a href="javascript:verAdvertidos();"><i class="fa fa-warning fa-fw"></i> Advertidos</a></dd>
-                <dd class="verSuspendidos" role="menuitem"><a href="javascript:verSuspendidos();"><i class="fa fa-times fa-fw"></i> Suspendidos</a></dd>
-            </dl>
-            <table class="tabla-usuarios">
-                <thead>
-                    <tr style="//display:none;">
-                        <th class="text-center">ID</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th style="display:none;">Patrulla</th>
-                        <th class="text-center"><i class="fa fa-trophy fa-fw"></i></th>
-                        <th class="text-center"><i class="fa fa-warning fa-fw"></i></th>
-                        <th class="text-center"><i class="fa fa-times fa-fw"></i></th>
-                        <th class="text-center"><i class="fa fa-cog fa-fw"></i></th>
-                    </tr>
-                </thead>
-                <tbody class="usuarios">
-                    <tr>
-                        <td colspan=6 class="text-center"><i class="fa fa-spinner fa-pulse"></i> Buscando usuarios</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="large-12 columns control-tabla">
-            <div class="panel clearfix large-6 large-centered columns">
-                <div class="small-4 columns text-left">
-                    <a id="nav-first"><i class="fa fa-angle-double-left fa-fw fa-lg"></i></a>&nbsp;&nbsp;
-                    <a id="nav-prev"><i class="fa fa-angle-left fa-fw fa-lg"></i></a>
-                </div>
-                <div class="small-4 columns text-center">
-                    <i class="ejecutando fa fa-spinner fa-fw fa-lg fa-pulse"></i>
-                </div>
-                <div class="small-4 columns text-right">
-                    <a id="nav-next"><i class="fa fa-angle-right fa-fw fa-lg"></i></a>&nbsp;&nbsp;
-                    <a id="nav-last"><i class="fa fa-angle-double-right fa-fw fa-lg"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="listar-usuarios row">
-        <div class="large-12 columns">
-            <div class="titulo">
-                <h4>Nuevos moderadores</h4>
-            </div>
-            <hr>
-            <div class="explicacion panel">
-                En la siguiente tabla se irán agregando los usuarios que usted eligió para agregar como moderadores. Recuerde seleccionar la patrulla antes de aceptar. Si desea quitar un usuario de la tabla, haga clic en el boton <i class="fa fa-minus fa-fw"></i>
-            </div>
-            <table class="tabla-usuarios-moderadores">
-                <thead>
-                    <tr style="//display:none;">
-                        <th class="text-center">ID</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Patrulla</th>
-                        <th class="text-center" style="display:none;"><i class="fa fa-trophy fa-fw"></i></th>
-                        <th class="text-center" style="display:none;"><i class="fa fa-warning fa-fw"></i></th>
-                        <th class="text-center" style="display:none;"><i class="fa fa-times fa-fw"></i></th>
-                        <th class="text-center"><i class="fa fa-cog fa-fw"></i></th>
-                    </tr>
-                </thead>
-                <tbody class="agregando">
-
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="row text-center">
-        <form id="verificar" action="{{ urlFor('runCrearModerad') }}" method="POST">
-            <input type="text" name="entrantes" style="display:none;">
-            <button class="button radius success"><i class="fa fa-check fa-fw"></i> Agregar nuevos moderadores</button>
-        </form>
-    </div>
+{% block gestion %}
+<h4>Agregar moderadores</h4>
+<h6 class="subheader">Usuarios no moderadores</h6>
+<div class="descripcion">
+	En la siguiente tabla tiene la lista de usuarios que no son moderadores. Para agregar un nuevo moderador seleccione uno mediante el boton <i class="fa fa-plus fa-fw"></i>
+</div>
+<hr>
+<table id="tabla-usuarios" class="tabla-gestion">
+	<thead>
+		<tr>
+			<th class="text-center"><i class="fa fa-picture-o fa-fw"></i></th>
+			<th>Usuario</th>
+			<th class="text-center"><i class="fa fa-trophy fa-fw"></i></th>
+			<th class="text-center"><i class="fa fa-warning fa-fw"></i>/<i class="fa fa-times fa-fw"></i></th>
+			<th class="text-center"><i class="fa fa-cog fa-fw"></i></th>
+		</tr>
+	</thead>
+	<tbody class="usuarios">
+		<tr>
+			<td colspan=5 class="text-center"><i class="fa fa-spinner fa-pulse"></i> Buscando usuarios</td>
+		</tr>
+	</tbody>
+</table>
+<div class="panel paginacion clearfix collapse">
+	<div class="small-5 columns text-left">
+		<a id="nav-first"><i class="fa fa-fast-backward fa-fw fa-lg"></i></a>&nbsp;&nbsp;
+		<a id="nav-prev"><i class="fa fa-chevron-left fa-fw fa-lg"></i> Anterior</a>
+	</div>
+	<div class="small-2 columns text-center">
+		<i class="ejecutando fa fa-spinner fa-fw fa-lg fa-pulse"></i>
+	</div>
+	<div class="small-5 columns text-right">
+		<a id="nav-next">Proximo <i class="fa fa-chevron-right fa-fw fa-lg"></i></a>&nbsp;&nbsp;
+		<a id="nav-last"><i class="fa fa-fast-forward fa-fw fa-lg"></i></a>
+	</div>
+</div>
+<hr>
+<h6 class="subheader">Usuarios moderadores</h6>
+<div class="descripcion">
+	En la siguiente tabla se irán agregando los usuarios que usted eligió para agregar como moderadores. Recuerde seleccionar la patrulla antes de aceptar. Si desea quitar un usuario de la tabla, haga clic en el boton <i class="fa fa-minus fa-fw"></i>
+</div>
+<table id="tabla-usuarios-moderadores" class="tabla-gestion">
+	<thead>
+		<tr style="//display:none;">
+			<th class="text-center"><i class="fa fa-picture-o fa-fw"></i></th>
+			<th>Usuario</th>
+			<th>Patrulla</th>
+			<th class="text-center" style="display:none;"><i class="fa fa-trophy fa-fw"></i></th>
+			<th class="text-center" style="display:none;"><i class="fa fa-warning fa-fw"></i></th>
+			<th class="text-center" style="display:none;"><i class="fa fa-times fa-fw"></i></th>
+			<th class="text-center"><i class="fa fa-cog fa-fw"></i></th>
+		</tr>
+	</thead>
+	<tbody class="agregando">
+	</tbody>
+</table>
+<div class=" small-only-text-center text-right">
+	<form id="verificar" action="{{ urlFor('runCrearModerad') }}" method="POST">
+		<input type="text" name="entrantes" style="display:none;">
+		<button class="button radius small success"><i class="fa fa-check fa-fw"></i> Agregar nuevos moderadores</button>
+	</form>
 </div>
 
 <div id="selector-patrulla" style="display:none">
-    <select name="patrulla">
-       <option value="0">--Sin asignar--</option>
-        {% for patrulla in patrullas %}
-        <option value="{{patrulla.id}}">{{patrulla.nombre|capitalize}}</option>
-        {% endfor %}
-    </select>
+	<select name="patrulla">
+		<option value="0">--Sin asignar--</option>
+		{% for patrulla in patrullas %}
+		<option value="{{patrulla.id}}">{{patrulla.nombre|capitalize}}</option>
+		{% endfor %}
+	</select>
 </div>
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts_cont %}
+{% block scripts_gestion %}
 <script>
-    var moderadores_nuevos = new Array();
-    var base_url = '{{ baseUrl() }}';
+	var moderadores_nuevos = new Array();
+	var imgURL = "{{ urlFor('shwImgUsuario',{'res':32})}}"
 
-    $(document).ready(function(){
-        verTodo();
-    });
+	$(document).ready(function(){
+		verTodo();
+	});
 
-    var agregarUsuario = function(id, nombre, apellido, puntos, advertencia, suspendido) {
-        td_id = $('<td>').addClass('text-center').html( id );
-        td_nombre = $('<td>').html( nombre );
-        td_apellido = $('<td>').html( apellido );
-        td_patrullas = $('<td>').addClass('columna-patrullas').html($('#selector-patrulla').html()).hide();
-        td_puntos = $('<td>').addClass('ocultar').addClass('text-center').html( puntos );
-        td_advertencia = $('<td>').addClass('ocultar').addClass('text-center').html( 'null' );
-        td_suspendido = $('<td>').addClass('ocultar').addClass('text-center').html( 'null' );
-        boton_agregar = $('<a>').attr('src','#').addClass('agregar button tiny radius').html('<i class="fa fa-plus fa-fw fa-lg"></i>')
-        td_agregar = $('<td>').addClass('text-center').html( boton_agregar );
-        if(advertencia){
-            td_advertencia = td_advertencia.html( 'Si' );
-        } else {
-            td_advertencia = td_advertencia.html( 'No' );
-        }
-        if(suspendido == '1'){
-            td_suspendido = td_suspendido.html( 'Si' );
-        } else {
-            td_suspendido = td_suspendido.html( 'No' );
-        }
+	var agregarUsuario = function(id, nombre, apellido, puntos, advertencia, suspendido) {
+		td_img = $('<td>').addClass('text-center').html('<img src="'+ imgURL.replace(':idUsu',id)+'" class="img-perfil size-20">');
+		td_nombre = $('<td>').html( nombre + ' ' + apellido );
+		td_patrullas = $('<td>').addClass('columna-patrullas').html($('#selector-patrulla').html()).hide();
+		td_puntos = $('<td>').addClass('text-center ocultar').html( puntos );
+		td_status = $('<td>').addClass('text-center ocultar').html( 'null' );
+		boton_agregar = $('<a>').attr('src','#').addClass('agregar button tiny radius').html('<i class="fa fa-plus fa-fw fa-lg"></i>')
+		td_agregar = $('<td>').addClass('text-center').html( boton_agregar );
+		var advertido = null;
+		var suspendido = null;
+		if(advertencia){advertido = 'Si';} else {advertido = 'No';}
+		if(suspendido == '1'){suspendido = 'Si'} else {suspendido = 'No';}
+		td_status = $('<td>').addClass('text-center ocultar').html( advertido+' / '+suspendido );
+		tr_usuario = $('<tr>')
+			.append(td_img)
+			.append(td_nombre)
+			.append(td_patrullas)
+			.append(td_puntos)
+			.append(td_status)
+			.append(td_agregar)
+			.attr('id','usuario-'+id)
+			.addClass('usuario');
+		if( advertencia ){tr_usuario.addClass('advertido');}
+		if( suspendido ){tr_usuario.addClass('suspendido');}
+		$("#tabla-usuarios").find('tbody').append(tr_usuario);
+	}
 
-        tr_usuario = $('<tr>')
-            .append(td_id)
-            .append(td_nombre)
-            .append(td_apellido)
-            .append(td_patrullas)
-            .append(td_puntos)
-            .append(td_advertencia)
-            .append(td_suspendido)
-            .append(td_agregar)
-            .attr('id','usuario-'+id)
-            .addClass('usuario');
-        if( advertencia ){
-            tr_usuario.addClass('advertido');
-        }
-        if( suspendido ){
-            tr_usuario.addClass('suspendido');
-        }
-        $(".tabla-usuarios").find('tbody').append(tr_usuario);
-    }
+	var agregarErrorFila = function(mensaje) {
+		td_mensaje = $('<td>').addClass('text-center').attr('colspan',7).html( mensaje );
+		tr_ultima = $('<tr>').append(td_mensaje);
+		$("#tabla-usuarios").find('tbody').append( tr_ultima );
+	}
 
-    var agregarErrorFila = function(mensaje) {
-        td_mensaje = $('<td>').addClass('text-center').attr('colspan',7).html( mensaje );
-        tr_ultima = $('<tr>').append(td_mensaje);
-        $(".tabla-usuarios").find('tbody').append( tr_ultima );
-    }
+	function startGetRequest(event) {
+		enviarSolicitud(event.data.url);
+	}
 
-    function startGetRequest(event) {
-        enviarSolicitud(event.data.url);
-    }
+	function enviarSolicitud(url_query) {
+		$('.ejecutando').show();
+		var request = $.ajax({
+			url: url_query,
+			cache: false,
+			dataType: "json"
+		}).done(function(resultados, textStatus, request) {
+			refreshPaginator(parseLinkHeader(request.getResponseHeader('link')));
+			$("#tabla-usuarios").find('tbody').empty();
+			for (var i=0; i<resultados.length; i++) {
+				agregarUsuario(
+					resultados[i].id,
+					resultados[i].nombre,
+					resultados[i].apellido,
+					resultados[i].puntos,
+					resultados[i].advertencia,
+					resultados[i].suspendido);
+			}
+			$('.ejecutando').hide();
+		}).fail(function(jqXHR, textStatus) {
+			$("#tabla-usuarios").find('tbody').empty();
+			agregarErrorFila( '<i class="fa fa-unlink fa-fw"></i> Error en la busqueda de los usuarios!');
+			alert("Request failed: " + textStatus);
+			return false;
+		});
+	}
 
-    function enviarSolicitud(url_query) {
-        $('.ejecutando').show();
-        var request = $.ajax({
-            url: url_query,
-            cache: false,
-            dataType: "json"
-        }).done(function(resultados, textStatus, request) {
-            refreshPaginator(parseLinkHeader(request.getResponseHeader('link')));
-            $(".tabla-usuarios").find('tbody').empty();
-            for (var i=0; i<resultados.length; i++) {
-                agregarUsuario(
-                    resultados[i].id,
-                    resultados[i].nombre,
-                    resultados[i].apellido,
-                    resultados[i].puntos,
-                    resultados[i].advertencia,
-                    resultados[i].suspendido);
-            }
-            $('.ejecutando').hide();
-        }).fail(function(jqXHR, textStatus) {
-            $(".tabla-usuarios").find('tbody').empty();
-            agregarErrorFila( '<i class="fa fa-unlink fa-fw"></i> Error en la busqueda de los usuarios!');
-            alert("Request failed: " + textStatus);
-            return false;
-        });
-    }
+	$(document).on('click', '.agregar', function() {
+		var id = $(this).closest('.usuario').attr('id').replace('usuario-', '');
+		if( $(".agregando tr#usuario-"+ id).length == 0 ){
+			$(this).removeClass('agregar').addClass('quitar');
+			$(this).addClass('alert');
+			$(this).children().removeClass('fa-plus').addClass('fa-minus');
+			$('.agregando').append($(this).closest('.usuario'));
+			$(".agregando tr > td.columna-patrullas").show();
+			$(".agregando tr > td.ocultar").hide();
+		}
+	});
 
-    $(document).on('click', '.agregar', function() {
-        var id = $(this).closest('.usuario').attr('id').replace('usuario-', '');
-        if( $(".agregando tr#usuario-"+ id).length == 0 ){
-            $(this).removeClass('agregar').addClass('quitar');
-            $(this).addClass('alert');
-            $(this).children().removeClass('fa-plus').addClass('fa-minus');
-            $('.agregando').append($(this).closest('.usuario'));
-            $(".agregando tr > td.columna-patrullas").show();
-            $(".agregando tr > td.ocultar").hide();
-        }
-    });
+	$(document).on('click', '.quitar', function() {
+		$(this).closest('.usuario').remove();
+	});
 
-    $(document).on('click', '.quitar', function() {
-        $(this).closest('.usuario').remove();
-    });
+	$('#verificar').submit(function() {
+		moderadores_nuevos.length = 0;
+		$('.agregando').children('tr').each(function () {
+			var id_usr = $(this).attr('id').replace('usuario-', '');
+			var patrulla_id = $(this).find(":selected").val();
+			moderadores_nuevos.push('{'+ '\"usr\":\"' + id_usr + '\",\"pat\":\"' + patrulla_id + '\"}');
+		});
+		json_usuarios = '[' + moderadores_nuevos.join() + ']';
+		$('input[name="entrantes"]').val(json_usuarios);
+	});
 
-    $('#verificar').submit(function() {
-        moderadores_nuevos.length = 0;
-        $('.agregando').children('tr').each(function () {
-            var id_usr = $(this).attr('id').replace('usuario-', '');
-            var patrulla_id = $(this).find(":selected").val();
-            moderadores_nuevos.push('{'+ '\"usr\":\"' + id_usr + '\",\"pat\":\"' + patrulla_id + '\"}');
-        });
-        json_usuarios = '[' + moderadores_nuevos.join() + ']';
-        $('input[name="entrantes"]').val(json_usuarios);
-    });
+	function verTodo() {
+		$('.sub-nav.ver dd.active').removeClass('active');
+		$('.verTodo').addClass('active');
+		var query = { where_null:'patrulla_id'};
+		enviarSolicitud('{{ baseUrl() }}' + '/usuario?' + jQuery.param(query));
+	}
 
-    //    var sortNombre = function() {
-    //        $('.sub-nav.sort dd.active').removeClass('active');
-    //        $('.sortNombre').addClass('active');
-    //
-    //    }
-    //    var sortApellido = function() {
-    //        $('.sub-nav.sort dd.active').removeClass('active');
-    //        $('.sortApellido').addClass('active');
-    //
-    //    }
-    //    var sortPuntos = function() {
-    //        $('.sub-nav.sort dd.active').removeClass('active');
-    //        $('.sortPuntos').addClass('active');
-    //    }
-    function verTodo() {
-        $('.sub-nav.ver dd.active').removeClass('active');
-        $('.verTodo').addClass('active');
-        var query = { where_null:'patrulla_id'};
-        enviarSolicitud(base_url + '/usuario?' + jQuery.param(query));
-    }
-    function verAdvertidos() {
-        $('.sub-nav.ver dd.active').removeClass('active');
-        $('.verAdvertidos').addClass('active');
-        var query = { where_null:'patrulla_id' , where_not_null:'advertencia' };
-        enviarSolicitud(base_url + '/usuario?' + jQuery.param(query));
-    }
-    function verSuspendidos() {
-        $('.sub-nav.ver dd.active').removeClass('active');
-        $('.verSuspendidos').addClass('active');
-        var query = { where_null:'patrulla_id' , where:'suspendido-eq-1' };
-        enviarSolicitud(base_url + '/usuario?' + jQuery.param(query));
-    }
 </script>
 {% endblock %}
 {# ----------------------------------------------------------- #}

@@ -1,0 +1,38 @@
+{# VARIBLES #}
+{% set footer = true %}
+{% set barraNav = true %}
+{% set ver_notificaciones = true %}
+{% set html_class = '' %}
+{% set body_class = 'portal-bg' %}
+
+{% extends "master.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block titulo %}Bienvenido - Virtuágora{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block body %}
+<div class="portal-usuario">
+	{% include 'portal/header.twig' %}
+	<div class="row intro">
+		<div class="medium-10 medium-centered columns">
+			<div class="titulo text-center">
+				<span class="fa-stack fa-3x">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-file-text fa-inverse fa-stack-1x"></i>
+				</span>
+				<h1 style="margin:0">Terminos y condiciones</h1>
+			</div>
+			<div class="text-justify tos">
+			{{ tos.value|bbCode }}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}{% endblock %}
+{# ----------------------------------------------------------- #}

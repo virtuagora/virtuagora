@@ -1,25 +1,37 @@
 // LAYOUT
-@import "layouts/introduction";
-@import "layouts/registro";
-@import "layouts/login";
-@import "layouts/portal";
-@import "layouts/perfiles";
 
-@import "layouts/crear-contenido";
-@import "layouts/ver-contenido";
+@import "global/sticky-footer";
+@import "global/typeahead";
+@import "global/tagmanager";
+@import "global/colores";
+@import "global/barra-nav";
+@import "global/tabla-notificaciones";
+@import "global/modal-eliminar";
+@import "global/modal-sancionar";
+@import "global/paginacion";
+@import "global/img-perfiles";
+@import "global/misc";
 
-@import "layouts/propuesta";
-@import "layouts/problematica";
-@import "layouts/documento";
-@import "layouts/novedad";
-@import "layouts/evento";
+//----------------------------------------
 
-@import "layouts/partido";
+@import "portal/home";
+@import "portal/header";
+@import "portal/contenidos";
+@import "portal/directorios";
+@import "portal/partido";
+@import "portal/introduccion";
+@import "portal/registro";
+@import "portal/perfiles";
+@import "portal/gestion-panel";
+@import "portal/tos";
 
-@import "layouts/ver-panel";
-@import "layouts/panel-usuario";
-@import "layouts/panel-jefe";
+@import "contenidos/crear-contenido";
+@import "contenidos/ver-contenido";
+@import "contenidos/propuesta";
+@import "contenidos/problematica";
+@import "contenidos/documento";
+@import "contenidos/novedad";
+@import "contenidos/evento";
 
-@import "layouts/administrar";
+@import "administrar/administrar";
 
-@import "layouts/misc";

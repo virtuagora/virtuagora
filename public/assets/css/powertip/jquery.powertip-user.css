@@ -1,0 +1,93 @@
+/* powerTip-user Plugin */
+#powerTip-user {
+	cursor: default;
+	background-color: #3D486C;
+	border-radius: 6px;
+	border: 1px solid #FFF;
+	color: #fff;
+    font-size: 12px;
+	display: none;
+	padding: 10px;
+	position: absolute;
+	white-space: nowrap;
+	z-index: 2147483647;
+}
+#powerTip-user ul li{
+	font-size: 12px;
+}
+#powerTip-user ul{
+	margin: 0;
+}
+#powerTip-user hr{
+	margin: 5px 0px;
+	opacity: 0.3;
+	padding: 0 10%
+}
+#powerTip-user.n:before, #powerTip-user.s:before {
+	border-right: 5px solid transparent;
+	border-left: 5px solid transparent;
+	left: 50%;
+	margin-left: -5px;
+}
+#powerTip-user.e:before, #powerTip-user.w:before {
+	border-bottom: 5px solid transparent;
+	border-top: 5px solid transparent;
+	margin-top: -5px;
+	top: 50%;
+}
+#powerTip-user.n:before {
+	border-top: 10px solid #FFF;
+	bottom: -10px;
+}
+#powerTip-user.e:before {
+	border-right: 10px solid #FFF;
+	left: -10px;
+}
+#powerTip-user.s:before {
+	border-bottom: 10px solid #FFF;
+	top: -10px;
+}
+#powerTip-user.w:before {
+	border-left: 10px solid #FFF;
+	right: -10px;
+}
+#powerTip-user.ne:before, #powerTip-user.se:before {
+	border-right: 10px solid transparent;
+	border-left: 0;
+	left: 10px;
+}
+#powerTip-user.nw:before, #powerTip-user.sw:before {
+	border-left: 10px solid transparent;
+	border-right: 0;
+	right: 10px;
+}
+#powerTip-user.ne:before, #powerTip-user.nw:before {
+	border-top: 10px solid #FFF;
+	bottom: -10px;
+}
+#powerTip-user.se:before, #powerTip-user.sw:before {
+	border-bottom: 10px solid #FFF;
+	top: -10px;
+}
+#powerTip-user.nw-alt:before, #powerTip-user.ne-alt:before,
+#powerTip-user.sw-alt:before, #powerTip-user.se-alt:before {
+	border-top: 10px solid #FFF;
+	bottom: -10px;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	left: 10px;
+}
+#powerTip-user.ne-alt:before {
+	left: auto;
+	right: 10px;
+}
+#powerTip-user.sw-alt:before, #powerTip-user.se-alt:before {
+	border-top: none;
+	border-bottom: 10px solid #FFF;
+	bottom: auto;
+	top: -10px;
+}
+#powerTip-user.se-alt:before {
+	left: auto;
+	right: 10px;
+}

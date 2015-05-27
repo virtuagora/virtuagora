@@ -15,7 +15,7 @@ class PortalCtrl extends Controller {
     }
 
     public function verLogin() {
-        $this->render('login/login-static.twig');
+        $this->render('registro/login-static.twig');
     }
 
     public function verTos() {

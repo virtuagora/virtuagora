@@ -1,0 +1,69 @@
+// CREAR
+
+.crear-contenido.documento{
+	textarea[name=descripcion]{
+		font-family: "Lora", serif;
+		font-style: italic;
+		line-height: inherit;
+		text-rendering: optimizelegibility;
+		color: #383838;
+		border-top: 1px solid #CACACA;
+		border-bottom: 1px solid #CACACA;
+		border-left:0;
+		border-right:0;
+		box-shadow: none;
+		resize: none;
+		&:focus{
+			background-color: #fff4c4;
+		}
+		margin: 0;
+	}
+}
+
+.alerta.ir-ultima-version{
+	background-color: shade($documento-color, 15%);
+	border-bottom: 1px solid #FFF;
+	.button{margin: 5px 0;}
+}
+
+.ver-contenido.documento{
+	.descripcion.panel {
+		font-size: rem-calc(16);
+		font-style: italic;
+		margin-bottom: 20px;
+	}
+	.unselected{color: #CACACA; font-size: rem-calc(13);
+		p{color: #CACACA; font-size: rem-calc(13);}
+	}
+	.parrafo{
+		margin-bottom: 15px;
+		&:hover{
+			background-color: #fff4c4;
+			cursor: pointer;
+		}
+	}
+	.bt-cerrar-comentarios:hover{
+		cursor: pointer;
+	}
+	table.comentarios{
+		border-left: 1px solid #CACACA;
+		border-right: 1px solid #CACACA;
+		border-bottom: 3px solid #CACACA;
+		font-family: 'Open Sans', sans-serif;
+		margin-bottom: 10px;
+		tr:first-child td{
+			border-bottom: 1px dashed #CACACA;
+		}
+
+	}
+	.barra{
+		padding: 0;
+		background: #CACACA;
+	}
+}
+
+#powerTip .tt-comentarios{
+	font-size: rem-calc(18);
+}
+
+

@@ -1,0 +1,10 @@
+// VER
+
+.alerta.propuestas-asociadas{
+	padding: 5px;
+	.button{margin: 0;}
+	&,ul li {font-size: rem-calc(13);}
+	background-color: $propuesta-color;
+	&,a{color: #FFF;}
+
+}

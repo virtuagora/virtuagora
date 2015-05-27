@@ -1,308 +1,299 @@
 {# VARIBLES #}
 
-{% extends "admin/ver-administracion.twig" %}
+{% extends "admin/gestion.twig" %}
 
 {# ----------------------------------------------------------- #}
 {% block titulo %}Virtuagora - Administrar funcionarios {% endblock %}
 {# ----------------------------------------------------------- #}
 {% set intro_titulo = 'Administrar funcionarios' %}
 {# ----------------------------------------------------------- #}
-{% block administracion %}
-<div class="listar-funcionarios">
-    <div class="row">
-
-        <div class="panel">
-            <h6>Usted esta administrando los funcionarios de <b><a href='#'>{{ organismo.nombre }}</a></b>.</h6>
-            <h6>Cuando hayas terminado, recuerda hacer clic en el boton de <b>Aplicar los cambios</b></h6>
-        </div>
-    </div>
-    <div class="row">
-        <table class="tabla-funcionarios">
-            <thead>
-                <tr>
-                    <th class="text-center">Funcionario actual</th>
-                    <th class="text-center">Nuevo funcionario</th>
-                    <th class="text-center">Cambiar</th>
-                </tr>
-            </thead>
-            <tbody id="plantel">
-            </tbody>
-        </table>
-        <form method="POST" action="">
-            <input type="hidden" id="entrantes" name="entrantes">
-            <input type="hidden" id="salientes" name="salientes">
-            <div class="text-center large-4 large-centered columns">
-                <button type="submit" id="bt-aplicar" class="modificar button boton-agregar success radius"><i class="fa fa-check fa-fw"></i> Aplicar los cambios</button>
-            </div>
-        </form>
-    </div>
+{% block gestion %}
+<h4>Administrar organismos</h4>
+<h6 class="subheader">Gestionar funcionarios del organismo</h6>
+<div class="descripcion">
+	La siguiente tabla contiene la lista de funcionarios del organismo <i>{{ organismo.nombre }}</i>. Cuando haya terminado, recuerde hacer clic en el boton de <b>Aplicar cambios</b>
 </div>
+<hr>
+<table  class="tabla-gestion">
+	<thead>
+		<tr>
+			<th class="text-center">Funcionario actual</th>
+			<th class="text-center">Nuevo funcionario</th>
+			<th class="text-center">Cambiar</th>
+		</tr>
+	</thead>
+	<tbody id="plantel">
+	</tbody>
+</table>
+<div class="small-only-text-center text-right">
+	<form method="POST" action="">
+		<input type="hidden" id="entrantes" name="entrantes">
+		<input type="hidden" id="salientes" name="salientes">
+		<div class="text-center large-4 large-centered columns">
+			<button type="submit" id="bt-aplicar" class="modificar button boton-agregar small success radius"><i class="fa fa-check fa-fw"></i> Aplicar cambios</button>
+		</div>
+	</form>
+</div>
+
 
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block modals %}
 
-<div id="opcionesCupo" class="reveal-modal remove-whitespace small" data-reveal>
-    <div id="nuevo">
-        <div class="row">
-            <div class="listar-funcionarios large-9 large-centered columns text-center">
-                <table class="tabla-funcionarios">
-                    <thead>
-                        <tr>
-                            <th class="text-center">Funcionario actual</th>
-                            <th class="text-center">Nuevo funcionario</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td id="funcActual" class="text-center"></td>
-                            <td id="funcNuevo" class="text-center"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="large-8 large-centered columns">
-            <fieldset>
-                <legend>Opciones del cupo</legend>
-                <a id="bt-cambiar" class="button expand radius"><i class="fa fa-search fa-fw"></i>&nbsp;Buscar candidatos</a>
-                <a id="bt-vacante" class="button expand radius"><i class="fa fa-external-link fa-fw"></i>&nbsp;Dejar el puesto vacante</a>
-                <a id="bt-cancelar" class="button expand radius"><i class="fa fa-user fa-fw"></i>&nbsp;Mantener funcionario actual</a>
+<div id="opcionesCupo" class="gestion-panel reveal-modal remove-whitespace small" data-reveal>
+	<div id="nuevo">
 
-            </fieldset>
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-4 large-centered columns">
-            <a id="bt-salirModalOpc" class="button expand secondary radius">Cerrar</a>
-        </div>
-    </div>
+		<table class="tabla-gestion">
+			<thead>
+				<tr>
+					<th class="text-center">Funcionario actual</th>
+					<th class="text-center">Nuevo funcionario</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td id="funcActual" class="text-center"></td>
+					<td id="funcNuevo" class="text-center"></td>
+				</tr>
+			</tbody>
+		</table>
+		<fieldset>
+			<legend>Opciones del cupo</legend>
+			<a id="bt-cambiar" class="button expand negative small radius"><i class="fa fa-search fa-fw"></i>&nbsp;Buscar candidatos</a>
+			<a id="bt-vacante" class="button expand negative small radius"><i class="fa fa-external-link fa-fw"></i>&nbsp;Dejar el puesto vacante</a>
+			<a id="bt-cancelar" class="button expand negative small radius"><i class="fa fa-user fa-fw"></i>&nbsp;Mantener funcionario actual</a>
+
+		</fieldset>
+	</div>
+	<div class="row">
+		<div class="large-4 large-centered columns">
+			<a id="bt-salirModalOpc" class="button expand secondary radius">Cerrar</a>
+		</div>
+	</div>
 </div>
 
-<div id="posiblesCandidatos" class="reveal-modal remove-whitespace small" data-reveal>
-    <div class="row">
-        <div class="listar-funcionarios large-9 large-centered columns text-center">
-            <table class="tabla-funcionarios" id="funcCandidatos">
-                <thead>
-                    <tr>
-                        <th class="text-center">Candidatos elegibles</th>
-                        <th class="text-center"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-        <div class="large-12 columns control-tabla">
-            <div class="panel clearfix large-9 large-centered columns">
-                <div class="small-4 columns text-left">
-                    <a id="nav-first"><i class="fa fa-angle-double-left fa-fw fa-lg"></i></a>&nbsp;&nbsp;
-                    <a id="nav-prev"><i class="fa fa-angle-left fa-fw fa-lg"></i></a>
-                </div>
-                <div class="small-4 columns text-center">
-                    <i class="ejecutando fa fa-spinner fa-fw fa-lg fa-pulse"></i>
-                </div>
-                <div class="small-4 columns text-right">
-                    <a id="nav-next"><i class="fa fa-angle-right fa-fw fa-lg"></i></a>&nbsp;&nbsp;
-                    <a id="nav-last"><i class="fa fa-angle-double-right fa-fw fa-lg"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-4 large-centered columns">
-            <a id="bt-salirBuscarFunc" class="button expand secondary radius">Cerrar</a>
-        </div>
-    </div>
+<div id="posiblesCandidatos" class="gestion-panel reveal-modal remove-whitespace small" data-reveal>
+
+	<table class="tabla-gestion" id="funcCandidatos">
+		<thead>
+			<tr>
+				<th class="text-center">Candidatos elegibles</th>
+				<th class="text-center"></th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	<div class="row">
+		<div class="panel paginacion clearfix collapse">
+			<div class="small-5 columns text-left">
+				<a id="nav-first"><i class="fa fa-fast-backward fa-fw fa-lg"></i></a>&nbsp;&nbsp;
+				<a id="nav-prev"><i class="fa fa-chevron-left fa-fw fa-lg"></i> Anterior</a>
+			</div>
+			<div class="small-2 columns text-center">
+				<i class="ejecutando fa fa-spinner fa-fw fa-lg fa-pulse"></i>
+			</div>
+			<div class="small-5 columns text-right">
+				<a id="nav-next">Proximo <i class="fa fa-chevron-right fa-fw fa-lg"></i></a>&nbsp;&nbsp;
+				<a id="nav-last"><i class="fa fa-fast-forward fa-fw fa-lg"></i></a>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="large-4 large-centered columns">
+			<a id="bt-salirBuscarFunc" class="button small expand negative radius">Cerrar</a>
+		</div>
+	</div>
 </div>
 {% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts_cont %}
-<script src="{{ baseUrl() }}/assets/js/underscore/underscore-min.js"></script>
+{% block scripts_gestion %}
+<script src="{{ baseUrl() }}/assets/js/foundation/foundation.reveal.js"></script>
 <script>
-    var cupos_tot = {{ organismo['cupo'] }};
-    var cupos_ocu = {{ organismo['funcionarios_count'] }};
-    var funcionarios = {{ funcionarios|json_encode|raw }};
-    var links_tabla = new Array();
+	var cupos_tot = {{ organismo['cupo'] }};
+	var cupos_ocu = {{ organismo['funcionarios_count'] }};
+	var funcionarios = {{ funcionarios|json_encode|raw }};
+	var links_tabla = new Array();
+	var imgURL = "{{ urlFor('shwImgUsuario',{'res':32})}}"
 
-    var func_act = new Array();
-    var func_new = new Array();
-    var cambiando = -1;
-    $(document).ready(function() {
-        $('#nuevo').hide();
-        for (var i=0; i<cupos_ocu; i++) {
-            var newFuncionario = '<tr><td id="actual-'+i+'" class="text-center">'+
-                '<i class="fa fa-user fa-fw fa-lg"></i>&nbsp;'+
-                funcionarios[i]['nombre']+' '+
-                funcionarios[i]['apellido']+'</td><td id="nuevo-'+i+'" class="text-center">- sin cambio -</td><td class="text-center"><a id="cambiar-'+
-                i+'" class="modificar button radius cambiar"><i class="fa fa-pencil fa-fw"></i></a></td></tr>';
-            $(newFuncionario).appendTo("#plantel");
-            $('#cambiar-'+i).data('id', i);
-            func_act[i] = funcionarios[i]['id'];
-            func_new[i] = -1;
-        }
-        for (var i=cupos_ocu; i<cupos_tot; i++) {
-            var newFuncionario = '<tr><td id="actual-'+i+'" class="text-center">- vacante -</td><td id="nuevo-'+
-                i+'" class="text-center">- sin cambio -</td><td class="text-center"><a id="cambiar-'+i+'" class="modificar button radius cambiar">'+
-                '<i class="fa fa-pencil fa-fw"></i></a></td></tr>';
-            $(newFuncionario).appendTo("#plantel");
-            $('#cambiar-'+i).data('id', i);
-            func_act[i] = 0;
-            func_new[i] = -1;
-        }
-        $('.cambiar').click(function() {
-            $('.disabled').each(function() {
-                $(this).removeClass('disabled');
-                $(this).removeClass('warning');
-                $(this).html('<i class="fa fa-pencil fa-fw"></i>');
-            });
-            $(this).removeClass('cambiar');
-            $(this).addClass('disabled');
-            $(this).addClass('warning');
-            $(this).html('<i class="fa fa-cog fa-spin fa-fw"></i>');
-            cambiando = $(this).data('id');
-            $('#funcActual').html( $('#actual-'+cambiando).html() );
-            $('#funcNuevo').html( $('#nuevo-'+cambiando).html() );
-            $('#nuevo').show();
-            $('#opcionesCupo').foundation('reveal', 'open');
-        });
-        $(document).on('close.fndtn.reveal', '[data-reveal]', function () {
-            var modal = $(this);
-            $('.disabled').each(function() {
-                $(this).removeClass('disabled');
-                $(this).removeClass('warning');
-                $(this).html('<i class="fa fa-pencil fa-fw"></i>');
-            });
-            cambiando=-1;
-        });
-        $('#bt-cambiar').click(function() {
-            enviarSolicitud('{{ baseUrl() }}/usuario?');
-            $('#posiblesCandidatos').foundation('reveal', 'open');
-        });
-        $('#bt-vacante').click(function() {
-            var nuevoId;
-            var nuevoNombre;
-            if (func_act[cambiando] == 0) {
-                nuevoNombre ='- sin cambio -';
-                nuevoId = -1;
-            } else {
-                nuevoNombre = '- vacante -';
-                nuevoId = 0;
-            }
-            efectuarIntercambio(nuevoId, nuevoNombre);
-            $('#opcionesCupo').foundation('reveal', 'close');
-        });
-        $('#bt-cancelar').click(function() {
-            efectuarIntercambio(-1, '- sin cambio -');
-            $('#opcionesCupo').foundation('reveal', 'close');
-        });
-        $('#bt-aplicar').click(function() {
-            var func_out = new Array();
-            for (var i=0; i<cupos_ocu; i++) {
-                if (func_new[i] >= 0) {
-                    func_out.push(funcionarios[i]['id']);
-                }
-            }
-            var func_in = new Array();
-            for (var i=0; i<cupos_tot; i++) {
-                if (func_new[i] > 0) {
-                    func_in.push(func_new[i]);
-                }
-            }
-        });
-        $('#bt-salirModalOpc').click(function() {
-            $('#opcionesCupo').foundation('reveal', 'close');
-        });
-        $('#bt-salirBuscarFunc').click(function() {
-            $('#posiblesCandidatos').foundation('reveal', 'close');
-        });
-    });
+	var func_act = new Array();
+	var func_new = new Array();
+	var cambiando = -1;
+	$(document).ready(function() {
+		$('#nuevo').hide();
+		for (var i=0; i<cupos_ocu; i++) {
+			var newFuncionario = '<tr><td id="actual-'+i+'" class="text-center">'+
+				'<img src="'+ imgURL.replace(':idUsu',funcionarios[i]['id'])+'" class="img-perfil size-20"> '+
+				funcionarios[i]['nombre']+' '+
+				funcionarios[i]['apellido']+'</td><td id="nuevo-'+i+'" class="text-center">- sin cambio -</td><td class="text-center"><a id="cambiar-'+
+				i+'" class="modificar button radius cambiar"><i class="fa fa-pencil fa-fw"></i></a></td></tr>';
+			$(newFuncionario).appendTo("#plantel");
+			$('#cambiar-'+i).data('id', i);
+			func_act[i] = funcionarios[i]['id'];
+			func_new[i] = -1;
+		}
+		for (var i=cupos_ocu; i<cupos_tot; i++) {
+			var newFuncionario = '<tr><td id="actual-'+i+'" class="text-center">- vacante -</td><td id="nuevo-'+
+				i+'" class="text-center">- sin cambio -</td><td class="text-center"><a id="cambiar-'+i+'" class="modificar button radius cambiar">'+
+				'<i class="fa fa-pencil fa-fw"></i></a></td></tr>';
+			$(newFuncionario).appendTo("#plantel");
+			$('#cambiar-'+i).data('id', i);
+			func_act[i] = 0;
+			func_new[i] = -1;
+		}
+		$('.cambiar').click(function() {
+			$('.disabled').each(function() {
+				$(this).removeClass('disabled');
+				$(this).removeClass('warning');
+				$(this).html('<i class="fa fa-pencil fa-fw"></i>');
+			});
+			$(this).removeClass('cambiar');
+			$(this).addClass('disabled');
+			$(this).addClass('warning');
+			$(this).html('<i class="fa fa-cog fa-spin fa-fw"></i>');
+			cambiando = $(this).data('id');
+			$('#funcActual').html( $('#actual-'+cambiando).html() );
+			$('#funcNuevo').html( $('#nuevo-'+cambiando).html() );
+			$('#nuevo').show();
+			$('#opcionesCupo').foundation('reveal', 'open');
+		});
+		$(document).on('close.fndtn.reveal', '[data-reveal]', function () {
+			var modal = $(this);
+			$('.disabled').each(function() {
+				$(this).removeClass('disabled');
+				$(this).removeClass('warning');
+				$(this).html('<i class="fa fa-pencil fa-fw"></i>');
+			});
+			cambiando=-1;
+		});
+		$('#bt-cambiar').click(function() {
+			enviarSolicitud('{{ baseUrl() }}/usuario?');
+			$('#posiblesCandidatos').foundation('reveal', 'open');
+		});
+		$('#bt-vacante').click(function() {
+			var nuevoId;
+			var nuevoNombre;
+			if (func_act[cambiando] == 0) {
+				nuevoNombre ='- sin cambio -';
+				nuevoId = -1;
+			} else {
+				nuevoNombre = '- vacante -';
+				nuevoId = 0;
+			}
+			efectuarIntercambio(nuevoId, nuevoNombre);
+			$('#opcionesCupo').foundation('reveal', 'close');
+		});
+		$('#bt-cancelar').click(function() {
+			efectuarIntercambio(-1, '- sin cambio -');
+			$('#opcionesCupo').foundation('reveal', 'close');
+		});
+		$('#bt-aplicar').click(function() {
+			var func_out = new Array();
+			for (var i=0; i<cupos_ocu; i++) {
+				if (func_new[i] >= 0) {
+					func_out.push(funcionarios[i]['id']);
+				}
+			}
+			var func_in = new Array();
+			for (var i=0; i<cupos_tot; i++) {
+				if (func_new[i] > 0) {
+					func_in.push(func_new[i]);
+				}
+			}
+		});
+		$('#bt-salirModalOpc').click(function() {
+			$('#opcionesCupo').foundation('reveal', 'close');
+		});
+		$('#bt-salirBuscarFunc').click(function() {
+			$('#posiblesCandidatos').foundation('reveal', 'close');
+		});
+	});
 
-    function startGetRequest(event) {
-        enviarSolicitud(event.data.url);
-    }
+	function startGetRequest(event) {
+		enviarSolicitud(event.data.url);
+	}
 
-    function enviarSolicitud(url_query) {
-        $('.ejecutando').show();
-        var request = $.ajax({
-            url: url_query,
-            cache: false,
-            dataType: "json"
-        });
-        request.done(function(resultados) {
-            refreshPaginator(parseLinkHeader(request.getResponseHeader('link')));
-            $("#funcCandidatos").find('tbody').empty();
-            for (var i=0; i<resultados.length; i++) {
-                var candidato = $("<li>");
-                agregarCandidatoTabla(
-                    resultados[i].nombre,
-                    resultados[i].apellido,
-                    resultados[i].id,
-                    (resultados[i].nombre+' '+resultados[i].apellido)
-                );
-            }
-            $('.ejecutando').hide();
-            return true;
-        });
-        request.fail(function(jqXHR, textStatus) {
-            alert("Request failed: " + textStatus);
-            return false;
-        });
-    }
+	function enviarSolicitud(url_query) {
+		$('.ejecutando').show();
+		var request = $.ajax({
+			url: url_query,
+			cache: false,
+			dataType: "json"
+		});
+		request.done(function(resultados) {
+			refreshPaginator(parseLinkHeader(request.getResponseHeader('link')));
+			$("#funcCandidatos").find('tbody').empty();
+			for (var i=0; i<resultados.length; i++) {
+				var candidato = $("<li>");
+				agregarCandidatoTabla(
+					resultados[i].nombre,
+					resultados[i].apellido,
+					resultados[i].id,
+					('<img src="'+ imgURL.replace(':idUsu',resultados[i].id)+'" class="img-perfil size-20"> ' + resultados[i].nombre+' '+resultados[i].apellido)
+				);
+			}
+			$('.ejecutando').hide();
+			return true;
+		});
+		request.fail(function(jqXHR, textStatus) {
+			alert("Request failed: " + textStatus);
+			return false;
+		});
+	}
 
-    function cambiarBanca(nuevoId, nuevoNombre) {
-        if ($.inArray(nuevoId, func_act.concat(func_new)) != -1) {
-            alert('Ese funcionario ya está asociado.');
-        } else {
-            func_new[cambiando] = nuevoId;
-            efectuarIntercambio(nuevoId, nuevoNombre)
-            $('#posiblesCandidatos').foundation('reveal', 'close');
-        }
-    }
+	function cambiarBanca(nuevoId, nuevoNombre) {
+		if ($.inArray(nuevoId, func_act.concat(func_new)) != -1) {
+			alert('Ese funcionario ya está asociado.');
+		} else {
+			func_new[cambiando] = nuevoId;
+			efectuarIntercambio(nuevoId, nuevoNombre)
+			$('#posiblesCandidatos').foundation('reveal', 'close');
+		}
+	}
 
-    function agregarCandidatoTabla(nombre, apellido, nuevoId, nuevoNombre) {
-        $("#funcCandidatos").find('tbody')
-            .append($('<tr>')
-                    .append($('<td>')
-                            .attr('class', 'text-center')
-                            .html(nombre +' '+ apellido),
-                            $('<td>')
-                            .attr('class', 'text-center')
-                            .append($('<a class="modificar button success radius">').html('<i class="fa fa-check"></i>').click(function() {cambiarBanca(nuevoId, nuevoNombre);})
-                                   )));
-    }
+	function agregarCandidatoTabla(nombre, apellido, nuevoId, nuevoNombre) {
+		$("#funcCandidatos").find('tbody')
+			.append($('<tr>')
+					.append($('<td>')
+							.attr('class', 'text-center')
+							.html(nombre +' '+ apellido),
+							$('<td>')
+							.attr('class', 'text-center')
+							.append($('<a class="modificar button success radius">').html('<i class="fa fa-check"></i>').click(function() {cambiarBanca(nuevoId, nuevoNombre);})
+								   )));
+	}
 
-    function efectuarIntercambio(nuevoId, nuevoNombre) {
-        $('#nuevo-'+cambiando).text(nuevoNombre);
-        $('#cambiar-'+cambiando).removeClass('disabled');
-        $('#cambiar-'+cambiando).removeClass('warning');
-        $('#cambiar-'+cambiando).html('<i class="fa fa-pencil fa-fw"></i>');
-        func_new[cambiando] = nuevoId;
-        cambiando = -1;
-        var func_out = new Array();
-        for (var i=0; i<cupos_ocu; i++) {
-            if (func_new[i] >= 0) {
-                func_out.push(funcionarios[i]['id']);
-            }
-        }
-        var func_in = new Array();
-        for (var i=0; i<cupos_tot; i++) {
-            if (func_new[i] > 0) {
-                func_in.push(func_new[i]);
-            }
-        }
-        $('#entrantes').val('['+func_in.join()+']');
-        $('#salientes').val('['+func_out.join()+']');
-    }
+	function efectuarIntercambio(nuevoId, nuevoNombre) {
+		$('#nuevo-'+cambiando).html(nuevoNombre);
+		$('#cambiar-'+cambiando).removeClass('disabled');
+		$('#cambiar-'+cambiando).removeClass('warning');
+		$('#cambiar-'+cambiando).html('<i class="fa fa-pencil fa-fw"></i>');
+		func_new[cambiando] = nuevoId;
+		cambiando = -1;
+		var func_out = new Array();
+		for (var i=0; i<cupos_ocu; i++) {
+			if (func_new[i] >= 0) {
+				func_out.push(funcionarios[i]['id']);
+			}
+		}
+		var func_in = new Array();
+		for (var i=0; i<cupos_tot; i++) {
+			if (func_new[i] > 0) {
+				func_in.push(func_new[i]);
+			}
+		}
+		$('#entrantes').val('['+func_in.join()+']');
+		$('#salientes').val('['+func_out.join()+']');
+	}
 
 
-    var toggleControlTabla = function(nombre){
-        if(links_tabla[nombre]){
-            $('.' + nombre).removeClass('transparente');
-        } else {
-            $('.' + nombre).addClass('transparente');
-        }
-    }
+	var toggleControlTabla = function(nombre){
+		if(links_tabla[nombre]){
+			$('.' + nombre).removeClass('transparente');
+		} else {
+			$('.' + nombre).addClass('transparente');
+		}
+	}
 
 </script>
 {% endblock %}

@@ -2,12 +2,13 @@
 
 {# VARIBLES #}
 {% set body_class = 'color-propuesta' %}
-{% set header_icono = 'fa-file-text-o' %}
+{% set header_icono = 'fa-lightbulb-o' %}
 {% if modo is not defined %}
 {% set header_titulo = 'NUEVA PROPUESTA' %}
 {% set url_form = urlFor('runCrearPropues') %}
 {% endif %}
 {% set type_contenido = 'propuesta' %}
+{% set url_redirigir = urlFor('shwPortal') %}
 
 {# ----------------------------------------------------------- #}
 {% block titulo %}Crear propuesta - Virtuágora{% endblock %}
@@ -24,7 +25,7 @@
 						<i class="fa fa-circle fa-stack-2x"></i>
 						<i class="fa fa-star-o blanco fa-stack-1x"></i>
 					</span>
-					<div class="descripcion">
+					<div class="descripcion text-justify">
 						<b>OPCIONAL: Asocie su propuesta con alguna problematica.</b> Si la propuesta esta relacionado o es la solución asociada a una (o varias) de las problematicas publicadas en esta plataforma, asóciela colocando el ID de la problematica
 					</div>
 				</div>
@@ -47,9 +48,9 @@
 
 {% endblock %}
 {# ----------------------------------------------------------- #}
-{% block modals_cont %}{% endblock %}
+{% block content_modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts_cont %}
+{% block content_scripts %}
 
 {% block scripts_modificar %}{% endblock scripts_modificar %}
 <script>
@@ -61,7 +62,7 @@
 	$(document).ready(function() {
 		if (window.location.hash) {
 			var array = window.location.hash.substring(1).split('&');
-			var query = {where: "contenible_type-eq-Problematica,id-eq-"+array[0]};
+			var query = {where: "contenible_type-eq-Problematica,contenible_id-eq-"+array[0]};
 			enviarSolicitud(base_url + '/contenido?' + jQuery.param(query));
 		}
 	});
@@ -83,7 +84,7 @@
 		display: 'titulo',
 		source: propuestas,
 		templates: {
-			empty: '<div class="tt-empty">No se encontraron propuestas.</div>',
+			empty: '<div class="tt-empty"><i class="fa fa-asterisk fa-fw"></i> No se encontraron propuestas</div>',
 			suggestion: function(data) {
 				return '<div><i class="fa fa-bullhorn fa-fw"></i> '+data.titulo+' - '+data.autor.nombre+' '+data.autor.apellido+'</div>';
 			}
@@ -99,11 +100,15 @@
 			if(resultados.length > 0){
 				agregarReferencia(resultados[0].id, resultados[0].titulo, resultados[0].autor.nombre + ' ' + resultados[0].autor.apellido);
 			} else {
-				$('#etiqueta-resultado').append(icon_error).append(' No existe la problematica');
+				$('#etiqueta-resultado').empty()
+					.append(icon_error)
+					.append(' No existe la problematica');
 				$('#referido').val('');
 			}
 		}).fail(function(jqXHR, textStatus) {
-			$('#etiqueta-resultado').append(icon_error).append(' ERROR')
+			$('#etiqueta-resultado').empty()
+				.append(icon_error)
+				.append('ERROR');
 			$('#referido').val('');
 		});
 	}

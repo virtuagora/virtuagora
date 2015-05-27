@@ -34,7 +34,12 @@ img.img-perfil{
     &.no-border{
         border: 0;
     }
-    &.size-32{
+    &.size-20{
+        height: auto;
+        width: 20px;
+		vertical-align: bottom;
+    }
+	&.size-32{
         height: auto;
         width: 32px;
     }

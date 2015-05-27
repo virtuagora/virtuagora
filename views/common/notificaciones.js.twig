@@ -1,85 +1,58 @@
 <script>
-    var enviarPost = false;
-    $(document).ready(function(){
-        buscarNotificaciones();
-    });
-    $('.bt-notificaciones').data('powertiptarget', 'notificaciones-contenido');
-    $('.bt-notificaciones').powerTip({
-        placement: 'se-alt',
-        manual: true,
-        popupId: 'powerTip-notif'
-    });
-    $('.bt-notificaciones').on('click', function() {
-        // hide any open tooltips
-        // this is optional, but recommended in case we optimize away the sanity
-        // checks in the API at some point.
-        //$.powerTip.hide();
+	var enviarPost = false;
+	$(document).ready(function(){
+		buscarNotificaciones();
+	});
 
-        // show the tooltip for the element that received the click event
-        if(enviarPost == true){
-            marcarNotificacionesLeidas();
-            $('.notificaciones .contador-on').hide();
-        }
-        $.powerTip.show(this);
-    });
+	$('#bt-abrir-notif').on('click', function() {
+		if(enviarPost == true){
+			marcarNotificacionesLeidas();
+			$('.notificacion .contador-on').hide();
+		}
+	});
 
-    $(document).mouseup(function (e)
-                        {
-        var container = $("#powerTip-notif");
-        var container2 = $(".bt-notificaciones");
+	var nuevaNotificacion = function(fecha, mensaje){
+		var td_mensaje = $('<td>').html( mensaje );
+		var tr_notif = $('<tr>').addClass( 'notif-msj' ).append( td_mensaje );
+		$('.tabla-notificaciones tbody').prepend( tr_notif );
+	}
 
-        if ( (!container.is(e.target) // if the target of the click isn't the container...
-              && container.has(e.target).length === 0) &&
-            (!container2.is(e.target) // if the target of the click isn't the container...
-             && container2.has(e.target).length === 0)
-           )// ... nor a descendant of the container
-        {
-            $.powerTip.hide();
-        }
-    });
+	var buscarNotificaciones = function(){
+		var request = $.ajax({
+			url: "{{ urlFor('shwListaNotific') }}",
+			cache: false,
+			dataType: "json"
+		}).done(function(resultados, textStatus, request) {
+			if(resultados.length > 0){
+				$('.sin-notificaciones').hide();
+				$('.contador-on').show().html(resultados.length);
+				$('.cant-notificaciones').html(resultados.length);
+				$('.portal-con-notificaciones').show();
+				for (var i=0; i<resultados.length; i++) {
+					nuevaNotificacion(
+						resultados[i].update_at,
+						resultados[i].mensaje);
+				}
+				enviarPost = true;
+			} else {
+				$('.sin-notificaciones').show();
+				$('.portal-sin-notificaciones').show();
+			}
+		}).fail(function(jqXHR, textStatus) {
+			alert("Request failed: " + textStatus);
+			return false;
+		});
+	}
 
-    var nuevaNotificacion = function(fecha, mensaje){
-        var td_mensaje = $('<td>').html( mensaje );
-        var tr_notif = $('<tr>').addClass( 'notif-msj' ).append( td_mensaje );
-        $('.tabla-notificaciones tbody').prepend( tr_notif );
-    }
-
-    var buscarNotificaciones = function(){
-        var request = $.ajax({
-            url: "{{ urlFor('shwListaNotific') }}",
-            cache: false,
-            dataType: "json"
-        }).done(function(resultados, textStatus, request) {
-            if(resultados.length > 0){
-                $('.sin-notificaciones').hide();
-                $('.contador-on').show().html(resultados.length);
-                $('.cant-notificaciones').html(resultados.length);
-                $('.portal-con-notificaciones').show();
-                for (var i=0; i<resultados.length; i++) {
-                    nuevaNotificacion(
-                        resultados[i].update_at,
-                        resultados[i].mensaje);
-                }
-                enviarPost = true;
-            } else {
-                $('.sin-notificaciones').show();
-                $('.portal-sin-notificaciones').show();
-            }
-        }).fail(function(jqXHR, textStatus) {
-            alert("Request failed: " + textStatus);
-            return false;
-        });
-    }
-
-    var marcarNotificacionesLeidas = function(){
-        var request = $.ajax({
-            url: "{{ urlFor('runElimiNotific') }}",
-            type: 'POST',
-            cache: false,
-        }).done(function(resultados, textStatus, request) {
-            enviarPost = false;
-        }).fail(function(jqXHR, textStatus) {
-            alert("Request failed: " + textStatus);
-        });
-    }
+	var marcarNotificacionesLeidas = function(){
+		var request = $.ajax({
+			url: "{{ urlFor('runElimiNotific') }}",
+			type: 'POST',
+			cache: false,
+		}).done(function(resultados, textStatus, request) {
+			enviarPost = false;
+		}).fail(function(jqXHR, textStatus) {
+			alert("Request failed: " + textStatus);
+		});
+	}
 </script>

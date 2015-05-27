@@ -1,95 +1,93 @@
 {# VARIBLES #}
 
-{% extends "admin/ver-administracion.twig" %}
+{% set opcion_activa = 4 %}
+{% extends "admin/gestion.twig" %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}Virtuagora - Ajustes plataforma{% endblock %}
+{% block titulo %}Ajustes plataforma{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block linkheads_cont %}
 <link rel="stylesheet" href="{{ baseUrl() }}/assets/css/sceditor/sceditor-main.css">
 {% endblock %}
 {# ----------------------------------------------------------- #}
-{% set intro_titulo = 'Ajustes plataforma' %}
-{# ----------------------------------------------------------- #}
-{% block administracion %}
-<div class="ajustes-plataforma">
-    <form action="{{ urlFor('runAdmAjuste') }}" method="POST">
-        {% for ajuste in ajustes %}
-        <div class="row">
-            {% if (ajuste.value_type == 'int') or (ajuste.value_type == 'str') %}
-            <div class="large-8 columns">
-                <h5>{{ ajuste.key|capitalize }}</h5>
-                {{ ajuste.description }}
-            </div>
-            <div class="large-4 columns">
-                {% if ajuste.value_type == 'int' %}
-                <input type="number" name="{{ ajuste.key }}" >
-                {% elseif ajuste.value_type == 'str' %}
-                <input type="text" name="{{ ajuste.key }}" >
-                {% endif%}
-            </div>
-            {% elseif ajuste.value_type == 'txt' %}
-            <div class="large-12 columns">
-                <div class="titulo">
-                    <h5>{{ ajuste.key|capitalize }}</h5>
-                </div>
-                <div class="descripcion">
-                    {{ ajuste.description }}
-                </div>
-                <textarea name="{{ ajuste.key }}" rows=10></textarea>
-            </div>
-            {% endif %}
-        </div>
-        <hr>
-        {% endfor %}
-        {% if ajustes|length > 0 %}
-        <div class="row text-center">
-            <button class="button success radius"><i class="fa fa-check fa-fw"></i> Aceptar los cambios</button>
-        </div>
-        {% else %}
-        <div class="row text-center">
-            <div class="large-12 columns">
-                <div class="titulo">
-                    <h5>No hay ajustes para configurar</h5>
-                </div>
-                <div class="descripcion">
-                    Consulte con un experto...
-                </div>
-            </div>
-        </div>
-        {% endif %}
-    </form>
-</div>
+{% block gestion %}
+<h4>Ajustes de la plataforma</h4>
+<h6 class="subheader">Defina los ajustes que le dara a su plataforma</h6>
+<hr>
+<form action="{{ urlFor('runAdmAjuste') }}" method="POST">
+	{% for ajuste in ajustes %}
+	<div class="row collapse">
+		{% if (ajuste.value_type == 'int') or (ajuste.value_type == 'str') %}
+		<div class="row collapse">
+			<div class="medium-6 columns">
+				<h6 class="subheader">{{ ajuste.key|capitalize }}</h6>
+				<div class="descripcion">
+					{{ ajuste.description }}
+				</div>
+			</div>
+			<div class="medium-6 columns">
+				{% if ajuste.value_type == 'int' %}
+				<input type="number" name="{{ ajuste.key }}" >
+				{% elseif ajuste.value_type == 'str' %}
+				<input type="text" name="{{ ajuste.key }}" >
+				{% endif%}
+			</div>
+		</div>
+		{% elseif ajuste.value_type == 'txt' %}
+		<h6 class="subheader">{{ ajuste.key|capitalize }}</h6>
+		<div class="descripcion">
+			{{ ajuste.description }}
+		</div>
+		<textarea name="{{ ajuste.key }}"></textarea>
+		{% endif %}
+	</div>
+	<hr>
+	{% endfor %}
+	{% if ajustes|length > 0 %}
+	<div class="small-only-text-center text-right">
+		<button class="button success small radius"><i class="fa fa-check fa-fw"></i> Aceptar los cambios</button>
+	</div>
+	{% else %}
+	<h6 class="subheader">No hay ajustes para la plataforma</h6>
+	<div class="descripcion">
+		Consulte con su administrador
+	</div>
+	{% endif %}
+</form>
 
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts_cont %}
+{% block scripts_gestion %}
 <script src="{{ baseUrl() }}/assets/js/autosize/autosize.min.js"></script>
 <script src="{{ baseUrl() }}/assets/js/jquery/jquery.sceditor.bbcode.min.js"></script>
 <script>
-    $(function() {
-        $("textarea").sceditor({
-            plugins: "bbcode",
-            emoticonsEnabled: false,
-            width: 'auto',
-            style: "{{ baseUrl() }}/assets/css/sceditor/sceditor-panel.css",
-            autoExpand: true,
-            resizeHeight: true,
-        });
-    });
-    $(document).ready(function(){
-        {% for ajuste in ajustes %}
-        {% if ajuste.value_type == 'int' %}
-        $('input[name="{{ ajuste.key }}"]').val({{ ajuste.value }});
-        {% elseif ajuste.value_type == 'str' %}
-        $('input[name="{{ ajuste.key }}"]').val({{ ajuste.value }});
-        {% elseif ajuste.value_type == 'txt' %}
-        $('textarea[name={{ ajuste.key }}]').sceditor('instance').val('{{ ajuste.value|bbCode }}', false);
-        {% endif %}
-        {% endfor %}
-    });
+	$(function() {
+		$("textarea").sceditor({
+			plugins: "bbcode",
+			emoticonsEnabled: false,
+			toolbarExclude: "font",
+			height: '200',
+			width: '98%',
+			id: 'editor',
+			style: "{{ baseUrl() }}/assets/css/sceditor/sceditor-panel.css",
+			resizeEnabled: false,
+			resizeHeight: true,
+			autoExpand: true
+		});
+	});
+	$(document).ready(function(){
+		{% for ajuste in ajustes %}
+		{% if ajuste.value_type == 'int' %}
+		$('input[name="{{ ajuste.key }}"]').val({{ ajuste.value }});
+		 {% elseif ajuste.value_type == 'str' %}
+		 $('input[name="{{ ajuste.key }}"]').val({{ ajuste.value }});
+		  {% elseif ajuste.value_type == 'txt' %}
+		  $('textarea[name={{ ajuste.key }}]').sceditor('instance').val('{{ ajuste.value|bbCode }}', false);
+		   {% endif %}
+		   {% endfor %}
+		   });
 
 </script>
 {% endblock %}

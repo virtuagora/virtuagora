@@ -1,0 +1,302 @@
+.portal-usuario.partidos{
+	.header-partido{
+		background-color: $partido-color;
+		padding: 6px 0;
+		font-size: rem-calc(12);
+		&,a {color: #FFF;}
+		.button{margin:0;}
+		hr{margin: 3px 0; opacity: 0;}
+	}
+}
+
+//----------------------------------------------
+
+// CREAR PARTIDO y MODIFICAR
+.crear-partido{
+	.intro-partido{
+		font-family: "Source Sans Pro",sans-serif;
+		font-weight: 700;
+		font-style: normal;
+		font-size: rem-calc(50);
+		text-rendering: optimizelegibility;
+		color: #FFFFFF;
+		padding: 70px 0px 55px 0px;
+	}
+
+	.panel-crear-partido{
+		@include panel();
+		background: #FFFFFF;
+		color: #383838;
+
+		.nombre-partido{
+			padding: 40px 15px 0px 15px;
+			position: relative;
+			margin-bottom: rem-calc(5);
+
+			&:before {
+				position: absolute;
+				content: " ";
+				display: block;
+				min-width: rem-calc(180);
+				width: 60%;
+				height: rem-calc(1);
+				bottom: rem-calc(-15);
+				left: 50%;
+				right: auto;
+				-webkit-transform: translateX(-50%);
+				transform: translateX(-50%);
+				background-color: #000000;
+			}
+
+			&:after {
+				position: absolute;
+				content: " ";
+				display: block;
+				width: rem-calc(7);
+				height: rem-calc(7);
+				bottom: rem-calc(-18);
+				left: 50%;
+				right: auto;
+				-webkit-transform: translateX(-50%);
+				transform: translateX(-50%);
+				background-color: #000000;
+				border-radius: 100%;
+			}
+
+			textarea[name=nombre]{
+				font-family: "Source Sans Pro",sans-serif;
+				font-weight: 700;
+				font-style: normal;
+				font-size: rem-calc(50);
+				text-rendering: optimizelegibility;
+				color: #383838;
+				border: 0px solid #484848;
+				width: 100%;
+				min-height: 82px;
+				box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+				text-align: center;
+				resize: none;
+				&:focus{
+					background-color: #fff4c4;
+				}
+				margin: 0;
+			}
+		}
+
+		.datos-partido {
+			font-family: "Source Sans Pro",sans-serif;
+			//font-weight: 700;
+			font-style: normal;
+			font-size: rem-calc(18px);
+			margin-top: 30px;
+			img{
+				border-radius: 32px;
+				margin: 0px 5px 0px 25px;
+			}
+		}
+
+		.acronimo-partido{
+			margin: 30px 0px;
+		}
+	}
+
+	.publicar-partido{
+		margin: 75px 0px;
+	}
+	.titulo-campo{
+		margin: 15px 0;
+		.asterisco{
+			color: #ff0000;
+		}
+	}
+
+	.show-img-partido{
+		img {
+			margin: 6px 15px !important;
+		}
+	}
+	.fileUpload {
+		margin: 15px 0px;
+		position: relative;
+		overflow: hidden;
+	}
+	.fileUpload input.upload {
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin: 0;
+		padding: 0;
+		font-size: 150px;
+		cursor: pointer;
+		opacity: 0;
+		filter: alpha(opacity=0);
+	}
+
+	.descripcion-partido{
+		margin-bottom: 20px;
+		textarea[name=descripcion]{
+			font-style: italic;
+			line-height: normal;
+			font-size: rem-calc(15px);
+			text-rendering: optimizelegibility;
+			color: #383838;
+			border: 1px solid #e0e0e0;
+			box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+			text-align: center;
+			min-height: 10px;
+			resize: none;
+			&:focus{
+				background-color: #fff4c4;
+			}
+			margin: 0;
+		}
+	}
+
+}
+
+.listar-partidos{
+	letter-spacing: -0.4px;
+	.intro-listado{
+		.titulo-listado{
+			font-family: "Source Sans Pro",sans-serif;
+			font-weight: 700;
+			font-style: normal;
+			font-size: rem-calc(50);
+			text-rendering: optimizelegibility;
+			color: #FFFFFF;
+			margin: 70px 0px 20px 0px;
+		}
+		.panel{
+			font-size: rem-calc(14);
+			margin-bottom: 30px;
+		}
+	}
+	.row-listado{
+		margin: 25px 0 50px 0;
+	}
+	.panel-partido{
+		@include panel();
+		background: #FFFFFF;
+		color: #383838;
+		min-height:180px;
+		.img-partido{
+			z-index: 10;
+			position: relative;
+			float: left
+		}
+		.wrapper-descripcion{
+			margin: 0 70px 0 180px;
+			.titulo h2{
+				font-family: "Source Sans Pro",sans-serif;
+			}
+			.descripcion{
+				font-size: rem-calc(14);
+				font-style: italic;
+			}
+			hr.salto{
+				clear: none;
+				margin: 8px 0;
+			}
+			.datos-extras{
+				font-size: rem-calc(12);
+			}
+		}
+		.wrapper-asociar{
+			margin: 0 70px 0 180px;
+			.partido-asociando{
+				margin: 15px 0;
+			}
+			.pregunta{
+				margin: 15px 0;
+			}
+		}
+		.wrapper-botones{
+			position: relative;
+			float: right;
+			z-index: 20;
+			width: 50px;
+			.etiqueta{
+				margin: 5px 0px;
+			}
+			.button{
+				font-size: rem-calc(25);
+				padding: 4px 8px;
+			}
+		}
+		ul.listado-h {
+			margin: 0px;
+			li {
+				display: inline-block;
+				vertical-align: middle;
+				margin: 0px 15px 0px 0px;
+			}
+		}
+	}
+}
+
+.eliminar-partido{
+	.panel{
+		background-color: #ffe9d9;
+		h3{
+			margin:15px;
+			color: #FF0000;
+		}
+	}
+	.descripcion{
+		margin: 45px 0px;
+	}
+	.segundo-boton{
+		.bt-segunda-conf{
+			font-size: rem-calc(30);
+		}
+	}
+}
+
+.gestionar-roles{
+	.titulo h4{
+		letter-spacing: -0.2px;
+	}
+	.explicacion.panel{
+		letter-spacing: -0.2px;
+		font-size: rem-calc(14);
+		padding: 6px;
+	}
+	hr{
+		margin: 0 0 8px 0;
+	}
+	.listar-jefes, .listar-afiliados{
+		.tabla-jefes, .tabla-afiliados{
+			width: 100%;
+			thead tr th{
+				font-size: rem-calc(13);
+				font-weight: 400;
+				padding: 5px 10px;
+				background-color: #e3e3e3;
+				.titulo{
+					width: 70%;
+				}
+			}
+			tr:nth-of-type(even){
+				background-color: #f5f5f5;
+			}
+			tr:hover{
+				background-color: #fcf6d9;
+			}
+			td{
+				img{
+					width: 20px;
+					height: 20px;
+				}
+				font-size: rem-calc(13);
+				padding: 3px 10px;
+				.button{
+					margin: 0;
+				}
+				.quitar, .agregar{
+					font-size: rem-calc(15);
+					padding: 2px 5px;
+				}
+			}
+		}
+	}
+}

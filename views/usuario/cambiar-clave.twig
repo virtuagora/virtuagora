@@ -1,54 +1,60 @@
 {# VARIBLES #}
 
-{% extends "usuario/ver-administracion.twig" %}
+{% set opcion_activa = 2 %}
+{% extends "usuario/gestion.twig" %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}Virtuagora - Modificar clave{% endblock %}
+{% block titulo %}Modificar clave{% endblock %}
 {# ----------------------------------------------------------- #}
-{% set intro_titulo = 'Modificar clave' %}
-{# ----------------------------------------------------------- #}
-{% block configuracion %}
-<div class="cambiar-clave">
-    <div class="row">
-        <div class="large-12 columns">
-            <div class="consideraciones panel large-6 columns">
-                <p>Consideraciones para el cambio de su contraseña</p>
-                <ul class="fa-ul">
-                    <li><i class="fa-li fa fa-check-square"></i>La nueva contraseña debe tener minimo 8 caracteres.</li>
-                    <li><i class="fa-li fa fa-check-square"></i>Podes usar numeros, mayusculas, simbolos.</li>
-                    <li><i class="fa-li fa fa-exclamation-triangle"></i><b>Seleccione una contraseña difícil de adivinar y fácil de recordar.</b> Evite utilizar contraseñas vinculadas con fechas de cumpleaños, nros. de cuentas, nros. de documentos, datos personales, caracteres repetitivos o secuencias lógicas. Evite contraseñas fácilmente deducibles.</li>
-                    <li><i class="fa-li fa fa-exclamation-triangle"></i><b>No la divulgue</b>. No ingrese su clave de acceso en presencia de terceros. No comparta su contraseña con nadie. Bajo ninguna circunstancia informe su contraseña a otra persona, aún cuando el que lo solicite se identifique como administrador del portal Virtuágora.</li>
-                </ul>
-            </div>
-            <div class="form-clave large-6 columns">
-                <form action="{{ urlFor('runModifClvUsuario') }}" method="POST">
-                    <label>Ingrese su contraseña
-                        <input type="password" name="pass-old">
-                    </label>
-                    <label>Ingrese su <b>nueva</b> contraseña
-                        <input type="password" name="pass-new">
-                    </label>
-                    <label>Re-ingrese su <b>nueva</b> contraseña
-                        <input type="password" name="pass-verif">
-                    </label>
-                    <button class="button success large expand radius"><i class="fa fa-check fa-fw fa-lg"></i>Cambiar clave</button>
-                </form>
-            </div>
-        </div>
-    </div>
+{% block gestion %}
+<h4>Datos personales</h4>
+<h6 class="subheader">Cambiar clave</h6>
+<hr>
+<div class="descripcion">
+	Consideraciones para el cambio de su contraseña.
+	<ul class="fa-ul">
+		<li style="font-size: 12px;"><i class="fa-li fa fa-check-square"></i>La nueva contraseña debe tener minimo 8 caracteres.</li>
+		<li style="font-size: 12px;"><i class="fa-li fa fa-check-square"></i>Podes usar numeros, mayusculas, simbolos.</li>
+		<li style="font-size: 12px;"><i class="fa-li fa fa-exclamation-triangle"></i><b>Seleccione una contraseña difícil de adivinar y fácil de recordar.</b> Evite utilizar contraseñas vinculadas con fechas de cumpleaños, nros. de cuentas, nros. de documentos, datos personales, caracteres repetitivos o secuencias lógicas. Evite contraseñas fácilmente deducibles.</li>
+		<li style="font-size: 12px;"><i class="fa-li fa fa-exclamation-triangle"></i><b>No la divulgue</b>. No ingrese su clave de acceso en presencia de terceros. No comparta su contraseña con nadie. Bajo ninguna circunstancia informe su contraseña a otra persona, aún cuando el que lo solicite se identifique como administrador del portal Virtuágora.</li>
+	</ul>
 </div>
-
+<hr>
+<form action="{{ urlFor('runModifClvUsuario') }}" method="POST">
+	<div class="row collapse">
+		<div class="medium-6 columns">
+			<h6 class="subheader">Ingrese su contraseña</h6>
+		</div>
+		<div class="medium-6 columns">
+			<input type="password" name="pass-old">
+		</div>
+	</div>
+	<hr>
+	<div class="row collapse">
+		<div class="medium-6 columns">
+			<h6 class="subheader">Ingrese su <b>nueva</b> contraseña</h6>
+		</div>
+		<div class="medium-6 columns">
+			<input type="password" name="pass-new">
+		</div>
+	</div>
+	<hr>
+	<div class="row collapse">
+		<div class="medium-6 columns">
+			<h6 class="subheader">Re-ingrese su <b>nueva</b> contraseña</h6>
+		</div>
+		<div class="medium-6 columns">
+			<input type="password" name="pass-verif">
+		</div>
+	</div>
+	<hr>
+	<div class="small-text-center large-text-right">
+		<button class="button success radius"><i class="fa fa-check fa-fw fa-lg"></i> Aceptar cambios</button>
+	</div>
+</form>
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts_cont %}
-<script src="{{ baseUrl() }}/assets/js/underscore/underscore-min.js"></script>
-<script>
-    $(document).ready(function(){
-
-    });
-
-</script>
-{% endblock %}
+{% block scripts_cont %}{% endblock %}
 {# ----------------------------------------------------------- #}

@@ -1,240 +1,137 @@
-<section class="comentarios-cont">
-    <div class="row">
-        <div class="small-10 small-centered columns">
-            <h1 class="comentario-header">Comentarios</h1>
-        </div>
-    </div>
-    <div class="row text-center">
-        <div class="bt-comentar-cont button large radius"><i class="fa fa-comment fa-fw fa-lg"></i>&nbsp;Dejar un comentario</div>
-    </div>
-    <div class="row-comentar row" hidden>
-        <div class="small-10 medium-10 small-centered columns">
-            <div class="comentario-cont row">
-                <div class="avatar text-center">
-                    <span class="user">
-                        <a href="{{ urlFor('shwUsuario',{'idUsu': user.id}) }}">
-                        <img class="img-perfil small-border radius
-                        {% if user.moderador %}
-                        moderador
-                        {% else %}
-                        {% if user.es_jefe %}
-                        jefe
-                        {% else %}
-                        {% if user.es_funcionario %}
-                        funcionario
-                        {% else %}
-                        {% if user.verified_at %}
-                        verificado
-                        {% endif %}
-                        {% endif %}
-                        {% endif %}
-                        {% endif %}
-                        " src="{{ avatarUrl(user.img_tipo, user.img_hash, 160) }}">
-                        </a>
-                    </span>
-                    <span class="puntos">
-                        <i class="fa fa-trophy fa-fw"></i>&nbsp;{{ user.puntos }}
-                    </span>
-                </div>
-                <div class="comentario-wrapper">
-                    <form action='{{ url_comentar }}' method="POST">
-                        <div class="comenta-usuario"><i class="fa fa-caret-right fa-fw fa-lg"></i>&nbsp;{{ user.nombre }} {{ user.apellido }}</div>
-                        <textarea class="comentario-cuerpo" name="cuerpo" placeholder="Deje su comentario..."></textarea>
-                        <div class="comentario-confirmar text-right">
-                            <button class="button tiny success radius">
-                                <i class="fa fa-send fa-fw"></i>&nbsp;Enviar
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% if comentarios|length > 0 %}
-    <div class="row-comentarios row">
-        <div class="text-center"><b>{{ comentarios|length }} Comentario{{ comentarios|length > 1 ? 's' : '' }}</b></div>
-        <div class="wrapper-comentarios small-10 small-centered columns">
-            {% for comentario in comentarios %}
-            <div id="c{{ comentario.id }}" class="comentario-cont row">
-                <div class="avatar text-center">
-                    <span class="user">
-                       <a href="{{ urlFor('shwUsuario',{'idUsu': comentario.autor.id}) }}">
-                        <img class="img-perfil radius small-border
-                                    {% if comentario.autor.moderador %}
-                                    moderador
-                                    {% else %}
-                                    {% if comentario.autor.es_jefe %}
-                                    jefe
-                                    {% else %}
-                                    {% if comentario.autor.es_funcionario %}
-                                    funcionario
-                                    {% else %}
-                                    {% if comentario.autor.verified_at %}
-                                    verificado
-                                    {% endif %}
-                                    {% endif %}
-                                    {% endif %}
-                                    {% endif %}"
-                             src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 64) }}">
-                        </a>
-                    </span>
-                </div>
-                <div class="comentario-wrapper">
-                    <div class="comenta-usuario">
-                        {% if user.es_moderador %}
-                        <span>
-                            <a href='javascript:sancionar({{comentario.autor.id}})' class="bt-sancionar" ><i class="fa fa-exclamation-circle fa-fw fa-lg"></i></a>
-                        </span>
-                        {% endif %}
-                        <a href="{{ urlFor('shwUsuario',{'idUsu': comentario.autor.id}) }}"><i class="fa fa-user fa-fw fa-lg"></i>&nbsp;{{ comentario.autor.nombre }} {{ comentario.autor.apellido }} &nbsp;-&nbsp;</a>
-                        <span>
-                            <i class="fa fa-trophy fa-fw fa-lg"></i>&nbsp;{{ comentario.autor.puntos }}&nbsp;-&nbsp;
-                        </span>
-                        <span class="fecha">
-                            {{ comentario.updated_at|date("d/m/Y") }} a las {{ comentario.updated_at|date("H:i") }}
-                        </span>
-                        <span class="voto right">
-                            <a href='javascript:votarComentario({{comentario.id}},-1)'><i class="fa fa-thumbs-down fa-fw fa-lg" style="color:#FF4040;"></i></a>
-                        </span>
-                        <span class="voto right">
-                            {{ comentario.votos }} <a href='javascript:votarComentario({{comentario.id}},1)'>&nbsp;<i class="fa fa-thumbs-up fa-fw fa-lg" style="color:#33cc33;"></i></a>
-                        </span>
-                    </div>
-                    <div class="comentario-cuerpo">{{ comentario.cuerpo }}</div>
-                </div>
-                <div class="acciones">
-                    <ul>
-                        <li><a id="bt-rta-c{{ comentario.id }}" class="bt-rta"><i class="fa fa-pencil-square-o fa-fw fa-lg"></i>&nbsp;Responder</a></li>
-                        {% if (user.es_moderador) or (comentario.autor.id == user.id)  %}
-                        <li><a href='javascript:void(0)'><i class="fa fa-times fa-fw fa-lg"></i>&nbsp;Eliminar</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-            {% for respuesta in comentario.respuestas %}
-            <div id="r{{ respuesta.id }}" class="comentario-cont respuesta row">
-                <div class="avatar text-center">
-                    <span class="user">
-                       <a href="{{ urlFor('shwUsuario',{'idUsu': respuesta.autor.id}) }}">
-                        <img class="img-perfil radius small-border
-                                    {% if respuesta.autor.moderador %}
-                                    moderador
-                                    {% else %}
-                                    {% if respuesta.autor.es_jefe %}
-                                    jefe
-                                    {% else %}
-                                    {% if respuesta.autor.es_funcionario %}
-                                    funcionario
-                                    {% else %}
-                                    {% if respuesta.autor.verified_at %}
-                                    verificado
-                                    {% endif %}
-                                    {% endif %}
-                                    {% endif %}
-                                    {% endif %}"
-                             src="{{ avatarUrl(respuesta.autor.img_tipo, respuesta.autor.img_hash, 64) }}">
-                        </a>
-                    </span>
-                </div>
-                <div class="comentario-wrapper">
-                    <div class="comenta-usuario">
-                        {% if user.es_moderador %}
-                        <span>
-                            <a href='javascript:sancionar({{respuesta.autor.id}})' class="bt-sancionar" ><i class="fa fa-exclamation-circle fa-fw fa-lg"></i></a>
-                        </span>
-                        {% endif %}
-                        <a href="{{ urlFor('shwUsuario',{'idUsu': respuesta.autor.id}) }}"><i class="fa fa-user fa-fw fa-lg"></i>&nbsp;{{ respuesta.autor.nombre }} {{ respuesta.autor.apellido }} &nbsp;-&nbsp;</a>
-                        <span>
-                            <i class="fa fa-trophy fa-fw fa-lg"></i>&nbsp;{{ respuesta.autor.puntos }}&nbsp;-&nbsp;
-                        </span>
-                        <span class="fecha">
-                            {{ respuesta.updated_at|date("d/m/Y") }} a las {{ respuesta.updated_at|date("H:i") }}
-                        </span>
-                        <span class="voto right">
-                            <a href='javascript:votarComentario({{respuesta.id}},-1)'><i class="fa fa-thumbs-down fa-fw fa-lg" style="color:#FF4040;"></i></a>
-                        </span>
-                        <span class="voto right">
-                            {{ respuesta.votos }}<a href='javascript:votarComentario({{respuesta.id}},1)'>&nbsp;<i class="fa fa-thumbs-up fa-fw fa-lg" style="color:#33cc33;"></i></a>
-                        </span>
+<div class="panel white">
+	<h6><b>DEJAR UN COMENTARIO</b></h6>
+	<div class="box-comentarios">
+		<table class="comentarios">
+			<thead>
+				<th style="display:none">Icono</th>
+				<th style="display:none">Comentario</th>
+				<th style="display:none">Enviar</th>
+			</thead>
+			<tbody>
+				{% if user %}
+				<tr>
+					<td><a href="{{ urlFor('shwUsuario',{'idUsu': user.id}) }}"><img class="img-perfil size-32" src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}"></a></td>
+					<form action="{{ url_comentar }}" method="POST">
+						<td colspan="2">
+							<textarea name="cuerpo" rows=1 placeholder="Escriba su comentario..." style="margin-bottom:5px"></textarea>
+							<button class="button success radius tiny right"><i class="fa fa-send fa-fw"></i> Enviar</button>
+						</td>
 
-                    </div>
-                    <div class="comentario-cuerpo">{{ respuesta.cuerpo }}</div>
-                </div>
-                {% if (user.es_moderador) or (respuesta.autor.id == user.id)  %}
-                <div class="acciones">
-                    <ul>
-                        <li><a href='javascript:void(0)'><i class="fa fa-times fa-fw fa-lg"></i>&nbsp;Eliminar</a></li>
-                    </ul>
-                </div>
-                {% endif %}
-            </div>
-            {% endfor %}
-            {% endfor %}
-
-            <div class="comentario-cont respuesta vacia row" hidden>
-                <div class="avatar text-center">
-                    <span class="user">
-                        <img class="img-perfil radius small-border
-                                    {% if user.moderador %}
-                                    moderador
-                                    {% else %}
-                                    {% if user.es_jefe %}
-                                    jefe
-                                    {% else %}
-                                    {% if user.es_funcionario %}
-                                    funcionario
-                                    {% else %}
-                                    {% if user.verified_at %}
-                                    verificado
-                                    {% endif %}
-                                    {% endif %}
-                                    {% endif %}
-                                    {% endif %}" src="{{ avatarUrl(user.img_tipo, user.img_hash, 160) }}">
-                    </span>
-                </div>
-                <div class="comentario-wrapper">
-                    <div class="comenta-usuario">
-                        <i class="fa fa-caret-right fa-fw fa-lg"></i>&nbsp;{{ user.nombre }} {{ user.apellido }}&nbsp;
-                        <span class="fecha">
-                            responde...
-                        </span>
-                    </div>
-                    <form method="POST">
-                        <textarea class="comentario-cuerpo" name="cuerpo" placeholder="Deje su respuesta..."></textarea>
-                        <div class="comentario-confirmar text-right">
-                            <button class="button tiny success radius">
-                                <i class="fa fa-send fa-fw"></i>&nbsp;Enviar
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <form id="votarForm" method="POST" style="display:none">
-        <input type="text" name="valor">
-    </form>
-    {% else %}
-    <div class="row-sin-comentarios row text-center">
-        <div class="box-comentarios">
-            <div class="wrapper-comentarios small-10 small-centered columns">
-                <div class="nadie-comento-icono row text-center">
-                    <span class="fa-stack fa-lg ">
-                        <i class="fa fa-comment-o fa-stack-2x"></i>
-                        <i class="fa fa-question fa-stack-1x"></i>
-                    </span>
-                </div>
-                <div class="nadie-comento row text-center">
-                    <h4><b>No hay comentarios sobre la publicación</b></h4>
-                    <p>Sea el primero dejando su comentario al respecto</p>
-                    <div class="bt-focus-comentar button secondary radius">
-                        <i class="fa fa-arrow-up fa-fw"></i> Dejar un comentario</i>
-                </div>
-            </div>
-            <div class="row linea-final"></div>
-        </div>
-    </div>
-    </div>
-{% endif %}
-</section>
+					</form>
+				</tr>
+				{% else %}
+				<tr>
+					<td class="iniciar-sesion text-center" colspan="3">
+						<h5><b>Inicie sesión o Registresé</b></h5>
+						<p>Para poder comentar, debe primero <a href="{{ urlFor('shwLogin') }}">Iniciar sesion <i class="fa fa-sign-in fa-fw fa-lg"></i></a></p>
+					</td>
+				</tr>
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
+</div>
+<div id="comentariosContenido" class="panel white">
+	<h6><b>COMENTARIOS ({{ comentarios|length }})</b></h6>
+	<div class="box-comentarios">
+		<table class="comentarios">
+			<thead>
+				<th style="display:none">Icono</th>
+				<th style="display:none">Comentario</th>
+				<th style="display:none">Enviar</th>
+			</thead>
+			<tbody>
+				{% if comentarios|length > 0 %}
+				{% for comentario in comentarios %}
+				<tr>
+					<td class="text-center">
+						<a href="{{ urlFor('shwUsuario',{'idUsu': comentario.autor.id}) }}"><img class="img-perfil size-32" src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 32) }}"></a>
+						{% if user.patrulla_id != null %}
+						<a class="link sancionar" href='javascript:sancionar({{comentario.autor.id}})' class="bt-sancionar">
+							<i class="fa fa-fw fa-shield fa-lg"></i>
+						</a>
+						{% endif %}
+					</td>
+					<td colspan="2">
+						<a class="link user" href="{{ urlFor('shwUsuario',{'idUsu': comentario.autor.id}) }}">
+							{{ comentario.autor.nombre }} {{ comentario.autor.apellido }}
+						</a>
+						<a class="link puntos" href="javascript:void(0)">
+							<i class="fa fa-fw fa-trophy"></i> {{ comentario.autor.puntos }}
+						</a>
+						<a class="link down" href="javascript:javascript:votarComentario({{comentario.id}},-1)"><i class="fa fa-fw fa-thumbs-o-down "></i></a>
+						<a class="link up" href="javascript:votarComentario({{comentario.id}},1)"><i class="fa fa-fw fa-thumbs-o-up "></i> {{ comentario.votos }}</a>
+						<br>
+						<div class="comentario-texto">
+							{{ comentario.cuerpo|capitalize }}
+						</div>
+						{% if user %}<a class="link contestar" href="javascript:responder({{ comentario.id }})"><i class="fa fa-fw fa-reply"></i> Responder</a>{% endif%}
+						<div class="box-comentarios respuestas">
+							<table class="comentarios">
+								<thead>
+									<th style="display:none">Icono</th>
+									<th style="display:none">Comentario</th>
+									<th style="display:none">Enviar</th>
+								</thead>
+								<tbody>
+									{% if user %}
+									<tr id="r-{{ comentario.id }}" style="display:none;">
+										<td><a href="{{ urlFor('shwUsuario',{'idUsu': user.id}) }}"><img class="img-perfil size-32" src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 32) }}"></a></td>
+										<form action="{{ urlFor('runComentar', {'tipoRaiz': 'comentario', 'idRaiz': comentario.id }) }}" method="POST">
+											<td colspan="2">
+												<textarea name="cuerpo" rows=1 placeholder="Escriba su respuesta..." style="margin-bottom:5px;"></textarea>
+												<button class="button success radius tiny right"><i class="fa fa-send fa-fw"></i> Enviar</button>
+											</td>
+										</form>
+									</tr>
+									{% endif %}
+									{% if comentario.respuestas|length > 0 %}
+									{% for respuesta in comentario.respuestas %}
+									<tr>
+										<td class="text-center">
+											<a href="{{ urlFor('shwUsuario',{'idUsu': respuesta.autor.id}) }}"><img class="img-perfil size-20" src="{{ avatarUrl(respuesta.autor.img_tipo, respuesta.autor.img_hash, 32) }}"></a>
+											{% if user.patrulla_id != null %}
+											<a class="link sancionar" href='javascript:sancionar({{respuesta.autor.id}})' class="bt-sancionar">
+												<i class="fa fa-fw fa-shield fa-lg"></i>
+											</a>
+											{% endif %}
+										</td>
+										<td colspan="2">
+											<a class="link user" href="{{ urlFor('shwUsuario',{'idUsu': comentario.autor.id}) }}">
+												{{ respuesta.autor.nombre }} {{ respuesta.autor.apellido }}
+											</a>
+											<a class="link puntos" href="javascript:void(0)">
+												<i class="fa fa-fw fa-trophy"></i> {{ respuesta.autor.puntos }}
+											</a>
+											<a class="link down" href="javascript:javascript:votarComentario({{respuesta.id}},-1)">
+												<i class="fa fa-fw fa-thumbs-o-down"></i></a>
+											<a class="link up" href="javascript:votarComentario({{respuesta.id}},1)">
+												<i class="fa fa-fw fa-thumbs-o-up"></i> {{ respuesta.votos }}</a>
+											<div class="comentario-texto">
+												{{ respuesta.cuerpo|capitalize }}
+											</div>
+										</td>
+									</tr>
+									{% endfor %}
+									{% endif %}
+								</tbody>
+							</table>
+						</div>
+					</td>
+				</tr>
+				{% endfor %}
+				{% else %}
+				<tr class="sin-comentarios">
+					<td class="text-center" colspan="3">
+						<h5><b>Sin comentarios</b></h5>
+						<p>Sea el primero en dejar un comentario</p>
+					</td>
+				</tr>
+				{% endif%}
+			</tbody>
+		</table>
+	</div>
+</div>
+<form id="votarComentario" method="POST">
+	<input type="text" name="valor" style="display:none">
+</form>

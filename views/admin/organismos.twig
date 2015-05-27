@@ -1,96 +1,152 @@
 {# VARIBLES #}
 
-{% extends "admin/ver-administracion.twig" %}
+{% set opcion_activa = 1 %}
+{% extends "admin/gestion.twig" %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}Virtuagora - Administrar organismos{% endblock %}
+{% block titulo %}Lista de organismos públicos{% endblock %}
 {# ----------------------------------------------------------- #}
-{% set intro_titulo = 'Administrar organismos' %}
-{# ----------------------------------------------------------- #}
-{% block administracion %}
-<div class="listar-organismos large-12 columns">
-    <div class="row">
-        <div class="panel">
-            <h6>Administre los organismos publicos ya existentes o <b><a href="{{urlFor('shwCrearOrganis')}}">agregue uno nuevo</a></b></h6>
-        </div>
-    </div>
-    <div class="row">
-       <a href="{{ urlFor('shwCrearOrganis') }}" class="button tiny radius expand"><i class="fa fa-plus fa-fw"></i> Crear nuevo organismo</a>
-        <table class="tabla-org">
-            <thead>
-                <tr>
-                    <th class="text-center"><i class="fa fa-pencil-square-o fa-lg"></i></th>
-                    <th class="titulo">Nombre</th>
-                    <th class="cupos-o text-center">Cupos ocupados</th>
-                    <th class="cupos-t text-center">Cupos totales</th>
-                    <th class="text-center"><i class="fa fa-gear fa-lg"></i></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for org in organismos %}
-                <tr id="organismo-{{ org.id }}" class="organismo">
-                    <td class="text-center">
-                        <a href="javascript:return(0)" class="eliminar button tiny radius small warning"><i class="fa fa-trash-o fa-fw fa-lg"></i></a>
-                        <a href="{{ urlFor('shwModifOrganis',{'idOrg': org.id}) }}" class="modificar button tiny radius secondary"><i class="fa fa-pencil fa-fw fa-lg"></i></a>
-                    </td>
-                    <td><i class="fa fa-university fa-fw"></i> {{ org.nombre|capitalize }}</td>
-                    <td class="text-center">{{ org.funcionarios_count }}</td>
-                    <td class="text-center">{{ org.cupo }}</td>
-                    <td class="text-center"><a href="{{ urlFor('shwAdmFuncion', {'idOrg': org.id }) }}" class="modificar button tiny radius"><i class="fa fa-wrench fa-fw fa-lg"></i></a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    {% if nav %}
-    <div class="row">
-        <div class="large-6 panel clearfix large-centered columns">
-            <div class="left">
-                {% if nav.first %}
-                <a href="{{ nav.first }}"><i class="fa fa-angle-double-left fa-fw fa-lg"></i></a>
-                {% endif %}
-                {% if nav.prev %}
-                <a href="{{ nav.prev }}"><i class="fa fa-angle-left fa-fw fa-lg"></i></a>
-                {% endif %}
-            </div>
-            <div class="right">
-                {% if nav.next %}
-                <a href="{{ nav.next }}"><i class="fa fa-angle-right fa-fw fa-lg"></i></a>
-                {% endif %}
-                {% if nav.last %}
-                <a href="{{ nav.last }}"><i class="fa fa-angle-double-right fa-fw fa-lg"></i></a>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-    {% endif %}
+{% block gestion %}
+<h4>Administrar organismo</h4>
+<h6 class="subheader">Lista de organismos públicos</h6>
+<div class="descripcion">
+	Agregue, edite o elimine organismos publicos participantes de la plataforma.
 </div>
+<hr>
+<!--
+<div class="buscador row collapse">
+	<i class="icono fa fa-search fa-fw"></i>
+	<input id="typeahead" type="text" placeholder="Escriba aqui el nombre del organismo">
+</div>
+<div id="seleccion" class="row collapse" style="display:none">
+	<div class="medium-2 columns text-center">
+		<img id="seleccion-img" class="img-perfil size-64">
+	</div>
+	<div class="medium-10 columns small-only-text-center">
+		<h6 id="seleccion-nombre" class="subheader"></h6>
+		<div class="descripcion">Cupos: <span id="seleccion-cupos"></span></div>
+		<a id="seleccion-eliminar" class="button tiny radius small warning"><i class="fa fa-trash-o fa-fw fa-lg"></i> Eliminar</a>
+		<a id="seleccion-editar" class="modificar button tiny radius negative"><i class="fa fa-pencil fa-fw fa-lg"> Editar</i></a>
+		<a id="seleccion-admin" class="modificar button tiny radius"><i class="fa fa-wrench fa-fw fa-lg"></i> Administrar funcionarios</a>
+	</div>
+</div>
+<hr>
+-->
+<a href="{{ urlFor('shwCrearOrganis') }}" class="button tiny radius expand"><i class="fa fa-plus fa-fw"></i> Crear nuevo organismo</a>
+<table class="tabla-gestion">
+	<thead>
+		<tr>
+			<th class="text-center"><i class="fa fa-pencil-square-o fa-lg"></i></th>
+			<th>Nombre</th>
+			<th class="text-center">Cupos</th>
+			<th class="text-center"><i class="fa fa-gear fa-lg"></i></th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for org in organismos %}
+		<tr id="organismo-{{ org.id }}" class="organismo">
+			<td class="text-center">
+				<a href="javascript:eliminarOrganismo({{ org.id }},'{{ org.nombre}}')" class="button tiny radius small warning"><i class="fa fa-trash-o fa-fw fa-lg"></i></a>
+				<a href="{{ urlFor('shwModifOrganis',{'idOrg': org.id}) }}" class="modificar button tiny radius negative"><i class="fa fa-pencil fa-fw fa-lg"></i></a>
+			</td>
+			<td><img src="{{ baseUrl() }}/img/organis/{{org.id}}/32.png" class="img-perfil size-20"> {{ org.nombre|capitalize }}</td>
+			<td class="text-center">{{ org.funcionarios_count }}/{{ org.cupo }}</td>
+			<td class="text-center"><a href="{{ urlFor('shwAdmFuncion', {'idOrg': org.id }) }}" class="modificar button tiny radius"><i class="fa fa-wrench fa-fw fa-lg"></i></a></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% if nav %}
+<div class="row collapse">
+	<div class="small-12 medium-8 small-centered columns">
+		<div class="panel paginacion clearfix">
+			<div class="small-6 columns text-left">
+				{% if nav.first %}
+				<a id="nav-first" href="{{ nav.first }}"><i class="fa fa-fast-backward fa-fw fa-lg"></i></a>
+				{% endif %}
+				&nbsp;&nbsp;
+				{% if nav.prev %}
+				<a id="nav-prev" href="{{ nav.prev }}"><i class="fa fa-chevron-left fa-fw fa-lg"></i> Anterior</a>
+				{% endif %}
+			</div>
+			<div class="small-6 columns text-right">
+				{% if nav.next %}
+				<a id="nav-next" href="{{ nav.next }}">Proximo <i class="fa fa-chevron-right fa-fw fa-lg"></i></a>
+				{% endif %}
+				&nbsp;&nbsp;
+				{% if nav.last %}
+				<a id="nav-last" href="{{ nav.last }}"><i class="fa fa-fast-forward fa-fw fa-lg"></i></a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
 
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block modals %}
-{% set mensaje_eliminar = 'Usted esta a punto de eliminar un organismo. ¿Está seguro de esta acción?' %}
 {% include 'admin/eliminarRecurso.twig'%}
 {% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts_cont %}
+{% block scripts_gestion %}
+<!--<script src="{{ baseUrl() }}/assets/js/typeahead/typeahead.bundle.min.js"></script>-->
+<script src="{{ baseUrl() }}/assets/js/foundation/foundation.reveal.js"></script>
 <script>
-    $(document).ready(function(){
+//	var baseUrl = '{{ baseUrl() }}';
+	var formURL = '{{ urlFor("runElimiOrganis") }}';
+//	var editarURL = "{{ urlFor('shwModifOrganis',{'idOrg': org.id}) }}";
+//	var adminURL = "{{ urlFor('shwAdmFuncion', {'idOrg': org.id }) }}";
 
-    });
+	function eliminarOrganismo(id, nombre){
+		var url_to_go = formURL.replace(':idOrg',id);
+		$('#txtEliminarRecurso').html('Usted esta a punto de eliminar la patrulla ' + nombre + '. ¿Está seguro de esta acción?');
+		$('#formEliminarRecurso').removeAttr('action');
+		$('#formEliminarRecurso').attr('action',url_to_go);
+		$('#eliminarRecurso').foundation('reveal','open');
+	}
 
-     $('a.eliminar').on('click', function() {
-        var id_organismo = $(this).closest('.organismo').attr('id').replace('organismo-','');
-        var url_eliminar = '{{ urlFor("runElimiOrganis") }}';
-        url_eliminar = url_eliminar.replace(':idOrg',id_organismo);
-        $('#formEliminarRecurso').removeAttr('action');
-        $('#formEliminarRecurso').attr('action',url_eliminar);
-        $('#eliminarRecurso').foundation('reveal','open');
-    });
+	$('.bt-cancelar-eliminar').on('click', function() {
+		$('.eliminar-modal').foundation('reveal', 'close');
+	});
 
-    $('.bt-cancelar-eliminar').on('click', function() {
-        $('.eliminar-modal').foundation('reveal', 'close');
-    });
+//	var organismos = new Bloodhound({
+//		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('nombre'),
+//		queryTokenizer: Bloodhound.tokenizers.whitespace,
+//		identify: function(obj) { return obj.id; },
+//		remote: {
+//			url: '{{baseUrl()}}' + '/organismo?q=%QUERY',
+//			wildcard: '%QUERY'
+//		}
+//	});
+//
+//	$('#typeahead').typeahead({
+//		minLength: 4,
+//	}, {
+//		name: 'organismos',
+//		display: 'nombre',
+//		source: organismos,
+//		templates: {
+//			empty: '<div class="tt-empty"><i class="fa fa-asterisk fa-fw"></i>No se encontraron organismos</div>',
+//			suggestion: function(data) {
+//				return '<div><img src="{{ baseUrl() }}/img/organis/'+data.id+'/32.png" class="img-perfil size-20"> ' + data.nombre + '</div>';
+//			}
+//		}
+//	});
+//
+//	$('#typeahead').bind('typeahead:select', function(ev, data) {
+//		$('#seleccion-img').attr('{{ baseUrl() }}/img/organis/'+ data.id +'/64.png');
+//		$('#seleccion-nombre').html(data.nombre)
+//		$('#seleccion-cupos').html(data.funcionarios_count + '/' + data.cupo)
+//		$('#seleccion-eliminar').removeAttr('href');
+//		$('#seleccion-eliminar').attr('href','javascript:eliminarOrganismo('+data.id+',"'+data.nombre+'")');
+//		$('#seleccion-editar').removeAttr('href');
+//		$('#seleccion-editar').attr('href',editarURL.replace(':idOrg',data.id));
+//		$('#seleccion-admin').removeAttr('href');
+//		$('#seleccion-admin').html('href',editarURL.replace(':idOrg',data.id))
+//	});
+
+
 
 </script>
 {% endblock %}

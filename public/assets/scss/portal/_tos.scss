@@ -1,0 +1,9 @@
+.portal-usuario{
+	.tos{
+		font-family: "Lora", serif;
+		font-size: rem-calc(15);
+		@media only screen and (max-width: 40em) {
+			font-size: rem-calc(13);
+		}
+	}
+}

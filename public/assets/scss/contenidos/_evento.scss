@@ -1,0 +1,52 @@
+// CREAR
+
+.crear-contenido.evento{
+	.ui-datepicker{
+		font-family: "Source Sans Pro",sans-serif !important;
+		font-style: normal;
+		display: inline-block !important;
+		font-size: rem-calc(12) !important;
+		text-rendering: optimizelegibility;
+		color: #383838;
+		border: 0px solid #484848;
+		box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+		text-align: center;
+		resize: none;
+		margin: 0 !important;
+		&:focus{
+			background-color: #fff4c4;
+			outline: 0;
+		}
+	}
+	.wrapper-fecha{
+		.hora-icono{
+			font-size: rem-calc(25);
+			margin: 0;
+		}
+		#timepicker{
+			margin: 0;
+			border: none;
+			box-shadow: none;
+			font-size: 22px;
+		}
+	}
+}
+
+
+.lista-participantes-modal{
+	@media only screen  {max-height: 80%;}
+	overflow-y: scroll;
+}
+
+table.listado-participantes{
+	width: 100%;
+	thead, tbody, tr:nth-of-type(even) {
+		background: 0;
+	}
+	tr td {
+		border-bottom: 1px dashed #C0C0C0;
+		padding: 4px;
+	}
+	tr:hover{background-color: #fcf6d9;}
+	tr:last-child td{border: 0;}
+}

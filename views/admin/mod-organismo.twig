@@ -1,121 +1,92 @@
 {# VARIBLES #}
 
-{% extends "admin/ver-administracion.twig" %}
+{% set opcion_activa = 1 %}
+{% extends "admin/gestion.twig" %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}Virtuagora - Modificar un organismo{% endblock %}
+{% block titulo %}Modificar organismo{% endblock %}
 {# ----------------------------------------------------------- #}
-{% set intro_titulo = 'Modificar un organismo' %}
-{# ----------------------------------------------------------- #}
-{% block administracion %}
-<div class="crear-organismo">
-    <div class="large-12 columns">
-        <div class="cambiar-avatar">
-            <div class="large-5 columns">
-                <div class="wrapper-elementos">
-                    <div class="header" style="border-bottom: 0;">
-                        <i class="fa fa-question-circle fa-fw fa-lg"></i><i class="fa fa-pencil fa-fw fa-lg"></i> Modificar imagen del organismo
-
-                    </div>
-
-                </div>
-                <form id="cambiar-imagen" action="{{ urlFor('runModifImgOrganis', {'idOrg': organismo.id}) }}" method="POST" enctype="multipart/form-data">
-                    <div class="fileUpload button large radius expand" style="margin-bottom:0;" onclick='$("#uploadBtn").click()'>
-                        <input id="uploadBtn" name="imagen" form="cambiar-imagen" type="file" onchange="this.form.submit();" class="upload" />
-                        <i class="fa fa-photo fa-fw fa-lg"></i> Cargar
-                    </div>
-                </form>
-            </div>
-            <div class="show-avatares large-7 columns">
-                <img src="{{ baseUrl() }}/img/organis/{{ organismo.id }}/32.png">
-                <img src="{{ baseUrl() }}/img/organis/{{ organismo.id }}/64.png">
-                <img src="{{ baseUrl() }}/img/organis/{{ organismo.id }}/160.png">
-            </div>
-        </div>
-        <hr>
-        <form action="{{ urlFor('runModifOrganis', {'idOrg': organismo.id}) }}" method="POST">
-            <div class="wrapper-elementos">
-                <div class="header">
-                    <i class="fa fa-question-circle fa-fw fa-lg"></i><i class="fa fa-pencil fa-fw fa-lg"></i> Datos del organismo publico
-                </div>
-                <div class="fila">
-                    <div class="row">
-                        <div class="large-12 columns">
-                            <div class="large-9 columns">
-                                <div class="titulo-fila">Nombre del organismo</div>
-                                <input class="campo-fila" type="text" name="nombre">
-                            </div>
-                            <div class="large-3 columns">
-                                <div class="titulo-fila">Cant. de cupos</div>
-                                <input type="number" name="cupo" placeholder="Numero?">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="fila">
-                    <div class="row">
-                        <div class="large-12 columns">
-                            <div class="large-12 columns">
-                                <div class="titulo-fila">Descripcion del organismo</div>
-                                <textarea rows=4 name="descripcion"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="fila">
-                    <div class="row">
-                        <div class="large-12 columns">
-                            <div class="large-8 columns">
-                                <div class="titulo-fila">URL</div>
-                                <input type="text" name="utl" placeholder="Ej: http://www.google.com">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="fila">
-                    <div class="row">
-                        <div class="large-12 columns">
-                            <div class="large-8 columns">
-                                <div class="titulo-fila">Email</div>
-                                <input class="campo-fila" type="email" name="email" placeholder="Ej: ejemplo@servidor.com" >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ultima-fila">
-                    <div class="row">
-                        <div class="large-12 columns">
-                            <div class="large-8 columns">
-                                <div class="titulo-fila">Telefono</div>
-                                <input class="campo-fila" type="text" name="telefono" placeholder="Ej: (0342) 452-XXXX">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center">
-                <button class="button success radius"><i class="fa fa-check fa-fw fa-lg"></i> Aceptar los cambios</button>
-            </div>
-        </form>
-    </div>
+{% block gestion %}
+<h4>Administrar organismo</h4>
+<h6 class="subheader">Modificar organismo</h6>
+<div class="descripcion">
+	Formulario para la modificación de los datos de un organismo público.
 </div>
-
+<hr>
+<form id="cambiar-imagen" action="{{ urlFor('runModifImgOrganis', {'idOrg': organismo.id}) }}" method="POST" enctype="multipart/form-data">
+	<div class="row collapse">
+		<div class="medium-6 columns small-only-text-center">
+			<h6 class="subheader">Cargar imagen de perfil</h6>
+			<div class="fileUpload button tiny radius">
+				<span><i class="fa fa-upload fa-fw fa-lg"></i> Subir imagen</span>
+				<input id="bt-upload" type="file" name="imagen" class="upload" />
+			</div>
+		</div>
+		<div class="medium-6 columns text-center">
+			<img id="img-perfil" src="{{ baseUrl() }}/img/organis/{{ organismo.id }}/160.png" alt="Aux img" class="img-perfil size-160">
+			<div id="cargando" class="descripcion" style="display:none"><i class="fa fa-refresh fa-spin fa-fw fa-5x"></i></div>
+		</div>
+	</div>
+</form>
+<hr>
+<form action="{{ urlFor('runModifOrganis',{'idOrg': organismo.id}) }}" method="POST">
+	<h6 class="subheader">Nombre del organismo</h6>
+	<input type="text" name="nombre">
+	<hr>
+	<div class="row collapse">
+		<div class="medium-6 columns">
+			<h6 class="subheader">Cupos disponibles</h6>
+		</div>
+		<div class="medium-6 columns"><input type="number" name="cupo" placeholder="Numero"></div>
+	</div>
+	<hr>
+	<h6 class="subheader">Descripcion del organismo</h6>
+	<textarea rows=2 name="descripcion"></textarea>
+	<hr>
+	<div class="row collapse">
+		<div class="medium-6 columns">
+			<h6 class="subheader">URL</h6>
+		</div>
+		<div class="medium-6 columns"><input type="text" name="url" placeholder="Ej: http://www.google.com"></div>
+	</div>
+	<hr>
+	<div class="row collapse">
+		<div class="medium-6 columns">
+			<h6 class="subheader">Email</h6>
+		</div>
+		<div class="medium-6 columns"><input type="email" name="email"></div>
+	</div>
+	<hr>
+	<div class="row collapse">
+		<div class="medium-6 columns">
+			<h6 class="subheader">Telefono</h6>
+		</div>
+		<div class="medium-6 columns"><input type="text" name="telefono"></div>
+	</div>
+	<hr>
+	<div class="small-text-center large-text-right">
+		<button class="button success radius"><i class="fa fa-check fa-fw fa-lg"></i> Aceptar cambios</button>
+	</div>
+</form>
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts_cont %}
+{% block scripts_gestion %}
 <script src="{{ baseUrl() }}/assets/js/autosize/autosize.min.js"></script>
 <script>
-    $(document).ready(function(){
-        $('input[name="nombre"]').val('{{ organismo.nombre }}');
-        $('input[name="cupo"]').val('{{ organismo.cupo }}');
-        $('input[name="url"]').val('{{ organismo.contacto.url }}');
-        $('input[name="email"]').val('{{ organismo.contacto.email }}');
-        $('input[name="telefono"]').val('{{ organismo.contacto.telefono }}');
-        autosize($('textarea[name="descripcion"]'));
-    });
-
+	$( "#bt-upload" ).change(function() {
+		$('#img-perfil').hide();
+		$('#cargando').show();
+		$('#cambiar-imagen').submit();
+	});
+	$('input[name="nombre"]').val('{{ organismo.nombre }}');
+	$('input[name="cupo"]').val('{{ organismo.cupo }}');
+	$('input[name="url"]').val('{{ organismo.contacto.url }}');
+	$('input[name="email"]').val('{{ organismo.contacto.email }}');
+	$('input[name="telefono"]').val('{{ organismo.contacto.telefono }}');
+	$('textarea[name="descripcion"]').val('{{ organismo.descripcion }}');
+	autosize($('textarea[name="descripcion"]'));
 </script>
 {% endblock %}
 {# ----------------------------------------------------------- #}

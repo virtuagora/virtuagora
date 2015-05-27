@@ -1,86 +1,81 @@
 {# VARIBLES #}
 
-{% extends "admin/ver-administracion.twig" %}
+{% set opcion_activa = 3 %}
+{% extends "admin/gestion.twig" %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}Virtuagora - Administrar patrullas{% endblock %}
+{% block titulo %}Administrar patrullas{% endblock %}
 {# ----------------------------------------------------------- #}
-{% set intro_titulo = 'Administrar patrullas' %}
-{# ----------------------------------------------------------- #}
-{% block administracion %}
-<div class="listar-patrullas">
-    <div class="large-12 columns">
-        <div class="row">
-            <div class="explicacion panel text-center">
-                A continuación verá la lista de patrullas de su plataforma. Organice a sus moderadores en grupos y habilite los permisos que crea conveniente a cada grupo. Mediante el uso del boton <i class="fa fa-pencil fa-fw"></i> podra editar tanto el nombre del grupo como la descripcion. Recuerde hacer clic sobre <i class="fa fa-check fa-fw"></i> para poder guardar sus cambios.
-                <br>
-                Haciendo clic sobre <i class="fa fa-wrench fa-fw"></i> podra administrar los permisos del grupo.
-            </div>
-        </div>
-        <div class="row">
-           <a href="{{ urlFor('shwCrearPatrull') }}" class="button tiny radius expand"><i class="fa fa-plus fa-fw"></i> Crear nueva patrulla</a>
-            <table class="tabla-patrullas">
-                <thead>
-                    <tr>
-                        <th class="text-center" style="width: 18%"><i class="fa fa-pencil-square-o fa-lg"></i></th>
-                        <th >Patrulla</th>
-                        <th class="text-center" style="width: 18%"><i class="fa fa-gear fa-lg"></i></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for patrulla in patrullas %}
-                    <tr id="patrulla-{{ patrulla.id }}" class="patrulla">
-                        <td class="text-center">
-                            <a href="javascript:return(0)" class="eliminar button tiny warning radius"><i class="fa fa-trash fa-fw fa-lg"></i></a>
-                            <div class="modificar button tiny radius secondary"><i class="fa fa-pencil fa-fw fa-lg"></i></div>
-                            <a href="javascript:enviarForm({{ patrulla.id }})" class="aceptar button tiny radius success" style="display:none;"><i class="fa fa-check fa-fw fa-lg"></i></a>
-                        </td>
-                        <td>
-                            <div class="etiqueta">
-                                <span class="nombre">{{ patrulla.nombre|capitalize }}</span>
-                                <br>
-                                <div class="descripcion">{{ patrulla.descripcion}}</div>
-                            </div>
-                            <div class="editable" style="display:none;">
-                                <form id="editar-{{ patrulla.id }}" action="{{ urlFor('runModifPatrull',{'idPat': patrulla.id}) }}" method="POST">
-                                    <input type="text" name='nombre' value="{{ patrulla.nombre }}">
-                                    <textarea type="text" name='descripcion' rows=1>{{ patrulla.descripcion }}</textarea>
-                                </form>
-                            </div>
-                        <td class="text-center">
-                            <a href="{{ urlFor('shwModifPodPatrull', {'idPat': patrulla.id }) }}" class="button tiny radius"><i class="fa fa-wrench fa-fw fa-lg"></i></a>
-                            <a href="{{ urlFor('shwAdmModerad',{'idPat': patrulla.id}) }}" class="button tiny radius"><i class="fa fa-eye fa-fw fa-lg"></i></a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        {% if nav %}
-        <div class="row">
-            <div class="large-6 panel clearfix large-centered columns">
-                <div class="left">
-                    {% if nav.first %}
-                    <a href="{{ nav.first }}"><i class="fa fa-angle-double-left fa-fw fa-lg"></i></a>
-                    {% endif %}
-                    {% if nav.prev %}
-                    <a href="{{ nav.prev }}"><i class="fa fa-angle-left fa-fw fa-lg"></i></a>
-                    {% endif %}
-                </div>
-                <div class="right">
-                    {% if nav.next %}
-                    <a href="{{ nav.next }}"><i class="fa fa-angle-right fa-fw fa-lg"></i></a>
-                    {% endif %}
-                    {% if nav.last %}
-                    <a href="{{ nav.last }}"><i class="fa fa-angle-double-right fa-fw fa-lg"></i></a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        {% endif %}
-    </div>
+{% block gestion %}
+<h4>Administrar patrullas</h4>
+<h6 class="subheader">Lista de patrullas</h6>
+<div class="descripcion">
+	A continuación verá la lista de patrullas de su plataforma. Organice a sus moderadores en grupos y habilite los permisos que crea conveniente a cada grupo. Mediante el uso del boton <i class="fa fa-pencil fa-fw"></i> podra editar tanto el nombre del grupo como la descripcion. Recuerde hacer clic sobre <i class="fa fa-check fa-fw"></i> para poder guardar sus cambios.
 </div>
-
+<hr>
+<a href="{{ urlFor('shwCrearPatrull') }}" class="button tiny radius expand"><i class="fa fa-plus fa-fw"></i> Crear nueva patrulla</a>
+<table id="tabla-patrullas" class="tabla-gestion">
+	<thead>
+		<tr>
+			<th class="text-center" style="width: 18%"><i class="fa fa-pencil-square-o fa-lg"></i></th>
+			<th >Patrulla</th>
+			<th class="text-center" style="width: 18%"><i class="fa fa-gear fa-lg"></i></th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for patrulla in patrullas %}
+		<tr id="patrulla-{{ patrulla.id }}" class="patrulla">
+			<td class="text-center">
+				<a href="javascript:eliminarPatrulla({{patrulla.id}},'{{patrulla.nombre}}')" class="eliminar button tiny warning radius"><i class="fa fa-trash fa-fw fa-lg"></i></a>
+				<div class="modificar button tiny radius secondary"><i class="fa fa-pencil fa-fw fa-lg"></i></div>
+				<a href="javascript:enviarForm({{ patrulla.id }})" class="aceptar button tiny radius success" style="display:none;"><i class="fa fa-check fa-fw fa-lg"></i></a>
+			</td>
+			<td>
+				<div class="etiqueta">
+					<span class="nombre"><b>{{ patrulla.nombre|capitalize }}</b></span>
+					<br>
+					<div class="descripcion">{{ patrulla.descripcion}}</div>
+				</div>
+				<div class="editable" style="display:none;">
+					<form id="editar-{{ patrulla.id }}" action="{{ urlFor('runModifPatrull',{'idPat': patrulla.id}) }}" method="POST">
+						<input type="text" name='nombre' value="{{ patrulla.nombre }}">
+						<textarea type="text" name='descripcion' rows=1>{{ patrulla.descripcion }}</textarea>
+					</form>
+				</div>
+			<td class="text-center">
+				<a href="{{ urlFor('shwModifPodPatrull', {'idPat': patrulla.id }) }}" class="button tiny radius"><i class="fa fa-wrench fa-fw fa-lg"></i></a>
+				<a href="{{ urlFor('shwAdmModerad',{'idPat': patrulla.id}) }}" class="button tiny radius"><i class="fa fa-eye fa-fw fa-lg"></i></a>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% if nav %}
+<div class="row collapse">
+	<div class="small-12 medium-8 small-centered columns">
+		<div class="panel paginacion clearfix">
+			<div class="small-6 columns text-left">
+				{% if nav.first %}
+				<a id="nav-first" href="{{ nav.first }}"><i class="fa fa-fast-backward fa-fw fa-lg"></i></a>
+				{% endif %}
+				&nbsp;&nbsp;
+				{% if nav.prev %}
+				<a id="nav-prev" href="{{ nav.prev }}"><i class="fa fa-chevron-left fa-fw fa-lg"></i> Anterior</a>
+				{% endif %}
+			</div>
+			<div class="small-6 columns text-right">
+				{% if nav.next %}
+				<a id="nav-next" href="{{ nav.next }}">Proximo <i class="fa fa-chevron-right fa-fw fa-lg"></i></a>
+				{% endif %}
+				&nbsp;&nbsp;
+				{% if nav.last %}
+				<a id="nav-last" href="{{ nav.last }}"><i class="fa fa-fast-forward fa-fw fa-lg"></i></a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block modals %}
@@ -88,36 +83,39 @@
 {% include 'admin/eliminarRecurso.twig'%}
 {% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts_cont %}
+{% block scripts_gestion %}
+<script src="{{ baseUrl() }}/assets/js/foundation/foundation.reveal.js"></script>
 <script>
-    $(document).ready(function(){
+	var baseUrl = '{{ baseUrl() }}'
+	var formURL = '{{ urlFor("runElimiPatrull") }}';
 
-    });
+	function eliminarPatrulla(id, nombre){
+		var url_to_go = formURL.replace(':idPat',id);
+		$('#txtEliminarRecurso').html('Usted esta a punto de eliminar ' + nombre + '. ¿Está seguro de esta acción?');
+		$('#formEliminarRecurso').removeAttr('action');
+		$('#formEliminarRecurso').attr('action',url_to_go);
+		$('#eliminarRecurso').foundation('reveal','open');
+	}
 
-    var enviarForm = function(idGrupo) {
-        $('#editar-'+idGrupo).submit();
-    }
+	$('.bt-cancelar-eliminar').on('click', function() {
+		$('.eliminar-modal').foundation('reveal', 'close');
+	});
 
-    $( ".modificar" ).click(function() {
-        $(this).hide();
-        $(this).next().show();
-        var tr_patrulla = $(this).closest('.patrulla');
-        tr_patrulla.find('.etiqueta').hide();
-        tr_patrulla.find('.editable').show();
-    });
+	var enviarForm = function(idGrupo) {
+		$('#editar-'+idGrupo).submit();
+	}
 
-    $('a.eliminar').on('click', function() {
-        var id_patrulla = $(this).closest('.patrulla').attr('id').replace('patrulla-','');
-        var url_eliminar = '{{ urlFor("runElimiPatrull") }}';
-        url_eliminar = url_eliminar.replace(':idPat',id_patrulla);
-        $('#formEliminarRecurso').removeAttr('action');
-        $('#formEliminarRecurso').attr('action',url_eliminar);
-        $('#eliminarRecurso').foundation('reveal','open');
-    });
+	$( ".modificar" ).click(function() {
+		$(this).hide();
+		$(this).next().show();
+		var tr_patrulla = $(this).closest('.patrulla');
+		tr_patrulla.find('.etiqueta').hide();
+		tr_patrulla.find('.editable').show();
+	});
 
-    $('.bt-cancelar-eliminar').on('click', function() {
-        $('.eliminar-modal').foundation('reveal', 'close');
-    });
+	$('.bt-cancelar-eliminar').on('click', function() {
+		$('.eliminar-modal').foundation('reveal', 'close');
+	});
 </script>
 {% endblock %}
 {# ----------------------------------------------------------- #}

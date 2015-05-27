@@ -1,0 +1,44 @@
+{# VARIBLES #}
+{% set footer = true %}
+{% set barraNav = true %}
+{% set ver_notificaciones = true %}
+{% set html_class = '' %}
+{% set body_class = '' %}
+
+{% extends "master.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block linkhead %}
+{% block linkheads_cont %}{% endblock linkheads_cont %}
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block body %}
+<div class="portal-usuario">
+	{% include 'portal/header.twig' %}
+	<div class="gestion-panel row">
+		<div class="medium-3 columns mapa small-text-center medium-text-left">
+			<div class="header clearfix">
+				{{ titulo|raw }}
+			</div>
+			<ul class="opciones no-bullet">
+				{% block opciones %}{% endblock opciones %}
+				<li><a href="{{ urlFor('shwIndex') }}"><i class="fa fa-undo fa-fw"></i> Volver al inicio</a></li>
+			</ul>
+		</div>
+		<div class="medium-9 columns formulario">
+			<div class="row">
+				<div class="large-12 columns">
+					<div class="body">
+						{% block gestion %}{% endblock gestion %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock body %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}
+{% block scripts_gestion %}{% endblock scripts_gestion %}
+{% endblock scripts %}
+{# ----------------------------------------------------------- #}

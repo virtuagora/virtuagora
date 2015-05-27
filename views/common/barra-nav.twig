@@ -1,38 +1,50 @@
 <div class="barra-nav">
-    <div class="row collapse">
-        <div class="small-6 columns text-left">
-            <ul class="list">
-                <li><a href="{{ urlFor('shwIndex') }}"><i class="bt fa fa-home"></i></a></li>
-                {% if user is not empty %}
-                <li><a href="{{ urlFor('shwUsuario',{'idUsu': user.id}) }}">{{ user.nombre }}</a></li>
-                {% else %}
-                <li>Bienvenido!</li>
-                {% endif %}
-            </ul>
-        </div>
-        <div class="small-6 columns text-right">
-            <ul class="list">
-                {% if user is not empty %}
-                <li>
-                    <div class="notificaciones">
-                        <i class="bt bt-notificaciones fa fa-inbox fa-fw fa-lg"></i>
-                        <span class="contador-on" style="display:none"></span>
-                    </div>
-                </li>
-                <li><a href="{{ urlFor('shwModifUsuario') }}"><i class="bt fa fa-bars fa-fw fa-lg"></i></a></li>
-                {% if user and (user.es_moderador == true) %}
-                <li><a href="{{ urlFor('shwAdmOrganis') }}"><i class="bt fa fa-cog fa-fw fa-lg"></i></a></li>
-                {% endif %}
-                <li>
-                    <form id="form-salir"  action="{{ urlFor('runLogout') }}" method="POST">
-                        <a href='#' class="bt-logout"><i class="bt fa fa-sign-out fa-fw fa-lg"></i></a>
-                    </form>
-                </li>
-                {% else %}
-                <li><a href="{{ urlFor('shwLogin') }}" class="hide-for-small-only">¿Tienes cuenta? Iniciar sesión <i class="fa fa-caret-down"></i></a></li>
-                <li><a href="{{ urlFor('shwLogin') }}"><i class="bt fa fa-sign-in"></i></a></li>
-                {% endif %}
-            </ul>
-        </div>
-    </div>
+	<div class="row collapse">
+		<div class="small-5 columns text-left">
+			<ul class="list">
+				{% if user is not empty %}
+				<li><a href="{{ urlFor('shwUsuario',{'idUsu': user.id}) }}"><img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}" class="img-perfil size-32"></a></li>
+				<li class="txt"><a href="{{ urlFor('shwUsuario',{'idUsu': user.id}) }}">{{ user.nombre }}</a></li>
+				{% else %}
+				<li><img src="{{ baseUrl() }}/assets/img/anon64.jpg" class="img-perfil size-32"></li>
+				<li class="txt">Bienvenido!</li>
+				{% endif %}
+			</ul>
+		</div>
+		<div class="small-2 columns text-center">
+			<ul class="list">
+				<li><a href="{{ urlFor('shwIndex') }}"><i class="bt fa fa-home fa-lg"></i></a></li>
+			</ul>
+		</div>
+		<div class="small-5 columns text-right">
+			<ul class="list">
+				{% if user is not empty %}
+				<li class="notificacion">
+					<a id="bt-abrir-notif" href="#" data-dropdown="notificaciones-contenido">
+						<i class="bt fa fa-inbox fa-fw fa-lg"></i>
+						<span class="contador-on" "display:none"></span>
+					</a>
+				</li>
+				<li><a href="#" data-dropdown="drop"><i class="bt fa fa-cog fa-fw fa-lg"></i></a></li>
+				<li>
+					<form id="form-salir" action="{{ urlFor('runLogout') }}" method="POST">
+						<a href='#' class="bt-logout"><i class="bt fa fa-sign-out fa-fw fa-lg"></i></a>
+					</form>
+				</li>
+				{% else %}
+				<li class="txt"><a href="{{ urlFor('shwLogin') }}" class="hide-for-small-only">¿Tienes cuenta? Iniciar sesión <i class="fa fa-caret-down"></i></a></li>
+				<li><a href="{{ urlFor('shwLogin') }}"><i class="bt fa fa-sign-in"></i></a></li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
 </div>
+<ul id="drop" class="tiny f-dropdown" data-dropdown-content>
+	<li><a href="{{ urlFor('shwModifUsuario') }}"><i class="fa fa-pencil fa-fw fa-lg"></i> Editar perfil</a></li>
+	{% if user and (user.es_jefe == 1) %}
+	<li><a href="{{ urlFor('shwModifRolPartido',{'idPar': user.partido_id}) }}"><i class="fa fa-users fa-fw fa-lg"></i> Administrar partido</a></li>
+	{% endif %}
+	{% if user and (user.patrulla_id != null) %}
+	<li><a href="{{ urlFor('shwAdmOrganis') }}"><i class="fa fa-dashboard fa-fw fa-lg"></i> Configurar plataforma</a></li>
+	{% endif %}
+</ul>

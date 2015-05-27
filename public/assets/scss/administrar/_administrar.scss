@@ -1,0 +1,42 @@
+#tabla-patrullas{
+	.editable{
+		input, textarea{
+			margin-bottom: 0;
+			border: 0;
+			box-shadow: none;
+			color: #222222;
+		}
+		input[name='nombre']{
+			border-top: 1px solid #eaeaea;
+			border-right: 1px solid #eaeaea;
+			border-left: 1px solid #eaeaea;
+			height: 20px;
+			font-weight: bold;
+			padding: 0;
+			font-size: rem-calc(13);
+		}
+		textarea[name='descripcion']{
+			border-bottom: 1px solid #eaeaea;
+			border-right: 1px solid #eaeaea;
+			border-left: 1px solid #eaeaea;
+			resize: none;
+			min-height: 20px;
+			padding: 0;
+			font-size: rem-calc(12);
+		}
+	}
+}
+
+#tabla-moderadores-patrulla{
+	tbody tr.seleccionado{
+		background-color: #f7c6c6 !important;
+	}
+}
+
+select[name="patrulla"]{
+	margin: 0;
+	font-size: 0.8125rem;
+	letter-spacing: -0.3px;
+	padding: 2px 10px;
+	height: auto;
+}

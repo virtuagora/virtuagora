@@ -2,92 +2,148 @@
 {% set footer = true %}
 {% set barraNav = true %}
 {% set html_class = '' %}
-{% set body_class = 'color-organismo' %}
+{% set body_class = '' %}
 
 {% extends "master.twig" %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}Virtuagora - Listar organismos{% endblock %}
+{% block titulo %}Listar organismos{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block linkhead %}
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block body %}
-<div class="listar-partidos">
-    <div class="row">
-        <div class="small-12 small-centered columns">
-            <section class="intro-listado text-center">
-                <div class="titulo-listado">
-                    <i class="fa fa-university fa-2x"></i>&nbsp;<i class="fa fa-search fa-2x"></i><br />LISTAR ORGANISMOS PUBLICOS
-                </div>
-                <div class="panel small-8 small-centered columns">
-                    Aqui puede ver los organismos publicos anotados en la plataforma. Puede obtener mas información acerca de alguno haciendo clic sobre el icono <i class="fa fa-info fa-fw"></i> que lo redireccionará al perfil del organismo.
-                </div>
-                {% if user and (user.es_moderador == 1) %}
-                <a class="button oposite radius small" href="{{ urlFor('shwCrearOrganis') }}"><i class="fa fa-plus fa-fw fa-lg"></i>&nbsp;Crear un nuevo organismo</a>
-                <a class="button oposite radius small" href="{{ urlFor('shwAdmOrganis') }}"><i class="fa fa-edit fa-fw fa-lg"></i>&nbsp;Administrar organismos</a>
-                {% endif %}
-                <a class="button oposite radius small" href="{{ urlFor('shwIndex') }}"><i class="fa fa-undo fa-fw fa-lg"></i>&nbsp;Volver atrás</a>
-            </section>
-        </div>
-        <hr>
-    </div>
-    <div class="row">
-        <div class="row-listado small-12 small-centered columns">
-            {% for organismo in organismos %}
-            <div id="o{{ organismo.id }}" class="panel-partido">
-                <div class="img-partido">
-                    <img class="img-perfil square" src="{{ baseUrl() }}/img/organis/{{ organismo.id }}/160.png">
-                </div>
-                <div class="wrapper-botones">
-                    <a href="{{ urlFor('shwOrganis',{'idOrg': organismo.id}) }}" class="button small radius"><i class="fa fa-info-circle fa-fw"></i></a>
-                    {% if user and (user.es_moderador == 1) %}
-                    <a href="{{ urlFor('shwModifOrganis',{'idOrg': organismo.id}) }}" class="button small secondary radius"><i class="fa fa-edit fa-fw"></i></a>
-                    <a href="{{ urlFor('shwAdmFuncion',{'idOrg': organismo.id}) }}" class="button small warning radius"><i class="fa fa-wrench fa-fw"></i></a>
-                    {% endif %}
-                </div>
-                <div id="o{{ organismo.id }}-descripcion" class="wrapper-descripcion">
-                    <div class="titulo"><h2><b><span class="p-nombre">{{ organismo.nombre|title }}</span></b></h2>
-                    </div>
-                    <hr class="salto">
-                    <div class="descripcion">{{ organismo.descripcion|capitalize }}</div>
-                    <hr class="salto">
-                    <ul class="listado-h datos-extras">
-                        <li><b><i class="fa fa-caret-right fw"></i> Cupos maximos:</b> {{ organismo.cupo }}</li>
-                        <li><b><i class="fa fa-caret-right fw"></i> Funcionarios activos:</b> {{ organismo.funcionarios_count }}</li>
-                    </ul>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-    {% if nav %}
-    <div class="row">
-        <div class="large-6 panel clearfix large-centered columns">
-            <div class="left">
-                {% if nav.first %}
-                <a href="{{ nav.first }}"><i class="fa fa-angle-double-left fa-fw fa-lg"></i></a>
-                {% endif %}
-                {% if nav.prev %}
-                <a href="{{ nav.prev }}"><i class="fa fa-angle-left fa-fw fa-lg"></i></a>
-                {% endif %}
-            </div>
-            <div class="right">
-                {% if nav.next %}
-                <a href="{{ nav.next }}"><i class="fa fa-angle-right fa-fw fa-lg"></i></a>
-                {% endif %}
-                {% if nav.last %}
-                <a href="{{ nav.last }}"><i class="fa fa-angle-double-right fa-fw fa-lg"></i></a>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-    {% endif %}
+<div class="portal-usuario">
+	{% include 'portal/header.twig' %}
+	<div class="intro-listado-contenido">
+		<div class="row">
+			<div class="medium-5 columns text-center">
+				<span class="fa-stack fa-2x">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-university fa-inverse fa-stack-1x"></i>
+				</span>
+				<h3><b>Organismos Públicos</b></h3>
+			</div>
+			<div class="txt medium-7 columns text-justify">
+				Aqui puede ver los organismos publicos anotados en la plataforma. Puede obtener mas información acerca de alguno haciendo clic sobre el icono <i class="fa fa-info fa-fw"></i> que lo redireccionará al perfil del organismo.
+				<div class="text-center medium-text-right" style="margin-top: 15px;">
+					{% if user and (user.patrulla_id != null) %}
+					<a href="{{ urlFor('shwAdmOrganis') }}" class="button success radius tiny"><i class="fa fa-wrench fa-fw"></i> Administrar</a>
+					{% endif %}
+					<a href="javascript:void(0)" class="button radius tiny"><i class="fa fa-question-circle fa-fw"></i> Mas información</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="small-12 columns">
+			<div class="directorio organismos">
+				<div class="buscador row">
+					<i class="icono fa fa-search fa-fw"></i>
+					<input id="typeahead" type="text" placeholder="Escriba el nombre del organismo...">
+				</div>
+				<div class="row">
+					<div id="masonryContainer">
+						{% for organismo in organismos %}
+						<div class="masonry-brick">
+							<div class="header">
+								<a href="{{ urlFor('shwPartido',{'idPar': p.id}) }}">
+									<div class="acronimo"><img class="img-perfil size-64" src="{{ baseUrl() }}/img/organis/{{ organismo.id }}/64.png"></div>
+									<img class="bg" src="{{ baseUrl() }}/img/organis/{{ organismo.id }}/160.png">
+								</a>
+							</div>
+							<div class="nombre text-center">
+								<a href="{{ urlFor('shwPartido',{'idPar': p.id}) }}">{{ organismo.nombre }}</a>
+							</div>
+							<div class="datos text-justify">
+								<b>Descripcion:</b> {{ organismo.descripcion|capitalize }}
+								<hr>
+								<div class="text-right">
+									<a href="{{ urlFor('shwOrganis',{'idOrg': organismo.id}) }}">
+										<i class="fa fa-info-circle fa-fw fa-lg"></i> Ver
+									</a>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				{% if nav %}
+				<div class="row collapse">
+					<div class="small-12 medium-8 small-centered columns">
+						<div class="panel paginacion clearfix">
+							<div class="small-6 columns text-left">
+								{% if nav.first %}
+								<a id="nav-first" href="{{ nav.first }}"><i class="fa fa-fast-backward fa-fw fa-lg"></i></a>
+								{% endif %}
+								&nbsp;&nbsp;
+								{% if nav.prev %}
+								<a id="nav-prev" href="{{ nav.prev }}"><i class="fa fa-chevron-left fa-fw fa-lg"></i> Anterior</a>
+								{% endif %}
+							</div>
+							<div class="small-6 columns text-right">
+								{% if nav.next %}
+								<a id="nav-next" href="{{ nav.next }}">Proximo <i class="fa fa-chevron-right fa-fw fa-lg"></i></a>
+								{% endif %}
+								&nbsp;&nbsp;
+								{% if nav.last %}
+								<a id="nav-last" href="{{ nav.last }}"><i class="fa fa-fast-forward fa-fw fa-lg"></i></a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endif %}
+			</div>
+		</div>
+	</div>
 </div>
 
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts %}{% endblock %}
+{% block scripts %}
+<script src="{{ baseUrl() }}/assets/js/masonry/masonry.pkgd.min.js"></script>
+<script src="{{ baseUrl() }}/assets/js/typeahead/typeahead.bundle.min.js"></script>
+<script>
+	var baseUrl = '{{ baseUrl() }}';
+
+	$('#masonryContainer').masonry({
+		itemSelector: '.masonry-brick',
+		isFitWidth: true,
+		"gutter": 10
+	});
+
+	var grupo = new Bloodhound({
+		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('nombre'),
+		queryTokenizer: Bloodhound.tokenizers.whitespace,
+		identify: function(obj) { return obj.id; },
+		remote: {
+			url: baseUrl + '/organismo?q=%QUERY',
+			wildcard: '%QUERY'
+		}
+	});
+
+	$('#typeahead').typeahead({
+		minLength: 4,
+	}, {
+		name: 'orgnanismo',
+		display: 'nombre',
+		source: grupo,
+		templates: {
+			empty: '<div class="tt-empty"><i class="fa fa-asterisk fa-fw"></i> No se encontraron organismos</div>',
+			suggestion: function(data) {
+				return '<div><i class="fa fa-university fa-fw"></i> ' + data.nombre + '</div>';
+			}
+		}
+	});
+
+	$('#typeahead').bind('typeahead:select', function(ev, data) {
+		var url_incomplete = "{{ urlFor('shwOrganis',{'idOrg': '##URL##'}) }}";
+		var url_to_go = url_incomplete.replace('##URL##', data.id);
+		window.location.replace(url_to_go);
+	});
+</script>
+{% endblock %}
 {# ----------------------------------------------------------- #}

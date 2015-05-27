@@ -1,0 +1,68 @@
+@mixin contenido-explain-color($color){
+	background-color: lighten($color, 38%);
+	border: 1px solid $color;
+	.icono, .link{background-color: $color;}
+	.icono .fa-stack{color: $color;}
+}
+
+@mixin accion-color($color){
+	.icono .fa-stack{color: $color;}
+	ul.list li a{color: $color;}
+}
+
+//------------------------------------------------
+
+// portal/inicio.twig
+.portal-usuario{
+	.inicio .txt{
+		font-size: rem-calc(13);
+	}
+	.intro{
+		.titulo{
+			padding: 25px 0 15px;
+			h1{color: #2F6DC1;}
+			h6.subheader a{color: #777777}
+		}
+		.descripcion{
+			font-size: rem-calc(14);
+			margin-bottom: 30px;
+		}
+	}
+	.inicio .accion{
+		border-left: 1px solid #FFF;
+		&.problematica{@include accion-color($problematica-color)}
+		&.propuesta{@include accion-color($propuesta-color)}
+		&.documento{@include accion-color($documento-color)}
+		&.evento{@include accion-color($evento-color)}
+		&.novedad{@include accion-color($novedad-color)}
+	}
+	.inicio .contenido-explain .panel{
+		min-height: 101px;
+		position: relative;
+		padding: 5px 50px 5px 110px;
+		.icono{
+			position: absolute;
+			padding: 2px;
+			top: 0;
+			left: 0;
+			width: 100px;
+			height: 100%;
+		}
+		.link{
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding-top: 5px;
+			.txt{font-size: rem-calc(12)}
+			a {color: #FFF;}
+			i{margin: 5px 0;}
+			width: 42px;
+			height: 100%;
+		}
+		&.problematica{@include contenido-explain-color($problematica-color)}
+		&.propuesta{@include contenido-explain-color($propuesta-color)}
+		&.documento{@include contenido-explain-color($documento-color)}
+		&.evento{@include contenido-explain-color($evento-color)}
+		&.novedad{@include contenido-explain-color($novedad-color)}
+	}
+}

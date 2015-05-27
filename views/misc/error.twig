@@ -6,31 +6,24 @@
 {% extends "master.twig" %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}Virtuagora - ¡Ha ocurrido un error!{% endblock %}
+{% block titulo %}ERROR{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block linkhead %}{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block body %}
-<div id="login">
-    <div id="row-panel" class="row">
-        <div class="large-8 large-centered columns">
-            <div class="panel">
-                <div class="row">
-                    <div class="large-10 large-centered columns">
-                        <div id="row-abajo" class="text-center">
-                                <i class="fa fa-times fa-5x fa-fw" style="color: #d87232; margin-bottom: 10px;"></i>
-                                <h5>¡Algo anduvo mal!</h5>
-                            <p style="font-size: 13px;">{{ mensaje }}</p>
-
-                            <a href="{{ urlFor('shwIndex') }}" class="button radius">Ir al inicio</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="registro usuario row">
+	<div class="medium-10 medium-centered columns no-padding-small-only">
+		<div class="panel text-center">
+			<div class="row">
+				<div class="small-12 columns">
+					<h2 class="seccion"><i class="fa fa-minus-circle fa-fw" style="color:#bc0e0e;"></i><b>Error</b></h2>
+					<div class="descripcion" style="margin-bottom:10px;">{{ mensaje }}</div>
+					 <a href="{{ urlFor('shwIndex') }}" class="button negative small radius"><i class="fa fa-home fa-fw"></i> Volver al inicio</a>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block modals %}{% endblock %}

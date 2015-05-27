@@ -1,0 +1,33 @@
+{% extends "contenido/problematica/crear.twig" %}
+
+{# VARIBLES #}
+{% set modo = 'modificar' %}
+{% set header_titulo = 'MODIFICAR PROBLEMATICA' %}
+{% set url_form = urlFor('runModifProblem', {'idPro': problematica.id}) %}
+{% set url_volver = urlFor('shwProblem',{'idPro': problematica.id}) %}
+
+{% if problematica.tags is not null %}
+{% set tags_mod = '[' %}
+{% for tag in problematica.tags %}
+{% set tags_mod = tags_mod ~ '"' ~ tag.nombre ~ '"' %}
+{% if loop.last == false %}
+{% set tags_mod = tags_mod ~ ',' %}
+{% endif %}
+{% endfor %}
+{% set tags_mod = tags_mod ~ ']' %}
+{% endif%}
+
+
+{# ----------------------------------------------------------- #}
+{% block titulo %}Modificar propuesta - Virtuágora{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts_modificar %}
+<script>
+    $(document).ready(function(){
+        $('[name="titulo"]').val('{{ problematica.titulo }}');
+        $('[name="categoria"] select').val('{{ problematica.categoria.id }}');
+        $("textarea[name='cuerpo']").sceditor('instance').val('{{ problematica.cuerpo|bbCode }}', false);
+    });
+</script>
+{% endblock %}
+{# ----------------------------------------------------------- #}

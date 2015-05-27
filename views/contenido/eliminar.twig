@@ -7,21 +7,21 @@
             <p><b>Usted esta a punto de borrar este contenido</b></p>
             <div class="bt-cancelar-eliminar button secondary radius tiny"><i class="fa fa-undo fa fw"></i> No! Salir de aquí</div>
         </div>
-        {% if autor_id == user.id or (autor_id == user.id and user.es_moderador == true) %}
+        {% if autor_id == user.id or (autor_id == user.id and user.patrulla_id != null) %}
         <p>Usted es el dueño de su propio contenido, pero tenga en cuenta lo siguiente:</p>
-        {% elseif user.es_moderador == true %}
+        {% elseif user.patrulla_id != null %}
         <p>Como usted <b>no es el dueño</b> del contenido, tenga en cuenta lo siguiente:</p>
         {% endif %}
         <ul class="fa-ul">
-            {% if autor_id == user.id or (autor_id == user.id and user.es_moderador == true) %}
+            {% if autor_id == user.id or (autor_id == user.id and user.patrulla_id != null) %}
             <li><i class="fa-li fa fa-thumbs-o-down"></i>Es una acción que <b>NO</b> puede deshacerse.</li>
             <li><i class="fa-li fa fa-thumbs-o-down"></i>Si es un contenido <b>valioso</b> para la comunidad, considere no eliminarlo.</li>
             <li><i class="fa-li fa fa-thumbs-o-down"></i>Eliminará toda forma de participación que haya habido en el contenido. (Comentarios, Votos, etc.)</li>
             <li><i class="fa-li fa fa-thumbs-o-down"></i>Si una página externa consume el contenido, los mismos dejarán de estar disponibles.</li>
-            {% elseif user.es_moderador == true %}
+            {% elseif user.patrulla_id != null %}
             <li><i class="fa-li fa fa-exclamation"></i>Es una acción que <b>NO</b> puede deshacerse.</li>
-            <li><i class="fa-li fa fa-exclamation"></i>Considere contactarse con el autor <img src="{{ autor_avatar_32}}" alt=""> {{ autor_nombre_apellido }} o de advertirle con anticipación .</li>
-            <li><i class="fa-li fa fa-exclamation"></i>Si elimina el contenido, se le enviará una notificación al usuario <img src="{{ autor_avatar_32}}" alt=""> {{ autor_nombre_apellido }} de su acción</li>
+            <li><i class="fa-li fa fa-exclamation"></i>Considere contactarse con el autor <img  class="img-perfil size-20" src="{{ avatarUrl(autor.img_tipo, autor.img_hash, 32) }}"> {{ autor_nombre_apellido }} o de advertirle con anticipación .</li>
+            <li><i class="fa-li fa fa-exclamation"></i>Si elimina el contenido, se le enviará una notificación al usuario <img class="img-perfil size-20" src="{{ avatarUrl(autor.img_tipo, autor.img_hash, 32) }}" class="img-perfil"> {{ autor_nombre_apellido }} de su acción</li>
             <li><i class="fa-li fa fa-exclamation"></i>Si es un contenido <b>valioso</b> para la comunidad, considere no eliminarlo.</li>
             <li><i class="fa-li fa fa-exclamation"></i>Eliminará toda forma de participación que haya habido en el contenido. (Comentarios, Votos, etc.) </li>
             <li><i class="fa-li fa fa-exclamation"></i>Si una página externa consume el contenido, los mismos dejarán de estar disponibles.</li>

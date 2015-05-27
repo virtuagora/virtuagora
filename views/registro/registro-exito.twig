@@ -8,41 +8,31 @@
 {% extends "master.twig" %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}Virtuagora - Registro exitoso{% endblock %}
+{% block titulo %}Registro exitoso{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block linkhead %}{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block body %}
-<div id="login">
-    <div id="row-panel" class="row">
-        <div class="large-8 large-centered columns">
-            <div class="panel">
-                <div class="row">
-                    <div class="large-8 large-centered columns">
-                        <div id="row-arriba">
-                            <div id="logo" class="text-center">
-                                <b>Virtuágora</b>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="large-10 large-centered columns">
-                        <div id="row-abajo" class="text-center">
-                            <div class="panel text-center" style="background-color: #EEFFEA; margin-bottom: 20px;">
-                                <i class="fa fa-envelope fa-4x fa-fw" style="color: #61bf26; margin-bottom: 10px;"></i>
-                                <h5>Se ha registrado exitosamente</h5>
-                            </div>
-                            <p style="font-size: 13px;">Antes de comenzar, es necesario que <b>verifique su direccion de correo electrónico</b>. Para ello, le hemos enviado a su dirección de email <b>{{ email }}</b> un correo para realizar la verificación de su cuenta.</p>
 
-                                <p style="font-size: 13px;">Le pedimos que ingrese a su email y realice la verificación. Una vez hecho, ya podrá comenzar a utilizar el portal.</p>
-                                <a href="{{ urlFor('shwIndex') }}" class="button radius">Ir al inicio</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="registro row">
+	<div class="medium-8 medium-centered columns no-padding-small-only">
+		<div class="panel text-center">
+			<div class="row">
+				<div class="small-12 columns">
+					<h1><i class="fa fa-envelope fa-fw fa-lg" style="color: #61bf26"></i></h1>
+					<h5 class="seccion" ><b>Verifique su correo electronico</b></h5>
+					<hr>
+					<div class="descripcion">
+						Antes de comenzar, es necesario que <b>verifique su direccion de correo electrónico</b>. Para ello, le hemos enviado a su dirección de email <b>{{ email }}</b> un correo para realizar la verificación de su cuenta.
+					</div>
+					<div class="descripcion" style="margin: 15px 0;">
+						Le pedimos que ingrese a su email y realice la verificación. Una vez hecho, ya podrá comenzar a utilizar el portal.
+					</div>
+					<a href="{{ urlFor('shwPortal') }}" class="button small negative radius"><i class="fa fa-home fa-fw"></i>Volver al inicio</a>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 {% endblock %}

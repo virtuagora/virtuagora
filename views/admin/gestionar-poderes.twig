@@ -1,87 +1,73 @@
 {# VARIBLES #}
 
-{% extends "admin/ver-administracion.twig" %}
+{% set opcion_activa = 3 %}
+{% extends "admin/gestion.twig" %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}Virtuagora - Gestionar poderes {% endblock %}
+{% block titulo %}Gestionar poderes {% endblock %}
 {# ----------------------------------------------------------- #}
-{% block linkheads_cont %}
-{% endblock %}
-{# ----------------------------------------------------------- #}
-{% set intro_titulo = 'Gestionar poderes' %}
-{# ----------------------------------------------------------- #}
-{% block administracion %}
-<div class="poderes-patrulla">
-    <div class="row text-center">
-        <div class="large-12 columns">
-            <div class="titulo">
-                <h5><b>{{ patrulla.nombre }}</b></h5>
-            </div>
-            <div class="descripcion">
-                {{ patrulla.descripcion }}
-            </div>
-        </div>
-    </div>
-    <hr>
-    {% for poder in poderes %}
-    <div class="row">
-        <div class="large-8 columns">
-            <div class="titulo">
-                <h5>{{ poder.nombre }}</h5>
-            </div>
-            <div class="descripcion">
-                {{ poder.descripcion }}
-            </div>
-        </div>
-        <div class="large-4 columns text-center">
-            <div class="switch small round">
-                {% if poder.id in patrulla.poderes %}
-                    <input id="checkbox-{{ poder.id }}" type="checkbox" class="podchk" checked>
-                {% else %}
-                    <input id="checkbox-{{ poder.id }}" type="checkbox" class="podchk">
-                {% endif %}
-                <label for="checkbox-{{ poder.id }}"></label>
-            </div>
-        </div>
-    </div>
-    <hr>
-    {% endfor %}
-    {% if poderes|length > 0 %}
-    <div class="row text-center">
-        <form id="formPoderes" action="{{ urlFor('runModifPodPatrull',{'idPat': patrulla.id}) }}" method="POST">
-            <input name="poderes" type="text" style="display:none;">
-            <button class="button success radius"><i class="fa fa-check fa-fw"></i> Aceptar los cambios</button>
-        </form>
-    </div>
-    {% else %}
-    <div class="row text-center">
-        <div class="large-12 columns">
-            <div class="titulo">
-                <h5>No hay poderes para configurar</h5>
-            </div>
-            <div class="descripcion">
-                Consulte con un experto...
-            </div>
-        </div>
-    </div>
-    {% endif %}
+{% block gestion %}
+<h4>Administrar patrullas</h4>
+<h6 class="subheader">Gestionar los poderes de la patrulla <b>{{ patrulla.nombre }}</b></h6>
+<div class="descripcion">
+	Elija los poderes que le asignará a la patrulla.
 </div>
+<hr>
+{% for poder in poderes %}
+<div class="row collapse">
+	<div class="small-8 columns">
+		<h6 class="subheader">{{ poder.nombre }}</h6>
+		<div class="descripcion">
+			{{ poder.descripcion }}
+		</div>
+	</div>
+	<div class="small-4 text-center columns">
+		<div class="switch round">
+			{% if poder.id in patrulla.poderes %}
+			<input id="checkbox-{{ poder.id }}" type="checkbox" class="podchk" checked>
+			{% else %}
+			<input id="checkbox-{{ poder.id }}" type="checkbox" class="podchk">
+			{% endif %}
+			<label for="checkbox-{{ poder.id }}">
+				<span class="switch-on">ON</span>
+				<span class="switch-off">OFF</span>
+			</label>
+		</div>
+	</div>
+</div>
+<hr>
+{% endfor %}
+{% if poderes|length > 0 %}
+<div class="small-only-text-center text-right">
+<form id="formPoderes" action="{{ urlFor('runModifPodPatrull',{'idPat': patrulla.id}) }}" method="POST">
+			<input name="poderes" type="text" style="display:none;">
+			<button class="button success small radius"><i class="fa fa-check fa-fw"></i> Aceptar los cambios</button>
+		</form>
+</div>
+	{% else %}
+	<h6 class="subheader">No hay poderes para configurar</h6>
+<div class="descripcion">
+	Consulte con su administrador
+</div>
+	{% endif %}
+
+
 
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts_cont %}
+{% block scripts_gestion %}
 <script>
-    $('#formPoderes').submit(function(e) {
-        var poderes_patrulla = new Array();
-        $('.podchk:checked').each(function () {
-            var id_poder = $(this).attr('id').replace('checkbox-', '');
-            poderes_patrulla.push(id_poder);
-        });
-        json_poderes = '[' + poderes_patrulla.join() + ']';
-        $('input[name="poderes"]').val(json_poderes);
-    });
+	$('#formPoderes').submit(function(e) {
+		var poderes_patrulla = new Array();
+		$('.podchk:checked').each(function () {
+			var id_poder = $(this).attr('id').replace('checkbox-', '');
+			poderes_patrulla.push(id_poder);
+		});
+		json_poderes = '[' + poderes_patrulla.join() + ']';
+		$('input[name="poderes"]').val(json_poderes);
+	});
 </script>
 {% endblock %}
 {# ----------------------------------------------------------- #}

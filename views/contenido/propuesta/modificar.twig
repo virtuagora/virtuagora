@@ -2,22 +2,33 @@
 
 {# VARIBLES #}
 {% set modo = 'modificar' %}
-{% set header_icono = 'fa-file-text-o' %}
 {% set header_titulo = 'MODIFICAR PROPUESTA' %}
 {% set url_form = urlFor('runModifPropues', {'idPro': propuesta.id}) %}
+{% set url_volver = urlFor('shwPropues',{'idPro': propuesta.id}) %}
+
+{% if propuesta.tags is not null %}
+{% set tags_mod = '[' %}
+{% for tag in propuesta.tags %}
+{% set tags_mod = tags_mod ~ '"' ~ tag.nombre ~ '"' %}
+{% if loop.last == false %}
+{% set tags_mod = tags_mod ~ ',' %}
+{% endif %}
+{% endfor %}
+{% set tags_mod = tags_mod ~ ']' %}
+{% endif%}
 
 {# ----------------------------------------------------------- #}
 {% block titulo %}Modificar propuesta - Virtuágora{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block scripts_modificar %}
 <script>
-    $(document).ready(function(){
-        $('[name="titulo"]').val('{{ propuesta.titulo }}');
-        $('[name="categoria"] select').val('{{ propuesta.categoria.id }}');
-        $("textarea[name='cuerpo']").sceditor('instance').val('{{ propuesta.cuerpo|bbCode }}', false);
-        autosize($('textarea[name="cuerpo"]'));
-        autosize($("textarea[name='titulo']"));
-    });
+	$('[name="titulo"]').val('{{ propuesta.titulo }}');
+	$('[name="categoria"] select').val('{{ propuesta.categoria.id }}');
+	$(document).ready(function(){
+		autosize($('[name="titulo"]'));
+		$("textarea[name='cuerpo']").sceditor('instance').val('{{ propuesta.cuerpo|bbCode }}', false);
+	});
+
 </script>
 {% endblock %}
 {# ----------------------------------------------------------- #}

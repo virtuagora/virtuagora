@@ -1,12 +1,12 @@
 {# VARIBLES #}
 {% set footer = true %}
 {% set barraNav = true %}
-{% set notificaciones = true %}
+{% set ver_notificaciones = true %}
 
 {% extends "master.twig" %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}{% endblock %}
+{% block titulo %}{{ organismo.nombre|capitalize }}{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block linkhead %}{% endblock %}
 {# ----------------------------------------------------------- #}
@@ -14,8 +14,11 @@
 <div class="perfil color-organismo">
     <div class="row header">
         <div class="large-12 columns text-center">
-            <img class="img-perfil big-border organismo" src="{{ baseUrl() }}/img/organis/{{ organismo.id }}/160.png" alt="Profile pic">
-            <h2 class="nombre">{{ organismo.nombre }}</h2>
+          	{% if user and (user.patrulla_id != null) %}
+           	<a href="{{ urlFor('shwModifOrganis',{'idOrg':organismo.id}) }}" class="edit"><i class="fa fa-pencil fa-fw fa-2x"></i></a>
+           	{% endif %}
+            <img class="img-perfil size-160" src="{{ baseUrl() }}/img/organis/{{ organismo.id }}/160.png" alt="Profile pic">
+            <h2 class="nombre">{{ organismo.nombre|capitalize }}</h2>
             <hr>
             <ul class="nav">
                 <li><i class="fa fa-briefcase fa-fw fa-lg"></i> {{ funcionarios|length }} funcionarios activos</li>
@@ -121,5 +124,7 @@
 {# ----------------------------------------------------------- #}
 {% block modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts %}{% endblock %}
+{% block scripts %}
+<script src="{{ baseUrl() }}/assets/js/foundation/foundation.tab.js"></script>
+{% endblock %}
 {# ----------------------------------------------------------- #}

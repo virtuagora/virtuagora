@@ -1,0 +1,183 @@
+.ver-contenido{
+	header{
+		padding: 40px 0;
+		h1{color:#FFF; margin:0}
+		.subtitulo{
+			color: #FFF;
+			opacity: 0.4;
+			font-size: rem-calc(13);
+			&:hover{opacity: 0.8;}
+		}
+		ul{margin-top: 10px;}
+	}
+	.columna-izquierda{
+		@media only screen and (max-width: 40.063em){
+			display:none;
+		}
+		@media only screen and (min-width: 40.063em) and (max-width: 64em) {
+			padding-right: 0;
+		}
+		@media only screen and (min-width: 64.063em) {
+			padding: 0;
+		}
+	}
+	.columna-derecha{
+		@media only screen and (max-width: 40em) {
+			padding: 0;
+		}
+	}
+	.perfil{
+		position: absolute;
+		left: 25px;
+		top: 5px;
+		opacity: 0.5;
+		cursor: pointer;
+		@media only screen and (max-width: 40em) {
+			display:none;
+		}
+	}
+	.panel.white{
+		padding: 15px;
+		@media only screen and (min-width: 40.063em) {
+			padding: 30px 50px;
+		}
+		background-color: #FFF;
+		-webkit-box-shadow: 0px 0px 6px 0px rgba(50, 50, 50, 0.7);
+		-moz-box-shadow: 0px 0px 6px 0px rgba(50, 50, 50, 0.7);
+		box-shadow: 0px 0px 6px 0px rgba(50, 50, 50, 0.7);
+	}
+	.panel.white.fila-datos-autor{
+		padding: 5px;
+		&, ul li{font-size: rem-calc(12);}
+		a{color: #FFF;}
+		@media only screen and (max-width: 40em) {
+			display: block;
+		}
+		@media only screen and (min-width: 40.063em) {
+			display: none;
+		}
+	}
+	//	Autor Info
+	.nombre{color: #FFF; opacity: 0.4; &:hover{opacity: 0.8;}}
+	.autor-datos img{margin-bottom: 10px;}
+	.fake-tt-user {
+		margin-top: 5px;
+		cursor: default;
+		background-color: #3D486C;
+		border-radius: 6px;
+		color: #FFF;
+		border: 1px solid #FFFFFF;
+		font-size: rem-calc(12);
+		padding: 10px;
+		position: relative;
+		hr{margin: 5px 0px; opacity: 0.4; padding: 0 10%}
+		ul {margin: 0;}
+		ul li{font-size: rem-calc(12)}
+		&:before {
+			content: "";
+			position: absolute;
+			border-right: 5px solid transparent;
+			border-left: 5px solid transparent;
+			left: 50%;
+			margin-left: -5px;
+			border-bottom: 10px solid #FFF;
+			top: -10px;
+		}
+		&.small{
+			padding: 5px;
+			margin-bottom: 10px;
+		}
+		&.small:before{
+			border-bottom: 5px solid transparent;
+			border-top: 5px solid transparent;
+			margin-top: -5px;
+			top: 20%;
+			border-right: 10px solid #FFF;
+			left: -10px;
+		}
+	}
+	.accesos{margin-top: 10px;}
+	.box-comentarios{margin: 10px 0 0; }
+	// Contenido
+	.contenido{
+		font-family: "Lora", serif;
+		font-size: rem-calc(15);
+		@media only screen and (max-width: 40em) {
+			font-size: rem-calc(13);
+		}
+	}
+	.contenido p{
+		font-size: rem-calc(15);
+		@media only screen and (max-width: 40em) {
+			font-size: rem-calc(13);
+		}
+	}
+	.panel.white.opciones{
+		padding: 20px 10px;
+		.descripcion{font-size: rem-calc(13);}
+	}
+}
+
+// ESTE ES EL BOX DE COMENTARIOS
+// USADO EN ESCRIBIR UN NUEVO COMENTARIO
+// O AL VER LOS COMENTARIOS DE UN DOCUMENTO.
+
+.box-comentarios{
+	&.add-border{
+		border: 1px solid #CACACA;
+	}&.respuestas{
+		border-left: 1px solid #CACACA;
+		table.comentarios{
+			tr td:first-child{width: 25px;}
+		}
+	}
+}
+
+.iniciar-sesion, .sin-comentarios{
+	p, h5{font-family: 'Open Sans', sans-serif; margin: 0;}
+	p{font-size: rem-calc(12) !important;}
+}
+
+table.comentarios{
+	width: 100%;
+	border: 0;
+	margin-bottom: 0;
+	thead, tbody, tr:nth-of-type(even) {background: 0;}
+	tr td:first-child{width: 32px; padding: 5px 0; vertical-align: top;}
+	tr td.boton{width: 80px; vertical-align: bottom;}
+	tr td:nth-child(2){
+		vertical-align: top;
+		font-size: rem-calc(13);
+	}
+	tr td {
+		padding: 5px;
+		textarea[name=cuerpo]{
+			margin: 0;
+			resize: none;
+			font-family: 'Open Sans',sans-serif;
+			font-size: rem-calc(13);
+			padding: 3px;
+			box-shadow: none;
+			min-height: 26px;
+		}
+	}
+	tr:last-child td{border-bottom: 0;}
+	.comentario-texto{margin:5px 0;}
+	a.link{
+		padding: 0px 4px 1px;
+		margin-right: 3px;
+		border-radius: 3px;
+		font-size: rem-calc(12);
+		&.user{	color: #3D486C; padding: 0; font-size: rem-calc(12);}
+		&.puntos{color: #ba7315;}
+		&.up{ background-color:  #14a248; color: #FFF; opacity: 0.9}
+		&.down{ background-color:  $sancionar-color; color: #FFF; opacity: 0.9}
+		&.contestar{ color: #14a248;}
+		&.sancionar{ color: $advertencia-color; padding: 0; margin: 0;}
+	}
+}
+
+.chart{
+	ul li{font-size: rem-calc(13)}
+}
+

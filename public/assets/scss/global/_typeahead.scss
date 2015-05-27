@@ -1,4 +1,5 @@
 .buscador{
+	position: relative;
 	margin-top: 5px;
 	.twitter-typeahead {
 		width: 100%;
@@ -6,8 +7,8 @@
 	.icono{
 		position: absolute;
 		z-index: 2;
-		top: 12px;
-		left: 22px;
+		top: 7px;
+		left: 15px;
 	}
 	.tt-input, .tt-hint{
 		margin-bottom: 0;

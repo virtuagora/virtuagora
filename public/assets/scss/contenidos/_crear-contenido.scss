@@ -1,0 +1,51 @@
+.crear-contenido{
+    letter-spacing: -0.3px;
+    margin: 20px 0px;
+    .header{
+        margin: 25px auto;
+        h1{
+            font-family: "Source Sans Pro",sans-serif;
+            font-weight: bold;
+            color: #FFFFFF;
+        }
+    }
+    .panel{
+        background-color: #FFFFFF;
+        -webkit-box-shadow: 0px 0px 6px 0px rgba(50, 50, 50, 0.7);
+        -moz-box-shadow:    0px 0px 6px 0px rgba(50, 50, 50, 0.7);
+        box-shadow:         0px 0px 6px 0px rgba(50, 50, 50, 0.7);
+        margin-bottom: 20px;
+        .descripcion{
+            font-size: rem-calc(14);
+            margin-top: 5px;
+            margin-left: 40px;
+        }
+        .enumerador{
+            float: left;
+            position: relative;
+            .blanco{
+                color: #FFFFFF;
+            }
+        }
+    }
+    textarea[name=titulo]{
+        font-family: "Source Sans Pro",sans-serif;
+        font-weight: bold;
+        font-size: rem-calc(35);
+        text-rendering: optimizelegibility;
+        color: #383838;
+        border: 0px solid #dedede;
+        box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+        text-align: center;
+        resize: none;
+        padding: 20px 0;
+        &:focus{
+            background-color: #fff4c4;
+        }
+        margin: 0;
+    }
+    select[name=categoria], #editor{
+        margin: 10px auto;
+    }
+}
+

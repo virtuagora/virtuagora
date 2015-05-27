@@ -1,208 +1,249 @@
 {# VARIBLES #}
 {% set footer = true %}
 {% set barraNav = true %}
+{% set ver_notificaciones = true %}
 {% set html_class = '' %}
-{% set body_class = 'color-partido' %}
+{% set body_class = 'portal-bg' %}
 
 {% extends "master.twig" %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}Virtuagora - Listar partidos políticos{% endblock %}
+{% block titulo %}Grupos políticos{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block linkhead %}
-{% endblock %}
+{% block linkhead %}{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block body %}
-<div class="listar-partidos">
-    <div class="row">
-        <div class="small-12 small-centered columns">
-            <section class="intro-listado text-center">
-                <div class="titulo-listado">
-                    <i class="fa fa-flag fa-2x"></i>&nbsp;<i class="fa fa-search fa-2x"></i><br />LISTAR PARTIDOS POLITICOS
-                </div>
-                <div class="panel small-8 small-centered columns">
-                    Aqui puede ver los partidos políticos que participan. Puede obtener mas información acerca de alguno haciendo clic sobre el icono <i class="fa fa-info fa-fw"></i> que lo redireccionará al perfil del partido.
-                </div>
-                {% if user and (user.es_funcionario == 1) and (user.es_jefe == 0) %}
-                <a class="button oposite radius small" href="{{ urlFor('shwCrearPartido') }}"><i class="fa fa-plus fa-fw fa-lg"></i>&nbsp;Crear un nuevo partido</a>
-                {% endif %}
-                {% if user and (user.es_jefe == 1) %}
-                <a class="button oposite radius small" href="{{ urlFor('shwModifPartido',{'idPar': user.partido_id}) }}"><i class="fa fa-edit fa-fw fa-lg"></i>&nbsp;Modificar datos de mi partido</a>
-                <a class="button oposite radius small" href="{{ urlFor('shwModifRolPartido',{'idPar': user.partido_id}) }}"><i class="fa fa-wrench fa-fw fa-lg"></i>&nbsp;Administrar mi partido</a>
-                {% endif %}
-                <a class="button oposite radius small" href="{{ urlFor('shwIndex') }}"><i class="fa fa-undo fa-fw fa-lg"></i>&nbsp;Volver atrás</a>
-            </section>
-        </div>
-        <hr>
-    </div>
-    <div class="row">
-        <div class="row-listado small-12 small-centered columns">
-            {% for p in partidos %}
-            <div id="p{{ p.id }}" class="panel-partido">
-                <div class="img-partido">
-                    <a href="{{ urlFor('shwPartido',{'idPar': p.id}) }}"><img class="img-perfil square" src="{{ baseUrl() }}/img/partido/{{ p.id }}/160.png"></a>
-                </div>
-                <div class="wrapper-botones">
-                    <a href="{{ urlFor('shwPartido',{'idPar': p.id}) }}" class="button small radius"><i class="fa fa-info-circle fa-fw"></i></a>
-                    {% if user.partido_id is null %}
-                    <div class="bt-asociarse button small success radius"><i class="fa fa-plus fa-fw"></i></div>
-                    {% elseif user.partido_id == p.id %}
-                    {% if (user.es_jefe == 1) %}
-                    <a href="{{ urlFor('shwModifPartido',{'idPar': p.id}) }}" class="button small secondary radius"><i class="fa fa-edit fa-fw"></i></a>
-                    <a href="{{ urlFor('shwModifRolPartido',{'idPar': p.id}) }}" class="button small warning radius"><i class="fa fa-wrench fa-fw"></i></a>
-                    {% else %}
-                    <div class="bt-dejar button small alert radius"><i class="fa fa-minus fa-fw"></i></div>
-                    {% endif %}
-                    {% endif %}
-                </div>
-                <div id="p{{ p.id }}-descripcion" class="wrapper-descripcion">
-                    <div class="titulo"><h2><b><i class="fa fa-flag fa-fw"></i> <span class="p-nombre">{{ p.nombre|title }}</span> [{{ p.acronimo }}]</b></h2>
-                    </div>
-                    <hr class="salto">
-                    <div class="descripcion">{{ p.descripcion|capitalize }}</div>
-                    <hr class="salto">
-                    <ul class="listado-h datos-extras">
-                        <li><b><i class="fa fa-caret-right fw"></i> FUNDADOR:</b> {{ p.fundador|title }}</li>
-                        <li><b><i class="fa fa-caret-right fw"></i> FECHA FUNDACION:</b> {{ p.fecha_fundacion|date("d/m/Y") }}</li>
-                    </ul>
-                </div>
-            </div>
-            {% endfor %}
+<div class="portal-usuario partidos">
+	{% include 'portal/header.twig' %}
+	{% if user and (user.partido_id != null)%}
+	<div class="header-partido text-center">
+		<div class="row">
+			<span id="nombrePartidoUser">{{user.partido.nombre}}</span>
+			<img class="img-perfil size-20" style="vertical-align: bottom;" src="{{ baseUrl() }}/img/partido/{{ user.partido_id }}/32.png">
+			<hr class="show-for-small-only">
+			<a href="{{ urlFor('shwPartido',{'idPar': user.partido_id}) }}" class=""><i class="fa fa-info-circle fa-fw fa-lg"></i> Ver perfil</a>
+			{% if user.es_jefe == 1 %}
+			<a href="{{ urlFor('shwModifRolPartido',{'idPar': user.partido_id}) }}" class=""><i class="fa fa-gear fa-fw fa-lg"></i> Administrar</a>
+			<a href="{{ urlFor('shwModifPartido',{'idPar': user.partido_id}) }}" class=""><i class="fa fa-pencil fa-fw fa-lg"></i> Modificar datos</a>
+			{% endif %}
+		</div>
+	</div>
+	{% elseif user %}
+	<div class="header-partido text-center" style="{{ random(10)%2 == 0 ? '' : 'display:none'}}">
+		<b>TIP:</b> ¿Sabias que puede crear su propio grupo?
+		<hr class="show-for-small-only">
+		<a href="{{ urlFor('shwCrearPartido') }}"><i class="fa fa-plus fa-fw fa-lg"></i> Crear grupo politico</a>
+	</div>
+	{% endif %}
 
-        </div>
-    </div>
-    {% if nav %}
-    <div class="row">
-        <div class="large-6 panel clearfix large-centered columns">
-            <div class="left">
-                {% if nav.first %}
-                <a href="{{ nav.first }}"><i class="fa fa-angle-double-left fa-fw fa-lg"></i></a>
-                {% endif %}
-                {% if nav.prev %}
-                <a href="{{ nav.prev }}"><i class="fa fa-angle-left fa-fw fa-lg"></i></a>
-                {% endif %}
-            </div>
-            <div class="right">
-                {% if nav.next %}
-                <a href="{{ nav.next }}"><i class="fa fa-angle-right fa-fw fa-lg"></i></a>
-                {% endif %}
-                {% if nav.last %}
-                <a href="{{ nav.last }}"><i class="fa fa-angle-double-right fa-fw fa-lg"></i></a>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-    {% endif %}
+	<div class="intro-listado-contenido">
+		<div class="row">
+			<div class="medium-5 columns text-center">
+				<span class="fa-stack fa-2x">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-users fa-inverse fa-stack-1x"></i>
+				</span>
+				<h3><b>Grupos políticos</b></h3>
+			</div>
+			<div class="txt medium-7 columns text-justify">
+				Los grupos políticos son agrupaciones de personas por un mismo accionar o por una linea de pensamiento en común. Un usuario puede tanto asociarse a un grupo, como crear su propio grupo. Los mismos son utiles tanto como para agrupar y crear pequeñas comunidades de usuarios, o para descubrir otros contenidos que puedan ser de interés para los integrantes.
+				<div class="text-center medium-text-right" style="margin-top: 15px;">
+					{% if (user or (user.es_funcionario == 1)) and (user.es_jefe == 0) %}
+					<a href="{{ urlFor('shwCrearPartido') }}" class="button success radius tiny"><i class="fa fa-plus fa-fw"></i> Crear grupo político</a>
+					{% endif %}
+					<a href="javascript:void(0)" class="button radius tiny"><i class="fa fa-question-circle fa-fw"></i> Mas información</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="small-12 columns">
+			<div class="directorio partidos">
+				<div class="buscador row">
+					<i class="icono fa fa-search fa-fw"></i>
+					<input id="typeahead" type="text" placeholder="Escriba el nombre del partido...">
+				</div>
+				<div class="row">
+					<div id="masonryContainer">
+						{% for p in partidos %}
+						<div class="masonry-brick">
+							<div class="header">
+								<a href="{{ urlFor('shwPartido',{'idPar': p.id}) }}">
+									<div class="acronimo"><img class="img-perfil size-64" src="{{ baseUrl() }}/img/partido/{{ p.id }}/64.png"> {{ p.acronimo }}</div>
+									<img class="bg" src="{{ baseUrl() }}/img/partido/{{ p.id }}/160.png">
+								</a>
+							</div>
+							<div class="nombre text-center">
+								<a href="{{ urlFor('shwPartido',{'idPar': p.id}) }}">{{ p.nombre }}</a>
+							</div>
+							<div class="datos text-justify">
+								<b>Descripcion:</b> {{ p.descripcion }}
+								<hr>
+								<div class="text-right">
+									<a href="{{ urlFor('shwPartido',{'idPar': p.id}) }}">
+										<i class="fa fa-info-circle fa-fw fa-lg"></i> Ver
+									</a>
+									{% if user.partido_id is null %}
+									<a href="javascript:asociarse({{ p.id }})">
+										<i class="fa fa-plus fa-fw fa-lg"></i> Asociarme
+									</a>
+									{% elseif (user.partido_id == p.id) and (user.es_jefe != 1) %}
+									<a href="javascript:salir({{ p.id }})">
+										<i class="fa fa-minus fa-fw fa-lg"></i> Salir
+									</a>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				{% if nav %}
+				<div class="row collapse">
+					<div class="small-12 medium-8 small-centered columns">
+						<div class="panel paginacion clearfix">
+							<div class="small-6 columns text-left">
+								{% if nav.first %}
+								<a id="nav-first" href="{{ nav.first }}"><i class="fa fa-fast-backward fa-fw fa-lg"></i></a>
+								{% endif %}
+								&nbsp;&nbsp;
+								{% if nav.prev %}
+								<a id="nav-prev" href="{{ nav.prev }}"><i class="fa fa-chevron-left fa-fw fa-lg"></i> Anterior</a>
+								{% endif %}
+							</div>
+							<div class="small-6 columns text-right">
+								{% if nav.next %}
+								<a id="nav-next" href="{{ nav.next }}">Proximo <i class="fa fa-chevron-right fa-fw fa-lg"></i></a>
+								{% endif %}
+								&nbsp;&nbsp;
+								{% if nav.last %}
+								<a id="nav-last" href="{{ nav.last }}"><i class="fa fa-fast-forward fa-fw fa-lg"></i></a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
 </div>
-
-<div class="wrapper-asociar vacio" hidden>
-    <div class="partido-asociando text-center">
-        <h6>Usted está a punto de asociarse al partido político</h6>
-        <h4><b><span class="p-nombre"></span></b></h4>
-    </div>
-    <div class="pregunta text-center">
-        ¿Confirma unirse al partido?
-    </div>
-    <div class="text-center">
-        <form method="POST">
-            <button class="button small success radius"><i class="fa fa-check fa-fw fa-lg"></i> Confirmar</button>
-            <div class="bt-cancelar-asociar button small secondary radius"><i class="fa fa-undo fa-fw fa-lg"></i> Cancelar</div>
-
-        </form>
-    </div>
-</div>
-
-<div class="wrapper-dejar vacio" hidden>
-    <div class="partido-asociando text-center">
-        <h6>Usted ya es parte de este partido político</h6>
-        <h4><b><span class="p-nombre"></span></b></h4>
-        <h6>Confirmando la acción, usted estaría dejando de ser parte del mismo</h6>
-    </div>
-    <div class="pregunta text-center">
-        ¿Confirma dejar el partido?
-    </div>
-    <div class="text-center">
-        <form action="{{ urlFor('runUnirsePartido',{'idPar': 'idPar'}) }}" method="POST">
-            <button class="button small alert radius"><i class="fa fa-check fa-fw fa-lg"></i> Dejar el partido</button>
-            <div class="bt-cancelar-dejar button small secondary radius"><i class="fa fa-undo fa-fw fa-lg"></i> Cancelar</div>
-        </form>
-    </div>
-</div>
-
-<div id="tooltip-categoria-data" class="text-left" hidden>
-    <i class="fa fa-lightbulb-o fa-fw fa-lg"></i>&nbsp;Elija una categoria, la cual
-    <br> vea que su problematica se ajusta.
-</div>
-<div id="tooltip-titulo-data" class="text-left" hidden>
-    <i class="fa fa-lightbulb-o fa-fw fa-lg"></i>&nbsp;El título debe ser claro, atractivo, para que la gente se vea interesada.
-</div>
-
-
 {% endblock %}
 {# ----------------------------------------------------------- #}
-{% block modals %}{% endblock %}
+{% block modals %}
+<div id="modal-partido" class="modal-partido reveal-modal remove-whitespace small" data-reveal>
+	<div class="row">
+		<div class="small-12 large-4 columns text-center">
+			<img id="modal-img" src="" class="img-perfil size-160">
+		</div>
+		<div class="small-12 large-8 columns text-center">
+			<h4 id="modal-nombre"><b></b></h4>
+			<div id="modal-asociarse">
+				<h6 class="subheader" id="modal-titulo"></h6>
+				<form id="modal-form" method="POST">
+					<button class="button small success radius"><i class="fa fa-check fa-fw fa-lg"></i> Confirmar</button>
+					<div class="bt-cancelar button small secondary radius"><i class="fa fa-undo fa-fw fa-lg"></i> Cancelar</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block scripts %}
-<script type="text/javascript">
-    $(document).ready(function(){
+<script src="{{ baseUrl() }}/assets/js/masonry/masonry.pkgd.min.js"></script>
+<script src="{{ baseUrl() }}/assets/js/typeahead/typeahead.bundle.min.js"></script>
+<script src="{{ baseUrl() }}/assets/js/foundation/foundation.reveal.js"></script>
+<script>
+	var baseUrl = '{{ baseUrl() }}';
+	var imgUrl = "{{ baseUrl() }}/img/partido/##ID##/160.png"
+	var actionUnirse = "{{ urlFor('runUnirsePartido',{'idPar': '##idPar##'}) }}";
+	var actionSalir = "{{ urlFor('runDejarPartido') }}";
+	var partidoUser = {{ user.partido_id is null ? 'null' : user.partido_id }};
+	var nombrePartidoUser = {{ user.partido_id is null ? 'null' : user.partido_id }};
 
-    });
+	function completarModalUnirse(rta){
+		$('#modal-titulo').html(rta[0].nombre);
+		$('#modal-nombre b').html('¿Desea asociarse al grupo?');
+		var imgUrl_to_use = imgUrl.replace('##ID##',rta[0].id);
+		$('#modal-img').removeAttr('src');
+		$('#modal-img').attr('src',imgUrl_to_use);
+		var action_url = actionUnirse.replace('##idPar##',rta[0].id)
+		$('#modal-form').removeAttr('action');
+		$('#modal-form').attr('action', action_url);
+		$('#modal-partido').foundation('reveal', 'open');
+	}
+	function completarModalSalir(rta){
+		$('#modal-titulo').html(rta[0].nombre);
+		$('#modal-nombre b').html('¿Desea salir del grupo?');
+		var imgUrl_to_use = imgUrl.replace('##ID##',rta[0].id);
+		$('#modal-img').removeAttr('src');
+		$('#modal-img').attr('src',imgUrl_to_use);
+		$('#modal-form').removeAttr('action');
+		$('#modal-form').attr('action', actionSalir);
+		$('#modal-partido').foundation('reveal', 'open');
+	}
 
-    $(document).on('click', '.bt-cancelar-asociar', function() {
-        $(".wrapper-botones").show();
-        $(".wrapper-asociar.eliminar").slideUp();
-        $(".wrapper-descripcion").slideDown();
-        $(".wrapper-asociar.eliminar").remove();
-    });
-    $(document).on('click', '.bt-cancelar-dejar', function() {
-        $(".wrapper-botones").show();
-        $(".wrapper-dejar.eliminar").slideUp();
-        $(".wrapper-descripcion").slideDown();
-        $(".wrapper-dejar.eliminar").remove();
-    });
+	function asociarse(partido){
+		enviarSolicitud(baseUrl + '/partido?where=id-eq-' + partido, completarModalUnirse);
+	}
+	function salir(partido){
+		enviarSolicitud(baseUrl + '/partido?where=id-eq-' + partido, completarModalSalir);
+	}
 
-    $( ".bt-asociarse" ).click(function() {
-        $(".wrapper-botones").show();
-        $(".wrapper-asociar.eliminar").slideUp();
-        $(".wrapper-descripcion").slideDown();
-        $(".wrapper-asociar.eliminar").remove();
-        $( this ).parent().hide();
-        var p_div = $( this ).closest(".panel-partido");
-        var p_nombre = p_div.find(".p-nombre").html();
-        var id = p_div.attr("id");
-        id = id.slice(1);
-        var a_div = $(".wrapper-asociar.vacio").clone();
-        a_div.find(".p-nombre").html(p_nombre);
-        var a_actionURL =  "{{ urlFor('runUnirsePartido',{'idPar': 'idPar'}) }}";
-        a_actionURL = a_actionURL.replace('idPar',id);
-        a_div.removeClass("vacio");
-        a_div.addClass("eliminar");
-        a_div.find("form").attr("action", a_actionURL);
-        a_div.insertAfter($('#p'+id+'-descripcion'));
-        $('#p'+id+'-descripcion').slideToggle();
-        a_div.slideToggle();
-    });
+	$('.bt-cancelar').on('click', function() {
+		$('#modal-partido').foundation('reveal', 'close');
+	});
+	// initialize
+	$('#masonryContainer').masonry({
+		itemSelector: '.masonry-brick',
+		isFitWidth: true,
+		"gutter": 10
+	});
 
-    $( ".bt-dejar" ).click(function() {
-        $(".wrapper-botones").show();
-        $(".wrapper-dejar.eliminar").slideUp();
-        $(".wrapper-descripcion").slideDown();
-        $(".wrapper-dejar.eliminar").remove();
-        $( this ).parent().hide();
-        var p_div = $( this ).closest(".panel-partido");
-        var p_nombre = p_div.find(".p-nombre").html();
-        var id = p_div.attr("id");
-        id = id.slice(1);
-        var d_div = $(".wrapper-dejar.vacio").clone();
-        d_div.find(".p-nombre").html(p_nombre);
-        var d_actionURL =  "{{ urlFor('runDejarPartido') }}";
-        d_div.removeClass("vacio");
-        d_div.addClass("eliminar");
-        d_div.find("form").attr("action", d_actionURL);
-        d_div.insertAfter($('#p'+id+'-descripcion'));
-        $('#p'+id+'-descripcion').slideToggle();
-        d_div.slideToggle();
-    });
+	var grupo = new Bloodhound({
+		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('nombre'),
+		queryTokenizer: Bloodhound.tokenizers.whitespace,
+		identify: function(obj) { return obj.id; },
+		remote: {
+			url: baseUrl + '/partido?q=%QUERY',
+			wildcard: '%QUERY'
+		}
+	});
+
+	$('#typeahead').typeahead({
+		minLength: 4,
+	}, {
+		name: 'grupos',
+		display: 'nombre',
+		source: grupo,
+		templates: {
+			empty: '<div class="tt-empty"><i class="fa fa-asterisk fa-fw"></i> No se encontraron grupos politicos</div>',
+			suggestion: function(data) {
+				return '<div><i class="fa fa-users fa-fw"></i> ' + data.nombre + '</div>';
+			}
+		}
+	});
+
+	$('#typeahead').bind('typeahead:select', function(ev, data) {
+		var url_incomplete = "{{ urlFor('shwPartido',{'idPar': '##URL##'}) }}";
+		var url_to_go = url_incomplete.replace('##URL##', data.id);
+		window.location.replace(url_to_go);
+	});
+
+	function enviarSolicitud(url_query, handlerData) {
+		var request = $.ajax({
+			url: url_query,
+			pageSize: 10,
+			cache: false,
+			dataType: "json"
+		}).done(function(resultados, textStatus, request) {
+			handlerData(resultados);
+		}).fail(function(jqXHR, textStatus) {
+			return('- ERROR - ');
+		});
+	}
+
 
 </script>
 {% endblock %}

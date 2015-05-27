@@ -1,7 +1,7 @@
 {# VARIBLES #}
 {% set footer = true %}
 {% set barraNav = true %}
-{% set notificaciones = true %}
+{% set ver_notificaciones = true %}
 {% set html_class = '' %}
 {% set body_class = 'portal-bg' %}
 
@@ -13,7 +13,7 @@
 {% block linkhead %}{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block body %}
-<div class="portal-usuario-aux">
+<div class="portal-usuario">
     {% include 'portal/header.twig' %}
     <div class="inicio">
         <div class="intro row">
@@ -43,7 +43,7 @@
                     <div class="icono">
                         <span class="fa-stack fa-3x">
                             <i class="colorear fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-exclamation fa-inverse fa-stack-1x"></i>
+                            <i class="fa fa-lightbulb-o fa-inverse fa-stack-1x"></i>
                         </span>
                     </div>
                     <div class="txt"><b>PROPUESTA</b></div>
@@ -157,7 +157,7 @@
                     <div class="icono">
                         <span class="fa-stack fa-3x">
                             <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
-                            <i class="colorear fa fa-exclamation fa-stack-1x"></i>
+                            <i class="colorear fa fa-lightbulb-o fa-stack-1x"></i>
                         </span>
                     </div>
                     <h3><b>PROPUESTAS</b></h3>

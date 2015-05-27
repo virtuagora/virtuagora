@@ -1,0 +1,77 @@
+.directorio{
+	#masonryContainer{
+		margin: 10px auto;
+		.masonry-brick {
+			@media only screen and (max-width: 40em) {
+				width: 280px;
+			}
+			@media only screen and (min-width: 40.063em) and (max-width: 64em) {
+				width: 350px;
+			}
+			@media only screen and (min-width: 64em) {
+				width: 470px;
+			}
+			margin-bottom: 8px;
+			.header {
+				position: relative;
+				overflow: hidden;
+				height: 100px;
+				background-color: #FFF;
+				border-bottom: 0;
+				a {color: #FFF;}
+				.acronimo{
+					position: absolute;
+					width: 100%;
+					text-align: center;
+					top: 20%;
+					font-size: rem-calc(40);
+					z-index: 10;
+					text-shadow:
+						-1px -1px 0 #9f9f9f,
+						1px -1px 0 #9f9f9f,
+						-1px 1px 0 #9f9f9f,
+						1px 1px 0 #9f9f9f;
+				}
+			}
+			.header .bg {
+				position: absolute;
+				@media only screen and (max-width: 40em) {
+					top: -90%;
+				}
+				@media only screen and (min-width: 40.063em) and (max-width: 64em) {
+					top: -125%;
+				}
+				@media only screen and (min-width: 64em) {
+					top: -190%;
+				}
+				opacity: 0.6;
+				margin: auto;
+				width: 100%;
+				-webkit-filter: blur(7px);
+				-moz-filter: blur(7px);
+				-o-filter: blur(7px);
+				-ms-filter: blur(7px);
+				filter: blur(7px);
+			}
+			.nombre{
+				position: relative;
+				font-size: rem-calc(18);
+				padding: 2px 5px;
+				a {color: #FFF;}
+			}
+			.datos{
+				font-size: rem-calc(12);
+				padding: 8px;
+				hr{ margin: 5px 0;}
+				.button{margin-bottom: 0}
+			}
+		}
+	}
+}
+
+.directorio.partidos{
+	.nombre{background-color: $partido-color;}
+}
+.directorio.organismos{
+	.nombre{background-color: $organismo-color;}
+}

@@ -1,64 +1,41 @@
 {# VARIBLES #}
 
-{% extends "usuario/ver-administracion.twig" %}
+{% set opcion_activa = 3 %}
+{% extends "usuario/gestion.twig" %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}Virtuagora - Eliminar cuenta{% endblock %}
+{% block titulo %}Eliminar cuenta{% endblock %}
 {# ----------------------------------------------------------- #}
-{% set intro_titulo = 'Eliminar cuenta' %}
-{# ----------------------------------------------------------- #}
-{% block configuracion %}
-<div class="eliminar-cuenta">
-    <div class="row">
-        <div class="panel large-8 large-centered columns text-center">
-            <h3><i class="fa fa-warning fa-fw"></i> <b>ATENCIÓN</b></h3>
-            Sea consciente de lo que está a punto de hacer...
-        </div>
-        <div class="descripcion large-12 columns text-center">
-            Usted esta a punto de eliminar su cuenta
-            <br>
-            <h4><b>¿Está seguro de lo que desea hacer?</b></h4>
-        </div>
-        <div class="primer-boton large-12 columns text-center">
-            <div class="bt-primer-conf button large warning radius"><i class="fa fa-user-times fa-fw fa-lg"></i> Estoy seguro</div>
-        </div>
-        <div class="segundo-boton large-12 columns text-center" hidden>
-            <form action="{{ urlFor('runElimiUsuario') }}" method="POST">
-                <div class="large-7 large-centered columns">
-                    <div class="wrapper-elementos">
-                        <div class="header">
-                            <i class="fa fa-question-circle fa-fw fa-lg"></i><i class="fa fa-pencil fa-fw fa-lg"></i> Escriba su contraseña para eliminar su cuenta
-                        </div>
-                        <div class="fila">
-                            <div class="row">
-                                <div class="large-12 columns">
-                                    <input type="password" name="password">
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button class="bt-segunda-conf button large alert radius"><i class="fa fa-trash-o fa-fw fa-lg"></i> Si, confirmo la eliminación</button>
-            </form>
-        </div>
-    </div>
+{% block gestion %}
+<h4>Datos personales</h4>
+<h6 class="subheader">Eliminar cuenta</h6>
+<hr>
+<div class="panel text-center" style="background-color:#9d2727; border: 0;">
+	<h4 style="color:#FFF"><i class="fa fa-warning fa-fw"></i> ATENCIÓN</h4>
+	<div class="descripcion" style="color:#FFF">
+		Sea consciente de su acción<br>
+		Usted esta a punto de eliminar su cuenta<br>
+		¿Está seguro de lo que desea hacer?
+	</div>
 </div>
-
+<hr>
+<form action="{{ urlFor('runElimiUsuario') }}" method="POST">
+	<div class="row collapse">
+		<div class="medium-6 columns">
+			<h6 class="subheader">Si esta de acuerdo, ingrese su contraseña</h6>
+		</div>
+		<div class="medium-6 columns">
+			<input type="password" name="password">
+		</div>
+	</div>
+	<hr>
+	<div class="small-only-text-center text-right">
+	<button class="button small alert radius"><i class="fa fa-trash-o fa-fw fa-lg"></i> Eliminar cuenta</button>
+	</div>
+</form>
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts_cont %}
-<script src="{{ baseUrl() }}/assets/js/underscore/underscore-min.js"></script>
-<script>
-    $(document).ready(function(){
-
-    });
-    $(".bt-primer-conf").click( function() {
-        $(this).slideToggle();
-        $('.segundo-boton').slideToggle();
-    });
-</script>
-{% endblock %}
+{% block scripts_gestion %}{% endblock %}
 {# ----------------------------------------------------------- #}

@@ -2,12 +2,13 @@
 
 {# VARIBLES #}
 {% set body_class = 'color-evento' %}
-{% set header_icono = 'fa-calendar-o' %}
+{% set header_icono = 'fa-calendar' %}
 {% if modo is not defined %}
 {% set header_titulo = 'NUEVO EVENTO' %}
 {% set url_form = urlFor('runCrearEvento') %}
 {% endif %}
 {% set type_contenido = 'evento' %}
+{% set url_redirigir = urlFor('shwPortal') %}
 
 {# ----------------------------------------------------------- #}
 {% block titulo %}Crear evento - Virtuágora{% endblock %}
@@ -148,9 +149,9 @@
 </div>
 {% endblock %}
 {# ----------------------------------------------------------- #}
-{% block modals_cont %}{% endblock %}
+{% block content_modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts_cont %}
+{% block content_scripts %}
 <script src="{{ baseUrl() }}/assets/js/jquery-ui/jquery-ui.min.js"></script>
 <script src="{{ baseUrl() }}/assets/js/jquery-ui/datepicker-es.js"></script>
 <script src="{{ baseUrl() }}/assets/js/timepicker/jquery.timepicker.min.js"></script>
@@ -207,6 +208,9 @@
     };
 
     $("#checkbox").click(cambiarEstado);
+
+
 </script>
+
 {% endblock %}
 {# ----------------------------------------------------------- #}

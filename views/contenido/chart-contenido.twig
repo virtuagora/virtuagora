@@ -1,0 +1,19 @@
+<div class="chart row" style="display:none;">
+	<div class="large-6 columns text-center">
+		<canvas id="{{ chart.id }}" width="150" height="150" ></canvas>
+	</div>
+	<div class="large-6 columns small-text-center large-text-left">
+		<h4 class="subheader"><i class="fa fa-pie-chart fa-fw"></i> Leyenda </h4>
+		<ul class="list">
+			{% if chart.data1.val > 0 %}
+			<li><i class="fa fa-square fa-fw fa-lg" style="color:{{ chart.data1.color }}"> </i><b><span id="data1-p"></span></b> {{ chart.data1.tag }} ({{chart.data1.val}} voto/s)</li>
+			{% endif %}
+			{% if chart.data2.val > 0 %}
+			<li><i class="fa fa-square fa-fw fa-lg" style="color:{{ chart.data2.color }}"> </i><b><span id="data2-p"></span></b> {{ chart.data2.tag }} ({{chart.data2.val}} voto/s)</li>
+			{% endif %}
+			{% if chart.data3.val > 0 %}
+			<li><i class="fa fa-square fa-fw fa-lg" style="color:{{ chart.data3.color }}"></i><b><span id="data3-p"></span></b> {{ chart.data3.tag }} ({{chart.data3.val}} voto/s)</li>
+			{% endif %}
+		</ul>
+	</div>
+</div>

@@ -1,0 +1,125 @@
+.gestion-panel{
+	.mapa{
+		padding: 0;
+	}
+	.mapa .header{
+		background-color: #222;
+		color: #FFF;
+		padding: 5px 0;
+		@media only screen and (min-width: 64em) {
+			i{font-size: rem-calc(55); float:left;}
+			font-size: rem-calc(18);
+		}
+		@media only screen and (min-width: 40.063em) and (max-width: 64em) {
+			i{font-size: rem-calc(45); float:left;}
+			font-size: rem-calc(16);
+		}
+		@media only screen and (max-width: 40em) {
+			font-size: rem-calc(18);
+			padding: 5px 0;
+		}
+	}
+	.formulario{
+		background-color: #EFEFEF;
+		@media only screen and (max-width: 40em) {
+			padding: 0;
+		}
+	}
+	.formulario .body{
+		background-color: #FFF;
+		padding: 10px;
+		h6, h4{margin:0}
+		.descripcion{
+			font-size: rem-calc(12);
+		}
+		hr{margin: 10px 0;}
+		input[name], textarea[name]{
+			padding: 5px;
+			font-size: rem-calc(14);
+			border-radius: 5px;
+			margin: 0;
+			color: #222;
+			@media only screen and (max-width: 40em) {
+				font-size: rem-calc(12);
+			}
+		}
+		input[name] {
+			height: 29px;
+		}
+		textarea[name]{resize:none}
+		#cargando{font-size: rem-calc(30)}
+		.fileUpload {
+			margin: 5px 0;
+			cursor: pointer;
+			position: relative;
+			overflow: hidden;
+		}
+		.fileUpload input.upload {
+			position: absolute;
+			top: 0;
+			right: 0;
+			margin: 0;
+			padding: 0;
+			font-size: 20px;
+			cursor: pointer;
+			opacity: 0;
+			filter: alpha(opacity=0);
+		}
+	}
+
+	ul.opciones{
+		margin: 0px;
+		li{
+			padding-left: 5px;
+			a{color: #222;}
+			&:hover{
+				a{color: #FFF;}
+				background-color: #2f6dc1;
+			}
+			@media only screen and (max-width: 40em) {
+				padding: 3px 0;
+				border-bottom: 1px solid #CACACA;
+			}
+		}
+		font-size: rem-calc(13);
+		li.active{
+			background-color: #EFEFEF;
+			&:hover{
+				a{color: #222;}
+				background-color: #EFEFEF;
+			}
+			@media only screen and (max-width: 40em) {
+				a{color: #FFF;}
+				background-color: #2f6dc1;
+			}
+		}
+	}
+	.tabla-gestion{
+		width: 100%;
+		thead tr th{
+			font-size: rem-calc(13);
+			font-weight: 400;
+			padding: 5px 10px;
+			background-color: #e3e3e3;
+			.titulo{
+				width: 70%;
+			}
+		}
+		tr:nth-of-type(even){
+			background-color: #f5f5f5;
+		}
+		tr:hover{
+			background-color: #fcf6d9;
+		}
+		td{
+			font-size: rem-calc(13);
+			letter-spacing: -0.3px;
+			padding: 2px 5px;
+			.button{
+				margin: 0;
+				font-size: rem-calc(13);
+				padding: 1px 1px;
+			}
+		}
+	}
+}

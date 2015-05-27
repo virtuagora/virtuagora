@@ -1,0 +1,36 @@
+// CREAR
+
+.crear-contenido.propuesta{
+	.row-problematicas-referidas {
+		.resultado{
+			background-color: lighten($problematica-color, 42%);
+			border: 1px dashed $problematica-color;
+			border-radius: 5px;
+			padding: 5px;
+			margin: 10px 0;
+			font-size: rem-calc(13);
+			#etiqueta-resultado{
+				i.fa-file{
+					color: $problematica-color;
+				}
+				i.quitar{
+					cursor: pointer;
+				}
+			}
+		}
+		.postfix.button{
+			border-right: 1px solid #cccccc;
+			border-top: 1px solid #cccccc;
+			border-bottom: 1px solid #cccccc;
+		}
+	}
+}
+
+// VER
+.alerta.problematicas-asociadas{
+	padding: 5px;
+	font-size: rem-calc(13);
+	background-color: $problematica-color;
+	&,a{color: #FFF;}
+}
+

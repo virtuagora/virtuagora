@@ -5,19 +5,30 @@
 {% set header_icono = 'fa-file-text-o' %}
 {% set header_titulo = 'MODIFICAR DOCUMENTO' %}
 {% set url_form = urlFor('runModifDocumen', {'idDoc': documento.id}) %}
+{% set url_volver = urlFor('shwDocumen',{'idDoc': documento.id}) %}
+{% if documento.tags is not null %}
+{% set tags_mod = '[' %}
+{% for tag in documento.tags %}
+{% set tags_mod = tags_mod ~ '"' ~ tag.nombre ~ '"' %}
+{% if loop.last == false %}
+{% set tags_mod = tags_mod ~ ',' %}
+{% endif %}
+{% endfor %}
+{% set tags_mod = tags_mod ~ ']' %}
+{% endif%}
 
 {# ----------------------------------------------------------- #}
 {% block titulo %}Modificar documento - Virtuágora{% endblock %}
 {# ----------------------------------------------------------- #}
 {% block scripts_modificar %}
 <script>
-    $(document).ready(function(){
         $('.row-crear-cuerpo').remove();
         $('[name="titulo"]').val('{{ documento.titulo }}');
         $('[name="categoria"] select').val('{{ documento.categoria.id }}');
         $('[name="descripcion"]').html("{{ documento.descripcion }}");
-        autosize($('textarea[name="titulo"]'));
-        autosize($("textarea[name='descripcion']"));
+
+    $(document).ready(function(){
+        autosize($('[name="descripcion"]'));
     });
 </script>
 {% endblock %}

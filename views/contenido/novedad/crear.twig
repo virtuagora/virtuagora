@@ -1,12 +1,13 @@
 {% extends "contenido/crear-contenido.twig" %}
 {# VARIBLES #}
 {% set body_class = 'color-novedad' %}
-{% set header_icono = 'fa-bullhorn' %}
+{% set header_icono = 'fa-newspaper-o' %}
 {% if modo is not defined %}
 {% set header_titulo = 'NUEVA NOVEDAD' %}
 {% set url_form = urlFor('runCrearNovedad') %}
 {% endif %}
 {% set type_contenido = 'novedad' %}
+{% set url_redirigir = urlFor('shwPortal') %}
 
 {# ----------------------------------------------------------- #}
 {% block titulo %}Crear novedad - Virtuágora{% endblock %}
@@ -22,7 +23,7 @@
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-star-o blanco fa-stack-1x"></i>
                     </span>
-                    <div class="descripcion">
+                    <div class="descripcion text-justify">
                         <b>Determine si desea asociarlo con su partido politico.</b> Esto permitirá que se pueda agrupar de mejor forma la informacion y que los afiliados puedan ser notificados por nuevos contenidos realizados y publicados por funcionarios pertenecientes al partido.
                     </div>
                 </div>
@@ -47,9 +48,9 @@
 {# ----------------------------------------------------------- #}
 {% block extension_form %}{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block modals_cont %}{% endblock %}
+{% block content_modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts_cont %}
+{% block content_scripts %}
 
 {% block scripts_modificar %}{% endblock scripts_modificar %}
 

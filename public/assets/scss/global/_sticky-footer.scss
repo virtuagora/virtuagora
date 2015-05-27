@@ -2,60 +2,38 @@
 // http://ryanfait.com/
 
 *{
-    margin: 0px;
+	margin: 0px;
 }
 
 html, body {
-    height: 100%;
+	height: 100%;
 }
 
 .wrapper {
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin: 0 auto rem-calc(-143px);
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto rem-calc(-110px);
 }
 
 #footer, .push {
-    min-height: rem-calc(143px);
+	min-height: rem-calc(110px);
 }
 
 #footer{
-    background-color: #333333;
-    .footer-links{
-        background-color: #333333;
-        padding-left: 10px;
-        li a {
-            font-size: rem-calc(13px);
-            color: #CCC;
-        }
-    }
-    .credits{
-        background-color: #333333;
-        p {
-            font-size: rem-calc(12);
-            color: #666666;
-        }
-        a {
-            color: #FFFFFF;
-        }
-    }
-    .footer-share{
-        background-color: #333333;
-        padding-right: 10px;
-        p {
-            padding-left: 50%
-        }
-        em {
-            font-size: rem-calc(12px);
-            color: #666666;
-        }
-        a i {
-            font-size: rem-calc(28px);
-            color: #FFF;
-            padding: rem-calc(0px) rem-calc(5px);
-        }
-
-    }
-    padding: rem-calc(15px) rem-calc(5px) rem-calc(5px);
+	background-color: #333333;
+	.credits{
+		p {
+			font-size: rem-calc(12);
+			color: #666666;
+		}
+		a {
+			color: #FFFFFF;
+		}
+		ul {margin: 10px 0}
+		li a {
+			font-size: rem-calc(12);
+			color: #CCC;
+		}
+	}
 }

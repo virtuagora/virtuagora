@@ -1,9 +1,7 @@
 {# VARIBLES #}
 {% set footer = true %}
 {% set barraNav = true %}
-{% set notificaciones = true %}
-{% set html_class = '' %}
-{% set body_class = 'plantilla-cont' %}
+{% set ver_notificaciones = true %}
 
 {% extends "master.twig" %}
 
@@ -13,84 +11,183 @@
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block body %}
-{% include 'contenido/sharer-nav.twig'%}
-<header class="vista-header-cont {{ color_cont }}">
-    <div class="row">
-        <div class="cuerpo-header-cont small-12 small-centered columns">
-            <h1 class="titulo-cont">{{ titulo_cont }}</h1>
-            <section class="datos-cont">
-                {{ fecha_cont }} <a href="{{ urlFor('shwUsuario',{'idUsu': autor_id}) }}"><img class="img-perfil radius no-border" src="{{ autor_avatar_32 }}"> {{ autor_nombre_apellido }}</a> <span class="usuario-pts"><i class="fa fa-trophy fa-fw fa-lg"></i>&nbsp;{{ autor_puntos }}</span>
-                {% block datos_cont %}{% endblock datos_cont %}
-            </section>
-            <section class="opciones-cont">
-                <ul class="opciones">
-                    {% if autor_id == user.id or user.es_moderador == true %}
-                    {% block botones_cont %}{% endblock %}
-                    <li><a href="{{ url_modificar }}" class="button oposite radius tiny"><i class="fa fa-pencil fa-fw"></i>&nbsp;Modificar</a></li>
-                    <li><a href="#" data-reveal-id="eliminarContenido" class="button alert radius tiny"><i class="fa fa-times fa-fw"></i>&nbsp;Eliminar</a></li>
-                    {% endif %}
-                    {% if user.es_moderador and user.id != autor_id %}
-                    <li><a href="javascript:sancionar({{autor_id}})" class="button alert radius tiny"><i class="fa fa-exclamation-circle fa-fw"></i></a></li>
-                    {% endif%}
-                    <li><a href="{{ urlFor('shwIndex') }}" class="bt-volver button oposite radius tiny"><i class="fa fa-undo fa-fw"></i> Volver</a></li>
-                </ul>
-                {% block versiones_docu %}{% endblock %}
-            </section>
-        </div>
-    </div>
-</header>
+{% if alert %}
+<div class="{{ alert_class }}">
+	<div class="row">
+		<div class="small-12 columns">
+			{% block content_alert %}{% endblock content_alert %}
+		</div>
+	</div>
+</div>
+{% endif %}
+<main class="ver-contenido {{ contenido_tipo }} color-{{ contenido_tipo }}">
+	<article>
+		<header class="text-center">
+			<div class="row">
+				<div class="subtitulo"><i class="fa {{ contenido_icono }} fa-fw"></i> {{ contenido_tipo|title }} - <i class="fa fa-star-o fa-fw"></i> {{ puntos_cont }} - <i class="fa fa-comment-o fa-fw"></i> {{ comentarios|length }}</div>
+				<h1><b>{{ titulo_cont }}</b></h1>
+				<ul class="list">
+					{% if autor.id == user.id or user.patrulla_id != null %}
+					{% block content_botones %}{% endblock content_botones %}
+					<li><a href="{{ url_modificar }}" class="button tiny oposite radius"><i class="fa fa-pencil fa-fw"></i> Modificar</a></li>
+					<li><a href="{{ url_eliminar }}" data-reveal-id="eliminarContenido" class="button tiny alert radius" style="border-color: #FFF; color: #FFF;"><i class="fa fa-trash fa-fw"></i> Eliminar</a></li>
+					{% endif %}
+					{% if user.patrulla_id != null and user.id != autor_id %}
+					<li><a href="javascript:sancionar({{autor.id}})" class="button tiny warning radius" style="border-color: #FFF; color: #FFF;"><i class="fa fa-shield fa-fw"></i></a></li>
+					{% endif%}
+					<li><a href="{{ urlFor('shwPortal')}}" class="button tiny oposite radius"><i class="fa fa-home fa fw"></i> Volver</a></li>
+				</ul>
+			</div>
+		</header>
+		<div class="row">
+			<div class="medium-2 columns columna-izquierda">
+				<div class="autor-datos text-center">
+					<a href="{{ urlFor('shwUsuario',{'idUsu': autor.id}) }}">
+						<img id="img-{{ autor.id }}" src="{{ avatarUrl(autor.img_tipo, autor.img_hash, 160) }}" class="img-perfil size-160" alt="Autor picture">
+					</a>
+					<div class="fake-tt-user">
+						{{ autor.nombre }} {{ autor.apellido }}
+						<hr>
+						<ul class="no-bullet">
+							<li><i class="fa fa-trophy fa-fw fa-lg"></i> {{ autor.puntos }} Puntos</li>
+							{% if autor.verified_at %}
+							<li style="color:#efce18"><i class="fa fa-check fa-fw fa-lg"></i> Verificado</li>
+							{% endif %}
+						</ul>
+						<hr>
+						<ul class="no-bullet">
+							{% if autor.es_funcionario %}
+							<li><i style="color:#DA7C43" class="fa fa-briefcase fa-fw fa-lg"></i> Funcionario</li>
+							{% if autor.es_jefe %}
+							<li><i style="color:#7DC82C" class="fa fa-bullhorn fa-fw fa-lg"></i> Jefe</li>
+							{% endif %}
+							{% endif %}
+							{% if autor.patrulla_id != null %}
+							<li><i class="fa fa-shield fa-fw fa-lg"></i> Moderador</li>
+							{% endif %}
+							{% if autor.partido %}
+							<li><i class="fa fa-flag fa-fw fa-lg"></i> {{ autor.partido.nombre }}</li>
+							{% endif %}
+						</ul>
+					</div>
+					<ul class="accesos no-bullet">
+						{% if ver_comentarios == true %}
+						<li><a href="#comentariosContenido" class="button expand oposite radius small"><i class="fa fa-comments-o fa-fw fa-lg"></i> {{ comentarios|length }}</a></li>
+						{% endif %}
+						{% block accesos_content %}{% endblock accesos_content %}
+					</ul>
+				</div>
+			</div>
+			<div class="medium-10 columns columna-derecha">
+				{% block pre_content %}{% endblock pre_content %}
+				<div class="panel white">
+					<i class="perfil ocultar fa fa-caret-left fa-2x"></i>
+					<section id="content" class="contenido text-justify">
+						{% block content_body %}{% endblock content_body %}
+					</section>
+					<hr>
+					<div class="row collapse">
+						<div class="medium-6 columns small-only-text-center medium-text-left">
+							<h6><b>TAGS</b> {% if tags|length == 0 %}<small>No hay tags asociadas al documento!</small>{% endif %}</h6>
+							<section id="tags">
+								{% if tags|length > 0 %}
+								{% for tag in tags %}
+								<span class="tm-tag color-{{ contenido_tipo }}"><span>{{tag.nombre}}</span></span>
+								{% endfor %}
+								{% endif %}
+							</section>
+						</div>
+						<div class="medium-6 columns small-only-text-center medium-text-right">
+							<hr class="show-for-small-only">
+							<h6><b>COMPARTIR</b></h6>
+							<section id="tags">
+								<a href="http://www.facebook.com/sharer.php?u={{ share_link }}"><i class="fa fa-facebook-square fa-fw fa-lg" class="color-facebook text"></i></a>
+								<a href="https://twitter.com/share?text={{ twitter_txt }}&url={{ share_link }}&hashtags=virtuagora" class="color-twitter text"><i class="fa fa-twitter-square fa-fw fa-lg"></i></a>
+								<a href="https://plus.google.com/share?url={{ share_link }}" class="color-googleplus text"><i class="fa fa-google-plus-square fa-fw fa-lg"></i></a>
+								<a href="mailto:?subject={{ email_subject }}&amp;body={{ email_body }}" class="color-mail text"><i class="fa fa-envelope-o fa-fw fa-lg"></i></a>
+							</section>
+						</div>
+					</div>
+				</div>
+				<div class="panel white fila-datos-autor text-center">
+					<ul class="list">
+						<li><img src="{{ avatarUrl(autor.img_tipo, autor.img_hash, 32) }}" class="img-perfil" alt="Autor picture"></li>
+						<li> {{ autor.nombre}} {{autor.apellido}} </li>
+						<li><i class="fa fa-trophy fa-fw"></i> {{ user.puntos }} </li>
+						{% if user.verified_at %}
+						<li style="color:#efce18"><i class="fa fa-check fa-fw"></i> Verificado</li>
+						{% endif %}
+						{% if user.es_funcionario %}
+						<li><i style="color:#DA7C43" class="fa fa-briefcase fa-fw"></i> Funcionario</li>
+						{% if user.es_jefe %}
+						<li><i style="color:#7DC82C" class="fa fa-bullhorn fa-fw"></i> Jefe</li>
+						{% endif %}
+						{% endif %}
+						{% if user.patrulla_id != null %}
+						<li><i class="fa fa-shield fa-fw fa-lg"></i> Moderador</li>
+						{% endif %}
+						{% if user.partido %}
+						<li><i class="fa fa-flag fa-fw fa-lg"></i> {{ user.partido.nombre }}</li>
+						{% endif %}
+					</ul>
+				</div>
+				{% block opciones_cont %}{% endblock opciones_cont %}
 
-<main class="vista-cuerpo-cont" role="main">
-    <article class="cont">
-        <section class="cuerpo-cont row">
-            <div class="small-10 small-centered columns text-justify" style="margin-bottom: 10px;">
-                {% block cuerpo_cont %}{% endblock cuerpo_cont %}
-            </div>
-        </section>
+				{% if ver_comentarios == true %}
+				{% include 'contenido/comentarios.twig' %}
+				{% endif %}
+			</div>
+			<footer>
 
-        <footer class="footer-cont row">
-            <div class="small-10 small-centered columns">
-                <!--
-<section class="tags-cont">
-
-</section>
--->
-                <section class="share text-center visible-for-small-only">
-                    {% include 'contenido/sharer-inline.twig'%}
-                </section>
-            </div>
-        </footer>
-
-        {% block opciones_cont %}{% endblock opciones_cont %}
-        {% if ver_comentarios == true %}
-        {% include 'contenido/comentarios.twig' %}
-        {% endif %}
-    </article>
+			</footer>
+		</div>
+	</article>
 </main>
 {% endblock body %}
 {# ----------------------------------------------------------- #}
 {% block modals %}
 
-{% if autor_id == user.id or user.es_moderador == true %}
+{% if autor_id == user.id or user.patrulla_id != null %}
 {% include 'contenido/eliminar.twig' %}
 {% endif %}
 
-{% block modals_cont %}{% endblock modals_cont %}
+{% block content_modals %}{% endblock content_modals %}
 
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block scripts %}
 <script src="{{ baseUrl() }}/assets/js/autosize/autosize.min.js"></script>
-{% block scripts_cont %}{% endblock scripts_cont %}
+<script src="{{ baseUrl() }}/assets/js/foundation/foundation.reveal.js"></script>
+<script src="{{ baseUrl() }}/assets/js/foundation/foundation.tab.js"></script>
+{% block content_scripts %}{% endblock content_scripts %}
 {% if ver_comentarios == true %}
 {% include 'contenido/comentarios.js.twig' %}
 {% endif %}
-{% if autor_id == user.id or user.es_moderador == true %}
+{% if autor_id == user.id or user.patrulla_id != null %}
 <script>
-    $('.bt-cancelar-eliminar').on('click', function() {
-        $('#eliminarContenido').foundation('reveal', 'close');
-    });
+	$('.bt-cancelar-eliminar').on('click', function() {
+		$('#eliminarContenido').foundation('reveal', 'close');
+	});
 </script>
 {% endif %}
+<script>
+	$(document).on('click', '.perfil.ocultar', function() {
+		$(this).removeClass('ocultar').removeClass('fa-caret-left');
+		$(this).addClass('mostrar').addClass('fa-caret-right');
+		$('.columna-izquierda').hide();
+		$('.fila-datos-autor').show()
+		$('.columna-derecha').removeClass('medium-10').addClass('medium-12');
+	});
+	$(document).on('click', '.perfil.mostrar', function() {
+		$(this).removeClass('mostrar').removeClass('fa-caret-right');
+		$(this).addClass('ocultar').addClass('fa-caret-left');
+		$('.columna-izquierda').show();
+		$('.fila-datos-autor').hide()
+		$('.columna-derecha').removeClass('medium-12').addClass('medium-10');
+	});
+</script>
+
+
+
 {% endblock scripts %}
 {# ----------------------------------------------------------- #}

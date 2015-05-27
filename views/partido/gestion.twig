@@ -1,0 +1,16 @@
+{% extends "portal/gestion.twig" %}
+
+{% set opciones = {
+0:{'link': urlFor('shwModifRolPartido', {'idPar': partido.id}), 'nombre': 'Gestionar roles' },
+1:{'link': urlFor('shwModifPartido', {'idPar': partido.id}), 'nombre': 'Modificar datos' },
+2:{'link': urlFor('shwElimiPartido', {'idPar': partido.id}), 'nombre': 'Eliminar partido' }}
+%}
+{% set titulo = '<i class="fa fa-users fa-fw"></i> Administrar grupo' %}
+
+{# ----------------------------------------------------------- #}
+{% block opciones %}
+{% for opcion in opciones %}
+<li class='{{ loop.index0 == opcion_activa ? "active" }}'><a href="{{ opcion.link }}">{{ opcion.nombre }}</a></li>
+{% endfor %}
+{% endblock %}
+{# ----------------------------------------------------------- #}

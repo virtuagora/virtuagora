@@ -1,98 +1,86 @@
 {# VARIBLES #}
 
-{% extends "admin/ver-administracion.twig" %}
+{% set opcion_activa = 3 %}
+{% extends "admin/gestion.twig" %}
 
 {# ----------------------------------------------------------- #}
-{% block titulo %}Virtuagora - Ver moderadores{% endblock %}
+{% block titulo %}Ver moderadores{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block linkheads_cont %}{% endblock %}
-{# ----------------------------------------------------------- #}
-{% set intro_titulo = 'Ver moderadores' %}
-{# ----------------------------------------------------------- #}
-{% block administracion %}
-<div class="ver-moderadores">
-    <div class="listar-usuarios row">
-        <div class="large-12 columns">
-            <div class="titulo">
-                <h4>Moderadores activos</h4>
-            </div>
-            <hr>
-            <div class="explicacion panel">
-                La siguiente tabla contiene la lista de moderadores de la patrulla <i>{{ patrulla.nombre }}</i>. Para remover un moderador, presione el boton <i class="fa fa-minus fa-fw"></i> y sera seleccionado para su eliminacion de la lista de integrantes de la patrulla. Puede seleccionar a mas de uno.
-            </div>
-            <table class="tabla-moderadores-patrulla">
-                <thead>
-                    <tr>
-                        <th style="display:none" class="text-center">ID</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th class="text-center"><i class="fa fa-cog fa-fw"></i></th>
-                    </tr>
-                </thead>
-                <tbody class="moderadores">
-                    {% for moderador in moderadores %}
-                    <tr id="m{{ moderador.id }}" class="moderador">
-                        <td class="mod-id" style="display:none">{{ moderador.id }}</td>
-                        <td>{{ moderador.nombre }}</td>
-                        <td>{{ moderador.apellido }}</td>
-                        <td class="text-center"><div class="seleccionar alert button tiny radius"><i class="fa fa-minus fa-fw"></i></a></td>
+{% block gestion %}
+<h4>Administrar patrullas</h4>
+<h6 class="subheader">Ver moderadores activos de la patrulla <b>{{ patrulla.nombre }}</b></h6>
+<div class="descripcion">
+	La siguiente tabla contiene la lista de moderadores de la patrulla <i>{{ patrulla.nombre }}</i>. Para remover un moderador, presione el boton <i class="fa fa-minus fa-fw"></i> y sera seleccionado para su eliminacion de la lista de integrantes de la patrulla. Puede seleccionar a mas de uno.
+</div>
+<hr>
+<table id="tabla-moderadores-patrulla" class="tabla-gestion">
+	<thead>
+		<tr>
+			<th style="display:none" class="text-center">ID</th>
+			<th>Moderador</th>
+			<th class="text-center"><i class="fa fa-cog fa-fw"></i></th>
+		</tr>
+	</thead>
+	<tbody class="moderadores">
+		{% for moderador in moderadores %}
+		<tr id="m{{ moderador.id }}" class="moderador">
+			<td class="mod-id" style="display:none">{{ moderador.id }}</td>
+			<td><img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}" class="img-perfil size-20"> {{ moderador.nombre }} {{ moderador.apellido }}</td>
+			<td class="text-center"><div class="seleccionar alert button tiny radius"><i class="fa fa-minus fa-fw"></i></a></td>
 
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="row text-center">
-        <form id="remover" action="{{ urlFor('runAdmModerad',{'idPat': patrulla.id }) }}" method="POST">
-            <input type="text" name="salientes" style="display:none;">
-            <button class="button radius alert"><i class="fa fa-times fa-fw"></i> Remover moderadores</button>
-        </form>
-    </div>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="small-only-text-center text-right">
+	<form id="remover" action="{{ urlFor('runAdmModerad',{'idPat': patrulla.id }) }}" method="POST">
+		<input type="text" name="salientes" style="display:none;">
+		<button class="button radius small alert"><i class="fa fa-times fa-fw"></i> Remover moderadores</button>
+	</form>
 </div>
 
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts_cont %}
+{% block scripts_gestion %}
 <script>
-    var moderadores_remover = new Array();
-    var botonUndo = $('<i>').addClass('fa fa-undo fa-fw');
-    var botonMinus = $('<i>').addClass('fa fa-minus fa-fw');
+	var moderadores_remover = new Array();
+	var botonUndo = $('<i>').addClass('fa fa-undo fa-fw');
+	var botonMinus = $('<i>').addClass('fa fa-minus fa-fw');
 
-    $(document).ready(function(){
+	$(document).ready(function(){
 
-    });
+	});
 
-     $(document).on('click', '.seleccionar', function() {
-        $(this).html(botonUndo.clone());
-        $(this).removeClass('alert').removeClass('seleccionar');
-        $(this).addClass('secondary').addClass('deseleccionar');
-        $(this).closest('.moderador').addClass('seleccionado');
-    });
+	$(document).on('click', '.seleccionar', function() {
+		$(this).html(botonUndo.clone());
+		$(this).removeClass('alert').removeClass('seleccionar');
+		$(this).addClass('secondary').addClass('deseleccionar');
+		$(this).closest('.moderador').addClass('seleccionado');
+	});
 
-     $(document).on('click', '.deseleccionar', function() {
-        $(this).html(botonMinus.clone());
-        $(this).removeClass('secondary').removeClass('deseleccionar');
-        $(this).addClass('alert').addClass('seleccionar');
-        $(this).closest('.moderador').removeClass('seleccionado');
-    });
+	$(document).on('click', '.deseleccionar', function() {
+		$(this).html(botonMinus.clone());
+		$(this).removeClass('secondary').removeClass('deseleccionar');
+		$(this).addClass('alert').addClass('seleccionar');
+		$(this).closest('.moderador').removeClass('seleccionado');
+	});
 
-    $('#remover').submit(function(e) {
-        if($('.seleccionado').length == 0){
-        e.preventDefault();
-        } else {
-        $('.seleccionado').each(function () {
-            var id_num = $(this).attr('id').replace('m', '');
-            console.log(id_num);
-            moderadores_remover.push(id_num);
-        });
-        json_moderadores = '[' + moderadores_remover.join() + ']';
-        console.log(json_moderadores);
-        $('input[name="salientes"]').val(json_moderadores);
-        }
-    });
+	$('#remover').submit(function(e) {
+		if($('.seleccionado').length == 0){
+			e.preventDefault();
+		} else {
+			$('.seleccionado').each(function () {
+				var id_num = $(this).attr('id').replace('m', '');
+				console.log(id_num);
+				moderadores_remover.push(id_num);
+			});
+			json_moderadores = '[' + moderadores_remover.join() + ']';
+			console.log(json_moderadores);
+			$('input[name="salientes"]').val(json_moderadores);
+		}
+	});
 </script>
 {% endblock %}
 {# ----------------------------------------------------------- #}

@@ -1,48 +1,52 @@
-
 .barra-nav{
-    background: none repeat scroll 0% 0% #FFF;
-    border-bottom: 1px solid #CACACA;
-    display: block;
-    padding: 10px;
-    height: 46px;
-    top: 0px;
-    z-index: 10000;
-
-    ul.list {
-        li {
-            font-size: rem-calc(13);
-            letter-spacing: -0.2px;
-            a.bt-logout{
-                color: $sancionar-color;
-            }
-            a{
-                color: #000000;
-            }
-
-            .notificaciones{
-                position: relative;
-                i{
-                    cursor:pointer;
-                    float: left;
-                }
-                .contador-on{
-                    position: absolute;
-                    width: 15px;
-                    left: 20px;
-                    top: -10px;
-                    line-height: 15px;
-                    -moz-border-radius: 50%;
-                    border-radius: 50%;
-                    background-color: $sancionar-color;
-                    color: white;
-                    text-align: center;
-                    font-size: rem-calc(10);
-
-                }
-            }
-            i.bt {
-                font-size: rem-calc(28);
-            }
-        }
-    }
+	background: none repeat scroll 0% 0% #FFF;
+	border-bottom: 1px solid #CACACA;
+	display: block;
+	padding: 6px;
+	height: 38px;
+	top: 0px;
+	z-index: 10000;
+	@media only screen and (min-width: 40.063em) {
+		padding: 10px;
+		height: 46px;
+	}
+	ul.list {
+		li.notificacion{
+			position: relative;
+			.contador-on{
+				position: absolute;
+				top: -5px;
+				line-height: 16px;
+				right: -3px;
+				font-size: 10px;
+				color: #FFF;
+				background-color: #CE1A1A;
+				width: 16px;
+				text-align: center;
+				border-radius: 10px;
+			}
+		}
+		li {
+			i.bt {
+				font-size: rem-calc(22);
+				@media only screen and (min-width: 40.063em) {
+					font-size: rem-calc(28);
+				}
+			}
+			letter-spacing: -0.2px;
+			a.bt-logout{
+				color: $sancionar-color;
+			}
+			a{color: #000000;}
+			&.txt{
+				font-size: rem-calc(11);
+				@media only screen and (min-width: 40.063em) {
+					font-size: rem-calc(13);
+				}
+			}
+			img{
+				width: 25px;
+			}
+		}
+	}
 }

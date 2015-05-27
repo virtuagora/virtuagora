@@ -1,86 +1,84 @@
 <div class="modal-sancionar reveal-modal remove-whitespace small" data-reveal>
-    <div class="row panel titulo text-center">
-        <i class="fa fa-fw fa-exclamation-circle"></i> Sancionar usuario
-    </div>
-    <div class="row">
-        <div class="large-12 columns">
-            <div class="text-center">
-                <p>Sancionar a <b><span id="sancionando-nombre"></span> <span id="sancionando-apellido"></span></b> con <i class="fa fa-trophy fa-fw"></i> <span id="sancionando-pts"></span> puntos </p>
-                <dl id="sanciones" class="tabs" role=tablist data-tab>
-                    <dd class="active"><a href="#sancion-puntos">Por puntos</a></dd>
-                    <dd><a href="#sancion-advertencia">Por advertencia</a></dd>
-                    <dd><a href="#sancion-suspension">Por suspensión</a></dd>
-                </dl>
-            </div>
-        </div>
-    </div>
+	<div class="row panel titulo text-center">
+		<i class="fa fa-fw fa-exclamation-circle"></i> Sancionar usuario
+	</div>
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="text-center">
+				<p>Sancionar a <img id="sancionando-img" class="img-perfil size-20"> <b><span id="sancionando-nombre"></span> <span id="sancionando-apellido"></span></b> <i class="fa fa-trophy fa-fw"></i> <span id="sancionando-pts"></span> </p>
+				<dl id="sanciones" class="tabs" role=tablist data-tab>
+					<dd class="active"><a href="#sancion-puntos">Por puntos</a></dd>
+					<dd><a href="#sancion-advertencia">Por advertencia</a></dd>
+					<dd><a href="#sancion-suspension">Por suspensión</a></dd>
+				</dl>
+			</div>
+		</div>
+	</div>
 
-    <hr>
-    <div class="row">
-        <div class="large-12 columns">
-            <div class="tabs-content">
-                <div class="content active" id="sancion-puntos">
-                    <form action="" class="form-sancion" method="POST" data-abide>
-                        <input hidden name="tipo" value="Quita">
-                        <p>Elija la cantidad de puntos a quitarle al usuario.</p>
-                        <div class="range-slider radius" data-slider data-options="start: 1; end: 100; display_selector: #slider-out-pts;">
-                            <span class="range-slider-handle" role="slider"></span>
-                            <span class="range-slider-active-segment"></span>
-                            <input id="pts" name="cantidad" type="hidden">
-                        </div>
-                        <label>Razon de la sanción <small>requerido</small>
-                            <textarea name="mensaje" placeholder="Relate brevemente la razón de la sanción..." required></textarea>
-                        </label>
-                        <small class="error">Se requiere que justifique la sanción</small>
-                        <div class="row">
-                            <button class="button radius small warning right" type="submit" style="margin-bottom:0px"><i class="fa fa-star-half-o fa-fw fa-lg"></i>&nbsp;Quitar <b><span id="slider-out-pts"></span></b> punto(s)</button>
-                        </div>
-                        <div class="row right"><h5><small>Sancionado por <b>{{user.nombre}} {{user.apellido}}</b></small></h5></div>
-                    </form>
-                </div>
-                <div class="content" id="sancion-advertencia">
-                    <form action="" class="form-sancion" method="POST" data-abide>
-                        <input hidden name="tipo" value="Advertencia">
-                        <p>Elija el mensaje de advertencia y los dias que permanecerá activa.</p>
-                        <div class="range-slider radius" data-slider data-options="start: 1; end: 30; display_selector: #slider-out-dias-a;">
-                            <span class="range-slider-handle" role="slider"></span>
-                            <span class="range-slider-active-segment"></span>
-                            <input id="dias-adv" name="cantidad" type="hidden">
-                        </div>
-                        <label>Mensaje de advertencia <small>requerido</small>
-                            <textarea name="mensaje" placeholder="Escriba el porqué de advertencia..." required></textarea>
-                        </label>
-                        <small class="error">Se requiere que justifique la sanción</small>
-                        <div class="row">
-                            <button class="button radius small warning right" type="submit" style="margin-bottom:0px"><i class="fa fa-warning fa-fw fa-lg"></i>&nbsp;Advertir por <b><span id="slider-out-dias-a"></span></b> dia(s)</button>
-                        </div>
-                        <div class="row right"><h5><small>Sancionado por <b>{{user.nombre}} {{user.apellido}}</b></small></h5></div>
-                    </form>
-                </div>
-                <div class="content" id="sancion-suspension">
-                    <form id="form-susp" action="" class="form-sancion" method="POST" data-abide>
-                        <input hidden name="tipo" value="Suspension">
-                        <p>Elija como desea suspender al usurio, si por dia o indefinidamente</p>
-                        <div class="range-slider radius" data-slider data-options="start: 1; end: 30; display_selector: #slider-out-dias-s;">
-                            <span class="text-center range-slider-handle" role="slider"></span>
-                            <span class="range-slider-active-segment"></span>
-                            <input id="dias-susp" name="cantidad" type="hidden">
-                        </div>
-                        <label>Razon de la suspensión <small>requerido</small>
-                            <textarea name="mensaje" placeholder="Relate brevemente la razón de la suspención" required></textarea>
-                        </label>
-                        <small class="error">Se requiere que justifique la sanción</small>
-                        <div class="row text-center">
-                            <button class="button radius small alert" type="submit" style="margin-bottom:0px"><i class="fa fa-warning fa-fw fa-lg"></i>&nbsp;Suspender cuenta por <b><span id="slider-out-dias-s"></span></b> dia(s)</button>
-                        </div>
-                    </form>
-                    <hr>
-                    <div class="row text-center">
-                        <div id="b-susp-indf" class="button radius alert" type="submit" style="margin-bottom:0px"><i class="fa fa-times fa-fw fa-lg"></i>&nbsp;Suspender cuenta <b>indefninidamente</b></div>
-                    </div>
-                    <div class="row right"><h5><small>Sancionado por <b>{{user.nombre}} {{user.apellido}}</b></small></h5></div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<hr>
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="tabs-content">
+				<div class="content active" id="sancion-puntos">
+					<form action="" id="form-sancion" method="POST" data-abide>
+						<input hidden name="tipo" value="Quita">
+						<p>Elija la cantidad de puntos a quitarle al usuario.</p>
+						<div class="range-slider radius" data-slider data-options="start: 1; end: 100; display_selector: #slider-out-pts;">
+							<span class="range-slider-handle" role="slider"></span>
+							<span class="range-slider-active-segment"></span>
+							<input id="pts" name="cantidad" type="hidden">
+						</div>
+						<label>Razon de la sanción <small>requerido</small>
+							<textarea name="mensaje" rows="1" placeholder="Relate brevemente la razón de la sanción..." required></textarea>
+						</label>
+						<small class="error">Se requiere que justifique la sanción</small>
+						<div class="row">
+							<button class="button radius small warning right" type="submit" style="margin-bottom:0px"><i class="fa fa-star-half-o fa-fw fa-lg"></i>&nbsp;Quitar <b><span id="slider-out-pts"></span></b> punto(s)</button>
+						</div>
+					</form>
+				</div>
+				<div class="content" id="sancion-advertencia">
+					<form action="" class="form-sancion" method="POST" data-abide>
+						<input hidden name="tipo" value="Advertencia">
+						<p>Elija el mensaje de advertencia y los dias que permanecerá activa.</p>
+						<div class="range-slider radius" data-slider data-options="start: 1; end: 30; display_selector: #slider-out-dias-a;">
+							<span class="range-slider-handle" role="slider"></span>
+							<span class="range-slider-active-segment"></span>
+							<input id="dias-adv" name="cantidad" type="hidden">
+						</div>
+						<label>Mensaje de advertencia <small>requerido</small>
+							<textarea name="mensaje" rows="1" placeholder="Escriba el porqué de advertencia..." required></textarea>
+						</label>
+						<small class="error">Se requiere que justifique la sanción</small>
+						<div class="row">
+							<button class="button radius small warning right" type="submit" style="margin-bottom:0px"><i class="fa fa-warning fa-fw fa-lg"></i>&nbsp;Advertir por <b><span id="slider-out-dias-a"></span></b> dia(s)</button>
+						</div>
+					</form>
+				</div>
+				<div class="content" id="sancion-suspension">
+					<form id="form-susp" action="" class="form-sancion" method="POST" data-abide>
+						<input hidden name="tipo" value="Suspension">
+						<p>Elija como desea suspender al usurio, si por dia o indefinidamente</p>
+						<div class="range-slider radius" data-slider data-options="start: 1; end: 30; display_selector: #slider-out-dias-s;">
+							<span class="text-center range-slider-handle" role="slider"></span>
+							<span class="range-slider-active-segment"></span>
+							<input id="dias-susp" name="cantidad" type="hidden">
+						</div>
+						<label>Razon de la suspensión <small>requerido</small>
+							<textarea name="mensaje" rows="1" placeholder="Relate brevemente la razón de la suspención" required></textarea>
+						</label>
+						<small class="error">Se requiere que justifique la sanción</small>
+						<div class="row text-right">
+							<button class="button radius small alert" type="submit" style="margin-bottom:0px"><i class="fa fa-warning fa-fw fa-lg"></i>&nbsp;Suspender cuenta por <b><span id="slider-out-dias-s"></span></b> dia(s)</button>
+						</div>
+					</form>
+					<hr>
+					<div class="row text-right">
+						<div id="b-susp-indf" class="button radius alert" type="submit" style="margin-bottom:0px"><i class="fa fa-times fa-fw fa-lg"></i>&nbsp;Suspender cuenta <b>indefninidamente</b></div>
+					</div>
+				</div>
+			</div>
+			<div class="row right"><h5><small>Sancionado por <img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}" class="img-perfil size-20"> <b>{{user.nombre}} {{user.apellido}}</b></small></h5></div>
+		</div>
+	</div>
 </div>

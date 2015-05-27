@@ -1,7 +1,7 @@
 {# VARIBLES #}
 {% set footer = true %}
 {% set barraNav = true %}
-{% set notificaciones = true %}
+{% set ver_notificaciones = true %}
 
 {% extends "master.twig" %}
 
@@ -12,126 +12,135 @@
 {# ----------------------------------------------------------- #}
 {% block body %}
 <div class="perfil color-userconfig">
-    <div class="row header">
-        <div class="large-12 columns text-center">
-            <img class="img-perfil radius big-border {% if usuario.moderador %}moderador{% else %}{% if usuario.es_jefe %}jefe{% else %}{% if usuario.es_funcionario %}funcionario{% else %}{% if usuario.verified_at %}verificado{% endif %}{% endif %}{% endif %}{% endif %}" src="{{ avatarUrl(usuario.img_tipo, usuario.img_hash, 160) }}" alt="Profile pic">
-            <h2 class="nombre">{{ usuario.nombre }} {{ usuario.apellido }}</h2>
-            <hr>
-            <ul class="nav">
-                <li><i class="fa fa-trophy fa-fw fa-lg"></i> {{ usuario.puntos }} </li>
-                {% if usuario.verified_at %}
-                <li style="color:#efce18"><i class="fa fa-check fa-fw fa-lg"></i> Verificado</li>
-                {% endif %}
-                <li><i class="fa fa-file-o fa-fw fa-lg"></i> {{ usuario.contenidos_count }}</li>
-                <li><i class="fa fa-comment-o fa-fw fa-lg"></i> {{ usuario.comentarios_count }}</li>
-            </ul>
-            <ul class="nav" style="margin-top: 10px;">
-                {% if usuario.es_funcionario %}
-                <li><i style="color:#DA7C43" class="fa fa-briefcase fa-fw fa-lg"></i> Funcionario</li>
-                {% if usuario.es_jefe %}
-                <li><i style="color:#7DC82C" class="fa fa-bullhorn fa-fw fa-lg"></i> Jefe</li>
-                {% endif %}
-                {% endif %}
-                {% if usuario.es_moderador %}
-                <li><i class="fa fa-shield fa-fw fa-lg"></i> Moderador</li>
-                {% endif %}
-                {% if usuario.partido %}
-                <li><i class="fa fa-flag fa-fw fa-lg"></i> {{ usuario.partido.nombre }}</li>
-                {% endif %}
-            </ul>
-            {% if usuario.advertencia %}
-            <div class="row notificacion">
-                <div class="large-6 medium-6 large-centered medium-centered columns">
-                    <div class="panel advertencia">
-                        <i class="fa fa-warning fa-fw"></i> {{ usuario.advertencia }}
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-            {% if usuario.suspendido %}
-            <div class="row notificacion">
-                <div class="large-6 medium-6 large-centered medium-centered columns">
-                    <div class="panel sancionado">
-                        <i class="fa fa-warning fa-fw"></i> CUENTA SUSPENDIDA
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-        </div>
-    </div>
+	<div class="row header">
+		<div class="large-12 columns text-center">
+			{% if user and (user.id == usuario.id) %}
+			<a href="{{ urlFor('shwModifUsuario',{'idUsu':usuario.id}) }}" class="edit"><i class="fa fa-pencil fa-fw fa-2x"></i></a>
+			{% endif %}
+			<img class="img-perfil size-160" src="{{ avatarUrl(usuario.img_tipo, usuario.img_hash, 160) }}" alt="Profile pic">
+			<h2 class="nombre">{{ usuario.nombre }} {{ usuario.apellido }}</h2>
+			<hr>
+			<ul class="nav">
+				<li><i class="fa fa-trophy fa-fw fa-lg"></i> {{ usuario.puntos }} </li>
+				{% if usuario.verified_at %}
+				<li style="color:#efce18"><i class="fa fa-check fa-fw fa-lg"></i> Verificado</li>
+				{% endif %}
+				<li><i class="fa fa-file-o fa-fw fa-lg"></i> {{ usuario.contenidos_count }}</li>
+				<li><i class="fa fa-comment-o fa-fw fa-lg"></i> {{ usuario.comentarios_count }}</li>
+			</ul>
+			<ul class="nav" style="margin-top: 10px;">
+				{% if usuario.es_funcionario %}
+				<li><i style="color:#DA7C43" class="fa fa-briefcase fa-fw fa-lg"></i> Funcionario</li>
+				{% if usuario.es_jefe %}
+				<li><i style="color:#7DC82C" class="fa fa-bullhorn fa-fw fa-lg"></i> Jefe</li>
+				{% endif %}
+				{% endif %}
+				{% if usuario.patrulla_id != null %}
+				<li><i class="fa fa-shield fa-fw fa-lg"></i> Moderador</li>
+				{% endif %}
+				{% if usuario.partido %}
+				<li><i class="fa fa-flag fa-fw fa-lg"></i> {{ usuario.partido.nombre }}</li>
+				{% endif %}
+			</ul>
+			{% if usuario.advertencia %}
+			<div class="row notificacion">
+				<div class="large-6 medium-6 large-centered medium-centered columns">
+					<div class="panel advertencia">
+						<i class="fa fa-warning fa-fw"></i> {{ usuario.advertencia }}
+					</div>
+				</div>
+			</div>
+			{% endif %}
+			{% if usuario.suspendido %}
+			<div class="row notificacion">
+				<div class="large-6 medium-6 large-centered medium-centered columns">
+					<div class="panel sancionado">
+						<i class="fa fa-warning fa-fw"></i> CUENTA SUSPENDIDA
+					</div>
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
 </div>
 <div class="perfil">
-    <div class="row contenido">
-        <dl class="tabs" role=tablist data-tab>
-            <dd class="active"><a href="#acciones">Ultimas acciones</a></dd>
-            <dd><a href="#contenidos">Contenidos aportados</a></dd>
-            <dd><a href="#comentarios">Comentarios realizados</a></dd>
-        </dl>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="large-12 columns">
-            <div class="tabs-content">
-                <div class="content active" id="acciones">
-                    <table class="tabla-notificaciones">
-                        <thead>
-                            <th style="display:none">Hora</th>
-                            <th style="display:none">Accion</th>
-                        </thead>
-                        <tbody>
-                            {% if acciones|length > 0%}
-                            {% for accion in acciones %}
-                            <tr class="notif-msj">
-                                <td>{{ accion.fecha|date("d/m/Y") }}</td>
-                                <td>{{ accion.mensaje|raw }}</td>
-                            </tr>
-                            {% endfor%}
-                            {% else %}
-                            <tr class="notif-msj">
-                                <td class="text-center"><i class="fa fa-check fa-fw"></i> No hay acciones realizadas por el usuario</td>
-                            </tr>
-                            {% endif%}
-                        </tbody>
-                    </table>
-                    {% if nav %}
-                    <div class="row">
-                        <div class="large-6 panel clearfix large-centered columns">
-                            <div class="left">
-                                {% if nav.first %}
-                                <a href="{{ nav.first }}"><i class="fa fa-angle-double-left fa-fw fa-lg"></i></a>
-                                {% endif %}
-                                {% if nav.prev %}
-                                <a href="{{ nav.prev }}"><i class="fa fa-angle-left fa-fw fa-lg"></i></a>
-                                {% endif %}
-                            </div>
-                            <div class="right">
-                                {% if nav.next %}
-                                <a href="{{ nav.next }}"><i class="fa fa-angle-right fa-fw fa-lg"></i></a>
-                                {% endif %}
-                                {% if nav.last %}
-                                <a href="{{ nav.last }}"><i class="fa fa-angle-double-right fa-fw fa-lg"></i></a>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                </div>
-                <div class="content text-center" id="contenidos">
-                    <p><i class="fa fa-check fa-fw"></i>
-                        <br>* Proximamente *</p>
-                </div>
-                <div class="content text-center" id="comentarios">
-                    <p><i class="fa fa-check fa-fw"></i>
-                        <br>* Proximamente *</p>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="row contenido">
+		<dl class="tabs" role=tablist data-tab>
+			<dd class="active"><a href="#acciones">Ultimas acciones</a></dd>
+			<dd><a href="#contenidos">Contenidos aportados</a></dd>
+			<dd><a href="#comentarios">Comentarios realizados</a></dd>
+		</dl>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="tabs-content">
+				<div class="content active" id="acciones">
+					<table class="tabla-notificaciones">
+						<thead>
+							<th style="display:none">Hora</th>
+							<th style="display:none">Accion</th>
+						</thead>
+						<tbody>
+							{% if acciones|length > 0%}
+							{% for accion in acciones %}
+							<tr class="notif-msj">
+								<td>{{ accion.fecha|date("d/m/Y") }}</td>
+								<td>{{ accion.mensaje|raw }}</td>
+							</tr>
+							{% endfor%}
+							{% else %}
+							<tr class="notif-msj">
+								<td class="text-center"><i class="fa fa-check fa-fw"></i> No hay acciones realizadas por el usuario</td>
+							</tr>
+							{% endif%}
+						</tbody>
+					</table>
+					{% if nav %}
+					<div class="row collapse">
+						<div class="small-12 medium-8 small-centered columns">
+							<div class="panel paginacion clearfix">
+								<div class="small-6 columns text-left">
+									{% if nav.first %}
+									<a id="nav-first" href="{{ nav.first }}"><i class="fa fa-fast-backward fa-fw fa-lg"></i></a>
+									{% endif %}
+									&nbsp;&nbsp;
+									{% if nav.prev %}
+									<a id="nav-prev" href="{{ nav.prev }}"><i class="fa fa-chevron-left fa-fw fa-lg"></i> Anterior</a>
+									{% endif %}
+								</div>
+								<div class="small-6 columns text-right">
+									{% if nav.next %}
+									<a id="nav-next" href="{{ nav.next }}">Proximo <i class="fa fa-chevron-right fa-fw fa-lg"></i></a>
+									{% endif %}
+									&nbsp;&nbsp;
+									{% if nav.last %}
+									<a id="nav-last" href="{{ nav.last }}"><i class="fa fa-fast-forward fa-fw fa-lg"></i></a>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endif %}
+				</div>
+				<div class="content text-center" id="contenidos">
+					<p><i class="fa fa-check fa-fw"></i>
+						<br>* Proximamente *</p>
+				</div>
+				<div class="content text-center" id="comentarios">
+					<p><i class="fa fa-check fa-fw"></i>
+						<br>* Proximamente *</p>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts %}{% endblock %}
+{% block scripts %}
+<script src="{{ baseUrl() }}/assets/js/foundation/foundation.tab.js"></script>
+{% endblock %}
 {# ----------------------------------------------------------- #}
 

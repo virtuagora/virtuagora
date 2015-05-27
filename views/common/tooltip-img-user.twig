@@ -1,0 +1,27 @@
+<div id="tt-img-{{ user.id }}" style="display:none;">
+	<div class="tt-img text-center">
+		Guillermo Croppi
+		<hr>
+		<ul class="list">
+			<li><i class="fa fa-trophy fa-fw"></i> {{ user.puntos }} </li>
+			{% if user.verified_at %}
+			<li style="color:#efce18"><i class="fa fa-check fa-fw"></i> Verificado</li>
+			{% endif %}
+		</ul>
+		<hr>
+		<ul class="no-bullet">
+			{% if user.es_funcionario %}
+			<li><i style="color:#DA7C43" class="fa fa-briefcase fa-fw"></i> Funcionario</li>
+			{% if user.es_jefe %}
+			<li><i style="color:#7DC82C" class="fa fa-bullhorn fa-fw"></i> Jefe</li>
+			{% endif %}
+			{% endif %}
+			{% if user.patrulla_id != null %}
+			<li><i class="fa fa-shield fa-fw fa-lg"></i> Moderador</li>
+			{% endif %}
+			{% if user.partido %}
+			<li><i class="fa fa-flag fa-fw fa-lg"></i> {{ user.partido.nombre }}</li>
+			{% endif %}
+		</ul>
+	</div>
+</div>

@@ -1,0 +1,83 @@
+.perfil{
+	.edit{
+		position: absolute;
+		top: -40px;
+		right: 10px;
+		opacity: 0.5;
+		z-index: 20;
+		color: #FFF;
+	}
+	letter-spacing: -0.2px;
+	.row.header{
+		color: #FFF;
+		padding: 50px 0;
+		h2.nombre{
+			margin-top: 20px;
+			color: #FFF;
+		}
+		hr{
+			width: 35%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		ul.nav, {
+			margin: 0px;
+			li {
+				display: inline-block;
+				vertical-align: middle;
+				list-style-type: none;
+				margin: 0px 0px 0px 20px;
+			}
+			li:first-child{
+				margin: 0;
+			}
+		}
+		.row.notificacion{
+			margin-top:20px;
+			margin-bottom: 0;
+			.panel{
+				margin-bottom: 0;
+				background: 0;
+				&.advertencia{
+					color: $advertencia-color;
+					border: 2px dotted $advertencia-color;
+				}
+				&.sancionado{
+					color: #FFFFFF;
+					background-color: $sancionar-color;
+					border: 2px solid $sancionar-color;
+				}
+
+			}
+		}
+	}
+	.row.contenido{
+		dl.tabs{
+			dd.active a{
+				background-color: #F2C95F;
+			}
+		}
+	}
+}
+
+table.listado-funcionarios, table.info-general{
+	width: 100%;
+	border: 0;
+	thead, tbody, tr:nth-of-type(even) {
+		background: 0;
+	}
+	tr td {
+		border-bottom: 1px dashed #C0C0C0;
+		padding: 6px;
+		img{
+
+		}
+	}
+	tr:hover{
+		background-color: #fcf6d9;
+	}
+
+	tr:last-child td{
+		border: 0;
+	}
+}

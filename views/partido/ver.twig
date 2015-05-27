@@ -1,15 +1,13 @@
 {# VARIBLES #}
 {% set footer = true %}
 {% set barraNav = true %}
-{% set notificaciones = true %}
+{% set ver_notificaciones = true %}
 
 {% set icono_problematica = '<i class="flaticon flaticon-man282"></i>' %}
 {% set icono_propuesta = '<i class="flaticon flaticon-inspiration"></i>' %}
 {% set icono_documento = '<i class="flaticon flaticon-contract11"></i>' %}
 {% set icono_evento = '<i class="flaticon flaticon-month1"></i>' %}
 {% set icono_novedad = '<i class="flaticon flaticon-news29"></i>' %}
-
-
 
 {% extends "master.twig" %}
 
@@ -20,185 +18,190 @@
 {# ----------------------------------------------------------- #}
 {% block body %}
 <div class="perfil color-partido">
-    <div class="row header">
-        <div class="large-12 columns text-center">
-            <img class="img-perfil big-border partido" src="{{ baseUrl() }}/img/partido/{{ partido.id }}/160.png" alt="Profile pic">
-            <h2 class="nombre">{{ partido.nombre }}</h2>
-            <hr>
-            <ul class="nav">
-                <li><i class="fa fa-bookmark-o fa-fw fa-lg"></i> {{ partido.acronimo }}</li>
-                <li><i class="fa fa-file-o fa-fw fa-lg"></i> {{ contenidos|length }} contenidos</li>
-                <li><i class="fa fa-list fa-fw fa-lg"></i> {{ jefes|length }} jefes</li>
-            </ul>
-        </div>
-    </div>
+	<div class="row header">
+		<div class="large-12 columns text-center">
+			{% if user and (user.partido_id == partido.id) and (user.es_jefe == 1) %}
+			<a href="{{ urlFor('shwModifPartido',{'idPar':partido.id}) }}" class="edit"><i class="fa fa-pencil fa-fw fa-2x"></i></a>
+			{% endif %}
+			<img class="img-perfil size-160" src="{{ baseUrl() }}/img/partido/{{ partido.id }}/160.png" alt="Profile pic">
+			<h2 class="nombre">{{ partido.nombre }}</h2>
+			<hr>
+			<ul class="nav">
+				<li><i class="fa fa-bookmark-o fa-fw fa-lg"></i> {{ partido.acronimo }}</li>
+				<li><i class="fa fa-file-o fa-fw fa-lg"></i> {{ contenidos|length }} contenidos</li>
+				<li><i class="fa fa-list fa-fw fa-lg"></i> {{ jefes|length }} jefes</li>
+			</ul>
+		</div>
+	</div>
 </div>
 <div class="perfil">
-    <div class="row contenido">
-        <dl class="tabs" role=tablist data-tab>
-            <dd><a href="#datos">Informacion general</a></dd>
-            <dd class="active"><a href="#contenidos">Contenidos asociados</a></dd>
-            <dd><a href="#jefes">Jefes del partido</a></dd>
-        </dl>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="large-12 columns">
-            <div class="tabs-content">
-                <div class="content" id="datos">
-                    <table class="info-general">
-                        <thead>
-                            <tr style="display:none;">
-                                <th>Tipo</th>
-                                <th>Dato</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><b>Descripcion</b></td>
-                                <td>{{ partido.descripcion }}</td>
-                            </tr>
-                               <tr>
-                                <td><b>Fecha de Fundación</b></td>
-                                <td>{{ partido.fecha_fundacion|date("d/m/Y") }}</td>
-                            </tr>
-                            <tr>
-                                <td><b>Fundador Historico</b></td>
-                                <td>{{ partido.fundador }}</td>
-                            </tr>
-                               <tr>
-                                <td><b>Pagina Web</b></td>
-                                <td>{{ partido.contacto.web }}</td>
-                            </tr>
-                               <tr>
-                                <td><b>Email de contacto</b></td>
-                                <td>{{ partido.contacto.email }}</td>
-                            </tr>
-                               <tr>
-                                <td><b>Telefono de contacto</b></td>
-                                <td>{{ partido.contacto.telefono }}</td>
-                            </tr>
+	<div class="row contenido">
+		<dl class="tabs" role=tablist data-tab>
+			<dd><a href="#datos">Informacion general</a></dd>
+			<dd class="active"><a href="#contenidos">Contenidos asociados</a></dd>
+			<dd><a href="#jefes">Jefes del partido</a></dd>
+		</dl>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="tabs-content">
+				<div class="content" id="datos">
+					<table class="info-general">
+						<thead>
+							<tr style="display:none;">
+								<th>Tipo</th>
+								<th>Dato</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><b>Descripcion</b></td>
+								<td>{{ partido.descripcion }}</td>
+							</tr>
+							<tr>
+								<td><b>Fecha de Fundación</b></td>
+								<td>{{ partido.fecha_fundacion|date("d/m/Y") }}</td>
+							</tr>
+							<tr>
+								<td><b>Fundador Historico</b></td>
+								<td>{{ partido.fundador }}</td>
+							</tr>
+							<tr>
+								<td><b>Pagina Web</b></td>
+								<td>{{ partido.contacto.web }}</td>
+							</tr>
+							<tr>
+								<td><b>Email de contacto</b></td>
+								<td>{{ partido.contacto.email }}</td>
+							</tr>
+							<tr>
+								<td><b>Telefono de contacto</b></td>
+								<td>{{ partido.contacto.telefono }}</td>
+							</tr>
 
-                        </tbody>
-                    </table>
-                </div>
-                <div class="listado-contenidos content active" id="contenidos">
-                    <table id="tabla-contenidos">
-                        <thead>
-                            <tr style="display:none;">
-                                <th>Contenido</th>
-                                <th>Fecha contenido</th>
-                                <th>Puntos contenido</th>
-                                <th>Puntos autor</th>
-                                <th>ID Partido Impulsador</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% if contenidos|length > 0 %}
-                            {% for contenido in contenidos %}
-                            <tr id="cont-{{contenido.id}}" class="contenido {{ contenido.contenible_type|lower }} {{ contenido.impulsor_id ? 'impulsado impulsor-' ~ contenido.impulsor_id }}">
-                                <td>
-                                    {% if contenido.contenible_type == 'Problematica' %}
-                                    {{ icono_problematica|raw }}
-                                    {% elseif contenido.contenible_type == 'Propuesta' %}
-                                    {{ icono_propuesta|raw }}
-                                    {% elseif contenido.contenible_type == 'Documento' %}
-                                    {{ icono_documento|raw }}
-                                    {% elseif contenido.contenible_type == 'Evento' %}
-                                    {{ icono_evento|raw }}
-                                    {% elseif contenido.contenible_type == 'Novedad' %}
-                                    {{ icono_novedad|raw }}
-                                    {% endif %}
-                                    <div class="puntaje-cont">
-                                        <i class="fa fa-line-chart fa-fw"></i> {{ contenido.puntos }}
-                                    </div>
-                                    <div class="listar-cont">
-                                        <h6><a href="{{ baseUrl() }}/{{ contenido.contenible_type|lower }}/{{ contenido.contenible_id }}">{{ contenido.titulo }}</a></h6>
-                                        <p><i class="fa fa-calendar fa-fw"></i> {{ contenido.created_at|date("m/d/Y") }} - Publicado por <a href="#"><img src="{{ avatarUrl(contenido.autor.img_tipo, contenido.autor.img_hash, 32) }}" alt=""> {{ contenido.autor.nombre }} {{ contenido.autor.apellido }}</a> - <i class="fa fa-trophy fa-fw"></i> {{ contenido.autor.puntos }} </p>
-                                    </div>
-                                </td>
-                                <td style="display:none;">
-                                    {{ contenido.created_at }}
-                                </td>
-                                <td style="display:none;">
-                                    {{ contenido.puntos }}
-                                </td>
-                                <td style="display:none;">
-                                    {{ contenido.autor.puntos }}
-                                </td>
-                                <td style="display:none;">
-                                    {{ contenido.impulsor_id }}
-                                </td>
-                            </tr>
-                            {% endfor %}
-                            {% else %}
-                            <tr>
-                                <td class="text-center"><i class="fa fa-check fa-fw"></i> No hay contenidos asociados al partido</td>
-                            </tr>
-                            {% endif %}
+						</tbody>
+					</table>
+				</div>
+				<div class="listado-contenidos content active" id="contenidos">
+					<table id="tabla-contenidos">
+						<thead>
+							<tr style="display:none;">
+								<th>Contenido</th>
+								<th>Fecha contenido</th>
+								<th>Puntos contenido</th>
+								<th>Puntos autor</th>
+								<th>ID Partido Impulsador</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% if contenidos|length > 0 %}
+							{% for contenido in contenidos %}
+							<tr id="cont-{{contenido.id}}" class="contenido {{ contenido.contenible_type|lower }} {{ contenido.impulsor_id ? 'impulsado impulsor-' ~ contenido.impulsor_id }}">
+								<td>
+									{% if contenido.contenible_type == 'Problematica' %}
+									{{ icono_problematica|raw }}
+									{% elseif contenido.contenible_type == 'Propuesta' %}
+									{{ icono_propuesta|raw }}
+									{% elseif contenido.contenible_type == 'Documento' %}
+									{{ icono_documento|raw }}
+									{% elseif contenido.contenible_type == 'Evento' %}
+									{{ icono_evento|raw }}
+									{% elseif contenido.contenible_type == 'Novedad' %}
+									{{ icono_novedad|raw }}
+									{% endif %}
+									<div class="puntaje-cont">
+										<i class="fa fa-line-chart fa-fw"></i> {{ contenido.puntos }}
+									</div>
+									<div class="listar-cont">
+										<h6><a href="{{ baseUrl() }}/{{ contenido.contenible_type|lower }}/{{ contenido.contenible_id }}">{{ contenido.titulo }}</a></h6>
+										<p><i class="fa fa-calendar fa-fw"></i> {{ contenido.created_at|date("m/d/Y") }} - Publicado por <a href="#"><img src="{{ avatarUrl(contenido.autor.img_tipo, contenido.autor.img_hash, 32) }}" alt=""> {{ contenido.autor.nombre }} {{ contenido.autor.apellido }}</a> - <i class="fa fa-trophy fa-fw"></i> {{ contenido.autor.puntos }} </p>
+									</div>
+								</td>
+								<td style="display:none;">
+									{{ contenido.created_at }}
+								</td>
+								<td style="display:none;">
+									{{ contenido.puntos }}
+								</td>
+								<td style="display:none;">
+									{{ contenido.autor.puntos }}
+								</td>
+								<td style="display:none;">
+									{{ contenido.impulsor_id }}
+								</td>
+							</tr>
+							{% endfor %}
+							{% else %}
+							<tr>
+								<td class="text-center"><i class="fa fa-check fa-fw"></i> No hay contenidos asociados al partido</td>
+							</tr>
+							{% endif %}
 
-                        </tbody>
-                    </table>
-                    {% if nav %}
-                    <div class="row">
-                        <div class="large-6 panel clearfix large-centered columns">
-                            <div class="left">
-                                {% if nav.first %}
-                                <a href="{{ nav.first }}"><i class="fa fa-angle-double-left fa-fw fa-lg"></i></a>
-                                {% endif %}
-                                {% if nav.prev %}
-                                <a href="{{ nav.prev }}"><i class="fa fa-angle-left fa-fw fa-lg"></i></a>
-                                {% endif %}
-                            </div>
-                            <div class="right">
-                                {% if nav.next %}
-                                <a href="{{ nav.next }}"><i class="fa fa-angle-right fa-fw fa-lg"></i></a>
-                                {% endif %}
-                                {% if nav.last %}
-                                <a href="{{ nav.last }}"><i class="fa fa-angle-double-right fa-fw fa-lg"></i></a>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                </div>
-                <div class="content text-center" id="jefes">
-                    <div class="row">
-                        <div class="large-6 large-centered columns">
-                            <table class="listado-funcionarios">
-                                <thead>
-                                    <tr style="display:none">
-                                        <th>Avatar</th>
-                                        <th>Jefe Partido</th>
-                                        <th>Url</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% if jefes|length > 0 %}
-                                    {% for jefe in jefes %}
-                                    <tr>
-                                        <td class="text-center"><a href="{{ urlFor('shwUsuario', {'idUsu': jefe.id}) }}"><img class="img-perfil radius jefe small-border size-64" src="{{ avatarUrl(jefe.img_tipo, jefe.img_hash, 64) }}"></a></td>
-                                        <td class="text-center"><h4>{{ jefe.nombre }} {{ jefe.apellido }}</h4></td>
-                                        <td class="text-center"><h2><a href="{{ urlFor('shwUsuario', {'idUsu': jefe.id}) }}"><i class="fa fa-caret-right fa-fw"></i></a></h2></td>
-                                    </tr>
-                                    {% endfor %}
-                                    {% else %}
-                                    <tr>
-                                        <td colspan="3" class="text-center"><i class="fa fa-check fa-fw"></i> No hay jefes</td>
-                                    </tr>
-                                    {% endif %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+						</tbody>
+					</table>
+					{% if nav %}
+					<div class="row">
+						<div class="large-6 panel clearfix large-centered columns">
+							<div class="left">
+								{% if nav.first %}
+								<a href="{{ nav.first }}"><i class="fa fa-angle-double-left fa-fw fa-lg"></i></a>
+								{% endif %}
+								{% if nav.prev %}
+								<a href="{{ nav.prev }}"><i class="fa fa-angle-left fa-fw fa-lg"></i></a>
+								{% endif %}
+							</div>
+							<div class="right">
+								{% if nav.next %}
+								<a href="{{ nav.next }}"><i class="fa fa-angle-right fa-fw fa-lg"></i></a>
+								{% endif %}
+								{% if nav.last %}
+								<a href="{{ nav.last }}"><i class="fa fa-angle-double-right fa-fw fa-lg"></i></a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+					{% endif %}
+				</div>
+				<div class="content text-center" id="jefes">
+					<div class="row">
+						<div class="large-6 large-centered columns">
+							<table class="listado-funcionarios">
+								<thead>
+									<tr style="display:none">
+										<th>Avatar</th>
+										<th>Jefe Partido</th>
+										<th>Url</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% if jefes|length > 0 %}
+									{% for jefe in jefes %}
+									<tr>
+										<td class="text-center"><a href="{{ urlFor('shwUsuario', {'idUsu': jefe.id}) }}"><img class="img-perfil size-64" src="{{ avatarUrl(jefe.img_tipo, jefe.img_hash, 64) }}"></a></td>
+										<td class="text-center"><h4>{{ jefe.nombre }} {{ jefe.apellido }}</h4></td>
+										<td class="text-center"><h2><a href="{{ urlFor('shwUsuario', {'idUsu': jefe.id}) }}"><i class="fa fa-caret-right fa-fw"></i></a></h2></td>
+									</tr>
+									{% endfor %}
+									{% else %}
+									<tr>
+										<td colspan="3" class="text-center"><i class="fa fa-check fa-fw"></i> No hay jefes</td>
+									</tr>
+									{% endif %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block modals %}{% endblock %}
 {# ----------------------------------------------------------- #}
-{% block scripts %}{% endblock %}
+{% block scripts %}
+<script src="{{ baseUrl() }}/assets/js/foundation/foundation.tab.js"></script>
+{% endblock %}
 {# ----------------------------------------------------------- #}
