@@ -1,6 +1,6 @@
 @import url("http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700");
 @import url(http://fonts.googleapis.com/css?family=Lora:400,400italic);
-@import url(../css/font-awesome/font-awesome.css);
+@import url(../css/font-awesome.css);
 /* line 348, ../../../bower_components/foundation/scss/foundation/components/_global.scss */
 meta.foundation-version {
   font-family: "/5.5.1/";
@@ -6033,7 +6033,7 @@ ul.list li {
   top: 20%;
   font-size: 2.5rem;
   z-index: 10;
-  text-shadow: -1px -1px 0 #9f9f9f,   1px -1px 0 #9f9f9f, -1px 1px 0 #9f9f9f, 1px 1px 0 #9f9f9f;
+  text-shadow: -1px -1px 0 #9f9f9f, 1px -1px 0 #9f9f9f, -1px 1px 0 #9f9f9f, 1px 1px 0 #9f9f9f;
 }
 /* line 36, ../scss/portal/_directorios.scss */
 .directorio #masonryContainer .masonry-brick .header .bg {
