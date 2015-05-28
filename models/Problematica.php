@@ -11,13 +11,13 @@ class Problematica extends Contenible {
 
     public static function boot() {
         parent::boot();
-        static::deleting(function($problematica) {
-            TagCtrl::updateTags($evento->contenido, array());
-            foreach ($problematica->comentarios as $comentario) {
+        static::deleting(function($problemat) {
+            TagCtrl::updateTags($problemat->contenido, array());
+            foreach ($problemat->comentarios as $comentario) {
                 $comentario->delete();
             }
-            $problematica->votos()->delete();
-            $problematica->contenido->delete();
+            $problemat->votos()->delete();
+            $problemat->contenido->delete();
             return true;
         });
     }
