@@ -37,7 +37,9 @@ class NotificacionCtrl extends RMRController {
                 $data[] = ['usuario_id' => $usr, 'notificable_id' => $log->getKey(),
                            'notificable_type' => $log->getMorphClass()];
             }
-            Notificacion::insert($data);
+            if (!empty($data)) {
+                Notificacion::insert($data);
+            }
         } else {
             $notif = new Notificacion();
             $notif->usuario_id = $idUsu;

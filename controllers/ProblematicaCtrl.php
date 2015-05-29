@@ -112,7 +112,7 @@ class ProblematicaCtrl extends Controller {
         $problemat = Problematica::with(array('contenido', 'votos'))->findOrFail($idPro);
         $contenido = $problemat->contenido;
         $req = $this->request;
-        $vdt = $this->validarPropuesta($req->post());
+        $vdt = $this->validarProblematica($req->post());
         $problemat->cuerpo = $vdt->getData('cuerpo');
         $problemat->save();
         $contenido->titulo = $vdt->getData('titulo');
