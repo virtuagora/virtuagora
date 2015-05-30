@@ -36,10 +36,16 @@
 			animateRotate : true,
 			animateScale : false,
 		});
-		var porc = func([{{ chart.data1.val }},{{ chart.data2.val }},{{ chart.data3.val }}],100);
-		$('#data1-p').html(porc[0]+'%');
+		{% if chart.data1.val > 0 %}
+		var porc = func([{{ chart.data1.val ? chart.data1.val : '' }}{{ chart.data2.val ? ',' ~ chart.data2.val : '' }}{{ chart.data3.val ? ',' ~ chart.data3.val : '' }}],100);
+		 $('#data1-p').html(porc[0]+'%');
 		$('#data2-p').html(porc[1]+'%');
 		$('#data3-p').html(porc[2]+'%');
+		 {% else %}
+		 var porc = func([{{ chart.data2.val }},{{ chart.data3.val }}],100);
+		  $('#data2-p').html(porc[0]+'%');
+		$('#data3-p').html(porc[1]+'%');
+		  {% endif %}
 	}
 
 	// Round to 100%
