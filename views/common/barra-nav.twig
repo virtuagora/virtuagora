@@ -42,7 +42,7 @@
 <ul id="drop" class="tiny f-dropdown" data-dropdown-content>
 	<li><a href="{{ urlFor('shwModifUsuario') }}"><i class="fa fa-pencil fa-fw fa-lg"></i> Editar perfil</a></li>
 	{% if user and (user.es_jefe == 1) %}
-	<li><a href="{{ urlFor('shwModifRolPartido',{'idPar': user.partido_id}) }}"><i class="fa fa-users fa-fw fa-lg"></i> Administrar partido</a></li>
+	<li><a href="{{ urlFor('shwModifRolPartido',{'idPar': user.partido_id}) }}"><i class="fa fa-users fa-fw fa-lg"></i> Administrar grupo</a></li>
 	{% endif %}
 	{% if user and (user.patrulla_id != null) %}
 	<li><a href="{{ urlFor('shwAdmOrganis') }}"><i class="fa fa-dashboard fa-fw fa-lg"></i> Configurar plataforma</a></li>
