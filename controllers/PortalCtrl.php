@@ -30,7 +30,7 @@ class PortalCtrl extends Controller {
             ->addRule('password', new Validate\Rule\MaxLength(128));
         $req = $this->request;
         if ($vdt->validate($req->post()) && $this->session->login($vdt->getData('email'), $vdt->getData('password'))) {
-            $this->redirect($this->request->getReferrer());
+            $this->redirectTo('shwPortal');
         } else {
             $this->flash('errors', array('Datos de ingreso incorrectos. Por favor vuelva a intentarlo.'));
             $this->redirectTo('shwLogin');
