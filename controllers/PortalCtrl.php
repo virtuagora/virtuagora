@@ -48,19 +48,21 @@ class PortalCtrl extends Controller {
 
     public function registrar() {
         $vdt = new Validate\Validator();
+        $phrase = isset($this->flashData()['captcha'])? $this->flashData()['captcha']: null;
         $vdt->addRule('nombre', new Validate\Rule\Alpha(array(' ')))
             ->addRule('nombre', new Validate\Rule\MinLength(1))
             ->addRule('nombre', new Validate\Rule\MaxLength(32))
             ->addRule('apellido', new Validate\Rule\Alpha(array(' ')))
             ->addRule('apellido', new Validate\Rule\MinLength(1))
             ->addRule('apellido', new Validate\Rule\MaxLength(32))
+            ->addRule('password', new Validate\Rule\MinLength(8))
+            ->addRule('password', new Validate\Rule\MaxLength(128))
+            ->addRule('password', new Validate\Rule\Matches('password2'))
+            ->addRule('captcha', new Validate\Rule\Equal($phrase))
             ->addRule('email', new Validate\Rule\Email())
             ->addRule('email', new Validate\Rule\MaxLength(128))
             ->addRule('email', new Validate\Rule\Unique('usuarios'))
             ->addRule('email', new Validate\Rule\Unique('preusuarios'))
-            ->addRule('password', new Validate\Rule\MinLength(8))
-            ->addRule('password', new Validate\Rule\MaxLength(128))
-            ->addRule('password', new Validate\Rule\Matches('password2'))
             ->addFilter('email', 'strtolower')
             ->addFilter('email', 'trim');
         $req = $this->request;

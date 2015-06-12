@@ -9,6 +9,7 @@
         "illuminate/database": "4.2.*",
         "codeguy/upload": "*",
         "ircmaxell/password-compat": "*",
+        "gregwar/captcha": "1.*",
         "augusthur/validation": "*"
     },
     "repositories": [

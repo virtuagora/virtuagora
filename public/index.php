@@ -118,10 +118,14 @@ function checkUserAuth($action, $checkMod = false) {
 }
 */
 
-$app->get('/test', function () use ($app) {
-    $cont = Contenido::with('referido')->find(2);
-    var_dump($cont->toArray());
-});
+$app->get('/captcha', function () use ($app) {
+    $builder = new Gregwar\Captcha\CaptchaBuilder;
+    $builder->build();
+    $app->response->headers->set('Content-Type', 'image/jpeg');
+    $app->response->headers->set('Cache-Control', 'no-store, no-cache, must-revalidate');
+    $app->flash('captcha', $builder->getPhrase());
+    $builder->output();
+})->name('shwCaptcha');
 
 //$app->get('/userlog', 'UserlogCtrl:listar')->name('shwListaUserlog');
 
