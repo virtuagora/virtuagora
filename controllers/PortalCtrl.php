@@ -30,7 +30,7 @@ class PortalCtrl extends Controller {
             ->addRule('password', new Validate\Rule\MaxLength(128));
         $req = $this->request;
         if ($vdt->validate($req->post()) && $this->session->login($vdt->getData('email'), $vdt->getData('password'))) {
-            $this->redirect($this->request->getReferrer());
+            $this->redirectTo('shwPortal');
         } else {
             $this->flash('errors', array('Datos de ingreso incorrectos. Por favor vuelva a intentarlo.'));
             $this->redirectTo('shwLogin');
@@ -48,19 +48,21 @@ class PortalCtrl extends Controller {
 
     public function registrar() {
         $vdt = new Validate\Validator();
+        $phrase = isset($this->flashData()['captcha'])? $this->flashData()['captcha']: null;
         $vdt->addRule('nombre', new Validate\Rule\Alpha(array(' ')))
             ->addRule('nombre', new Validate\Rule\MinLength(1))
             ->addRule('nombre', new Validate\Rule\MaxLength(32))
             ->addRule('apellido', new Validate\Rule\Alpha(array(' ')))
             ->addRule('apellido', new Validate\Rule\MinLength(1))
             ->addRule('apellido', new Validate\Rule\MaxLength(32))
+            ->addRule('password', new Validate\Rule\MinLength(8))
+            ->addRule('password', new Validate\Rule\MaxLength(128))
+            ->addRule('password', new Validate\Rule\Matches('password2'))
+            ->addRule('captcha', new Validate\Rule\Equal($phrase))
             ->addRule('email', new Validate\Rule\Email())
             ->addRule('email', new Validate\Rule\MaxLength(128))
             ->addRule('email', new Validate\Rule\Unique('usuarios'))
             ->addRule('email', new Validate\Rule\Unique('preusuarios'))
-            ->addRule('password', new Validate\Rule\MinLength(8))
-            ->addRule('password', new Validate\Rule\MaxLength(128))
-            ->addRule('password', new Validate\Rule\Matches('password2'))
             ->addFilter('email', 'strtolower')
             ->addFilter('email', 'trim');
         $req = $this->request;
@@ -77,10 +79,9 @@ class PortalCtrl extends Controller {
 
         $to = $preuser->email;
         $subject = 'Confirma tu registro en Virtuagora';
-        $message = 'Hola, te registraste en virtuagora. Entra a este link para confirmar tu email: ' .
+        $message = 'Hola, te registraste en virtuagora. Entra a este link para confirmar tu email: ' . $req->getUrl() .
                    $this->urlFor('runValidUsuario', array('idUsu' => $preuser->id, 'token' => $preuser->emailed_token));
-        $header = 'From:noreply@'.$_SERVER['SERVER_NAME'].' \r\n';
-        mail($to, $subject, $message, $header);
+        mail($to, $subject, $message);
 
         $this->render('registro/registro-exito.twig', array('email' => $preuser->email));
     }
