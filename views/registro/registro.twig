@@ -50,6 +50,11 @@
 								<small class="error text-center">Las contraseñas no coinciden</small>
 								<input type="password" name="password2" placeholder="Reingrese su contraseña" data-equalto="password">
 							</div>
+                            <div class="small-12 columns">
+								<img src="{{ urlFor('shwCaptcha') }}?_={{ date().timestamp }}">
+
+								<input type="textfield" name="captcha" placeholder="Ingrese el código">
+							</div>
 							<div class="small-12 columns text-center">
 								<div class="descripcion" style="margin: 10px 0 10px;">
 									Al hacer clic en <b>Registrarse</b>, usted acepta los <a href="{{ urlFor('shwTos') }}"><i class="fa fa-file-text-o fa-fw"></i> Terminos y Condiciones de uso</a> y confirma que ha leído nuestra Política de uso de datos, incluido el uso de cookies.
