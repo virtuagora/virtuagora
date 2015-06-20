@@ -7,6 +7,9 @@
 	}
 	.panel{
 		padding-bottom: 30px;
+		@media only screen and (max-width: 40em) {
+			padding: 0 0 30px;
+		}
 		background-color: #FFF;
 		-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.4);
 		-moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.4);
@@ -34,6 +37,43 @@
 			border-left: 0;
 		}
 	}
+	.captcha-cont{
+		//border: 1px solid #CACACA;
+		img{
+			height: 42px;
+			width: 150px;
+			border: 1px solid #ccc;
+			border-right: 0px;
+			vertical-align: bottom;
+			//			border: 1px solid #ccc;
+		}
+		input{
+			font-family: $font-family-sans-serif;
+			width: 150px;
+			border: 1px solid #ccc;
+		}
+		@media only screen and (max-width: 40em) {
+			input{
+				font-family: $font-family-sans-serif;
+				width: 130px;
+			}
+		}
+		@media only screen and (max-width: 64em) {
+			margin-top: 10px;
+			img{
+				height: 35px;
+				width: 125px;
+				border-top-left-radius: 7px;
+				border-bottom-left-radius: 7px;
+			}
+			input{
+				height: 35px;
+				border-top-right-radius: 7px;
+				border-bottom-right-radius: 7px;
+			}
+		}
+	}
+
 	@media only screen and (max-width: 64em) {
 		small.error{margin-bottom: 0px;}
 		form input[name="nombre"]{
@@ -71,46 +111,46 @@
 }
 
 .login-bg {
-//	background: image-url('login-bg.jpg',false,false) no-repeat center center fixed;
-//	-webkit-background-size: cover;
-//	-moz-background-size: cover;
-//	-o-background-size: cover;
-//	background-size: cover;
+	//	background: image-url('login-bg.jpg',false,false) no-repeat center center fixed;
+	//	-webkit-background-size: cover;
+	//	-moz-background-size: cover;
+	//	-o-background-size: cover;
+	//	background-size: cover;
 	background-color: #5b80b3;
 }
 
 .registro-bg {
-//	background: image-url('registro-bg.jpg',false,false) no-repeat center center fixed;
-//	-webkit-background-size: cover;
-//	-moz-background-size: cover;
-//	-o-background-size: cover;
-//	background-size: cover;
+	//	background: image-url('registro-bg.jpg',false,false) no-repeat center center fixed;
+	//	-webkit-background-size: cover;
+	//	-moz-background-size: cover;
+	//	-o-background-size: cover;
+	//	background-size: cover;
 	background-color: #5b80b3;
 }
 
 .registro-exito-bg {
-//	background: image-url('registro-exito-bg.jpg',false,false) no-repeat center center fixed;
-//	-webkit-background-size: cover;
-//	-moz-background-size: cover;
-//	-o-background-size: cover;
-//	background-size: cover;
+	//	background: image-url('registro-exito-bg.jpg',false,false) no-repeat center center fixed;
+	//	-webkit-background-size: cover;
+	//	-moz-background-size: cover;
+	//	-o-background-size: cover;
+	//	background-size: cover;
 	background-color: #5b80b3;
 }
 
 .verif-exito-bg {
-//	background: image-url('verif-exito-bg.jpg',false,false) no-repeat center center fixed;
-//	-webkit-background-size: cover;
-//	-moz-background-size: cover;
-//	-o-background-size: cover;
-//	background-size: cover;
+	//	background: image-url('verif-exito-bg.jpg',false,false) no-repeat center center fixed;
+	//	-webkit-background-size: cover;
+	//	-moz-background-size: cover;
+	//	-o-background-size: cover;
+	//	background-size: cover;
 	background-color: #5b80b3;
 }
 
 .error-bg {
-//    background: image-url('error-bg.jpg',false,false) no-repeat center center fixed;
-//    -webkit-background-size: cover;
-//    -moz-background-size: cover;
-//    -o-background-size: cover;
-//    background-size: cover;
+	//    background: image-url('error-bg.jpg',false,false) no-repeat center center fixed;
+	//    -webkit-background-size: cover;
+	//    -moz-background-size: cover;
+	//    -o-background-size: cover;
+	//    background-size: cover;
 	background-color: #b35b5b;
 }
