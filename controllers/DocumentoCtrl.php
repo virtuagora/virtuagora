@@ -122,7 +122,7 @@ class DocumentoCtrl extends Controller {
         $contenido->save();
         TagCtrl::updateTags($contenido, TagCtrl::getTagIds($vdt->getData('tags')));
         $this->flash('success', 'Los datos del documento fueron modificados exitosamente.');
-        $this->redirect($this->request->getReferrer());
+        $this->redirectTo('shwDocumen', array('idDoc' => $documento->id));
     }
 
     public function eliminar($idDoc) {

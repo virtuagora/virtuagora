@@ -48,7 +48,6 @@ class PortalCtrl extends Controller {
 
     public function registrar() {
         $vdt = new Validate\Validator();
-        $phrase = isset($this->flashData()['captcha'])? $this->flashData()['captcha']: null;
         $vdt->addRule('nombre', new Validate\Rule\Alpha(array(' ')))
             ->addRule('nombre', new Validate\Rule\MinLength(1))
             ->addRule('nombre', new Validate\Rule\MaxLength(32))
@@ -58,13 +57,16 @@ class PortalCtrl extends Controller {
             ->addRule('password', new Validate\Rule\MinLength(8))
             ->addRule('password', new Validate\Rule\MaxLength(128))
             ->addRule('password', new Validate\Rule\Matches('password2'))
-            ->addRule('captcha', new Validate\Rule\Equal($phrase))
             ->addRule('email', new Validate\Rule\Email())
             ->addRule('email', new Validate\Rule\MaxLength(128))
             ->addRule('email', new Validate\Rule\Unique('usuarios'))
             ->addRule('email', new Validate\Rule\Unique('preusuarios'))
             ->addFilter('email', 'strtolower')
             ->addFilter('email', 'trim');
+        if ($this->getMode() != 'testing') {
+            $phrase = isset($this->flashData()['captcha'])? $this->flashData()['captcha']: null;
+            $vdt->addRule('captcha', new Validate\Rule\Equal($phrase));
+        }
         $req = $this->request;
         if (!$vdt->validate($req->post())) {
             throw new TurnbackException($vdt->getErrors());
@@ -76,13 +78,13 @@ class PortalCtrl extends Controller {
         $preuser->apellido = $vdt->getData('apellido');
         $preuser->emailed_token = bin2hex(openssl_random_pseudo_bytes(16));
         $preuser->save();
-
-        $to = $preuser->email;
-        $subject = 'Confirma tu registro en Virtuagora';
-        $message = 'Hola, te registraste en virtuagora. Entra a este link para confirmar tu email: ' . $req->getUrl() .
-                   $this->urlFor('runValidUsuario', array('idUsu' => $preuser->id, 'token' => $preuser->emailed_token));
-        mail($to, $subject, $message);
-
+        if ($this->getMode() != 'testing') {
+            $to = $preuser->email;
+            $subject = 'Confirma tu registro en Virtuagora';
+            $message = 'Hola, te registraste en virtuagora. Entra a este link para confirmar tu email: ' . $req->getUrl() .
+                       $this->urlFor('runValidUsuario', array('idUsu' => $preuser->id, 'token' => $preuser->emailed_token));
+            mail($to, $subject, $message);
+        }
         $this->render('registro/registro-exito.twig', array('email' => $preuser->email));
     }
 

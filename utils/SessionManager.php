@@ -1,6 +1,11 @@
 <?php
 
 class SessionManager {
+    protected $mode;
+
+    public function __construct($mode) {
+        $this->mode = $mode;
+    }
 
     public function login($email, $password) {
         $success = false;
@@ -27,12 +32,14 @@ class SessionManager {
     }
 
     public function logout() {
-        if ($this->check()) {
+        if ($this->mode != 'testing' && $this->check()) {
             $_SESSION = array();
             if (isset($_COOKIE[session_name()])) {
                 setcookie(session_name(), '', time() - 3600);
             }
             session_destroy();
+        } else {
+            $_SESSION = array();
         }
     }
 

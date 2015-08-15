@@ -1,5 +1,7 @@
 {
     "name": "Virtuagora",
+    "description": "Plataforma web de participación ciudadana.",
+    "license": "MIT",
     "require": {
         "slim/slim": "2.*",
         "slim/views": "*",
@@ -12,6 +14,10 @@
         "gregwar/captcha": "1.*",
         "augusthur/validation": "*"
     },
+    "require-dev": {
+        "phpunit/phpunit": "4.*",
+        "there4/slim-test-helpers": "dev-master"
+    },
     "repositories": [
         {
             "type": "vcs",
@@ -19,7 +25,6 @@
         }
     ],
     "autoload": {
-        "files": [ "config/database.php" ],
         "classmap": [ "models", "controllers", "representations", "utils" ]
     }
 }

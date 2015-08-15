@@ -1,0 +1,771 @@
+DROP TABLE IF EXISTS `acciones`;
+CREATE TABLE `acciones` (
+  `id` varchar(10) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `acciones` WRITE;
+UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `adminlogs`;
+CREATE TABLE `adminlogs` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(255) NOT NULL,
+  `subclase` varchar(255) NOT NULL,
+  `objeto_id` int(10) unsigned NOT NULL,
+  `objeto_type` varchar(255) NOT NULL,
+  `poder_id` int(10) unsigned NOT NULL,
+  `actor_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `adminlogs_objeto_id_objeto_type_index` (`objeto_id`,`objeto_type`),
+  KEY `adminlogs_actor_id_foreign` (`actor_id`),
+  CONSTRAINT `adminlogs_actor_id_foreign` FOREIGN KEY (`actor_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+LOCK TABLES `adminlogs` WRITE;
+INSERT INTO `adminlogs` VALUES (1,'','new',1,'Organismo',3,1,'2015-07-25 23:06:58','2015-07-25 23:06:58'),(2,'1','new',1,'Organismo',4,1,'2015-07-25 23:07:09','2015-07-25 23:07:09');
+UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `ajustes`;
+CREATE TABLE `ajustes` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `key` varchar(255) NOT NULL,
+  `value_type` varchar(255) NOT NULL,
+  `int_value` int(11) DEFAULT NULL,
+  `str_value` varchar(255) DEFAULT NULL,
+  `txt_value` text,
+  `description` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ajustes_key_unique` (`key`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+LOCK TABLES `ajustes` WRITE;
+INSERT INTO `ajustes` VALUES (1,'tos','txt',NULL,NULL,'Términos y condiciones de uso.','Términos y condiciones para el uso de la plataforma.','2015-07-25 23:02:40','2015-07-25 23:02:40');
+UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `categorias`;
+CREATE TABLE `categorias` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+LOCK TABLES `categorias` WRITE;
+INSERT INTO `categorias` VALUES (1,'General','2015-07-25 23:02:40','2015-07-25 23:02:40',NULL);
+UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `comentario_votos`;
+CREATE TABLE `comentario_votos` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `valor` int(11) NOT NULL,
+  `usuario_id` int(10) unsigned NOT NULL,
+  `comentario_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `comentario_votos_comentario_id_foreign` (`comentario_id`),
+  CONSTRAINT `comentario_votos_comentario_id_foreign` FOREIGN KEY (`comentario_id`) REFERENCES `comentarios` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `comentario_votos` WRITE;
+UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `comentarios`;
+CREATE TABLE `comentarios` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `comentable_id` int(10) unsigned NOT NULL,
+  `comentable_type` varchar(255) NOT NULL,
+  `cuerpo` text NOT NULL,
+  `votos` int(11) NOT NULL DEFAULT '0',
+  `autor_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `comentarios_comentable_id_comentable_type_index` (`comentable_id`,`comentable_type`),
+  KEY `comentarios_autor_id_foreign` (`autor_id`),
+  CONSTRAINT `comentarios_autor_id_foreign` FOREIGN KEY (`autor_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `comentarios` WRITE;
+UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `contactos`;
+CREATE TABLE `contactos` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `contactable_id` int(10) unsigned NOT NULL,
+  `contactable_type` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `telefono` varchar(255) DEFAULT NULL,
+  `web` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `contactos_contactable_id_contactable_type_index` (`contactable_id`,`contactable_type`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+LOCK TABLES `contactos` WRITE;
+INSERT INTO `contactos` VALUES (1,1,'Partido',NULL,NULL,NULL,'2015-07-25 23:07:57','2015-07-25 23:07:57');
+UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `contenidos`;
+CREATE TABLE `contenidos` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `contenible_id` int(10) unsigned NOT NULL,
+  `contenible_type` varchar(255) NOT NULL,
+  `titulo` varchar(255) NOT NULL,
+  `huella` varchar(255) DEFAULT NULL,
+  `puntos` int(10) unsigned NOT NULL DEFAULT '0',
+  `impulsor_id` int(10) unsigned DEFAULT NULL,
+  `referido_id` int(10) unsigned DEFAULT NULL,
+  `categoria_id` int(10) unsigned NOT NULL,
+  `autor_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `contenidos_contenible_id_contenible_type_index` (`contenible_id`,`contenible_type`),
+  KEY `contenidos_autor_id_foreign` (`autor_id`),
+  CONSTRAINT `contenidos_autor_id_foreign` FOREIGN KEY (`autor_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+LOCK TABLES `contenidos` WRITE;
+INSERT INTO `contenidos` VALUES (1,1,'Problematica','Primer Problematica','PrimerProblematica',0,NULL,NULL,1,1,'2015-07-25 23:09:22','2015-07-25 23:09:22',NULL),(2,1,'Propuesta','Primer Propuesta','PrimerPropuesta',0,NULL,NULL,1,1,'2015-07-25 23:54:14','2015-07-25 23:54:14',NULL),(3,1,'Documento','Primer Documento','PrimerDocumento',0,NULL,NULL,1,1,'2015-07-25 23:55:55','2015-07-25 23:55:55',NULL),(4,1,'Evento','Primer Evento','PrimerEvento',0,NULL,NULL,1,1,'2015-07-25 23:58:20','2015-07-25 23:58:20',NULL),(5,1,'Novedad','Primer Novedad','PrimerNovedad',0,NULL,NULL,1,1,'2015-07-26 00:06:57','2015-07-26 00:06:57',NULL);
+UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `documento_parrafos`;
+CREATE TABLE `documento_parrafos` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `cuerpo` text NOT NULL,
+  `ubicacion` int(10) unsigned NOT NULL,
+  `version_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+LOCK TABLES `documento_parrafos` WRITE;
+INSERT INTO `documento_parrafos` VALUES (1,'Documento creado para hacer pruebas.',0,1,'2015-07-25 23:55:55','2015-07-25 23:55:55',NULL);
+UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `documento_versiones`;
+CREATE TABLE `documento_versiones` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `version` int(10) unsigned NOT NULL,
+  `documento_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+LOCK TABLES `documento_versiones` WRITE;
+INSERT INTO `documento_versiones` VALUES (1,1,1,'2015-07-25 23:55:55','2015-07-25 23:55:55',NULL);
+UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `documentos`;
+CREATE TABLE `documentos` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(255) NOT NULL,
+  `ultima_version` int(10) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+LOCK TABLES `documentos` WRITE;
+INSERT INTO `documentos` VALUES (1,'Esta es una descripcion.',1,'2015-07-25 23:55:55','2015-07-25 23:55:55',NULL);
+UNLOCK TABLES;
+
+--
+-- Table structure for table `evento_usuario`
+--
+
+DROP TABLE IF EXISTS `evento_usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `evento_usuario` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `presente` tinyint(1) NOT NULL,
+  `publico` tinyint(1) NOT NULL,
+  `usuario_id` int(10) unsigned NOT NULL,
+  `evento_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `evento_usuario_evento_id_foreign` (`evento_id`),
+  CONSTRAINT `evento_usuario_evento_id_foreign` FOREIGN KEY (`evento_id`) REFERENCES `eventos` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `evento_usuario`
+--
+
+LOCK TABLES `evento_usuario` WRITE;
+/*!40000 ALTER TABLE `evento_usuario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `evento_usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `eventos`
+--
+
+DROP TABLE IF EXISTS `eventos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `eventos` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `cuerpo` text NOT NULL,
+  `lugar` varchar(255) NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `eventos`
+--
+
+LOCK TABLES `eventos` WRITE;
+/*!40000 ALTER TABLE `eventos` DISABLE KEYS */;
+INSERT INTO `eventos` VALUES (1,'Este es un evento creado para hacer pruebas.','Calle test 123','2015-07-25 15:00:00','2015-07-25 23:58:20','2015-07-25 23:58:20',NULL);
+/*!40000 ALTER TABLE `eventos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `funcionarios`
+--
+
+DROP TABLE IF EXISTS `funcionarios`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `funcionarios` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `usuario_id` int(10) unsigned NOT NULL,
+  `organismo_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `funcionarios_usuario_id_foreign` (`usuario_id`),
+  CONSTRAINT `funcionarios_usuario_id_foreign` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `funcionarios`
+--
+
+LOCK TABLES `funcionarios` WRITE;
+/*!40000 ALTER TABLE `funcionarios` DISABLE KEYS */;
+INSERT INTO `funcionarios` VALUES (1,1,1,'2015-07-25 23:07:09','2015-07-25 23:07:09',NULL);
+/*!40000 ALTER TABLE `funcionarios` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notificaciones`
+--
+
+DROP TABLE IF EXISTS `notificaciones`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notificaciones` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `notificable_id` int(10) unsigned NOT NULL,
+  `notificable_type` varchar(255) NOT NULL,
+  `usuario_id` int(10) unsigned NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `notificaciones_notificable_id_notificable_type_index` (`notificable_id`,`notificable_type`),
+  KEY `notificaciones_usuario_id_foreign` (`usuario_id`),
+  CONSTRAINT `notificaciones_usuario_id_foreign` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notificaciones`
+--
+
+LOCK TABLES `notificaciones` WRITE;
+/*!40000 ALTER TABLE `notificaciones` DISABLE KEYS */;
+INSERT INTO `notificaciones` VALUES (1,1,'Userlog',1,'2015-07-25 23:52:14');
+/*!40000 ALTER TABLE `notificaciones` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `novedades`
+--
+
+DROP TABLE IF EXISTS `novedades`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `novedades` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `cuerpo` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `novedades`
+--
+
+LOCK TABLES `novedades` WRITE;
+/*!40000 ALTER TABLE `novedades` DISABLE KEYS */;
+INSERT INTO `novedades` VALUES (1,'Esta es una novedad creada para hacer pruebas.','2015-07-26 00:06:57','2015-07-26 00:06:57',NULL);
+/*!40000 ALTER TABLE `novedades` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `organismos`
+--
+
+DROP TABLE IF EXISTS `organismos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `organismos` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) NOT NULL,
+  `descripcion` text NOT NULL,
+  `cupo` int(10) unsigned NOT NULL,
+  `huella` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `organismos`
+--
+
+LOCK TABLES `organismos` WRITE;
+/*!40000 ALTER TABLE `organismos` DISABLE KEYS */;
+INSERT INTO `organismos` VALUES (1,'Organismo Principal','Organismo creado para hacer pruebas.',1,'OrganismoPrincipal','2015-07-25 23:06:56','2015-07-25 23:06:56',NULL);
+/*!40000 ALTER TABLE `organismos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `partidos`
+--
+
+DROP TABLE IF EXISTS `partidos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `partidos` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) NOT NULL,
+  `acronimo` varchar(255) NOT NULL,
+  `descripcion` text NOT NULL,
+  `huella` varchar(255) DEFAULT NULL,
+  `fundador` varchar(255) DEFAULT NULL,
+  `fecha_fundacion` date DEFAULT NULL,
+  `creador_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `partidos_nombre_unique` (`nombre`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `partidos`
+--
+
+LOCK TABLES `partidos` WRITE;
+/*!40000 ALTER TABLE `partidos` DISABLE KEYS */;
+INSERT INTO `partidos` VALUES (1,'Partido Principal','PP','Partido creado para hacer pruebas.','PartidoPrincipalPP',NULL,NULL,1,'2015-07-25 23:07:57','2015-07-25 23:07:57',NULL);
+/*!40000 ALTER TABLE `partidos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `patrulla_poder`
+--
+
+DROP TABLE IF EXISTS `patrulla_poder`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `patrulla_poder` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `patrulla_id` int(10) unsigned NOT NULL,
+  `poder_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `patrulla_poder_patrulla_id_foreign` (`patrulla_id`),
+  KEY `patrulla_poder_poder_id_foreign` (`poder_id`),
+  CONSTRAINT `patrulla_poder_patrulla_id_foreign` FOREIGN KEY (`patrulla_id`) REFERENCES `patrullas` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `patrulla_poder_poder_id_foreign` FOREIGN KEY (`poder_id`) REFERENCES `poderes` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `patrulla_poder`
+--
+
+LOCK TABLES `patrulla_poder` WRITE;
+/*!40000 ALTER TABLE `patrulla_poder` DISABLE KEYS */;
+INSERT INTO `patrulla_poder` VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,5),(6,1,6),(7,1,7);
+/*!40000 ALTER TABLE `patrulla_poder` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `patrullas`
+--
+
+DROP TABLE IF EXISTS `patrullas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `patrullas` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) NOT NULL,
+  `descripcion` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `patrullas`
+--
+
+LOCK TABLES `patrullas` WRITE;
+/*!40000 ALTER TABLE `patrullas` DISABLE KEYS */;
+INSERT INTO `patrullas` VALUES (1,'Aministrador','Admnistrador que instaló la plataforma.','2015-07-25 23:02:41','2015-07-25 23:02:41');
+/*!40000 ALTER TABLE `patrullas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `poderes`
+--
+
+DROP TABLE IF EXISTS `poderes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `poderes` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) NOT NULL,
+  `descripcion` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `poderes`
+--
+
+LOCK TABLES `poderes` WRITE;
+/*!40000 ALTER TABLE `poderes` DISABLE KEYS */;
+INSERT INTO `poderes` VALUES (1,'Moderar','Moderar en la plataforma.'),(2,'Configurar plataforma','Configurar parámetros de Virtugora.'),(3,'Administrar organismos','Definir los organimos existentes.'),(4,'Administrar funcionarios','Asignar los funcionarios a sus respectivos organismos.'),(5,'Administrar patrullas','Definir los distintos grupos de moderación.'),(6,'Administrar moderadores','Asignar los usuarios que serán moderadores.'),(7,'Verificar ciudadanos','Registrar como verificados a usuarios que lo demuestren.');
+/*!40000 ALTER TABLE `poderes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `preusuarios`
+--
+
+DROP TABLE IF EXISTS `preusuarios`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `preusuarios` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `apellido` varchar(255) NOT NULL,
+  `emailed_token` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `preusuarios_email_unique` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `preusuarios`
+--
+
+LOCK TABLES `preusuarios` WRITE;
+/*!40000 ALTER TABLE `preusuarios` DISABLE KEYS */;
+/*!40000 ALTER TABLE `preusuarios` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `problematica_votos`
+--
+
+DROP TABLE IF EXISTS `problematica_votos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `problematica_votos` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `postura` int(10) unsigned NOT NULL,
+  `usuario_id` int(10) unsigned NOT NULL,
+  `problematica_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `problematica_votos_problematica_id_foreign` (`problematica_id`),
+  CONSTRAINT `problematica_votos_problematica_id_foreign` FOREIGN KEY (`problematica_id`) REFERENCES `problematicas` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `problematica_votos`
+--
+
+LOCK TABLES `problematica_votos` WRITE;
+/*!40000 ALTER TABLE `problematica_votos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `problematica_votos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `problematicas`
+--
+
+DROP TABLE IF EXISTS `problematicas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `problematicas` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `cuerpo` text NOT NULL,
+  `afectados_directos` int(10) unsigned NOT NULL DEFAULT '0',
+  `afectados_indirectos` int(10) unsigned NOT NULL DEFAULT '0',
+  `afectados_indiferentes` int(10) unsigned NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `problematicas`
+--
+
+LOCK TABLES `problematicas` WRITE;
+/*!40000 ALTER TABLE `problematicas` DISABLE KEYS */;
+INSERT INTO `problematicas` VALUES (1,'Problematica creada para hacer pruebas.',0,0,0,'2015-07-25 23:09:22','2015-07-25 23:09:22',NULL);
+/*!40000 ALTER TABLE `problematicas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `propuesta_votos`
+--
+
+DROP TABLE IF EXISTS `propuesta_votos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `propuesta_votos` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `postura` int(11) NOT NULL,
+  `publico` tinyint(1) NOT NULL,
+  `usuario_id` int(10) unsigned NOT NULL,
+  `propuesta_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `propuesta_votos_propuesta_id_foreign` (`propuesta_id`),
+  CONSTRAINT `propuesta_votos_propuesta_id_foreign` FOREIGN KEY (`propuesta_id`) REFERENCES `propuestas` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `propuesta_votos`
+--
+
+LOCK TABLES `propuesta_votos` WRITE;
+/*!40000 ALTER TABLE `propuesta_votos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `propuesta_votos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `propuestas`
+--
+
+DROP TABLE IF EXISTS `propuestas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `propuestas` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `cuerpo` text NOT NULL,
+  `votos_favor` int(10) unsigned NOT NULL DEFAULT '0',
+  `votos_contra` int(10) unsigned NOT NULL DEFAULT '0',
+  `votos_neutro` int(10) unsigned NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `propuestas`
+--
+
+LOCK TABLES `propuestas` WRITE;
+/*!40000 ALTER TABLE `propuestas` DISABLE KEYS */;
+INSERT INTO `propuestas` VALUES (1,'Propuesta creada para hacer pruebas.',0,0,0,'2015-07-25 23:54:14','2015-07-25 23:54:14',NULL);
+/*!40000 ALTER TABLE `propuestas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `taggables`
+--
+
+DROP TABLE IF EXISTS `taggables`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `taggables` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `taggable_id` int(10) unsigned NOT NULL,
+  `taggable_type` varchar(255) NOT NULL,
+  `tag_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `taggables_taggable_id_taggable_type_index` (`taggable_id`,`taggable_type`),
+  KEY `taggables_tag_id_foreign` (`tag_id`),
+  CONSTRAINT `taggables_tag_id_foreign` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `taggables`
+--
+
+LOCK TABLES `taggables` WRITE;
+/*!40000 ALTER TABLE `taggables` DISABLE KEYS */;
+/*!40000 ALTER TABLE `taggables` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tags`
+--
+
+DROP TABLE IF EXISTS `tags`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tags` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) NOT NULL,
+  `huella` varchar(255) DEFAULT NULL,
+  `menciones` int(10) unsigned NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tags`
+--
+
+LOCK TABLES `tags` WRITE;
+/*!40000 ALTER TABLE `tags` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tags` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `userlogs`
+--
+
+DROP TABLE IF EXISTS `userlogs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `userlogs` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `objeto_id` int(10) unsigned NOT NULL,
+  `objeto_type` varchar(255) NOT NULL,
+  `accion_id` varchar(10) NOT NULL,
+  `actor_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `userlogs_objeto_id_objeto_type_index` (`objeto_id`,`objeto_type`),
+  KEY `userlogs_actor_id_foreign` (`actor_id`),
+  CONSTRAINT `userlogs_actor_id_foreign` FOREIGN KEY (`actor_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userlogs`
+--
+
+LOCK TABLES `userlogs` WRITE;
+/*!40000 ALTER TABLE `userlogs` DISABLE KEYS */;
+INSERT INTO `userlogs` VALUES (1,1,'Organismo','newFuncion',1,'2015-07-25 23:07:09','2015-07-25 23:07:09'),(2,1,'Partido','newPartido',1,'2015-07-25 23:07:57','2015-07-25 23:07:57'),(3,1,'Documento','newDocumen',1,'2015-07-25 23:55:55','2015-07-25 23:55:55'),(4,1,'Evento','newEventoo',1,'2015-07-25 23:58:20','2015-07-25 23:58:20'),(5,1,'Novedad','newNovedad',1,'2015-07-26 00:06:57','2015-07-26 00:06:57');
+/*!40000 ALTER TABLE `userlogs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usuarios`
+--
+
+DROP TABLE IF EXISTS `usuarios`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usuarios` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `apellido` varchar(255) NOT NULL,
+  `img_tipo` int(10) unsigned NOT NULL,
+  `img_hash` varchar(255) NOT NULL,
+  `huella` varchar(255) DEFAULT NULL,
+  `puntos` int(11) NOT NULL DEFAULT '0',
+  `advertencia` varchar(255) DEFAULT NULL,
+  `suspendido` tinyint(1) NOT NULL DEFAULT '0',
+  `es_funcionario` tinyint(1) NOT NULL DEFAULT '0',
+  `es_jefe` tinyint(1) NOT NULL DEFAULT '0',
+  `dni` varchar(255) DEFAULT NULL,
+  `verified_at` timestamp NULL DEFAULT NULL,
+  `fin_advertencia` timestamp NULL DEFAULT NULL,
+  `fin_suspension` timestamp NULL DEFAULT NULL,
+  `partido_id` int(10) unsigned DEFAULT NULL,
+  `patrulla_id` int(10) unsigned DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `usuarios_email_unique` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuarios`
+--
+
+LOCK TABLES `usuarios` WRITE;
+/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` VALUES (1,'admin@virtuago.ra','$2y$10$gNhh1Kn979JFvf5UGkVg1eXbgyYqR53lVTHJO47KfOeFEjijRH8CS','Administrador','Test',1,'7a7eac7bb4e8a2d426f3cf61de2b119c','AdministradorTest',55,NULL,0,1,1,NULL,NULL,NULL,NULL,1,1,'2015-07-25 23:02:41','2015-07-25 23:55:55',NULL),(2,'user@virtuago.ra','$2y$10$LHrEZGwy0Y0R8S9OmVzcte8aytPwdzsJgiF0gnjgrdpc6ku0e6wmq','Usuario','Test',1,'41405fd19c2acb9616d7d42f7599fff5','UsuarioTest',0,NULL,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL,'2015-07-26 00:16:36','2015-07-26 00:16:36',NULL),(3,'borrar@virtuago.ra','$2y$10$M7ddh10EYjOkQm4hGKQM3Odedwo8MYhQ/zRVodi5fvEpQCgT01cR2','Borrable','Test',1,'6e5500a639ff50cf8f68fcbd5cb753a7','BorrableTest',0,NULL,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL,'2015-07-26 00:16:50','2015-07-26 00:16:50',NULL);
+/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-07-25 21:23:18

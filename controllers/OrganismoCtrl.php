@@ -83,10 +83,11 @@ class OrganismoCtrl extends RMRController {
         $contacto->email = $vdt->getData('email');
         $contacto->web = $vdt->getData('url');
         $contacto->telefono = $vdt->getData('telefono');
+        $contacto->contactable()->associate($organismo);
         $contacto->save();
         AdminlogCtrl::createLog('', 3, 'mod', $this->session->user('id'), $organismo);
         $this->flash('success', 'Los datos del organismo fueron modificados exitosamente.');
-        $this->redirect($this->request->getReferrer());
+        $this->redirectTo('shwAdmOrganis');
     }
 
     public function cambiarImagen($idOrg) {
@@ -100,6 +101,7 @@ class OrganismoCtrl extends RMRController {
         $vdt->test($idOrg, new Validate\Rule\NumNatural());
         $organismo = Organismo::findOrFail($idOrg);
         if ($organismo->funcionarios_count > 0) {
+            echo 'lala1';
             throw new TurnbackException('Para eliminar un organismo no debe haber funcionarios dentro de este.');
         }
         $organismo->delete();

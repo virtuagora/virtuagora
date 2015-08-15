@@ -36,7 +36,7 @@ class FilterFactory {
 
     public static function explode($a) {
         return function($v) use ($a) {
-            return explode($a, $v);
+            return ($v === '')? array(): explode($a, $v);
         };
     }
 

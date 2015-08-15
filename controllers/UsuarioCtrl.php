@@ -89,6 +89,7 @@ class UsuarioCtrl extends RMRController {
         $contacto->email = $vdt->getData('email');
         $contacto->web = $vdt->getData('url');
         $contacto->telefono = $vdt->getData('telefono');
+        $contacto->contactable()->associate($usuario);
         $contacto->save();
         $this->flash('success', 'Sus datos fueron modificados exitosamente.');
         $this->redirect($this->request->getReferrer());

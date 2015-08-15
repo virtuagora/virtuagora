@@ -116,9 +116,13 @@ class PartidoCtrl extends RMRController {
         $vdt->test($idPar, new Validate\Rule\NumNatural());
         $partido = Partido::with('contacto')->findOrFail($idPar);
         $usuario = $this->session->getUser();
+        echo 'la1';
+
         if ($usuario->partido_id != $partido->id || !$usuario->es_jefe) {
             throw new BearableException('Debe ser jefe del grupo para poder modificarlo.');
         }
+        echo 'la2';
+
         $req = $this->request;
         $vdt = $this->validarPartido($req->post());
         $partido->nombre = $vdt->getData('nombre');
@@ -132,7 +136,11 @@ class PartidoCtrl extends RMRController {
         $contacto->web = $vdt->getData('url');
         $contacto->telefono = $vdt->getData('telefono');
         $contacto->save();
+        echo 'la3';
+
         $this->flash('success', 'Los datos del grupo fueron modificados exitosamente.');
+        echo 'la4';
+
         $this->redirect($this->request->getReferrer());
     }
 
@@ -192,6 +200,7 @@ class PartidoCtrl extends RMRController {
             throw new TurnbackException($vdt->getErrors());
         }
         $partido = Partido::findOrFail($vdt->getData('idPar'));
+        // TODO que pasa si el usuario no está en el partido?
         $usuario = Usuario::where(array('id' => $vdt->getData('idUsu'),
                                         'partido_id' => $vdt->getData('idPar')))->first();
         if ($usuario->id == $partido->creador_id) {
