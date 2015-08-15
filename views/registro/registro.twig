@@ -51,9 +51,9 @@
 								<input type="password" name="password2" placeholder="Reingrese su contraseña" data-equalto="password">
 							</div>
                             <div class="small-12 columns">
-								<img src="{{ urlFor('shwCaptcha') }}?_={{ date().timestamp }}">
-
-								<input type="textfield" name="captcha" placeholder="Ingrese el código">
+                            	<div class="captcha-cont">
+								<img src="{{ urlFor('shwCaptcha') }}?_={{ date().timestamp }}"><input type="textfield" name="captcha" placeholder="Ingrese el código">
+								</div>
 							</div>
 							<div class="small-12 columns text-center">
 								<div class="descripcion" style="margin: 10px 0 10px;">
@@ -82,8 +82,8 @@
 			$('input[name="nombre"]').val(array[0]);
 			$('input[name="apellido"]').val(array[1]);
 			$('input[name="email"]').val(decodeURIComponent(array[2]));
-
 		}
+
 	});
 
 	$(document).foundation({
@@ -101,6 +101,7 @@
 		var invalid_fields = $(this).find('[data-invalid]');
 		console.log(invalid_fields[0]);
 	})
+
 </script>
 {% endblock %}
 {# ----------------------------------------------------------- #}

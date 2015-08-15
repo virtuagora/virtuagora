@@ -4,7 +4,11 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "hash": "5ce8e0820813be8dd8a90086bf227cb9",
+=======
+    "hash": "11691ffa6a03b94a0f2c0f4cc31c7df2",
+>>>>>>> origin/master
     "packages": [
         {
             "name": "augusthur/validation",
