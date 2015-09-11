@@ -1,6 +1,5 @@
 composer.phar
 vendor/
-public/.htaccess
 public/img/
 bower_components/
 .sass-cache/*
