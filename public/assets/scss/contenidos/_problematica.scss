@@ -6,5 +6,10 @@
 	&,ul li {font-size: rem-calc(13);}
 	background-color: $propuesta-color;
 	&,a{color: #FFF;}
-
+	.fa-li{
+		position: initial;
+	}
+	ul.fa-ul{
+		margin-bottom: auto;
+	}
 }

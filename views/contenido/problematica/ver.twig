@@ -30,7 +30,7 @@ Usted, como funcionario, puede hacer la diferencia elevando una <a href="{{ urlF
 <div class="lista-propuestas" style="display:none">
 	<ul class="fa-ul">
 		{% for referido in problematica.referentes %}
-		<li><i class="fa-li fa fa-exclamation-circle"></i> {{ referido.titulo }}</li>
+		<li><i class="fa-li fa fa-exclamation-circle"></i> <a href="{{ urlFor('shwPropues',{'idPro': referido.contenible_id}) }}">{{ referido.titulo }}</a></li>
 		{% endfor %}
 	</ul>
 </div>
@@ -231,6 +231,12 @@ Usted, como funcionario, puede hacer la diferencia elevando una <a href="{{ urlF
 	});
 
 	$('#checkbox').click(completarCheckbox);
+
+	$( ".bt-ver-lista-propuestas" ).click(function() {
+		$(this).hide();
+		$('.lista-propuestas').show();
+	});
+
 
 	function completarCheckbox() {
 		if ($('#checkbox').is(':checked')) {
