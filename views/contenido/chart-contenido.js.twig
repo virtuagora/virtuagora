@@ -1,4 +1,5 @@
 <script src="{{ baseUrl() }}/assets/js/chart/chart.min.js"></script>
+<script src="{{ baseUrl() }}/assets/js/underscore/underscore-min.js"></script>
 <script>
 	var data = [
 		{
@@ -37,20 +38,34 @@
 			animateScale : false,
 		});
 		{% if chart.data1.val > 0 %}
-		var porc = func([{{ chart.data1.val ? chart.data1.val : '' }}{{ chart.data2.val ? ',' ~ chart.data2.val : '' }}{{ chart.data3.val ? ',' ~ chart.data3.val : '' }}],100);
-		 $('#data1-p').html(porc[0]+'%');
-		$('#data2-p').html(porc[1]+'%');
-		$('#data3-p').html(porc[2]+'%');
+        var total = {{chart.data1.val }} + {{chart.data2.val }} + {{chart.data3.val }};
+        console.log(total);
+		var porc = [({{chart.data1.val }}/total)*100,({{ chart.data2.val }}/total)*100,({{ chart.data3.val }}/total)*100];
+            //func([{{ chart.data1.val ? chart.data1.val : '' }}{{ chart.data2.val ? ',' ~ chart.data2.val : '' }}{{ chart.data3.val ? ',' ~ chart.data3.val : '' }}],100);
+		/*('#data1-p').html((porc[0]).toFixed(2)+'%');
+		$('#data2-p').html((porc[1]).toFixed(2)+'%');
+		$('#data3-p').html((porc[2]).toFixed(2)+'%');
+        */
 		 {% else %}
-		 var porc = func([{{ chart.data2.val }},{{ chart.data3.val }}],100);
+		 /*var porc = [({{ chart.data2.val }}/total)*100,({{ chart.data3.val }}/total)*100]
 		  $('#data2-p').html(porc[0]+'%');
-		$('#data3-p').html(porc[1]+'%');
+		$('#data3-p').html(porc[1]+'%');*/
 		  {% endif %}
 	}
+/*
+          function func(l, target) {
+    var off = target - _.reduce(l, function(acc, x) { return acc + Math.round(x) }, 0);
+    return _.chain(l).
+            sortBy(function(x) { return Math.round(x) - x }).
+            map(function(x, i) { return Math.round(x) + (off > i) - (i >= (l.length + off)) }).
+            value();
+}
+*/
 
 	// Round to 100%
 	// http://stackoverflow.com/questions/13483430/how-to-make-rounded-percentages-add-up-to-100
-	function func( orig, target ) {
+	/*
+    function func( orig, target ) {
 		var i = orig.length, j = 0, total = 0, change, newVals = [], next, factor1, factor2, len = orig.length, marginOfErrors = [];
 		// map original values to new array
 		while( i-- ) {total += newVals[i] = Math.round( orig[i] );}
@@ -98,4 +113,5 @@
 		console.log( newVals );
 		return newVals;
 	}
+    */
 </script>

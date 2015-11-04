@@ -10,6 +10,7 @@
 	.listado-contenidos{
 		margin-top: 10px;
 		.filtros.panel{
+            .bt-formato{font-size: rem-calc(12); padding: 5px;}
 			.block {
 				pointer-events: none;
 				cursor: default;

@@ -1,15 +1,37 @@
 // VER
 
 .alerta.propuestas-asociadas{
-	padding: 5px;
-	.button{margin: 0;}
-	&,ul li {font-size: rem-calc(13);}
-	background-color: $propuesta-color;
-	&,a{color: #FFF;}
-	.fa-li{
-		position: initial;
-	}
-	ul.fa-ul{
-		margin-bottom: auto;
-	}
+    padding: 5px;
+    .button{margin: 0;}
+    &,ul li {font-size: rem-calc(16);}
+    background-color: $propuesta-color;
+    &,a{color: #FFF;}
+    .fa-li{
+        position: initial;
+    }
+    ul.fa-ul{
+        margin-bottom: auto;
+    }
 }
+
+.panel.white.propuestas-relacionadas{
+    padding: 0;
+
+    .head{
+        background-color: $propuesta-color;
+        font-size: rem-calc(16);
+        color: #FFFFFF;
+        padding: 10px;
+        ul{margin-bottom: 0;}
+        ul li{
+            color: #FFFFFF;
+            margin-bottom: 8px;
+            list-style-type: none;
+            line-height: 18px;
+            a, a:hover{color:#FFFFFF;}
+            .extra{font-size: rem-calc(13)}
+            &:last{margin-bottom: 0;}
+        }
+    }
+}
+

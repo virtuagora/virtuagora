@@ -19,22 +19,11 @@
 {% set ver_comentarios = true %}
 {% set url_comentar = urlFor('runComentar', {'tipoRaiz': 'problematica' , 'idRaiz': problematica.contenible_id}) %}
 {# ----------------------------------------------------------- #}
-{% if propuesta.referentes is not empty or user.es_funcionario == 1 %}
+{% if problematica.referentes is not empty and user.es_funcionario == 1 %}
 {% set alert = true %}
 {% set alert_class = 'alerta propuestas-asociadas text-center'%}
 {% block content_alert %}
-{% if problematica.referentes is empty and user.es_funcionario == 1 %}
-Usted, como funcionario, puede hacer la diferencia elevando una <a href="{{ urlFor('shwCrearPropues')~'#'~problematica.contenible_id }}"><i class="fa fa-plus fa-fw"></i><i class="fa fa-exclamation-circle fa-fw"></i> Nueva Propuesta</a>
-{% elseif problematica.referentes is not empty %}
-<div class="bt-ver-lista-propuestas button tiny radius oposite"><i class="fa fa-exclamation-circle fa-fw"></i> Ver propuestas asociadas</div>
-<div class="lista-propuestas" style="display:none">
-	<ul class="fa-ul">
-		{% for referido in problematica.referentes %}
-		<li><i class="fa-li fa fa-exclamation-circle"></i> <a href="{{ urlFor('shwPropues',{'idPro': referido.contenible_id}) }}">{{ referido.titulo }}</a></li>
-		{% endfor %}
-	</ul>
-</div>
-{% endif %}
+Usted, como funcionario, puede hacer la diferencia elevando una&nbsp;<a class="button oposite radius" style="padding: 3px 5px;" href="{{ urlFor('shwCrearPropues')~'#'~problematica.contenible_id }}"><i class="fa fa-plus fa-fw"></i> Nueva Propuesta</a>
 {% endblock content_alert %}
 {% endif %}
 {# ----------------------------------------------------------- #}
@@ -58,76 +47,95 @@ Usted, como funcionario, puede hacer la diferencia elevando una <a href="{{ urlF
 {% set email_body = 'Me parecio interesante compartir con vos esta ' ~ problematica.contenible_type|lower ~ '&crarr;' ~ problematica.link %}
 {# ----------------------------------------------------------- #}
 {% block opciones_cont %}
+{% if problematica.referentes is not empty %}
+<div class="panel white propuestas-relacionadas">
+    <div class="head">
+        <div class="row collapse">
+            <div class="medium-4 large-5 columns text-center">
+                <i class="fa fa-lightbulb-o fa-3x fa-fw"></i>
+                <br><h3 style="color:#FFFFFF;">Propuestas asociadas</h3>
+            </div>
+            <div class="medium-8 large-7 columns small-only-text-center">
+                <ul>
+                    {% for referido in problematica.referentes %}
+                    <li><span class="extra" style="opacity: 0.4"><i class="fa fa-star-o fa-fw"></i>{{referido.puntos}} - {{referido.autor.nombre}} {{referido.autor.apellido}}</span><br><a href="{{ urlFor('shwPropues',{'idPro': referido.contenible_id}) }}"><i>{{ referido.titulo }}</a></li>
+                        {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 <div class="panel white opciones text-center">
-	<div class="text-center">
-		<h4><b>¿COMO LE AFECTA LA PROBLEMATICA?</b></h4>
-	</div>
-	<hr>
-	{% if (voto.postura is not null) %}
-	<div class="resumen-posicion text-center" style="display:none">
-		<div class="row">
-			<div class="medium-6 columns">
-				<div id="icono-voto-postura"></div>
-				<div class="descripcion" style="margin-top:5px;">La problemática <span id="txt-voto-postura"></span></div>
-			</div>
-			<div class="medium-6 columns">
-				<hr class="show-for-small-only">
-				<h6><b>SU OPINIÓN FUE REGISTRADA</b></h6>
-				<h5><small>Puede, aun así, cambiar su postura.</small></h5>
-				<h5><small>NOTA: Cambiar la postura le costará <i class="fa fa-trophy fa-fw"></i> 3 puntos y podrá hacerlo luego de los 3 días de haber votado.</small></h5>
-				<div class="bt-cambiar button negative radius tiny"><i class="fa fa-exchange fa-fw"></i> Cambiar mi postura</div>
-			</div>
-		</div>
-	</div>
-	{% endif %}
-	<div class="votar-posicion text-center" style="display:none">
-		<div class="row collapse opciones">
-			<div class="medium-4 small-12 columns text-center">
-				<div data-postura=2 class="bt-postura button negative radius expand {{ user is null ? 'disabled' }}" style="width: 98%;"><i class="fa fa-exclamation fa-rotate-180 fa-3x"></i><i class="fa fa-child fa-fw fa-3x"></i><i class="fa fa-exclamation fa-3x"></i></div>
-			</div>
-			<div class="medium-4 small-12 columns text-center">
-				<div data-postura=1 class="bt-postura button negative radius expand {{ user is null ? 'disabled' }}" style="width: 98%;"><i class="fa fa-frown-o fa-fw fa-3x"></i></div>
-			</div>
-			<div class="medium-4 small-12 columns text-center">
-				<div data-postura=0 class="bt-postura button negative radius expand {{ user is null ? 'disabled' }}" style="width: 98%;"><i class="fa fa-meh-o fa-fw fa-3x"></i></div>
-			</div>
-		</div>
-	</div>
-	<div class="posicion text-center" style="display:none">
-		{% if user %}
-		<form action="{{ urlFor('runVotarProblem', {'idPro': problematica.contenible_id}) }}" method="POST">
-			<div class="row">
-				<div class="small-12 medium-6 columns">
-					<span id="icono-postura"></span>
-					<div class="descripcion">La problemática <span id="txt-postura"></span></div>
-				</div>
-				<div class="small-12 medium-6 columns">
-					<hr class="show-for-small-only">
-					<h6><b>¿DESEA CONFIRMAR?</b></h6>
-					<input type="hidden" name="postura">
-					<button class="button tiny success radius"><i class="fa fa-send fa-fw"></i> Enviar</button>
-					<div class="bt-cancelar button tiny negative radius"><i class=" fa fa-undo fa-fw"></i> Cancelar</div>
-				</div>
-			</div>
-		</form>
-		{% else %}
-		<div class="iniciar-sesion" style="padding-top: 10px">
-			<h5><b>Inicie sesión o Registresé</b></h5>
-			<p>Para poder participar y dejar su voto, debe primero <a href="{{ urlFor('shwLogin') }}">Iniciar sesion <i class="fa fa-sign-in fa-fw fa-lg"></i></a></p>
-		</div>
-		{% endif %}
-	</div>
+    <div class="text-center">
+        <h4><b>¿COMO LE AFECTA LA PROBLEMATICA?</b></h4>
+    </div>
+    <hr>
+    {% if (voto.postura is not null) %}
+    <div class="resumen-posicion text-center" style="display:none">
+        <div class="row">
+            <div class="medium-6 columns">
+                <div id="icono-voto-postura"></div>
+                <div class="descripcion" style="margin-top:5px;">La problemática <span id="txt-voto-postura"></span></div>
+            </div>
+            <div class="medium-6 columns">
+                <hr class="show-for-small-only">
+                <h6><b>SU OPINIÓN FUE REGISTRADA</b></h6>
+                <h5><small>Puede, aun así, cambiar su postura.</small></h5>
+                <h5><small>NOTA: Cambiar la postura le costará <i class="fa fa-trophy fa-fw"></i> 3 puntos y podrá hacerlo luego de los 3 días de haber votado.</small></h5>
+                <div class="bt-cambiar button negative radius tiny"><i class="fa fa-exchange fa-fw"></i> Cambiar mi postura</div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="votar-posicion text-center" style="display:none">
+        <div class="row collapse opciones">
+            <div class="medium-4 small-12 columns text-center">
+                <div data-postura=2 class="bt-postura button negative radius expand {{ user is null ? 'disabled' }}" style="width: 98%;"><i class="fa fa-exclamation fa-rotate-180 fa-3x"></i><i class="fa fa-child fa-fw fa-3x"></i><i class="fa fa-exclamation fa-3x"></i></div>
+            </div>
+            <div class="medium-4 small-12 columns text-center">
+                <div data-postura=1 class="bt-postura button negative radius expand {{ user is null ? 'disabled' }}" style="width: 98%;"><i class="fa fa-frown-o fa-fw fa-3x"></i></div>
+            </div>
+            <div class="medium-4 small-12 columns text-center">
+                <div data-postura=0 class="bt-postura button negative radius expand {{ user is null ? 'disabled' }}" style="width: 98%;"><i class="fa fa-meh-o fa-fw fa-3x"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="posicion text-center" style="display:none">
+        {% if user %}
+        <form action="{{ urlFor('runVotarProblem', {'idPro': problematica.contenible_id}) }}" method="POST">
+            <div class="row">
+                <div class="small-12 medium-6 columns">
+                    <span id="icono-postura"></span>
+                    <div class="descripcion">La problemática <span id="txt-postura"></span></div>
+                </div>
+                <div class="small-12 medium-6 columns">
+                    <hr class="show-for-small-only">
+                    <h6><b>¿DESEA CONFIRMAR?</b></h6>
+                    <input type="hidden" name="postura">
+                    <button class="button tiny success radius"><i class="fa fa-send fa-fw"></i> Enviar</button>
+                    <div class="bt-cancelar button tiny negative radius"><i class=" fa fa-undo fa-fw"></i> Cancelar</div>
+                </div>
+            </div>
+        </form>
+        {% else %}
+        <div class="iniciar-sesion" style="padding-top: 10px">
+            <h5><b>Inicie sesión o Registresé</b></h5>
+            <p>Para poder participar y dejar su voto, debe primero <a href="{{ urlFor('shwLogin') }}">Iniciar sesion <i class="fa fa-sign-in fa-fw fa-lg"></i></a></p>
+        </div>
+        {% endif %}
+    </div>
 </div>
 <div class="panel white opciones">
-	{% if total_votos > 0 %}
-	<div class="bt-ver-resultados button negative radius expand"><i class="fa fa-pie-chart fa-fw"></i> Ver resultados</div>
-	{% include 'contenido/chart-contenido.twig' with chart %}
-	{% else %}
-	<div class="iniciar-sesion text-center">
-		<h5><b>Aún no hay resultados</b></h5>
-		<p>No hay votos registrados. Sea el primero en participar y dejar su voto.</p>
-	</div>
-	{% endif %}
+    {% if total_votos > 0 %}
+    <div class="bt-ver-resultados button negative radius expand"><i class="fa fa-pie-chart fa-fw"></i> Ver resultados</div>
+    {% include 'contenido/chart-contenido.twig' with chart %}
+    {% else %}
+    <div class="iniciar-sesion text-center">
+        <h5><b>Aún no hay resultados</b></h5>
+        <p>No hay votos registrados. Sea el primero en participar y dejar su voto.</p>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
 {# ----------------------------------------------------------- #}
@@ -138,116 +146,116 @@ Usted, como funcionario, puede hacer la diferencia elevando una <a href="{{ urlF
 {% include 'contenido/chart-contenido.js.twig' with chart %}
 {% endif %}
 <script>
-	var votoPostura = {{ voto.postura is null ? 'null' : voto.postura }};
-	var nuevoPostura = null;
+    var votoPostura = {{ voto.postura is null ? 'null' : voto.postura }};
+    var nuevoPostura = null;
 
-	$(document).ready(function(){
-		completarCheckbox();
-		if (votoPostura != null ){
-			completarVotoAnterior();
-			$('.resumen-posicion').show();
-		} else {
-			$('.votar-posicion').show();
-		}
-	});
+    $(document).ready(function(){
+        completarCheckbox();
+        if (votoPostura != null ){
+            completarVotoAnterior();
+            $('.resumen-posicion').show();
+        } else {
+            $('.votar-posicion').show();
+        }
+    });
 
-	function postura(valor, iconos){
-		nuevoPostura = valor;
-		completarVotoNuevo(iconos);
-		$('.votar-posicion').hide();
-		$('.posicion').show();
-	}
+    function postura(valor, iconos){
+        nuevoPostura = valor;
+        completarVotoNuevo(iconos);
+        $('.votar-posicion').hide();
+        $('.posicion').show();
+    }
 
-	function limpiar(){
-		$('#icono-postura').empty();
-	}
+    function limpiar(){
+        $('#icono-postura').empty();
+    }
 
-	function completarVotoAnterior(){
-		var icono = $('<i>').addClass('fa fa-3x');
-		switch(votoPostura){
-			case 2:
-				$('#icono-voto-postura')
-					.append(icono.clone().addClass('fa-exclamation fa-rotate-180'))
-					.append(icono.clone().addClass('fa-child'))
-					.append(icono.clone().addClass('fa-exclamation'));
-				$('#txt-voto-postura').html('<b>LE AFECTA DIRECTAMENTE</b>');
-				break;
-			case 1:
-				$('#icono-voto-postura')
-					.append(icono.clone().addClass('fa-male'));
-				$('#txt-voto-postura').html('<b>LE AFECTA INDIRECTAMENTE</b>');
-				break;
-			case 0:
-				$('#icono-voto-postura')
-					.append(icono.clone().addClass('fa-meh-o'))
-				$('#txt-voto-postura').html('<b>LE ES INDIFERENTE</b>');
-				break;
-			default:
-		}
-	}
+    function completarVotoAnterior(){
+        var icono = $('<i>').addClass('fa fa-3x');
+        switch(votoPostura){
+            case 2:
+                $('#icono-voto-postura')
+                    .append(icono.clone().addClass('fa-exclamation fa-rotate-180'))
+                    .append(icono.clone().addClass('fa-child'))
+                    .append(icono.clone().addClass('fa-exclamation'));
+                $('#txt-voto-postura').html('<b>LE AFECTA DIRECTAMENTE</b>');
+                break;
+            case 1:
+                $('#icono-voto-postura')
+                    .append(icono.clone().addClass('fa-male'));
+                $('#txt-voto-postura').html('<b>LE AFECTA INDIRECTAMENTE</b>');
+                break;
+            case 0:
+                $('#icono-voto-postura')
+                    .append(icono.clone().addClass('fa-meh-o'))
+                $('#txt-voto-postura').html('<b>LE ES INDIFERENTE</b>');
+                break;
+            default:
+        }
+    }
 
-	function completarVotoNuevo(iconos){
-		limpiar();
-		switch(nuevoPostura){
-			case 2:
-				$('#icono-postura').html(iconos);
-				$('#txt-postura').html('<b>LE AFECTA DIRECTAMENTE</b>');
-				break;
-			case 1:
-				$('#icono-postura').html(iconos);
-				$('#txt-postura').html('<b>LE AFECTA INDIRECTAMENTE</b>');
-				break;
-			case 0:
-				$('#icono-postura').html(iconos);
-				$('#txt-postura').html('<b>LE ES INDIFERENTE</b>');
-				break;
-			default:
-		}
-		$('input[name="postura"]').val(nuevoPostura);
-	}
+    function completarVotoNuevo(iconos){
+        limpiar();
+        switch(nuevoPostura){
+            case 2:
+                $('#icono-postura').html(iconos);
+                $('#txt-postura').html('<b>LE AFECTA DIRECTAMENTE</b>');
+                break;
+            case 1:
+                $('#icono-postura').html(iconos);
+                $('#txt-postura').html('<b>LE AFECTA INDIRECTAMENTE</b>');
+                break;
+            case 0:
+                $('#icono-postura').html(iconos);
+                $('#txt-postura').html('<b>LE ES INDIFERENTE</b>');
+                break;
+            default:
+        }
+        $('input[name="postura"]').val(nuevoPostura);
+    }
 
-	$( ".bt-postura" ).click(function() {
-		postura($(this).data('postura'),$(this).html());
-	});
+    $( ".bt-postura" ).click(function() {
+        postura($(this).data('postura'),$(this).html());
+    });
 
-	$( ".bt-cambiar" ).click(function() {
-		$('.resumen-posicion').hide();
-		$('.votar-posicion').show();
-	});
+    $( ".bt-cambiar" ).click(function() {
+        $('.resumen-posicion').hide();
+        $('.votar-posicion').show();
+    });
 
-	$( ".bt-cancelar" ).click(function() {
-		$('.posicion').hide();
-		if (votoPostura != null){
-			$('.resumen-posicion').show();
-		} else {
-			$('.votar-posicion').show();
-		}
-	});
+    $( ".bt-cancelar" ).click(function() {
+        $('.posicion').hide();
+        if (votoPostura != null){
+            $('.resumen-posicion').show();
+        } else {
+            $('.votar-posicion').show();
+        }
+    });
 
-	$( ".bt-ver-resultados" ).click(function() {
-		$(this).hide();
-		$('.chart.row').show();
-		mostrarChart();
-	});
+    $( ".bt-ver-resultados" ).click(function() {
+        $(this).hide();
+        $('.chart.row').show();
+        mostrarChart();
+    });
 
-	$('#checkbox').click(completarCheckbox);
+    $('#checkbox').click(completarCheckbox);
 
-	$( ".bt-ver-lista-propuestas" ).click(function() {
-		$(this).hide();
-		$('.lista-propuestas').show();
-	});
+    $( ".bt-ver-lista-propuestas" ).click(function() {
+        $(this).hide();
+        $('.lista-propuestas').show();
+    });
 
 
-	function completarCheckbox() {
-		if ($('#checkbox').is(':checked')) {
-			$("#txt-publico").html('<b>PÚBLICO</b>');
-			$("#checkbox").attr('checked', true);
-		} else {
-			$("#txt-publico").html('<b>PRIVADO</b>');
-			$("#checkbox").removeAttr("checked");
-			$("#checkbox").attr('checked', false);
-		}
-	}
+    function completarCheckbox() {
+        if ($('#checkbox').is(':checked')) {
+            $("#txt-publico").html('<b>PÚBLICO</b>');
+            $("#checkbox").attr('checked', true);
+        } else {
+            $("#txt-publico").html('<b>PRIVADO</b>');
+            $("#checkbox").removeAttr("checked");
+            $("#checkbox").attr('checked', false);
+        }
+    }
 
 </script>
 {% endblock %}
