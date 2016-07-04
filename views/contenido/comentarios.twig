@@ -76,7 +76,7 @@
 								<tbody>
 									{% if user %}
 									<tr id="r-{{ comentario.id }}" style="display:none;">
-										<td><a href="{{ urlFor('shwUsuario',{'idUsu': user.id}) }}"><img class="img-perfil size-32" src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 32) }}"></a></td>
+										<td><a href="{{ urlFor('shwUsuario',{'idUsu': user.id}) }}"><img class="img-perfil size-32" src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}"></a></td>
 										<form action="{{ urlFor('runComentar', {'tipoRaiz': 'comentario', 'idRaiz': comentario.id }) }}" method="POST">
 											<td colspan="2">
 												<textarea name="cuerpo" rows=1 placeholder="Escriba su respuesta..." style="margin-bottom:5px;"></textarea>
