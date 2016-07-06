@@ -37,7 +37,7 @@ class DocumentoCtrl extends Controller {
         $parrafos = $this->parsearParrafos($vdt->getData('cuerpo'));
         foreach ($parrafos as $i => $parrafo) {
             $docParrafo = new ParrafoDocumento;
-            $docParrafo->cuerpo = htmlspecialchars($parrafo, ENT_QUOTES);
+            $docParrafo->cuerpo = $parrafo;
             $docParrafo->ubicacion = $i;
             $docParrafo->version()->associate($docVersion);
             $docParrafo->save();
@@ -89,7 +89,7 @@ class DocumentoCtrl extends Controller {
         $parrafos = $this->parsearParrafos($vdt->getData('cuerpo'));
         foreach ($parrafos as $i => $parrafo) {
             $docParrafo = new ParrafoDocumento;
-            $docParrafo->cuerpo = htmlspecialchars($parrafo, ENT_QUOTES);
+            $docParrafo->cuerpo = $parrafo;
             $docParrafo->ubicacion = $i;
             $docParrafo->version()->associate($docVersion);
             $docParrafo->save();

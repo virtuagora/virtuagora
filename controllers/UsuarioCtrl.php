@@ -76,7 +76,9 @@ class UsuarioCtrl extends RMRController {
             ->addRule('telefono', new Validate\Rule\Telephone())
             ->addOptional('url')
             ->addOptional('email')
-            ->addOptional('telefono');
+            ->addOptional('telefono')
+            ->addFilter('url', FilterFactory::emptyToNull())
+            ->addFilter('telefono', FilterFactory::emptyToNull());
         $req = $this->request;
         if (!$vdt->validate($req->post())) {
             throw new TurnbackException($vdt->getErrors());

@@ -45,7 +45,7 @@ class ExtendedTwig extends Twig_Extension {
     public function avatarUrlFunction($type, $hash, $size) {
         switch ($type) {
             case 1:
-                return 'http://www.gravatar.com/avatar/'.$hash.'?d=identicon&s='.$size;
+                return 'https://www.gravatar.com/avatar/'.$hash.'?d=identicon&s='.$size;
             case 2:
                 return 'http://graph.facebook.com/'.$hash.'/picture?width='.$size;
             default:

@@ -50,6 +50,7 @@ try {
             $table->boolean('es_funcionario')->default(0);
             $table->boolean('es_jefe')->default(0);
             $table->string('dni')->nullable();
+            $table->string('token')->nullable()->default(null);
             $table->timestamp('verified_at')->nullable();
             $table->timestamp('fin_advertencia')->nullable();
             $table->timestamp('fin_suspension')->nullable();

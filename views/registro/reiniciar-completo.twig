@@ -1,0 +1,37 @@
+{# VARIBLES #}
+{% set footer = false %}
+{% set barraNav = false %}
+{% set notificaciones = false %}
+{% set html_class = 'verif-exito-bg' %}
+{% set body_class = 'no-body-bg' %}
+
+{% extends "master.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block titulo %}¡Contraseña reiniciada!{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block body %}
+
+<div class="registro row">
+	<div class="medium-8 medium-centered columns no-padding-small-only">
+		<div class="panel text-center">
+			<div class="row">
+				<div class="small-12 columns">
+					<h1><i class="fa fa-check fa-fw fa-lg" style="color: #61bf26"></i></h1>
+					<h5 class="seccion"><b>Tu contraseña fue reiniciada</b></h5>
+					<hr>
+					<a href="{{ urlFor('shwLogin') }}" class="button large negative radius"><i class="fa fa-sign-in fa-fw"></i>Iniciar sesión</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}{% endblock %}
+{# ----------------------------------------------------------- #}

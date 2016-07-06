@@ -63,7 +63,7 @@
 						<a class="link up" href="javascript:votarComentario({{comentario.id}},1)"><i class="fa fa-fw fa-thumbs-o-up "></i> {{ comentario.votos }}</a>
 						<br>
 						<div class="comentario-texto">
-							{{ comentario.cuerpo }}
+							{{ comentario.cuerpo|nl2br }}
 						</div>
 						{% if user %}<a class="link contestar" href="javascript:responder({{ comentario.id }})"><i class="fa fa-fw fa-reply"></i> Responder</a>{% endif%}
 						<div class="box-comentarios respuestas">
@@ -108,7 +108,7 @@
 											<a class="link up" href="javascript:votarComentario({{respuesta.id}},1)">
 												<i class="fa fa-fw fa-thumbs-o-up"></i> {{ respuesta.votos }}</a>
 											<div class="comentario-texto">
-												{{ respuesta.cuerpo }}
+												{{ respuesta.cuerpo|nl2br }}
 											</div>
 										</td>
 									</tr>

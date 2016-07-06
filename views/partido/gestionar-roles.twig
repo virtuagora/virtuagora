@@ -38,7 +38,7 @@
 			<td class="text-center">
 				<form action="{{ urlFor('runModifRolPartido', {'idPar': partido.id}) }}" method="POST">
 					<input type="text" name="jefe" value=0 readonly style="display:none">
-					<input type="text" name="IdUsu" value={{ jefe.id }} readonly style="display:none">
+					<input type="text" name="idUsu" value={{ jefe.id }} readonly style="display:none">
 					<button class="quitar button tiny radius alert"><i class="fa fa-arrow-down fa-fw fa-lg"></i></button>
 				</form>
 			</td>
@@ -86,7 +86,7 @@
 			<td class="text-center">
 				<form action="{{ urlFor('runModifRolPartido', {'idPar': partido.id}) }}" method="POST">
 					<input type="text" name="jefe" value=1 readonly style="display:none">
-					<input type="text" name="IdUsu" value={{ afiliado.id }} readonly style="display:none">
+					<input type="text" name="idUsu" value={{ afiliado.id }} readonly style="display:none">
 					<button class="agregar button tiny radius"><i class="fa fa-arrow-up fa-fw fa-lg"></i></button>
 				</form>
 			</td>

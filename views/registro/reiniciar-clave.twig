@@ -1,0 +1,48 @@
+{# VARIBLES #}
+{% set footer = false %}
+{% set barraNav = false %}
+{% set notificaciones = false %}
+{% set html_class = 'login-bg' %}
+{% set body_class = 'no-body-bg' %}
+
+{% extends "master.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block titulo %}Reiniciar contraseña{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block body %}
+
+<div class="registro login row">
+	<div class="medium-8 medium-centered columns no-padding-small-only">
+		<div class="panel text-center panel-inicio">
+			<div class="row">
+				<div class="small-12 columns">
+					<h1 class="seccion"><b>Reinicio de contraseña</b></h1>
+					<hr>
+				</div>
+			</div>
+			<div class="row">
+				<div class="small-11 medium-10 large-8 small-centered columns">
+					<form action="{{ urlFor('runReiniciarClave',{'idUsu': idUsu,'token': token}) }}" method="POST">
+						<input name="password" type="password" placeholder="Nueva contraseña" style="border: 1px solid #ccc; border-radius: 0px;" required>
+						<input name="password2" type="password" placeholder="Confirmar nueva contraseña" required>
+						<button class="button radius large expand"><i class="fa fa-sign-in fa-fw"></i>&nbsp;Reiniciar contraseña</button>
+						<div style="margin-top: 15px;">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}
+{% endblock %}
+{# ----------------------------------------------------------- #}

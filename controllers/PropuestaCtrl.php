@@ -52,6 +52,10 @@ class PropuestaCtrl extends Controller {
             $sumaPost -= $cfgPtsPost[$voto->postura];
         } else if ($voto->publico != $vdt->getData('publico')) {
             $voto->timestamps = false;
+            $voto->publico = $vdt->getData('publico');
+            $voto->save();
+            $this->flash('success', 'La privacidad de su voto fue cambiada exitosamente.');
+            $this->redirectTo('shwPropues', array('idPro' => $propuesta->id));
         } else {
             throw new TurnbackException('No puede votar dos veces la misma postura.');
         }
