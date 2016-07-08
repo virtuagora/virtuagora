@@ -14,7 +14,7 @@
 	var nuevaNotificacion = function(fecha, mensaje){
 		var td_mensaje = $('<td>').html( mensaje );
 		var tr_notif = $('<tr>').addClass( 'notif-msj' ).append( td_mensaje );
-		$('.tabla-notificaciones tbody').prepend( tr_notif );
+		$('#tabla-notificaciones-nav tbody').prepend( tr_notif );
 	}
 
 	var buscarNotificaciones = function(){
