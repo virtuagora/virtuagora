@@ -91,13 +91,19 @@ Usted, como funcionario, puede hacer la diferencia elevando una&nbsp;<a class="b
     <div class="votar-posicion text-center" style="display:none">
         <div class="row collapse opciones">
             <div class="medium-4 small-12 columns text-center">
-                <div data-postura=2 class="bt-postura button negative radius expand {{ user is null ? 'disabled' }}" style="width: 98%;"><i class="fa fa-exclamation fa-rotate-180 fa-3x"></i><i class="fa fa-child fa-fw fa-3x"></i><i class="fa fa-exclamation fa-3x"></i></div>
+                <div data-postura=2 class="bt-postura button negative radius expand {{ user is null ? 'disabled' }}" style="width: 98%;">
+                    <i class="fa fa-star fa-fw fa-3x"></i> Directamente
+                </div>
             </div>
             <div class="medium-4 small-12 columns text-center">
-                <div data-postura=1 class="bt-postura button negative radius expand {{ user is null ? 'disabled' }}" style="width: 98%;"><i class="fa fa-frown-o fa-fw fa-3x"></i></div>
+                <div data-postura=1 class="bt-postura button negative radius expand {{ user is null ? 'disabled' }}" style="width: 98%;">
+                    <i class="fa fa-star-half-o fa-fw fa-3x"></i> Indirectamente
+                </div>
             </div>
             <div class="medium-4 small-12 columns text-center">
-                <div data-postura=0 class="bt-postura button negative radius expand {{ user is null ? 'disabled' }}" style="width: 98%;"><i class="fa fa-meh-o fa-fw fa-3x"></i></div>
+                <div data-postura=0 class="bt-postura button negative radius expand {{ user is null ? 'disabled' }}" style="width: 98%;">
+                    <i class="fa fa-star-o fa-fw fa-3x"></i> No me afecta
+                </div>
             </div>
         </div>
     </div>
@@ -175,19 +181,17 @@ Usted, como funcionario, puede hacer la diferencia elevando una&nbsp;<a class="b
         switch(votoPostura){
             case 2:
                 $('#icono-voto-postura')
-                    .append(icono.clone().addClass('fa-exclamation fa-rotate-180'))
-                    .append(icono.clone().addClass('fa-child'))
-                    .append(icono.clone().addClass('fa-exclamation'));
+                    .append(icono.clone().addClass('fa-star'))
                 $('#txt-voto-postura').html('<b>LE AFECTA DIRECTAMENTE</b>');
                 break;
             case 1:
                 $('#icono-voto-postura')
-                    .append(icono.clone().addClass('fa-male'));
+                    .append(icono.clone().addClass('fa-star-half-o'));
                 $('#txt-voto-postura').html('<b>LE AFECTA INDIRECTAMENTE</b>');
                 break;
             case 0:
                 $('#icono-voto-postura')
-                    .append(icono.clone().addClass('fa-meh-o'))
+                    .append(icono.clone().addClass('fa-star-o'))
                 $('#txt-voto-postura').html('<b>LE ES INDIFERENTE</b>');
                 break;
             default:
