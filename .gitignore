@@ -4,3 +4,4 @@ vendor/
 public/img/
 bower_components/
 .sass-cache/*
+.env

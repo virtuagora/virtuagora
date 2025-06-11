@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    container_name: virtuagora_web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./docker/config/database.php:/var/www/html/app/database.php
+      - ./docker/config/app.php:/var/www/html/app/app.php
+      - ./uploads:/var/www/html/uploads
+      - ./logs:/var/www/html/logs
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=mysql
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - TWIG_CACHE=${TWIG_CACHE}
+      - TWIG_AUTO_RELOAD=${TWIG_AUTO_RELOAD}
+      - APP_ENV=${APP_ENV}
+    depends_on:
+      - mysql
+    networks:
+      - virtuagora_network
+
+  mysql:
+    image: mysql:5.7
+    container_name: virtuagora_mysql
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/init:/docker-entrypoint-initdb.d
+    networks:
+      - virtuagora_network
+
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin
+  #   container_name: virtuagora_phpmyadmin
+  #   restart: unless-stopped
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     PMA_HOST: mysql
+  #     PMA_PORT: 3306
+  #     MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+  #   ports:
+  #     - "8081:80"
+  #   depends_on:
+  #     - mysql
+  #   networks:
+  #     - virtuagora_network
+
+volumes:
+  mysql_data:
+
+networks:
+  virtuagora_network:
+    driver: bridge

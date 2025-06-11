@@ -1,5 +1,5 @@
 {
-    "name": "Virtuagora",
+    "name": "virtuagora/virtuagora",
     "description": "Plataforma web de participación ciudadana.",
     "license": "MIT",
     "require": {
